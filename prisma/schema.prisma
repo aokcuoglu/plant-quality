@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CompanyType {
+  OEM
+  SUPPLIER
+}
+
+enum Role {
+  ADMIN
+  QUALITY_ENGINEER
+  VIEWER
+}
+
+enum DefectStatus {
+  OPEN
+  WAITING_8D
+  RESOLVED
+  CLOSED
+}
+
+model Company {
+  id           String    @id @default(uuid())
+  name         String
+  type         CompanyType
+  taxNumber    String?
+  users        User[]
+  defectsAsOem   Defect[]  @relation("OemDefects")
+  defectsAsSup   Defect[]  @relation("SupplierDefects")
+  createdAt    DateTime  @default(now())
+
+  @@map("companies")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(VIEWER)
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model Defect {
+  id          String         @id @default(uuid())
+  oemId       String
+  oem         Company        @relation("OemDefects", fields: [oemId], references: [id])
+  supplierId  String
+  supplier    Company        @relation("SupplierDefects", fields: [supplierId], references: [id])
+  partNumber  String
+  description String
+  status      DefectStatus   @default(OPEN)
+  imageUrls   String[]
+  eightDReport EightDReport?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("defects")
+}
+
+model EightDReport {
+  id             String   @id @default(uuid())
+  defectId       String   @unique
+  defect         Defect   @relation(fields: [defectId], references: [id])
+  d1_team        String?
+  d2_problem     String?
+  d3_containment String?
+  d4_rootCause   String?
+  d5_d6_action   String?
+  d7_preventive  String?
+  d8_recognition String?
+  submittedAt    DateTime?
+  updatedAt      DateTime @updatedAt
+
+  @@map("eight_d_reports")
+}

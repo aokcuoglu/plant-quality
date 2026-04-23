@@ -22,18 +22,29 @@ export function ImageUploader({
 
       setUploading(true)
       try {
-        const body = new FormData()
-        body.set("file", file)
-
-        const res = await fetch("/api/upload", { method: "POST", body })
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fileName: file.name, contentType: file.type }),
+        })
         if (!res.ok) {
           const text = await res.text()
           throw new Error(text)
         }
 
-        const data = await res.json()
+        const { key, uploadUrl } = await res.json()
 
-        const next = [...images, { key: data.key, publicUrl: `/api/image?key=${encodeURIComponent(data.key)}&t=${Date.now()}` }]
+        const putRes = await fetch(uploadUrl, {
+          method: "PUT",
+          body: file,
+          headers: { "Content-Type": file.type },
+        })
+        if (!putRes.ok) {
+          const text = await putRes.text()
+          throw new Error(text)
+        }
+
+        const next = [...images, { key, publicUrl: `/api/image?key=${encodeURIComponent(key)}&t=${Date.now()}` }]
         setImages(next)
         onImagesChange(next)
       } catch (e) {

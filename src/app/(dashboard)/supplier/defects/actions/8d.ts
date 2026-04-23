@@ -2,12 +2,19 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
-import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 
-type StepData = Record<string, string>
+const ALLOWED_FIELDS = new Set([
+  "d1_team",
+  "d2_problem",
+  "d3_containment",
+  "d4_rootCause",
+  "d5_d6_action",
+  "d7_preventive",
+  "d8_recognition",
+])
 
-export async function saveEightDStep(defectId: string, data: StepData) {
+export async function saveEightDStep(defectId: string, data: Record<string, string>) {
   const session = await auth()
   if (!session || session.user.companyType !== "SUPPLIER") {
     return { success: false as const, error: "Unauthorized" }
@@ -22,7 +29,7 @@ export async function saveEightDStep(defectId: string, data: StepData) {
 
   const updateData: Record<string, string> = {}
   for (const [key, value] of Object.entries(data)) {
-    if (key.startsWith("d")) {
+    if (ALLOWED_FIELDS.has(key)) {
       updateData[key] = value
     }
   }

@@ -1,9 +1,13 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { BugIcon, ClockIcon, AlertTriangleIcon } from "lucide-react"
+import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
+import { StatusDonut } from "@/components/dashboard/StatusDonut"
+import { SupplierBar } from "@/components/dashboard/SupplierBar"
+import { TrendArea } from "@/components/dashboard/TrendArea"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 
 export default async function OemDashboardPage() {
   const session = await auth()
@@ -19,14 +23,84 @@ export default async function OemDashboardPage() {
   const openDefects = defectCounts.find((d) => d.status === "OPEN")?._count ?? 0
   const waitingApproval = defectCounts.find((d) => d.status === "WAITING_APPROVAL")?._count ?? 0
 
+  const resolvedDefects = await prisma.defect.findMany({
+    where: {
+      oemId: session.user.companyId,
+      status: "RESOLVED",
+    },
+    select: { createdAt: true, resolvedAt: true },
+  })
+
+  let avgResolutionDays: number | null = null
+  const validDurations = resolvedDefects
+    .map((d) => {
+      const end = d.resolvedAt ?? new Date()
+      return (end.getTime() - d.createdAt.getTime()) / (1000 * 60 * 60 * 24)
+    })
+    .filter((days) => days >= 0)
+  if (validDurations.length > 0) {
+    avgResolutionDays = Math.round((validDurations.reduce((a, b) => a + b, 0) / validDurations.length) * 10) / 10
+  }
+
+  const topSuppliers = await prisma.defect.groupBy({
+    by: ["supplierId"],
+    where: { oemId: session.user.companyId },
+    _count: true,
+    orderBy: { _count: { supplierId: "desc" } },
+    take: 5,
+  })
+
+  const supplierIds = topSuppliers.map((s) => s.supplierId)
+  const suppliers = await prisma.company.findMany({
+    where: { id: { in: supplierIds } },
+    select: { id: true, name: true },
+  })
+  const supplierMap = new Map(suppliers.map((s) => [s.id, s.name]))
+
+  const supplierChartData = topSuppliers.map((s) => ({
+    name: supplierMap.get(s.supplierId) ?? "Unknown",
+    _count: s._count,
+  }))
+
+  const sixMonthsAgo = new Date()
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5)
+  sixMonthsAgo.setDate(1)
+
+  const monthlyDefects = await prisma.defect.findMany({
+    where: {
+      oemId: session.user.companyId,
+      createdAt: { gte: sixMonthsAgo },
+    },
+    select: { createdAt: true },
+  })
+
+  const monthLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const monthlyMap = new Map<string, number>()
+  for (let i = 0; i < 6; i++) {
+    const d = new Date()
+    d.setMonth(d.getMonth() - (5 - i))
+    const key = `${monthLabels[d.getMonth()]} ${d.getFullYear()}`
+    monthlyMap.set(key, 0)
+  }
+  for (const d of monthlyDefects) {
+    const key = `${monthLabels[d.createdAt.getMonth()]} ${d.createdAt.getFullYear()}`
+    if (monthlyMap.has(key)) {
+      monthlyMap.set(key, (monthlyMap.get(key) ?? 0) + 1)
+    }
+  }
+  const monthlyChartData = Array.from(monthlyMap.entries()).map(([month, _count]) => ({
+    month,
+    _count,
+  }))
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="OEM Dashboard"
+        title="Executive Analytics"
         description={`Welcome back, ${session.user.name ?? session.user.email}`}
       />
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         <DashboardCard
           title="Total Defects"
           value={totalDefects}
@@ -39,12 +113,47 @@ export default async function OemDashboardPage() {
           icon={AlertTriangleIcon}
           subtitle="Awaiting supplier action"
         />
-          <DashboardCard
-            title="Awaiting Approval"
-            value={waitingApproval}
-            icon={ClockIcon}
-            subtitle="8D reports ready for review"
-          />
+        <DashboardCard
+          title="Awaiting Approval"
+          value={waitingApproval}
+          icon={ClockIcon}
+          subtitle="8D reports ready for review"
+        />
+        <DashboardCard
+          title="Avg Resolution Time"
+          value={avgResolutionDays !== null ? `${avgResolutionDays}d` : "—"}
+          icon={TimerIcon}
+          subtitle={avgResolutionDays !== null ? "Mean time to resolve" : "No resolved defects yet"}
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Defect Status Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <StatusDonut data={defectCounts} total={totalDefects} />
+          </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Top Suppliers by Defects</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <SupplierBar data={supplierChartData} />
+          </CardContent>
+        </Card>
+
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <CardTitle className="text-sm font-medium">Monthly Defect Trend</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TrendArea data={monthlyChartData} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

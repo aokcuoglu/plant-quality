@@ -50,6 +50,7 @@ model User {
   company       Company    @relation(fields: [companyId], references: [id])
   accounts      Account[]
   sessions      Session[]
+  reviewComments ReviewComment[]
   createdAt     DateTime   @default(now())
 
   @@map("users")
@@ -107,6 +108,7 @@ model Defect {
   eightDReport EightDReport?
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
+  resolvedAt  DateTime?
 
   @@map("defects")
 }
@@ -124,6 +126,20 @@ model EightDReport {
   d8_recognition String?
   submittedAt    DateTime?
   updatedAt      DateTime @updatedAt
+  reviewComments ReviewComment[]
 
   @@map("eight_d_reports")
+}
+
+model ReviewComment {
+  id        String   @id @default(uuid())
+  reportId  String   @map("report_id")
+  report    EightDReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  stepId    String   @map("step_id")
+  comment   String
+  authorId  String   @map("author_id")
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("review_comments")
 }

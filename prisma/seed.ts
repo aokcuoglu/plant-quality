@@ -68,6 +68,20 @@ async function main() {
       role: "QUALITY_ENGINEER" as const,
       companyId: supplierCompany.id,
     },
+    {
+      id: "steelforged-admin",
+      email: "admin@steelforged.com",
+      name: "SteelForged Admin",
+      role: "ADMIN" as const,
+      companyId: supplierCompany2.id,
+    },
+    {
+      id: "steelforged-engineer",
+      email: "engineer@steelforged.com",
+      name: "SteelForged Engineer",
+      role: "QUALITY_ENGINEER" as const,
+      companyId: supplierCompany2.id,
+    },
   ];
 
   for (const user of users) {
@@ -110,6 +124,7 @@ async function main() {
       partNumber: "AX-7420-B",
       description: "Hardness below specification after heat treatment. Measured 38 HRC vs required 42-46 HRC.",
       status: "RESOLVED" as const,
+      resolvedAt: new Date("2025-03-20"),
     },
   ];
 
@@ -127,6 +142,8 @@ async function main() {
   console.log("  quality@oem.com (OEM Quality Engineer)");
   console.log("  admin@supplier.com (Supplier Admin)");
   console.log("  engineer@supplier.com (Supplier Engineer)");
+  console.log("  admin@steelforged.com (SteelForged Admin)");
+  console.log("  engineer@steelforged.com (SteelForged Engineer)");
   console.log(`\nSeeded ${defects.length} sample defects.`);
 }
 

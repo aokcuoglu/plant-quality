@@ -18,13 +18,20 @@ export default async function EightDReportPage({
   const defect = await prisma.defect.findFirst({
     where: { id, supplierId: session.user.companyId },
     include: {
-      eightDReport: true,
+      eightDReport: {
+        include: {
+          reviewComments: {
+            include: { author: { select: { name: true } } },
+            orderBy: { createdAt: "asc" },
+          },
+        },
+      },
       oem: { select: { name: true } },
     },
   })
 
   if (!defect) notFound()
-  if (defect.status === "RESOLVED" || defect.status === "REJECTED") {
+  if (defect.status === "RESOLVED") {
     redirect(`/supplier/defects/${id}`)
   }
 
@@ -44,6 +51,8 @@ export default async function EightDReportPage({
     d8_recognition: report?.d8_recognition ?? null,
   }
 
+  const reviewComments = report?.reviewComments ?? []
+
   return (
     <div className="space-y-6">
       <Link
@@ -53,6 +62,17 @@ export default async function EightDReportPage({
         <ArrowLeftIcon className="h-4 w-4" />
         Back to defect detail
       </Link>
+
+      {defect.status === "REJECTED" && (
+        <div className="rounded-lg border border-rose-200 bg-rose-50/50 px-4 py-3 dark:border-rose-900 dark:bg-rose-950/10">
+          <p className="text-sm font-medium text-rose-700 dark:text-rose-400">
+            Revision Requested
+          </p>
+          <p className="mt-1 text-xs text-rose-600 dark:text-rose-500">
+            The customer has requested changes. Please review their comments below, update the relevant sections, and resubmit the report.
+          </p>
+        </div>
+      )}
 
       <div className="rounded-lg border bg-card p-4">
         <p className="text-sm text-muted-foreground">
@@ -64,7 +84,11 @@ export default async function EightDReportPage({
         </p>
       </div>
 
-      <EightDWizardForm defectId={id} initialData={initialData} />
+      <EightDWizardForm
+        defectId={id}
+        initialData={initialData}
+        reviewComments={reviewComments}
+      />
     </div>
   )
 }

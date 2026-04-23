@@ -57,7 +57,8 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Defect: 'Defect',
-  EightDReport: 'EightDReport'
+  EightDReport: 'EightDReport',
+  ReviewComment: 'ReviewComment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -147,7 +148,8 @@ export const DefectScalarFieldEnum = {
   status: 'status',
   imageUrls: 'imageUrls',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  resolvedAt: 'resolvedAt'
 } as const
 
 export type DefectScalarFieldEnum = (typeof DefectScalarFieldEnum)[keyof typeof DefectScalarFieldEnum]
@@ -168,6 +170,18 @@ export const EightDReportScalarFieldEnum = {
 } as const
 
 export type EightDReportScalarFieldEnum = (typeof EightDReportScalarFieldEnum)[keyof typeof EightDReportScalarFieldEnum]
+
+
+export const ReviewCommentScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  stepId: 'stepId',
+  comment: 'comment',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewCommentScalarFieldEnum = (typeof ReviewCommentScalarFieldEnum)[keyof typeof ReviewCommentScalarFieldEnum]
 
 
 export const SortOrder = {

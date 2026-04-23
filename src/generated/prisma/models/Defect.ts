@@ -33,6 +33,7 @@ export type DefectMinAggregateOutputType = {
   status: $Enums.DefectStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  resolvedAt: Date | null
 }
 
 export type DefectMaxAggregateOutputType = {
@@ -44,6 +45,7 @@ export type DefectMaxAggregateOutputType = {
   status: $Enums.DefectStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  resolvedAt: Date | null
 }
 
 export type DefectCountAggregateOutputType = {
@@ -56,6 +58,7 @@ export type DefectCountAggregateOutputType = {
   imageUrls: number
   createdAt: number
   updatedAt: number
+  resolvedAt: number
   _all: number
 }
 
@@ -69,6 +72,7 @@ export type DefectMinAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  resolvedAt?: true
 }
 
 export type DefectMaxAggregateInputType = {
@@ -80,6 +84,7 @@ export type DefectMaxAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  resolvedAt?: true
 }
 
 export type DefectCountAggregateInputType = {
@@ -92,6 +97,7 @@ export type DefectCountAggregateInputType = {
   imageUrls?: true
   createdAt?: true
   updatedAt?: true
+  resolvedAt?: true
   _all?: true
 }
 
@@ -177,6 +183,7 @@ export type DefectGroupByOutputType = {
   imageUrls: string[]
   createdAt: Date
   updatedAt: Date
+  resolvedAt: Date | null
   _count: DefectCountAggregateOutputType | null
   _min: DefectMinAggregateOutputType | null
   _max: DefectMaxAggregateOutputType | null
@@ -210,6 +217,7 @@ export type DefectWhereInput = {
   imageUrls?: Prisma.StringNullableListFilter<"Defect">
   createdAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
+  resolvedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   eightDReport?: Prisma.XOR<Prisma.EightDReportNullableScalarRelationFilter, Prisma.EightDReportWhereInput> | null
@@ -225,6 +233,7 @@ export type DefectOrderByWithRelationInput = {
   imageUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   oem?: Prisma.CompanyOrderByWithRelationInput
   supplier?: Prisma.CompanyOrderByWithRelationInput
   eightDReport?: Prisma.EightDReportOrderByWithRelationInput
@@ -243,6 +252,7 @@ export type DefectWhereUniqueInput = Prisma.AtLeast<{
   imageUrls?: Prisma.StringNullableListFilter<"Defect">
   createdAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
+  resolvedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   eightDReport?: Prisma.XOR<Prisma.EightDReportNullableScalarRelationFilter, Prisma.EightDReportWhereInput> | null
@@ -258,6 +268,7 @@ export type DefectOrderByWithAggregationInput = {
   imageUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DefectCountOrderByAggregateInput
   _max?: Prisma.DefectMaxOrderByAggregateInput
   _min?: Prisma.DefectMinOrderByAggregateInput
@@ -276,6 +287,7 @@ export type DefectScalarWhereWithAggregatesInput = {
   imageUrls?: Prisma.StringNullableListFilter<"Defect">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Defect"> | Date | string
+  resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Defect"> | Date | string | null
 }
 
 export type DefectCreateInput = {
@@ -286,6 +298,7 @@ export type DefectCreateInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
@@ -301,6 +314,7 @@ export type DefectUncheckedCreateInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
 }
 
@@ -312,6 +326,7 @@ export type DefectUpdateInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
@@ -327,6 +342,7 @@ export type DefectUncheckedUpdateInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
 }
 
@@ -340,6 +356,7 @@ export type DefectCreateManyInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
 }
 
 export type DefectUpdateManyMutationInput = {
@@ -350,6 +367,7 @@ export type DefectUpdateManyMutationInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DefectUncheckedUpdateManyInput = {
@@ -362,6 +380,7 @@ export type DefectUncheckedUpdateManyInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DefectListRelationFilter = {
@@ -392,6 +411,7 @@ export type DefectCountOrderByAggregateInput = {
   imageUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
 }
 
 export type DefectMaxOrderByAggregateInput = {
@@ -403,6 +423,7 @@ export type DefectMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
 }
 
 export type DefectMinOrderByAggregateInput = {
@@ -414,6 +435,7 @@ export type DefectMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
 }
 
 export type DefectScalarRelationFilter = {
@@ -540,6 +562,7 @@ export type DefectCreateWithoutOemInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
 }
@@ -553,6 +576,7 @@ export type DefectUncheckedCreateWithoutOemInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
 }
 
@@ -574,6 +598,7 @@ export type DefectCreateWithoutSupplierInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
 }
@@ -587,6 +612,7 @@ export type DefectUncheckedCreateWithoutSupplierInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
 }
 
@@ -629,6 +655,7 @@ export type DefectScalarWhereInput = {
   imageUrls?: Prisma.StringNullableListFilter<"Defect">
   createdAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
+  resolvedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
 }
 
 export type DefectUpsertWithWhereUniqueWithoutSupplierInput = {
@@ -655,6 +682,7 @@ export type DefectCreateWithoutEightDReportInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
 }
@@ -669,6 +697,7 @@ export type DefectUncheckedCreateWithoutEightDReportInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
 }
 
 export type DefectCreateOrConnectWithoutEightDReportInput = {
@@ -695,6 +724,7 @@ export type DefectUpdateWithoutEightDReportInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
 }
@@ -709,6 +739,7 @@ export type DefectUncheckedUpdateWithoutEightDReportInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DefectCreateManyOemInput = {
@@ -720,6 +751,7 @@ export type DefectCreateManyOemInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
 }
 
 export type DefectCreateManySupplierInput = {
@@ -731,6 +763,7 @@ export type DefectCreateManySupplierInput = {
   imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  resolvedAt?: Date | string | null
 }
 
 export type DefectUpdateWithoutOemInput = {
@@ -741,6 +774,7 @@ export type DefectUpdateWithoutOemInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
 }
@@ -754,6 +788,7 @@ export type DefectUncheckedUpdateWithoutOemInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
 }
 
@@ -766,6 +801,7 @@ export type DefectUncheckedUpdateManyWithoutOemInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type DefectUpdateWithoutSupplierInput = {
@@ -776,6 +812,7 @@ export type DefectUpdateWithoutSupplierInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
 }
@@ -789,6 +826,7 @@ export type DefectUncheckedUpdateWithoutSupplierInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
 }
 
@@ -801,6 +839,7 @@ export type DefectUncheckedUpdateManyWithoutSupplierInput = {
   imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -815,6 +854,7 @@ export type DefectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  resolvedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   eightDReport?: boolean | Prisma.Defect$eightDReportArgs<ExtArgs>
@@ -830,6 +870,7 @@ export type DefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  resolvedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["defect"]>
@@ -844,6 +885,7 @@ export type DefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  resolvedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["defect"]>
@@ -858,9 +900,10 @@ export type DefectSelectScalar = {
   imageUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  resolvedAt?: boolean
 }
 
-export type DefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "oemId" | "supplierId" | "partNumber" | "description" | "status" | "imageUrls" | "createdAt" | "updatedAt", ExtArgs["result"]["defect"]>
+export type DefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "oemId" | "supplierId" | "partNumber" | "description" | "status" | "imageUrls" | "createdAt" | "updatedAt" | "resolvedAt", ExtArgs["result"]["defect"]>
 export type DefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -892,6 +935,7 @@ export type $DefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     imageUrls: string[]
     createdAt: Date
     updatedAt: Date
+    resolvedAt: Date | null
   }, ExtArgs["result"]["defect"]>
   composites: {}
 }
@@ -1327,6 +1371,7 @@ export interface DefectFieldRefs {
   readonly imageUrls: Prisma.FieldRef<"Defect", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Defect", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Defect", 'DateTime'>
+  readonly resolvedAt: Prisma.FieldRef<"Defect", 'DateTime'>
 }
     
 

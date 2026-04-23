@@ -76,3 +76,8 @@ export type Defect = Prisma.DefectModel
  * 
  */
 export type EightDReport = Prisma.EightDReportModel
+/**
+ * Model ReviewComment
+ * 
+ */
+export type ReviewComment = Prisma.ReviewCommentModel

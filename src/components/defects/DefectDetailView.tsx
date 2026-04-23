@@ -1,6 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
+
 import Link from "next/link"
-import { ArrowLeftIcon, XIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useState, useTransition } from "react"
+import {
+  ArrowLeftIcon,
+  XIcon,
+  MessageSquareIcon,
+  MessageSquareTextIcon,
+  CheckIcon,
+  XCircleIcon,
+  SendHorizonalIcon,
+  Loader2Icon,
+} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -16,10 +29,45 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet"
 import { StatusBadge } from "@/components/ui/status-badge"
+import {
+  addReviewComment,
+  approveReport,
+  rejectReport,
+} from "@/app/(dashboard)/oem/defects/actions/review"
 
 type DefectStatus = "OPEN" | "IN_PROGRESS" | "WAITING_APPROVAL" | "RESOLVED" | "REJECTED"
 type CompanyType = "OEM" | "SUPPLIER"
+
+interface ReviewComment {
+  id: string
+  stepId: string
+  comment: string
+  author: { name: string | null }
+  createdAt: Date
+}
+
+interface ReviewSection {
+  stepId: string
+  label: string
+  content: string | null
+  comments: ReviewComment[]
+}
+
+interface EightDReportInfo {
+  id: string
+  submittedAt: Date | null
+  reviewSections: ReviewSection[]
+}
 
 interface DefectDetail {
   id: string
@@ -31,6 +79,7 @@ interface DefectDetail {
   supplierName: string
   oemName: string
   eightDSubmitted: boolean
+  eightDReport: EightDReportInfo | null
 }
 
 function formatDate(date: Date) {
@@ -59,7 +108,7 @@ function ImageThumbnail({ src }: { src: string }) {
           render={
             <button
               type="button"
-              className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
             >
               <XIcon className="h-4 w-4" />
               <span className="sr-only">Close</span>
@@ -71,12 +120,250 @@ function ImageThumbnail({ src }: { src: string }) {
   )
 }
 
+function CommentSheet({
+  section,
+  onAddComment,
+  defectId,
+}: {
+  section: ReviewSection
+  onAddComment: (defectId: string, stepId: string, comment: string) => Promise<void>
+  defectId: string
+}) {
+  const [text, setText] = useState("")
+  const [pending, startTransition] = useTransition()
+  const [open, setOpen] = useState(false)
+  const hasComments = section.comments.length > 0
+
+  const handleSubmit = () => {
+    if (!text.trim()) return
+    startTransition(async () => {
+      await onAddComment(defectId, section.stepId, text.trim())
+      setText("")
+    })
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger
+        render={
+          <button
+            type="button"
+            className={cn(
+              "flex items-center gap-1 rounded-md px-2 py-1 text-xs transition-colors",
+              hasComments
+                ? "text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/30"
+                : "text-muted-foreground hover:bg-muted",
+            )}
+          />
+        }
+      >
+        {hasComments ? (
+          <MessageSquareTextIcon className="h-3.5 w-3.5" />
+        ) : (
+          <MessageSquareIcon className="h-3.5 w-3.5" />
+        )}
+        {hasComments && (
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-blue-100 text-[10px] font-medium text-blue-600 dark:bg-blue-900/40 dark:text-blue-400">
+            {section.comments.length}
+          </span>
+        )}
+      </SheetTrigger>
+      <SheetContent side="right" className="z-[60] flex w-full flex-col sm:max-w-md">
+        <SheetHeader>
+          <SheetTitle>Comments — {section.label}</SheetTitle>
+          <SheetDescription>
+            Add or review feedback for this section
+          </SheetDescription>
+        </SheetHeader>
+
+        <div className="flex-1 space-y-3 overflow-y-auto px-4">
+          {section.comments.length === 0 ? (
+            <p className="py-8 text-center text-xs text-muted-foreground">
+              No comments yet. Add feedback for the supplier below.
+            </p>
+          ) : (
+            section.comments.map((c) => (
+              <div key={c.id} className="rounded-lg border bg-card p-3">
+                <div className="mb-1 text-xs font-medium text-foreground">
+                  {c.author.name ?? "OEM"}
+                </div>
+                <p className="text-xs text-muted-foreground">{c.comment}</p>
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="flex w-full gap-2 border-t p-4">
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Add a comment..."
+            className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          />
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!text.trim() || pending}
+            className="flex items-center justify-center rounded-md bg-primary px-3 py-2 text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+          >
+            {pending ? (
+              <Loader2Icon className="h-4 w-4 animate-spin" />
+            ) : (
+              <SendHorizonalIcon className="h-4 w-4" />
+            )}
+          </button>
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
+
+function OemReviewPanel({
+  defect,
+  currentUserId,
+}: {
+  defect: DefectDetail
+  currentUserId: string
+}) {
+  const router = useRouter()
+  const [approving, startApprove] = useTransition()
+  const [rejecting, startReject] = useTransition()
+  const report = defect.eightDReport
+
+  const handleAddComment = async (defectId: string, stepId: string, comment: string) => {
+    await addReviewComment(defectId, stepId, comment)
+  }
+
+  if (!report) return null
+
+  return (
+    <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            8D Report Review
+            {defect.status !== "WAITING_APPROVAL" && (
+              <Badge variant="secondary" className="text-xs">
+                {defect.status === "RESOLVED" ? "Approved" : defect.status === "REJECTED" ? "Rejected" : "Draft"}
+              </Badge>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {report.reviewSections.map((section) => (
+            <div
+              key={section.stepId}
+              className={cn(
+                "rounded-lg border p-3",
+                section.comments.length > 0 && "border-red-200 bg-red-50/30 dark:border-red-900 dark:bg-red-950/10",
+                !section.content && "opacity-50",
+              )}
+            >
+              <div className="mb-1 flex items-center justify-between">
+                <span className="text-xs font-medium text-muted-foreground">{section.label}</span>
+                {defect.status === "WAITING_APPROVAL" && (
+                  <CommentSheet section={section} onAddComment={handleAddComment} defectId={defect.id} />
+                )}
+              </div>
+
+              {section.content ? (
+                <p className="whitespace-pre-wrap text-sm">{section.content}</p>
+              ) : (
+                <p className="text-xs italic text-muted-foreground">Not provided</p>
+              )}
+
+              {section.comments.length > 0 && defect.status !== "WAITING_APPROVAL" && (
+                <div className="mt-2 space-y-1 border-t pt-2">
+                  {section.comments.map((c) => (
+                    <div key={c.id} className="flex gap-2 text-xs">
+                      <span className="shrink-0 font-medium text-foreground">
+                        {c.author.name ?? "OEM"}:
+                      </span>
+                      <span className="text-muted-foreground">{c.comment}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {report.submittedAt && (
+            <p className="text-xs text-muted-foreground">
+              Submitted on {formatDate(new Date(report.submittedAt))}
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
+      {defect.status === "WAITING_APPROVAL" && (
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() =>
+              startReject(async () => {
+                await rejectReport(defect.id)
+                router.refresh()
+              })
+            }
+            disabled={rejecting}
+            className={cn(
+              buttonVariants({ variant: "destructive", className: "flex-1" }),
+            )}
+          >
+            {rejecting ? (
+              <Loader2Icon className="mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <XCircleIcon className="mr-1 h-4 w-4" />
+            )}
+            Request Revision
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              startApprove(async () => {
+                await approveReport(defect.id)
+                router.refresh()
+              })
+            }
+            disabled={approving}
+            className={cn(
+              buttonVariants({ className: "flex-1" }),
+            )}
+          >
+            {approving ? (
+              <Loader2Icon className="mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <CheckIcon className="mr-1 h-4 w-4" />
+            )}
+            Approve
+          </button>
+        </div>
+      )}
+
+      {defect.status === "RESOLVED" && (
+        <div className="rounded-lg border border-green-200 bg-green-50/50 px-4 py-3 text-center text-sm text-green-700 dark:border-green-900 dark:bg-green-950/20 dark:text-green-400">
+          Report approved and closed.
+        </div>
+      )}
+
+      {defect.status === "REJECTED" && (
+        <div className="rounded-lg border border-red-200 bg-red-50/50 px-4 py-3 text-center text-sm text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-400">
+          Revision requested — supplier has been notified to update the report.
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function DefectDetailView({
   defect,
   companyType,
+  currentUserId,
 }: {
   defect: DefectDetail
   companyType: CompanyType
+  currentUserId?: string
 }) {
   const backHref = companyType === "OEM" ? "/oem/defects" : "/supplier/defects"
 
@@ -107,22 +394,32 @@ export function DefectDetailView({
             </p>
           </div>
 
-          <div className="rounded-lg border bg-card p-4">
-            <h2 className="mb-2 text-sm font-medium text-muted-foreground">Description</h2>
-            <p className="text-sm leading-relaxed">{defect.description}</p>
-          </div>
-
-          {defect.imageUrls.length > 0 && (
-            <div>
-              <h2 className="mb-3 text-sm font-medium text-muted-foreground">
-                Attached Images ({defect.imageUrls.length})
-              </h2>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                {defect.imageUrls.map((url, i) => (
-                  <ImageThumbnail key={`${url}-${i}`} src={url} />
-                ))}
+          {companyType === "OEM" && defect.status === "WAITING_APPROVAL" && defect.eightDReport ? (
+            <OemReviewPanel defect={defect} currentUserId={currentUserId ?? ""} />
+          ) : (
+            <>
+              <div className="rounded-lg border bg-card p-4">
+                <h2 className="mb-2 text-sm font-medium text-muted-foreground">Description</h2>
+                <p className="text-sm leading-relaxed">{defect.description}</p>
               </div>
-            </div>
+
+              {companyType === "OEM" && defect.eightDReport && defect.status !== "WAITING_APPROVAL" && (
+                <OemReviewPanel defect={defect} currentUserId={currentUserId ?? ""} />
+              )}
+
+              {defect.imageUrls.length > 0 && (
+                <div>
+                  <h2 className="mb-3 text-sm font-medium text-muted-foreground">
+                    Attached Images ({defect.imageUrls.length})
+                  </h2>
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                    {defect.imageUrls.map((url, i) => (
+                      <ImageThumbnail key={`${url}-${i}`} src={url} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -177,26 +474,10 @@ export function DefectDetailView({
             </div>
           )}
 
-          {/* OEM action buttons */}
-          {companyType === "OEM" && (
-            <div className="flex gap-2">
-              <button
-                disabled={defect.status !== "WAITING_APPROVAL"}
-                className={cn(
-                  buttonVariants({ variant: "outline", className: "flex-1" }),
-                  defect.status !== "WAITING_APPROVAL" && "",
-                )}
-              >
-                Review
-              </button>
-              <button
-                disabled={defect.status === "RESOLVED"}
-                className={cn(
-                  buttonVariants({ variant: "outline", className: "flex-1" }),
-                )}
-              >
-                Close
-              </button>
+          {companyType === "SUPPLIER" && defect.status === "REJECTED" && (
+            <div className="rounded-lg border border-rose-200 bg-rose-50/50 px-4 py-3 text-center text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/20 dark:text-rose-400">
+              <p className="font-medium">Revision Requested</p>
+              <p className="mt-1 text-xs">The customer has requested changes to the 8D report.</p>
             </div>
           )}
         </div>

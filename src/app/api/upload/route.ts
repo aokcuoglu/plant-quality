@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
-import { s3Client, S3_BUCKET_NAME, S3_PUBLIC_URL } from "@/lib/s3"
+import { s3Client, S3_BUCKET_NAME } from "@/lib/s3"
 import { PutObjectCommand } from "@aws-sdk/client-s3"
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { randomUUID } from "crypto"
 
 export async function POST(req: NextRequest) {
@@ -10,25 +11,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const formData = await req.formData()
-  const file = formData.get("file") as File | null
-  if (!file) {
-    return NextResponse.json({ error: "file is required" }, { status: 400 })
+  const { fileName, contentType } = await req.json()
+  if (!fileName || !contentType) {
+    return NextResponse.json({ error: "fileName and contentType are required" }, { status: 400 })
   }
 
-  const ext = file.name.split(".").pop() ?? "bin"
+  const ext = fileName.split(".").pop() ?? "bin"
   const key = `defects/${session.user.companyId}/${randomUUID()}.${ext}`
 
-  await s3Client.send(
+  const uploadUrl = await getSignedUrl(
+    s3Client,
     new PutObjectCommand({
       Bucket: S3_BUCKET_NAME,
       Key: key,
-      Body: Buffer.from(await file.arrayBuffer()),
-      ContentType: file.type,
+      ContentType: contentType,
     }),
+    { expiresIn: 300 },
   )
 
-  const publicUrl = `${S3_PUBLIC_URL}/${key}`
-
-  return NextResponse.json({ key, publicUrl })
+  return NextResponse.json({ key, uploadUrl })
 }

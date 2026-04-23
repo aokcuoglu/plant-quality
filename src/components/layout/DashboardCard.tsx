@@ -7,7 +7,7 @@ export function DashboardCard({
   subtitle,
 }: {
   title: string
-  value: number
+  value: number | string
   icon: LucideIcon
   subtitle?: string
 }) {

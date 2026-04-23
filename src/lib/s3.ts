@@ -19,4 +19,3 @@ export const s3Client = new S3Client({
 })
 
 export const S3_BUCKET_NAME = env("R2_BUCKET_NAME")
-export const S3_PUBLIC_URL = env("R2_PUBLIC_URL")

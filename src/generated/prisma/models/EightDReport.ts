@@ -231,6 +231,7 @@ export type EightDReportWhereInput = {
   submittedAt?: Prisma.DateTimeNullableFilter<"EightDReport"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"EightDReport"> | Date | string
   defect?: Prisma.XOR<Prisma.DefectScalarRelationFilter, Prisma.DefectWhereInput>
+  reviewComments?: Prisma.ReviewCommentListRelationFilter
 }
 
 export type EightDReportOrderByWithRelationInput = {
@@ -246,6 +247,7 @@ export type EightDReportOrderByWithRelationInput = {
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   defect?: Prisma.DefectOrderByWithRelationInput
+  reviewComments?: Prisma.ReviewCommentOrderByRelationAggregateInput
 }
 
 export type EightDReportWhereUniqueInput = Prisma.AtLeast<{
@@ -264,6 +266,7 @@ export type EightDReportWhereUniqueInput = Prisma.AtLeast<{
   submittedAt?: Prisma.DateTimeNullableFilter<"EightDReport"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"EightDReport"> | Date | string
   defect?: Prisma.XOR<Prisma.DefectScalarRelationFilter, Prisma.DefectWhereInput>
+  reviewComments?: Prisma.ReviewCommentListRelationFilter
 }, "id" | "defectId">
 
 export type EightDReportOrderByWithAggregationInput = {
@@ -312,6 +315,7 @@ export type EightDReportCreateInput = {
   submittedAt?: Date | string | null
   updatedAt?: Date | string
   defect: Prisma.DefectCreateNestedOneWithoutEightDReportInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutReportInput
 }
 
 export type EightDReportUncheckedCreateInput = {
@@ -326,6 +330,7 @@ export type EightDReportUncheckedCreateInput = {
   d8_recognition?: string | null
   submittedAt?: Date | string | null
   updatedAt?: Date | string
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutReportInput
 }
 
 export type EightDReportUpdateInput = {
@@ -340,6 +345,7 @@ export type EightDReportUpdateInput = {
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   defect?: Prisma.DefectUpdateOneRequiredWithoutEightDReportNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutReportNestedInput
 }
 
 export type EightDReportUncheckedUpdateInput = {
@@ -354,6 +360,7 @@ export type EightDReportUncheckedUpdateInput = {
   d8_recognition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutReportNestedInput
 }
 
 export type EightDReportCreateManyInput = {
@@ -444,6 +451,11 @@ export type EightDReportMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type EightDReportScalarRelationFilter = {
+  is?: Prisma.EightDReportWhereInput
+  isNot?: Prisma.EightDReportWhereInput
+}
+
 export type EightDReportCreateNestedOneWithoutDefectInput = {
   create?: Prisma.XOR<Prisma.EightDReportCreateWithoutDefectInput, Prisma.EightDReportUncheckedCreateWithoutDefectInput>
   connectOrCreate?: Prisma.EightDReportCreateOrConnectWithoutDefectInput
@@ -476,6 +488,20 @@ export type EightDReportUncheckedUpdateOneWithoutDefectNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EightDReportUpdateToOneWithWhereWithoutDefectInput, Prisma.EightDReportUpdateWithoutDefectInput>, Prisma.EightDReportUncheckedUpdateWithoutDefectInput>
 }
 
+export type EightDReportCreateNestedOneWithoutReviewCommentsInput = {
+  create?: Prisma.XOR<Prisma.EightDReportCreateWithoutReviewCommentsInput, Prisma.EightDReportUncheckedCreateWithoutReviewCommentsInput>
+  connectOrCreate?: Prisma.EightDReportCreateOrConnectWithoutReviewCommentsInput
+  connect?: Prisma.EightDReportWhereUniqueInput
+}
+
+export type EightDReportUpdateOneRequiredWithoutReviewCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.EightDReportCreateWithoutReviewCommentsInput, Prisma.EightDReportUncheckedCreateWithoutReviewCommentsInput>
+  connectOrCreate?: Prisma.EightDReportCreateOrConnectWithoutReviewCommentsInput
+  upsert?: Prisma.EightDReportUpsertWithoutReviewCommentsInput
+  connect?: Prisma.EightDReportWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EightDReportUpdateToOneWithWhereWithoutReviewCommentsInput, Prisma.EightDReportUpdateWithoutReviewCommentsInput>, Prisma.EightDReportUncheckedUpdateWithoutReviewCommentsInput>
+}
+
 export type EightDReportCreateWithoutDefectInput = {
   id?: string
   d1_team?: string | null
@@ -487,6 +513,7 @@ export type EightDReportCreateWithoutDefectInput = {
   d8_recognition?: string | null
   submittedAt?: Date | string | null
   updatedAt?: Date | string
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutReportInput
 }
 
 export type EightDReportUncheckedCreateWithoutDefectInput = {
@@ -500,6 +527,7 @@ export type EightDReportUncheckedCreateWithoutDefectInput = {
   d8_recognition?: string | null
   submittedAt?: Date | string | null
   updatedAt?: Date | string
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutReportInput
 }
 
 export type EightDReportCreateOrConnectWithoutDefectInput = {
@@ -529,6 +557,7 @@ export type EightDReportUpdateWithoutDefectInput = {
   d8_recognition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutReportNestedInput
 }
 
 export type EightDReportUncheckedUpdateWithoutDefectInput = {
@@ -542,8 +571,110 @@ export type EightDReportUncheckedUpdateWithoutDefectInput = {
   d8_recognition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutReportNestedInput
 }
 
+export type EightDReportCreateWithoutReviewCommentsInput = {
+  id?: string
+  d1_team?: string | null
+  d2_problem?: string | null
+  d3_containment?: string | null
+  d4_rootCause?: string | null
+  d5_d6_action?: string | null
+  d7_preventive?: string | null
+  d8_recognition?: string | null
+  submittedAt?: Date | string | null
+  updatedAt?: Date | string
+  defect: Prisma.DefectCreateNestedOneWithoutEightDReportInput
+}
+
+export type EightDReportUncheckedCreateWithoutReviewCommentsInput = {
+  id?: string
+  defectId: string
+  d1_team?: string | null
+  d2_problem?: string | null
+  d3_containment?: string | null
+  d4_rootCause?: string | null
+  d5_d6_action?: string | null
+  d7_preventive?: string | null
+  d8_recognition?: string | null
+  submittedAt?: Date | string | null
+  updatedAt?: Date | string
+}
+
+export type EightDReportCreateOrConnectWithoutReviewCommentsInput = {
+  where: Prisma.EightDReportWhereUniqueInput
+  create: Prisma.XOR<Prisma.EightDReportCreateWithoutReviewCommentsInput, Prisma.EightDReportUncheckedCreateWithoutReviewCommentsInput>
+}
+
+export type EightDReportUpsertWithoutReviewCommentsInput = {
+  update: Prisma.XOR<Prisma.EightDReportUpdateWithoutReviewCommentsInput, Prisma.EightDReportUncheckedUpdateWithoutReviewCommentsInput>
+  create: Prisma.XOR<Prisma.EightDReportCreateWithoutReviewCommentsInput, Prisma.EightDReportUncheckedCreateWithoutReviewCommentsInput>
+  where?: Prisma.EightDReportWhereInput
+}
+
+export type EightDReportUpdateToOneWithWhereWithoutReviewCommentsInput = {
+  where?: Prisma.EightDReportWhereInput
+  data: Prisma.XOR<Prisma.EightDReportUpdateWithoutReviewCommentsInput, Prisma.EightDReportUncheckedUpdateWithoutReviewCommentsInput>
+}
+
+export type EightDReportUpdateWithoutReviewCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  d1_team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d2_problem?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d3_containment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d4_rootCause?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d5_d6_action?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d7_preventive?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d8_recognition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  defect?: Prisma.DefectUpdateOneRequiredWithoutEightDReportNestedInput
+}
+
+export type EightDReportUncheckedUpdateWithoutReviewCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  defectId?: Prisma.StringFieldUpdateOperationsInput | string
+  d1_team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d2_problem?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d3_containment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d4_rootCause?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d5_d6_action?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d7_preventive?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  d8_recognition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type EightDReportCountOutputType
+ */
+
+export type EightDReportCountOutputType = {
+  reviewComments: number
+}
+
+export type EightDReportCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviewComments?: boolean | EightDReportCountOutputTypeCountReviewCommentsArgs
+}
+
+/**
+ * EightDReportCountOutputType without action
+ */
+export type EightDReportCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EightDReportCountOutputType
+   */
+  select?: Prisma.EightDReportCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * EightDReportCountOutputType without action
+ */
+export type EightDReportCountOutputTypeCountReviewCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewCommentWhereInput
+}
 
 
 export type EightDReportSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -559,6 +690,8 @@ export type EightDReportSelect<ExtArgs extends runtime.Types.Extensions.Internal
   submittedAt?: boolean
   updatedAt?: boolean
   defect?: boolean | Prisma.DefectDefaultArgs<ExtArgs>
+  reviewComments?: boolean | Prisma.EightDReport$reviewCommentsArgs<ExtArgs>
+  _count?: boolean | Prisma.EightDReportCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["eightDReport"]>
 
 export type EightDReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -608,6 +741,8 @@ export type EightDReportSelectScalar = {
 export type EightDReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "defectId" | "d1_team" | "d2_problem" | "d3_containment" | "d4_rootCause" | "d5_d6_action" | "d7_preventive" | "d8_recognition" | "submittedAt" | "updatedAt", ExtArgs["result"]["eightDReport"]>
 export type EightDReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   defect?: boolean | Prisma.DefectDefaultArgs<ExtArgs>
+  reviewComments?: boolean | Prisma.EightDReport$reviewCommentsArgs<ExtArgs>
+  _count?: boolean | Prisma.EightDReportCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EightDReportIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   defect?: boolean | Prisma.DefectDefaultArgs<ExtArgs>
@@ -620,6 +755,7 @@ export type $EightDReportPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "EightDReport"
   objects: {
     defect: Prisma.$DefectPayload<ExtArgs>
+    reviewComments: Prisma.$ReviewCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1028,6 +1164,7 @@ readonly fields: EightDReportFieldRefs;
 export interface Prisma__EightDReportClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   defect<T extends Prisma.DefectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DefectDefaultArgs<ExtArgs>>): Prisma.Prisma__DefectClient<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reviewComments<T extends Prisma.EightDReport$reviewCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EightDReport$reviewCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1466,6 +1603,30 @@ export type EightDReportDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many EightDReports to delete.
    */
   limit?: number
+}
+
+/**
+ * EightDReport.reviewComments
+ */
+export type EightDReport$reviewCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReviewComment
+   */
+  select?: Prisma.ReviewCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReviewComment
+   */
+  omit?: Prisma.ReviewCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewCommentInclude<ExtArgs> | null
+  where?: Prisma.ReviewCommentWhereInput
+  orderBy?: Prisma.ReviewCommentOrderByWithRelationInput | Prisma.ReviewCommentOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewCommentScalarFieldEnum | Prisma.ReviewCommentScalarFieldEnum[]
 }
 
 /**

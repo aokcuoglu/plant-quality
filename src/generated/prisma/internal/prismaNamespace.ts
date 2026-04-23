@@ -390,7 +390,8 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Defect: 'Defect',
-  EightDReport: 'EightDReport'
+  EightDReport: 'EightDReport',
+  ReviewComment: 'ReviewComment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -928,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReviewComment: {
+      payload: Prisma.$ReviewCommentPayload<ExtArgs>
+      fields: Prisma.ReviewCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReviewCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReviewCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.ReviewCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReviewCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>
+        }
+        findMany: {
+          args: Prisma.ReviewCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>[]
+        }
+        create: {
+          args: Prisma.ReviewCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>
+        }
+        createMany: {
+          args: Prisma.ReviewCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReviewCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.ReviewCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>
+        }
+        update: {
+          args: Prisma.ReviewCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReviewCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReviewCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReviewCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReviewCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.ReviewCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReviewComment>
+        }
+        groupBy: {
+          args: Prisma.ReviewCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReviewCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewCommentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1038,7 +1113,8 @@ export const DefectScalarFieldEnum = {
   status: 'status',
   imageUrls: 'imageUrls',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  resolvedAt: 'resolvedAt'
 } as const
 
 export type DefectScalarFieldEnum = (typeof DefectScalarFieldEnum)[keyof typeof DefectScalarFieldEnum]
@@ -1059,6 +1135,18 @@ export const EightDReportScalarFieldEnum = {
 } as const
 
 export type EightDReportScalarFieldEnum = (typeof EightDReportScalarFieldEnum)[keyof typeof EightDReportScalarFieldEnum]
+
+
+export const ReviewCommentScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  stepId: 'stepId',
+  comment: 'comment',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewCommentScalarFieldEnum = (typeof ReviewCommentScalarFieldEnum)[keyof typeof ReviewCommentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1305,6 +1393,7 @@ export type GlobalOmitConfig = {
   verificationToken?: Prisma.VerificationTokenOmit
   defect?: Prisma.DefectOmit
   eightDReport?: Prisma.EightDReportOmit
+  reviewComment?: Prisma.ReviewCommentOmit
 }
 
 /* Types for Logging */

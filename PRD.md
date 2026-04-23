@@ -141,6 +141,7 @@ model User {
   role      Role     @default(VIEWER)
   companyId String
   company   Company  @relation(fields: [companyId], references: [id])
+  reviewComments ReviewComment[]
   createdAt DateTime @default(now())
 }
 
@@ -172,4 +173,16 @@ model EightDReport {
   d8_recognition String?
   submittedAt    DateTime?
   updatedAt      DateTime @updatedAt
+  reviewComments ReviewComment[]
+}
+
+model ReviewComment {
+  id        String   @id @default(uuid())
+  reportId  String
+  report    EightDReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  stepId    String
+  comment   String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
 }

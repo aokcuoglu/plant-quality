@@ -28,9 +28,10 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const DefectStatus = {
   OPEN: 'OPEN',
-  WAITING_8D: 'WAITING_8D',
+  IN_PROGRESS: 'IN_PROGRESS',
+  WAITING_APPROVAL: 'WAITING_APPROVAL',
   RESOLVED: 'RESOLVED',
-  CLOSED: 'CLOSED'
+  REJECTED: 'REJECTED'
 } as const
 
 export type DefectStatus = (typeof DefectStatus)[keyof typeof DefectStatus]

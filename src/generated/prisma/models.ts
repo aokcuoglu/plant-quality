@@ -10,6 +10,9 @@
  */
 export type * from './models/Company'
 export type * from './models/User'
+export type * from './models/Account'
+export type * from './models/Session'
+export type * from './models/VerificationToken'
 export type * from './models/Defect'
 export type * from './models/EightDReport'
 export type * from './commonInputTypes'

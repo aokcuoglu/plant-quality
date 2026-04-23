@@ -476,10 +476,6 @@ export type EightDReportUncheckedUpdateOneWithoutDefectNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EightDReportUpdateToOneWithWhereWithoutDefectInput, Prisma.EightDReportUpdateWithoutDefectInput>, Prisma.EightDReportUncheckedUpdateWithoutDefectInput>
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type EightDReportCreateWithoutDefectInput = {
   id?: string
   d1_team?: string | null

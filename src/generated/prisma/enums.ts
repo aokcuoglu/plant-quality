@@ -64,7 +64,9 @@ export const DefectEventType = {
   APPROVED: 'APPROVED',
   OWNER_CHANGED: 'OWNER_CHANGED',
   SUPPLIER_ASSIGNEE_CHANGED: 'SUPPLIER_ASSIGNEE_CHANGED',
-  DUE_DATE_CHANGED: 'DUE_DATE_CHANGED'
+  DUE_DATE_CHANGED: 'DUE_DATE_CHANGED',
+  EVIDENCE_ADDED: 'EVIDENCE_ADDED',
+  EVIDENCE_REMOVED: 'EVIDENCE_REMOVED'
 } as const
 
 export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]
@@ -88,3 +90,13 @@ export const ActionOwner = {
 } as const
 
 export type ActionOwner = (typeof ActionOwner)[keyof typeof ActionOwner]
+
+
+export const EightDSection = {
+  D3: 'D3',
+  D5: 'D5',
+  D6: 'D6',
+  D7: 'D7'
+} as const
+
+export type EightDSection = (typeof EightDSection)[keyof typeof EightDSection]

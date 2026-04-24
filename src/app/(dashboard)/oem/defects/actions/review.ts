@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache"
 import type { Prisma } from "@/generated/prisma/client"
 import type { Session } from "next-auth"
 import { addCalendarDays } from "@/lib/sla"
+import { formatEvidenceSectionLabel } from "@/lib/evidence"
+import { getMissingEvidenceForSubmission } from "@/lib/evidence-server"
 
 function canReviewEightD(session: Session | null): session is Session {
   return Boolean(
@@ -99,6 +101,14 @@ export async function approveReport(defectId: string) {
   }
   if (defect.eightDReport.reviewComments.length > 0) {
     return { success: false as const, error: "Resolve all open review comments before approval." }
+  }
+
+  const missingEvidenceSections = await getMissingEvidenceForSubmission(defectId)
+  if (missingEvidenceSections.length > 0) {
+    return {
+      success: false as const,
+      error: `Approval blocked. Missing required evidence: ${missingEvidenceSections.map(formatEvidenceSectionLabel).join(", ")}`,
+    }
   }
 
   const reviewedAt = new Date()

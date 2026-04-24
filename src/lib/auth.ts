@@ -1,9 +1,12 @@
 import NextAuth from "next-auth"
+import type { User as NextAuthUser } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import Nodemailer from "next-auth/providers/nodemailer"
+import Credentials from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
 import type { DefaultSession } from "next-auth"
 import type { Role, CompanyType, Plan } from "@/generated/prisma/client"
+import { createTransport } from "nodemailer"
 
 declare module "@auth/core/types" {
   interface Session {
@@ -39,7 +42,17 @@ declare module "@auth/core/jwt" {
   }
 }
 
+const emailServerConfig = (() => {
+  const raw = process.env.EMAIL_SERVER || '{"host":"localhost","port":1025}'
+  try {
+    return JSON.parse(raw)
+  } catch {
+    return { host: "localhost", port: 1025 }
+  }
+})()
+
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  trustHost: true,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   pages: {
@@ -47,10 +60,57 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     verifyRequest: "/verify-request",
   },
   providers: [
+    Credentials({
+      id: "credentials",
+      name: "Development Login",
+      credentials: {
+        email: { label: "Email", type: "email" },
+      },
+      authorize: async (credentials, request) => {
+        const email = credentials?.email as string | undefined
+        if (!email) return null
+        const user = await prisma.user.findUnique({
+          where: { email },
+          select: {
+            id: true,
+            email: true,
+            name: true,
+            role: true,
+            plan: true,
+            companyId: true,
+            company: { select: { type: true, name: true } },
+          },
+        })
+        if (!user) return null
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+          plan: user.plan,
+          companyId: user.companyId ?? undefined,
+          companyName: user.company?.name ?? undefined,
+          companyType: user.company?.type ?? undefined,
+        } as NextAuthUser
+      },
+    }),
     Nodemailer({
-      server: process.env.EMAIL_SERVER || `{"host":"localhost","port":1025}`,
+      server: emailServerConfig,
       from: process.env.EMAIL_FROM ?? "noreply@plantquality.com",
-      sendVerificationRequest: async ({ identifier: email, url }) => {
+      sendVerificationRequest: async ({ identifier: email, url, provider }) => {
+        const { host } = new URL(url)
+        const transport = createTransport(provider.server ?? emailServerConfig)
+        const result = await transport.sendMail({
+          to: email,
+          from: provider.from,
+          subject: `Sign in to ${host}`,
+          text: `Sign in to ${host}\n${url}\n\n`,
+          html: `<p>Sign in to <b>${host}</b></p><p><a href="${url}">Click here to sign in</a></p>`,
+        })
+        const failed = result.rejected.filter(Boolean)
+        if (failed.length) {
+          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+        }
         console.log("")
         console.log("── MAGIC LINK ──────────────────────")
         console.log(`  📧 ${email}`)
@@ -77,8 +137,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.role = dbUser?.role ?? user.role
         token.plan = dbUser?.plan ?? user.plan
         token.companyId = dbUser?.companyId ?? user.companyId
-        token.companyName = dbUser?.company.name ?? user.companyName
-        token.companyType = dbUser?.company.type ?? user.companyType
+        token.companyName = dbUser?.company?.name ?? user.companyName
+        token.companyType = dbUser?.company?.type ?? user.companyType
       }
       return token
     },

@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+dist
+build
+coverage
+*.log
+*.tsbuildinfo
+.DS_Store
+.env
+.env.local
+.env.*.local
+.vercel
+.turbo
+.cursor
+postgres_data

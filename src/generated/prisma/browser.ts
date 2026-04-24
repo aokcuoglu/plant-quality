@@ -63,6 +63,11 @@ export type ReviewComment = Prisma.ReviewCommentModel
  */
 export type DefectEvent = Prisma.DefectEventModel
 /**
+ * Model DefectEvidence
+ * 
+ */
+export type DefectEvidence = Prisma.DefectEvidenceModel
+/**
  * Model Waitlist
  * 
  */

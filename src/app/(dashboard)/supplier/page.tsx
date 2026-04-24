@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { BugIcon, ClockIcon, CheckCircleIcon, AlertTriangleIcon, TimerIcon } from "lucide-react"
+import { BugIcon, ClockIcon, CheckCircleIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { StatusDonut } from "@/components/dashboard/StatusDonut"
@@ -9,6 +9,16 @@ import { TrendArea } from "@/components/dashboard/TrendArea"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { CustomerBar } from "@/components/dashboard/CustomerBar"
 import { addCalendarDays, getActiveDueDate, isDefectOverdue } from "@/lib/sla"
+import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
+import type { EightDSection } from "@/generated/prisma/client"
+
+function getEvidenceReady(evidences: { section: EightDSection }[]) {
+  const counts = evidences.reduce<Partial<Record<EightDSection, number>>>((acc, item) => {
+    acc[item.section] = (acc[item.section] ?? 0) + 1
+    return acc
+  }, {})
+  return hasRequiredSubmissionEvidence(counts)
+}
 
 export default async function SupplierDashboardPage() {
   const session = await auth()
@@ -35,6 +45,7 @@ export default async function SupplierDashboardPage() {
       eightDSubmissionDueAt: true,
       oemReviewDueAt: true,
       revisionDueAt: true,
+      evidences: { where: { deletedAt: null }, select: { section: true } },
     },
   })
   const today = new Date()
@@ -44,6 +55,8 @@ export default async function SupplierDashboardPage() {
     const dueDate = getActiveDueDate(d)
     return dueDate && dueDate >= today && dueDate <= weekEnd
   }).length
+  const missingEvidence = operationalDefects.filter((d) => !getEvidenceReady(d.evidences)).length
+  const evidenceReady = operationalDefects.filter((d) => getEvidenceReady(d.evidences)).length
 
   const resolvedDefects = await prisma.defect.findMany({
     where: {
@@ -208,6 +221,21 @@ export default async function SupplierDashboardPage() {
           value={waitingApproval}
           icon={ClockIcon}
           subtitle="Waiting for OEM approval"
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <DashboardCard
+          title="Missing Evidence"
+          value={missingEvidence}
+          icon={AlertTriangleIcon}
+          subtitle="Open defects missing required files"
+        />
+        <DashboardCard
+          title="Evidence Ready"
+          value={evidenceReady}
+          icon={FileCheckIcon}
+          subtitle="Open defects with D5/D6/D7 evidence"
         />
       </div>
     </div>

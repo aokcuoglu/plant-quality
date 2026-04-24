@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PlantQuality",
-  description: "Supplier Quality Management System",
+  title: "PlantX — The Industrial OS",
+  description:
+    "PlantX is the Industrial Efficiency Hub. A modular ecosystem unifying Quality, Production, Maintenance, and Supply Chain under one cloud-native platform.",
 };
 
 export default function RootLayout({
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}

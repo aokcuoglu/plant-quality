@@ -2,6 +2,8 @@ import { notFound, redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { DefectDetailView, type ReviewSection } from "@/components/defects/DefectDetailView"
+import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
+import type { EightDSection } from "@/generated/prisma/client"
 
 const D_STEPS = ["d1_team", "d2_problem", "d3_containment", "d4_rootCause", "d5_actions", "d6_actions", "d7_impacts", "d7_preventive", "d8_recognition"] as const
 
@@ -87,6 +89,11 @@ export default async function OemDefectDetailPage({
           },
         },
       },
+      evidences: {
+        where: { deletedAt: null },
+        include: { uploadedBy: { select: { name: true, email: true } } },
+        orderBy: { createdAt: "desc" },
+      },
     },
   })
 
@@ -95,6 +102,12 @@ export default async function OemDefectDetailPage({
   const report = defect.eightDReport
 
   const reviewSections = report ? buildReviewSections(report) : []
+
+  const evidenceCounts = defect.evidences.reduce<Partial<Record<EightDSection, number>>>((acc, item) => {
+    acc[item.section] = (acc[item.section] ?? 0) + 1
+    return acc
+  }, {})
+  const evidenceReady = hasRequiredSubmissionEvidence(evidenceCounts)
 
   return (
     <DefectDetailView
@@ -121,6 +134,19 @@ export default async function OemDefectDetailPage({
         canEditSla: ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role),
         canEditSupplierAssignee: false,
         canSelfAssign: false,
+        evidenceReady,
+        canUploadEvidence: false,
+        evidences: defect.evidences.map((evidence) => ({
+          id: evidence.id,
+          section: evidence.section,
+          fileName: evidence.fileName,
+          mimeType: evidence.mimeType,
+          sizeBytes: evidence.sizeBytes,
+          createdAt: evidence.createdAt,
+          uploaderName: evidence.uploadedBy.name ?? evidence.uploadedBy.email,
+          canRemove: false,
+          downloadUrl: `/api/defects/evidence/${evidence.id}`,
+        })),
         eightDSubmitted: !!report,
         eightDReport: report
           ? {

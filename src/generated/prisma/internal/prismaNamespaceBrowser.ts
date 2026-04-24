@@ -60,6 +60,7 @@ export const ModelName = {
   EightDReport: 'EightDReport',
   ReviewComment: 'ReviewComment',
   DefectEvent: 'DefectEvent',
+  DefectEvidence: 'DefectEvidence',
   Waitlist: 'Waitlist',
   Notification: 'Notification'
 } as const
@@ -219,6 +220,23 @@ export const DefectEventScalarFieldEnum = {
 } as const
 
 export type DefectEventScalarFieldEnum = (typeof DefectEventScalarFieldEnum)[keyof typeof DefectEventScalarFieldEnum]
+
+
+export const DefectEvidenceScalarFieldEnum = {
+  id: 'id',
+  defectId: 'defectId',
+  section: 'section',
+  storageKey: 'storageKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  uploadedById: 'uploadedById',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type DefectEvidenceScalarFieldEnum = (typeof DefectEvidenceScalarFieldEnum)[keyof typeof DefectEvidenceScalarFieldEnum]
 
 
 export const WaitlistScalarFieldEnum = {

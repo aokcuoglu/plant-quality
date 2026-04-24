@@ -6,11 +6,18 @@ function env(name: string): string {
   return val
 }
 
+function isMinIO(): boolean {
+  const endpoint = process.env.R2_PUBLIC_URL || ""
+  return endpoint.includes("orb.local") || endpoint.includes("minio")
+}
+
 const accountId = env("R2_ACCOUNT_ID")
 
 export const s3Client = new S3Client({
   region: "auto",
-  endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+  endpoint: isMinIO()
+    ? "https://s3.plantquality.orb.local"
+    : `https://${accountId}.r2.cloudflarestorage.com`,
   credentials: {
     accessKeyId: env("R2_ACCESS_KEY_ID"),
     secretAccessKey: env("R2_SECRET_ACCESS_KEY"),

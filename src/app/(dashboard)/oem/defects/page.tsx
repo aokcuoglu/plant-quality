@@ -41,6 +41,8 @@ export default async function DefectsPage({
           ["supplier", "Action by Supplier"],
           ["oem", "Action by OEM"],
           ["mine", "Assigned to Me"],
+          ["evidence-missing", "Evidence Missing"],
+          ["evidence-ready", "Evidence Ready"],
         ].map(([value, label]) => (
           <Link
             key={value}
@@ -56,7 +58,7 @@ export default async function DefectsPage({
         ))}
       </div>
 
-      <div className="rounded-lg border bg-card">
+      <div className="rounded-lg border bg-card overflow-x-auto">
         <table className="w-full caption-bottom text-sm">
           <thead>
             <tr className="border-b">
@@ -67,6 +69,7 @@ export default async function DefectsPage({
               <Th>Assignee</Th>
               <Th>Action</Th>
               <Th>Due</Th>
+              <Th>Evidence</Th>
               <Th>Status</Th>
               <Th>Created</Th>
             </tr>
@@ -77,18 +80,23 @@ export default async function DefectsPage({
                 <Td className="font-mono text-xs">
                   <a href={`/oem/defects/${d.id}`} className="text-foreground hover:text-primary transition-colors">{d.partNumber}</a>
                 </Td>
-                <Td className="max-w-xs truncate">
-                  <a href={`/oem/defects/${d.id}`} className="block text-muted-foreground hover:text-foreground transition-colors">{d.description}</a>
+                <Td>
+                  <a href={`/oem/defects/${d.id}`} className="block max-w-[160px] truncate text-muted-foreground hover:text-foreground transition-colors">{d.description}</a>
                 </Td>
                 <Td>
-                  <a href={`/oem/defects/${d.id}`} className="block text-muted-foreground hover:text-foreground transition-colors">{d.supplierName}</a>
+                  <a href={`/oem/defects/${d.id}`} className="block max-w-[100px] truncate text-muted-foreground hover:text-foreground transition-colors">{d.supplierName}</a>
                 </Td>
                 <Td className="text-muted-foreground">{d.oemOwnerName ?? "—"}</Td>
                 <Td className="text-muted-foreground">{d.supplierAssigneeName ?? "Unassigned"}</Td>
                 <Td className="text-muted-foreground">{getActionOwnerLabel(d)}</Td>
                 <Td>
-                  <span className={d.isOverdue ? "rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-700 dark:bg-red-950/30 dark:text-red-300" : "text-muted-foreground"}>
+                  <span className={d.isOverdue ? "inline-block max-w-[140px] truncate rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-700 dark:bg-red-950/30 dark:text-red-300" : "inline-block max-w-[120px] truncate text-muted-foreground"}>
                     {d.isOverdue ? `Overdue · ${formatDueDate(d.activeDueDate)}` : formatDueDate(d.activeDueDate)}
+                  </span>
+                </Td>
+                <Td>
+                  <span className={d.evidenceReady ? "inline-block rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300" : "inline-block rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"}>
+                    {d.evidenceReady ? "Ready" : "Missing"}
                   </span>
                 </Td>
                 <Td>
@@ -101,7 +109,7 @@ export default async function DefectsPage({
             ))}
             {defects.length === 0 && (
               <tr>
-                <Td colSpan={9} className="py-16 text-center text-muted-foreground">
+                <Td colSpan={10} className="py-16 text-center text-muted-foreground">
                   <div className="flex flex-col items-center gap-2">
                     <p className="text-sm">No defects reported yet.</p>
                     <Link href="/oem/defects/new" className="text-xs text-primary hover:underline">
@@ -128,7 +136,7 @@ function Th({ children }: { children: React.ReactNode }) {
 
 function Td({ children, className, colSpan }: { children: React.ReactNode; className?: string; colSpan?: number }) {
   return (
-    <td className={`p-3 align-middle whitespace-nowrap ${className ?? ""}`} colSpan={colSpan}>
+    <td className={`p-3 align-middle ${className ?? ""}`} colSpan={colSpan}>
       {children}
     </td>
   )

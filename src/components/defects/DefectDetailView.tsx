@@ -13,6 +13,7 @@ import {
   XCircleIcon,
   SendHorizonalIcon,
   Loader2Icon,
+  DownloadIcon,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -36,6 +37,7 @@ import { StatusBadge } from "@/components/ui/status-badge"
 import { toast } from "@/components/ui/use-toast"
 import { formatDueDate, getActionOwnerLabel, getActiveDueDate, isDefectOverdue } from "@/lib/sla"
 import { updateDefectOwnershipAndSla } from "@/app/(dashboard)/defects/ownership-actions"
+import { formatEvidenceSectionLabel } from "@/lib/evidence"
 import {
   addReviewComment,
   approveReport,
@@ -47,6 +49,7 @@ import {
 type DefectStatus = "OPEN" | "IN_PROGRESS" | "WAITING_APPROVAL" | "RESOLVED" | "REJECTED"
 type CompanyType = "OEM" | "SUPPLIER"
 type ActionOwner = "OEM" | "SUPPLIER" | "NONE"
+type EvidenceSection = "D3" | "D5" | "D6" | "D7"
 
 interface UserOption {
   id: string
@@ -84,6 +87,18 @@ interface EightDReportInfo {
   reviewSections: ReviewSection[]
 }
 
+interface DefectEvidenceFile {
+  id: string
+  section: EvidenceSection
+  fileName: string
+  mimeType: string
+  sizeBytes: number
+  uploaderName: string
+  createdAt: Date
+  downloadUrl: string
+  canRemove: boolean
+}
+
 interface DefectDetail {
   id: string
   partNumber: string
@@ -107,6 +122,9 @@ interface DefectDetail {
   canEditSla: boolean
   canEditSupplierAssignee: boolean
   canSelfAssign: boolean
+  canUploadEvidence: boolean
+  evidenceReady: boolean
+  evidences: DefectEvidenceFile[]
   eightDSubmitted: boolean
   eightDReport: EightDReportInfo | null
 }
@@ -117,6 +135,12 @@ function formatDate(date: Date) {
     month: "short",
     day: "numeric",
   })
+}
+
+function formatFileSize(sizeBytes: number) {
+  if (sizeBytes < 1024) return `${sizeBytes} B`
+  if (sizeBytes < 1024 * 1024) return `${(sizeBytes / 1024).toFixed(1)} KB`
+  return `${(sizeBytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
 function ImageThumbnail({ src }: { src: string }) {
@@ -330,6 +354,69 @@ function SectionContent({ section }: { section: ReviewSection }) {
   return <p className="text-xs italic text-muted-foreground">Not provided</p>
 }
 
+function evidenceSectionForStep(stepId: string): EvidenceSection | null {
+  if (stepId === "d3_containment") return "D3"
+  if (stepId === "d5_actions") return "D5"
+  if (stepId === "d6_actions") return "D6"
+  if (stepId === "d7_preventive") return "D7"
+  return null
+}
+
+function ReadOnlyEvidenceList({
+  defect,
+  section,
+}: {
+  defect: DefectDetail
+  section: EvidenceSection
+}) {
+  const files = defect.evidences.filter((item) => item.section === section)
+
+  return (
+    <div className="mt-3 border-t pt-3">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <p className="text-xs font-medium text-muted-foreground">{formatEvidenceSectionLabel(section)}</p>
+        <Badge variant={files.length > 0 ? "outline" : "secondary"} className="text-[10px]">
+          {files.length > 0 ? `${files.length} files` : "Missing"}
+        </Badge>
+      </div>
+
+      {files.length === 0 ? (
+        <p className="text-xs italic text-muted-foreground">No evidence files uploaded.</p>
+      ) : (
+        <div className="space-y-1.5">
+          {files.map((file) => (
+            <div key={file.id} className="flex items-center justify-between gap-2 rounded-md bg-muted/40 px-2 py-1.5">
+              <div className="min-w-0">
+                <a
+                  href={file.downloadUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={file.fileName}
+                  className="block truncate text-xs font-medium hover:underline"
+                >
+                  {file.fileName}
+                </a>
+                <p className="text-[11px] text-muted-foreground">
+                  {formatFileSize(file.sizeBytes)} · {file.uploaderName}
+                </p>
+              </div>
+              <a
+                href={file.downloadUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border hover:bg-muted"
+                aria-label="Download evidence"
+              >
+                <DownloadIcon className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function SupplierReportView({ defect }: { defect: DefectDetail }) {
   const report = defect.eightDReport
   if (!report) return null
@@ -362,6 +449,10 @@ function SupplierReportView({ defect }: { defect: DefectDetail }) {
               <SectionContent section={section} />
             ) : (
               <p className="text-xs italic text-muted-foreground">Not provided</p>
+            )}
+
+            {evidenceSectionForStep(section.stepId) && (
+              <ReadOnlyEvidenceList defect={defect} section={evidenceSectionForStep(section.stepId)!} />
             )}
 
             {section.comments.length > 0 && (
@@ -440,6 +531,10 @@ function OemReviewPanel({
                 <SectionContent section={section} />
               ) : (
                 <p className="text-xs italic text-muted-foreground">Not provided</p>
+              )}
+
+              {evidenceSectionForStep(section.stepId) && (
+                <ReadOnlyEvidenceList defect={defect} section={evidenceSectionForStep(section.stepId)!} />
               )}
 
               {section.comments.length > 0 && defect.status !== "WAITING_APPROVAL" && (
@@ -705,7 +800,9 @@ export function DefectDetailView({
           </div>
 
           {companyType === "OEM" && defect.status === "WAITING_APPROVAL" && defect.eightDReport ? (
-            <OemReviewPanel defect={defect} />
+            <>
+              <OemReviewPanel defect={defect} />
+            </>
           ) : (
             <>
               <div className="rounded-lg border bg-card p-4">
@@ -794,6 +891,13 @@ export function DefectDetailView({
                 <span className="text-sm text-muted-foreground">8D Report</span>
                 <Badge variant={defect.eightDSubmitted ? "default" : "secondary"}>
                   {defect.eightDSubmitted ? "Submitted" : "Not Started"}
+                </Badge>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Evidence</span>
+                <Badge variant={defect.evidenceReady ? "default" : "secondary"}>
+                  {defect.evidenceReady ? "Ready" : "Missing Required"}
                 </Badge>
               </div>
             </CardContent>

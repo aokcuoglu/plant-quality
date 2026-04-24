@@ -21,6 +21,8 @@ import {
   SparklesIcon,
   PlusIcon,
   Trash2Icon,
+  UploadIcon,
+  DownloadIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -46,6 +48,11 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 import { UpgradeModal } from "@/components/defects/UpgradeModal"
 import { RootCauseDiagram } from "@/components/defects/RootCauseDiagram"
+import {
+  formatEvidenceSectionLabel,
+  getMissingRequiredEvidenceSections,
+} from "@/lib/evidence"
+import type { EightDSection } from "@/generated/prisma/client"
 
 interface ReviewComment {
   id: string
@@ -102,6 +109,18 @@ interface ImpactRow {
   id: string
   documentType: string
   revisionNo: string
+}
+
+interface EvidenceItem {
+  id: string
+  section: EightDSection
+  fileName: string
+  mimeType: string
+  sizeBytes: number
+  createdAt: Date
+  uploaderName: string
+  canRemove: boolean
+  downloadUrl: string
 }
 
 interface Step {
@@ -199,11 +218,19 @@ function parseRootCauses(val: string | null | undefined): RootCauseRow[] | null 
   return [{ id: genId(), cause: val.trim(), contribution: 100 }]
 }
 
+function formatFileSize(sizeBytes: number) {
+  if (sizeBytes < 1024) return `${sizeBytes} B`
+  if (sizeBytes < 1024 * 1024) return `${(sizeBytes / 1024).toFixed(1)} KB`
+  return `${(sizeBytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
 export function EightDWizardForm({
   defectId,
   initialData,
   reviewComments,
   userPlan,
+  initialEvidences,
+  canManageEvidence,
   imageUrls,
   defectTitle,
   partName,
@@ -213,6 +240,8 @@ export function EightDWizardForm({
   initialData: Record<string, string | null>
   reviewComments?: ReviewComment[]
   userPlan?: string
+  initialEvidences?: EvidenceItem[]
+  canManageEvidence?: boolean
   imageUrls?: string[]
   defectTitle?: string
   partName?: string
@@ -228,6 +257,9 @@ export function EightDWizardForm({
   const [suggesting, setSuggesting] = useState<string | null>(null)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [commentResponses, setCommentResponses] = useState<Record<string, string>>({})
+  const [evidences, setEvidences] = useState<EvidenceItem[]>(initialEvidences ?? [])
+  const [uploadingSection, setUploadingSection] = useState<EightDSection | null>(null)
+  const [removingEvidenceId, setRemovingEvidenceId] = useState<string | null>(null)
   const isPro = userPlan === "PRO"
 
   const [d2Problem, setD2Problem] = useState(initialData.d2_problem ?? "")
@@ -294,6 +326,24 @@ export function EightDWizardForm({
     const d8Ok = d8Recognition.trim().length > 0
     return teamOk && problemOk && containmentOk && rootCauseOk && d5Ok && d7Ok && d8Ok
   }, [teamMembers, d2Problem, containmentActions, rootCauses, d5Actions, d7Preventive, d8Recognition])
+
+  const evidenceCounts = useMemo(() => {
+    const counts: Partial<Record<EightDSection, number>> = {}
+    for (const evidence of evidences) {
+      counts[evidence.section] = (counts[evidence.section] ?? 0) + 1
+    }
+    return counts
+  }, [evidences])
+
+  const missingRequiredEvidence = useMemo(
+    () => getMissingRequiredEvidenceSections(evidenceCounts),
+    [evidenceCounts],
+  )
+
+  const evidenceReady = useMemo(
+    () => missingRequiredEvidence.length === 0,
+    [missingRequiredEvidence.length],
+  )
 
   const showSaved = useCallback((text: string) => {
     setSavedText(text)
@@ -478,6 +528,177 @@ export function EightDWizardForm({
       setAnalyzing(null)
     }
   }, [userPlan])
+
+  const handleEvidenceUpload = useCallback(async (section: EightDSection, file: File | null) => {
+    if (!file) return
+    setUploadingSection(section)
+    try {
+      const payload = new FormData()
+      payload.set("defectId", defectId)
+      payload.set("section", section)
+      payload.set("file", file)
+
+      const response = await fetch("/api/defects/evidence", {
+        method: "POST",
+        body: payload,
+      })
+      const json = await response.json()
+      if (!response.ok) {
+        throw new Error(json.error ?? "Upload failed")
+      }
+
+      const nextEvidence: EvidenceItem = {
+        id: json.evidence.id,
+        section: json.evidence.section as EightDSection,
+        fileName: json.evidence.fileName,
+        mimeType: json.evidence.mimeType,
+        sizeBytes: json.evidence.sizeBytes,
+        uploaderName: json.evidence.uploaderName,
+        createdAt: new Date(json.evidence.createdAt),
+        downloadUrl: json.evidence.downloadUrl,
+        canRemove: true,
+      }
+      setEvidences((prev) => [nextEvidence, ...prev])
+      toast({
+        title: "Evidence uploaded",
+        description: `${nextEvidence.fileName} added to ${formatEvidenceSectionLabel(section)}.`,
+        type: "info",
+      })
+      router.refresh()
+    } catch (error) {
+      toast({
+        title: "Upload failed",
+        description: error instanceof Error ? error.message : "Please try again.",
+        type: "destructive",
+      })
+    } finally {
+      setUploadingSection(null)
+    }
+  }, [defectId, router])
+
+  const handleEvidenceRemove = useCallback(async (evidenceId: string) => {
+    setRemovingEvidenceId(evidenceId)
+    try {
+      const response = await fetch("/api/defects/evidence", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ evidenceId }),
+      })
+      const json = await response.json()
+      if (!response.ok) {
+        throw new Error(json.error ?? "Remove failed")
+      }
+
+      setEvidences((prev) => prev.filter((item) => item.id !== evidenceId))
+      toast({ title: "Evidence removed", description: "File removed from this report.", type: "info" })
+      router.refresh()
+    } catch (error) {
+      toast({
+        title: "Remove failed",
+        description: error instanceof Error ? error.message : "Please try again.",
+        type: "destructive",
+      })
+    } finally {
+      setRemovingEvidenceId(null)
+    }
+  }, [router])
+
+  const renderEvidenceSection = (section: EightDSection) => {
+    const sectionFiles = evidences.filter((item) => item.section === section)
+    const isRequiredMissing = missingRequiredEvidence.includes(section)
+
+    return (
+      <div className="rounded-lg border bg-muted/20 p-3">
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <div>
+            <p className="text-sm font-medium">{formatEvidenceSectionLabel(section)}</p>
+            <p className="text-xs text-muted-foreground">
+              {isRequiredMissing ? "Required before submission" : "Supporting files"}
+            </p>
+          </div>
+          <span className={cn(
+            "rounded-full px-2 py-1 text-xs font-medium",
+            isRequiredMissing
+              ? "bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"
+              : "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300",
+          )}>
+            {sectionFiles.length} files
+          </span>
+        </div>
+
+        {canManageEvidence && (
+          <div className="mb-3">
+            <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground">
+              <UploadIcon className="h-3.5 w-3.5" />
+              {uploadingSection === section ? "Uploading..." : "Upload File"}
+              <input
+                type="file"
+                className="sr-only"
+                accept=".pdf,image/png,image/jpeg,image/webp"
+                disabled={uploadingSection !== null}
+                onChange={(event) => {
+                  const file = event.target.files?.[0] ?? null
+                  handleEvidenceUpload(section, file)
+                  event.target.value = ""
+                }}
+              />
+            </label>
+          </div>
+        )}
+
+        {sectionFiles.length === 0 ? (
+          <p className="text-xs text-muted-foreground">No evidence files uploaded.</p>
+        ) : (
+          <div className="space-y-2">
+            {sectionFiles.map((item) => (
+              <div key={item.id} className="flex items-center justify-between gap-2 rounded-md bg-background px-2 py-2">
+                <div className="min-w-0">
+                  <a
+                    href={item.downloadUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={item.fileName}
+                    className="block truncate text-xs font-medium hover:underline"
+                  >
+                    {item.fileName}
+                  </a>
+                  <p className="text-[11px] text-muted-foreground">
+                    {formatFileSize(item.sizeBytes)} · {item.uploaderName}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <a
+                    href={item.downloadUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-md border hover:bg-muted"
+                    aria-label="Download evidence"
+                  >
+                    <DownloadIcon className="h-3.5 w-3.5" />
+                  </a>
+                  {item.canRemove && canManageEvidence && (
+                    <button
+                      type="button"
+                      onClick={() => handleEvidenceRemove(item.id)}
+                      disabled={removingEvidenceId === item.id}
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-destructive/30 text-destructive hover:bg-destructive/10 disabled:opacity-50"
+                      aria-label="Delete evidence"
+                    >
+                      {removingEvidenceId === item.id ? (
+                        <Loader2Icon className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        <Trash2Icon className="h-3.5 w-3.5" />
+                      )}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
 
   if (success) {
     return (
@@ -700,6 +921,7 @@ export function EightDWizardForm({
                 {suggesting === "d3_containment" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to PRO"}
               </button>
             </div>
+            {renderEvidenceSection("D3")}
           </div>
         )}
 
@@ -774,6 +996,7 @@ export function EightDWizardForm({
             <Button type="button" variant="outline" size="sm" onClick={() => setD5Actions((prev) => [...prev, { id: genId(), action: "", verificationMethod: "", effectiveness: 0 }])}>
               <PlusIcon className="mr-1 h-3.5 w-3.5" /> Add Corrective Action
             </Button>
+            {renderEvidenceSection("D5")}
 
             <div className="border-t pt-6">
               <div className="mb-4">
@@ -827,6 +1050,9 @@ export function EightDWizardForm({
               <Button type="button" variant="outline" size="sm" onClick={() => setD6Actions((prev) => [...prev, { id: genId(), actionId: "", actionDescription: "", targetDate: "", actualDate: "", validatedByUserId: "", validatedByName: "" }])}>
                 <PlusIcon className="mr-1 h-3.5 w-3.5" /> Add Validation Row
               </Button>
+              <div className="mt-4">
+                {renderEvidenceSection("D6")}
+              </div>
             </div>
           </div>
         )}
@@ -889,6 +1115,7 @@ export function EightDWizardForm({
                 {suggesting === "d7_preventive" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to PRO"}
               </button>
             </div>
+            {renderEvidenceSection("D7")}
           </div>
         )}
 
@@ -926,6 +1153,7 @@ export function EightDWizardForm({
                   ["Corrective Actions", d5Actions.some((a) => a.action.trim())],
                   ["Preventive Actions", d7Preventive.trim().length > 0],
                   ["Recognition & Closure", d8Recognition.trim().length > 0],
+                  ["Required Evidence (D5, D6, D7)", evidenceReady],
                 ].map(([label, done]) => (
                   <li key={label as string} className="flex items-center gap-2 text-xs text-muted-foreground">
                     <span className={cn("h-1.5 w-1.5 rounded-full", done ? "bg-green-500" : "bg-amber-400")} />
@@ -964,7 +1192,7 @@ export function EightDWizardForm({
               Next <ArrowRightIcon className="ml-1 h-3.5 w-3.5" />
             </Button>
           ) : (
-            <Button size="sm" onClick={handleSubmit} disabled={submitting || !allFilled}>
+            <Button size="sm" onClick={handleSubmit} disabled={submitting || !allFilled || !evidenceReady}>
               {submitting ? <Loader2Icon className="mr-1 h-3.5 w-3.5 animate-spin" /> : <SendIcon className="mr-1 h-3.5 w-3.5" />}
               Submit to OEM
             </Button>

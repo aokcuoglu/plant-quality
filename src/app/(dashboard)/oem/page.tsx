@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon } from "lucide-react"
+import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { StatusDonut } from "@/components/dashboard/StatusDonut"
@@ -9,6 +9,16 @@ import { SupplierBar } from "@/components/dashboard/SupplierBar"
 import { TrendArea } from "@/components/dashboard/TrendArea"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { isDefectOverdue } from "@/lib/sla"
+import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
+import type { EightDSection } from "@/generated/prisma/client"
+
+function getEvidenceReady(evidences: { section: EightDSection }[]) {
+  const counts = evidences.reduce<Partial<Record<EightDSection, number>>>((acc, item) => {
+    acc[item.section] = (acc[item.section] ?? 0) + 1
+    return acc
+  }, {})
+  return hasRequiredSubmissionEvidence(counts)
+}
 
 export default async function OemDashboardPage() {
   const session = await auth()
@@ -32,11 +42,14 @@ export default async function OemDashboardPage() {
       eightDSubmissionDueAt: true,
       oemReviewDueAt: true,
       revisionDueAt: true,
+      evidences: { where: { deletedAt: null }, select: { section: true } },
     },
   })
   const overdueDefects = operationalDefects.filter((d) => isDefectOverdue(d)).length
   const waitingSupplierAction = operationalDefects.filter((d) => d.currentActionOwner === "SUPPLIER").length
   const waitingOemAction = operationalDefects.filter((d) => d.currentActionOwner === "OEM").length
+  const missingEvidence = operationalDefects.filter((d) => !getEvidenceReady(d.evidences)).length
+  const readyForReview = operationalDefects.filter((d) => d.status === "WAITING_APPROVAL" && getEvidenceReady(d.evidences)).length
 
   const resolvedDefects = await prisma.defect.findMany({
     where: {
@@ -160,6 +173,21 @@ export default async function OemDashboardPage() {
           value={waitingOemAction}
           icon={TimerIcon}
           subtitle="Waiting on OEM review"
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <DashboardCard
+          title="Missing Evidence"
+          value={missingEvidence}
+          icon={AlertTriangleIcon}
+          subtitle="Open defects missing D5/D6/D7 files"
+        />
+        <DashboardCard
+          title="Ready for Review"
+          value={readyForReview}
+          icon={FileCheckIcon}
+          subtitle="Submitted 8D reports with required evidence"
         />
       </div>
 

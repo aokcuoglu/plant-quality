@@ -393,6 +393,7 @@ export const ModelName = {
   EightDReport: 'EightDReport',
   ReviewComment: 'ReviewComment',
   DefectEvent: 'DefectEvent',
+  DefectEvidence: 'DefectEvidence',
   Waitlist: 'Waitlist',
   Notification: 'Notification'
 } as const
@@ -410,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "waitlist" | "notification"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "waitlist" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1080,6 +1081,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DefectEvidence: {
+      payload: Prisma.$DefectEvidencePayload<ExtArgs>
+      fields: Prisma.DefectEvidenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DefectEvidenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DefectEvidenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>
+        }
+        findFirst: {
+          args: Prisma.DefectEvidenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DefectEvidenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>
+        }
+        findMany: {
+          args: Prisma.DefectEvidenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>[]
+        }
+        create: {
+          args: Prisma.DefectEvidenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>
+        }
+        createMany: {
+          args: Prisma.DefectEvidenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DefectEvidenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>[]
+        }
+        delete: {
+          args: Prisma.DefectEvidenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>
+        }
+        update: {
+          args: Prisma.DefectEvidenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>
+        }
+        deleteMany: {
+          args: Prisma.DefectEvidenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DefectEvidenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DefectEvidenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>[]
+        }
+        upsert: {
+          args: Prisma.DefectEvidenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefectEvidencePayload>
+        }
+        aggregate: {
+          args: Prisma.DefectEvidenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDefectEvidence>
+        }
+        groupBy: {
+          args: Prisma.DefectEvidenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DefectEvidenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DefectEvidenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DefectEvidenceCountAggregateOutputType> | number
+        }
+      }
+    }
     Waitlist: {
       payload: Prisma.$WaitlistPayload<ExtArgs>
       fields: Prisma.WaitlistFieldRefs
@@ -1408,6 +1483,23 @@ export const DefectEventScalarFieldEnum = {
 export type DefectEventScalarFieldEnum = (typeof DefectEventScalarFieldEnum)[keyof typeof DefectEventScalarFieldEnum]
 
 
+export const DefectEvidenceScalarFieldEnum = {
+  id: 'id',
+  defectId: 'defectId',
+  section: 'section',
+  storageKey: 'storageKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  uploadedById: 'uploadedById',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type DefectEvidenceScalarFieldEnum = (typeof DefectEvidenceScalarFieldEnum)[keyof typeof DefectEvidenceScalarFieldEnum]
+
+
 export const WaitlistScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -1633,6 +1725,20 @@ export type ListEnumDefectEventTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'EightDSection'
+ */
+export type EnumEightDSectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EightDSection'>
+    
+
+
+/**
+ * Reference to a field of type 'EightDSection[]'
+ */
+export type ListEnumEightDSectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EightDSection[]'>
+    
+
+
+/**
  * Reference to a field of type 'NotificationType'
  */
 export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
@@ -1785,6 +1891,7 @@ export type GlobalOmitConfig = {
   eightDReport?: Prisma.EightDReportOmit
   reviewComment?: Prisma.ReviewCommentOmit
   defectEvent?: Prisma.DefectEventOmit
+  defectEvidence?: Prisma.DefectEvidenceOmit
   waitlist?: Prisma.WaitlistOmit
   notification?: Prisma.NotificationOmit
 }

@@ -48,6 +48,8 @@ enum DefectEventType {
   OWNER_CHANGED
   SUPPLIER_ASSIGNEE_CHANGED
   DUE_DATE_CHANGED
+  EVIDENCE_ADDED
+  EVIDENCE_REMOVED
 }
 
 enum DefectStatus {
@@ -62,6 +64,13 @@ enum ActionOwner {
   OEM
   SUPPLIER
   NONE
+}
+
+enum EightDSection {
+  D3
+  D5
+  D6
+  D7
 }
 
 model Company {
@@ -85,8 +94,8 @@ model User {
   image          String?
   role           Role            @default(VIEWER)
   plan           Plan            @default(BASIC)
-  companyId      String
-  company        Company         @relation(fields: [companyId], references: [id])
+  companyId      String?
+  company        Company?        @relation(fields: [companyId], references: [id])
   accounts       Account[]
   sessions       Session[]
   reviewComments ReviewComment[]
@@ -96,6 +105,7 @@ model User {
   ownedDefects Defect[] @relation("DefectOemOwner")
   assignedDefects Defect[] @relation("DefectSupplierAssignee")
   defectEvents    DefectEvent[]  @relation("DefectEventActor")
+  uploadedEvidence DefectEvidence[] @relation("DefectEvidenceUploadedBy")
   notifications  Notification[]
   createdAt      DateTime        @default(now())
 
@@ -162,6 +172,7 @@ model Defect {
   currentActionOwner    ActionOwner @default(SUPPLIER) @map("current_action_owner")
   eightDReport EightDReport?
   events       DefectEvent[]
+  evidences    DefectEvidence[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   resolvedAt   DateTime?
@@ -231,6 +242,26 @@ model DefectEvent {
 
   @@index([defectId, createdAt])
   @@map("defect_events")
+}
+
+model DefectEvidence {
+  id           String       @id @default(cuid())
+  defectId     String       @map("defect_id")
+  defect       Defect       @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  section      EightDSection
+  storageKey   String       @map("storage_key")
+  fileName     String       @map("file_name")
+  mimeType     String       @map("mime_type")
+  sizeBytes    Int          @map("size_bytes")
+  uploadedById String       @map("uploaded_by_id")
+  uploadedBy   User         @relation("DefectEvidenceUploadedBy", fields: [uploadedById], references: [id])
+  companyId    String       @map("company_id")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  deletedAt    DateTime?    @map("deleted_at")
+
+  @@index([defectId, section])
+  @@index([companyId, createdAt])
+  @@map("defect_evidence")
 }
 
 model Waitlist {

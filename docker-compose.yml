@@ -1,0 +1,98 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: plantx-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: plantx
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - plantx
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: plantx-s3
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    networks:
+      - plantx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  createbuckets:
+    image: minio/mc:latest
+    container_name: plantx-s3-init
+    depends_on:
+      - minio
+    networks:
+      - plantx
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/plant-quality --ignore-existing;
+      /usr/bin/mc anonymous set public myminio/plant-quality;
+      echo 'MinIO bucket plant-quality is ready';
+      exit 0;
+      "
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: plantx-mail
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - plantx
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: plantx-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    networks:
+      - plantx
+
+networks:
+  plantx:
+    name: plantx
+
+volumes:
+  postgres_data:
+    name: plantx_postgres_data
+  minio_data:
+    name: plantx_minio_data

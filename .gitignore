@@ -11,6 +11,7 @@ build/
 .env
 .env.*
 !.env.example
+!.env.docker.example
 .DS_Store
 *.log
 *.tsbuildinfo
@@ -20,3 +21,8 @@ build/
 coverage/
 .vercel/
 .turbo/
+
+# Docker volumes & data
+
+postgres_data/
+minio_data/

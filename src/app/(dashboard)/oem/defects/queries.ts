@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { getActiveDueDate, isDefectOverdue } from "@/lib/sla"
-import type { ActionOwner } from "@/generated/prisma/client"
+import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
+import type { ActionOwner, EightDSection } from "@/generated/prisma/client"
 
 export interface DefectRow {
   id: string
@@ -15,7 +16,16 @@ export interface DefectRow {
   currentActionOwner: ActionOwner
   activeDueDate: Date | null
   isOverdue: boolean
+  evidenceReady: boolean
   createdAt: Date
+}
+
+function getEvidenceReady(evidences: { section: EightDSection }[]) {
+  const counts = evidences.reduce<Partial<Record<EightDSection, number>>>((acc, item) => {
+    acc[item.section] = (acc[item.section] ?? 0) + 1
+    return acc
+  }, {})
+  return hasRequiredSubmissionEvidence(counts)
 }
 
 export async function getDefects(filter?: string): Promise<DefectRow[]> {
@@ -28,6 +38,7 @@ export async function getDefects(filter?: string): Promise<DefectRow[]> {
       supplier: { select: { name: true } },
       oemOwner: { select: { name: true, email: true } },
       supplierAssignee: { select: { name: true, email: true } },
+      evidences: { where: { deletedAt: null }, select: { section: true } },
     },
     orderBy: { createdAt: "desc" },
   })
@@ -44,6 +55,7 @@ export async function getDefects(filter?: string): Promise<DefectRow[]> {
     currentActionOwner: d.currentActionOwner,
     activeDueDate: getActiveDueDate(d),
     isOverdue: isDefectOverdue(d),
+    evidenceReady: getEvidenceReady(d.evidences),
     createdAt: d.createdAt,
   }))
 
@@ -51,6 +63,8 @@ export async function getDefects(filter?: string): Promise<DefectRow[]> {
   if (filter === "supplier") return rows.filter((d) => d.currentActionOwner === "SUPPLIER")
   if (filter === "oem") return rows.filter((d) => d.currentActionOwner === "OEM")
   if (filter === "mine") return rows.filter((d) => d.oemOwnerId === session.user.id)
+  if (filter === "evidence-ready") return rows.filter((d) => d.evidenceReady)
+  if (filter === "evidence-missing") return rows.filter((d) => !d.evidenceReady)
   return rows
 }
 

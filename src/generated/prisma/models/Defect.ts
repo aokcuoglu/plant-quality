@@ -280,6 +280,7 @@ export type DefectWhereInput = {
   supplierAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   eightDReport?: Prisma.XOR<Prisma.EightDReportNullableScalarRelationFilter, Prisma.EightDReportWhereInput> | null
   events?: Prisma.DefectEventListRelationFilter
+  evidences?: Prisma.DefectEvidenceListRelationFilter
 }
 
 export type DefectOrderByWithRelationInput = {
@@ -306,6 +307,7 @@ export type DefectOrderByWithRelationInput = {
   supplierAssignee?: Prisma.UserOrderByWithRelationInput
   eightDReport?: Prisma.EightDReportOrderByWithRelationInput
   events?: Prisma.DefectEventOrderByRelationAggregateInput
+  evidences?: Prisma.DefectEvidenceOrderByRelationAggregateInput
 }
 
 export type DefectWhereUniqueInput = Prisma.AtLeast<{
@@ -335,6 +337,7 @@ export type DefectWhereUniqueInput = Prisma.AtLeast<{
   supplierAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   eightDReport?: Prisma.XOR<Prisma.EightDReportNullableScalarRelationFilter, Prisma.EightDReportWhereInput> | null
   events?: Prisma.DefectEventListRelationFilter
+  evidences?: Prisma.DefectEvidenceListRelationFilter
 }, "id">
 
 export type DefectOrderByWithAggregationInput = {
@@ -403,6 +406,7 @@ export type DefectCreateInput = {
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateInput = {
@@ -425,6 +429,7 @@ export type DefectUncheckedCreateInput = {
   resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUpdateInput = {
@@ -447,6 +452,7 @@ export type DefectUpdateInput = {
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateInput = {
@@ -469,6 +475,7 @@ export type DefectUncheckedUpdateInput = {
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectCreateManyInput = {
@@ -821,6 +828,20 @@ export type DefectUpdateOneRequiredWithoutEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DefectUpdateToOneWithWhereWithoutEventsInput, Prisma.DefectUpdateWithoutEventsInput>, Prisma.DefectUncheckedUpdateWithoutEventsInput>
 }
 
+export type DefectCreateNestedOneWithoutEvidencesInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutEvidencesInput, Prisma.DefectUncheckedCreateWithoutEvidencesInput>
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutEvidencesInput
+  connect?: Prisma.DefectWhereUniqueInput
+}
+
+export type DefectUpdateOneRequiredWithoutEvidencesNestedInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutEvidencesInput, Prisma.DefectUncheckedCreateWithoutEvidencesInput>
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutEvidencesInput
+  upsert?: Prisma.DefectUpsertWithoutEvidencesInput
+  connect?: Prisma.DefectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DefectUpdateToOneWithWhereWithoutEvidencesInput, Prisma.DefectUpdateWithoutEvidencesInput>, Prisma.DefectUncheckedUpdateWithoutEvidencesInput>
+}
+
 export type DefectCreateWithoutOemInput = {
   id?: string
   partNumber: string
@@ -840,6 +861,7 @@ export type DefectCreateWithoutOemInput = {
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateWithoutOemInput = {
@@ -861,6 +883,7 @@ export type DefectUncheckedCreateWithoutOemInput = {
   resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectCreateOrConnectWithoutOemInput = {
@@ -892,6 +915,7 @@ export type DefectCreateWithoutSupplierInput = {
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateWithoutSupplierInput = {
@@ -913,6 +937,7 @@ export type DefectUncheckedCreateWithoutSupplierInput = {
   resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectCreateOrConnectWithoutSupplierInput = {
@@ -999,6 +1024,7 @@ export type DefectCreateWithoutOemOwnerInput = {
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateWithoutOemOwnerInput = {
@@ -1020,6 +1046,7 @@ export type DefectUncheckedCreateWithoutOemOwnerInput = {
   resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectCreateOrConnectWithoutOemOwnerInput = {
@@ -1051,6 +1078,7 @@ export type DefectCreateWithoutSupplierAssigneeInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateWithoutSupplierAssigneeInput = {
@@ -1072,6 +1100,7 @@ export type DefectUncheckedCreateWithoutSupplierAssigneeInput = {
   resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectCreateOrConnectWithoutSupplierAssigneeInput = {
@@ -1135,6 +1164,7 @@ export type DefectCreateWithoutEightDReportInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateWithoutEightDReportInput = {
@@ -1156,6 +1186,7 @@ export type DefectUncheckedCreateWithoutEightDReportInput = {
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectCreateOrConnectWithoutEightDReportInput = {
@@ -1193,6 +1224,7 @@ export type DefectUpdateWithoutEightDReportInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutEightDReportInput = {
@@ -1214,6 +1246,7 @@ export type DefectUncheckedUpdateWithoutEightDReportInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectCreateWithoutEventsInput = {
@@ -1235,6 +1268,7 @@ export type DefectCreateWithoutEventsInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
 }
 
 export type DefectUncheckedCreateWithoutEventsInput = {
@@ -1256,6 +1290,7 @@ export type DefectUncheckedCreateWithoutEventsInput = {
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
 }
 
 export type DefectCreateOrConnectWithoutEventsInput = {
@@ -1293,6 +1328,7 @@ export type DefectUpdateWithoutEventsInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutEventsInput = {
@@ -1314,6 +1350,111 @@ export type DefectUncheckedUpdateWithoutEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
+}
+
+export type DefectCreateWithoutEvidencesInput = {
+  id?: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
+  oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
+  supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
+  events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+}
+
+export type DefectUncheckedCreateWithoutEvidencesInput = {
+  id?: string
+  oemId: string
+  supplierId: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  oemOwnerId?: string | null
+  supplierAssigneeId?: string | null
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
+  events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+}
+
+export type DefectCreateOrConnectWithoutEvidencesInput = {
+  where: Prisma.DefectWhereUniqueInput
+  create: Prisma.XOR<Prisma.DefectCreateWithoutEvidencesInput, Prisma.DefectUncheckedCreateWithoutEvidencesInput>
+}
+
+export type DefectUpsertWithoutEvidencesInput = {
+  update: Prisma.XOR<Prisma.DefectUpdateWithoutEvidencesInput, Prisma.DefectUncheckedUpdateWithoutEvidencesInput>
+  create: Prisma.XOR<Prisma.DefectCreateWithoutEvidencesInput, Prisma.DefectUncheckedCreateWithoutEvidencesInput>
+  where?: Prisma.DefectWhereInput
+}
+
+export type DefectUpdateToOneWithWhereWithoutEvidencesInput = {
+  where?: Prisma.DefectWhereInput
+  data: Prisma.XOR<Prisma.DefectUpdateWithoutEvidencesInput, Prisma.DefectUncheckedUpdateWithoutEvidencesInput>
+}
+
+export type DefectUpdateWithoutEvidencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
+  oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
+  supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
+  events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+}
+
+export type DefectUncheckedUpdateWithoutEvidencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
+  events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectCreateManyOemInput = {
@@ -1373,6 +1514,7 @@ export type DefectUpdateWithoutOemInput = {
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutOemInput = {
@@ -1394,6 +1536,7 @@ export type DefectUncheckedUpdateWithoutOemInput = {
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateManyWithoutOemInput = {
@@ -1434,6 +1577,7 @@ export type DefectUpdateWithoutSupplierInput = {
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutSupplierInput = {
@@ -1455,6 +1599,7 @@ export type DefectUncheckedUpdateWithoutSupplierInput = {
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateManyWithoutSupplierInput = {
@@ -1533,6 +1678,7 @@ export type DefectUpdateWithoutOemOwnerInput = {
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutOemOwnerInput = {
@@ -1554,6 +1700,7 @@ export type DefectUncheckedUpdateWithoutOemOwnerInput = {
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateManyWithoutOemOwnerInput = {
@@ -1594,6 +1741,7 @@ export type DefectUpdateWithoutSupplierAssigneeInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutSupplierAssigneeInput = {
@@ -1615,6 +1763,7 @@ export type DefectUncheckedUpdateWithoutSupplierAssigneeInput = {
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
 }
 
 export type DefectUncheckedUpdateManyWithoutSupplierAssigneeInput = {
@@ -1643,10 +1792,12 @@ export type DefectUncheckedUpdateManyWithoutSupplierAssigneeInput = {
 
 export type DefectCountOutputType = {
   events: number
+  evidences: number
 }
 
 export type DefectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   events?: boolean | DefectCountOutputTypeCountEventsArgs
+  evidences?: boolean | DefectCountOutputTypeCountEvidencesArgs
 }
 
 /**
@@ -1664,6 +1815,13 @@ export type DefectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
  */
 export type DefectCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DefectEventWhereInput
+}
+
+/**
+ * DefectCountOutputType without action
+ */
+export type DefectCountOutputTypeCountEvidencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DefectEvidenceWhereInput
 }
 
 
@@ -1691,6 +1849,7 @@ export type DefectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
   eightDReport?: boolean | Prisma.Defect$eightDReportArgs<ExtArgs>
   events?: boolean | Prisma.Defect$eventsArgs<ExtArgs>
+  evidences?: boolean | Prisma.Defect$evidencesArgs<ExtArgs>
   _count?: boolean | Prisma.DefectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["defect"]>
 
@@ -1770,6 +1929,7 @@ export type DefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
   eightDReport?: boolean | Prisma.Defect$eightDReportArgs<ExtArgs>
   events?: boolean | Prisma.Defect$eventsArgs<ExtArgs>
+  evidences?: boolean | Prisma.Defect$evidencesArgs<ExtArgs>
   _count?: boolean | Prisma.DefectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DefectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1794,6 +1954,7 @@ export type $DefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     supplierAssignee: Prisma.$UserPayload<ExtArgs> | null
     eightDReport: Prisma.$EightDReportPayload<ExtArgs> | null
     events: Prisma.$DefectEventPayload<ExtArgs>[]
+    evidences: Prisma.$DefectEvidencePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2213,6 +2374,7 @@ export interface Prisma__DefectClient<T, Null = never, ExtArgs extends runtime.T
   supplierAssignee<T extends Prisma.Defect$supplierAssigneeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$supplierAssigneeArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   eightDReport<T extends Prisma.Defect$eightDReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$eightDReportArgs<ExtArgs>>): Prisma.Prisma__EightDReportClient<runtime.Types.Result.GetResult<Prisma.$EightDReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.Defect$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  evidences<T extends Prisma.Defect$evidencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$evidencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2738,6 +2900,30 @@ export type Defect$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.DefectEventScalarFieldEnum | Prisma.DefectEventScalarFieldEnum[]
+}
+
+/**
+ * Defect.evidences
+ */
+export type Defect$evidencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DefectEvidence
+   */
+  select?: Prisma.DefectEvidenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DefectEvidence
+   */
+  omit?: Prisma.DefectEvidenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DefectEvidenceInclude<ExtArgs> | null
+  where?: Prisma.DefectEvidenceWhereInput
+  orderBy?: Prisma.DefectEvidenceOrderByWithRelationInput | Prisma.DefectEvidenceOrderByWithRelationInput[]
+  cursor?: Prisma.DefectEvidenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DefectEvidenceScalarFieldEnum | Prisma.DefectEvidenceScalarFieldEnum[]
 }
 
 /**

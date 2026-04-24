@@ -27,6 +27,11 @@ export default async function EightDReportPage({
         },
       },
       oem: { select: { name: true } },
+      evidences: {
+        where: { deletedAt: null },
+        include: { uploadedBy: { select: { name: true, email: true } } },
+        orderBy: { createdAt: "desc" },
+      },
     },
   })
 
@@ -49,6 +54,9 @@ export default async function EightDReportPage({
   }
 
   const reviewComments = report?.reviewComments ?? []
+  const canManageEvidence =
+    ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role) &&
+    ["OPEN", "IN_PROGRESS", "REJECTED"].includes(defect.status)
 
   return (
     <div className="space-y-6">
@@ -86,6 +94,18 @@ export default async function EightDReportPage({
         initialData={initialData}
         reviewComments={reviewComments}
         userPlan={session.user.plan}
+        canManageEvidence={canManageEvidence}
+        initialEvidences={defect.evidences.map((evidence) => ({
+          id: evidence.id,
+          section: evidence.section,
+          fileName: evidence.fileName,
+          mimeType: evidence.mimeType,
+          sizeBytes: evidence.sizeBytes,
+          createdAt: evidence.createdAt,
+          uploaderName: evidence.uploadedBy.name ?? evidence.uploadedBy.email,
+          canRemove: canManageEvidence && evidence.companyId === session.user.companyId,
+          downloadUrl: `/api/defects/evidence/${evidence.id}`,
+        }))}
         imageUrls={defect.imageUrls}
         defectTitle={defect.description}
         partName={defect.partNumber}

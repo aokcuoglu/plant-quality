@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache"
 import type { DefectStatus, Prisma } from "@/generated/prisma/client"
 import type { Session } from "next-auth"
 import { addCalendarDays } from "@/lib/sla"
+import { formatEvidenceSectionLabel } from "@/lib/evidence"
+import { getMissingEvidenceForSubmission } from "@/lib/evidence-server"
 
 export interface TeamMember {
   id: string
@@ -224,6 +226,14 @@ export async function submitEightDReport(defectId: string) {
     return {
       success: false as const,
       error: `Complete the following sections before submitting: ${missing.join(", ")}`,
+    }
+  }
+
+  const missingEvidenceSections = await getMissingEvidenceForSubmission(defectId)
+  if (missingEvidenceSections.length > 0) {
+    return {
+      success: false as const,
+      error: `Add required evidence before submitting: ${missingEvidenceSections.map(formatEvidenceSectionLabel).join(", ")}`,
     }
   }
 

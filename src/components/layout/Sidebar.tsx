@@ -43,35 +43,41 @@ interface SidebarProps {
 }
 
 export function Sidebar({ navItems, user }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("sidebar-collapsed")
-      return stored === "true"
-    }
-    return false
-  })
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem("sidebar-collapsed", String(isCollapsed))
-  }, [isCollapsed])
+    const stored = localStorage.getItem("sidebar-collapsed")
+    if (stored === "true") {
+      setIsCollapsed(true)
+    }
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("sidebar-collapsed", String(isCollapsed))
+    }
+  }, [isCollapsed, mounted])
 
   return (
     <TooltipProvider>
       <aside
         className={cn(
-          "relative flex flex-col border-r bg-card transition-all duration-300 ease-in-out",
+          "relative flex shrink-0 flex-col border-r bg-card",
+          mounted && "transition-all duration-300 ease-in-out",
           isCollapsed ? "w-16" : "w-64"
         )}
       >
-        <div className={cn("flex shrink-0 items-center border-b overflow-hidden", isCollapsed ? "h-12" : "h-14")}>
+        <div className="flex h-14 shrink-0 items-center border-b border-slate-700/50 overflow-hidden bg-[#0b0e14]">
           <div
             className={cn(
-              "flex items-center transition-all duration-300",
+              "flex h-full items-center transition-all duration-300",
               isCollapsed ? "justify-center w-full" : "gap-2.5 px-5"
             )}
           >
-            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-              <Factory className="size-4 text-emerald-500" />
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 shadow-lg shadow-emerald-500/20">
+              <Factory className="size-4 text-white" strokeWidth={2.5} />
             </div>
             <span
               className={cn(
@@ -81,10 +87,10 @@ export function Sidebar({ navItems, user }: SidebarProps) {
                   : "max-w-40 opacity-100"
               )}
             >
-              <span className="font-bold text-slate-900 dark:text-slate-100">
+              <span className="font-bold text-white">
                 Plant
               </span>
-              <span className="font-light ml-0.5 text-slate-500 dark:text-slate-400">
+              <span className="font-light ml-0.5 text-slate-400">
                 Quality
               </span>
             </span>

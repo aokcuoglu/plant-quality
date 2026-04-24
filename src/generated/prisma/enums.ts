@@ -26,6 +26,23 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const Plan = {
+  BASIC: 'BASIC',
+  PRO: 'PRO'
+} as const
+
+export type Plan = (typeof Plan)[keyof typeof Plan]
+
+
+export const NotificationType = {
+  INFO: 'INFO',
+  REVISION: 'REVISION',
+  NEW_DEFECT: 'NEW_DEFECT'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
 export const DefectStatus = {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',

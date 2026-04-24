@@ -2,17 +2,40 @@ import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import Nodemailer from "next-auth/providers/nodemailer"
 import { prisma } from "@/lib/prisma"
-import type { Role, CompanyType } from "@/generated/prisma/client"
+import type { DefaultSession } from "next-auth"
+import type { Role, CompanyType, Plan } from "@/generated/prisma/client"
 
 declare module "@auth/core/types" {
   interface Session {
     user: {
       id: string
       role: Role
+      plan: Plan
       companyId: string
       companyName: string
       companyType: CompanyType
     } & DefaultSession["user"]
+  }
+}
+
+declare module "next-auth" {
+  interface User {
+    role?: Role
+    plan?: Plan
+    companyId?: string
+    companyName?: string
+    companyType?: CompanyType
+  }
+}
+
+declare module "@auth/core/jwt" {
+  interface JWT {
+    id?: string
+    role?: Role
+    plan?: Plan
+    companyId?: string
+    companyName?: string
+    companyType?: CompanyType
   }
 }
 
@@ -39,16 +62,23 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
+      if (user?.id) {
         const dbUser = await prisma.user.findUnique({
           where: { id: user.id },
-          include: { company: { select: { type: true, name: true } } },
+          select: {
+            id: true,
+            role: true,
+            plan: true,
+            companyId: true,
+            company: { select: { type: true, name: true } },
+          },
         })
-        token.id = user.id
-        token.role = (user as any).role
-        token.companyId = (user as any).companyId
-        token.companyName = dbUser?.company.name ?? (user as any).companyName
-        token.companyType = dbUser?.company.type
+        token.id = dbUser?.id ?? user.id
+        token.role = dbUser?.role ?? user.role
+        token.plan = dbUser?.plan ?? user.plan
+        token.companyId = dbUser?.companyId ?? user.companyId
+        token.companyName = dbUser?.company.name ?? user.companyName
+        token.companyType = dbUser?.company.type ?? user.companyType
       }
       return token
     },
@@ -56,6 +86,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       if (session.user) {
         session.user.id = token.id as string
         session.user.role = token.role as Role
+        session.user.plan = token.plan as Plan
         session.user.companyId = token.companyId as string
         session.user.companyName = token.companyName as string
         session.user.companyType = token.companyType as CompanyType

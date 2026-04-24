@@ -1,7 +1,22 @@
+# dependencies
 node_modules/
+
+# framework output
 .next/
 out/
 dist/
 build/
-.env*
+
+# environment and local runtime files
+.env
+.env.*
+!.env.example
 .DS_Store
+*.log
+*.tsbuildinfo
+.cursor/
+
+# coverage and tooling
+coverage/
+.vercel/
+.turbo/

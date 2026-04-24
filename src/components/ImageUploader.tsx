@@ -1,7 +1,8 @@
 "use client"
 
-import { useCallback, useState } from "react"
-import { ImageIcon, Loader2, XIcon } from "lucide-react"
+import { useCallback, useState, useRef, type DragEvent } from "react"
+import { ImageIcon, Loader2, XIcon, UploadIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface UploadedImage {
   key: string
@@ -10,11 +11,15 @@ interface UploadedImage {
 
 export function ImageUploader({
   onImagesChange,
+  existingImages,
 }: {
   onImagesChange: (images: UploadedImage[]) => void
+  existingImages?: UploadedImage[]
 }) {
-  const [images, setImages] = useState<UploadedImage[]>([])
+  const [images, setImages] = useState<UploadedImage[]>(existingImages ?? [])
   const [uploading, setUploading] = useState(false)
+  const [dragOver, setDragOver] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -44,7 +49,8 @@ export function ImageUploader({
           throw new Error(text)
         }
 
-        const next = [...images, { key, publicUrl: `/api/image?key=${encodeURIComponent(key)}&t=${Date.now()}` }]
+        const publicUrl = `/api/image?key=${encodeURIComponent(key)}&t=${Date.now()}`
+        const next = [...images, { key, publicUrl }]
         setImages(next)
         onImagesChange(next)
       } catch (e) {
@@ -56,6 +62,17 @@ export function ImageUploader({
     [images, onImagesChange],
   )
 
+  const handleFiles = useCallback(
+    (files: FileList) => {
+      for (const file of Array.from(files)) {
+        if (file.type.startsWith("image/")) {
+          handleFile(file)
+        }
+      }
+    },
+    [handleFile],
+  )
+
   const removeImage = useCallback(
     (key: string) => {
       const next = images.filter((img) => img.key !== key)
@@ -64,6 +81,26 @@ export function ImageUploader({
     },
     [images, onImagesChange],
   )
+
+  const handleDrop = useCallback(
+    (e: DragEvent) => {
+      e.preventDefault()
+      setDragOver(false)
+      if (e.dataTransfer.files.length > 0) {
+        handleFiles(e.dataTransfer.files)
+      }
+    },
+    [handleFiles],
+  )
+
+  const handleDragOver = useCallback((e: DragEvent) => {
+    e.preventDefault()
+    setDragOver(true)
+  }, [])
+
+  const handleDragLeave = useCallback(() => {
+    setDragOver(false)
+  }, [])
 
   return (
     <div className="space-y-2">
@@ -91,7 +128,16 @@ export function ImageUploader({
         </div>
       )}
 
-      <label className="flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-input px-3 py-6 text-sm text-muted-foreground transition-colors hover:border-muted-foreground">
+      <div
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onClick={() => inputRef.current?.click()}
+        className={cn(
+          "flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed px-3 py-8 text-sm text-muted-foreground transition-colors",
+          dragOver ? "border-primary bg-primary/5" : "border-input hover:border-muted-foreground",
+        )}
+      >
         {uploading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -99,22 +145,25 @@ export function ImageUploader({
           </>
         ) : (
           <>
-            <ImageIcon className="h-4 w-4" />
-            Click to add images (optional)
+            {dragOver ? <UploadIcon className="h-4 w-4" /> : <ImageIcon className="h-4 w-4" />}
+            {dragOver ? "Drop images here" : "Click or drag & drop images"}
           </>
         )}
         <input
+          ref={inputRef}
           type="file"
           accept="image/*"
+          multiple
           disabled={uploading}
           className="sr-only"
           onChange={(e) => {
-            const file = e.target.files?.[0]
-            if (file) handleFile(file)
+            if (e.target.files && e.target.files.length > 0) {
+              handleFiles(e.target.files)
+            }
             e.target.value = ""
           }}
         />
-      </label>
+      </div>
     </div>
   )
 }

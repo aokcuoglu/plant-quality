@@ -4,17 +4,60 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 
+export interface TeamMember {
+  id: string
+  userId: string
+  userName: string
+  role: "champion" | "teamLeader" | "member"
+}
+
+export interface ContainmentAction {
+  id: string
+  description: string
+  responsibleUserId: string
+  responsibleName: string
+  effectiveness: number
+  targetDate: string
+  actualDate: string
+}
+
+export interface RootCauseEntry {
+  id: string
+  cause: string
+  contribution: number
+}
+
+export interface D5Action {
+  id: string
+  action: string
+  verificationMethod: string
+  effectiveness: number
+}
+
+export interface D6Action {
+  id: string
+  actionId: string
+  actionDescription: string
+  targetDate: string
+  actualDate: string
+  validatedByUserId: string
+  validatedByName: string
+}
+
+export interface D7Impact {
+  id: string
+  documentType: string
+  revisionNo: string
+}
+
 const ALLOWED_FIELDS = new Set([
-  "d1_team",
   "d2_problem",
-  "d3_containment",
   "d4_rootCause",
   "d5_d6_action",
-  "d7_preventive",
   "d8_recognition",
 ])
 
-export async function saveEightDStep(defectId: string, data: Record<string, string>) {
+export async function saveEightDStep(defectId: string, data: Record<string, unknown>) {
   const session = await auth()
   if (!session || session.user.companyType !== "SUPPLIER") {
     return { success: false as const, error: "Unauthorized" }
@@ -27,19 +70,33 @@ export async function saveEightDStep(defectId: string, data: Record<string, stri
     return { success: false as const, error: "Defect not found" }
   }
 
-  const updateData: Record<string, string> = {}
+  const scalarData: Record<string, string> = {}
+  const structuredData: Record<string, unknown> = {}
+
   for (const [key, value] of Object.entries(data)) {
     if (ALLOWED_FIELDS.has(key)) {
-      updateData[key] = value
+      scalarData[key] = String(value ?? "")
+    } else if (key.startsWith("d1_") || key.startsWith("d3_") || key.startsWith("d5_") || key.startsWith("d6_") || key.startsWith("d7_")) {
+      structuredData[key] = value
     }
   }
+
+  const dbUpdate: Record<string, unknown> = { ...scalarData }
+
+  if (structuredData["d1_team"] !== undefined) dbUpdate["team"] = structuredData["d1_team"]
+  if (structuredData["d3_containmentActions"] !== undefined) dbUpdate["containmentActions"] = structuredData["d3_containmentActions"]
+  if (structuredData["d5_actions"] !== undefined) dbUpdate["d5Actions"] = structuredData["d5_actions"]
+  if (structuredData["d6_actions"] !== undefined) dbUpdate["d6Actions"] = structuredData["d6_actions"]
+  if (structuredData["d7_impacts"] !== undefined) dbUpdate["d7Impacts"] = structuredData["d7_impacts"]
+  if (structuredData["d7_preventive"] !== undefined) dbUpdate["d7Preventive"] = structuredData["d7_preventive"]
 
   const wasDraft = defect.status === "OPEN" || defect.status === "REJECTED"
 
   await prisma.eightDReport.upsert({
     where: { defectId },
-    create: { defectId, ...updateData },
-    update: updateData,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    create: { defectId, ...dbUpdate } as any,
+    update: dbUpdate,
   })
 
   if (wasDraft) {
@@ -77,10 +134,23 @@ export async function submitEightDReport(defectId: string) {
     data: { submittedAt: new Date() },
   })
 
-  await prisma.defect.update({
+  const updatedDefect = await prisma.defect.update({
     where: { id: defectId },
     data: { status: "WAITING_APPROVAL" },
+    include: { oem: { include: { users: { select: { id: true } } } } },
   })
+
+  if (updatedDefect.oem.users.length > 0) {
+    await prisma.notification.createMany({
+      data: updatedDefect.oem.users.map((user) => ({
+        userId: user.id,
+        message: `8D Report submitted for defect #${defect.partNumber} — ready for review`,
+        type: "INFO",
+        link: `/oem/defects/${defectId}`,
+        isRead: false,
+      })),
+    })
+  }
 
   revalidatePath(`/supplier/defects/${defectId}/8d`)
   revalidatePath(`/supplier/defects/${defectId}`)

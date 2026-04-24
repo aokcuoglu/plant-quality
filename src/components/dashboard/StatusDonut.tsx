@@ -10,14 +10,18 @@ import {
 
 const COLORS: Record<string, string> = {
   OPEN: "#f87171",
-  WAITING_APPROVAL: "#fbbf24",
+  IN_PROGRESS: "#fbbf24",
+  WAITING_APPROVAL: "#60a5fa",
   RESOLVED: "#34d399",
+  REJECTED: "#a78bfa",
 }
 
 const LABELS: Record<string, string> = {
   OPEN: "Open",
-  WAITING_APPROVAL: "Waiting",
+  IN_PROGRESS: "In Progress",
+  WAITING_APPROVAL: "Waiting Approval",
   RESOLVED: "Resolved",
+  REJECTED: "Revision",
 }
 
 interface RawItem {
@@ -27,7 +31,7 @@ interface RawItem {
 
 export function StatusDonut({ data, total }: { data: RawItem[]; total: number }) {
   const chartData = data
-    .filter((d) => d._count > 0 && (d.status === "OPEN" || d.status === "WAITING_APPROVAL" || d.status === "RESOLVED"))
+    .filter((d) => d._count > 0)
     .map((d) => ({
       name: LABELS[d.status] ?? d.status,
       value: d._count,

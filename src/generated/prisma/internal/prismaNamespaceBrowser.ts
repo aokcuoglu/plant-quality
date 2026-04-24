@@ -58,7 +58,9 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   Defect: 'Defect',
   EightDReport: 'EightDReport',
-  ReviewComment: 'ReviewComment'
+  ReviewComment: 'ReviewComment',
+  Waitlist: 'Waitlist',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -95,6 +97,7 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   role: 'role',
+  plan: 'plan',
   companyId: 'companyId',
   createdAt: 'createdAt'
 } as const
@@ -158,15 +161,18 @@ export type DefectScalarFieldEnum = (typeof DefectScalarFieldEnum)[keyof typeof 
 export const EightDReportScalarFieldEnum = {
   id: 'id',
   defectId: 'defectId',
-  d1_team: 'd1_team',
   d2_problem: 'd2_problem',
-  d3_containment: 'd3_containment',
   d4_rootCause: 'd4_rootCause',
   d5_d6_action: 'd5_d6_action',
-  d7_preventive: 'd7_preventive',
   d8_recognition: 'd8_recognition',
   submittedAt: 'submittedAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  team: 'team',
+  containmentActions: 'containmentActions',
+  d5Actions: 'd5Actions',
+  d6Actions: 'd6Actions',
+  d7Impacts: 'd7Impacts',
+  d7Preventive: 'd7Preventive'
 } as const
 
 export type EightDReportScalarFieldEnum = (typeof EightDReportScalarFieldEnum)[keyof typeof EightDReportScalarFieldEnum]
@@ -184,12 +190,43 @@ export const ReviewCommentScalarFieldEnum = {
 export type ReviewCommentScalarFieldEnum = (typeof ReviewCommentScalarFieldEnum)[keyof typeof ReviewCommentScalarFieldEnum]
 
 
+export const WaitlistScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  module: 'module',
+  createdAt: 'createdAt'
+} as const
+
+export type WaitlistScalarFieldEnum = (typeof WaitlistScalarFieldEnum)[keyof typeof WaitlistScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  type: 'type',
+  link: 'link',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -206,4 +243,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

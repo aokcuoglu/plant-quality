@@ -5,7 +5,6 @@ import Link from "next/link"
 import { createDefect } from "../actions"
 import { Button } from "@/components/ui/button"
 import { ImageUploader, type UploadedImage } from "@/components/ImageUploader"
-import { XIcon } from "lucide-react"
 
 export function NewDefectForm({ suppliers }: { suppliers: { id: string; name: string }[] }) {
   const [images, setImages] = useState<UploadedImage[]>([])

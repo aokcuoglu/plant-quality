@@ -18,6 +18,7 @@ export async function createDefect(formData: FormData): Promise<void> {
 
   const supplier = await prisma.company.findFirst({
     where: { id: supplierId, type: "SUPPLIER" },
+    include: { users: { select: { id: true } } },
   })
 
   if (!supplier) return
@@ -29,7 +30,7 @@ export async function createDefect(formData: FormData): Promise<void> {
     } catch {}
   }
 
-  await prisma.defect.create({
+  const defect = await prisma.defect.create({
     data: {
       oemId: session.user.companyId,
       supplierId,
@@ -39,6 +40,18 @@ export async function createDefect(formData: FormData): Promise<void> {
       imageUrls,
     },
   })
+
+  if (supplier.users.length > 0) {
+    await prisma.notification.createMany({
+      data: supplier.users.map((user) => ({
+        userId: user.id,
+        message: `New defect reported: #${partNumber}`,
+        type: "NEW_DEFECT",
+        link: `/supplier/defects/${defect.id}`,
+        isRead: false,
+      })),
+    })
+  }
 
   revalidatePath("/oem/defects")
   redirect("/oem/defects")

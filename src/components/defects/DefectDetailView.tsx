@@ -28,16 +28,10 @@ import {
   DialogContent,
   DialogTrigger,
   DialogClose,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet"
 import { StatusBadge } from "@/components/ui/status-badge"
 import {
   addReviewComment,
@@ -56,10 +50,16 @@ interface ReviewComment {
   createdAt: Date
 }
 
-interface ReviewSection {
+export interface ReviewSectionRow {
+  cells: string[]
+}
+
+export interface ReviewSection {
   stepId: string
   label: string
-  content: string | null
+  headers?: string[]
+  rows?: ReviewSectionRow[]
+  content?: string | null
   comments: ReviewComment[]
 }
 
@@ -120,7 +120,7 @@ function ImageThumbnail({ src }: { src: string }) {
   )
 }
 
-function CommentSheet({
+function CommentModal({
   section,
   onAddComment,
   defectId,
@@ -143,8 +143,8 @@ function CommentSheet({
   }
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger
         render={
           <button
             type="button"
@@ -167,16 +167,16 @@ function CommentSheet({
             {section.comments.length}
           </span>
         )}
-      </SheetTrigger>
-      <SheetContent side="right" className="z-[60] flex w-full flex-col sm:max-w-md">
-        <SheetHeader>
-          <SheetTitle>Comments — {section.label}</SheetTitle>
-          <SheetDescription>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle>Comments — {section.label}</DialogTitle>
+          <DialogDescription>
             Add or review feedback for this section
-          </SheetDescription>
-        </SheetHeader>
+          </DialogDescription>
+        </DialogHeader>
 
-        <div className="flex-1 space-y-3 overflow-y-auto px-4">
+        <div className="max-h-60 space-y-3 overflow-y-auto">
           {section.comments.length === 0 ? (
             <p className="py-8 text-center text-xs text-muted-foreground">
               No comments yet. Add feedback for the supplier below.
@@ -193,7 +193,7 @@ function CommentSheet({
           )}
         </div>
 
-        <div className="flex w-full gap-2 border-t p-4">
+        <div className="flex w-full gap-2 pt-2">
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -214,17 +214,101 @@ function CommentSheet({
             )}
           </button>
         </div>
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function SectionContent({ section }: { section: ReviewSection }) {
+  if (section.rows && section.headers) {
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="border-b bg-muted/50">
+              {section.headers.map((h, i) => (
+                <th key={i} className="px-3 py-1.5 text-left font-medium text-muted-foreground">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {section.rows.map((row, ri) => (
+              <tr key={ri} className="border-b last:border-0">
+                {row.cells.map((cell, ci) => (
+                  <td key={ci} className="px-3 py-1.5">{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
+  if (section.content) {
+    return <p className="whitespace-pre-wrap text-sm">{section.content}</p>
+  }
+
+  return <p className="text-xs italic text-muted-foreground">Not provided</p>
+}
+
+function SupplierReportView({ defect }: { defect: DefectDetail }) {
+  const report = defect.eightDReport
+  if (!report) return null
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          8D Report
+          {report.submittedAt && (
+            <Badge variant="outline" className="text-xs">
+              Submitted {formatDate(new Date(report.submittedAt))}
+            </Badge>
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {report.reviewSections.map((section) => (
+          <div key={section.stepId} className="rounded-lg border p-3">
+            <div className="mb-1 flex items-center justify-between">
+              <span className="text-xs font-medium text-muted-foreground">{section.label}</span>
+              {section.comments.length > 0 && (
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-[10px] font-medium text-amber-600 dark:bg-amber-900/40 dark:text-amber-400">
+                  {section.comments.length}
+                </span>
+              )}
+            </div>
+
+            {section.content || (section.rows && section.rows.length > 0) ? (
+              <SectionContent section={section} />
+            ) : (
+              <p className="text-xs italic text-muted-foreground">Not provided</p>
+            )}
+
+            {section.comments.length > 0 && (
+              <div className="mt-2 space-y-1 border-t pt-2">
+                {section.comments.map((c) => (
+                  <div key={c.id} className="flex gap-2 rounded-md bg-muted/50 p-2 text-xs">
+                    <span className="shrink-0 font-medium text-foreground">
+                      {c.author.name ?? "OEM"}:
+                    </span>
+                    <span className="text-muted-foreground">{c.comment}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </CardContent>
+    </Card>
   )
 }
 
 function OemReviewPanel({
   defect,
-  currentUserId,
 }: {
   defect: DefectDetail
-  currentUserId: string
 }) {
   const router = useRouter()
   const [approving, startApprove] = useTransition()
@@ -257,18 +341,18 @@ function OemReviewPanel({
               className={cn(
                 "rounded-lg border p-3",
                 section.comments.length > 0 && "border-red-200 bg-red-50/30 dark:border-red-900 dark:bg-red-950/10",
-                !section.content && "opacity-50",
+                !section.content && !section.rows?.length && "opacity-50",
               )}
             >
               <div className="mb-1 flex items-center justify-between">
                 <span className="text-xs font-medium text-muted-foreground">{section.label}</span>
                 {defect.status === "WAITING_APPROVAL" && (
-                  <CommentSheet section={section} onAddComment={handleAddComment} defectId={defect.id} />
+                  <CommentModal section={section} onAddComment={handleAddComment} defectId={defect.id} />
                 )}
               </div>
 
-              {section.content ? (
-                <p className="whitespace-pre-wrap text-sm">{section.content}</p>
+              {section.content || (section.rows && section.rows.length > 0) ? (
+                <SectionContent section={section} />
               ) : (
                 <p className="text-xs italic text-muted-foreground">Not provided</p>
               )}
@@ -359,18 +443,16 @@ function OemReviewPanel({
 export function DefectDetailView({
   defect,
   companyType,
-  currentUserId,
 }: {
   defect: DefectDetail
   companyType: CompanyType
-  currentUserId?: string
 }) {
   const backHref = companyType === "OEM" ? "/oem/defects" : "/supplier/defects"
 
   const supplierActionLabel =
     defect.status === "OPEN"
       ? "Start 8D Report"
-      : defect.status === "IN_PROGRESS"
+      : defect.status === "IN_PROGRESS" || defect.status === "REJECTED"
         ? "Continue 8D Report"
         : null
 
@@ -395,7 +477,7 @@ export function DefectDetailView({
           </div>
 
           {companyType === "OEM" && defect.status === "WAITING_APPROVAL" && defect.eightDReport ? (
-            <OemReviewPanel defect={defect} currentUserId={currentUserId ?? ""} />
+            <OemReviewPanel defect={defect} />
           ) : (
             <>
               <div className="rounded-lg border bg-card p-4">
@@ -403,8 +485,12 @@ export function DefectDetailView({
                 <p className="text-sm leading-relaxed">{defect.description}</p>
               </div>
 
+              {companyType === "SUPPLIER" && defect.eightDReport && (
+                <SupplierReportView defect={defect} />
+              )}
+
               {companyType === "OEM" && defect.eightDReport && defect.status !== "WAITING_APPROVAL" && (
-                <OemReviewPanel defect={defect} currentUserId={currentUserId ?? ""} />
+                <OemReviewPanel defect={defect} />
               )}
 
               {defect.imageUrls.length > 0 && (
@@ -462,7 +548,12 @@ export function DefectDetailView({
           {companyType === "SUPPLIER" && supplierActionLabel && (
             <a
               href={`/supplier/defects/${defect.id}/8d`}
-              className={cn(buttonVariants({ className: "w-full" }))}
+              className={cn(
+                buttonVariants({
+                  variant: defect.status === "OPEN" ? "default" : "outline",
+                  className: "w-full",
+                }),
+              )}
             >
               {supplierActionLabel}
             </a>

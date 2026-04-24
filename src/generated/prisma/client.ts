@@ -81,3 +81,13 @@ export type EightDReport = Prisma.EightDReportModel
  * 
  */
 export type ReviewComment = Prisma.ReviewCommentModel
+/**
+ * Model Waitlist
+ * 
+ */
+export type Waitlist = Prisma.WaitlistModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

@@ -18,6 +18,17 @@ enum Role {
   VIEWER
 }
 
+enum Plan {
+  BASIC
+  PRO
+}
+
+enum NotificationType {
+  INFO
+  REVISION
+  NEW_DEFECT
+}
+
 enum DefectStatus {
   OPEN
   IN_PROGRESS
@@ -27,31 +38,33 @@ enum DefectStatus {
 }
 
 model Company {
-  id           String    @id @default(uuid())
+  id           String      @id @default(uuid())
   name         String
   type         CompanyType
   taxNumber    String?
   users        User[]
-  defectsAsOem   Defect[]  @relation("OemDefects")
-  defectsAsSup   Defect[]  @relation("SupplierDefects")
-  createdAt    DateTime  @default(now())
+  defectsAsOem Defect[]    @relation("OemDefects")
+  defectsAsSup Defect[]    @relation("SupplierDefects")
+  createdAt    DateTime    @default(now())
 
   @@map("companies")
 }
 
 model User {
-  id            String     @id @default(uuid())
-  email         String     @unique
-  name          String?
-  emailVerified DateTime?
-  image         String?
-  role          Role       @default(VIEWER)
-  companyId     String
-  company       Company    @relation(fields: [companyId], references: [id])
-  accounts      Account[]
-  sessions      Session[]
+  id             String          @id @default(uuid())
+  email          String          @unique
+  name           String?
+  emailVerified  DateTime?
+  image          String?
+  role           Role            @default(VIEWER)
+  plan           Plan            @default(BASIC)
+  companyId      String
+  company        Company         @relation(fields: [companyId], references: [id])
+  accounts       Account[]
+  sessions       Session[]
   reviewComments ReviewComment[]
-  createdAt     DateTime   @default(now())
+  notifications  Notification[]
+  createdAt      DateTime        @default(now())
 
   @@map("users")
 }
@@ -96,50 +109,78 @@ model VerificationToken {
 }
 
 model Defect {
-  id          String         @id @default(uuid())
-  oemId       String
-  oem         Company        @relation("OemDefects", fields: [oemId], references: [id])
-  supplierId  String
-  supplier    Company        @relation("SupplierDefects", fields: [supplierId], references: [id])
-  partNumber  String
-  description String
-  status      DefectStatus   @default(OPEN)
-  imageUrls   String[]
+  id           String        @id @default(uuid())
+  oemId        String
+  oem          Company       @relation("OemDefects", fields: [oemId], references: [id])
+  supplierId   String
+  supplier     Company       @relation("SupplierDefects", fields: [supplierId], references: [id])
+  partNumber   String
+  description  String
+  status       DefectStatus  @default(OPEN)
+  imageUrls    String[]
   eightDReport EightDReport?
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  resolvedAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  resolvedAt   DateTime?
 
   @@map("defects")
 }
 
 model EightDReport {
-  id             String   @id @default(uuid())
-  defectId       String   @unique
-  defect         Defect   @relation(fields: [defectId], references: [id])
-  d1_team        String?
+  id             String          @id @default(uuid())
+  defectId       String          @unique
+  defect         Defect          @relation(fields: [defectId], references: [id])
   d2_problem     String?
-  d3_containment String?
   d4_rootCause   String?
   d5_d6_action   String?
-  d7_preventive  String?
   d8_recognition String?
   submittedAt    DateTime?
-  updatedAt      DateTime @updatedAt
+  updatedAt      DateTime        @updatedAt
   reviewComments ReviewComment[]
+
+  // Structured JSONB fields (IATF 16949)
+  team               Json?   @map("d1_team")
+  containmentActions Json?   @map("d3_containment")
+  d5Actions          Json?   @map("d5_actions")
+  d6Actions          Json?   @map("d6_actions")
+  d7Impacts          Json?   @map("d7_impacts")
+  d7Preventive       String? @map("d7_preventive")
 
   @@map("eight_d_reports")
 }
 
 model ReviewComment {
-  id        String   @id @default(uuid())
-  reportId  String   @map("report_id")
+  id        String       @id @default(uuid())
+  reportId  String       @map("report_id")
   report    EightDReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
-  stepId    String   @map("step_id")
+  stepId    String       @map("step_id")
   comment   String
-  authorId  String   @map("author_id")
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now()) @map("created_at")
+  authorId  String       @map("author_id")
+  author    User         @relation(fields: [authorId], references: [id])
+  createdAt DateTime     @default(now()) @map("created_at")
 
   @@map("review_comments")
+}
+
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String
+  module    String
+  createdAt DateTime @default(now())
+
+  @@unique([email, module])
+  @@map("waitlist")
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  type      NotificationType
+  link      String?
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  @@map("notifications")
 }

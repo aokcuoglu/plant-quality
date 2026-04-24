@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { s3Client, S3_BUCKET_NAME } from "@/lib/s3"
 import { GetObjectCommand } from "@aws-sdk/client-s3"
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 
 export async function GET(req: NextRequest) {
   const key = req.nextUrl.searchParams.get("key")
@@ -9,21 +8,26 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "key is required" }, { status: 400 })
   }
 
-  const url = await getSignedUrl(
-    s3Client,
-    new GetObjectCommand({ Bucket: S3_BUCKET_NAME, Key: key }),
-    { expiresIn: 3600 },
-  )
+  try {
+    const { Body, ContentType } = await s3Client.send(
+      new GetObjectCommand({
+        Bucket: S3_BUCKET_NAME,
+        Key: key,
+      }),
+    )
 
-  const imgRes = await fetch(url)
-  if (!imgRes.ok) {
-    return NextResponse.json({ error: "Image not found" }, { status: 404 })
+    if (!Body) {
+      return NextResponse.json({ error: "Image not found" }, { status: 404 })
+    }
+
+    const bytes = await Body.transformToByteArray()
+    return new NextResponse(Buffer.from(bytes), {
+      headers: {
+        "Content-Type": ContentType ?? "image/jpeg",
+        "Cache-Control": "public, max-age=86400, s-maxage=86400",
+      },
+    })
+  } catch {
+    return NextResponse.json({ error: "Failed to fetch image" }, { status: 500 })
   }
-
-  return new NextResponse(imgRes.body, {
-    headers: {
-      "Content-Type": imgRes.headers.get("content-type") ?? "image/png",
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
-  })
 }

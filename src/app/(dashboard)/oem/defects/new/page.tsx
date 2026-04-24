@@ -5,7 +5,6 @@ import { auth } from "@/lib/auth"
 import { getSuppliers } from "../queries"
 import { NewDefectForm } from "./form"
 import { PageHeader } from "@/components/layout/PageHeader"
-import { Button } from "@/components/ui/button"
 
 interface Supplier {
   id: string

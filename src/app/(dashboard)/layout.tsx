@@ -1,106 +1,69 @@
-import { auth, signOut } from "@/lib/auth"
-import { redirect } from "next/navigation"
-import {
-  LayoutDashboardIcon,
-  BugIcon,
-  PlusCircleIcon,
-  LogOutIcon,
-  Building2Icon,
-} from "lucide-react"
+"use client"
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth()
-  if (!session) redirect("/login")
+import {
+  Building2Icon,
+  ChevronRight,
+} from "lucide-react"
+import { NotificationBell } from "@/components/notifications/NotificationBell"
+import { AppSwitcher } from "@/components/layout/AppSwitcher"
+import { Sidebar } from "@/components/layout/Sidebar"
+import { useSession } from "@/hooks/useSession"
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const { session, loading } = useSession()
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="size-6 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600" />
+      </div>
+    )
+  }
+
+  if (!session) return null
 
   const isOem = session.user.companyType === "OEM"
 
   const navItems = isOem
     ? [
-        { href: "/oem", label: "Dashboard", icon: LayoutDashboardIcon },
-        { href: "/oem/defects", label: "Defects", icon: BugIcon },
-        { href: "/oem/defects/new", label: "Report Defect", icon: PlusCircleIcon },
+        { href: "/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
+        { href: "/oem/defects", label: "Defects", icon: "BugIcon" as const },
+        { href: "/oem/defects/new", label: "Report Defect", icon: "PlusCircleIcon" as const },
       ]
     : [
-        { href: "/supplier", label: "Dashboard", icon: LayoutDashboardIcon },
-        { href: "/supplier/defects", label: "Defects", icon: BugIcon },
+        { href: "/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
+        { href: "/supplier/defects", label: "Defects", icon: "BugIcon" as const },
       ]
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="flex w-64 flex-col border-r bg-card">
-        <div className="flex h-14 items-center gap-2.5 border-b px-5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-[10px] font-bold text-primary-foreground">
-            PQ
+    <div className="flex h-screen">
+      <Sidebar
+        navItems={navItems}
+        user={{
+          email: session.user.email ?? "",
+          companyName: session.user.companyName ?? "",
+          companyType: session.user.companyType ?? "",
+          plan: session.user.plan ?? "BASIC",
+        }}
+      />
+
+      <div className="flex min-h-0 flex-1 flex-col">
+        <header className="flex h-14 shrink-0 items-center justify-between border-b bg-white dark:bg-card px-6">
+          <div className="flex items-center gap-2 text-sm text-slate-500">
+            <span className="hidden sm:inline text-slate-400">PlantX</span>
+            <ChevronRight className="hidden sm:block size-3 text-slate-300" />
+            <span className="flex items-center gap-1.5">
+              <Building2Icon className="size-3.5" />
+              {session.user.companyName}
+            </span>
           </div>
-          <span className="text-sm font-semibold">PlantQuality</span>
-        </div>
-
-        <nav className="flex-1 space-y-1 p-3">
-          {navItems.map((item) => (
-            <SidebarLink key={item.href} href={item.href} icon={item.icon} label={item.label} />
-          ))}
-        </nav>
-
-        <div className="border-t p-3">
-          <div className="flex items-center gap-3 rounded-md px-2 py-2">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
-              {session.user.email?.charAt(0).toUpperCase() ?? "U"}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium">{session.user.companyName}</p>
-              <p className="truncate text-xs text-muted-foreground">{session.user.email}</p>
-            </div>
+          <div className="flex items-center gap-1.5">
+            <AppSwitcher />
+            <NotificationBell />
           </div>
-          <form
-            action={async () => {
-              "use server"
-              await signOut()
-            }}
-            className="mt-1"
-          >
-            <button
-              type="submit"
-              className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
-            >
-              <LogOutIcon className="h-3.5 w-3.5" />
-              Sign out
-            </button>
-          </form>
-        </div>
-      </aside>
-
-      <div className="flex flex-1 flex-col">
-        <header className="flex h-14 items-center justify-between border-b bg-card px-6">
-          <span className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Building2Icon className="h-4 w-4" />
-            {session.user.companyName}
-          </span>
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main className="min-h-0 flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
-  )
-}
-
-function SidebarLink({
-  href,
-  icon: Icon,
-  label,
-}: {
-  href: string
-  icon: React.ComponentType<{ className?: string }>
-  label: string
-}) {
-  return (
-    <a
-      href={href}
-      className="group flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold"
-      data-active={undefined}
-      // Active detection via server is not possible with static links,
-      // but we keep the data attribute for future enhancement
-    >
-      <Icon className="h-4 w-4 shrink-0" />
-      {label}
-    </a>
   )
 }

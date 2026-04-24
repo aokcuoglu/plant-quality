@@ -37,17 +37,14 @@ export default async function EightDReportPage({
 
   const report = defect.eightDReport
   const initialData: Record<string, string | null> = {
-    d1_team: report?.d1_team ?? null,
+    d1_team: report?.team != null ? JSON.stringify(report.team) : null,
     d2_problem: report?.d2_problem ?? null,
-    d3_containment: report?.d3_containment ?? null,
+    d3_containment: report?.containmentActions != null ? JSON.stringify(report.containmentActions) : null,
     d4_rootCause: report?.d4_rootCause ?? null,
-    d4_why1: null,
-    d4_why2: null,
-    d4_why3: null,
-    d4_why4: null,
-    d4_why5: null,
-    d5_d6_action: report?.d5_d6_action ?? null,
-    d7_preventive: report?.d7_preventive ?? null,
+    d5_actions: report?.d5Actions != null ? JSON.stringify(report.d5Actions) : null,
+    d6_actions: report?.d6Actions != null ? JSON.stringify(report.d6Actions) : null,
+    d7_impacts: report?.d7Impacts != null ? JSON.stringify(report.d7Impacts) : null,
+    d7_preventive: report?.d7Preventive ?? null,
     d8_recognition: report?.d8_recognition ?? null,
   }
 
@@ -88,6 +85,11 @@ export default async function EightDReportPage({
         defectId={id}
         initialData={initialData}
         reviewComments={reviewComments}
+        userPlan={session.user.plan}
+        imageUrls={defect.imageUrls}
+        defectTitle={defect.description}
+        partName={defect.partNumber}
+        symptoms={defect.description}
       />
     </div>
   )

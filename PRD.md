@@ -84,6 +84,8 @@
 - `Role`: `ADMIN | QUALITY_ENGINEER | VIEWER`
 - `Plan`: `BASIC | PRO`
 - `NotificationType`: `INFO | REVISION | NEW_DEFECT`
+- `ReviewCommentStatus`: `OPEN | RESOLVED`
+- `DefectEventType`: `CREATED | EIGHT_D_STARTED | EIGHT_D_STEP_SAVED | EIGHT_D_SUBMITTED | REVIEW_COMMENT_ADDED | REVIEW_COMMENT_RESPONDED | REVIEW_COMMENT_RESOLVED | REVIEW_COMMENT_REOPENED | REVISION_REQUESTED | APPROVED`
 - `DefectStatus`: `OPEN | IN_PROGRESS | WAITING_APPROVAL | RESOLVED | REJECTED`
 
 ### Models
@@ -122,10 +124,13 @@ Standard Auth.js tables.
 3. Always run `prisma generate` after schema changes and restart the Next.js dev server
 
 #### ReviewComment (`review_comments`)
-`id`, `reportId` → EightDReport, `stepId`, `comment`, `authorId` → User, `createdAt`
+`id`, `reportId` → EightDReport, `stepId`, `comment`, `status` (`OPEN | RESOLVED`), `supplierResponse?`, `resolvedAt?`, `resolvedById?` → User, `authorId` → User, `createdAt`
 
 #### Notification (`notifications`)
 `id`, `userId` → User, `message`, `type` (NotificationType), `link?`, `isRead` (default false), `createdAt`
+
+#### DefectEvent (`defect_events`)
+Append-only audit trail for defect and 8D workflow events. Stores `defectId`, `type`, optional `actorId`, optional `metadata` JSON, and `createdAt`.
 
 ### JSONB Data Shapes (server action types in `src/app/(dashboard)/supplier/defects/actions/8d.ts`)
 

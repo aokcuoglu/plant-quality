@@ -59,6 +59,7 @@ export const ModelName = {
   Defect: 'Defect',
   EightDReport: 'EightDReport',
   ReviewComment: 'ReviewComment',
+  DefectEvent: 'DefectEvent',
   Waitlist: 'Waitlist',
   Notification: 'Notification'
 } as const
@@ -166,6 +167,13 @@ export const EightDReportScalarFieldEnum = {
   d5_d6_action: 'd5_d6_action',
   d8_recognition: 'd8_recognition',
   submittedAt: 'submittedAt',
+  lastSubmittedAt: 'lastSubmittedAt',
+  lastReviewedAt: 'lastReviewedAt',
+  approvedAt: 'approvedAt',
+  approvedById: 'approvedById',
+  rejectedAt: 'rejectedAt',
+  rejectedById: 'rejectedById',
+  revisionNo: 'revisionNo',
   updatedAt: 'updatedAt',
   team: 'team',
   containmentActions: 'containmentActions',
@@ -183,11 +191,27 @@ export const ReviewCommentScalarFieldEnum = {
   reportId: 'reportId',
   stepId: 'stepId',
   comment: 'comment',
+  status: 'status',
+  supplierResponse: 'supplierResponse',
+  resolvedAt: 'resolvedAt',
+  resolvedById: 'resolvedById',
   authorId: 'authorId',
   createdAt: 'createdAt'
 } as const
 
 export type ReviewCommentScalarFieldEnum = (typeof ReviewCommentScalarFieldEnum)[keyof typeof ReviewCommentScalarFieldEnum]
+
+
+export const DefectEventScalarFieldEnum = {
+  id: 'id',
+  defectId: 'defectId',
+  type: 'type',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type DefectEventScalarFieldEnum = (typeof DefectEventScalarFieldEnum)[keyof typeof DefectEventScalarFieldEnum]
 
 
 export const WaitlistScalarFieldEnum = {

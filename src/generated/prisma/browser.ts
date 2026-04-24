@@ -58,6 +58,11 @@ export type EightDReport = Prisma.EightDReportModel
  */
 export type ReviewComment = Prisma.ReviewCommentModel
 /**
+ * Model DefectEvent
+ * 
+ */
+export type DefectEvent = Prisma.DefectEventModel
+/**
  * Model Waitlist
  * 
  */

@@ -3,6 +3,8 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
+import type { DefectStatus, Prisma } from "@/generated/prisma/client"
+import type { Session } from "next-auth"
 
 export interface TeamMember {
   id: string
@@ -57,9 +59,66 @@ const ALLOWED_FIELDS = new Set([
   "d8_recognition",
 ])
 
+const SUPPLIER_EDIT_STATUSES: DefectStatus[] = ["OPEN", "IN_PROGRESS", "REJECTED"]
+
+function canSubmitEightD(session: Session | null): session is Session {
+  return Boolean(
+    session &&
+      session.user.companyType === "SUPPLIER" &&
+      ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role),
+  )
+}
+
+function hasText(value: unknown) {
+  return typeof value === "string" && value.trim().length > 0
+}
+
+function hasArrayItem<T extends object>(
+  value: unknown,
+  predicate: (item: T) => boolean,
+) {
+  return Array.isArray(value) && value.some((item) => item && typeof item === "object" && predicate(item as T))
+}
+
+function validateEightDReport(report: {
+  team: unknown
+  containmentActions: unknown
+  d5Actions: unknown
+  d6Actions: unknown
+  d7Impacts: unknown
+  d7Preventive: string | null
+  d2_problem: string | null
+  d4_rootCause: string | null
+  d8_recognition: string | null
+}) {
+  const missing: string[] = []
+
+  if (!hasArrayItem<TeamMember>(report.team, (m) => hasText(m.userId) && hasText(m.userName))) missing.push("D1 Team")
+  if (!hasText(report.d2_problem)) missing.push("D2 Problem Description")
+  if (!hasArrayItem<ContainmentAction>(report.containmentActions, (a) => hasText(a.description))) missing.push("D3 Containment Actions")
+  if (!hasText(report.d4_rootCause)) missing.push("D4 Root Cause Analysis")
+  if (!hasArrayItem<D5Action>(report.d5Actions, (a) => hasText(a.action) && hasText(a.verificationMethod))) missing.push("D5 Corrective Actions")
+  if (!hasArrayItem<D6Action>(report.d6Actions, (a) => hasText(a.actionId) && hasText(a.targetDate) && hasText(a.validatedByUserId))) missing.push("D6 Validation")
+  if (!hasText(report.d7Preventive)) missing.push("D7 Preventive Actions")
+  if (!hasText(report.d8_recognition)) missing.push("D8 Recognition & Closure")
+
+  return missing
+}
+
+async function logDefectEvent(
+  defectId: string,
+  type: "EIGHT_D_STARTED" | "EIGHT_D_STEP_SAVED" | "EIGHT_D_SUBMITTED" | "REVIEW_COMMENT_RESPONDED",
+  actorId: string,
+  metadata?: Record<string, unknown>,
+) {
+  await prisma.defectEvent.create({
+    data: { defectId, type, actorId, metadata: metadata as Prisma.InputJsonValue | undefined },
+  })
+}
+
 export async function saveEightDStep(defectId: string, data: Record<string, unknown>) {
   const session = await auth()
-  if (!session || session.user.companyType !== "SUPPLIER") {
+  if (!canSubmitEightD(session)) {
     return { success: false as const, error: "Unauthorized" }
   }
 
@@ -68,6 +127,9 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
   })
   if (!defect) {
     return { success: false as const, error: "Defect not found" }
+  }
+  if (!SUPPLIER_EDIT_STATUSES.includes(defect.status)) {
+    return { success: false as const, error: "This report is locked while awaiting customer review or after approval." }
   }
 
   const scalarData: Record<string, string> = {}
@@ -104,7 +166,15 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
       where: { id: defectId },
       data: { status: "IN_PROGRESS" },
     })
+    await logDefectEvent(defectId, "EIGHT_D_STARTED", session.user.id, {
+      previousStatus: defect.status,
+      nextStatus: "IN_PROGRESS",
+    })
   }
+
+  await logDefectEvent(defectId, "EIGHT_D_STEP_SAVED", session.user.id, {
+    keys: Object.keys(data),
+  })
 
   revalidatePath(`/supplier/defects/${defectId}/8d`)
 
@@ -113,7 +183,7 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
 
 export async function submitEightDReport(defectId: string) {
   const session = await auth()
-  if (!session || session.user.companyType !== "SUPPLIER") {
+  if (!canSubmitEightD(session)) {
     return { success: false as const, error: "Unauthorized" }
   }
 
@@ -124,14 +194,31 @@ export async function submitEightDReport(defectId: string) {
   if (!defect) {
     return { success: false as const, error: "Defect not found" }
   }
+  if (!SUPPLIER_EDIT_STATUSES.includes(defect.status)) {
+    return { success: false as const, error: "This report cannot be submitted in its current status." }
+  }
 
   if (!defect.eightDReport) {
     return { success: false as const, error: "No 8D report data found" }
   }
 
+  const missing = validateEightDReport(defect.eightDReport)
+  if (missing.length > 0) {
+    return {
+      success: false as const,
+      error: `Complete the following sections before submitting: ${missing.join(", ")}`,
+    }
+  }
+
+  const nextRevisionNo = defect.eightDReport.revisionNo + 1
+
   await prisma.eightDReport.update({
     where: { defectId },
-    data: { submittedAt: new Date() },
+    data: {
+      submittedAt: defect.eightDReport.submittedAt ?? new Date(),
+      lastSubmittedAt: new Date(),
+      revisionNo: nextRevisionNo,
+    },
   })
 
   const updatedDefect = await prisma.defect.update({
@@ -152,9 +239,55 @@ export async function submitEightDReport(defectId: string) {
     })
   }
 
+  await logDefectEvent(defectId, "EIGHT_D_SUBMITTED", session.user.id, {
+    previousStatus: defect.status,
+    nextStatus: "WAITING_APPROVAL",
+    revisionNo: nextRevisionNo,
+  })
+
   revalidatePath(`/supplier/defects/${defectId}/8d`)
   revalidatePath(`/supplier/defects/${defectId}`)
   revalidatePath("/supplier")
+
+  return { success: true as const }
+}
+
+export async function respondToReviewComment(commentId: string, response: string) {
+  const session = await auth()
+  if (!canSubmitEightD(session)) {
+    return { success: false as const, error: "Unauthorized" }
+  }
+
+  const trimmed = response.trim()
+  if (!trimmed) {
+    return { success: false as const, error: "Response is required" }
+  }
+
+  const comment = await prisma.reviewComment.findFirst({
+    where: {
+      id: commentId,
+      report: {
+        defect: { supplierId: session.user.companyId },
+      },
+    },
+    include: { report: { select: { defectId: true } } },
+  })
+  if (!comment) {
+    return { success: false as const, error: "Comment not found" }
+  }
+
+  await prisma.reviewComment.update({
+    where: { id: commentId },
+    data: { supplierResponse: trimmed },
+  })
+
+  await logDefectEvent(comment.report.defectId, "REVIEW_COMMENT_RESPONDED", session.user.id, {
+    commentId,
+    responseOnly: true,
+  })
+
+  revalidatePath(`/supplier/defects/${comment.report.defectId}/8d`)
+  revalidatePath(`/supplier/defects/${comment.report.defectId}`)
 
   return { success: true as const }
 }

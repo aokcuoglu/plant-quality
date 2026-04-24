@@ -7,7 +7,11 @@ import { revalidatePath } from "next/cache"
 
 export async function createDefect(formData: FormData): Promise<void> {
   const session = await auth()
-  if (!session || session.user.companyType !== "OEM") return
+  if (
+    !session ||
+    session.user.companyType !== "OEM" ||
+    !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
+  ) return
 
   const supplierId = formData.get("supplierId") as string
   const partNumber = formData.get("partNumber") as string
@@ -38,6 +42,19 @@ export async function createDefect(formData: FormData): Promise<void> {
       description,
       status: "OPEN",
       imageUrls,
+    },
+  })
+
+  await prisma.defectEvent.create({
+    data: {
+      defectId: defect.id,
+      type: "CREATED",
+      actorId: session.user.id,
+      metadata: {
+        supplierId,
+        partNumber,
+        imageCount: imageUrls.length,
+      },
     },
   })
 

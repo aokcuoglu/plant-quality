@@ -29,6 +29,10 @@ export type ReviewCommentMinAggregateOutputType = {
   reportId: string | null
   stepId: string | null
   comment: string | null
+  status: $Enums.ReviewCommentStatus | null
+  supplierResponse: string | null
+  resolvedAt: Date | null
+  resolvedById: string | null
   authorId: string | null
   createdAt: Date | null
 }
@@ -38,6 +42,10 @@ export type ReviewCommentMaxAggregateOutputType = {
   reportId: string | null
   stepId: string | null
   comment: string | null
+  status: $Enums.ReviewCommentStatus | null
+  supplierResponse: string | null
+  resolvedAt: Date | null
+  resolvedById: string | null
   authorId: string | null
   createdAt: Date | null
 }
@@ -47,6 +55,10 @@ export type ReviewCommentCountAggregateOutputType = {
   reportId: number
   stepId: number
   comment: number
+  status: number
+  supplierResponse: number
+  resolvedAt: number
+  resolvedById: number
   authorId: number
   createdAt: number
   _all: number
@@ -58,6 +70,10 @@ export type ReviewCommentMinAggregateInputType = {
   reportId?: true
   stepId?: true
   comment?: true
+  status?: true
+  supplierResponse?: true
+  resolvedAt?: true
+  resolvedById?: true
   authorId?: true
   createdAt?: true
 }
@@ -67,6 +83,10 @@ export type ReviewCommentMaxAggregateInputType = {
   reportId?: true
   stepId?: true
   comment?: true
+  status?: true
+  supplierResponse?: true
+  resolvedAt?: true
+  resolvedById?: true
   authorId?: true
   createdAt?: true
 }
@@ -76,6 +96,10 @@ export type ReviewCommentCountAggregateInputType = {
   reportId?: true
   stepId?: true
   comment?: true
+  status?: true
+  supplierResponse?: true
+  resolvedAt?: true
+  resolvedById?: true
   authorId?: true
   createdAt?: true
   _all?: true
@@ -158,6 +182,10 @@ export type ReviewCommentGroupByOutputType = {
   reportId: string
   stepId: string
   comment: string
+  status: $Enums.ReviewCommentStatus
+  supplierResponse: string | null
+  resolvedAt: Date | null
+  resolvedById: string | null
   authorId: string
   createdAt: Date
   _count: ReviewCommentCountAggregateOutputType | null
@@ -188,9 +216,14 @@ export type ReviewCommentWhereInput = {
   reportId?: Prisma.StringFilter<"ReviewComment"> | string
   stepId?: Prisma.StringFilter<"ReviewComment"> | string
   comment?: Prisma.StringFilter<"ReviewComment"> | string
+  status?: Prisma.EnumReviewCommentStatusFilter<"ReviewComment"> | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.StringNullableFilter<"ReviewComment"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"ReviewComment"> | Date | string | null
+  resolvedById?: Prisma.StringNullableFilter<"ReviewComment"> | string | null
   authorId?: Prisma.StringFilter<"ReviewComment"> | string
   createdAt?: Prisma.DateTimeFilter<"ReviewComment"> | Date | string
   report?: Prisma.XOR<Prisma.EightDReportScalarRelationFilter, Prisma.EightDReportWhereInput>
+  resolvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -199,9 +232,14 @@ export type ReviewCommentOrderByWithRelationInput = {
   reportId?: Prisma.SortOrder
   stepId?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  supplierResponse?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedById?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   report?: Prisma.EightDReportOrderByWithRelationInput
+  resolvedBy?: Prisma.UserOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -213,9 +251,14 @@ export type ReviewCommentWhereUniqueInput = Prisma.AtLeast<{
   reportId?: Prisma.StringFilter<"ReviewComment"> | string
   stepId?: Prisma.StringFilter<"ReviewComment"> | string
   comment?: Prisma.StringFilter<"ReviewComment"> | string
+  status?: Prisma.EnumReviewCommentStatusFilter<"ReviewComment"> | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.StringNullableFilter<"ReviewComment"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"ReviewComment"> | Date | string | null
+  resolvedById?: Prisma.StringNullableFilter<"ReviewComment"> | string | null
   authorId?: Prisma.StringFilter<"ReviewComment"> | string
   createdAt?: Prisma.DateTimeFilter<"ReviewComment"> | Date | string
   report?: Prisma.XOR<Prisma.EightDReportScalarRelationFilter, Prisma.EightDReportWhereInput>
+  resolvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -224,6 +267,10 @@ export type ReviewCommentOrderByWithAggregationInput = {
   reportId?: Prisma.SortOrder
   stepId?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  supplierResponse?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  resolvedById?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ReviewCommentCountOrderByAggregateInput
@@ -239,6 +286,10 @@ export type ReviewCommentScalarWhereWithAggregatesInput = {
   reportId?: Prisma.StringWithAggregatesFilter<"ReviewComment"> | string
   stepId?: Prisma.StringWithAggregatesFilter<"ReviewComment"> | string
   comment?: Prisma.StringWithAggregatesFilter<"ReviewComment"> | string
+  status?: Prisma.EnumReviewCommentStatusWithAggregatesFilter<"ReviewComment"> | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.StringNullableWithAggregatesFilter<"ReviewComment"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ReviewComment"> | Date | string | null
+  resolvedById?: Prisma.StringNullableWithAggregatesFilter<"ReviewComment"> | string | null
   authorId?: Prisma.StringWithAggregatesFilter<"ReviewComment"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ReviewComment"> | Date | string
 }
@@ -247,8 +298,12 @@ export type ReviewCommentCreateInput = {
   id?: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
   createdAt?: Date | string
   report: Prisma.EightDReportCreateNestedOneWithoutReviewCommentsInput
+  resolvedBy?: Prisma.UserCreateNestedOneWithoutResolvedReviewCommentsInput
   author: Prisma.UserCreateNestedOneWithoutReviewCommentsInput
 }
 
@@ -257,6 +312,10 @@ export type ReviewCommentUncheckedCreateInput = {
   reportId: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  resolvedById?: string | null
   authorId: string
   createdAt?: Date | string
 }
@@ -265,8 +324,12 @@ export type ReviewCommentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   report?: Prisma.EightDReportUpdateOneRequiredWithoutReviewCommentsNestedInput
+  resolvedBy?: Prisma.UserUpdateOneWithoutResolvedReviewCommentsNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutReviewCommentsNestedInput
 }
 
@@ -275,6 +338,10 @@ export type ReviewCommentUncheckedUpdateInput = {
   reportId?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -284,6 +351,10 @@ export type ReviewCommentCreateManyInput = {
   reportId: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  resolvedById?: string | null
   authorId: string
   createdAt?: Date | string
 }
@@ -292,6 +363,9 @@ export type ReviewCommentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -300,6 +374,10 @@ export type ReviewCommentUncheckedUpdateManyInput = {
   reportId?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -319,6 +397,10 @@ export type ReviewCommentCountOrderByAggregateInput = {
   reportId?: Prisma.SortOrder
   stepId?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  supplierResponse?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  resolvedById?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -328,6 +410,10 @@ export type ReviewCommentMaxOrderByAggregateInput = {
   reportId?: Prisma.SortOrder
   stepId?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  supplierResponse?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  resolvedById?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -337,6 +423,10 @@ export type ReviewCommentMinOrderByAggregateInput = {
   reportId?: Prisma.SortOrder
   stepId?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  supplierResponse?: Prisma.SortOrder
+  resolvedAt?: Prisma.SortOrder
+  resolvedById?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -348,10 +438,24 @@ export type ReviewCommentCreateNestedManyWithoutAuthorInput = {
   connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
 }
 
+export type ReviewCommentCreateNestedManyWithoutResolvedByInput = {
+  create?: Prisma.XOR<Prisma.ReviewCommentCreateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput> | Prisma.ReviewCommentCreateWithoutResolvedByInput[] | Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput[]
+  connectOrCreate?: Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput | Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput[]
+  createMany?: Prisma.ReviewCommentCreateManyResolvedByInputEnvelope
+  connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+}
+
 export type ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput = {
   create?: Prisma.XOR<Prisma.ReviewCommentCreateWithoutAuthorInput, Prisma.ReviewCommentUncheckedCreateWithoutAuthorInput> | Prisma.ReviewCommentCreateWithoutAuthorInput[] | Prisma.ReviewCommentUncheckedCreateWithoutAuthorInput[]
   connectOrCreate?: Prisma.ReviewCommentCreateOrConnectWithoutAuthorInput | Prisma.ReviewCommentCreateOrConnectWithoutAuthorInput[]
   createMany?: Prisma.ReviewCommentCreateManyAuthorInputEnvelope
+  connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+}
+
+export type ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput = {
+  create?: Prisma.XOR<Prisma.ReviewCommentCreateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput> | Prisma.ReviewCommentCreateWithoutResolvedByInput[] | Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput[]
+  connectOrCreate?: Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput | Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput[]
+  createMany?: Prisma.ReviewCommentCreateManyResolvedByInputEnvelope
   connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
 }
 
@@ -369,6 +473,20 @@ export type ReviewCommentUpdateManyWithoutAuthorNestedInput = {
   deleteMany?: Prisma.ReviewCommentScalarWhereInput | Prisma.ReviewCommentScalarWhereInput[]
 }
 
+export type ReviewCommentUpdateManyWithoutResolvedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCommentCreateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput> | Prisma.ReviewCommentCreateWithoutResolvedByInput[] | Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput[]
+  connectOrCreate?: Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput | Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput[]
+  upsert?: Prisma.ReviewCommentUpsertWithWhereUniqueWithoutResolvedByInput | Prisma.ReviewCommentUpsertWithWhereUniqueWithoutResolvedByInput[]
+  createMany?: Prisma.ReviewCommentCreateManyResolvedByInputEnvelope
+  set?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  disconnect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  delete?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  update?: Prisma.ReviewCommentUpdateWithWhereUniqueWithoutResolvedByInput | Prisma.ReviewCommentUpdateWithWhereUniqueWithoutResolvedByInput[]
+  updateMany?: Prisma.ReviewCommentUpdateManyWithWhereWithoutResolvedByInput | Prisma.ReviewCommentUpdateManyWithWhereWithoutResolvedByInput[]
+  deleteMany?: Prisma.ReviewCommentScalarWhereInput | Prisma.ReviewCommentScalarWhereInput[]
+}
+
 export type ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput = {
   create?: Prisma.XOR<Prisma.ReviewCommentCreateWithoutAuthorInput, Prisma.ReviewCommentUncheckedCreateWithoutAuthorInput> | Prisma.ReviewCommentCreateWithoutAuthorInput[] | Prisma.ReviewCommentUncheckedCreateWithoutAuthorInput[]
   connectOrCreate?: Prisma.ReviewCommentCreateOrConnectWithoutAuthorInput | Prisma.ReviewCommentCreateOrConnectWithoutAuthorInput[]
@@ -380,6 +498,20 @@ export type ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput = {
   connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
   update?: Prisma.ReviewCommentUpdateWithWhereUniqueWithoutAuthorInput | Prisma.ReviewCommentUpdateWithWhereUniqueWithoutAuthorInput[]
   updateMany?: Prisma.ReviewCommentUpdateManyWithWhereWithoutAuthorInput | Prisma.ReviewCommentUpdateManyWithWhereWithoutAuthorInput[]
+  deleteMany?: Prisma.ReviewCommentScalarWhereInput | Prisma.ReviewCommentScalarWhereInput[]
+}
+
+export type ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCommentCreateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput> | Prisma.ReviewCommentCreateWithoutResolvedByInput[] | Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput[]
+  connectOrCreate?: Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput | Prisma.ReviewCommentCreateOrConnectWithoutResolvedByInput[]
+  upsert?: Prisma.ReviewCommentUpsertWithWhereUniqueWithoutResolvedByInput | Prisma.ReviewCommentUpsertWithWhereUniqueWithoutResolvedByInput[]
+  createMany?: Prisma.ReviewCommentCreateManyResolvedByInputEnvelope
+  set?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  disconnect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  delete?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  connect?: Prisma.ReviewCommentWhereUniqueInput | Prisma.ReviewCommentWhereUniqueInput[]
+  update?: Prisma.ReviewCommentUpdateWithWhereUniqueWithoutResolvedByInput | Prisma.ReviewCommentUpdateWithWhereUniqueWithoutResolvedByInput[]
+  updateMany?: Prisma.ReviewCommentUpdateManyWithWhereWithoutResolvedByInput | Prisma.ReviewCommentUpdateManyWithWhereWithoutResolvedByInput[]
   deleteMany?: Prisma.ReviewCommentScalarWhereInput | Prisma.ReviewCommentScalarWhereInput[]
 }
 
@@ -425,12 +557,20 @@ export type ReviewCommentUncheckedUpdateManyWithoutReportNestedInput = {
   deleteMany?: Prisma.ReviewCommentScalarWhereInput | Prisma.ReviewCommentScalarWhereInput[]
 }
 
+export type EnumReviewCommentStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ReviewCommentStatus
+}
+
 export type ReviewCommentCreateWithoutAuthorInput = {
   id?: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
   createdAt?: Date | string
   report: Prisma.EightDReportCreateNestedOneWithoutReviewCommentsInput
+  resolvedBy?: Prisma.UserCreateNestedOneWithoutResolvedReviewCommentsInput
 }
 
 export type ReviewCommentUncheckedCreateWithoutAuthorInput = {
@@ -438,6 +578,10 @@ export type ReviewCommentUncheckedCreateWithoutAuthorInput = {
   reportId: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  resolvedById?: string | null
   createdAt?: Date | string
 }
 
@@ -448,6 +592,40 @@ export type ReviewCommentCreateOrConnectWithoutAuthorInput = {
 
 export type ReviewCommentCreateManyAuthorInputEnvelope = {
   data: Prisma.ReviewCommentCreateManyAuthorInput | Prisma.ReviewCommentCreateManyAuthorInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReviewCommentCreateWithoutResolvedByInput = {
+  id?: string
+  stepId: string
+  comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  createdAt?: Date | string
+  report: Prisma.EightDReportCreateNestedOneWithoutReviewCommentsInput
+  author: Prisma.UserCreateNestedOneWithoutReviewCommentsInput
+}
+
+export type ReviewCommentUncheckedCreateWithoutResolvedByInput = {
+  id?: string
+  reportId: string
+  stepId: string
+  comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  authorId: string
+  createdAt?: Date | string
+}
+
+export type ReviewCommentCreateOrConnectWithoutResolvedByInput = {
+  where: Prisma.ReviewCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReviewCommentCreateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput>
+}
+
+export type ReviewCommentCreateManyResolvedByInputEnvelope = {
+  data: Prisma.ReviewCommentCreateManyResolvedByInput | Prisma.ReviewCommentCreateManyResolvedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -475,15 +653,39 @@ export type ReviewCommentScalarWhereInput = {
   reportId?: Prisma.StringFilter<"ReviewComment"> | string
   stepId?: Prisma.StringFilter<"ReviewComment"> | string
   comment?: Prisma.StringFilter<"ReviewComment"> | string
+  status?: Prisma.EnumReviewCommentStatusFilter<"ReviewComment"> | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.StringNullableFilter<"ReviewComment"> | string | null
+  resolvedAt?: Prisma.DateTimeNullableFilter<"ReviewComment"> | Date | string | null
+  resolvedById?: Prisma.StringNullableFilter<"ReviewComment"> | string | null
   authorId?: Prisma.StringFilter<"ReviewComment"> | string
   createdAt?: Prisma.DateTimeFilter<"ReviewComment"> | Date | string
+}
+
+export type ReviewCommentUpsertWithWhereUniqueWithoutResolvedByInput = {
+  where: Prisma.ReviewCommentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReviewCommentUpdateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedUpdateWithoutResolvedByInput>
+  create: Prisma.XOR<Prisma.ReviewCommentCreateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedCreateWithoutResolvedByInput>
+}
+
+export type ReviewCommentUpdateWithWhereUniqueWithoutResolvedByInput = {
+  where: Prisma.ReviewCommentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReviewCommentUpdateWithoutResolvedByInput, Prisma.ReviewCommentUncheckedUpdateWithoutResolvedByInput>
+}
+
+export type ReviewCommentUpdateManyWithWhereWithoutResolvedByInput = {
+  where: Prisma.ReviewCommentScalarWhereInput
+  data: Prisma.XOR<Prisma.ReviewCommentUpdateManyMutationInput, Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByInput>
 }
 
 export type ReviewCommentCreateWithoutReportInput = {
   id?: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
   createdAt?: Date | string
+  resolvedBy?: Prisma.UserCreateNestedOneWithoutResolvedReviewCommentsInput
   author: Prisma.UserCreateNestedOneWithoutReviewCommentsInput
 }
 
@@ -491,6 +693,10 @@ export type ReviewCommentUncheckedCreateWithoutReportInput = {
   id?: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  resolvedById?: string | null
   authorId: string
   createdAt?: Date | string
 }
@@ -526,6 +732,22 @@ export type ReviewCommentCreateManyAuthorInput = {
   reportId: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  resolvedById?: string | null
+  createdAt?: Date | string
+}
+
+export type ReviewCommentCreateManyResolvedByInput = {
+  id?: string
+  reportId: string
+  stepId: string
+  comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  authorId: string
   createdAt?: Date | string
 }
 
@@ -533,8 +755,12 @@ export type ReviewCommentUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   report?: Prisma.EightDReportUpdateOneRequiredWithoutReviewCommentsNestedInput
+  resolvedBy?: Prisma.UserUpdateOneWithoutResolvedReviewCommentsNestedInput
 }
 
 export type ReviewCommentUncheckedUpdateWithoutAuthorInput = {
@@ -542,6 +768,10 @@ export type ReviewCommentUncheckedUpdateWithoutAuthorInput = {
   reportId?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -550,6 +780,46 @@ export type ReviewCommentUncheckedUpdateManyWithoutAuthorInput = {
   reportId?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReviewCommentUpdateWithoutResolvedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  stepId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  report?: Prisma.EightDReportUpdateOneRequiredWithoutReviewCommentsNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutReviewCommentsNestedInput
+}
+
+export type ReviewCommentUncheckedUpdateWithoutResolvedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reportId?: Prisma.StringFieldUpdateOperationsInput | string
+  stepId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReviewCommentUncheckedUpdateManyWithoutResolvedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reportId?: Prisma.StringFieldUpdateOperationsInput | string
+  stepId?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -557,6 +827,10 @@ export type ReviewCommentCreateManyReportInput = {
   id?: string
   stepId: string
   comment: string
+  status?: $Enums.ReviewCommentStatus
+  supplierResponse?: string | null
+  resolvedAt?: Date | string | null
+  resolvedById?: string | null
   authorId: string
   createdAt?: Date | string
 }
@@ -565,7 +839,11 @@ export type ReviewCommentUpdateWithoutReportInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedBy?: Prisma.UserUpdateOneWithoutResolvedReviewCommentsNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutReviewCommentsNestedInput
 }
 
@@ -573,6 +851,10 @@ export type ReviewCommentUncheckedUpdateWithoutReportInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -581,6 +863,10 @@ export type ReviewCommentUncheckedUpdateManyWithoutReportInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   stepId?: Prisma.StringFieldUpdateOperationsInput | string
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReviewCommentStatusFieldUpdateOperationsInput | $Enums.ReviewCommentStatus
+  supplierResponse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -592,9 +878,14 @@ export type ReviewCommentSelect<ExtArgs extends runtime.Types.Extensions.Interna
   reportId?: boolean
   stepId?: boolean
   comment?: boolean
+  status?: boolean
+  supplierResponse?: boolean
+  resolvedAt?: boolean
+  resolvedById?: boolean
   authorId?: boolean
   createdAt?: boolean
   report?: boolean | Prisma.EightDReportDefaultArgs<ExtArgs>
+  resolvedBy?: boolean | Prisma.ReviewComment$resolvedByArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewComment"]>
 
@@ -603,9 +894,14 @@ export type ReviewCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   reportId?: boolean
   stepId?: boolean
   comment?: boolean
+  status?: boolean
+  supplierResponse?: boolean
+  resolvedAt?: boolean
+  resolvedById?: boolean
   authorId?: boolean
   createdAt?: boolean
   report?: boolean | Prisma.EightDReportDefaultArgs<ExtArgs>
+  resolvedBy?: boolean | Prisma.ReviewComment$resolvedByArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewComment"]>
 
@@ -614,9 +910,14 @@ export type ReviewCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   reportId?: boolean
   stepId?: boolean
   comment?: boolean
+  status?: boolean
+  supplierResponse?: boolean
+  resolvedAt?: boolean
+  resolvedById?: boolean
   authorId?: boolean
   createdAt?: boolean
   report?: boolean | Prisma.EightDReportDefaultArgs<ExtArgs>
+  resolvedBy?: boolean | Prisma.ReviewComment$resolvedByArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewComment"]>
 
@@ -625,21 +926,28 @@ export type ReviewCommentSelectScalar = {
   reportId?: boolean
   stepId?: boolean
   comment?: boolean
+  status?: boolean
+  supplierResponse?: boolean
+  resolvedAt?: boolean
+  resolvedById?: boolean
   authorId?: boolean
   createdAt?: boolean
 }
 
-export type ReviewCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reportId" | "stepId" | "comment" | "authorId" | "createdAt", ExtArgs["result"]["reviewComment"]>
+export type ReviewCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reportId" | "stepId" | "comment" | "status" | "supplierResponse" | "resolvedAt" | "resolvedById" | "authorId" | "createdAt", ExtArgs["result"]["reviewComment"]>
 export type ReviewCommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   report?: boolean | Prisma.EightDReportDefaultArgs<ExtArgs>
+  resolvedBy?: boolean | Prisma.ReviewComment$resolvedByArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ReviewCommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   report?: boolean | Prisma.EightDReportDefaultArgs<ExtArgs>
+  resolvedBy?: boolean | Prisma.ReviewComment$resolvedByArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ReviewCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   report?: boolean | Prisma.EightDReportDefaultArgs<ExtArgs>
+  resolvedBy?: boolean | Prisma.ReviewComment$resolvedByArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -647,6 +955,7 @@ export type $ReviewCommentPayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "ReviewComment"
   objects: {
     report: Prisma.$EightDReportPayload<ExtArgs>
+    resolvedBy: Prisma.$UserPayload<ExtArgs> | null
     author: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -654,6 +963,10 @@ export type $ReviewCommentPayload<ExtArgs extends runtime.Types.Extensions.Inter
     reportId: string
     stepId: string
     comment: string
+    status: $Enums.ReviewCommentStatus
+    supplierResponse: string | null
+    resolvedAt: Date | null
+    resolvedById: string | null
     authorId: string
     createdAt: Date
   }, ExtArgs["result"]["reviewComment"]>
@@ -1051,6 +1364,7 @@ readonly fields: ReviewCommentFieldRefs;
 export interface Prisma__ReviewCommentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   report<T extends Prisma.EightDReportDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EightDReportDefaultArgs<ExtArgs>>): Prisma.Prisma__EightDReportClient<runtime.Types.Result.GetResult<Prisma.$EightDReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  resolvedBy<T extends Prisma.ReviewComment$resolvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReviewComment$resolvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1085,6 +1399,10 @@ export interface ReviewCommentFieldRefs {
   readonly reportId: Prisma.FieldRef<"ReviewComment", 'String'>
   readonly stepId: Prisma.FieldRef<"ReviewComment", 'String'>
   readonly comment: Prisma.FieldRef<"ReviewComment", 'String'>
+  readonly status: Prisma.FieldRef<"ReviewComment", 'ReviewCommentStatus'>
+  readonly supplierResponse: Prisma.FieldRef<"ReviewComment", 'String'>
+  readonly resolvedAt: Prisma.FieldRef<"ReviewComment", 'DateTime'>
+  readonly resolvedById: Prisma.FieldRef<"ReviewComment", 'String'>
   readonly authorId: Prisma.FieldRef<"ReviewComment", 'String'>
   readonly createdAt: Prisma.FieldRef<"ReviewComment", 'DateTime'>
 }
@@ -1485,6 +1803,25 @@ export type ReviewCommentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many ReviewComments to delete.
    */
   limit?: number
+}
+
+/**
+ * ReviewComment.resolvedBy
+ */
+export type ReviewComment$resolvedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

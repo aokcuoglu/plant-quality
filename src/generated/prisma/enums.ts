@@ -43,6 +43,30 @@ export const NotificationType = {
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
 
 
+export const ReviewCommentStatus = {
+  OPEN: 'OPEN',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type ReviewCommentStatus = (typeof ReviewCommentStatus)[keyof typeof ReviewCommentStatus]
+
+
+export const DefectEventType = {
+  CREATED: 'CREATED',
+  EIGHT_D_STARTED: 'EIGHT_D_STARTED',
+  EIGHT_D_STEP_SAVED: 'EIGHT_D_STEP_SAVED',
+  EIGHT_D_SUBMITTED: 'EIGHT_D_SUBMITTED',
+  REVIEW_COMMENT_ADDED: 'REVIEW_COMMENT_ADDED',
+  REVIEW_COMMENT_RESPONDED: 'REVIEW_COMMENT_RESPONDED',
+  REVIEW_COMMENT_RESOLVED: 'REVIEW_COMMENT_RESOLVED',
+  REVIEW_COMMENT_REOPENED: 'REVIEW_COMMENT_REOPENED',
+  REVISION_REQUESTED: 'REVISION_REQUESTED',
+  APPROVED: 'APPROVED'
+} as const
+
+export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]
+
+
 export const DefectStatus = {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',

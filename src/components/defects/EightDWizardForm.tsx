@@ -25,7 +25,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { toast } from "@/components/ui/use-toast"
-import { saveEightDStep, submitEightDReport } from "@/app/(dashboard)/supplier/defects/actions/8d"
+import { respondToReviewComment, saveEightDStep, submitEightDReport } from "@/app/(dashboard)/supplier/defects/actions/8d"
 import { UserSearchSelect } from "@/components/defects/UserSearchSelect"
 import { DatePicker } from "@/components/defects/DatePicker"
 import {
@@ -51,6 +51,9 @@ interface ReviewComment {
   id: string
   stepId: string
   comment: string
+  status: "OPEN" | "RESOLVED"
+  supplierResponse: string | null
+  resolvedAt: Date | null
   author: { name: string | null }
   createdAt: Date
 }
@@ -140,8 +143,8 @@ const STEP_TO_D_KEYS: Record<number, string[]> = {
   0: ["d1_team", "d2_problem"],
   1: ["d3_containment"],
   2: ["d4_rootCause"],
-  3: ["d5_d6_action"],
-  4: ["d7_preventive"],
+  3: ["d5_actions", "d6_actions", "d5_d6_action"],
+  4: ["d7_impacts", "d7_preventive"],
   5: ["d8_recognition"],
 }
 
@@ -201,6 +204,7 @@ export function EightDWizardForm({
   const [analyzing, setAnalyzing] = useState<string | null>(null)
   const [suggesting, setSuggesting] = useState<string | null>(null)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [commentResponses, setCommentResponses] = useState<Record<string, string>>({})
   const isPro = userPlan === "PRO"
 
   const [d2Problem, setD2Problem] = useState(initialData.d2_problem ?? "")
@@ -318,9 +322,25 @@ export function EightDWizardForm({
       if (result.success) {
         setSuccess(true)
         setTimeout(() => router.push("/supplier/defects"), 2500)
+      } else {
+        toast({ title: "Submit blocked", description: result.error, type: "destructive" })
       }
     })
   }, [defectId, startSubmit, router, saveCurrentStep])
+
+  const handleCommentResponse = useCallback((commentId: string) => {
+    const response = commentResponses[commentId]?.trim()
+    if (!response) return
+    startSave(async () => {
+      const result = await respondToReviewComment(commentId, response)
+      if (result.success) {
+        setCommentResponses((prev) => ({ ...prev, [commentId]: "" }))
+        showSaved("Response saved")
+      } else {
+        toast({ title: "Response failed", description: result.error, type: "destructive" })
+      }
+    })
+  }, [commentResponses, showSaved, startSave])
 
   const handleSuggest = useCallback(async (fieldName: string, contextText?: string) => {
     if (userPlan !== "PRO") {
@@ -462,8 +482,41 @@ export function EightDWizardForm({
           </div>
           {currentComments.map((c) => (
             <div key={c.id} className="rounded-md bg-white/50 p-2 text-xs dark:bg-black/10">
-              <div className="mb-0.5 font-medium text-foreground">{c.author.name ?? "Customer"}</div>
+              <div className="mb-0.5 flex items-center justify-between gap-2">
+                <span className="font-medium text-foreground">{c.author.name ?? "Customer"}</span>
+                <span className={cn(
+                  "rounded-full px-2 py-0.5 text-[10px] font-medium",
+                  c.status === "OPEN"
+                    ? "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-300"
+                    : "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300",
+                )}>
+                  {c.status === "OPEN" ? "Open" : "Resolved"}
+                </span>
+              </div>
               <p className="text-muted-foreground">{c.comment}</p>
+              {c.supplierResponse ? (
+                <div className="mt-2 rounded-md bg-muted/60 p-2">
+                  <span className="font-medium text-foreground">Your response: </span>
+                  <span className="text-muted-foreground">{c.supplierResponse}</span>
+                </div>
+              ) : c.status === "OPEN" ? (
+                <div className="mt-2 flex gap-2">
+                  <input
+                    value={commentResponses[c.id] ?? ""}
+                    onChange={(e) => setCommentResponses((prev) => ({ ...prev, [c.id]: e.target.value }))}
+                    placeholder="Respond to this review comment..."
+                    className="min-w-0 flex-1 rounded-md border border-input bg-background px-2 py-1 text-xs"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleCommentResponse(c.id)}
+                    disabled={saving || !commentResponses[c.id]?.trim()}
+                    className="rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground disabled:opacity-50"
+                  >
+                    Reply
+                  </button>
+                </div>
+              ) : null}
             </div>
           ))}
         </div>

@@ -29,6 +29,24 @@ enum NotificationType {
   NEW_DEFECT
 }
 
+enum ReviewCommentStatus {
+  OPEN
+  RESOLVED
+}
+
+enum DefectEventType {
+  CREATED
+  EIGHT_D_STARTED
+  EIGHT_D_STEP_SAVED
+  EIGHT_D_SUBMITTED
+  REVIEW_COMMENT_ADDED
+  REVIEW_COMMENT_RESPONDED
+  REVIEW_COMMENT_RESOLVED
+  REVIEW_COMMENT_REOPENED
+  REVISION_REQUESTED
+  APPROVED
+}
+
 enum DefectStatus {
   OPEN
   IN_PROGRESS
@@ -63,6 +81,10 @@ model User {
   accounts       Account[]
   sessions       Session[]
   reviewComments ReviewComment[]
+  resolvedReviewComments ReviewComment[] @relation("ReviewCommentResolvedBy")
+  approvedReports EightDReport[] @relation("EightDApprovedBy")
+  rejectedReports EightDReport[] @relation("EightDRejectedBy")
+  defectEvents    DefectEvent[]  @relation("DefectEventActor")
   notifications  Notification[]
   createdAt      DateTime        @default(now())
 
@@ -119,6 +141,7 @@ model Defect {
   status       DefectStatus  @default(OPEN)
   imageUrls    String[]
   eightDReport EightDReport?
+  events       DefectEvent[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   resolvedAt   DateTime?
@@ -135,6 +158,15 @@ model EightDReport {
   d5_d6_action   String?
   d8_recognition String?
   submittedAt    DateTime?
+  lastSubmittedAt DateTime?       @map("last_submitted_at")
+  lastReviewedAt  DateTime?       @map("last_reviewed_at")
+  approvedAt      DateTime?       @map("approved_at")
+  approvedById    String?         @map("approved_by_id")
+  approvedBy      User?           @relation("EightDApprovedBy", fields: [approvedById], references: [id])
+  rejectedAt      DateTime?       @map("rejected_at")
+  rejectedById    String?         @map("rejected_by_id")
+  rejectedBy      User?           @relation("EightDRejectedBy", fields: [rejectedById], references: [id])
+  revisionNo      Int             @default(0) @map("revision_no")
   updatedAt      DateTime        @updatedAt
   reviewComments ReviewComment[]
 
@@ -155,11 +187,30 @@ model ReviewComment {
   report    EightDReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
   stepId    String       @map("step_id")
   comment   String
+  status    ReviewCommentStatus @default(OPEN)
+  supplierResponse String?      @map("supplier_response")
+  resolvedAt DateTime?          @map("resolved_at")
+  resolvedById String?          @map("resolved_by_id")
+  resolvedBy User?              @relation("ReviewCommentResolvedBy", fields: [resolvedById], references: [id])
   authorId  String       @map("author_id")
   author    User         @relation(fields: [authorId], references: [id])
   createdAt DateTime     @default(now()) @map("created_at")
 
   @@map("review_comments")
+}
+
+model DefectEvent {
+  id        String          @id @default(uuid())
+  defectId  String          @map("defect_id")
+  defect    Defect          @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?         @map("actor_id")
+  actor     User?           @relation("DefectEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  @@index([defectId, createdAt])
+  @@map("defect_events")
 }
 
 model Waitlist {

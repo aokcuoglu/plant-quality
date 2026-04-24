@@ -37,6 +37,8 @@ import {
   addReviewComment,
   approveReport,
   rejectReport,
+  reopenReviewComment,
+  resolveReviewComment,
 } from "@/app/(dashboard)/oem/defects/actions/review"
 
 type DefectStatus = "OPEN" | "IN_PROGRESS" | "WAITING_APPROVAL" | "RESOLVED" | "REJECTED"
@@ -46,6 +48,9 @@ interface ReviewComment {
   id: string
   stepId: string
   comment: string
+  status: "OPEN" | "RESOLVED"
+  supplierResponse: string | null
+  resolvedAt: Date | null
   author: { name: string | null }
   createdAt: Date
 }
@@ -142,6 +147,18 @@ function CommentModal({
     })
   }
 
+  const handleResolve = (commentId: string) => {
+    startTransition(async () => {
+      await resolveReviewComment(commentId)
+    })
+  }
+
+  const handleReopen = (commentId: string) => {
+    startTransition(async () => {
+      await reopenReviewComment(commentId)
+    })
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
@@ -184,10 +201,47 @@ function CommentModal({
           ) : (
             section.comments.map((c) => (
               <div key={c.id} className="rounded-lg border bg-card p-3">
-                <div className="mb-1 text-xs font-medium text-foreground">
-                  {c.author.name ?? "OEM"}
+                <div className="mb-1 flex items-center justify-between gap-2">
+                  <div className="text-xs font-medium text-foreground">
+                    {c.author.name ?? "OEM"}
+                  </div>
+                  <span className={cn(
+                    "rounded-full px-2 py-0.5 text-[10px] font-medium",
+                    c.status === "OPEN"
+                      ? "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-300"
+                      : "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300",
+                  )}>
+                    {c.status === "OPEN" ? "Open" : "Resolved"}
+                  </span>
                 </div>
                 <p className="text-xs text-muted-foreground">{c.comment}</p>
+                {c.supplierResponse && (
+                  <div className="mt-2 rounded-md bg-muted/60 p-2 text-xs">
+                    <span className="font-medium text-foreground">Supplier response: </span>
+                    <span className="text-muted-foreground">{c.supplierResponse}</span>
+                  </div>
+                )}
+                <div className="mt-2 flex justify-end">
+                  {c.status === "OPEN" ? (
+                    <button
+                      type="button"
+                      onClick={() => handleResolve(c.id)}
+                      disabled={pending}
+                      className="text-xs font-medium text-green-700 hover:underline disabled:opacity-50"
+                    >
+                      Mark resolved
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleReopen(c.id)}
+                      disabled={pending}
+                      className="text-xs font-medium text-amber-700 hover:underline disabled:opacity-50"
+                    >
+                      Reopen
+                    </button>
+                  )}
+                </div>
               </div>
             ))
           )}
@@ -275,7 +329,7 @@ function SupplierReportView({ defect }: { defect: DefectDetail }) {
               <span className="text-xs font-medium text-muted-foreground">{section.label}</span>
               {section.comments.length > 0 && (
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-[10px] font-medium text-amber-600 dark:bg-amber-900/40 dark:text-amber-400">
-                  {section.comments.length}
+                {section.comments.filter((c) => c.status === "OPEN").length || section.comments.length}
                 </span>
               )}
             </div>
@@ -289,11 +343,18 @@ function SupplierReportView({ defect }: { defect: DefectDetail }) {
             {section.comments.length > 0 && (
               <div className="mt-2 space-y-1 border-t pt-2">
                 {section.comments.map((c) => (
-                  <div key={c.id} className="flex gap-2 rounded-md bg-muted/50 p-2 text-xs">
-                    <span className="shrink-0 font-medium text-foreground">
-                      {c.author.name ?? "OEM"}:
-                    </span>
-                    <span className="text-muted-foreground">{c.comment}</span>
+                  <div key={c.id} className="rounded-md bg-muted/50 p-2 text-xs">
+                    <div className="flex gap-2">
+                      <span className="shrink-0 font-medium text-foreground">
+                        {c.author.name ?? "OEM"}:
+                      </span>
+                      <span className="text-muted-foreground">{c.comment}</span>
+                    </div>
+                    {c.supplierResponse && (
+                      <div className="mt-1 text-muted-foreground">
+                        <span className="font-medium text-foreground">Response:</span> {c.supplierResponse}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -340,7 +401,7 @@ function OemReviewPanel({
               key={section.stepId}
               className={cn(
                 "rounded-lg border p-3",
-                section.comments.length > 0 && "border-red-200 bg-red-50/30 dark:border-red-900 dark:bg-red-950/10",
+                section.comments.some((c) => c.status === "OPEN") && "border-red-200 bg-red-50/30 dark:border-red-900 dark:bg-red-950/10",
                 !section.content && !section.rows?.length && "opacity-50",
               )}
             >
@@ -360,11 +421,18 @@ function OemReviewPanel({
               {section.comments.length > 0 && defect.status !== "WAITING_APPROVAL" && (
                 <div className="mt-2 space-y-1 border-t pt-2">
                   {section.comments.map((c) => (
-                    <div key={c.id} className="flex gap-2 text-xs">
-                      <span className="shrink-0 font-medium text-foreground">
-                        {c.author.name ?? "OEM"}:
-                      </span>
-                      <span className="text-muted-foreground">{c.comment}</span>
+                    <div key={c.id} className="text-xs">
+                      <div className="flex gap-2">
+                        <span className="shrink-0 font-medium text-foreground">
+                          {c.author.name ?? "OEM"}:
+                        </span>
+                        <span className="text-muted-foreground">{c.comment}</span>
+                      </div>
+                      {c.supplierResponse && (
+                        <div className="mt-1 pl-2 text-muted-foreground">
+                          <span className="font-medium text-foreground">Supplier response:</span> {c.supplierResponse}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

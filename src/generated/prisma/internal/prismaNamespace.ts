@@ -1338,6 +1338,13 @@ export const DefectScalarFieldEnum = {
   description: 'description',
   status: 'status',
   imageUrls: 'imageUrls',
+  oemOwnerId: 'oemOwnerId',
+  supplierAssigneeId: 'supplierAssigneeId',
+  supplierResponseDueAt: 'supplierResponseDueAt',
+  eightDSubmissionDueAt: 'eightDSubmissionDueAt',
+  oemReviewDueAt: 'oemReviewDueAt',
+  revisionDueAt: 'revisionDueAt',
+  currentActionOwner: 'currentActionOwner',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'
@@ -1566,6 +1573,20 @@ export type EnumDefectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'DefectStatus[]'
  */
 export type ListEnumDefectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DefectStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ActionOwner'
+ */
+export type EnumActionOwnerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActionOwner'>
+    
+
+
+/**
+ * Reference to a field of type 'ActionOwner[]'
+ */
+export type ListEnumActionOwnerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActionOwner[]'>
     
 
 

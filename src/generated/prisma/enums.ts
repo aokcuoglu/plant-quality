@@ -61,7 +61,10 @@ export const DefectEventType = {
   REVIEW_COMMENT_RESOLVED: 'REVIEW_COMMENT_RESOLVED',
   REVIEW_COMMENT_REOPENED: 'REVIEW_COMMENT_REOPENED',
   REVISION_REQUESTED: 'REVISION_REQUESTED',
-  APPROVED: 'APPROVED'
+  APPROVED: 'APPROVED',
+  OWNER_CHANGED: 'OWNER_CHANGED',
+  SUPPLIER_ASSIGNEE_CHANGED: 'SUPPLIER_ASSIGNEE_CHANGED',
+  DUE_DATE_CHANGED: 'DUE_DATE_CHANGED'
 } as const
 
 export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]
@@ -76,3 +79,12 @@ export const DefectStatus = {
 } as const
 
 export type DefectStatus = (typeof DefectStatus)[keyof typeof DefectStatus]
+
+
+export const ActionOwner = {
+  OEM: 'OEM',
+  SUPPLIER: 'SUPPLIER',
+  NONE: 'NONE'
+} as const
+
+export type ActionOwner = (typeof ActionOwner)[keyof typeof ActionOwner]

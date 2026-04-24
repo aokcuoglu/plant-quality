@@ -8,6 +8,7 @@ import { StatusDonut } from "@/components/dashboard/StatusDonut"
 import { SupplierBar } from "@/components/dashboard/SupplierBar"
 import { TrendArea } from "@/components/dashboard/TrendArea"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { isDefectOverdue } from "@/lib/sla"
 
 export default async function OemDashboardPage() {
   const session = await auth()
@@ -22,6 +23,20 @@ export default async function OemDashboardPage() {
   const totalDefects = defectCounts.reduce((sum, d) => sum + d._count, 0)
   const openDefects = defectCounts.find((d) => d.status === "OPEN")?._count ?? 0
   const waitingApproval = defectCounts.find((d) => d.status === "WAITING_APPROVAL")?._count ?? 0
+  const operationalDefects = await prisma.defect.findMany({
+    where: { oemId: session.user.companyId, status: { not: "RESOLVED" } },
+    select: {
+      status: true,
+      currentActionOwner: true,
+      supplierResponseDueAt: true,
+      eightDSubmissionDueAt: true,
+      oemReviewDueAt: true,
+      revisionDueAt: true,
+    },
+  })
+  const overdueDefects = operationalDefects.filter((d) => isDefectOverdue(d)).length
+  const waitingSupplierAction = operationalDefects.filter((d) => d.currentActionOwner === "SUPPLIER").length
+  const waitingOemAction = operationalDefects.filter((d) => d.currentActionOwner === "OEM").length
 
   const resolvedDefects = await prisma.defect.findMany({
     where: {
@@ -124,6 +139,27 @@ export default async function OemDashboardPage() {
           value={avgResolutionDays !== null ? `${avgResolutionDays}d` : "—"}
           icon={TimerIcon}
           subtitle={avgResolutionDays !== null ? "Mean time to resolve" : "No resolved defects yet"}
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <DashboardCard
+          title="Overdue"
+          value={overdueDefects}
+          icon={AlertTriangleIcon}
+          subtitle="Past active SLA due date"
+        />
+        <DashboardCard
+          title="Supplier Action"
+          value={waitingSupplierAction}
+          icon={ClockIcon}
+          subtitle="Waiting on supplier response"
+        />
+        <DashboardCard
+          title="OEM Action"
+          value={waitingOemAction}
+          icon={TimerIcon}
+          subtitle="Waiting on OEM review"
         />
       </div>
 

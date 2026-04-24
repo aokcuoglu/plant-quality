@@ -151,6 +151,13 @@ export const DefectScalarFieldEnum = {
   description: 'description',
   status: 'status',
   imageUrls: 'imageUrls',
+  oemOwnerId: 'oemOwnerId',
+  supplierAssigneeId: 'supplierAssigneeId',
+  supplierResponseDueAt: 'supplierResponseDueAt',
+  eightDSubmissionDueAt: 'eightDSubmissionDueAt',
+  oemReviewDueAt: 'oemReviewDueAt',
+  revisionDueAt: 'revisionDueAt',
+  currentActionOwner: 'currentActionOwner',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
@@ -39,6 +39,37 @@ export function DatePicker({
   }, [])
 
   const date = value ? new Date(value) : undefined
+  const updateDropdownPosition = useCallback(() => {
+    if (!buttonRef.current) return
+
+    const rect = buttonRef.current.getBoundingClientRect()
+    const estimatedHeight = 330
+    const margin = 8
+    const openAbove = rect.bottom + estimatedHeight + margin > window.innerHeight && rect.top > estimatedHeight
+    const top = openAbove
+      ? Math.max(margin, rect.top - estimatedHeight - 4)
+      : Math.min(rect.bottom + 4, window.innerHeight - estimatedHeight - margin)
+    const left = Math.min(rect.left, window.innerWidth - 292 - margin)
+
+    setDropdownStyle({
+      position: "fixed",
+      top: `${top}px`,
+      left: `${Math.max(margin, left)}px`,
+      zIndex: 10000,
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+
+    updateDropdownPosition()
+    window.addEventListener("resize", updateDropdownPosition)
+    window.addEventListener("scroll", updateDropdownPosition, true)
+    return () => {
+      window.removeEventListener("resize", updateDropdownPosition)
+      window.removeEventListener("scroll", updateDropdownPosition, true)
+    }
+  }, [open, updateDropdownPosition])
 
   return (
     <div ref={ref} className="relative">
@@ -52,15 +83,7 @@ export function DatePicker({
           !date && "text-muted-foreground",
         )}
         onClick={() => {
-          if (!open && buttonRef.current) {
-            const rect = buttonRef.current.getBoundingClientRect()
-            setDropdownStyle({
-              position: "fixed",
-              top: `${rect.bottom + 4}px`,
-              left: `${rect.left}px`,
-              zIndex: 9999,
-            })
-          }
+          if (!open) updateDropdownPosition()
           setOpen(!open)
         }}
       >
@@ -68,7 +91,11 @@ export function DatePicker({
         {date ? format(date, "MMM d, yyyy") : placeholder}
       </Button>
       {open && createPortal(
-        <div ref={dropdownRef} style={{ ...dropdownStyle, minWidth: "280px" }} className="rounded-md border bg-popover shadow-md">
+        <div
+          ref={dropdownRef}
+          style={{ ...dropdownStyle, minWidth: "280px" }}
+          className="max-h-[min(330px,calc(100vh-16px))] overflow-auto rounded-md border bg-popover shadow-lg"
+        >
           <Calendar
             mode="single"
             selected={date}

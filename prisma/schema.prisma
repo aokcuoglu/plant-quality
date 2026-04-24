@@ -45,6 +45,9 @@ enum DefectEventType {
   REVIEW_COMMENT_REOPENED
   REVISION_REQUESTED
   APPROVED
+  OWNER_CHANGED
+  SUPPLIER_ASSIGNEE_CHANGED
+  DUE_DATE_CHANGED
 }
 
 enum DefectStatus {
@@ -53,6 +56,12 @@ enum DefectStatus {
   WAITING_APPROVAL
   RESOLVED
   REJECTED
+}
+
+enum ActionOwner {
+  OEM
+  SUPPLIER
+  NONE
 }
 
 model Company {
@@ -84,6 +93,8 @@ model User {
   resolvedReviewComments ReviewComment[] @relation("ReviewCommentResolvedBy")
   approvedReports EightDReport[] @relation("EightDApprovedBy")
   rejectedReports EightDReport[] @relation("EightDRejectedBy")
+  ownedDefects Defect[] @relation("DefectOemOwner")
+  assignedDefects Defect[] @relation("DefectSupplierAssignee")
   defectEvents    DefectEvent[]  @relation("DefectEventActor")
   notifications  Notification[]
   createdAt      DateTime        @default(now())
@@ -140,6 +151,15 @@ model Defect {
   description  String
   status       DefectStatus  @default(OPEN)
   imageUrls    String[]
+  oemOwnerId   String?       @map("oem_owner_id")
+  oemOwner     User?         @relation("DefectOemOwner", fields: [oemOwnerId], references: [id])
+  supplierAssigneeId String? @map("supplier_assignee_id")
+  supplierAssignee   User?   @relation("DefectSupplierAssignee", fields: [supplierAssigneeId], references: [id])
+  supplierResponseDueAt DateTime? @map("supplier_response_due_at")
+  eightDSubmissionDueAt DateTime? @map("eight_d_submission_due_at")
+  oemReviewDueAt        DateTime? @map("oem_review_due_at")
+  revisionDueAt         DateTime? @map("revision_due_at")
+  currentActionOwner    ActionOwner @default(SUPPLIER) @map("current_action_owner")
   eightDReport EightDReport?
   events       DefectEvent[]
   createdAt    DateTime      @default(now())

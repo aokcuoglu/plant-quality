@@ -33,6 +33,9 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import { StatusBadge } from "@/components/ui/status-badge"
+import { toast } from "@/components/ui/use-toast"
+import { formatDueDate, getActionOwnerLabel, getActiveDueDate, isDefectOverdue } from "@/lib/sla"
+import { updateDefectOwnershipAndSla } from "@/app/(dashboard)/defects/ownership-actions"
 import {
   addReviewComment,
   approveReport,
@@ -43,6 +46,13 @@ import {
 
 type DefectStatus = "OPEN" | "IN_PROGRESS" | "WAITING_APPROVAL" | "RESOLVED" | "REJECTED"
 type CompanyType = "OEM" | "SUPPLIER"
+type ActionOwner = "OEM" | "SUPPLIER" | "NONE"
+
+interface UserOption {
+  id: string
+  name: string | null
+  email: string
+}
 
 interface ReviewComment {
   id: string
@@ -83,6 +93,20 @@ interface DefectDetail {
   createdAt: Date
   supplierName: string
   oemName: string
+  oemOwnerId: string | null
+  oemOwnerName: string | null
+  supplierAssigneeId: string | null
+  supplierAssigneeName: string | null
+  supplierResponseDueAt: Date | null
+  eightDSubmissionDueAt: Date | null
+  oemReviewDueAt: Date | null
+  revisionDueAt: Date | null
+  currentActionOwner: ActionOwner
+  oemUsers: UserOption[]
+  supplierUsers: UserOption[]
+  canEditSla: boolean
+  canEditSupplierAssignee: boolean
+  canSelfAssign: boolean
   eightDSubmitted: boolean
   eightDReport: EightDReportInfo | null
 }
@@ -454,8 +478,16 @@ function OemReviewPanel({
             type="button"
             onClick={() =>
               startReject(async () => {
-                await rejectReport(defect.id)
-                router.refresh()
+                try {
+                  const result = await rejectReport(defect.id)
+                  if (!result.success) {
+                    toast({ title: "Revision request blocked", description: result.error, type: "destructive" })
+                    return
+                  }
+                  router.refresh()
+                } catch {
+                  toast({ title: "Revision request failed", description: "Please try again.", type: "destructive" })
+                }
               })
             }
             disabled={rejecting}
@@ -474,8 +506,16 @@ function OemReviewPanel({
             type="button"
             onClick={() =>
               startApprove(async () => {
-                await approveReport(defect.id)
-                router.refresh()
+                try {
+                  const result = await approveReport(defect.id)
+                  if (!result.success) {
+                    toast({ title: "Approval blocked", description: result.error, type: "destructive" })
+                    return
+                  }
+                  router.refresh()
+                } catch {
+                  toast({ title: "Approval failed", description: "Please try again.", type: "destructive" })
+                }
               })
             }
             disabled={approving}
@@ -508,6 +548,124 @@ function OemReviewPanel({
   )
 }
 
+function toDateInputValue(date: Date | null) {
+  if (!date) return ""
+  return new Date(date).toISOString().slice(0, 10)
+}
+
+function OwnershipSlaPanel({
+  defect,
+  companyType,
+}: {
+  defect: DefectDetail
+  companyType: CompanyType
+}) {
+  const router = useRouter()
+  const [pending, startTransition] = useTransition()
+  const [oemOwnerId, setOemOwnerId] = useState(defect.oemOwnerId ?? "")
+  const [supplierAssigneeId, setSupplierAssigneeId] = useState(defect.supplierAssigneeId ?? "")
+  const [supplierResponseDueAt, setSupplierResponseDueAt] = useState(toDateInputValue(defect.supplierResponseDueAt))
+  const [eightDSubmissionDueAt, setEightDSubmissionDueAt] = useState(toDateInputValue(defect.eightDSubmissionDueAt))
+  const [oemReviewDueAt, setOemReviewDueAt] = useState(toDateInputValue(defect.oemReviewDueAt))
+  const [revisionDueAt, setRevisionDueAt] = useState(toDateInputValue(defect.revisionDueAt))
+  const canEdit = defect.canEditSla || defect.canEditSupplierAssignee || defect.canSelfAssign
+
+  const handleSubmit = (formData: FormData) => {
+    startTransition(async () => {
+      const result = await updateDefectOwnershipAndSla(defect.id, formData)
+      if (!result.success) {
+        toast({ title: "Update failed", description: result.error, type: "destructive" })
+        return
+      }
+      toast({ title: "Ownership updated", description: "SLA and assignment details were saved.", type: "info" })
+      router.refresh()
+    })
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Ownership & SLA</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form action={handleSubmit} className="space-y-3">
+          {companyType === "OEM" && (
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-muted-foreground">OEM Owner</label>
+              <select
+                name="oemOwnerId"
+                value={oemOwnerId}
+                onChange={(e) => setOemOwnerId(e.target.value)}
+                disabled={!defect.canEditSla}
+                className="h-9 w-full rounded-md border border-input bg-background px-2 text-sm disabled:opacity-60"
+              >
+                <option value="">Unassigned</option>
+                {defect.oemUsers.map((user) => (
+                  <option key={user.id} value={user.id}>{user.name ?? user.email}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <div className="space-y-1.5">
+            <label className="text-xs font-medium text-muted-foreground">Supplier Assignee</label>
+            <select
+              name="supplierAssigneeId"
+              value={supplierAssigneeId}
+              onChange={(e) => setSupplierAssigneeId(e.target.value)}
+              disabled={!(defect.canEditSla || defect.canEditSupplierAssignee)}
+              className="h-9 w-full rounded-md border border-input bg-background px-2 text-sm disabled:opacity-60"
+            >
+              <option value="">Unassigned</option>
+              {defect.supplierUsers.map((user) => (
+                <option key={user.id} value={user.id}>{user.name ?? user.email}</option>
+              ))}
+            </select>
+          </div>
+
+          {defect.canSelfAssign && !defect.supplierAssigneeId && (
+            <input type="hidden" name="supplierAssigneeId" value="" />
+          )}
+
+          {companyType === "OEM" && (
+            <div className="grid gap-2">
+              {[
+                { name: "supplierResponseDueAt", label: "Supplier Response Due", value: supplierResponseDueAt, onChange: setSupplierResponseDueAt },
+                { name: "eightDSubmissionDueAt", label: "8D Submission Due", value: eightDSubmissionDueAt, onChange: setEightDSubmissionDueAt },
+                { name: "oemReviewDueAt", label: "OEM Review Due", value: oemReviewDueAt, onChange: setOemReviewDueAt },
+                { name: "revisionDueAt", label: "Revision Due", value: revisionDueAt, onChange: setRevisionDueAt },
+              ].map((field) => (
+                <div key={field.name} className="space-y-1.5">
+                  <label className="text-xs font-medium text-muted-foreground">{field.label}</label>
+                  <input
+                    type="date"
+                    name={field.name}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    disabled={!defect.canEditSla}
+                    className="h-9 w-full rounded-md border border-input bg-background px-2 text-sm disabled:opacity-60"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {canEdit && (
+            <button
+              type="submit"
+              disabled={pending}
+              className={cn(buttonVariants({ size: "sm", className: "w-full" }))}
+            >
+              {pending ? <Loader2Icon className="mr-1 h-3.5 w-3.5 animate-spin" /> : null}
+              {defect.canSelfAssign && !defect.supplierAssigneeId && companyType === "SUPPLIER" ? "Assign to Me" : "Save Ownership & SLA"}
+            </button>
+          )}
+        </form>
+      </CardContent>
+    </Card>
+  )
+}
+
 export function DefectDetailView({
   defect,
   companyType,
@@ -516,6 +674,8 @@ export function DefectDetailView({
   companyType: CompanyType
 }) {
   const backHref = companyType === "OEM" ? "/oem/defects" : "/supplier/defects"
+  const activeDueDate = getActiveDueDate(defect)
+  const overdue = isDefectOverdue(defect)
 
   const supplierActionLabel =
     defect.status === "OPEN"
@@ -595,6 +755,33 @@ export function DefectDetailView({
               </div>
 
               <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Action Required By</span>
+                <Badge variant={defect.currentActionOwner === "NONE" ? "secondary" : "outline"}>
+                  {getActionOwnerLabel(defect)}
+                </Badge>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Active Due Date</span>
+                <span className={cn(
+                  "text-sm font-medium",
+                  overdue && "rounded-full bg-red-50 px-2 py-1 text-xs text-red-700 dark:bg-red-950/30 dark:text-red-300",
+                )}>
+                  {overdue ? `Overdue · ${formatDueDate(activeDueDate)}` : formatDueDate(activeDueDate)}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">OEM Owner</span>
+                <span className="text-sm font-medium">{defect.oemOwnerName ?? "Unassigned"}</span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Supplier Assignee</span>
+                <span className="text-sm font-medium">{defect.supplierAssigneeName ?? "Unassigned"}</span>
+              </div>
+
+              <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">
                   {companyType === "OEM" ? "Supplier" : "Customer"}
                 </span>
@@ -611,6 +798,19 @@ export function DefectDetailView({
               </div>
             </CardContent>
           </Card>
+
+          <OwnershipSlaPanel
+            key={[
+              defect.oemOwnerId,
+              defect.supplierAssigneeId,
+              defect.supplierResponseDueAt?.toISOString(),
+              defect.eightDSubmissionDueAt?.toISOString(),
+              defect.oemReviewDueAt?.toISOString(),
+              defect.revisionDueAt?.toISOString(),
+            ].join(":")}
+            defect={defect}
+            companyType={companyType}
+          />
 
           {/* Supplier action button */}
           {companyType === "SUPPLIER" && supplierActionLabel && (

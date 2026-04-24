@@ -8,6 +8,7 @@ import { StatusDonut } from "@/components/dashboard/StatusDonut"
 import { TrendArea } from "@/components/dashboard/TrendArea"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { CustomerBar } from "@/components/dashboard/CustomerBar"
+import { addCalendarDays, getActiveDueDate, isDefectOverdue } from "@/lib/sla"
 
 export default async function SupplierDashboardPage() {
   const session = await auth()
@@ -24,6 +25,25 @@ export default async function SupplierDashboardPage() {
   const inProgress = defectCounts.find((d) => d.status === "IN_PROGRESS" || d.status === "REJECTED")?._count ?? 0
   const waitingApproval = defectCounts.find((d) => d.status === "WAITING_APPROVAL")?._count ?? 0
   const resolved = defectCounts.find((d) => d.status === "RESOLVED")?._count ?? 0
+  const operationalDefects = await prisma.defect.findMany({
+    where: { supplierId: session.user.companyId, status: { not: "RESOLVED" } },
+    select: {
+      status: true,
+      currentActionOwner: true,
+      supplierAssigneeId: true,
+      supplierResponseDueAt: true,
+      eightDSubmissionDueAt: true,
+      oemReviewDueAt: true,
+      revisionDueAt: true,
+    },
+  })
+  const today = new Date()
+  const weekEnd = addCalendarDays(today, 7)
+  const overdueAssigned = operationalDefects.filter((d) => d.supplierAssigneeId === session.user.id && isDefectOverdue(d)).length
+  const dueThisWeek = operationalDefects.filter((d) => {
+    const dueDate = getActiveDueDate(d)
+    return dueDate && dueDate >= today && dueDate <= weekEnd
+  }).length
 
   const resolvedDefects = await prisma.defect.findMany({
     where: {
@@ -168,6 +188,27 @@ export default async function SupplierDashboardPage() {
         <h3 className="mb-1 text-sm font-medium">Avg Resolution Time</h3>
         <p className="text-2xl font-bold">{avgResolutionDays !== null ? `${avgResolutionDays} days` : "—"}</p>
         <p className="text-xs text-muted-foreground">{avgResolutionDays !== null ? "Mean time from creation to resolution" : "No resolved defects yet"}</p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <DashboardCard
+          title="Overdue Assigned"
+          value={overdueAssigned}
+          icon={AlertTriangleIcon}
+          subtitle="Assigned to you and past due"
+        />
+        <DashboardCard
+          title="Due This Week"
+          value={dueThisWeek}
+          icon={TimerIcon}
+          subtitle="Active SLA dates in next 7 days"
+        />
+        <DashboardCard
+          title="Customer Review"
+          value={waitingApproval}
+          icon={ClockIcon}
+          subtitle="Waiting for OEM approval"
+        />
       </div>
     </div>
   )

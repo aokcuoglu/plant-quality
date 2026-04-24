@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import type { Prisma } from "@/generated/prisma/client"
 import type { Session } from "next-auth"
+import { addCalendarDays } from "@/lib/sla"
 
 function canReviewEightD(session: Session | null): session is Session {
   return Boolean(
@@ -104,7 +105,7 @@ export async function approveReport(defectId: string) {
   await Promise.all([
     prisma.defect.update({
       where: { id: defectId },
-      data: { status: "RESOLVED", resolvedAt: reviewedAt },
+      data: { status: "RESOLVED", resolvedAt: reviewedAt, currentActionOwner: "NONE" },
     }),
     prisma.eightDReport.update({
       where: { id: defect.eightDReport.id },
@@ -133,6 +134,7 @@ export async function approveReport(defectId: string) {
     previousStatus: defect.status,
     nextStatus: "RESOLVED",
     revisionNo: defect.eightDReport.revisionNo,
+    currentActionOwner: "NONE",
   })
 
   revalidatePath(`/oem/defects/${defectId}`)
@@ -171,7 +173,11 @@ export async function rejectReport(defectId: string) {
   await Promise.all([
     prisma.defect.update({
       where: { id: defectId },
-      data: { status: "REJECTED" },
+      data: {
+        status: "REJECTED",
+        currentActionOwner: "SUPPLIER",
+        revisionDueAt: addCalendarDays(reviewedAt, 5),
+      },
     }),
     prisma.eightDReport.update({
       where: { id: defect.eightDReport.id },
@@ -201,6 +207,8 @@ export async function rejectReport(defectId: string) {
     nextStatus: "REJECTED",
     revisionNo: defect.eightDReport.revisionNo,
     openCommentCount: defect.eightDReport.reviewComments.length,
+    currentActionOwner: "SUPPLIER",
+    revisionDueAt: addCalendarDays(reviewedAt, 5).toISOString(),
   })
 
   revalidatePath(`/oem/defects/${defectId}`)

@@ -9,6 +9,7 @@ import { PageHeader } from "@/components/layout/PageHeader"
 interface Supplier {
   id: string
   name: string
+  users: { id: string; name: string | null; email: string }[]
 }
 
 export default async function NewDefectPage() {

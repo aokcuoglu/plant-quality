@@ -220,6 +220,13 @@ export type EnumDefectStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumDefectStatusFilter<$PrismaModel> | $Enums.DefectStatus
 }
 
+export type EnumActionOwnerFilter<$PrismaModel = never> = {
+  equals?: $Enums.ActionOwner | Prisma.EnumActionOwnerFieldRefInput<$PrismaModel>
+  in?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel> | $Enums.ActionOwner
+}
+
 export type EnumDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.DefectStatus | Prisma.EnumDefectStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DefectStatus[] | Prisma.ListEnumDefectStatusFieldRefInput<$PrismaModel>
@@ -228,6 +235,16 @@ export type EnumDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDefectStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDefectStatusFilter<$PrismaModel>
+}
+
+export type EnumActionOwnerWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ActionOwner | Prisma.EnumActionOwnerFieldRefInput<$PrismaModel>
+  in?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumActionOwnerWithAggregatesFilter<$PrismaModel> | $Enums.ActionOwner
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
 }
 
 export type IntFilter<$PrismaModel = never> = {
@@ -591,6 +608,13 @@ export type NestedEnumDefectStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumDefectStatusFilter<$PrismaModel> | $Enums.DefectStatus
 }
 
+export type NestedEnumActionOwnerFilter<$PrismaModel = never> = {
+  equals?: $Enums.ActionOwner | Prisma.EnumActionOwnerFieldRefInput<$PrismaModel>
+  in?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel> | $Enums.ActionOwner
+}
+
 export type NestedEnumDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.DefectStatus | Prisma.EnumDefectStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DefectStatus[] | Prisma.ListEnumDefectStatusFieldRefInput<$PrismaModel>
@@ -599,6 +623,16 @@ export type NestedEnumDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDefectStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDefectStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumActionOwnerWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ActionOwner | Prisma.EnumActionOwnerFieldRefInput<$PrismaModel>
+  in?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ActionOwner[] | Prisma.ListEnumActionOwnerFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumActionOwnerWithAggregatesFilter<$PrismaModel> | $Enums.ActionOwner
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
 }
 
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {

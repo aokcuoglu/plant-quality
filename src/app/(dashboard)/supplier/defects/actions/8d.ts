@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import type { DefectStatus, Prisma } from "@/generated/prisma/client"
 import type { Session } from "next-auth"
+import { addCalendarDays } from "@/lib/sla"
 
 export interface TeamMember {
   id: string
@@ -161,14 +162,30 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
     update: dbUpdate,
   })
 
+  const eightDSubmissionDueAt = defect.eightDSubmissionDueAt ?? defect.supplierResponseDueAt ?? addCalendarDays(defect.createdAt, 7)
+
   if (wasDraft) {
     await prisma.defect.update({
       where: { id: defectId },
-      data: { status: "IN_PROGRESS" },
+      data: {
+        status: "IN_PROGRESS",
+        currentActionOwner: "SUPPLIER",
+        eightDSubmissionDueAt,
+      },
     })
     await logDefectEvent(defectId, "EIGHT_D_STARTED", session.user.id, {
       previousStatus: defect.status,
       nextStatus: "IN_PROGRESS",
+      currentActionOwner: "SUPPLIER",
+      eightDSubmissionDueAt: eightDSubmissionDueAt.toISOString(),
+    })
+  } else if (!defect.eightDSubmissionDueAt) {
+    await prisma.defect.update({
+      where: { id: defectId },
+      data: { eightDSubmissionDueAt },
+    })
+    await logDefectEvent(defectId, "EIGHT_D_STEP_SAVED", session.user.id, {
+      initializedEightDSubmissionDueAt: eightDSubmissionDueAt.toISOString(),
     })
   }
 
@@ -223,7 +240,11 @@ export async function submitEightDReport(defectId: string) {
 
   const updatedDefect = await prisma.defect.update({
     where: { id: defectId },
-    data: { status: "WAITING_APPROVAL" },
+    data: {
+      status: "WAITING_APPROVAL",
+      currentActionOwner: "OEM",
+      oemReviewDueAt: addCalendarDays(new Date(), 3),
+    },
     include: { oem: { include: { users: { select: { id: true } } } } },
   })
 
@@ -243,6 +264,8 @@ export async function submitEightDReport(defectId: string) {
     previousStatus: defect.status,
     nextStatus: "WAITING_APPROVAL",
     revisionNo: nextRevisionNo,
+    currentActionOwner: "OEM",
+    oemReviewDueAt: updatedDefect.oemReviewDueAt?.toISOString() ?? null,
   })
 
   revalidatePath(`/supplier/defects/${defectId}/8d`)

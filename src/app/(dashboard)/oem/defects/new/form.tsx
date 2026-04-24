@@ -6,9 +6,15 @@ import { createDefect } from "../actions"
 import { Button } from "@/components/ui/button"
 import { ImageUploader, type UploadedImage } from "@/components/ImageUploader"
 
-export function NewDefectForm({ suppliers }: { suppliers: { id: string; name: string }[] }) {
+export function NewDefectForm({
+  suppliers,
+}: {
+  suppliers: { id: string; name: string; users: { id: string; name: string | null; email: string }[] }[]
+}) {
   const [images, setImages] = useState<UploadedImage[]>([])
+  const [supplierId, setSupplierId] = useState("")
   const formRef = useRef<HTMLFormElement>(null)
+  const selectedSupplier = suppliers.find((s) => s.id === supplierId)
 
   return (
     <form
@@ -27,12 +33,33 @@ export function NewDefectForm({ suppliers }: { suppliers: { id: string; name: st
           id="supplierId"
           name="supplierId"
           required
+          value={supplierId}
+          onChange={(e) => setSupplierId(e.target.value)}
           className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <option value="">Select a supplier...</option>
           {suppliers.map((s) => (
             <option key={s.id} value={s.id}>
               {s.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="supplierAssigneeId" className="text-sm font-medium">
+          Supplier Assignee
+        </label>
+        <select
+          id="supplierAssigneeId"
+          name="supplierAssigneeId"
+          disabled={!selectedSupplier}
+          className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          <option value="">Unassigned</option>
+          {selectedSupplier?.users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name ?? user.email}
             </option>
           ))}
         </select>

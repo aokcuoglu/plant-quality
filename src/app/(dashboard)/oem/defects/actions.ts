@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
+import { addCalendarDays } from "@/lib/sla"
 
 export async function createDefect(formData: FormData): Promise<void> {
   const session = await auth()
@@ -14,6 +15,7 @@ export async function createDefect(formData: FormData): Promise<void> {
   ) return
 
   const supplierId = formData.get("supplierId") as string
+  const supplierAssigneeId = (formData.get("supplierAssigneeId") as string) || null
   const partNumber = formData.get("partNumber") as string
   const description = formData.get("description") as string
   const imageUrlsRaw = formData.get("imageUrls") as string
@@ -26,6 +28,13 @@ export async function createDefect(formData: FormData): Promise<void> {
   })
 
   if (!supplier) return
+
+  const supplierAssignee = supplierAssigneeId
+    ? await prisma.user.findFirst({
+        where: { id: supplierAssigneeId, companyId: supplierId },
+        select: { id: true },
+      })
+    : null
 
   let imageUrls: string[] = []
   if (imageUrlsRaw) {
@@ -42,6 +51,10 @@ export async function createDefect(formData: FormData): Promise<void> {
       description,
       status: "OPEN",
       imageUrls,
+      oemOwnerId: session.user.id,
+      supplierAssigneeId: supplierAssignee?.id ?? null,
+      supplierResponseDueAt: addCalendarDays(new Date(), 7),
+      currentActionOwner: "SUPPLIER",
     },
   })
 
@@ -52,6 +65,10 @@ export async function createDefect(formData: FormData): Promise<void> {
       actorId: session.user.id,
       metadata: {
         supplierId,
+        oemOwnerId: session.user.id,
+        supplierAssigneeId: supplierAssignee?.id ?? null,
+        supplierResponseDueAt: defect.supplierResponseDueAt?.toISOString() ?? null,
+        currentActionOwner: defect.currentActionOwner,
         partNumber,
         imageCount: imageUrls.length,
       },

@@ -22,6 +22,10 @@ const COMMENT_STEP_ALIASES: Record<string, string[]> = {
   d6_actions: ["d6_actions", "d5_d6_action"],
 }
 
+const CONTENT_FIELD_MAP: Partial<Record<(typeof D_STEPS)[number], string>> = {
+  d7_preventive: "d7Preventive",
+}
+
 function buildReviewSections(report: {
   team: unknown
   containmentActions: unknown
@@ -53,7 +57,8 @@ function buildReviewSections(report: {
     if (stepId === "d7_impacts" && Array.isArray(report.d7Impacts) && report.d7Impacts.length > 0) {
       return { ...base, headers: ["Document", "Revision No"], rows: (report.d7Impacts as Array<Record<string, string>>).map((i) => ({ cells: [i.documentType ?? "", i.revisionNo ?? ""] })) }
     }
-    return { ...base, content: (report as unknown as Record<string, string | null>)[stepId] ?? null }
+    const contentField = CONTENT_FIELD_MAP[stepId] ?? stepId
+    return { ...base, content: (report as unknown as Record<string, string | null>)[contentField] ?? null }
   })
 }
 
@@ -70,8 +75,10 @@ export default async function OemDefectDetailPage({
   const defect = await prisma.defect.findFirst({
     where: { id, oemId: session.user.companyId },
     include: {
-      supplier: { select: { name: true } },
-      oem: { select: { name: true } },
+      supplier: { select: { name: true, users: { select: { id: true, name: true, email: true }, orderBy: { name: "asc" } } } },
+      oem: { select: { name: true, users: { select: { id: true, name: true, email: true }, orderBy: { name: "asc" } } } },
+      oemOwner: { select: { name: true, email: true } },
+      supplierAssignee: { select: { name: true, email: true } },
       eightDReport: {
         include: {
           reviewComments: {
@@ -100,6 +107,20 @@ export default async function OemDefectDetailPage({
         createdAt: defect.createdAt,
         supplierName: defect.supplier.name,
         oemName: defect.oem.name,
+        oemOwnerId: defect.oemOwnerId,
+        oemOwnerName: defect.oemOwner?.name ?? defect.oemOwner?.email ?? null,
+        supplierAssigneeId: defect.supplierAssigneeId,
+        supplierAssigneeName: defect.supplierAssignee?.name ?? defect.supplierAssignee?.email ?? null,
+        supplierResponseDueAt: defect.supplierResponseDueAt,
+        eightDSubmissionDueAt: defect.eightDSubmissionDueAt,
+        oemReviewDueAt: defect.oemReviewDueAt,
+        revisionDueAt: defect.revisionDueAt,
+        currentActionOwner: defect.currentActionOwner,
+        oemUsers: defect.oem.users,
+        supplierUsers: defect.supplier.users,
+        canEditSla: ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role),
+        canEditSupplierAssignee: false,
+        canSelfAssign: false,
         eightDSubmitted: !!report,
         eightDReport: report
           ? {

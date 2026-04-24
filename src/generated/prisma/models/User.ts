@@ -221,6 +221,8 @@ export type UserWhereInput = {
   resolvedReviewComments?: Prisma.ReviewCommentListRelationFilter
   approvedReports?: Prisma.EightDReportListRelationFilter
   rejectedReports?: Prisma.EightDReportListRelationFilter
+  ownedDefects?: Prisma.DefectListRelationFilter
+  assignedDefects?: Prisma.DefectListRelationFilter
   defectEvents?: Prisma.DefectEventListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
 }
@@ -242,6 +244,8 @@ export type UserOrderByWithRelationInput = {
   resolvedReviewComments?: Prisma.ReviewCommentOrderByRelationAggregateInput
   approvedReports?: Prisma.EightDReportOrderByRelationAggregateInput
   rejectedReports?: Prisma.EightDReportOrderByRelationAggregateInput
+  ownedDefects?: Prisma.DefectOrderByRelationAggregateInput
+  assignedDefects?: Prisma.DefectOrderByRelationAggregateInput
   defectEvents?: Prisma.DefectEventOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
@@ -266,6 +270,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   resolvedReviewComments?: Prisma.ReviewCommentListRelationFilter
   approvedReports?: Prisma.EightDReportListRelationFilter
   rejectedReports?: Prisma.EightDReportListRelationFilter
+  ownedDefects?: Prisma.DefectListRelationFilter
+  assignedDefects?: Prisma.DefectListRelationFilter
   defectEvents?: Prisma.DefectEventListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email">
@@ -316,6 +322,8 @@ export type UserCreateInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -336,6 +344,8 @@ export type UserUncheckedCreateInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -356,6 +366,8 @@ export type UserUpdateInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -376,6 +388,8 @@ export type UserUncheckedUpdateInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -553,6 +567,38 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
 }
 
+export type UserCreateNestedOneWithoutOwnedDefectsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDefectsInput, Prisma.UserUncheckedCreateWithoutOwnedDefectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDefectsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedDefectsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedDefectsInput, Prisma.UserUncheckedCreateWithoutAssignedDefectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedDefectsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutOwnedDefectsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDefectsInput, Prisma.UserUncheckedCreateWithoutOwnedDefectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDefectsInput
+  upsert?: Prisma.UserUpsertWithoutOwnedDefectsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedDefectsInput, Prisma.UserUpdateWithoutOwnedDefectsInput>, Prisma.UserUncheckedUpdateWithoutOwnedDefectsInput>
+}
+
+export type UserUpdateOneWithoutAssignedDefectsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedDefectsInput, Prisma.UserUncheckedCreateWithoutAssignedDefectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedDefectsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedDefectsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedDefectsInput, Prisma.UserUpdateWithoutAssignedDefectsInput>, Prisma.UserUncheckedUpdateWithoutAssignedDefectsInput>
+}
+
 export type UserCreateNestedOneWithoutApprovedReportsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutApprovedReportsInput, Prisma.UserUncheckedCreateWithoutApprovedReportsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutApprovedReportsInput
@@ -660,6 +706,8 @@ export type UserCreateWithoutCompanyInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -679,6 +727,8 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -739,6 +789,8 @@ export type UserCreateWithoutAccountsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -758,6 +810,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -793,6 +847,8 @@ export type UserUpdateWithoutAccountsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -812,6 +868,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -831,6 +889,8 @@ export type UserCreateWithoutSessionsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -850,6 +910,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -885,6 +947,8 @@ export type UserUpdateWithoutSessionsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -904,6 +968,208 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOwnedDefectsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOwnedDefectsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId: string
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOwnedDefectsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDefectsInput, Prisma.UserUncheckedCreateWithoutOwnedDefectsInput>
+}
+
+export type UserCreateWithoutAssignedDefectsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAssignedDefectsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId: string
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAssignedDefectsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedDefectsInput, Prisma.UserUncheckedCreateWithoutAssignedDefectsInput>
+}
+
+export type UserUpsertWithoutOwnedDefectsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDefectsInput, Prisma.UserUncheckedUpdateWithoutOwnedDefectsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDefectsInput, Prisma.UserUncheckedCreateWithoutOwnedDefectsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOwnedDefectsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDefectsInput, Prisma.UserUncheckedUpdateWithoutOwnedDefectsInput>
+}
+
+export type UserUpdateWithoutOwnedDefectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutAssignedDefectsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedDefectsInput, Prisma.UserUncheckedUpdateWithoutAssignedDefectsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedDefectsInput, Prisma.UserUncheckedCreateWithoutAssignedDefectsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedDefectsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedDefectsInput, Prisma.UserUncheckedUpdateWithoutAssignedDefectsInput>
+}
+
+export type UserUpdateWithoutAssignedDefectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -923,6 +1189,8 @@ export type UserCreateWithoutApprovedReportsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -942,6 +1210,8 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -966,6 +1236,8 @@ export type UserCreateWithoutRejectedReportsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -985,6 +1257,8 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1020,6 +1294,8 @@ export type UserUpdateWithoutApprovedReportsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -1039,6 +1315,8 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1069,6 +1347,8 @@ export type UserUpdateWithoutRejectedReportsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -1088,6 +1368,8 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1107,6 +1389,8 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -1126,6 +1410,8 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1150,6 +1436,8 @@ export type UserCreateWithoutReviewCommentsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
@@ -1169,6 +1457,8 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1204,6 +1494,8 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -1223,6 +1515,8 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1253,6 +1547,8 @@ export type UserUpdateWithoutReviewCommentsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -1272,6 +1568,8 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1292,6 +1590,8 @@ export type UserCreateWithoutDefectEventsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
@@ -1311,6 +1611,8 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1346,6 +1648,8 @@ export type UserUpdateWithoutDefectEventsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
@@ -1365,6 +1669,8 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1384,6 +1690,8 @@ export type UserCreateWithoutNotificationsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
 }
 
@@ -1403,6 +1711,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
   rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
   defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
 }
 
@@ -1438,6 +1748,8 @@ export type UserUpdateWithoutNotificationsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
 }
 
@@ -1457,6 +1769,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
@@ -1486,6 +1800,8 @@ export type UserUpdateWithoutCompanyInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
@@ -1505,6 +1821,8 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
   rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
   defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1532,6 +1850,8 @@ export type UserCountOutputType = {
   resolvedReviewComments: number
   approvedReports: number
   rejectedReports: number
+  ownedDefects: number
+  assignedDefects: number
   defectEvents: number
   notifications: number
 }
@@ -1543,6 +1863,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   resolvedReviewComments?: boolean | UserCountOutputTypeCountResolvedReviewCommentsArgs
   approvedReports?: boolean | UserCountOutputTypeCountApprovedReportsArgs
   rejectedReports?: boolean | UserCountOutputTypeCountRejectedReportsArgs
+  ownedDefects?: boolean | UserCountOutputTypeCountOwnedDefectsArgs
+  assignedDefects?: boolean | UserCountOutputTypeCountAssignedDefectsArgs
   defectEvents?: boolean | UserCountOutputTypeCountDefectEventsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
@@ -1602,6 +1924,20 @@ export type UserCountOutputTypeCountRejectedReportsArgs<ExtArgs extends runtime.
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountOwnedDefectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DefectWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedDefectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DefectWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountDefectEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DefectEventWhereInput
 }
@@ -1631,6 +1967,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   resolvedReviewComments?: boolean | Prisma.User$resolvedReviewCommentsArgs<ExtArgs>
   approvedReports?: boolean | Prisma.User$approvedReportsArgs<ExtArgs>
   rejectedReports?: boolean | Prisma.User$rejectedReportsArgs<ExtArgs>
+  ownedDefects?: boolean | Prisma.User$ownedDefectsArgs<ExtArgs>
+  assignedDefects?: boolean | Prisma.User$assignedDefectsArgs<ExtArgs>
   defectEvents?: boolean | Prisma.User$defectEventsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1683,6 +2021,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   resolvedReviewComments?: boolean | Prisma.User$resolvedReviewCommentsArgs<ExtArgs>
   approvedReports?: boolean | Prisma.User$approvedReportsArgs<ExtArgs>
   rejectedReports?: boolean | Prisma.User$rejectedReportsArgs<ExtArgs>
+  ownedDefects?: boolean | Prisma.User$ownedDefectsArgs<ExtArgs>
+  assignedDefects?: boolean | Prisma.User$assignedDefectsArgs<ExtArgs>
   defectEvents?: boolean | Prisma.User$defectEventsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1704,6 +2044,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     resolvedReviewComments: Prisma.$ReviewCommentPayload<ExtArgs>[]
     approvedReports: Prisma.$EightDReportPayload<ExtArgs>[]
     rejectedReports: Prisma.$EightDReportPayload<ExtArgs>[]
+    ownedDefects: Prisma.$DefectPayload<ExtArgs>[]
+    assignedDefects: Prisma.$DefectPayload<ExtArgs>[]
     defectEvents: Prisma.$DefectEventPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
@@ -2118,6 +2460,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   resolvedReviewComments<T extends Prisma.User$resolvedReviewCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resolvedReviewCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   approvedReports<T extends Prisma.User$approvedReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EightDReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rejectedReports<T extends Prisma.User$rejectedReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rejectedReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EightDReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedDefects<T extends Prisma.User$ownedDefectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDefectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedDefects<T extends Prisma.User$assignedDefectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedDefectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   defectEvents<T extends Prisma.User$defectEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$defectEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2700,6 +3044,54 @@ export type User$rejectedReportsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.EightDReportScalarFieldEnum | Prisma.EightDReportScalarFieldEnum[]
+}
+
+/**
+ * User.ownedDefects
+ */
+export type User$ownedDefectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Defect
+   */
+  select?: Prisma.DefectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Defect
+   */
+  omit?: Prisma.DefectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DefectInclude<ExtArgs> | null
+  where?: Prisma.DefectWhereInput
+  orderBy?: Prisma.DefectOrderByWithRelationInput | Prisma.DefectOrderByWithRelationInput[]
+  cursor?: Prisma.DefectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DefectScalarFieldEnum | Prisma.DefectScalarFieldEnum[]
+}
+
+/**
+ * User.assignedDefects
+ */
+export type User$assignedDefectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Defect
+   */
+  select?: Prisma.DefectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Defect
+   */
+  omit?: Prisma.DefectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DefectInclude<ExtArgs> | null
+  where?: Prisma.DefectWhereInput
+  orderBy?: Prisma.DefectOrderByWithRelationInput | Prisma.DefectOrderByWithRelationInput[]
+  cursor?: Prisma.DefectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DefectScalarFieldEnum | Prisma.DefectScalarFieldEnum[]
 }
 
 /**

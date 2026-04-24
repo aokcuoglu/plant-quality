@@ -85,7 +85,8 @@
 - `Plan`: `BASIC | PRO`
 - `NotificationType`: `INFO | REVISION | NEW_DEFECT`
 - `ReviewCommentStatus`: `OPEN | RESOLVED`
-- `DefectEventType`: `CREATED | EIGHT_D_STARTED | EIGHT_D_STEP_SAVED | EIGHT_D_SUBMITTED | REVIEW_COMMENT_ADDED | REVIEW_COMMENT_RESPONDED | REVIEW_COMMENT_RESOLVED | REVIEW_COMMENT_REOPENED | REVISION_REQUESTED | APPROVED`
+- `ActionOwner`: `OEM | SUPPLIER | NONE`
+- `DefectEventType`: `CREATED | EIGHT_D_STARTED | EIGHT_D_STEP_SAVED | EIGHT_D_SUBMITTED | REVIEW_COMMENT_ADDED | REVIEW_COMMENT_RESPONDED | REVIEW_COMMENT_RESOLVED | REVIEW_COMMENT_REOPENED | REVISION_REQUESTED | APPROVED | OWNER_CHANGED | SUPPLIER_ASSIGNEE_CHANGED | DUE_DATE_CHANGED`
 - `DefectStatus`: `OPEN | IN_PROGRESS | WAITING_APPROVAL | RESOLVED | REJECTED`
 
 ### Models
@@ -100,7 +101,7 @@
 Standard Auth.js tables.
 
 #### Defect (`defects`)
-`id`, `oemId` → Company (OemDefects), `supplierId` → Company (SupplierDefects), `partNumber`, `description`, `status` (DefectStatus), `imageUrls` (String[]), `createdAt`, `updatedAt`, `resolvedAt?`
+`id`, `oemId` → Company (OemDefects), `supplierId` → Company (SupplierDefects), `partNumber`, `description`, `status` (DefectStatus), `imageUrls` (String[]), ownership/SLA fields (`oemOwnerId?`, `supplierAssigneeId?`, due date fields, `currentActionOwner`), `createdAt`, `updatedAt`, `resolvedAt?`
 
 #### EightDReport (`eight_d_reports`)
 

@@ -176,6 +176,29 @@ function parseJsonSafe<T>(val: string | null | undefined): T | null {
   }
 }
 
+function parseRootCauses(val: string | null | undefined): RootCauseRow[] | null {
+  if (!val?.trim()) return null
+
+  const saved = parseJsonSafe<RootCauseRow[]>(val)
+  if (saved && saved.length > 0) return saved
+
+  const rows = val
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const match = line.match(/^(?:[-*\s]*Why\s*#?\d+\s*[:.-]\s*)?(.*?)(?:\s*\((\d+(?:\.\d+)?)%\))?$/i)
+      const cause = (match?.[1] ?? line).trim()
+      const contribution = match?.[2] ? Number(match[2]) : 0
+      return { id: genId(), cause, contribution }
+    })
+    .filter((row) => row.cause)
+
+  if (rows.length > 0) return rows
+
+  return [{ id: genId(), cause: val.trim(), contribution: 100 }]
+}
+
 export function EightDWizardForm({
   defectId,
   initialData,
@@ -221,7 +244,7 @@ export function EightDWizardForm({
   })
 
   const [rootCauses, setRootCauses] = useState<RootCauseRow[]>(() => {
-    const saved = parseJsonSafe<RootCauseRow[]>(initialData.d4_rootCause)
+    const saved = parseRootCauses(initialData.d4_rootCause)
     if (saved && saved.length > 0) return saved
     return [{ id: genId(), cause: "", contribution: 0 }]
   })
@@ -277,27 +300,44 @@ export function EightDWizardForm({
     setTimeout(() => setSavedText(null), 2500)
   }, [])
 
-  const saveCurrentStep = useCallback(async () => {
+  const buildStepData = useCallback((targetStep: number) => {
     const data: Record<string, unknown> = {}
-    if (step === 0) {
+    if (targetStep === 0) {
       data.d1_team = teamMembers
       data.d2_problem = d2Problem
-    } else if (step === 1) {
+    } else if (targetStep === 1) {
       data.d3_containmentActions = containmentActions
-    } else if (step === 2) {
+    } else if (targetStep === 2) {
       data.d4_rootCause = combinedRootCause
-    } else if (step === 3) {
+    } else if (targetStep === 3) {
       data.d5_actions = d5Actions
       data.d6_actions = d6Actions
       data.d5_d6_action = `D5 Actions:\n${d5Actions.map((a) => `- ${a.action} (Verification: ${a.verificationMethod}, Effectiveness: ${a.effectiveness}%)`).join("\n")}\n\nD6 Validation:\n${d6Actions.map((a) => `- ${d5ActionMap[a.actionId] || a.actionDescription} | Target: ${a.targetDate} | Actual: ${a.actualDate} | Validated by: ${a.validatedByName}`).join("\n")}`
-    } else if (step === 4) {
+    } else if (targetStep === 4) {
       data.d7_impacts = d7Impacts
       data.d7_preventive = d7Preventive
-    } else if (step === 5) {
+    } else if (targetStep === 5) {
       data.d8_recognition = d8Recognition
     }
-    return saveEightDStep(defectId, data)
-  }, [step, defectId, teamMembers, d2Problem, containmentActions, combinedRootCause, d5Actions, d6Actions, d5ActionMap, d7Impacts, d7Preventive, d8Recognition])
+    return data
+  }, [teamMembers, d2Problem, containmentActions, combinedRootCause, d5Actions, d6Actions, d5ActionMap, d7Impacts, d7Preventive, d8Recognition])
+
+  const buildAllStepData = useCallback(() => ({
+    ...buildStepData(0),
+    ...buildStepData(1),
+    ...buildStepData(2),
+    ...buildStepData(3),
+    ...buildStepData(4),
+    ...buildStepData(5),
+  }), [buildStepData])
+
+  const saveCurrentStep = useCallback(async () => {
+    return saveEightDStep(defectId, buildStepData(step))
+  }, [step, defectId, buildStepData])
+
+  const saveAllSteps = useCallback(async () => {
+    return saveEightDStep(defectId, buildAllStepData())
+  }, [defectId, buildAllStepData])
 
   const handleSave = useCallback(() => {
     startSave(async () => {
@@ -317,7 +357,11 @@ export function EightDWizardForm({
 
   const handleSubmit = useCallback(() => {
     startSubmit(async () => {
-      await saveCurrentStep()
+      const saveResult = await saveAllSteps()
+      if (!saveResult.success) {
+        toast({ title: "Save failed", description: saveResult.error, type: "destructive" })
+        return
+      }
       const result = await submitEightDReport(defectId)
       if (result.success) {
         setSuccess(true)
@@ -326,7 +370,7 @@ export function EightDWizardForm({
         toast({ title: "Submit blocked", description: result.error, type: "destructive" })
       }
     })
-  }, [defectId, startSubmit, router, saveCurrentStep])
+  }, [defectId, startSubmit, router, saveAllSteps])
 
   const handleCommentResponse = useCallback((commentId: string) => {
     const response = commentResponses[commentId]?.trim()

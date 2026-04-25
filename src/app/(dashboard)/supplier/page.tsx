@@ -1,7 +1,16 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { BugIcon, ClockIcon, CheckCircleIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon } from "lucide-react"
+import {
+  BugIcon,
+  ClockIcon,
+  CheckCircleIcon,
+  AlertTriangleIcon,
+  TimerIcon,
+  FileCheckIcon,
+  CalendarDaysIcon,
+  GaugeIcon,
+} from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { StatusDonut } from "@/components/dashboard/StatusDonut"
@@ -57,6 +66,10 @@ export default async function SupplierDashboardPage() {
   }).length
   const missingEvidence = operationalDefects.filter((d) => !getEvidenceReady(d.evidences)).length
   const evidenceReady = operationalDefects.filter((d) => getEvidenceReady(d.evidences)).length
+
+  const slaActive = operationalDefects.filter((d) => getActiveDueDate(d) !== null).length
+  const totalOperational = operationalDefects.length
+  const slaBreachRate = totalOperational > 0 ? Math.round((overdueAssigned / totalOperational) * 100) : 0
 
   const resolvedDefects = await prisma.defect.findMany({
     where: {
@@ -141,30 +154,57 @@ export default async function SupplierDashboardPage() {
           value={totalDefects}
           icon={BugIcon}
           subtitle="All assigned quality issues"
+          href="/supplier/defects"
         />
         <DashboardCard
           title="Open"
           value={openDefects}
           icon={AlertTriangleIcon}
           subtitle="Awaiting your 8D report"
+          href="/supplier/defects?filter=open"
         />
         <DashboardCard
           title="In Progress"
           value={inProgress}
           icon={ClockIcon}
           subtitle="Being drafted"
+          href="/supplier/defects?filter=in-progress"
         />
         <DashboardCard
           title="Awaiting Approval"
           value={waitingApproval}
           icon={TimerIcon}
           subtitle="Submitted to customer"
+          href="/supplier/defects?filter=waiting-customer"
         />
         <DashboardCard
           title="Resolved"
           value={resolved}
           icon={CheckCircleIcon}
           subtitle="Successfully closed"
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <DashboardCard
+          title="SLA Active"
+          value={slaActive}
+          icon={CalendarDaysIcon}
+          subtitle="Defects under active SLA"
+          href="/supplier/defects?filter=has-sla"
+        />
+        <DashboardCard
+          title="SLA Breach Rate"
+          value={`${slaBreachRate}%`}
+          icon={GaugeIcon}
+          subtitle="Overdue / Total active"
+        />
+        <DashboardCard
+          title="Due This Week"
+          value={dueThisWeek}
+          icon={TimerIcon}
+          subtitle="Active SLA in next 7 days"
+          href="/supplier/defects?filter=due-this-week"
         />
       </div>
 
@@ -209,18 +249,21 @@ export default async function SupplierDashboardPage() {
           value={overdueAssigned}
           icon={AlertTriangleIcon}
           subtitle="Assigned to you and past due"
+          href="/supplier/defects?filter=overdue"
         />
         <DashboardCard
           title="Due This Week"
           value={dueThisWeek}
           icon={TimerIcon}
           subtitle="Active SLA dates in next 7 days"
+          href="/supplier/defects?filter=due-this-week"
         />
         <DashboardCard
           title="Customer Review"
           value={waitingApproval}
           icon={ClockIcon}
           subtitle="Waiting for OEM approval"
+          href="/supplier/defects?filter=waiting-customer"
         />
       </div>
 
@@ -230,12 +273,14 @@ export default async function SupplierDashboardPage() {
           value={missingEvidence}
           icon={AlertTriangleIcon}
           subtitle="Open defects missing required files"
+          href="/supplier/defects?filter=evidence-missing"
         />
         <DashboardCard
           title="Evidence Ready"
           value={evidenceReady}
           icon={FileCheckIcon}
           subtitle="Open defects with D5/D6/D7 evidence"
+          href="/supplier/defects?filter=evidence-ready"
         />
       </div>
     </div>

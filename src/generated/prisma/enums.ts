@@ -37,7 +37,9 @@ export type Plan = (typeof Plan)[keyof typeof Plan]
 export const NotificationType = {
   INFO: 'INFO',
   REVISION: 'REVISION',
-  NEW_DEFECT: 'NEW_DEFECT'
+  NEW_DEFECT: 'NEW_DEFECT',
+  SLA_DUE_SOON: 'SLA_DUE_SOON',
+  SLA_ESCALATION: 'SLA_ESCALATION'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

@@ -1,23 +1,36 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
-import { getDefects } from "./queries"
+import { getDefects, PAGE_SIZE } from "./queries"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { StatusBadge } from "@/components/ui/status-badge"
 import { Button } from "@/components/ui/button"
+import { SearchInput } from "@/components/ui/search-input"
 import { PlusIcon } from "lucide-react"
 import { formatDueDate, getActionOwnerLabel } from "@/lib/sla"
 
 export default async function DefectsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filter?: string }>
+  searchParams: Promise<{ filter?: string; q?: string; page?: string }>
 }) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") redirect("/login")
 
-  const { filter } = await searchParams
-  const defects = await getDefects(filter)
+  const { filter, q, page: pageStr } = await searchParams
+  const search = q || undefined
+  const page = Math.max(1, parseInt(pageStr ?? "1", 10) || 1)
+  const { defects, totalCount } = await getDefects(filter, search, page)
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+
+  function buildUrl(params: { filter?: string; q?: string; page?: number }) {
+    const sp = new URLSearchParams()
+    if (params.filter && params.filter !== "all") sp.set("filter", params.filter)
+    if (params.q) sp.set("q", params.q)
+    if (params.page && params.page > 1) sp.set("page", String(params.page))
+    const qs = sp.toString()
+    return qs ? `/oem/defects?${qs}` : "/oem/defects"
+  }
 
   return (
     <div className="space-y-6">
@@ -34,9 +47,14 @@ export default async function DefectsPage({
         }
       />
 
+      <SearchInput placeholder="Search by part number or description…" />
+
       <div className="flex flex-wrap gap-2">
         {[
           ["all", "All"],
+          ["open", "Open"],
+          ["waiting-approval", "Waiting Approval"],
+          ["in-progress", "In Progress"],
           ["overdue", "Overdue"],
           ["supplier", "Action by Supplier"],
           ["oem", "Action by OEM"],
@@ -46,7 +64,7 @@ export default async function DefectsPage({
         ].map(([value, label]) => (
           <Link
             key={value}
-            href={value === "all" ? "/oem/defects" : `/oem/defects?filter=${value}`}
+            href={buildUrl({ filter: value, q: search })}
             className={`rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
               (value === "all" && !filter) || filter === value
                 ? "border-primary bg-primary/10 text-primary"
@@ -122,6 +140,28 @@ export default async function DefectsPage({
           </tbody>
         </table>
       </div>
+
+      {totalCount > PAGE_SIZE && (
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>Page {page} of {totalPages}</span>
+          <div className="flex gap-2">
+            {page > 1 ? (
+              <Link href={buildUrl({ filter, q: search, page: page - 1 })} className="rounded-md border px-3 py-1.5 text-xs font-medium hover:bg-muted">
+                Previous
+              </Link>
+            ) : (
+              <span className="rounded-md border px-3 py-1.5 text-xs font-medium opacity-50 cursor-not-allowed">Previous</span>
+            )}
+            {page < totalPages ? (
+              <Link href={buildUrl({ filter, q: search, page: page + 1 })} className="rounded-md border px-3 py-1.5 text-xs font-medium hover:bg-muted">
+                Next
+              </Link>
+            ) : (
+              <span className="rounded-md border px-3 py-1.5 text-xs font-medium opacity-50 cursor-not-allowed">Next</span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

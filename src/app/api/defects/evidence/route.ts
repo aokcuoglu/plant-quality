@@ -53,14 +53,19 @@ export async function POST(req: NextRequest) {
   const key = buildEvidenceStorageKey(defectId, sectionRaw, file.name)
   const bytes = await file.arrayBuffer()
 
-  await s3Client.send(
-    new PutObjectCommand({
-      Bucket: S3_BUCKET_NAME,
-      Key: key,
-      Body: Buffer.from(bytes),
-      ContentType: file.type,
-    }),
-  )
+  try {
+    await s3Client.send(
+      new PutObjectCommand({
+        Bucket: S3_BUCKET_NAME,
+        Key: key,
+        Body: Buffer.from(bytes),
+        ContentType: file.type,
+      }),
+    )
+  } catch (err) {
+    console.error("S3 upload failed:", err)
+    return NextResponse.json({ error: "File storage upload failed. Please try again." }, { status: 502 })
+  }
 
   const evidence = await prisma.defectEvidence.create({
     data: {

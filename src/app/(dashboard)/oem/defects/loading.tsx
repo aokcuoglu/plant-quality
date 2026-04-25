@@ -9,6 +9,10 @@ export default function DefectsLoading() {
         <div className="h-9 w-28 animate-pulse rounded-md bg-slate-200" />
       </div>
 
+      <div className="relative">
+        <div className="h-9 w-full animate-pulse rounded-md bg-slate-100" />
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {[1, 2, 3, 4, 5, 6, 7].map((i) => (
           <div key={i} className="h-7 w-20 animate-pulse rounded-md bg-slate-100" />

@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="size-6 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600" />
+        <div className="size-6 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-foreground" />
       </div>
     )
   }
@@ -48,12 +48,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <header className="flex h-14 shrink-0 items-center justify-between border-b bg-white dark:bg-card px-6">
-          <div className="flex items-center gap-2 text-sm text-slate-400">
-            <span className="hidden sm:inline text-slate-500">PlantQuality</span>
-            <ChevronRight className="hidden sm:block size-3 text-slate-300" />
-            <span className="flex items-center gap-1.5">
-              <Building2Icon className="size-3.5" />
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-sidebar px-6">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="hidden text-muted-foreground sm:inline">PlantQuality</span>
+            <ChevronRight className="hidden size-3 text-muted-foreground/50 sm:block" />
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              <Building2Icon className="size-3.5 text-muted-foreground" />
               {session.user.companyName}
             </span>
           </div>
@@ -62,7 +62,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NotificationBell />
           </div>
         </header>
-        <main className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-6">{children}</main>
+        <main className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden bg-background p-6 text-foreground">{children}</main>
       </div>
     </div>
   )

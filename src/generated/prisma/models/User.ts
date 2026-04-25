@@ -179,7 +179,7 @@ export type UserGroupByOutputType = {
   image: string | null
   role: $Enums.Role
   plan: $Enums.Plan
-  companyId: string
+  companyId: string | null
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
@@ -212,9 +212,9 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
-  companyId?: Prisma.StringFilter<"User"> | string
+  companyId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   reviewComments?: Prisma.ReviewCommentListRelationFilter
@@ -236,7 +236,7 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  companyId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
@@ -263,9 +263,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
-  companyId?: Prisma.StringFilter<"User"> | string
+  companyId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   reviewComments?: Prisma.ReviewCommentListRelationFilter
@@ -287,7 +287,7 @@ export type UserOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  companyId?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -305,7 +305,7 @@ export type UserScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanWithAggregatesFilter<"User"> | $Enums.Plan
-  companyId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -318,7 +318,7 @@ export type UserCreateInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -340,7 +340,7 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -364,7 +364,7 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -386,7 +386,7 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -409,7 +409,7 @@ export type UserCreateManyInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
 }
 
@@ -432,7 +432,7 @@ export type UserUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -793,7 +793,7 @@ export type UserScalarWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
-  companyId?: Prisma.StringFilter<"User"> | string
+  companyId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
@@ -806,7 +806,7 @@ export type UserCreateWithoutAccountsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
@@ -827,7 +827,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -866,7 +866,7 @@ export type UserUpdateWithoutAccountsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
@@ -887,7 +887,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -910,7 +910,7 @@ export type UserCreateWithoutSessionsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
@@ -931,7 +931,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -970,7 +970,7 @@ export type UserUpdateWithoutSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
@@ -991,7 +991,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1014,7 +1014,7 @@ export type UserCreateWithoutOwnedDefectsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1035,7 +1035,7 @@ export type UserUncheckedCreateWithoutOwnedDefectsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1063,7 +1063,7 @@ export type UserCreateWithoutAssignedDefectsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1084,7 +1084,7 @@ export type UserUncheckedCreateWithoutAssignedDefectsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1123,7 +1123,7 @@ export type UserUpdateWithoutOwnedDefectsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1144,7 +1144,7 @@ export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1178,7 +1178,7 @@ export type UserUpdateWithoutAssignedDefectsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1199,7 +1199,7 @@ export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1222,7 +1222,7 @@ export type UserCreateWithoutApprovedReportsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1243,7 +1243,7 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1271,7 +1271,7 @@ export type UserCreateWithoutRejectedReportsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1292,7 +1292,7 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1331,7 +1331,7 @@ export type UserUpdateWithoutApprovedReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1352,7 +1352,7 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1386,7 +1386,7 @@ export type UserUpdateWithoutRejectedReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1407,7 +1407,7 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1430,7 +1430,7 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1451,7 +1451,7 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1479,7 +1479,7 @@ export type UserCreateWithoutReviewCommentsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
@@ -1500,7 +1500,7 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1539,7 +1539,7 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1560,7 +1560,7 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1594,7 +1594,7 @@ export type UserUpdateWithoutReviewCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
@@ -1615,7 +1615,7 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1638,7 +1638,7 @@ export type UserCreateWithoutDefectEventsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1659,7 +1659,7 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1698,7 +1698,7 @@ export type UserUpdateWithoutDefectEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1719,7 +1719,7 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1742,7 +1742,7 @@ export type UserCreateWithoutUploadedEvidenceInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1763,7 +1763,7 @@ export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1802,7 +1802,7 @@ export type UserUpdateWithoutUploadedEvidenceInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1823,7 +1823,7 @@ export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -1846,7 +1846,7 @@ export type UserCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   plan?: $Enums.Plan
   createdAt?: Date | string
-  company: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
@@ -1867,7 +1867,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   image?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  companyId: string
+  companyId?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -1906,7 +1906,7 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneRequiredWithoutUsersNestedInput
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
@@ -1927,7 +1927,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -2138,7 +2138,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   plan?: boolean
   companyId?: boolean
   createdAt?: boolean
-  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   reviewComments?: boolean | Prisma.User$reviewCommentsArgs<ExtArgs>
@@ -2163,7 +2163,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   plan?: boolean
   companyId?: boolean
   createdAt?: boolean
-  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2176,7 +2176,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   plan?: boolean
   companyId?: boolean
   createdAt?: boolean
-  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -2193,7 +2193,7 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "emailVerified" | "image" | "role" | "plan" | "companyId" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   reviewComments?: boolean | Prisma.User$reviewCommentsArgs<ExtArgs>
@@ -2208,16 +2208,16 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  company?: boolean | Prisma.User$companyArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    company: Prisma.$CompanyPayload<ExtArgs>
+    company: Prisma.$CompanyPayload<ExtArgs> | null
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     reviewComments: Prisma.$ReviewCommentPayload<ExtArgs>[]
@@ -2238,7 +2238,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     image: string | null
     role: $Enums.Role
     plan: $Enums.Plan
-    companyId: string
+    companyId: string | null
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -2634,7 +2634,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  company<T extends Prisma.User$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewComments<T extends Prisma.User$reviewCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3082,6 +3082,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.company
+ */
+export type User$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
 }
 
 /**

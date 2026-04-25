@@ -1,3 +1,4 @@
+import Link from "next/link"
 import type { LucideIcon } from "lucide-react"
 
 export function DashboardCard({
@@ -5,13 +6,15 @@ export function DashboardCard({
   value,
   icon: Icon,
   subtitle,
+  href,
 }: {
   title: string
   value: number | string
   icon: LucideIcon
   subtitle?: string
+  href?: string
 }) {
-  return (
+  const card = (
     <div className="relative overflow-hidden rounded-xl border bg-card p-5 text-card-foreground shadow-sm">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
@@ -27,4 +30,14 @@ export function DashboardCard({
       </div>
     </div>
   )
+
+  if (href) {
+    return (
+      <Link href={href} className="block">
+        {card}
+      </Link>
+    )
+  }
+
+  return card
 }

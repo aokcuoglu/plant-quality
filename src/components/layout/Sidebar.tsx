@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 import {
   LayoutDashboardIcon,
   BugIcon,
@@ -19,6 +19,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { ThemeToggle } from "@/components/theme/ThemeToggle"
 
 const ICON_MAP: Record<string, LucideIcon> = {
   LayoutDashboardIcon,
@@ -42,34 +43,36 @@ interface SidebarProps {
   }
 }
 
+const noop = () => () => {}
+
 export function Sidebar({ navItems, user }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const isClient = useSyncExternalStore(noop, () => true, () => false)
 
   useEffect(() => {
     const stored = localStorage.getItem("sidebar-collapsed")
-    if (stored === "true") {
-      setIsCollapsed(true)
-    }
-    setMounted(true)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsCollapsed(stored === "true")
   }, [])
 
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("sidebar-collapsed", String(isCollapsed))
-    }
-  }, [isCollapsed, mounted])
+  const handleToggle = () => {
+    setIsCollapsed((prev) => {
+      const next = !prev
+      localStorage.setItem("sidebar-collapsed", String(next))
+      return next
+    })
+  }
 
   return (
     <TooltipProvider>
       <aside
         className={cn(
-          "relative flex shrink-0 flex-col border-r bg-card",
-          mounted && "transition-all duration-300 ease-in-out",
+          "relative flex shrink-0 flex-col border-r border-sidebar-border bg-sidebar",
+          isClient && "transition-[width] duration-300 ease-in-out",
           isCollapsed ? "w-16" : "w-64"
         )}
       >
-        <div className="flex h-14 shrink-0 items-center border-b border-slate-700/50 overflow-hidden bg-[#0b0e14]">
+        <div className="flex h-14 shrink-0 items-center border-b border-sidebar-border overflow-hidden bg-sidebar">
           <div
             className={cn(
               "flex h-full items-center transition-all duration-300",
@@ -87,10 +90,10 @@ export function Sidebar({ navItems, user }: SidebarProps) {
                   : "max-w-40 opacity-100"
               )}
             >
-              <span className="font-bold text-white">
+              <span className="font-bold text-sidebar-foreground">
                 Plant
               </span>
-              <span className="font-light ml-0.5 text-slate-400">
+              <span className="font-light ml-0.5 text-sidebar-foreground/70">
                 Quality
               </span>
             </span>
@@ -107,14 +110,14 @@ export function Sidebar({ navItems, user }: SidebarProps) {
           ))}
         </nav>
 
-        <div className={cn("border-t overflow-hidden", isCollapsed ? "p-2" : "p-3")}>
+        <div className={cn("overflow-hidden border-t border-sidebar-border bg-sidebar", isCollapsed ? "p-2" : "p-3")}>
           <div
             className={cn(
               "flex items-center rounded-lg transition-all duration-300",
               isCollapsed ? "justify-center p-2" : "gap-3 px-2 py-2.5"
             )}
           >
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-semibold text-emerald-600">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-semibold text-emerald-400">
               {user.email?.charAt(0).toUpperCase() ?? "U"}
             </div>
             <div
@@ -125,48 +128,58 @@ export function Sidebar({ navItems, user }: SidebarProps) {
                   : "max-w-40 opacity-100"
               )}
             >
-              <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+              <p className="truncate text-sm font-medium text-sidebar-foreground">
                 {user.companyName}
               </p>
-              <p className="truncate text-xs text-slate-500">{user.email}</p>
+              <p className="truncate text-xs text-muted-foreground">{user.email}</p>
               <span
                 className={cn(
                   "mt-0.5 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase",
                   user.plan === "PRO"
-                    ? "bg-gradient-to-r from-amber-50 to-amber-100 text-amber-700"
-                    : "bg-slate-100 text-slate-600"
+                    ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                    : "bg-muted text-muted-foreground border border-border"
                 )}
               >
                 {user.plan}
               </span>
             </div>
           </div>
-          <div className={cn("mt-1", isCollapsed && "hidden")}>
-            <button
-              onClick={() => signOut()}
-              className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs text-slate-500 transition-colors hover:bg-red-50 hover:text-red-600"
-            >
-              <LogOutIcon className="h-3.5 w-3.5 shrink-0" />
-              <span>
-                Sign out
-              </span>
-            </button>
+
+          <div className={cn(isCollapsed ? "mt-2 flex flex-col items-center gap-2" : "mt-1 space-y-1")}>
+            <ThemeToggle collapsed={isCollapsed} />
+
+            <SignOutButton collapsed={isCollapsed} />
           </div>
         </div>
 
         <button
-          onClick={() => setIsCollapsed((prev) => !prev)}
-          className="absolute -right-3 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:bg-slate-50 hover:border-slate-300 hover:shadow-md"
+          onClick={handleToggle}
+          className="absolute -right-3 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-sidebar-border bg-sidebar shadow-md shadow-black/20 transition-all duration-200 hover:bg-sidebar-accent hover:border-sidebar-ring"
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? (
-            <ChevronRight className="size-3 text-slate-500" />
+            <ChevronRight className="size-3 text-muted-foreground" />
           ) : (
-            <ChevronLeft className="size-3 text-slate-500" />
+            <ChevronLeft className="size-3 text-muted-foreground" />
           )}
         </button>
       </aside>
     </TooltipProvider>
+  )
+}
+
+function SignOutButton({ collapsed }: { collapsed?: boolean }) {
+  return (
+    <button
+      onClick={() => signOut()}
+      className={cn(
+        "flex items-center gap-2 rounded-md text-xs text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-400",
+        collapsed ? "justify-center p-2" : "w-full px-2 py-1.5"
+      )}
+    >
+      <LogOutIcon className="size-3.5 shrink-0" />
+      {!collapsed && <span>Sign out</span>}
+    </button>
   )
 }
 
@@ -180,15 +193,15 @@ function SidebarLink({
   const Icon = ICON_MAP[item.icon]
 
   const link = (
-    <a
+      <a
       href={item.href}
       className={cn(
-        "group flex items-center rounded-lg text-sm font-medium border-l-0 transition-all hover:text-slate-900 hover:bg-slate-50",
-        isCollapsed ? "justify-center p-2" : "gap-2.5 px-3 py-2 border-l-4 border-transparent hover:border-emerald-500/30"
+        "group flex items-center rounded-lg text-sm font-medium border-l-0 transition-all hover:text-sidebar-accent-foreground hover:bg-sidebar-accent",
+        isCollapsed ? "justify-center p-2" : "gap-2.5 px-3 py-2 border-l-4 border-transparent hover:border-emerald-500/40"
       )}
       data-active={undefined}
     >
-      <Icon className="size-4 shrink-0 text-slate-500 group-hover:text-slate-700" />
+      <Icon className="size-4 shrink-0 text-muted-foreground group-hover:text-emerald-400" />
       <span
         className={cn(
           "whitespace-nowrap overflow-hidden transition-all duration-300",

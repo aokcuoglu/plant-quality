@@ -44,7 +44,7 @@ export function TrendArea({ data }: { data: RawItem[] }) {
             content={({ active, payload, label }) => {
               if (!active || !payload?.length) return null
               return (
-                <div className="rounded-lg border-0 bg-black px-3 py-2 text-xs text-white shadow-md">
+                <div className="rounded-lg border bg-popover px-3 py-2 text-xs text-popover-foreground shadow-md">
                   <span className="font-medium">{label}</span>: {payload[0].value} defect{payload[0].value !== 1 ? "s" : ""}
                 </div>
               )

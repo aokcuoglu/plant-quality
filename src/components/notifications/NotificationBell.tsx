@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
-import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon } from "lucide-react"
+import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon, ClockIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { NotificationType } from "@/generated/prisma/client"
@@ -33,6 +33,10 @@ export function NotificationBell({
     switch (type) {
       case "NEW_DEFECT":
         return <AlertTriangleIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
+      case "SLA_DUE_SOON":
+        return <ClockIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+      case "SLA_ESCALATION":
+        return <AlertTriangleIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
       case "REVISION":
         return <GitPullRequestIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
       default:

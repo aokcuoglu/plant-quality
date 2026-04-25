@@ -28,12 +28,26 @@ function getEvidenceReady(evidences: { section: EightDSection }[]) {
   return hasRequiredSubmissionEvidence(counts)
 }
 
-export async function getDefects(filter?: string): Promise<DefectRow[]> {
+export const PAGE_SIZE = 20
+
+export async function getDefects(
+  filter?: string,
+  search?: string,
+  page?: number,
+): Promise<{ defects: DefectRow[]; totalCount: number }> {
   const session = await auth()
-  if (!session || session.user.companyType !== "OEM") return []
+  if (!session || session.user.companyType !== "OEM") return { defects: [], totalCount: 0 }
+
+  const where: Record<string, unknown> = { oemId: session.user.companyId }
+  if (search) {
+    where.OR = [
+      { partNumber: { contains: search, mode: "insensitive" } },
+      { description: { contains: search, mode: "insensitive" } },
+    ]
+  }
 
   const defects = await prisma.defect.findMany({
-    where: { oemId: session.user.companyId },
+    where,
     include: {
       supplier: { select: { name: true } },
       oemOwner: { select: { name: true, email: true } },
@@ -59,13 +73,33 @@ export async function getDefects(filter?: string): Promise<DefectRow[]> {
     createdAt: d.createdAt,
   }))
 
-  if (filter === "overdue") return rows.filter((d) => d.isOverdue)
-  if (filter === "supplier") return rows.filter((d) => d.currentActionOwner === "SUPPLIER")
-  if (filter === "oem") return rows.filter((d) => d.currentActionOwner === "OEM")
-  if (filter === "mine") return rows.filter((d) => d.oemOwnerId === session.user.id)
-  if (filter === "evidence-ready") return rows.filter((d) => d.evidenceReady)
-  if (filter === "evidence-missing") return rows.filter((d) => !d.evidenceReady)
-  return rows
+  let filtered = rows
+  if (filter === "open") filtered = rows.filter((d) => d.status === "OPEN")
+  else if (filter === "waiting-approval") filtered = rows.filter((d) => d.status === "WAITING_APPROVAL")
+  else if (filter === "in-progress") filtered = rows.filter((d) => d.status === "IN_PROGRESS")
+  else if (filter === "overdue") filtered = rows.filter((d) => d.isOverdue)
+  else if (filter === "supplier") filtered = rows.filter((d) => d.currentActionOwner === "SUPPLIER")
+  else if (filter === "oem") filtered = rows.filter((d) => d.currentActionOwner === "OEM")
+  else if (filter === "mine") filtered = rows.filter((d) => d.oemOwnerId === session.user.id)
+  else if (filter === "evidence-ready") filtered = rows.filter((d) => d.evidenceReady)
+  else if (filter === "evidence-missing") filtered = rows.filter((d) => !d.evidenceReady)
+  else if (filter === "has-sla") filtered = rows.filter((d) => d.activeDueDate !== null)
+  else if (filter === "due-soon") {
+    const now = new Date()
+    filtered = rows.filter((d) => {
+      if (!d.activeDueDate || d.isOverdue) return false
+      const diffMs = d.activeDueDate.getTime() - now.getTime()
+      const diffHours = diffMs / (1000 * 60 * 60)
+      return diffHours > 0 && diffHours <= 48
+    })
+  }
+
+  const totalCount = filtered.length
+  const currentPage = Math.max(1, page ?? 1)
+  const start = (currentPage - 1) * PAGE_SIZE
+  const paginated = filtered.slice(start, start + PAGE_SIZE)
+
+  return { defects: paginated, totalCount }
 }
 
 export async function getSuppliers() {

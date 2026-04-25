@@ -77,11 +77,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             name: true,
             role: true,
             plan: true,
+            emailVerified: true,
             companyId: true,
             company: { select: { type: true, name: true } },
           },
         })
         if (!user) return null
+        if (!user.emailVerified) {
+          // Dev mode — auto-verify if missing
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { emailVerified: new Date() },
+          })
+        }
         return {
           id: user.id,
           email: user.email,

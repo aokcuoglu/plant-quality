@@ -3,10 +3,13 @@ import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { StatusBadge } from "@/components/ui/status-badge"
-import { formatDueDate, getActionOwnerLabel, isDefectOverdue, getActiveDueDate } from "@/lib/sla"
+import { SearchInput } from "@/components/ui/search-input"
+import { formatDueDate, getActionOwnerLabel, isDefectOverdue, getActiveDueDate, isDueSoon } from "@/lib/sla"
 import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
 import Link from "next/link"
 import type { EightDSection } from "@/generated/prisma/client"
+
+const PAGE_SIZE = 20
 
 function getEvidenceReady(evidences: { section: EightDSection }[]) {
   const counts = evidences.reduce<Partial<Record<EightDSection, number>>>((acc, item) => {
@@ -19,14 +22,24 @@ function getEvidenceReady(evidences: { section: EightDSection }[]) {
 export default async function SupplierDefectsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filter?: string }>
+  searchParams: Promise<{ filter?: string; q?: string; page?: string }>
 }) {
   const session = await auth()
   if (!session || session.user.companyType !== "SUPPLIER") redirect("/login")
-  const { filter } = await searchParams
+  const { filter, q, page: pageStr } = await searchParams
+  const search = q || undefined
+  const page = Math.max(1, parseInt(pageStr ?? "1", 10) || 1)
+
+  const where: Record<string, unknown> = { supplierId: session.user.companyId }
+  if (search) {
+    where.OR = [
+      { partNumber: { contains: search, mode: "insensitive" } },
+      { description: { contains: search, mode: "insensitive" } },
+    ]
+  }
 
   const defects = await prisma.defect.findMany({
-    where: { supplierId: session.user.companyId },
+    where,
     include: {
       oem: { select: { name: true } },
       supplierAssignee: { select: { name: true, email: true } },
@@ -34,6 +47,7 @@ export default async function SupplierDefectsPage({
     },
     orderBy: { createdAt: "desc" },
   })
+
   const rows = defects
     .map((d) => ({
       ...d,
@@ -43,13 +57,30 @@ export default async function SupplierDefectsPage({
       evidenceReady: getEvidenceReady(d.evidences),
     }))
     .filter((d) => {
+      if (filter === "open") return d.status === "OPEN"
+      if (filter === "in-progress") return d.status === "IN_PROGRESS"
       if (filter === "overdue") return d.isOverdue
+      if (filter === "due-this-week") return d.activeDueDate && !d.isOverdue && isDueSoon(d)
       if (filter === "mine") return d.supplierAssigneeId === session.user.id
       if (filter === "waiting-customer") return d.currentActionOwner === "OEM"
       if (filter === "evidence-ready") return d.evidenceReady
       if (filter === "evidence-missing") return !d.evidenceReady
       return true
     })
+
+  const totalCount = rows.length
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+  const start = (page - 1) * PAGE_SIZE
+  const paginated = rows.slice(start, start + PAGE_SIZE)
+
+  function buildUrl(params: { filter?: string; q?: string; page?: number }) {
+    const sp = new URLSearchParams()
+    if (params.filter && params.filter !== "all") sp.set("filter", params.filter)
+    if (params.q) sp.set("q", params.q)
+    if (params.page && params.page > 1) sp.set("page", String(params.page))
+    const qs = sp.toString()
+    return qs ? `/supplier/defects?${qs}` : "/supplier/defects"
+  }
 
   return (
     <div className="space-y-6">
@@ -58,18 +89,22 @@ export default async function SupplierDefectsPage({
         description="Quality defect reports from your customers"
       />
 
+      <SearchInput placeholder="Search by part number or description…" />
+
       <div className="flex flex-wrap gap-2">
         {[
           ["all", "All"],
+          ["open", "Open"],
+          ["in-progress", "In Progress"],
           ["overdue", "Overdue"],
-          ["mine", "Assigned to Me"],
+          ["due-this-week", "Due This Week"],
           ["waiting-customer", "Waiting Customer Review"],
           ["evidence-missing", "Evidence Missing"],
           ["evidence-ready", "Evidence Ready"],
         ].map(([value, label]) => (
           <Link
             key={value}
-            href={value === "all" ? "/supplier/defects" : `/supplier/defects?filter=${value}`}
+            href={buildUrl({ filter: value, q: search })}
             className={`rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
               (value === "all" && !filter) || filter === value
                 ? "border-primary bg-primary/10 text-primary"
@@ -97,7 +132,7 @@ export default async function SupplierDefectsPage({
             </tr>
           </thead>
           <tbody>
-            {rows.map((d) => (
+            {paginated.map((d) => (
               <tr key={d.id} className="border-b transition-colors hover:bg-muted/50 cursor-pointer">
                 <Td className="font-mono text-xs">
                   <a href={`/supplier/defects/${d.id}`} className="text-foreground hover:text-primary transition-colors">{d.partNumber}</a>
@@ -128,7 +163,7 @@ export default async function SupplierDefectsPage({
                 </Td>
               </tr>
             ))}
-            {rows.length === 0 && (
+            {paginated.length === 0 && (
               <tr>
                 <Td colSpan={9} className="py-16 text-center text-muted-foreground">
                   <p className="text-sm">No defects reported yet.</p>
@@ -138,6 +173,28 @@ export default async function SupplierDefectsPage({
           </tbody>
         </table>
       </div>
+
+      {totalCount > PAGE_SIZE && (
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>Page {page} of {totalPages}</span>
+          <div className="flex gap-2">
+            {page > 1 ? (
+              <Link href={buildUrl({ filter, q: search, page: page - 1 })} className="rounded-md border px-3 py-1.5 text-xs font-medium hover:bg-muted">
+                Previous
+              </Link>
+            ) : (
+              <span className="rounded-md border px-3 py-1.5 text-xs font-medium opacity-50 cursor-not-allowed">Previous</span>
+            )}
+            {page < totalPages ? (
+              <Link href={buildUrl({ filter, q: search, page: page + 1 })} className="rounded-md border px-3 py-1.5 text-xs font-medium hover:bg-muted">
+                Next
+              </Link>
+            ) : (
+              <span className="rounded-md border px-3 py-1.5 text-xs font-medium opacity-50 cursor-not-allowed">Next</span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

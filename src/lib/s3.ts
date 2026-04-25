@@ -8,16 +8,28 @@ function env(name: string): string {
 
 function isMinIO(): boolean {
   const endpoint = process.env.R2_PUBLIC_URL || ""
-  return endpoint.includes("orb.local") || endpoint.includes("minio")
+  const accountId = process.env.R2_ACCOUNT_ID || ""
+  return (
+    endpoint.includes("orb.local") ||
+    endpoint.includes("minio") ||
+    endpoint.includes("host.docker.internal") ||
+    endpoint.includes("localhost") ||
+    accountId === "local"
+  )
 }
 
-const accountId = env("R2_ACCOUNT_ID")
+function getS3Endpoint(): string {
+  if (isMinIO()) {
+    const url = process.env.R2_PUBLIC_URL || ""
+    const parsed = new URL(url)
+    return `${parsed.protocol}//${parsed.host}`
+  }
+  return `https://${env("R2_ACCOUNT_ID")}.r2.cloudflarestorage.com`
+}
 
 export const s3Client = new S3Client({
   region: "auto",
-  endpoint: isMinIO()
-    ? "https://s3.plantquality.orb.local"
-    : `https://${accountId}.r2.cloudflarestorage.com`,
+  endpoint: getS3Endpoint(),
   credentials: {
     accessKeyId: env("R2_ACCESS_KEY_ID"),
     secretAccessKey: env("R2_SECRET_ACCESS_KEY"),

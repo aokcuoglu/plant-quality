@@ -21,9 +21,11 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
+  CardAction,
 } from "@/components/ui/card"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import type { DefectEventType } from "@/generated/prisma/client"
 import {
   Dialog,
   DialogContent,
@@ -32,8 +34,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog"
 import { StatusBadge } from "@/components/ui/status-badge"
+import { DefectTimeline } from "./DefectTimeline"
+import { ExportEightDButton } from "./ExportEightDButton"
 import { toast } from "@/components/ui/use-toast"
 import { formatDueDate, getActionOwnerLabel, getActiveDueDate, isDefectOverdue } from "@/lib/sla"
 import { updateDefectOwnershipAndSla } from "@/app/(dashboard)/defects/ownership-actions"
@@ -127,6 +132,13 @@ interface DefectDetail {
   evidences: DefectEvidenceFile[]
   eightDSubmitted: boolean
   eightDReport: EightDReportInfo | null
+  events: {
+    id: string
+    type: DefectEventType
+    actor: { name: string | null } | null
+    metadata: unknown
+    createdAt: Date
+  }[]
 }
 
 function formatDate(date: Date) {
@@ -432,6 +444,13 @@ function SupplierReportView({ defect }: { defect: DefectDetail }) {
             </Badge>
           )}
         </CardTitle>
+        <CardAction>
+          <ExportEightDButton
+            defectId={defect.id}
+            partNumber={defect.partNumber}
+            eightDData={report.reviewSections}
+          />
+        </CardAction>
       </CardHeader>
       <CardContent className="space-y-3">
         {report.reviewSections.map((section) => (
@@ -489,6 +508,8 @@ function OemReviewPanel({
   const router = useRouter()
   const [approving, startApprove] = useTransition()
   const [rejecting, startReject] = useTransition()
+  const [confirmApproveOpen, setConfirmApproveOpen] = useState(false)
+  const [confirmRejectOpen, setConfirmRejectOpen] = useState(false)
   const report = defect.eightDReport
 
   const handleAddComment = async (defectId: string, stepId: string, comment: string) => {
@@ -509,6 +530,13 @@ function OemReviewPanel({
               </Badge>
             )}
           </CardTitle>
+          <CardAction>
+            <ExportEightDButton
+              defectId={defect.id}
+              partNumber={defect.partNumber}
+              eightDData={report.reviewSections}
+            />
+          </CardAction>
         </CardHeader>
         <CardContent className="space-y-3">
           {report.reviewSections.map((section) => (
@@ -571,20 +599,7 @@ function OemReviewPanel({
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() =>
-              startReject(async () => {
-                try {
-                  const result = await rejectReport(defect.id)
-                  if (!result.success) {
-                    toast({ title: "Revision request blocked", description: result.error, type: "destructive" })
-                    return
-                  }
-                  router.refresh()
-                } catch {
-                  toast({ title: "Revision request failed", description: "Please try again.", type: "destructive" })
-                }
-              })
-            }
+            onClick={() => setConfirmRejectOpen(true)}
             disabled={rejecting}
             className={cn(
               buttonVariants({ variant: "destructive", className: "flex-1" }),
@@ -599,20 +614,7 @@ function OemReviewPanel({
           </button>
           <button
             type="button"
-            onClick={() =>
-              startApprove(async () => {
-                try {
-                  const result = await approveReport(defect.id)
-                  if (!result.success) {
-                    toast({ title: "Approval blocked", description: result.error, type: "destructive" })
-                    return
-                  }
-                  router.refresh()
-                } catch {
-                  toast({ title: "Approval failed", description: "Please try again.", type: "destructive" })
-                }
-              })
-            }
+            onClick={() => setConfirmApproveOpen(true)}
             disabled={approving}
             className={cn(
               buttonVariants({ className: "flex-1" }),
@@ -627,6 +629,81 @@ function OemReviewPanel({
           </button>
         </div>
       )}
+
+      <Dialog open={confirmRejectOpen} onOpenChange={setConfirmRejectOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Request Revision</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to request a revision? The supplier will be notified to update the report.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>
+              Cancel
+            </DialogClose>
+            <Button
+              variant="destructive"
+              disabled={rejecting}
+              onClick={() => {
+                startReject(async () => {
+                  try {
+                    const result = await rejectReport(defect.id)
+                    if (!result.success) {
+                      toast({ title: "Revision request blocked", description: result.error, type: "destructive" })
+                      return
+                    }
+                    setConfirmRejectOpen(false)
+                    router.refresh()
+                  } catch {
+                    toast({ title: "Revision request failed", description: "Please try again.", type: "destructive" })
+                  }
+                })
+              }}
+            >
+              {rejecting && <Loader2Icon className="mr-1 h-4 w-4 animate-spin" />}
+              Request Revision
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={confirmApproveOpen} onOpenChange={setConfirmApproveOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Approve Report</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to approve this 8D report? This will mark the defect as resolved.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>
+              Cancel
+            </DialogClose>
+            <Button
+              disabled={approving}
+              onClick={() => {
+                startApprove(async () => {
+                  try {
+                    const result = await approveReport(defect.id)
+                    if (!result.success) {
+                      toast({ title: "Approval blocked", description: result.error, type: "destructive" })
+                      return
+                    }
+                    setConfirmApproveOpen(false)
+                    router.refresh()
+                  } catch {
+                    toast({ title: "Approval failed", description: "Please try again.", type: "destructive" })
+                  }
+                })
+              }}
+            >
+              {approving && <Loader2Icon className="mr-1 h-4 w-4 animate-spin" />}
+              Approve
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {defect.status === "RESOLVED" && (
         <div className="rounded-lg border border-green-200 bg-green-50/50 px-4 py-3 text-center text-sm text-green-700 dark:border-green-900 dark:bg-green-950/20 dark:text-green-400">
@@ -915,6 +992,15 @@ export function DefectDetailView({
             defect={defect}
             companyType={companyType}
           />
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Activity</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <DefectTimeline events={defect.events} />
+            </CardContent>
+          </Card>
 
           {/* Supplier action button */}
           {companyType === "SUPPLIER" && supplierActionLabel && (

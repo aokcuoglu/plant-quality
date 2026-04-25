@@ -69,7 +69,7 @@ export function StatusDonut({ data, total }: { data: RawItem[]; total: number })
               if (!active || !payload?.length) return null
               const d = payload[0].payload as (typeof chartData)[number]
               return (
-                <div className="rounded-lg border-0 bg-black px-3 py-2 text-xs text-white shadow-md">
+                <div className="rounded-lg border bg-popover px-3 py-2 text-xs text-popover-foreground shadow-md">
                   <span className="font-medium">{d.name}</span>: {d.value}
                 </div>
               )

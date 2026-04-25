@@ -1,14 +1,14 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon } from "lucide-react"
+import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon, CalendarDaysIcon, GaugeIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { StatusDonut } from "@/components/dashboard/StatusDonut"
 import { SupplierBar } from "@/components/dashboard/SupplierBar"
 import { TrendArea } from "@/components/dashboard/TrendArea"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { isDefectOverdue } from "@/lib/sla"
+import { getActiveDueDate, isDefectOverdue, isDueSoon } from "@/lib/sla"
 import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
 import type { EightDSection } from "@/generated/prisma/client"
 
@@ -50,6 +50,15 @@ export default async function OemDashboardPage() {
   const waitingOemAction = operationalDefects.filter((d) => d.currentActionOwner === "OEM").length
   const missingEvidence = operationalDefects.filter((d) => !getEvidenceReady(d.evidences)).length
   const readyForReview = operationalDefects.filter((d) => d.status === "WAITING_APPROVAL" && getEvidenceReady(d.evidences)).length
+
+  const slaActive = operationalDefects.filter((d) => getActiveDueDate(d) !== null).length
+  const dueSoon = operationalDefects.filter((d) => {
+    const dueDate = getActiveDueDate(d)
+    if (!dueDate || isDefectOverdue(d)) return false
+    return isDueSoon(d)
+  }).length
+  const totalOperational = operationalDefects.length
+  const slaBreachRate = totalOperational > 0 ? Math.round((overdueDefects / totalOperational) * 100) : 0
 
   const resolvedDefects = await prisma.defect.findMany({
     where: {
@@ -134,18 +143,21 @@ export default async function OemDashboardPage() {
           value={totalDefects}
           icon={BugIcon}
           subtitle="All reported quality issues"
+          href="/oem/defects"
         />
         <DashboardCard
           title="Open"
           value={openDefects}
           icon={AlertTriangleIcon}
           subtitle="Awaiting supplier action"
+          href="/oem/defects?filter=open"
         />
         <DashboardCard
           title="Awaiting Approval"
           value={waitingApproval}
           icon={ClockIcon}
           subtitle="8D reports ready for review"
+          href="/oem/defects?filter=waiting-approval"
         />
         <DashboardCard
           title="Avg Resolution Time"
@@ -157,22 +169,48 @@ export default async function OemDashboardPage() {
 
       <div className="grid gap-4 md:grid-cols-3">
         <DashboardCard
+          title="SLA Active"
+          value={slaActive}
+          icon={CalendarDaysIcon}
+          subtitle="Defects under active SLA"
+          href="/oem/defects?filter=has-sla"
+        />
+        <DashboardCard
+          title="Due < 48h"
+          value={dueSoon}
+          icon={TimerIcon}
+          subtitle="Urgent SLA items"
+          href="/oem/defects?filter=due-soon"
+        />
+        <DashboardCard
+          title="SLA Breach Rate"
+          value={`${slaBreachRate}%`}
+          icon={GaugeIcon}
+          subtitle="Overdue / Active"
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <DashboardCard
           title="Overdue"
           value={overdueDefects}
           icon={AlertTriangleIcon}
           subtitle="Past active SLA due date"
+          href="/oem/defects?filter=overdue"
         />
         <DashboardCard
           title="Supplier Action"
           value={waitingSupplierAction}
           icon={ClockIcon}
           subtitle="Waiting on supplier response"
+          href="/oem/defects?filter=supplier"
         />
         <DashboardCard
           title="OEM Action"
           value={waitingOemAction}
           icon={TimerIcon}
           subtitle="Waiting on OEM review"
+          href="/oem/defects?filter=oem"
         />
       </div>
 
@@ -182,12 +220,14 @@ export default async function OemDashboardPage() {
           value={missingEvidence}
           icon={AlertTriangleIcon}
           subtitle="Open defects missing D5/D6/D7 files"
+          href="/oem/defects?filter=evidence-missing"
         />
         <DashboardCard
           title="Ready for Review"
           value={readyForReview}
           icon={FileCheckIcon}
           subtitle="Submitted 8D reports with required evidence"
+          href="/oem/defects?filter=evidence-ready"
         />
       </div>
 

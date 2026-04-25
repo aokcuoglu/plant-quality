@@ -182,10 +182,10 @@ function WaitlistDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md border-slate-700 bg-slate-900/95 backdrop-blur-xl">
+      <DialogContent className="sm:max-w-md border-border bg-card/95 backdrop-blur-xl">
         <DialogHeader>
-          <DialogTitle className="text-slate-100">Get Early Access to {product.name}</DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogTitle className="text-foreground">Get Early Access to {product.name}</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
             Be the first to know when {product.name} launches.
           </DialogDescription>
         </DialogHeader>
@@ -199,7 +199,7 @@ function WaitlistDialog({
               setEmail(e.target.value)
               setError(null)
             }}
-            className="border-slate-700 bg-slate-800 text-slate-100 placeholder:text-slate-500"
+            className="border-border bg-muted text-foreground placeholder:text-muted-foreground/60"
           />
           {error && <p className="text-xs text-red-400">{error}</p>}
           <Button type="submit" className="w-full gap-2" disabled={pending}>
@@ -343,10 +343,10 @@ function SectionHeading({
           {eyebrow}
         </div>
       )}
-      <h2 className="text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl lg:text-5xl">
+      <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         {title} <span className="text-emerald-400">{highlight}</span>
       </h2>
-      <p className="mt-4 text-lg leading-relaxed text-slate-400">{description}</p>
+      <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{description}</p>
     </motion.div>
   )
 }
@@ -365,8 +365,8 @@ function GlassCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900/60 backdrop-blur-md transition-all",
-        hover && "hover:border-slate-600/70 hover:shadow-lg hover:shadow-emerald-500/5",
+        "relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-md transition-all",
+        hover && "hover:border-border/70 hover:shadow-lg hover:shadow-emerald-500/5",
         className
       )}
     >
@@ -384,15 +384,15 @@ export default function LandingPage() {
   const heroY = useTransform(scrollYProgress, [0, 0.18], [0, -60])
 
   return (
-    <div className="flex min-h-dvh flex-col bg-[#0a0c10] text-slate-200 selection:bg-emerald-500/30">
+    <div className="dark flex min-h-dvh flex-col bg-background text-muted-foreground selection:bg-emerald-500/30">
       {/* ─── Header ─── */}
-      <header className="fixed top-0 z-50 w-full border-b border-slate-800/60 bg-[#0a0c10]/70 backdrop-blur-xl">
+      <header className="fixed top-0 z-50 w-full border-b border-border bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5">
             <div className="relative flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 shadow-lg shadow-emerald-500/20">
-              <Factory className="size-4.5 text-white" strokeWidth={2.5} />
+              <Factory className="size-4.5 text-foreground" strokeWidth={2.5} />
             </div>
-            <span className="text-lg font-bold tracking-tight text-white">PlantX</span>
+            <span className="text-lg font-bold tracking-tight text-foreground">PlantX</span>
           </div>
 
           <nav className="hidden items-center gap-6 md:flex">
@@ -404,7 +404,7 @@ export default function LandingPage() {
               <a
                 key={href}
                 href={href}
-                className="text-sm font-medium text-slate-400 transition-colors hover:text-slate-100"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {label}
               </a>
@@ -414,7 +414,7 @@ export default function LandingPage() {
           <a href="#ecosystem">
             <Button
               size="sm"
-              className="bg-emerald-500 text-[#0a0c10] font-semibold hover:bg-emerald-400 shadow-lg shadow-emerald-500/15"
+              className="bg-emerald-500 text-background font-semibold hover:bg-emerald-400 shadow-lg shadow-emerald-500/15"
             >
               Explore Ecosystem
             </Button>
@@ -435,7 +435,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/60 px-4 py-1.5 text-xs font-medium tracking-wider uppercase text-slate-300 backdrop-blur-sm"
+              className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-medium tracking-wider uppercase text-muted-foreground backdrop-blur-sm"
             >
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -448,7 +448,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
+              className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
             >
               <span className="block">The Industrial OS</span>
               <span className="mt-2 block bg-gradient-to-r from-emerald-400 via-teal-400 to-blue-500 bg-clip-text text-transparent">
@@ -460,7 +460,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}
-              className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl"
+              className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
             >
               Unify your plant operations under one intelligent platform. Quality, production, maintenance,
               and supply chain — seamlessly connected.
@@ -475,7 +475,7 @@ export default function LandingPage() {
               <Link href="/login?redirect=/oem">
                 <Button
                   size="lg"
-                  className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-[#0a0c10] shadow-xl shadow-emerald-500/15 transition-transform hover:bg-emerald-400 hover:scale-[1.02] hover:shadow-emerald-500/25"
+                  className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-background shadow-xl shadow-emerald-500/15 transition-transform hover:bg-emerald-400 hover:scale-[1.02] hover:shadow-emerald-500/25"
                 >
                   Launch PlantQuality <ChevronRight className="size-4" />
                 </Button>
@@ -484,7 +484,7 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 border-slate-700 bg-transparent px-8 text-base text-slate-200 hover:border-slate-500 hover:bg-slate-800/60 hover:text-white"
+                  className="h-12 border-border bg-transparent px-8 text-base text-muted-foreground hover:border-muted-foreground hover:bg-muted hover:text-foreground"
                 >
                   Explore Ecosystem
                 </Button>
@@ -494,7 +494,7 @@ export default function LandingPage() {
         </section>
 
         {/* ═══════ Product Ecosystem (Bento) ═══════ */}
-        <section id="ecosystem" className="relative border-t border-slate-800/60 bg-[#0b0e14]">
+        <section id="ecosystem" className="relative border-t border-border bg-sidebar">
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
             <SectionHeading
               eyebrow="Modular Architecture"
@@ -518,10 +518,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.45, delay: i * 0.06 }}
                     whileHover={isLive ? { y: -4 } : { y: -2 }}
                     className={cn(
-                      "group relative flex flex-col rounded-2xl border bg-slate-900/60 p-6 backdrop-blur-md transition-all",
+                      "group relative flex flex-col rounded-2xl border bg-card/60 p-6 backdrop-blur-md transition-all",
                       isLive
                         ? "border-emerald-500/30 shadow-lg shadow-emerald-500/5 hover:border-emerald-400/50 hover:shadow-emerald-500/10"
-                        : "border-slate-700/40 hover:border-slate-600/60",
+                        : "border-border hover:border-border",
                       product.id === "quality" && "sm:col-span-2 lg:col-span-2"
                     )}
                   >
@@ -549,7 +549,7 @@ export default function LandingPage() {
                             "border-blue-500/40 bg-blue-500/10 text-blue-400",
                           !isLive &&
                             !isUpcoming &&
-                            "border-slate-600 bg-slate-800/60 text-slate-400"
+                            "border-border bg-muted text-muted-foreground"
                         )}
                       >
                         {isLive ? (
@@ -565,15 +565,15 @@ export default function LandingPage() {
                       </Badge>
                     </div>
 
-                    <h3 className="text-lg font-semibold text-slate-100">{product.name}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-400">{product.tagline}</p>
+                    <h3 className="text-lg font-semibold text-foreground">{product.name}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{product.tagline}</p>
 
                     <div className="mt-auto pt-5">
                       {isLive && product.href ? (
                         <Link href={product.href}>
                           <Button
                             size="sm"
-                            className="w-full bg-emerald-500 text-[#0a0c10] font-semibold hover:bg-emerald-400 shadow-md shadow-emerald-500/10"
+                            className="w-full bg-emerald-500 text-background font-semibold hover:bg-emerald-400 shadow-md shadow-emerald-500/10"
                           >
                             Open App <ChevronRight className="size-3.5" />
                           </Button>
@@ -582,7 +582,7 @@ export default function LandingPage() {
                         <Button
                           variant="outline"
                           size="sm"
-                          className="w-full border-slate-700 text-slate-300 hover:border-slate-500 hover:bg-slate-800/60 hover:text-white"
+                          className="w-full border-border text-muted-foreground hover:border-muted-foreground hover:bg-muted hover:text-foreground"
                           onClick={() => setWaitlistProduct(product)}
                         >
                           <BellRing className="mr-1.5 size-3.5" />
@@ -598,7 +598,7 @@ export default function LandingPage() {
         </section>
 
         {/* ═══════ Data-Driven Core (Dashboard Preview) ═══════ */}
-        <section id="platform" className="relative overflow-hidden border-t border-slate-800/60 bg-slate-950">
+        <section id="platform" className="relative overflow-hidden border-t border-border bg-card">
           <div className="pointer-events-none absolute inset-0 -z-10">
             <div className="absolute top-0 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-gradient-radial from-emerald-500/[0.06] to-transparent blur-3xl" />
           </div>
@@ -621,15 +621,15 @@ export default function LandingPage() {
                       <BarChart3 className="size-4" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-slate-200">Defect Rate Trend</p>
-                      <p className="text-xs text-slate-500">Monthly aggregated</p>
+                      <p className="text-sm font-medium text-muted-foreground">Defect Rate Trend</p>
+                      <p className="text-xs text-muted-foreground/60">Monthly aggregated</p>
                     </div>
                   </div>
                   <Badge className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[10px]">
                     -12% YoY
                   </Badge>
                 </div>
-                <div className="flex items-end justify-between gap-2 rounded-xl border border-slate-800/60 bg-slate-900/80 p-4">
+                <div className="flex items-end justify-between gap-2 rounded-xl border border-border bg-card/80 p-4">
                   {[
                     { m: "Jan", h: 42 },
                     { m: "Feb", h: 55 },
@@ -648,7 +648,7 @@ export default function LandingPage() {
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         className="w-full rounded-t-sm bg-gradient-to-t from-emerald-500/60 to-emerald-400/90"
                       />
-                      <span className="text-[10px] text-slate-500">{b.m}</span>
+                      <span className="text-[10px] text-muted-foreground/60">{b.m}</span>
                     </div>
                   ))}
                 </div>
@@ -660,13 +660,13 @@ export default function LandingPage() {
                   <div className="flex size-8 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
                     <Gauge className="size-4" />
                   </div>
-                  <span className="text-sm font-medium text-slate-200">Plant Health Score</span>
+                  <span className="text-sm font-medium text-muted-foreground">Plant Health Score</span>
                 </div>
-                <div className="mt-4 text-4xl font-extrabold text-white">
+                <div className="mt-4 text-4xl font-extrabold text-foreground">
                   <AnimatedNumber target={94} suffix="%" />
                 </div>
-                <div className="mt-2 text-xs text-slate-500">Based on 8D closure rate, SLA compliance, PPM</div>
-                <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="mt-2 text-xs text-muted-foreground/60">Based on 8D closure rate, SLA compliance, PPM</div>
+                <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: "94%" }}
@@ -683,7 +683,7 @@ export default function LandingPage() {
                   <div className="flex size-8 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-400">
                     <Zap className="size-4" />
                   </div>
-                  <span className="text-sm font-medium text-slate-200">Active Modules</span>
+                  <span className="text-sm font-medium text-muted-foreground">Active Modules</span>
                 </div>
                 <div className="mt-4 space-y-3">
                   {[
@@ -692,11 +692,11 @@ export default function LandingPage() {
                     { label: "PlantTrace", pct: 45, color: "bg-teal-500" },
                   ].map((m) => (
                     <div key={m.label}>
-                      <div className="mb-1 flex items-center justify-between text-xs text-slate-400">
+                      <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
                         <span>{m.label}</span>
                         <span>{m.pct}%</span>
                       </div>
-                      <div className="h-1.5 w-full rounded-full bg-slate-800">
+                      <div className="h-1.5 w-full rounded-full bg-muted">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${m.pct}%` }}
@@ -717,12 +717,12 @@ export default function LandingPage() {
                     <div className="flex size-8 items-center justify-center rounded-lg bg-rose-500/15 text-rose-400">
                       <SearchCheck className="size-4" />
                     </div>
-                    <span className="text-sm font-medium text-slate-200">Open Defects Overview</span>
+                    <span className="text-sm font-medium text-muted-foreground">Open Defects Overview</span>
                   </div>
-                  <span className="text-xs text-slate-500">Updated just now</span>
+                  <span className="text-xs text-muted-foreground/60">Updated just now</span>
                 </div>
-                <div className="overflow-hidden rounded-xl border border-slate-800/60">
-                  <div className="grid grid-cols-[1fr_1fr_1fr_80px] gap-2 bg-slate-900/80 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                <div className="overflow-hidden rounded-xl border border-border">
+                  <div className="grid grid-cols-[1fr_1fr_1fr_80px] gap-2 bg-card/80 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
                     <span>Defect ID</span>
                     <span>Supplier</span>
                     <span>Stage</span>
@@ -736,9 +736,9 @@ export default function LandingPage() {
                   ].map((row, idx) => (
                     <div
                       key={idx}
-                      className="grid grid-cols-[1fr_1fr_1fr_80px] gap-2 border-t border-slate-800/40 px-4 py-3 text-xs text-slate-300 transition-colors hover:bg-slate-800/40"
+                      className="grid grid-cols-[1fr_1fr_1fr_80px] gap-2 border-t border-border px-4 py-3 text-xs text-muted-foreground transition-colors hover:bg-muted/40"
                     >
-                      <span className="font-mono font-semibold text-slate-200">{row[0]}</span>
+                      <span className="font-mono font-semibold text-muted-foreground">{row[0]}</span>
                       <span>{row[1]}</span>
                       <span className="text-emerald-400">{row[2]}</span>
                       <span className="text-right text-rose-400">{row[3]}</span>
@@ -753,7 +753,7 @@ export default function LandingPage() {
                   <div className="flex size-8 items-center justify-center rounded-lg bg-purple-500/15 text-purple-400">
                     <Bot className="size-4" />
                   </div>
-                  <span className="text-sm font-medium text-slate-200">AI Insight</span>
+                  <span className="text-sm font-medium text-muted-foreground">AI Insight</span>
                 </div>
                 <div className="mt-4 space-y-3">
                   {[
@@ -768,7 +768,7 @@ export default function LandingPage() {
                   ].map((insight, i) => (
                     <div key={i} className="flex gap-2.5">
                       <insight.icon className="mt-0.5 size-4 shrink-0 text-purple-400" />
-                      <p className="text-xs leading-relaxed text-slate-400">{insight.text}</p>
+                      <p className="text-xs leading-relaxed text-muted-foreground">{insight.text}</p>
                     </div>
                   ))}
                 </div>
@@ -778,7 +778,7 @@ export default function LandingPage() {
         </section>
 
         {/* ═══════ Integration Focus ═══════ */}
-        <section id="integrations" className="relative border-t border-slate-800/60 bg-[#0b0e14]">
+        <section id="integrations" className="relative border-t border-border bg-sidebar">
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
             <SectionHeading
               eyebrow="Integration Focus"
@@ -828,11 +828,11 @@ export default function LandingPage() {
                   transition={{ duration: 0.45, delay: i * 0.07 }}
                 >
                   <GlassCard className="h-full p-6" hover>
-                    <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-emerald-400 shadow-lg">
+                    <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-muted to-card border border-border text-emerald-400 shadow-lg">
                       <item.icon className="size-6" />
                     </div>
-                    <h3 className="text-base font-semibold text-slate-100">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.desc}</p>
+                    <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
                   </GlassCard>
                 </motion.div>
               ))}
@@ -841,7 +841,7 @@ export default function LandingPage() {
         </section>
 
         {/* ═══════ CTA ═══════ */}
-        <section className="relative overflow-hidden border-t border-slate-800/60 bg-[#0a0c10]">
+        <section className="relative overflow-hidden border-t border-border bg-background">
           <div className="pointer-events-none absolute inset-0 -z-10">
             <div className="absolute -top-[200px] left-1/2 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-emerald-500/[0.06] blur-[120px]" />
           </div>
@@ -852,17 +852,17 @@ export default function LandingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                 Ready to Digitize Your Plant?
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-lg text-slate-400">
+              <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
                 Join the factories already running on PlantX. Start with PlantQuality and grow at your own pace.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link href="/login?redirect=/oem">
                   <Button
                     size="lg"
-                    className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-[#0a0c10] shadow-xl shadow-emerald-500/15 hover:bg-emerald-400"
+                    className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-background shadow-xl shadow-emerald-500/15 hover:bg-emerald-400"
                   >
                     Get Started <ChevronRight className="size-4" />
                   </Button>
@@ -871,7 +871,7 @@ export default function LandingPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="h-12 border-slate-700 bg-transparent px-8 text-base text-slate-200 hover:border-slate-500 hover:bg-slate-800/60"
+                    className="h-12 border-border bg-transparent px-8 text-base text-muted-foreground hover:border-muted-foreground hover:bg-muted"
                   >
                     Contact Sales
                   </Button>
@@ -883,21 +883,21 @@ export default function LandingPage() {
       </main>
 
       {/* ═══════ Footer ═══════ */}
-      <footer className="border-t border-slate-800/60 bg-[#0a0c10]">
+      <footer className="border-t border-border bg-background">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2.5">
               <div className="flex size-7 items-center justify-center rounded-md bg-gradient-to-br from-emerald-500 to-blue-600">
-                <Factory className="size-4 text-white" strokeWidth={2.5} />
+                <Factory className="size-4 text-foreground" strokeWidth={2.5} />
               </div>
-              <span className="text-sm font-bold tracking-tight text-white">PlantX</span>
+              <span className="text-sm font-bold tracking-tight text-foreground">PlantX</span>
             </div>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-muted-foreground/60">
               &copy; {new Date().getFullYear()} PlantX Technologies. All rights reserved.
             </p>
             <div className="flex gap-6">
               {["Privacy", "Terms", "Status"].map((t) => (
-                <span key={t} className="cursor-pointer text-xs text-slate-500 hover:text-slate-300 transition-colors">
+                <span key={t} className="cursor-pointer text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors">
                   {t}
                 </span>
               ))}

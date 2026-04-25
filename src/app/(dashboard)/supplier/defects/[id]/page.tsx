@@ -94,6 +94,10 @@ export default async function SupplierDefectDetailPage({
         include: { uploadedBy: { select: { name: true, email: true } } },
         orderBy: { createdAt: "desc" },
       },
+      events: {
+        include: { actor: { select: { name: true } } },
+        orderBy: { createdAt: "desc" as const },
+      },
     },
   })
 
@@ -156,6 +160,13 @@ export default async function SupplierDefectDetailPage({
               reviewSections,
             }
           : null,
+        events: defect.events.map((e) => ({
+          id: e.id,
+          type: e.type,
+          actor: e.actor ? { name: e.actor.name } : null,
+          metadata: e.metadata,
+          createdAt: e.createdAt,
+        })),
       }}
       companyType="SUPPLIER"
     />

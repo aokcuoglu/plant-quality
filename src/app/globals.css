@@ -128,3 +128,16 @@
     @apply font-sans overflow-y-scroll;
   }
 }
+
+/* ─── Custom CSS variables for theme-aware branding ─── */
+
+@layer base {
+  :root {
+    --brand: oklch(0.696 0.17 162.5);
+    --brand-foreground: oklch(0.98 0 0);
+  }
+  .dark {
+    --brand: oklch(0.696 0.17 162.5);
+    --brand-foreground: oklch(0.145 0 0);
+  }
+}

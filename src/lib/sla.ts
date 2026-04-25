@@ -35,7 +35,21 @@ export function isDefectOverdue(defect: SlaDefect, now = new Date()) {
   return activeDueDate < startOfToday(now)
 }
 
-export function getActionOwnerLabel(defect: Pick<SlaDefect, "currentActionOwner">) {
+export function isDueSoon(
+  defect: SlaDefect,
+  hours = 48,
+  now = new Date()
+) {
+  const activeDueDate = getActiveDueDate(defect)
+  if (!activeDueDate) return false
+  const diffMs = activeDueDate.getTime() - now.getTime()
+  const diffHours = diffMs / (1000 * 60 * 60)
+  return diffHours > 0 && diffHours <= hours
+}
+
+export function getActionOwnerLabel(
+  defect: Pick<SlaDefect, "currentActionOwner">
+) {
   if (defect.currentActionOwner === "OEM") return "OEM"
   if (defect.currentActionOwner === "SUPPLIER") return "Supplier"
   return "None"
@@ -48,4 +62,15 @@ export function formatDueDate(date: Date | null) {
     month: "short",
     day: "numeric",
   })
+}
+
+export function getSlaStatus(
+  defect: SlaDefect,
+  now = new Date()
+): "overdue" | "due-soon" | "on-track" | "no-sla" {
+  const activeDueDate = getActiveDueDate(defect)
+  if (!activeDueDate) return "no-sla"
+  if (isDefectOverdue(defect, now)) return "overdue"
+  if (isDueSoon(defect, 48, now)) return "due-soon"
+  return "on-track"
 }

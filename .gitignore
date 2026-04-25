@@ -26,3 +26,6 @@ coverage/
 
 postgres_data/
 minio_data/
+
+# Misc
+cookies.txt

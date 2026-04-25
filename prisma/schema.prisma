@@ -27,6 +27,8 @@ enum NotificationType {
   INFO
   REVISION
   NEW_DEFECT
+  SLA_DUE_SOON
+  SLA_ESCALATION
 }
 
 enum ReviewCommentStatus {

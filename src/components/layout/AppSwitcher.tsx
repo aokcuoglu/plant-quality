@@ -88,7 +88,7 @@ export function AppSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="flex size-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 transition-all hover:bg-slate-50 hover:text-slate-600 hover:border-slate-300 data-open:bg-slate-50 data-open:text-slate-600 data-open:border-slate-300"
+        className="flex size-8 items-center justify-center rounded-lg border border-sidebar-border bg-sidebar text-sidebar-foreground/70 transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:border-sidebar-ring data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground data-open:border-sidebar-ring"
         aria-label="Switch app"
       >
         <Grid3X3 className="size-4" />
@@ -96,13 +96,13 @@ export function AppSwitcher() {
       <DropdownMenuContent
         align="end"
         sideOffset={8}
-        className="w-72 p-2"
+        className="w-72 border-sidebar-border bg-sidebar p-2 text-sidebar-foreground"
       >
         <DropdownMenuGroup className="space-y-0.5">
           <DropdownMenuLabel className="px-2 pb-1 pt-1 text-xs font-medium text-muted-foreground">
             PlantX Ecosystem
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="bg-sidebar-border" />
           {apps.map((app) => {
             const Icon = app.icon
             return (
@@ -111,7 +111,7 @@ export function AppSwitcher() {
                 disabled={!app.active}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-2 py-2.5",
-                  app.active && "cursor-pointer"
+                  app.active && "cursor-pointer hover:bg-sidebar-accent focus:bg-sidebar-accent"
                 )}
                 render={app.active && app.href ? <Link href={app.href} /> : undefined}
               >
@@ -120,7 +120,7 @@ export function AppSwitcher() {
                     "flex size-8 shrink-0 items-center justify-center rounded-lg",
                     app.active
                       ? "bg-emerald-500/10 text-emerald-500"
-                      : "bg-muted text-muted-foreground/50"
+                      : "bg-muted text-muted-foreground"
                   )}
                 >
                   <Icon className="size-4" />
@@ -130,7 +130,7 @@ export function AppSwitcher() {
                     <span
                       className={cn(
                         "text-sm font-medium",
-                        !app.active && "text-muted-foreground"
+                        app.active ? "text-sidebar-foreground" : "text-muted-foreground"
                       )}
                     >
                       {app.name}
@@ -142,7 +142,7 @@ export function AppSwitcher() {
                     ) : (
                       <Badge
                         variant="outline"
-                        className="h-4 rounded-full border-slate-400/30 px-1.5 text-[9px] font-normal tracking-wider text-muted-foreground uppercase"
+                        className="h-4 rounded-full border-border bg-muted px-1.5 text-[9px] font-normal tracking-wider text-muted-foreground uppercase"
                       >
                         Soon
                       </Badge>
@@ -151,7 +151,7 @@ export function AppSwitcher() {
                   <p
                     className={cn(
                       "truncate text-xs",
-                      app.active ? "text-muted-foreground" : "text-muted-foreground/60"
+                      app.active ? "text-muted-foreground" : "text-muted-foreground/50"
                     )}
                   >
                     {app.description}

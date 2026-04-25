@@ -1,7 +1,7 @@
-# PlantQuality — PRD & Architecture
+# PlantX — PlantQuality PRD & Architecture
 
 ## 1. Project Overview
-**Product:** PlantQuality (PlantX ecosystem module)
+**Product:** PlantQuality (PlantX ecosystem module — supplier quality management)
 **Domain:** Heavy Commercial Vehicle Manufacturing (B2B SaaS)
 **Goal:** Digitize Supplier Quality Management (SQM) — defect reporting and the 8D problem-solving methodology between OEMs and Suppliers.
 **Philosophy:** Lightweight, fast, scalable. No hardware integration. High-performance web app optimized for low RAM/CPU.

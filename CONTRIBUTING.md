@@ -1,6 +1,6 @@
 # Contributing
 
-PlantQuality is a tenant-scoped B2B quality workflow application. Keep changes focused, review data access carefully, and favor existing patterns over new abstractions.
+PlantQuality is the supplier quality management module of the PlantX ecosystem. Keep changes focused, review data access carefully, and favor existing patterns over new abstractions.
 
 ## Local Workflow
 

@@ -1,7 +1,6 @@
 # PlantX — Agent Reference
 
 > Last updated: 2026-04-25
-
 ## Docker Development Environment
 
 This project runs locally via Docker Compose on Orbstack (macOS).

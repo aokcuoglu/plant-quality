@@ -67,10 +67,22 @@
 | `/oem/defects/new` | OEM only | Create defect form | DONE |
 | `/oem/defects/[id]` | OEM only | Defect detail + 8D review | DONE |
 | `/oem/defects/[id]/8d` | OEM only | Review 8D report with comments | DONE |
+| `/oem/ppap` | OEM only | PPAP submissions list | v1.4.0 |
+| `/oem/ppap/[id]` | OEM only | PPAP detail + review | v1.4.0 |
+| `/oem/iqc` | OEM only | IQC reports list | v1.4.0 |
+| `/oem/iqc/[id]` | OEM only | IQC report detail | v1.4.0 |
+| `/oem/fmea` | OEM only | FMEA list | v1.4.0 |
+| `/oem/fmea/[id]` | OEM only | FMEA detail + review | v1.4.0 |
 | `/supplier` | Supplier only | Dashboard (stats) | DONE |
 | `/supplier/defects` | Supplier only | Defect list | DONE |
 | `/supplier/defects/[id]` | Supplier only | Defect detail | DONE |
 | `/supplier/defects/[id]/8d` | Supplier only | 8D Wizard (6-step form) | DONE |
+| `/supplier/ppap` | Supplier only | PPAP submissions list | v1.4.0 |
+| `/supplier/ppap/[id]` | Supplier only | PPAP detail + upload | v1.4.0 |
+| `/supplier/iqc` | Supplier only | IQC reports list | v1.4.0 |
+| `/supplier/iqc/[id]` | Supplier only | IQC report detail | v1.4.0 |
+| `/supplier/fmea` | Supplier only | FMEA list | v1.4.0 |
+| `/supplier/fmea/[id]` | Supplier only | FMEA editor + AI suggestions | v1.4.0 |
 
 ### Layout (`(dashboard)`)
 - Sidebar (w-64): logo + role-filtered nav links
@@ -83,11 +95,18 @@
 - `CompanyType`: `OEM | SUPPLIER`
 - `Role`: `ADMIN | QUALITY_ENGINEER | VIEWER`
 - `Plan`: `BASIC | PRO`
-- `NotificationType`: `INFO | REVISION | NEW_DEFECT`
+- `NotificationType`: `INFO | REVISION | NEW_DEFECT | SLA_DUE_SOON | SLA_ESCALATION | PPAP_REQUIRED | PPAP_SUBMITTED | PPAP_APPROVED | PPAP_REJECTED | IQC_FAILED | FMEA_HIGH_RPN`
 - `ReviewCommentStatus`: `OPEN | RESOLVED`
 - `ActionOwner`: `OEM | SUPPLIER | NONE`
-- `DefectEventType`: `CREATED | EIGHT_D_STARTED | EIGHT_D_STEP_SAVED | EIGHT_D_SUBMITTED | REVIEW_COMMENT_ADDED | REVIEW_COMMENT_RESPONDED | REVIEW_COMMENT_RESOLVED | REVIEW_COMMENT_REOPENED | REVISION_REQUESTED | APPROVED | OWNER_CHANGED | SUPPLIER_ASSIGNEE_CHANGED | DUE_DATE_CHANGED`
 - `DefectStatus`: `OPEN | IN_PROGRESS | WAITING_APPROVAL | RESOLVED | REJECTED`
+- `EightDSection`: `D3 | D5 | D6 | D7`
+- `PpapLevel`: `LEVEL_1 | LEVEL_2 | LEVEL_3 | LEVEL_4`
+- `PpapStatus`: `DRAFT | SUBMITTED | UNDER_REVIEW | APPROVED | REJECTED | REVISED`
+- `PpapSubmissionRequirement`: 18 AIAG submission elements (DESIGN_RECORDS through PART_SUBMISSION_WARRANT)
+- `IqcStatus`: `PENDING | IN_PROGRESS | PASSED | FAILED | CONDITIONALLY_ACCEPTED`
+- `FmeaStatus`: `DRAFT | IN_REVIEW | APPROVED | REVISED`
+- `FmeaType`: `DESIGN | PROCESS`
+- `DefectEventType`: (extended with `PPAP_CREATED | PPAP_SUBMITTED | PPAP_APPROVED | PPAP_REJECTED | IQC_CREATED | IQC_COMPLETED | IQC_FAILED | FMEA_CREATED | FMEA_UPDATED | FMEA_APPROVED`)
 
 ### Models
 
@@ -132,6 +151,109 @@ Standard Auth.js tables.
 
 #### DefectEvent (`defect_events`)
 Append-only audit trail for defect and 8D workflow events. Stores `defectId`, `type`, optional `actorId`, optional `metadata` JSON, and `createdAt`.
+
+#### PpapSubmission (`ppap_submissions`)
+
+PPAP (Production Part Approval Process) — OEM requests, supplier uploads documentation. Linked to a Defect optionally.
+
+| Field | DB Column | Type | Notes |
+|-------|-----------|------|-------|
+| `id` | `id` | `String @id` | UUID |
+| `partNumber` | `part_number` | `String` | Part number |
+| `partName` | `part_name` | `String` | Part name |
+| `revision` | `revision` | `String @default("A")` | Revision letter |
+| `level` | `level` | `PpapLevel` | LEVEL_1 through LEVEL_4 |
+| `status` | `status` | `PpapStatus` | DRAFT → SUBMITTED → APPROVED/REJECTED |
+| `oemId` | `oem_id` | `String` | Requesting OEM |
+| `supplierId` | `supplier_id` | `String` | Submitting supplier |
+| `oemOwnerId` | `oem_owner_id` | `String?` | OEM reviewer |
+| `supplierAssigneeId` | `supplier_assignee_id` | `String?` | Supplier assignee |
+| `defectId` | `defect_id` | `String? @unique` | Optional link to Defect |
+| `requirements` | `requirements` | `Json?` | Required submission elements (checkbox map) |
+| `supplierNotes` | `supplier_notes` | `String?` | Supplier notes |
+| `rejectionReason` | `rejection_reason` | `String?` | OEM rejection reason |
+
+#### PpapEvidence (`ppap_evidence`)
+
+File uploads per AIAG requirement element. Uses R2 presigned URLs.
+
+#### PpapReviewComment (`ppap_review_comments`)
+
+Section-level review comments (same pattern as 8D ReviewComment).
+
+#### PpapEvent (`ppap_events`)
+
+Audit trail for PPAP workflow events.
+
+#### IqcReport (`iqc_reports`)
+
+IQC (Incoming Quality Control) — lot-based inspection reports.
+
+| Field | DB Column | Type | Notes |
+|-------|-----------|------|-------|
+| `id` | `id` | `String @id` | UUID |
+| `lotNumber` | `lot_number` | `String` | Lot/batch number |
+| `partNumber` | `part_number` | `String` | Part number |
+| `partName` | `part_name` | `String?` | Part name |
+| `quantity` | `quantity` | `Int` | Sampled quantity |
+| `quantityAccepted` | `quantity_accepted` | `Int` | Accepted count |
+| `quantityRejected` | `quantity_rejected` | `Int` | Rejected count |
+| `status` | `status` | `IqcStatus` | PENDING → PASSED/FAILED/CONDITIONALLY_ACCEPTED |
+| `oemId` | `oem_id` | `String` | OEM company |
+| `supplierId` | `supplier_id` | `String` | Supplier company |
+| `inspectorId` | `inspector_id` | `String?` | Inspector user |
+| `defectId` | `defect_id` | `String? @unique` | Optional link to Defect |
+| `measurements` | `measurements` | `Json?` | Measurement data rows |
+| `nonconformities` | `nonconformities` | `Json?` | Nonconformity descriptions |
+| `dispositionNotes` | `disposition_notes` | `String?` | Disposition decision notes |
+
+IqcEvent (`iqc_events`) — audit trail.
+
+#### Fmea (`fmeas`)
+
+FMEA (Failure Mode and Effects Analysis) — risk assessment with Severity × Occurrence × Detection = RPN.
+
+| Field | DB Column | Type | Notes |
+|-------|-----------|------|-------|
+| `id` | `id` | `String @id` | UUID |
+| `title` | `title` | `String` | FMEA title |
+| `fmeaType` | `fmea_type` | `FmeaType` | DESIGN or PROCESS |
+| `status` | `status` | `FmeaStatus` | DRAFT → IN_REVIEW → APPROVED |
+| `partNumber` | `part_number` | `String` | Part number |
+| `partName` | `part_name` | `String?` | Part name |
+| `processStep` | `process_step` | `String?` | Process step (for PFMEA) |
+| `oemId` | `oem_id` | `String` | OEM company |
+| `supplierId` | `supplier_id` | `String` | Supplier company |
+| `responsibleId` | `responsible_id` | `String?` | Responsible user |
+| `defectId` | `defect_id` | `String? @unique` | Optional link to Defect |
+| `rows` | `rows` | `Json?` | Array of FmeaRow objects |
+| `revisionNo` | `revision_no` | `Int @default(0)` | Revision number |
+
+**JSONB Shape — FmeaRow:**
+```typescript
+FmeaRow {
+  id: string
+  processStep?: string       // PFMEA: process/function
+  potentialFailureMode: string
+  potentialEffect: string
+  severity: number            // 1-10
+  potentialCause: string
+  occurrence: number           // 1-10
+  currentControl: string
+  detection: number           // 1-10
+  rpn: number                 // severity × occurrence × detection
+  recommendedAction: string
+  responsibleId?: string
+  targetDate?: string
+  actionTaken?: string
+  revisedSeverity?: number
+  revisedOccurrence?: number
+  revisedDetection?: number
+  revisedRpn?: number
+}
+```
+
+FmeaEvent (`fmea_events`) — audit trail.
 
 ### JSONB Data Shapes (server action types in `src/app/(dashboard)/supplier/defects/actions/8d.ts`)
 

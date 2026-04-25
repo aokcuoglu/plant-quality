@@ -13,6 +13,10 @@ import {
   CalendarIcon,
   PaperclipIcon,
   TrashIcon,
+  FileTextIcon,
+  ClipboardCheckIcon,
+  ShieldAlertIcon,
+  AlertTriangleIcon,
 } from "lucide-react"
 
 type IconComponent = typeof PlusIcon
@@ -40,4 +44,14 @@ export const EVENT_META: Record<DefectEventType, EventMeta> = {
   DUE_DATE_CHANGED: { label: "Due Date Changed", description: "SLA due date updated", icon: CalendarIcon, iconColor: "text-amber-500" },
   EVIDENCE_ADDED: { label: "Evidence Added", description: "Supporting evidence uploaded", icon: PaperclipIcon, iconColor: "text-blue-500" },
   EVIDENCE_REMOVED: { label: "Evidence Removed", description: "Evidence file removed", icon: TrashIcon, iconColor: "text-red-500" },
+  PPAP_CREATED: { label: "PPAP Created", description: "PPAP submission request created", icon: FileTextIcon, iconColor: "text-blue-500" },
+  PPAP_SUBMITTED: { label: "PPAP Submitted", description: "PPAP submitted for review", icon: SendIcon, iconColor: "text-green-600" },
+  PPAP_APPROVED: { label: "PPAP Approved", description: "PPAP submission approved", icon: CheckIcon, iconColor: "text-green-600" },
+  PPAP_REJECTED: { label: "PPAP Rejected", description: "PPAP submission rejected", icon: XCircleIcon, iconColor: "text-red-500" },
+  IQC_CREATED: { label: "IQC Created", description: "Incoming quality inspection created", icon: ClipboardCheckIcon, iconColor: "text-blue-500" },
+  IQC_COMPLETED: { label: "IQC Completed", description: "Incoming quality inspection completed", icon: CheckIcon, iconColor: "text-green-500" },
+  IQC_FAILED: { label: "IQC Failed", description: "Incoming quality inspection failed", icon: AlertTriangleIcon, iconColor: "text-red-500" },
+  FMEA_CREATED: { label: "FMEA Created", description: "FMEA analysis created", icon: ShieldAlertIcon, iconColor: "text-amber-500" },
+  FMEA_UPDATED: { label: "FMEA Updated", description: "FMEA analysis updated", icon: SaveIcon, iconColor: "text-slate-500" },
+  FMEA_APPROVED: { label: "FMEA Approved", description: "FMEA analysis approved", icon: CheckIcon, iconColor: "text-green-600" },
 }

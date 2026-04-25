@@ -39,7 +39,13 @@ export const NotificationType = {
   REVISION: 'REVISION',
   NEW_DEFECT: 'NEW_DEFECT',
   SLA_DUE_SOON: 'SLA_DUE_SOON',
-  SLA_ESCALATION: 'SLA_ESCALATION'
+  SLA_ESCALATION: 'SLA_ESCALATION',
+  PPAP_REQUIRED: 'PPAP_REQUIRED',
+  PPAP_SUBMITTED: 'PPAP_SUBMITTED',
+  PPAP_APPROVED: 'PPAP_APPROVED',
+  PPAP_REJECTED: 'PPAP_REJECTED',
+  IQC_FAILED: 'IQC_FAILED',
+  FMEA_HIGH_RPN: 'FMEA_HIGH_RPN'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -68,7 +74,17 @@ export const DefectEventType = {
   SUPPLIER_ASSIGNEE_CHANGED: 'SUPPLIER_ASSIGNEE_CHANGED',
   DUE_DATE_CHANGED: 'DUE_DATE_CHANGED',
   EVIDENCE_ADDED: 'EVIDENCE_ADDED',
-  EVIDENCE_REMOVED: 'EVIDENCE_REMOVED'
+  EVIDENCE_REMOVED: 'EVIDENCE_REMOVED',
+  PPAP_CREATED: 'PPAP_CREATED',
+  PPAP_SUBMITTED: 'PPAP_SUBMITTED',
+  PPAP_APPROVED: 'PPAP_APPROVED',
+  PPAP_REJECTED: 'PPAP_REJECTED',
+  IQC_CREATED: 'IQC_CREATED',
+  IQC_COMPLETED: 'IQC_COMPLETED',
+  IQC_FAILED: 'IQC_FAILED',
+  FMEA_CREATED: 'FMEA_CREATED',
+  FMEA_UPDATED: 'FMEA_UPDATED',
+  FMEA_APPROVED: 'FMEA_APPROVED'
 } as const
 
 export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]
@@ -102,3 +118,77 @@ export const EightDSection = {
 } as const
 
 export type EightDSection = (typeof EightDSection)[keyof typeof EightDSection]
+
+
+export const PpapLevel = {
+  LEVEL_1: 'LEVEL_1',
+  LEVEL_2: 'LEVEL_2',
+  LEVEL_3: 'LEVEL_3',
+  LEVEL_4: 'LEVEL_4'
+} as const
+
+export type PpapLevel = (typeof PpapLevel)[keyof typeof PpapLevel]
+
+
+export const PpapStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REVISED: 'REVISED'
+} as const
+
+export type PpapStatus = (typeof PpapStatus)[keyof typeof PpapStatus]
+
+
+export const PpapSubmissionRequirement = {
+  DESIGN_RECORDS: 'DESIGN_RECORDS',
+  ENGINEERING_CHANGE_DOCUMENTS: 'ENGINEERING_CHANGE_DOCUMENTS',
+  CUSTOMER_ENGINEERING_APPROVAL: 'CUSTOMER_ENGINEERING_APPROVAL',
+  DESIGN_FMEA: 'DESIGN_FMEA',
+  PROCESS_FLOW_DIAGRAM: 'PROCESS_FLOW_DIAGRAM',
+  PROCESS_FMEA: 'PROCESS_FMEA',
+  CONTROL_PLAN: 'CONTROL_PLAN',
+  MEASUREMENT_SYSTEM_ANALYSIS: 'MEASUREMENT_SYSTEM_ANALYSIS',
+  DIMENSIONAL_RESULTS: 'DIMENSIONAL_RESULTS',
+  MATERIAL_PERFORMANCE_RESULTS: 'MATERIAL_PERFORMANCE_RESULTS',
+  INITIAL_PROCESS_STUDY: 'INITIAL_PROCESS_STUDY',
+  QUALIFIED_LABORATORY_DOCUMENTATION: 'QUALIFIED_LABORATORY_DOCUMENTATION',
+  APPEARANCE_APPROVAL_REPORT: 'APPEARANCE_APPROVAL_REPORT',
+  SAMPLE_PRODUCTION_PARTS: 'SAMPLE_PRODUCTION_PARTS',
+  MASTER_SAMPLE: 'MASTER_SAMPLE',
+  CHECKING_ASSIST: 'CHECKING_ASSIST',
+  PART_SUBMISSION_WARRANT: 'PART_SUBMISSION_WARRANT'
+} as const
+
+export type PpapSubmissionRequirement = (typeof PpapSubmissionRequirement)[keyof typeof PpapSubmissionRequirement]
+
+
+export const IqcStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  PASSED: 'PASSED',
+  FAILED: 'FAILED',
+  CONDITIONALLY_ACCEPTED: 'CONDITIONALLY_ACCEPTED'
+} as const
+
+export type IqcStatus = (typeof IqcStatus)[keyof typeof IqcStatus]
+
+
+export const FmeaStatus = {
+  DRAFT: 'DRAFT',
+  IN_REVIEW: 'IN_REVIEW',
+  APPROVED: 'APPROVED',
+  REVISED: 'REVISED'
+} as const
+
+export type FmeaStatus = (typeof FmeaStatus)[keyof typeof FmeaStatus]
+
+
+export const FmeaType = {
+  DESIGN: 'DESIGN',
+  PROCESS: 'PROCESS'
+} as const
+
+export type FmeaType = (typeof FmeaType)[keyof typeof FmeaType]

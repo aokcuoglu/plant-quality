@@ -29,10 +29,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
         { href: "/oem/defects", label: "Defects", icon: "BugIcon" as const },
         { href: "/oem/defects/new", label: "Report Defect", icon: "PlusCircleIcon" as const },
+        { href: "/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const },
+        { href: "/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
+        { href: "/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
       ]
     : [
         { href: "/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
         { href: "/supplier/defects", label: "Defects", icon: "BugIcon" as const },
+        { href: "/supplier/ppap", label: "PPAP", icon: "FileTextIcon" as const },
+        { href: "/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
+        { href: "/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
       ]
 
   return (

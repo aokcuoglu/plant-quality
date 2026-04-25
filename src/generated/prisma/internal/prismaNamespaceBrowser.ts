@@ -61,6 +61,14 @@ export const ModelName = {
   ReviewComment: 'ReviewComment',
   DefectEvent: 'DefectEvent',
   DefectEvidence: 'DefectEvidence',
+  PpapSubmission: 'PpapSubmission',
+  PpapEvidence: 'PpapEvidence',
+  PpapReviewComment: 'PpapReviewComment',
+  PpapEvent: 'PpapEvent',
+  IqcReport: 'IqcReport',
+  IqcEvent: 'IqcEvent',
+  Fmea: 'Fmea',
+  FmeaEvent: 'FmeaEvent',
   Waitlist: 'Waitlist',
   Notification: 'Notification'
 } as const
@@ -237,6 +245,156 @@ export const DefectEvidenceScalarFieldEnum = {
 } as const
 
 export type DefectEvidenceScalarFieldEnum = (typeof DefectEvidenceScalarFieldEnum)[keyof typeof DefectEvidenceScalarFieldEnum]
+
+
+export const PpapSubmissionScalarFieldEnum = {
+  id: 'id',
+  partNumber: 'partNumber',
+  partName: 'partName',
+  revision: 'revision',
+  level: 'level',
+  status: 'status',
+  oemId: 'oemId',
+  supplierId: 'supplierId',
+  oemOwnerId: 'oemOwnerId',
+  supplierAssigneeId: 'supplierAssigneeId',
+  defectId: 'defectId',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  approvedById: 'approvedById',
+  rejectedById: 'rejectedById',
+  rejectionReason: 'rejectionReason',
+  dueDate: 'dueDate',
+  requirements: 'requirements',
+  notes: 'notes',
+  supplierNotes: 'supplierNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PpapSubmissionScalarFieldEnum = (typeof PpapSubmissionScalarFieldEnum)[keyof typeof PpapSubmissionScalarFieldEnum]
+
+
+export const PpapEvidenceScalarFieldEnum = {
+  id: 'id',
+  ppapId: 'ppapId',
+  requirement: 'requirement',
+  storageKey: 'storageKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  uploadedById: 'uploadedById',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type PpapEvidenceScalarFieldEnum = (typeof PpapEvidenceScalarFieldEnum)[keyof typeof PpapEvidenceScalarFieldEnum]
+
+
+export const PpapReviewCommentScalarFieldEnum = {
+  id: 'id',
+  ppapId: 'ppapId',
+  requirement: 'requirement',
+  comment: 'comment',
+  status: 'status',
+  supplierResponse: 'supplierResponse',
+  resolvedAt: 'resolvedAt',
+  resolvedById: 'resolvedById',
+  authorId: 'authorId',
+  createdAt: 'createdAt'
+} as const
+
+export type PpapReviewCommentScalarFieldEnum = (typeof PpapReviewCommentScalarFieldEnum)[keyof typeof PpapReviewCommentScalarFieldEnum]
+
+
+export const PpapEventScalarFieldEnum = {
+  id: 'id',
+  ppapId: 'ppapId',
+  type: 'type',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type PpapEventScalarFieldEnum = (typeof PpapEventScalarFieldEnum)[keyof typeof PpapEventScalarFieldEnum]
+
+
+export const IqcReportScalarFieldEnum = {
+  id: 'id',
+  lotNumber: 'lotNumber',
+  partNumber: 'partNumber',
+  partName: 'partName',
+  quantity: 'quantity',
+  quantityAccepted: 'quantityAccepted',
+  quantityRejected: 'quantityRejected',
+  status: 'status',
+  oemId: 'oemId',
+  supplierId: 'supplierId',
+  inspectorId: 'inspectorId',
+  defectId: 'defectId',
+  inspectionDate: 'inspectionDate',
+  measurements: 'measurements',
+  nonconformities: 'nonconformities',
+  dispositionNotes: 'dispositionNotes',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IqcReportScalarFieldEnum = (typeof IqcReportScalarFieldEnum)[keyof typeof IqcReportScalarFieldEnum]
+
+
+export const IqcEventScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  type: 'type',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type IqcEventScalarFieldEnum = (typeof IqcEventScalarFieldEnum)[keyof typeof IqcEventScalarFieldEnum]
+
+
+export const FmeaScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  fmeaType: 'fmeaType',
+  status: 'status',
+  partNumber: 'partNumber',
+  partName: 'partName',
+  processStep: 'processStep',
+  oemId: 'oemId',
+  supplierId: 'supplierId',
+  responsibleId: 'responsibleId',
+  defectId: 'defectId',
+  rows: 'rows',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  approvedAt: 'approvedAt',
+  approvedById: 'approvedById',
+  revisionNo: 'revisionNo',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FmeaScalarFieldEnum = (typeof FmeaScalarFieldEnum)[keyof typeof FmeaScalarFieldEnum]
+
+
+export const FmeaEventScalarFieldEnum = {
+  id: 'id',
+  fmeaId: 'fmeaId',
+  type: 'type',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type FmeaEventScalarFieldEnum = (typeof FmeaEventScalarFieldEnum)[keyof typeof FmeaEventScalarFieldEnum]
 
 
 export const WaitlistScalarFieldEnum = {

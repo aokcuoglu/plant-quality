@@ -92,6 +92,46 @@ export type DefectEvent = Prisma.DefectEventModel
  */
 export type DefectEvidence = Prisma.DefectEvidenceModel
 /**
+ * Model PpapSubmission
+ * 
+ */
+export type PpapSubmission = Prisma.PpapSubmissionModel
+/**
+ * Model PpapEvidence
+ * 
+ */
+export type PpapEvidence = Prisma.PpapEvidenceModel
+/**
+ * Model PpapReviewComment
+ * 
+ */
+export type PpapReviewComment = Prisma.PpapReviewCommentModel
+/**
+ * Model PpapEvent
+ * 
+ */
+export type PpapEvent = Prisma.PpapEventModel
+/**
+ * Model IqcReport
+ * 
+ */
+export type IqcReport = Prisma.IqcReportModel
+/**
+ * Model IqcEvent
+ * 
+ */
+export type IqcEvent = Prisma.IqcEventModel
+/**
+ * Model Fmea
+ * 
+ */
+export type Fmea = Prisma.FmeaModel
+/**
+ * Model FmeaEvent
+ * 
+ */
+export type FmeaEvent = Prisma.FmeaEventModel
+/**
  * Model Waitlist
  * 
  */

@@ -10,6 +10,9 @@ import {
   FileCheckIcon,
   CalendarDaysIcon,
   GaugeIcon,
+  FileTextIcon,
+  ClipboardCheckIcon,
+  ShieldAlertIcon,
 } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
@@ -140,6 +143,21 @@ export default async function SupplierDashboardPage() {
     month,
     _count,
   }))
+
+  const [supplierPpapPending, supplierIqcTotal, supplierIqcFailed, supplierFmeaDraft] = await Promise.all([
+    prisma.ppapSubmission.count({
+      where: { supplierId: session.user.companyId, status: { in: ["DRAFT", "SUBMITTED", "UNDER_REVIEW"] } },
+    }),
+    prisma.iqcReport.count({
+      where: { supplierId: session.user.companyId },
+    }),
+    prisma.iqcReport.count({
+      where: { supplierId: session.user.companyId, status: "FAILED" },
+    }),
+    prisma.fmea.count({
+      where: { supplierId: session.user.companyId, status: { in: ["DRAFT", "IN_REVIEW"] } },
+    }),
+  ])
 
   return (
     <div className="space-y-6">
@@ -281,6 +299,31 @@ export default async function SupplierDashboardPage() {
           icon={FileCheckIcon}
           subtitle="Open defects with D5/D6/D7 evidence"
           href="/supplier/defects?filter=evidence-ready"
+        />
+      </div>
+
+      <h2 className="text-lg font-semibold text-foreground pt-2">Quality Modules</h2>
+      <div className="grid gap-4 md:grid-cols-3">
+        <DashboardCard
+          title="PPAP Action Required"
+          value={supplierPpapPending}
+          icon={FileTextIcon}
+          subtitle="PPAP submissions requiring action"
+          href="/supplier/ppap"
+        />
+        <DashboardCard
+          title="IQC Inspections"
+          value={`${supplierIqcFailed} / ${supplierIqcTotal}`}
+          icon={ClipboardCheckIcon}
+          subtitle="Failed / Total inspections"
+          href="/supplier/iqc"
+        />
+        <DashboardCard
+          title="FMEA Drafts"
+          value={supplierFmeaDraft}
+          icon={ShieldAlertIcon}
+          subtitle="Active FMEA analyses"
+          href="/supplier/fmea"
         />
       </div>
     </div>

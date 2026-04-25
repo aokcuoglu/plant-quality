@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
-import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon, ClockIcon } from "lucide-react"
+import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon, ClockIcon, FileTextIcon, ClipboardCheckIcon, ShieldAlertIcon, XCircleIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { NotificationType } from "@/generated/prisma/client"
@@ -39,6 +39,18 @@ export function NotificationBell({
         return <AlertTriangleIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
       case "REVISION":
         return <GitPullRequestIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+      case "PPAP_REQUIRED":
+        return <FileTextIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+      case "PPAP_SUBMITTED":
+        return <FileTextIcon className="h-3.5 w-3.5 text-green-500 shrink-0" />
+      case "PPAP_APPROVED":
+        return <FileTextIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+      case "PPAP_REJECTED":
+        return <XCircleIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
+      case "IQC_FAILED":
+        return <ClipboardCheckIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
+      case "FMEA_HIGH_RPN":
+        return <ShieldAlertIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
       default:
         return <InfoIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
     }

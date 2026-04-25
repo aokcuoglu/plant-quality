@@ -136,6 +136,205 @@ async function main() {
     });
   }
 
+  const ppapSubmissions = [
+    {
+      id: "ppap-001",
+      partNumber: "AX-7420-B",
+      partName: "Cylinder Head Casting",
+      revision: "A",
+      level: "LEVEL_3" as const,
+      status: "SUBMITTED" as const,
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      oemOwnerId: "oem-quality",
+      supplierAssigneeId: "supplier-engineer",
+      defectId: "defect-001",
+      dueDate: new Date("2026-05-30"),
+      requirements: {
+        DESIGN_RECORDS: true,
+        PROCESS_FLOW_DIAGRAM: true,
+        PROCESS_FMEA: true,
+        CONTROL_PLAN: true,
+        MEASUREMENT_SYSTEM_ANALYSIS: true,
+        DIMENSIONAL_RESULTS: true,
+        MATERIAL_PERFORMANCE_RESULTS: true,
+        PART_SUBMISSION_WARRANT: true,
+      },
+    },
+    {
+      id: "ppap-002",
+      partNumber: "BR-1122-C",
+      partName: "M12 Hex Bolt",
+      revision: "B",
+      level: "LEVEL_2" as const,
+      status: "DRAFT" as const,
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      oemOwnerId: "oem-admin",
+      defectId: "defect-002",
+    },
+    {
+      id: "ppap-003",
+      partNumber: "CS-3344-D",
+      partName: "Steering Knuckle Forging",
+      revision: "A",
+      level: "LEVEL_3" as const,
+      status: "APPROVED" as const,
+      oemId: oemCompany.id,
+      supplierId: supplierCompany2.id,
+      defectId: "defect-003",
+      approvedById: "oem-quality",
+      approvedAt: new Date("2026-01-15"),
+    },
+  ]
+
+  for (const ppap of ppapSubmissions) {
+    await prisma.ppapSubmission.upsert({
+      where: { id: ppap.id },
+      update: {},
+      create: ppap,
+    })
+  }
+
+  const iqcReports = [
+    {
+      id: "iqc-001",
+      lotNumber: "LOT-2026-0042",
+      partNumber: "AX-7420-B",
+      partName: "Cylinder Head Casting",
+      quantity: 50,
+      quantityAccepted: 45,
+      quantityRejected: 5,
+      status: "FAILED" as const,
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      inspectorId: "oem-quality",
+      defectId: "defect-001",
+      inspectionDate: new Date("2026-04-10"),
+      measurements: [
+        { characteristic: "Surface Porosity", specification: "< 3 pits/cm²", measured: "8 pits/cm²", result: "FAIL" },
+        { characteristic: "Surface Roughness (Ra)", specification: "1.6 μm max", measured: "1.2 μm", result: "PASS" },
+      ],
+      nonconformities: [
+        { description: "Excessive surface porosity on sealing surface", severity: "Major" },
+      ],
+      dispositionNotes: "Reject entire lot. Surface porosity exceeds acceptable limits on 5 units.",
+      completedAt: new Date("2026-04-12"),
+    },
+    {
+      id: "iqc-002",
+      lotNumber: "LOT-2026-0055",
+      partNumber: "BR-1122-C",
+      partName: "M12 Hex Bolt",
+      quantity: 200,
+      quantityAccepted: 200,
+      quantityRejected: 0,
+      status: "PASSED" as const,
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      inspectorId: "oem-quality",
+      inspectionDate: new Date("2026-04-18"),
+      measurements: [
+        { characteristic: "Pitch Diameter", specification: "10.013-10.028mm", measured: "10.020mm", result: "PASS" },
+        { characteristic: "Hardness (HRC)", specification: "32-38 HRC", measured: "35 HRC", result: "PASS" },
+      ],
+      completedAt: new Date("2026-04-19"),
+    },
+  ]
+
+  for (const iqc of iqcReports) {
+    await prisma.iqcReport.upsert({
+      where: { id: iqc.id },
+      update: {},
+      create: iqc,
+    })
+  }
+
+  const fmeas = [
+    {
+      id: "fmea-001",
+      title: "Cylinder Head Casting Process FMEA",
+      fmeaType: "PROCESS" as const,
+      status: "DRAFT" as const,
+      partNumber: "AX-7420-B",
+      partName: "Cylinder Head Casting",
+      processStep: "Casting - Gravity Die Casting",
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      responsibleId: "supplier-engineer",
+      defectId: "defect-001",
+      rows: [
+        {
+          id: "row_1",
+          processStep: "Mold preparation",
+          potentialFailureMode: "Mold surface contamination",
+          potentialEffect: "Surface porosity defect on casting",
+          severity: 8,
+          potentialCause: "Inadequate mold cleaning procedure",
+          occurrence: 5,
+          currentControl: "Visual inspection after mold preparation",
+          detection: 4,
+          rpn: 160,
+          recommendedAction: "Implement ultrasonic mold surface cleaning",
+          targetDate: "2026-05-15",
+        },
+        {
+          id: "row_2",
+          processStep: "Pouring",
+          potentialFailureMode: "Insufficient pouring temperature",
+          potentialEffect: "Cold shuts and incomplete filling",
+          severity: 7,
+          potentialCause: "Temperature measurement error",
+          occurrence: 3,
+          currentControl: "Thermocouple monitoring",
+          detection: 3,
+          rpn: 63,
+          recommendedAction: "Add redundant temperature sensor",
+        },
+      ],
+    },
+    {
+      id: "fmea-002",
+      title: "Steering Knuckle Design FMEA",
+      fmeaType: "DESIGN" as const,
+      status: "APPROVED" as const,
+      partNumber: "CS-3344-D",
+      partName: "Steering Knuckle Forging",
+      oemId: oemCompany.id,
+      supplierId: supplierCompany2.id,
+      responsibleId: "steelforged-engineer",
+      approvedById: "oem-quality",
+      approvedAt: new Date("2026-01-20"),
+      rows: [
+        {
+          id: "row_1",
+          potentialFailureMode: "Fatigue crack at radius",
+          potentialEffect: "Steering failure — safety critical",
+          severity: 10,
+          potentialCause: "Stress concentration at fillet radius",
+          occurrence: 2,
+          currentControl: "Ultrasonic testing per lot",
+          detection: 2,
+          rpn: 40,
+          recommendedAction: "Increase fillet radius from R3 to R5",
+          actionTaken: "Fillet radius increased to R5 in Rev B",
+          revisedSeverity: 10,
+          revisedOccurrence: 1,
+          revisedDetection: 2,
+          revisedRpn: 20,
+        },
+      ],
+    },
+  ]
+
+  for (const fmea of fmeas) {
+    await prisma.fmea.upsert({
+      where: { id: fmea.id },
+      update: {},
+      create: fmea,
+    })
+  }
+
   console.log("Seed completed successfully!");
   console.log("Test accounts:");
   console.log("  admin@oem.com (OEM Admin)");
@@ -144,7 +343,7 @@ async function main() {
   console.log("  engineer@supplier.com (Supplier Engineer)");
   console.log("  admin@steelforged.com (SteelForged Admin)");
   console.log("  engineer@steelforged.com (SteelForged Engineer)");
-  console.log(`\nSeeded ${defects.length} sample defects.`);
+  console.log(`\nSeeded ${defects.length} defects, ${ppapSubmissions.length} PPAPs, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs.`);
 }
 
 main()

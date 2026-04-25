@@ -9,6 +9,9 @@ import {
   Factory,
   ChevronLeft,
   ChevronRight,
+  FileTextIcon,
+  ClipboardCheckIcon,
+  ShieldAlertIcon,
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
@@ -25,6 +28,9 @@ const ICON_MAP: Record<string, LucideIcon> = {
   LayoutDashboardIcon,
   BugIcon,
   PlusCircleIcon,
+  FileTextIcon,
+  ClipboardCheckIcon,
+  ShieldAlertIcon,
 }
 
 interface SidebarLinkItem {

@@ -29,6 +29,12 @@ enum NotificationType {
   NEW_DEFECT
   SLA_DUE_SOON
   SLA_ESCALATION
+  PPAP_REQUIRED
+  PPAP_SUBMITTED
+  PPAP_APPROVED
+  PPAP_REJECTED
+  IQC_FAILED
+  FMEA_HIGH_RPN
 }
 
 enum ReviewCommentStatus {
@@ -52,6 +58,16 @@ enum DefectEventType {
   DUE_DATE_CHANGED
   EVIDENCE_ADDED
   EVIDENCE_REMOVED
+  PPAP_CREATED
+  PPAP_SUBMITTED
+  PPAP_APPROVED
+  PPAP_REJECTED
+  IQC_CREATED
+  IQC_COMPLETED
+  IQC_FAILED
+  FMEA_CREATED
+  FMEA_UPDATED
+  FMEA_APPROVED
 }
 
 enum DefectStatus {
@@ -75,15 +91,77 @@ enum EightDSection {
   D7
 }
 
+enum PpapLevel {
+  LEVEL_1
+  LEVEL_2
+  LEVEL_3
+  LEVEL_4
+}
+
+enum PpapStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  REVISED
+}
+
+enum PpapSubmissionRequirement {
+  DESIGN_RECORDS
+  ENGINEERING_CHANGE_DOCUMENTS
+  CUSTOMER_ENGINEERING_APPROVAL
+  DESIGN_FMEA
+  PROCESS_FLOW_DIAGRAM
+  PROCESS_FMEA
+  CONTROL_PLAN
+  MEASUREMENT_SYSTEM_ANALYSIS
+  DIMENSIONAL_RESULTS
+  MATERIAL_PERFORMANCE_RESULTS
+  INITIAL_PROCESS_STUDY
+  QUALIFIED_LABORATORY_DOCUMENTATION
+  APPEARANCE_APPROVAL_REPORT
+  SAMPLE_PRODUCTION_PARTS
+  MASTER_SAMPLE
+  CHECKING_ASSIST
+  PART_SUBMISSION_WARRANT
+}
+
+enum IqcStatus {
+  PENDING
+  IN_PROGRESS
+  PASSED
+  FAILED
+  CONDITIONALLY_ACCEPTED
+}
+
+enum FmeaStatus {
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  REVISED
+}
+
+enum FmeaType {
+  DESIGN
+  PROCESS
+}
+
 model Company {
-  id           String      @id @default(uuid())
+  id           String        @id @default(uuid())
   name         String
   type         CompanyType
   taxNumber    String?
   users        User[]
-  defectsAsOem Defect[]    @relation("OemDefects")
-  defectsAsSup Defect[]    @relation("SupplierDefects")
-  createdAt    DateTime    @default(now())
+  defectsAsOem Defect[]      @relation("OemDefects")
+  defectsAsSup Defect[]      @relation("SupplierDefects")
+  ppapAsOem    PpapSubmission[] @relation("OemPpapSubmissions")
+  ppapAsSup    PpapSubmission[] @relation("SupplierPpapSubmissions")
+  iqcAsOem     IqcReport[]   @relation("OemIqcReports")
+  iqcAsSup     IqcReport[]   @relation("SupplierIqcReports")
+  fmeaAsOem    Fmea[]        @relation("OemFmeas")
+  fmeaAsSup    Fmea[]        @relation("SupplierFmeas")
+  createdAt    DateTime      @default(now())
 
   @@map("companies")
 }
@@ -109,6 +187,19 @@ model User {
   defectEvents    DefectEvent[]  @relation("DefectEventActor")
   uploadedEvidence DefectEvidence[] @relation("DefectEvidenceUploadedBy")
   notifications  Notification[]
+  ownedPpaps     PpapSubmission[] @relation("PpapOemOwner")
+  assignedPpaps  PpapSubmission[] @relation("PpapSupplierAssignee")
+  approvedPpaps  PpapSubmission[] @relation("PpapApprovedBy")
+  rejectedPpaps  PpapSubmission[] @relation("PpapRejectedBy")
+  ppapEvidenceUploads PpapEvidence[] @relation("PpapEvidenceUploadedBy")
+  ppapCommentResolved  PpapReviewComment[] @relation("PpapCommentResolvedBy")
+  ppapCommentAuthored  PpapReviewComment[] @relation("PpapCommentAuthor")
+  ppapEventActors PpapEvent[] @relation("PpapEventActor")
+  iqcInspections IqcReport[] @relation("IqcInspector")
+  iqcEventActors IqcEvent[] @relation("IqcEventActor")
+  fmeaResponsible Fmea[] @relation("FmeaResponsible")
+  fmeaApprovedBy Fmea[] @relation("FmeaApprovedBy")
+  fmeaEventActors FmeaEvent[] @relation("FmeaEventActor")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -175,6 +266,9 @@ model Defect {
   eightDReport EightDReport?
   events       DefectEvent[]
   evidences    DefectEvidence[]
+  ppap         PpapSubmission?
+  iqcReport    IqcReport?
+  fmea         Fmea?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   resolvedAt   DateTime?
@@ -264,6 +358,195 @@ model DefectEvidence {
   @@index([defectId, section])
   @@index([companyId, createdAt])
   @@map("defect_evidence")
+}
+
+model PpapSubmission {
+  id                    String        @id @default(uuid())
+  partNumber           String        @map("part_number")
+  partName             String        @map("part_name")
+  revision              String        @default("A") @map("revision")
+  level                 PpapLevel     @default(LEVEL_3) @map("level")
+  status                PpapStatus    @default(DRAFT)
+  oemId                 String        @map("oem_id")
+  oem                   Company       @relation("OemPpapSubmissions", fields: [oemId], references: [id])
+  supplierId            String        @map("supplier_id")
+  supplier              Company       @relation("SupplierPpapSubmissions", fields: [supplierId], references: [id])
+  oemOwnerId            String?       @map("oem_owner_id")
+  oemOwner              User?         @relation("PpapOemOwner", fields: [oemOwnerId], references: [id])
+  supplierAssigneeId    String?       @map("supplier_assignee_id")
+  supplierAssignee      User?         @relation("PpapSupplierAssignee", fields: [supplierAssigneeId], references: [id])
+  defectId              String?       @unique @map("defect_id")
+  defect                Defect?       @relation(fields: [defectId], references: [id])
+  submittedAt           DateTime?     @map("submitted_at")
+  reviewedAt            DateTime?     @map("reviewed_at")
+  approvedAt            DateTime?     @map("approved_at")
+  rejectedAt            DateTime?     @map("rejected_at")
+  approvedById          String?       @map("approved_by_id")
+  approvedBy            User?         @relation("PpapApprovedBy", fields: [approvedById], references: [id])
+  rejectedById          String?       @map("rejected_by_id")
+  rejectedBy            User?         @relation("PpapRejectedBy", fields: [rejectedById], references: [id])
+  rejectionReason       String?       @map("rejection_reason")
+  dueDate               DateTime?     @map("due_date")
+  requirements          Json?         @map("requirements")
+  notes                 String?       @map("notes")
+  supplierNotes         String?       @map("supplier_notes")
+  evidences             PpapEvidence[]
+  reviewComments        PpapReviewComment[]
+  events                PpapEvent[]
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
+
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([defectId])
+  @@map("ppap_submissions")
+}
+
+model PpapEvidence {
+  id              String          @id @default(cuid())
+  ppapId          String          @map("ppap_id")
+  ppap            PpapSubmission  @relation(fields: [ppapId], references: [id], onDelete: Cascade)
+  requirement     PpapSubmissionRequirement
+  storageKey      String          @map("storage_key")
+  fileName        String          @map("file_name")
+  mimeType        String          @map("mime_type")
+  sizeBytes       Int             @map("size_bytes")
+  uploadedById    String          @map("uploaded_by_id")
+  uploadedBy      User            @relation("PpapEvidenceUploadedBy", fields: [uploadedById], references: [id])
+  companyId       String          @map("company_id")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  deletedAt       DateTime?       @map("deleted_at")
+
+  @@index([ppapId, requirement])
+  @@index([companyId, createdAt])
+  @@map("ppap_evidence")
+}
+
+model PpapReviewComment {
+  id               String       @id @default(uuid())
+  ppapId           String       @map("ppap_id")
+  ppap             PpapSubmission @relation(fields: [ppapId], references: [id], onDelete: Cascade)
+  requirement      PpapSubmissionRequirement
+  comment          String
+  status           ReviewCommentStatus @default(OPEN)
+  supplierResponse String?      @map("supplier_response")
+  resolvedAt       DateTime?    @map("resolved_at")
+  resolvedById     String?       @map("resolved_by_id")
+  resolvedBy       User?        @relation("PpapCommentResolvedBy", fields: [resolvedById], references: [id])
+  authorId         String       @map("author_id")
+  author           User         @relation("PpapCommentAuthor", fields: [authorId], references: [id])
+  createdAt        DateTime     @default(now()) @map("created_at")
+
+  @@index([ppapId, status])
+  @@map("ppap_review_comments")
+}
+
+model PpapEvent {
+  id        String          @id @default(uuid())
+  ppapId    String          @map("ppap_id")
+  ppap      PpapSubmission  @relation(fields: [ppapId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?         @map("actor_id")
+  actor     User?           @relation("PpapEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  @@index([ppapId, createdAt])
+  @@map("ppap_events")
+}
+
+model IqcReport {
+  id                    String      @id @default(uuid())
+  lotNumber             String      @map("lot_number")
+  partNumber            String      @map("part_number")
+  partName              String?     @map("part_name")
+  quantity              Int         @default(0)
+  quantityAccepted      Int         @default(0) @map("quantity_accepted")
+  quantityRejected      Int         @default(0) @map("quantity_rejected")
+  status                IqcStatus   @default(PENDING)
+  oemId                 String      @map("oem_id")
+  oem                   Company     @relation("OemIqcReports", fields: [oemId], references: [id])
+  supplierId            String      @map("supplier_id")
+  supplier              Company     @relation("SupplierIqcReports", fields: [supplierId], references: [id])
+  inspectorId           String?     @map("inspector_id")
+  inspector             User?       @relation("IqcInspector", fields: [inspectorId], references: [id])
+  defectId              String?     @unique @map("defect_id")
+  defect                Defect?     @relation(fields: [defectId], references: [id])
+  inspectionDate        DateTime?   @map("inspection_date")
+  measurements          Json?       @map("measurements")
+  nonconformities       Json?       @map("nonconformities")
+  dispositionNotes      String?     @map("disposition_notes")
+  completedAt           DateTime?   @map("completed_at")
+  events                IqcEvent[]
+  createdAt             DateTime    @default(now()) @map("created_at")
+  updatedAt             DateTime    @updatedAt @map("updated_at")
+
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([defectId])
+  @@map("iqc_reports")
+}
+
+model IqcEvent {
+  id        String      @id @default(uuid())
+  reportId  String      @map("report_id")
+  report    IqcReport   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?     @map("actor_id")
+  actor     User?       @relation("IqcEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@index([reportId, createdAt])
+  @@map("iqc_events")
+}
+
+model Fmea {
+  id                String     @id @default(uuid())
+  title             String
+  fmeaType          FmeaType   @default(PROCESS) @map("fmea_type")
+  status            FmeaStatus @default(DRAFT)
+  partNumber        String     @map("part_number")
+  partName          String?    @map("part_name")
+  processStep       String?    @map("process_step")
+  oemId             String     @map("oem_id")
+  oem               Company    @relation("OemFmeas", fields: [oemId], references: [id])
+  supplierId        String     @map("supplier_id")
+  supplier          Company    @relation("SupplierFmeas", fields: [supplierId], references: [id])
+  responsibleId     String?    @map("responsible_id")
+  responsible       User?      @relation("FmeaResponsible", fields: [responsibleId], references: [id])
+  defectId          String?    @unique @map("defect_id")
+  defect            Defect?    @relation(fields: [defectId], references: [id])
+  rows              Json?      @map("rows")
+  submittedAt       DateTime?  @map("submitted_at")
+  reviewedAt        DateTime?  @map("reviewed_at")
+  approvedAt        DateTime?  @map("approved_at")
+  approvedById      String?    @map("approved_by_id")
+  approvedBy        User?      @relation("FmeaApprovedBy", fields: [approvedById], references: [id])
+  revisionNo        Int        @default(0) @map("revision_no")
+  notes             String?    @map("notes")
+  events            FmeaEvent[]
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
+
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([defectId])
+  @@map("fmeas")
+}
+
+model FmeaEvent {
+  id        String      @id @default(uuid())
+  fmeaId    String      @map("fmea_id")
+  fmea      Fmea        @relation(fields: [fmeaId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?     @map("actor_id")
+  actor     User?       @relation("FmeaEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@index([fmeaId, createdAt])
+  @@map("fmea_events")
 }
 
 model Waitlist {

@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
-import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon, CalendarDaysIcon, GaugeIcon } from "lucide-react"
+import { BugIcon, ClockIcon, AlertTriangleIcon, TimerIcon, FileCheckIcon, CalendarDaysIcon, GaugeIcon, FileTextIcon, ClipboardCheckIcon, ShieldAlertIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { StatusDonut } from "@/components/dashboard/StatusDonut"
@@ -130,6 +130,22 @@ export default async function OemDashboardPage() {
     _count,
   }))
 
+  const [ppapPending, iqcTotal, iqcPassed, fmeaActive] = await Promise.all([
+    prisma.ppapSubmission.count({
+      where: { oemId: session.user.companyId, status: { in: ["DRAFT", "SUBMITTED", "UNDER_REVIEW"] } },
+    }),
+    prisma.iqcReport.count({
+      where: { oemId: session.user.companyId, status: { in: ["PASSED", "FAILED"] } },
+    }),
+    prisma.iqcReport.count({
+      where: { oemId: session.user.companyId, status: "PASSED" },
+    }),
+    prisma.fmea.count({
+      where: { oemId: session.user.companyId, status: { in: ["DRAFT", "IN_REVIEW"] } },
+    }),
+  ])
+  const iqcPassRate = iqcTotal > 0 ? `${Math.round((iqcPassed / iqcTotal) * 100)}%` : "—"
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -228,6 +244,31 @@ export default async function OemDashboardPage() {
           icon={FileCheckIcon}
           subtitle="Submitted 8D reports with required evidence"
           href="/oem/defects?filter=evidence-ready"
+        />
+      </div>
+
+      <h2 className="text-lg font-semibold text-foreground pt-2">Quality Modules</h2>
+      <div className="grid gap-4 md:grid-cols-3">
+        <DashboardCard
+          title="PPAP Pending"
+          value={ppapPending}
+          icon={FileTextIcon}
+          subtitle="Submissions awaiting review"
+          href="/oem/ppap"
+        />
+        <DashboardCard
+          title="IQC Pass Rate"
+          value={iqcPassRate}
+          icon={ClipboardCheckIcon}
+          subtitle="Incoming inspection pass rate"
+          href="/oem/iqc"
+        />
+        <DashboardCard
+          title="FMEA Active"
+          value={fmeaActive}
+          icon={ShieldAlertIcon}
+          subtitle="Active FMEA analyses"
+          href="/oem/fmea"
         />
       </div>
 

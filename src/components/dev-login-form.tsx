@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { ArrowRight, Terminal } from "lucide-react"
 
@@ -21,7 +20,6 @@ interface Props {
 export function DevLoginForm({ redirectTo }: Props) {
   const [email, setEmail] = useState("admin@oem.com")
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

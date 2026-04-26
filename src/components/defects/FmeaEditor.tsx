@@ -163,7 +163,7 @@ export function FmeaEditor({
         }
       } catch {
         const lines = data.suggestion.split("\n").filter((l: string) => l.trim())
-        parsed = lines.slice(0, 5).map((_: string) => ({
+        parsed = lines.slice(0, 5).map(() => ({
           id: genId(),
           potentialFailureMode: lines[0] || "",
           potentialEffect: "",

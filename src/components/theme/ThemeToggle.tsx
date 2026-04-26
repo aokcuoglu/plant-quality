@@ -1,7 +1,6 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
 import {
   Sun,
   Moon,
@@ -15,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useMounted } from "@/hooks/use-mounted"
 
 const modes = [
   { key: "light" as const, icon: Sun, label: "Light" },
@@ -24,11 +24,7 @@ const modes = [
 
 export function ThemeToggle({ collapsed }: { collapsed?: boolean }) {
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   const isActive = (key: string) => {
     if (theme === key) return true

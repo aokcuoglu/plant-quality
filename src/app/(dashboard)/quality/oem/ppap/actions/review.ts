@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import type { PpapLevel, PpapSubmissionRequirement } from "@/generated/prisma/client"
 
-function canManagePpap(session: { user: { companyType: string; role: string } } | null, type: "OEM" | "SUPPLIER"): boolean {
+function _canManagePpap(session: { user: { companyType: string; role: string } } | null, type: "OEM" | "SUPPLIER"): boolean {
   if (!session) return false
   if (session.user.companyType !== type) return false
   return ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)

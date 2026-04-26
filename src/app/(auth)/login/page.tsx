@@ -38,7 +38,7 @@ function LoginContent() {
   const [loading, setLoading] = useState(false)
 
   const search = useSearchParams()
-  const redirectTo = search.get("redirect") || "/"
+  const _redirectTo = search.get("redirect") || "/"
   const errorType = search.get("error")
 
   useEffect(() => {

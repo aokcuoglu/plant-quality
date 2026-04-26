@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMounted } from "@/hooks/use-mounted"
 import type { ReviewSection } from "./DefectDetailView"
 
 interface EightDPrintViewProps {
@@ -12,11 +12,7 @@ interface EightDPrintViewProps {
 }
 
 export function EightDPrintView({ partNumber, oemName, supplierName, sections, printId }: EightDPrintViewProps) {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   if (!mounted) return null
 

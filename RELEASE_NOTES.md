@@ -1,6 +1,43 @@
 # PlantQuality v1.6.1 — Release Notes
 
-## SLA, Escalation & Notifications Bugfix and Hardening
+## Lint Debt Cleanup & Regression Hardening
+
+**Release Date:** 2026-04-26  
+**Version:** 1.6.1
+
+---
+
+## Summary
+
+PlantQuality v1.6.1 eliminates all remaining lint errors and warnings inherited from v1.4.x/v1.5.x, and adds regression hardening from v1.6.0 SLA/escalation/notification flows. No new product features were added.
+
+---
+
+## Lint Cleanup
+
+| Area | Issue | Fix |
+|------|-------|-----|
+| `react-hooks/set-state-in-effect` | `setMounted(true)` inside `useEffect` caused cascading renders in `page.tsx`, `EightDPrintView.tsx`, `ThemeToggle.tsx` | Replaced `useState` + `useEffect` mount pattern with `useSyncExternalStore`-based `useMounted` hook (no effect, no setState) |
+| Unused imports | `Card`, `CardContent` imported but never used in `page.tsx` | Removed unused imports |
+| Unused variable | `redirectTo` assigned from `useSearchParams()` but never consumed in `login/page.tsx` | Prefixed with `_` (`_redirectTo`) |
+| Unused function | `canManagePpap` defined but never called in `ppap/actions/review.ts` | Prefixed with `_` (`_canManagePpap`) |
+| Unused variable | `_` parameter in `.map()` callback in `FmeaEditor.tsx` | Removed unused parameter entirely |
+| Unused variable | `router` from `useRouter()` in `dev-login-form.tsx` | Removed import and variable |
+| Unused variable | `router` from `useRouter()` in `magic-link-form.tsx` | Removed import and variable |
+| Unused parameter | `request` in `authorize` callback in `auth.ts` | Removed unused parameter |
+| ESLint config | `@typescript-eslint/no-unused-vars` did not allow `_` prefix convention | Added `argsIgnorePattern: "^_"` and `varsIgnorePattern: "^_"` override |
+
+---
+
+## New Utility
+
+| File | Purpose |
+|------|---------|
+| `src/hooks/use-mounted.ts` | `useMounted()` hook using `useSyncExternalStore` — returns `true` on client, `false` during SSR. Replaces `useState(false) + useEffect(() => setMounted(true), [])` pattern. |
+
+---
+
+## SLA Tracking, Escalation Management & Notifications Hardening
 
 **Release Date:** 2026-04-26  
 **Version:** 1.6.1

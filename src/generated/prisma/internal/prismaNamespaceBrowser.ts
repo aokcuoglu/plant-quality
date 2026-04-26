@@ -70,6 +70,10 @@ export const ModelName = {
   Fmea: 'Fmea',
   FmeaEvent: 'FmeaEvent',
   Waitlist: 'Waitlist',
+  FieldDefect: 'FieldDefect',
+  FieldDefectAttachment: 'FieldDefectAttachment',
+  FieldDefectComment: 'FieldDefectComment',
+  FieldDefectEvent: 'FieldDefectEvent',
   Notification: 'Notification'
 } as const
 
@@ -405,6 +409,80 @@ export const WaitlistScalarFieldEnum = {
 } as const
 
 export type WaitlistScalarFieldEnum = (typeof WaitlistScalarFieldEnum)[keyof typeof WaitlistScalarFieldEnum]
+
+
+export const FieldDefectScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  source: 'source',
+  status: 'status',
+  severity: 'severity',
+  safetyImpact: 'safetyImpact',
+  vehicleDown: 'vehicleDown',
+  repeatIssue: 'repeatIssue',
+  vin: 'vin',
+  vehicleModel: 'vehicleModel',
+  vehicleVariant: 'vehicleVariant',
+  mileage: 'mileage',
+  failureDate: 'failureDate',
+  reportDate: 'reportDate',
+  location: 'location',
+  partNumber: 'partNumber',
+  partName: 'partName',
+  supplierId: 'supplierId',
+  supplierNameSnapshot: 'supplierNameSnapshot',
+  oemId: 'oemId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  linkedDefectId: 'linkedDefectId',
+  convertedTo8DAt: 'convertedTo8DAt',
+  convertedById: 'convertedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FieldDefectScalarFieldEnum = (typeof FieldDefectScalarFieldEnum)[keyof typeof FieldDefectScalarFieldEnum]
+
+
+export const FieldDefectAttachmentScalarFieldEnum = {
+  id: 'id',
+  fieldDefectId: 'fieldDefectId',
+  storageKey: 'storageKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  uploadedById: 'uploadedById',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FieldDefectAttachmentScalarFieldEnum = (typeof FieldDefectAttachmentScalarFieldEnum)[keyof typeof FieldDefectAttachmentScalarFieldEnum]
+
+
+export const FieldDefectCommentScalarFieldEnum = {
+  id: 'id',
+  fieldDefectId: 'fieldDefectId',
+  authorId: 'authorId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type FieldDefectCommentScalarFieldEnum = (typeof FieldDefectCommentScalarFieldEnum)[keyof typeof FieldDefectCommentScalarFieldEnum]
+
+
+export const FieldDefectEventScalarFieldEnum = {
+  id: 'id',
+  fieldDefectId: 'fieldDefectId',
+  type: 'type',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type FieldDefectEventScalarFieldEnum = (typeof FieldDefectEventScalarFieldEnum)[keyof typeof FieldDefectEventScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {

@@ -478,16 +478,75 @@ export type EnumFmeaStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumFmeaStatusFilter<$PrismaModel>
 }
 
-export type EnumNotificationTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.NotificationType | Prisma.EnumNotificationTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
+export type EnumFieldDefectSourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSource | Prisma.EnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSourceFilter<$PrismaModel> | $Enums.FieldDefectSource
+}
+
+export type EnumFieldDefectStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectStatus | Prisma.EnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectStatusFilter<$PrismaModel> | $Enums.FieldDefectStatus
+}
+
+export type EnumFieldDefectSeverityFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSeverity | Prisma.EnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSeverityFilter<$PrismaModel> | $Enums.FieldDefectSeverity
 }
 
 export type BoolFilter<$PrismaModel = never> = {
   equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type EnumFieldDefectSourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSource | Prisma.EnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSourceWithAggregatesFilter<$PrismaModel> | $Enums.FieldDefectSource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFieldDefectSourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFieldDefectSourceFilter<$PrismaModel>
+}
+
+export type EnumFieldDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectStatus | Prisma.EnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectStatusWithAggregatesFilter<$PrismaModel> | $Enums.FieldDefectStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFieldDefectStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFieldDefectStatusFilter<$PrismaModel>
+}
+
+export type EnumFieldDefectSeverityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSeverity | Prisma.EnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSeverityWithAggregatesFilter<$PrismaModel> | $Enums.FieldDefectSeverity
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFieldDefectSeverityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFieldDefectSeverityFilter<$PrismaModel>
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type EnumNotificationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationType | Prisma.EnumNotificationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
 }
 
 export type EnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -498,14 +557,6 @@ export type EnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
-}
-
-export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -958,16 +1009,75 @@ export type NestedEnumFmeaStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumFmeaStatusFilter<$PrismaModel>
 }
 
-export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.NotificationType | Prisma.EnumNotificationTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
+export type NestedEnumFieldDefectSourceFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSource | Prisma.EnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSourceFilter<$PrismaModel> | $Enums.FieldDefectSource
+}
+
+export type NestedEnumFieldDefectStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectStatus | Prisma.EnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectStatusFilter<$PrismaModel> | $Enums.FieldDefectStatus
+}
+
+export type NestedEnumFieldDefectSeverityFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSeverity | Prisma.EnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSeverityFilter<$PrismaModel> | $Enums.FieldDefectSeverity
 }
 
 export type NestedBoolFilter<$PrismaModel = never> = {
   equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type NestedEnumFieldDefectSourceWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSource | Prisma.EnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSource[] | Prisma.ListEnumFieldDefectSourceFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSourceWithAggregatesFilter<$PrismaModel> | $Enums.FieldDefectSource
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFieldDefectSourceFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFieldDefectSourceFilter<$PrismaModel>
+}
+
+export type NestedEnumFieldDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectStatus | Prisma.EnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectStatus[] | Prisma.ListEnumFieldDefectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectStatusWithAggregatesFilter<$PrismaModel> | $Enums.FieldDefectStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFieldDefectStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFieldDefectStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumFieldDefectSeverityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FieldDefectSeverity | Prisma.EnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  in?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FieldDefectSeverity[] | Prisma.ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFieldDefectSeverityWithAggregatesFilter<$PrismaModel> | $Enums.FieldDefectSeverity
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFieldDefectSeverityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFieldDefectSeverityFilter<$PrismaModel>
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationType | Prisma.EnumNotificationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NotificationType[] | Prisma.ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
 }
 
 export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -978,14 +1088,6 @@ export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
-}
-
-export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 

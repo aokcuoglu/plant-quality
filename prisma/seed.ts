@@ -335,6 +335,99 @@ async function main() {
     })
   }
 
+  // Field Defects seed
+  const fieldDefects = [
+    {
+      id: "fd-001",
+      title: "Brake pedal vibration at highway speed",
+      description: "Customer reports significant brake pedal vibration when braking at speeds above 100 km/h. Vibration felt through steering column. Suspected warped brake disc from supplier.",
+      source: "FIELD" as const,
+      status: "OPEN" as const,
+      severity: "MAJOR" as const,
+      safetyImpact: true,
+      vehicleDown: false,
+      repeatIssue: true,
+      vin: "WVWZZZ3CZWE123456",
+      vehicleModel: "Model S 2025",
+      vehicleVariant: "Long Range",
+      mileage: 15200,
+      failureDate: new Date("2026-04-10"),
+      reportDate: new Date("2026-04-12"),
+      location: "Istanbul Service Center",
+      partNumber: "BR-5501-A",
+      partName: "Front Brake Disc Assembly",
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      supplierNameSnapshot: "Precision Parts Inc.",
+      createdById: "oem-quality",
+    },
+    {
+      id: "fd-002",
+      title: "Intermittent power steering failure",
+      description: "Multiple field reports of power steering warning light illuminating during low-speed maneuvers. Steering becomes heavy for 2-3 seconds before recovering. Safety-critical issue requiring immediate investigation.",
+      source: "CUSTOMER" as const,
+      status: "SUPPLIER_ASSIGNED" as const,
+      severity: "CRITICAL" as const,
+      safetyImpact: true,
+      vehicleDown: true,
+      repeatIssue: true,
+      vin: "WVWZZZ3CZWE789012",
+      vehicleModel: "Model X 2025",
+      mileage: 8700,
+      failureDate: new Date("2026-04-18"),
+      reportDate: new Date("2026-04-19"),
+      location: "Ankara Auto Gallery",
+      partNumber: "PS-2233-B",
+      partName: "Electronic Power Steering Module",
+      oemId: oemCompany.id,
+      supplierId: supplierCompany.id,
+      supplierNameSnapshot: "Precision Parts Inc.",
+      createdById: "oem-admin",
+    },
+    {
+      id: "fd-003",
+      title: "Dashboard warning light flicker",
+      description: "Intermittent flicker on the dashboard warning lights cluster. No actual fault detected in diagnostics. Cosmetic issue but causes customer concern.",
+      source: "DEALER" as const,
+      status: "DRAFT" as const,
+      severity: "MINOR" as const,
+      safetyImpact: false,
+      vehicleDown: false,
+      repeatIssue: false,
+      oemId: oemCompany.id,
+      createdById: "oem-quality",
+    },
+    {
+      id: "fd-004",
+      title: "Paint peeling on door handles",
+      description: "Paint peeling observed on exterior door handles after 6 months of use. Affects multiple vehicles. Cosmetic quality issue.",
+      source: "SERVICE" as const,
+      status: "LINKED_TO_8D" as const,
+      severity: "MINOR" as const,
+      safetyImpact: false,
+      vehicleDown: false,
+      repeatIssue: true,
+      vehicleModel: "Model S 2024",
+      partNumber: "DH-1100-C",
+      partName: "Exterior Door Handle Assembly",
+      oemId: oemCompany.id,
+      supplierId: supplierCompany2.id,
+      supplierNameSnapshot: "SteelForged Co.",
+      createdById: "oem-quality",
+      linkedDefectId: "defect-001",
+      convertedTo8DAt: new Date("2026-04-20"),
+      convertedById: "oem-quality",
+    },
+  ]
+
+  for (const fd of fieldDefects) {
+    await prisma.fieldDefect.upsert({
+      where: { id: fd.id },
+      update: {},
+      create: fd,
+    })
+  }
+
   console.log("Seed completed successfully!");
   console.log("Test accounts:");
   console.log("  admin@oem.com (OEM Admin)");
@@ -343,7 +436,7 @@ async function main() {
   console.log("  engineer@supplier.com (Supplier Engineer)");
   console.log("  admin@steelforged.com (SteelForged Admin)");
   console.log("  engineer@steelforged.com (SteelForged Engineer)");
-  console.log(`\nSeeded ${defects.length} defects, ${ppapSubmissions.length} PPAPs, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs.`);
+  console.log(`\nSeeded ${defects.length} defects, ${ppapSubmissions.length} PPAPs, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs, ${fieldDefects.length} field defects.`);
 }
 
 main()

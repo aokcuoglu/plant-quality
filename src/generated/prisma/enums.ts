@@ -45,7 +45,10 @@ export const NotificationType = {
   PPAP_APPROVED: 'PPAP_APPROVED',
   PPAP_REJECTED: 'PPAP_REJECTED',
   IQC_FAILED: 'IQC_FAILED',
-  FMEA_HIGH_RPN: 'FMEA_HIGH_RPN'
+  FMEA_HIGH_RPN: 'FMEA_HIGH_RPN',
+  FIELD_DEFECT_CREATED: 'FIELD_DEFECT_CREATED',
+  FIELD_DEFECT_ASSIGNED: 'FIELD_DEFECT_ASSIGNED',
+  FIELD_DEFECT_CONVERTED_TO_8D: 'FIELD_DEFECT_CONVERTED_TO_8D'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -84,7 +87,16 @@ export const DefectEventType = {
   IQC_FAILED: 'IQC_FAILED',
   FMEA_CREATED: 'FMEA_CREATED',
   FMEA_UPDATED: 'FMEA_UPDATED',
-  FMEA_APPROVED: 'FMEA_APPROVED'
+  FMEA_APPROVED: 'FMEA_APPROVED',
+  FIELD_DEFECT_CREATED: 'FIELD_DEFECT_CREATED',
+  FIELD_DEFECT_STATUS_CHANGED: 'FIELD_DEFECT_STATUS_CHANGED',
+  FIELD_DEFECT_SUPPLIER_ASSIGNED: 'FIELD_DEFECT_SUPPLIER_ASSIGNED',
+  FIELD_DEFECT_CONVERTED_TO_8D: 'FIELD_DEFECT_CONVERTED_TO_8D',
+  FIELD_DEFECT_COMMENT_ADDED: 'FIELD_DEFECT_COMMENT_ADDED',
+  FIELD_DEFECT_ATTACHMENT_ADDED: 'FIELD_DEFECT_ATTACHMENT_ADDED',
+  FIELD_DEFECT_ATTACHMENT_REMOVED: 'FIELD_DEFECT_ATTACHMENT_REMOVED',
+  FIELD_DEFECT_CLOSED: 'FIELD_DEFECT_CLOSED',
+  FIELD_DEFECT_CANCELLED: 'FIELD_DEFECT_CANCELLED'
 } as const
 
 export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]
@@ -192,3 +204,36 @@ export const FmeaType = {
 } as const
 
 export type FmeaType = (typeof FmeaType)[keyof typeof FmeaType]
+
+
+export const FieldDefectSource = {
+  FIELD: 'FIELD',
+  SERVICE: 'SERVICE',
+  CUSTOMER: 'CUSTOMER',
+  DEALER: 'DEALER',
+  INTERNAL: 'INTERNAL'
+} as const
+
+export type FieldDefectSource = (typeof FieldDefectSource)[keyof typeof FieldDefectSource]
+
+
+export const FieldDefectSeverity = {
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type FieldDefectSeverity = (typeof FieldDefectSeverity)[keyof typeof FieldDefectSeverity]
+
+
+export const FieldDefectStatus = {
+  DRAFT: 'DRAFT',
+  OPEN: 'OPEN',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  SUPPLIER_ASSIGNED: 'SUPPLIER_ASSIGNED',
+  LINKED_TO_8D: 'LINKED_TO_8D',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type FieldDefectStatus = (typeof FieldDefectStatus)[keyof typeof FieldDefectStatus]

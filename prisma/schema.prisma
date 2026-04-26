@@ -35,6 +35,9 @@ enum NotificationType {
   PPAP_REJECTED
   IQC_FAILED
   FMEA_HIGH_RPN
+  FIELD_DEFECT_CREATED
+  FIELD_DEFECT_ASSIGNED
+  FIELD_DEFECT_CONVERTED_TO_8D
 }
 
 enum ReviewCommentStatus {
@@ -68,6 +71,15 @@ enum DefectEventType {
   FMEA_CREATED
   FMEA_UPDATED
   FMEA_APPROVED
+  FIELD_DEFECT_CREATED
+  FIELD_DEFECT_STATUS_CHANGED
+  FIELD_DEFECT_SUPPLIER_ASSIGNED
+  FIELD_DEFECT_CONVERTED_TO_8D
+  FIELD_DEFECT_COMMENT_ADDED
+  FIELD_DEFECT_ATTACHMENT_ADDED
+  FIELD_DEFECT_ATTACHMENT_REMOVED
+  FIELD_DEFECT_CLOSED
+  FIELD_DEFECT_CANCELLED
 }
 
 enum DefectStatus {
@@ -147,6 +159,30 @@ enum FmeaType {
   PROCESS
 }
 
+enum FieldDefectSource {
+  FIELD
+  SERVICE
+  CUSTOMER
+  DEALER
+  INTERNAL
+}
+
+enum FieldDefectSeverity {
+  MINOR
+  MAJOR
+  CRITICAL
+}
+
+enum FieldDefectStatus {
+  DRAFT
+  OPEN
+  UNDER_REVIEW
+  SUPPLIER_ASSIGNED
+  LINKED_TO_8D
+  CLOSED
+  CANCELLED
+}
+
 model Company {
   id           String        @id @default(uuid())
   name         String
@@ -161,6 +197,8 @@ model Company {
   iqcAsSup     IqcReport[]   @relation("SupplierIqcReports")
   fmeaAsOem    Fmea[]        @relation("OemFmeas")
   fmeaAsSup    Fmea[]        @relation("SupplierFmeas")
+  fieldDefectsAsOem FieldDefect[] @relation("FieldDefectOem")
+  fieldDefectsAsSup FieldDefect[] @relation("FieldDefectSupplier")
   createdAt    DateTime      @default(now())
 
   @@map("companies")
@@ -200,6 +238,12 @@ model User {
   fmeaResponsible Fmea[] @relation("FmeaResponsible")
   fmeaApprovedBy Fmea[] @relation("FmeaApprovedBy")
   fmeaEventActors FmeaEvent[] @relation("FmeaEventActor")
+  createdFieldDefects     FieldDefect[] @relation("FieldDefectCreatedBy")
+  updatedFieldDefects     FieldDefect[] @relation("FieldDefectUpdatedBy")
+  convertedFieldDefects   FieldDefect[] @relation("FieldDefectConvertedBy")
+  fieldDefectAttachments  FieldDefectAttachment[] @relation("FieldDefectAttachmentUploadedBy")
+  fieldDefectComments     FieldDefectComment[] @relation("FieldDefectCommentAuthor")
+  fieldDefectEvents       FieldDefectEvent[] @relation("FieldDefectEventActor")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -269,6 +313,7 @@ model Defect {
   ppap         PpapSubmission?
   iqcReport    IqcReport?
   fmea         Fmea?
+  linkedFieldDefect FieldDefect?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   resolvedAt   DateTime?
@@ -557,6 +602,101 @@ model Waitlist {
 
   @@unique([email, module])
   @@map("waitlist")
+}
+
+model FieldDefect {
+  id                    String              @id @default(uuid())
+  title                 String
+  description           String
+  source                FieldDefectSource   @default(FIELD)
+  status                FieldDefectStatus   @default(DRAFT)
+  severity              FieldDefectSeverity @default(MAJOR)
+  safetyImpact          Boolean             @default(false) @map("safety_impact")
+  vehicleDown           Boolean             @default(false) @map("vehicle_down")
+  repeatIssue           Boolean             @default(false) @map("repeat_issue")
+  vin                   String?             @map("vin")
+  vehicleModel          String?             @map("vehicle_model")
+  vehicleVariant        String?             @map("vehicle_variant")
+  mileage               Int?               @map("mileage")
+  failureDate           DateTime?           @map("failure_date")
+  reportDate            DateTime            @default(now()) @map("report_date")
+  location              String?             @map("location")
+  partNumber            String?             @map("part_number")
+  partName              String?             @map("part_name")
+  supplierId            String?             @map("supplier_id")
+  supplier              Company?            @relation("FieldDefectSupplier", fields: [supplierId], references: [id])
+  supplierNameSnapshot  String?             @map("supplier_name_snapshot")
+  oemId                 String              @map("oem_id")
+  oem                   Company             @relation("FieldDefectOem", fields: [oemId], references: [id])
+  createdById           String              @map("created_by_id")
+  createdBy             User                @relation("FieldDefectCreatedBy", fields: [createdById], references: [id])
+  updatedById           String?             @map("updated_by_id")
+  updatedBy             User?               @relation("FieldDefectUpdatedBy", fields: [updatedById], references: [id])
+  linkedDefectId        String?             @unique @map("linked_defect_id")
+  linkedDefect          Defect?             @relation(fields: [linkedDefectId], references: [id])
+  convertedTo8DAt       DateTime?           @map("converted_to_8d_at")
+  convertedById         String?             @map("converted_by_id")
+  convertedBy           User?               @relation("FieldDefectConvertedBy", fields: [convertedById], references: [id])
+  attachments           FieldDefectAttachment[]
+  events                FieldDefectEvent[]
+  comments              FieldDefectComment[]
+  createdAt             DateTime            @default(now()) @map("created_at")
+  updatedAt             DateTime            @updatedAt @map("updated_at")
+  deletedAt             DateTime?           @map("deleted_at")
+
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([severity])
+  @@index([vin])
+  @@index([createdAt])
+  @@index([linkedDefectId])
+  @@map("field_defects")
+}
+
+model FieldDefectAttachment {
+  id              String            @id @default(cuid())
+  fieldDefectId   String            @map("field_defect_id")
+  fieldDefect     FieldDefect       @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  storageKey      String            @map("storage_key")
+  fileName        String            @map("file_name")
+  mimeType        String            @map("mime_type")
+  fileSize        Int               @map("file_size")
+  uploadedById    String            @map("uploaded_by_id")
+  uploadedBy      User              @relation("FieldDefectAttachmentUploadedBy", fields: [uploadedById], references: [id])
+  companyId       String            @map("company_id")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  deletedAt       DateTime?         @map("deleted_at")
+
+  @@index([fieldDefectId])
+  @@index([companyId, createdAt])
+  @@map("field_defect_attachments")
+}
+
+model FieldDefectComment {
+  id              String          @id @default(uuid())
+  fieldDefectId   String          @map("field_defect_id")
+  fieldDefect     FieldDefect     @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  authorId        String          @map("author_id")
+  author          User            @relation("FieldDefectCommentAuthor", fields: [authorId], references: [id])
+  content         String
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  @@index([fieldDefectId, createdAt])
+  @@map("field_defect_comments")
+}
+
+model FieldDefectEvent {
+  id              String          @id @default(uuid())
+  fieldDefectId   String          @map("field_defect_id")
+  fieldDefect     FieldDefect     @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  type            DefectEventType
+  actorId         String?         @map("actor_id")
+  actor           User?           @relation("FieldDefectEventActor", fields: [actorId], references: [id])
+  metadata        Json?
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  @@index([fieldDefectId, createdAt])
+  @@map("field_defect_events")
 }
 
 model Notification {

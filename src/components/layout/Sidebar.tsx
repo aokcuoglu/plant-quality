@@ -11,6 +11,7 @@ import {
   ChevronRight,
   FileTextIcon,
   ClipboardCheckIcon,
+  ClipboardListIcon,
   ShieldAlertIcon,
   type LucideIcon,
 } from "lucide-react"
@@ -30,6 +31,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   PlusCircleIcon,
   FileTextIcon,
   ClipboardCheckIcon,
+  ClipboardListIcon,
   ShieldAlertIcon,
 }
 

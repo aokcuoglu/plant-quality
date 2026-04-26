@@ -113,6 +113,26 @@ export type FmeaEvent = Prisma.FmeaEventModel
  */
 export type Waitlist = Prisma.WaitlistModel
 /**
+ * Model FieldDefect
+ * 
+ */
+export type FieldDefect = Prisma.FieldDefectModel
+/**
+ * Model FieldDefectAttachment
+ * 
+ */
+export type FieldDefectAttachment = Prisma.FieldDefectAttachmentModel
+/**
+ * Model FieldDefectComment
+ * 
+ */
+export type FieldDefectComment = Prisma.FieldDefectCommentModel
+/**
+ * Model FieldDefectEvent
+ * 
+ */
+export type FieldDefectEvent = Prisma.FieldDefectEventModel
+/**
  * Model Notification
  * 
  */

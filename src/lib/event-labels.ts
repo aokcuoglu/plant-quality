@@ -54,4 +54,13 @@ export const EVENT_META: Record<DefectEventType, EventMeta> = {
   FMEA_CREATED: { label: "FMEA Created", description: "FMEA analysis created", icon: ShieldAlertIcon, iconColor: "text-amber-500" },
   FMEA_UPDATED: { label: "FMEA Updated", description: "FMEA analysis updated", icon: SaveIcon, iconColor: "text-slate-500" },
   FMEA_APPROVED: { label: "FMEA Approved", description: "FMEA analysis approved", icon: CheckIcon, iconColor: "text-green-600" },
+  FIELD_DEFECT_CREATED: { label: "Field Defect Created", description: "Field defect report created", icon: PlusIcon, iconColor: "text-blue-500" },
+  FIELD_DEFECT_STATUS_CHANGED: { label: "Status Changed", description: "Field defect status updated", icon: SaveIcon, iconColor: "text-slate-500" },
+  FIELD_DEFECT_SUPPLIER_ASSIGNED: { label: "Supplier Assigned", description: "Supplier assigned to field defect", icon: UserIcon, iconColor: "text-blue-500" },
+  FIELD_DEFECT_CONVERTED_TO_8D: { label: "Converted to 8D", description: "Field defect converted to 8D report", icon: SendIcon, iconColor: "text-emerald-500" },
+  FIELD_DEFECT_COMMENT_ADDED: { label: "Comment Added", description: "Comment added to field defect", icon: MessageSquareIcon, iconColor: "text-blue-500" },
+  FIELD_DEFECT_ATTACHMENT_ADDED: { label: "Attachment Added", description: "File attached to field defect", icon: PaperclipIcon, iconColor: "text-blue-500" },
+  FIELD_DEFECT_ATTACHMENT_REMOVED: { label: "Attachment Removed", description: "File removed from field defect", icon: TrashIcon, iconColor: "text-red-500" },
+  FIELD_DEFECT_CLOSED: { label: "Closed", description: "Field defect closed", icon: CheckIcon, iconColor: "text-green-500" },
+  FIELD_DEFECT_CANCELLED: { label: "Cancelled", description: "Field defect cancelled", icon: XCircleIcon, iconColor: "text-muted-foreground" },
 }

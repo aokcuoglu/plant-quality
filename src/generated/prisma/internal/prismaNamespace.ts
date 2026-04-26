@@ -403,6 +403,10 @@ export const ModelName = {
   Fmea: 'Fmea',
   FmeaEvent: 'FmeaEvent',
   Waitlist: 'Waitlist',
+  FieldDefect: 'FieldDefect',
+  FieldDefectAttachment: 'FieldDefectAttachment',
+  FieldDefectComment: 'FieldDefectComment',
+  FieldDefectEvent: 'FieldDefectEvent',
   Notification: 'Notification'
 } as const
 
@@ -419,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "notification"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1829,6 +1833,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FieldDefect: {
+      payload: Prisma.$FieldDefectPayload<ExtArgs>
+      fields: Prisma.FieldDefectFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieldDefectFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieldDefectFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>
+        }
+        findFirst: {
+          args: Prisma.FieldDefectFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieldDefectFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>
+        }
+        findMany: {
+          args: Prisma.FieldDefectFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>[]
+        }
+        create: {
+          args: Prisma.FieldDefectCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>
+        }
+        createMany: {
+          args: Prisma.FieldDefectCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieldDefectCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>[]
+        }
+        delete: {
+          args: Prisma.FieldDefectDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>
+        }
+        update: {
+          args: Prisma.FieldDefectUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieldDefectDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieldDefectUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieldDefectUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieldDefectUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectPayload>
+        }
+        aggregate: {
+          args: Prisma.FieldDefectAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldDefect>
+        }
+        groupBy: {
+          args: Prisma.FieldDefectGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieldDefectCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectCountAggregateOutputType> | number
+        }
+      }
+    }
+    FieldDefectAttachment: {
+      payload: Prisma.$FieldDefectAttachmentPayload<ExtArgs>
+      fields: Prisma.FieldDefectAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieldDefectAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieldDefectAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.FieldDefectAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieldDefectAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.FieldDefectAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.FieldDefectAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.FieldDefectAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieldDefectAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.FieldDefectAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>
+        }
+        update: {
+          args: Prisma.FieldDefectAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieldDefectAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieldDefectAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieldDefectAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieldDefectAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.FieldDefectAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldDefectAttachment>
+        }
+        groupBy: {
+          args: Prisma.FieldDefectAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieldDefectAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectAttachmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    FieldDefectComment: {
+      payload: Prisma.$FieldDefectCommentPayload<ExtArgs>
+      fields: Prisma.FieldDefectCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieldDefectCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieldDefectCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.FieldDefectCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieldDefectCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>
+        }
+        findMany: {
+          args: Prisma.FieldDefectCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>[]
+        }
+        create: {
+          args: Prisma.FieldDefectCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>
+        }
+        createMany: {
+          args: Prisma.FieldDefectCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieldDefectCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.FieldDefectCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>
+        }
+        update: {
+          args: Prisma.FieldDefectCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieldDefectCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieldDefectCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieldDefectCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieldDefectCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.FieldDefectCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldDefectComment>
+        }
+        groupBy: {
+          args: Prisma.FieldDefectCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieldDefectCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectCommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    FieldDefectEvent: {
+      payload: Prisma.$FieldDefectEventPayload<ExtArgs>
+      fields: Prisma.FieldDefectEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieldDefectEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieldDefectEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>
+        }
+        findFirst: {
+          args: Prisma.FieldDefectEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieldDefectEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>
+        }
+        findMany: {
+          args: Prisma.FieldDefectEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>[]
+        }
+        create: {
+          args: Prisma.FieldDefectEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>
+        }
+        createMany: {
+          args: Prisma.FieldDefectEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieldDefectEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>[]
+        }
+        delete: {
+          args: Prisma.FieldDefectEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>
+        }
+        update: {
+          args: Prisma.FieldDefectEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieldDefectEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieldDefectEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieldDefectEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieldDefectEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldDefectEventPayload>
+        }
+        aggregate: {
+          args: Prisma.FieldDefectEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldDefectEvent>
+        }
+        groupBy: {
+          args: Prisma.FieldDefectEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieldDefectEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldDefectEventCountAggregateOutputType> | number
+        }
+      }
+    }
     Notification: {
       payload: Prisma.$NotificationPayload<ExtArgs>
       fields: Prisma.NotificationFieldRefs
@@ -2260,6 +2560,80 @@ export const WaitlistScalarFieldEnum = {
 export type WaitlistScalarFieldEnum = (typeof WaitlistScalarFieldEnum)[keyof typeof WaitlistScalarFieldEnum]
 
 
+export const FieldDefectScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  source: 'source',
+  status: 'status',
+  severity: 'severity',
+  safetyImpact: 'safetyImpact',
+  vehicleDown: 'vehicleDown',
+  repeatIssue: 'repeatIssue',
+  vin: 'vin',
+  vehicleModel: 'vehicleModel',
+  vehicleVariant: 'vehicleVariant',
+  mileage: 'mileage',
+  failureDate: 'failureDate',
+  reportDate: 'reportDate',
+  location: 'location',
+  partNumber: 'partNumber',
+  partName: 'partName',
+  supplierId: 'supplierId',
+  supplierNameSnapshot: 'supplierNameSnapshot',
+  oemId: 'oemId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  linkedDefectId: 'linkedDefectId',
+  convertedTo8DAt: 'convertedTo8DAt',
+  convertedById: 'convertedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FieldDefectScalarFieldEnum = (typeof FieldDefectScalarFieldEnum)[keyof typeof FieldDefectScalarFieldEnum]
+
+
+export const FieldDefectAttachmentScalarFieldEnum = {
+  id: 'id',
+  fieldDefectId: 'fieldDefectId',
+  storageKey: 'storageKey',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  uploadedById: 'uploadedById',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FieldDefectAttachmentScalarFieldEnum = (typeof FieldDefectAttachmentScalarFieldEnum)[keyof typeof FieldDefectAttachmentScalarFieldEnum]
+
+
+export const FieldDefectCommentScalarFieldEnum = {
+  id: 'id',
+  fieldDefectId: 'fieldDefectId',
+  authorId: 'authorId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type FieldDefectCommentScalarFieldEnum = (typeof FieldDefectCommentScalarFieldEnum)[keyof typeof FieldDefectCommentScalarFieldEnum]
+
+
+export const FieldDefectEventScalarFieldEnum = {
+  id: 'id',
+  fieldDefectId: 'fieldDefectId',
+  type: 'type',
+  actorId: 'actorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type FieldDefectEventScalarFieldEnum = (typeof FieldDefectEventScalarFieldEnum)[keyof typeof FieldDefectEventScalarFieldEnum]
+
+
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -2573,6 +2947,55 @@ export type ListEnumFmeaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
+ * Reference to a field of type 'FieldDefectSource'
+ */
+export type EnumFieldDefectSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FieldDefectSource'>
+    
+
+
+/**
+ * Reference to a field of type 'FieldDefectSource[]'
+ */
+export type ListEnumFieldDefectSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FieldDefectSource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FieldDefectStatus'
+ */
+export type EnumFieldDefectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FieldDefectStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'FieldDefectStatus[]'
+ */
+export type ListEnumFieldDefectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FieldDefectStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FieldDefectSeverity'
+ */
+export type EnumFieldDefectSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FieldDefectSeverity'>
+    
+
+
+/**
+ * Reference to a field of type 'FieldDefectSeverity[]'
+ */
+export type ListEnumFieldDefectSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FieldDefectSeverity[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'NotificationType'
  */
 export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
@@ -2583,13 +3006,6 @@ export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'NotificationType[]'
  */
 export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -2735,6 +3151,10 @@ export type GlobalOmitConfig = {
   fmea?: Prisma.FmeaOmit
   fmeaEvent?: Prisma.FmeaEventOmit
   waitlist?: Prisma.WaitlistOmit
+  fieldDefect?: Prisma.FieldDefectOmit
+  fieldDefectAttachment?: Prisma.FieldDefectAttachmentOmit
+  fieldDefectComment?: Prisma.FieldDefectCommentOmit
+  fieldDefectEvent?: Prisma.FieldDefectEventOmit
   notification?: Prisma.NotificationOmit
 }
 

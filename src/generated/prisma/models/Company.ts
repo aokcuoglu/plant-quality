@@ -191,6 +191,8 @@ export type CompanyWhereInput = {
   iqcAsSup?: Prisma.IqcReportListRelationFilter
   fmeaAsOem?: Prisma.FmeaListRelationFilter
   fmeaAsSup?: Prisma.FmeaListRelationFilter
+  fieldDefectsAsOem?: Prisma.FieldDefectListRelationFilter
+  fieldDefectsAsSup?: Prisma.FieldDefectListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -208,6 +210,8 @@ export type CompanyOrderByWithRelationInput = {
   iqcAsSup?: Prisma.IqcReportOrderByRelationAggregateInput
   fmeaAsOem?: Prisma.FmeaOrderByRelationAggregateInput
   fmeaAsSup?: Prisma.FmeaOrderByRelationAggregateInput
+  fieldDefectsAsOem?: Prisma.FieldDefectOrderByRelationAggregateInput
+  fieldDefectsAsSup?: Prisma.FieldDefectOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -228,6 +232,8 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   iqcAsSup?: Prisma.IqcReportListRelationFilter
   fmeaAsOem?: Prisma.FmeaListRelationFilter
   fmeaAsSup?: Prisma.FmeaListRelationFilter
+  fieldDefectsAsOem?: Prisma.FieldDefectListRelationFilter
+  fieldDefectsAsSup?: Prisma.FieldDefectListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -267,6 +273,8 @@ export type CompanyCreateInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -284,6 +292,8 @@ export type CompanyUncheckedCreateInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUpdateInput = {
@@ -301,6 +311,8 @@ export type CompanyUpdateInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -318,6 +330,8 @@ export type CompanyUncheckedUpdateInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -522,6 +536,36 @@ export type CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutFmeaAsSupInput, Prisma.CompanyUpdateWithoutFmeaAsSupInput>, Prisma.CompanyUncheckedUpdateWithoutFmeaAsSupInput>
 }
 
+export type CompanyCreateNestedOneWithoutFieldDefectsAsSupInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsSupInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsSupInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFieldDefectsAsSupInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyCreateNestedOneWithoutFieldDefectsAsOemInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsOemInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsOemInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFieldDefectsAsOemInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsSupInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsSupInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFieldDefectsAsSupInput
+  upsert?: Prisma.CompanyUpsertWithoutFieldDefectsAsSupInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutFieldDefectsAsSupInput, Prisma.CompanyUpdateWithoutFieldDefectsAsSupInput>, Prisma.CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput>
+}
+
+export type CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsOemInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsOemInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFieldDefectsAsOemInput
+  upsert?: Prisma.CompanyUpsertWithoutFieldDefectsAsOemInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutFieldDefectsAsOemInput, Prisma.CompanyUpdateWithoutFieldDefectsAsOemInput>, Prisma.CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput>
+}
+
 export type CompanyCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -536,6 +580,8 @@ export type CompanyCreateWithoutUsersInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutUsersInput = {
@@ -552,6 +598,8 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutUsersInput = {
@@ -584,6 +632,8 @@ export type CompanyUpdateWithoutUsersInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsersInput = {
@@ -600,6 +650,8 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutDefectsAsOemInput = {
@@ -616,6 +668,8 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
@@ -632,6 +686,8 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsOemInput = {
@@ -653,6 +709,8 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
@@ -669,6 +727,8 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsSupInput = {
@@ -701,6 +761,8 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
@@ -717,6 +779,8 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutDefectsAsSupInput = {
@@ -744,6 +808,8 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
@@ -760,6 +826,8 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutPpapAsOemInput = {
@@ -776,6 +844,8 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
@@ -792,6 +862,8 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsOemInput = {
@@ -813,6 +885,8 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
@@ -829,6 +903,8 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsSupInput = {
@@ -861,6 +937,8 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
@@ -877,6 +955,8 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutPpapAsSupInput = {
@@ -904,6 +984,8 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
@@ -920,6 +1002,8 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutIqcAsOemInput = {
@@ -936,6 +1020,8 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
@@ -952,6 +1038,8 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsOemInput = {
@@ -973,6 +1061,8 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
@@ -989,6 +1079,8 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsSupInput = {
@@ -1021,6 +1113,8 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
@@ -1037,6 +1131,8 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutIqcAsSupInput = {
@@ -1064,6 +1160,8 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
@@ -1080,6 +1178,8 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutFmeaAsOemInput = {
@@ -1096,6 +1196,8 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
@@ -1112,6 +1214,8 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsOemInput = {
@@ -1133,6 +1237,8 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
   iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
@@ -1149,6 +1255,8 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
   iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsSupInput = {
@@ -1181,6 +1289,8 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
@@ -1197,6 +1307,8 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutFmeaAsSupInput = {
@@ -1224,6 +1336,8 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
   iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
@@ -1240,6 +1354,184 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
   iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+}
+
+export type CompanyCreateWithoutFieldDefectsAsSupInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+}
+
+export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+}
+
+export type CompanyCreateOrConnectWithoutFieldDefectsAsSupInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsSupInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsSupInput>
+}
+
+export type CompanyCreateWithoutFieldDefectsAsOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+}
+
+export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+}
+
+export type CompanyCreateOrConnectWithoutFieldDefectsAsOemInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsOemInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsOemInput>
+}
+
+export type CompanyUpsertWithoutFieldDefectsAsSupInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutFieldDefectsAsSupInput, Prisma.CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsSupInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsSupInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutFieldDefectsAsSupInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutFieldDefectsAsSupInput, Prisma.CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput>
+}
+
+export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+}
+
+export type CompanyUpsertWithoutFieldDefectsAsOemInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutFieldDefectsAsOemInput, Prisma.CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutFieldDefectsAsOemInput, Prisma.CompanyUncheckedCreateWithoutFieldDefectsAsOemInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutFieldDefectsAsOemInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutFieldDefectsAsOemInput, Prisma.CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput>
+}
+
+export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 
@@ -1257,6 +1549,8 @@ export type CompanyCountOutputType = {
   iqcAsSup: number
   fmeaAsOem: number
   fmeaAsSup: number
+  fieldDefectsAsOem: number
+  fieldDefectsAsSup: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1269,6 +1563,8 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   iqcAsSup?: boolean | CompanyCountOutputTypeCountIqcAsSupArgs
   fmeaAsOem?: boolean | CompanyCountOutputTypeCountFmeaAsOemArgs
   fmeaAsSup?: boolean | CompanyCountOutputTypeCountFmeaAsSupArgs
+  fieldDefectsAsOem?: boolean | CompanyCountOutputTypeCountFieldDefectsAsOemArgs
+  fieldDefectsAsSup?: boolean | CompanyCountOutputTypeCountFieldDefectsAsSupArgs
 }
 
 /**
@@ -1344,6 +1640,20 @@ export type CompanyCountOutputTypeCountFmeaAsSupArgs<ExtArgs extends runtime.Typ
   where?: Prisma.FmeaWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountFieldDefectsAsOemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FieldDefectWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountFieldDefectsAsSupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FieldDefectWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1360,6 +1670,8 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   iqcAsSup?: boolean | Prisma.Company$iqcAsSupArgs<ExtArgs>
   fmeaAsOem?: boolean | Prisma.Company$fmeaAsOemArgs<ExtArgs>
   fmeaAsSup?: boolean | Prisma.Company$fmeaAsSupArgs<ExtArgs>
+  fieldDefectsAsOem?: boolean | Prisma.Company$fieldDefectsAsOemArgs<ExtArgs>
+  fieldDefectsAsSup?: boolean | Prisma.Company$fieldDefectsAsSupArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -1398,6 +1710,8 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   iqcAsSup?: boolean | Prisma.Company$iqcAsSupArgs<ExtArgs>
   fmeaAsOem?: boolean | Prisma.Company$fmeaAsOemArgs<ExtArgs>
   fmeaAsSup?: boolean | Prisma.Company$fmeaAsSupArgs<ExtArgs>
+  fieldDefectsAsOem?: boolean | Prisma.Company$fieldDefectsAsOemArgs<ExtArgs>
+  fieldDefectsAsSup?: boolean | Prisma.Company$fieldDefectsAsSupArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1415,6 +1729,8 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     iqcAsSup: Prisma.$IqcReportPayload<ExtArgs>[]
     fmeaAsOem: Prisma.$FmeaPayload<ExtArgs>[]
     fmeaAsSup: Prisma.$FmeaPayload<ExtArgs>[]
+    fieldDefectsAsOem: Prisma.$FieldDefectPayload<ExtArgs>[]
+    fieldDefectsAsSup: Prisma.$FieldDefectPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1825,6 +2141,8 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   iqcAsSup<T extends Prisma.Company$iqcAsSupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$iqcAsSupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fmeaAsOem<T extends Prisma.Company$fmeaAsOemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fmeaAsOemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FmeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fmeaAsSup<T extends Prisma.Company$fmeaAsSupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fmeaAsSupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FmeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fieldDefectsAsOem<T extends Prisma.Company$fieldDefectsAsOemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fieldDefectsAsOemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fieldDefectsAsSup<T extends Prisma.Company$fieldDefectsAsSupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fieldDefectsAsSupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2465,6 +2783,54 @@ export type Company$fmeaAsSupArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.FmeaScalarFieldEnum | Prisma.FmeaScalarFieldEnum[]
+}
+
+/**
+ * Company.fieldDefectsAsOem
+ */
+export type Company$fieldDefectsAsOemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FieldDefect
+   */
+  select?: Prisma.FieldDefectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FieldDefect
+   */
+  omit?: Prisma.FieldDefectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FieldDefectInclude<ExtArgs> | null
+  where?: Prisma.FieldDefectWhereInput
+  orderBy?: Prisma.FieldDefectOrderByWithRelationInput | Prisma.FieldDefectOrderByWithRelationInput[]
+  cursor?: Prisma.FieldDefectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FieldDefectScalarFieldEnum | Prisma.FieldDefectScalarFieldEnum[]
+}
+
+/**
+ * Company.fieldDefectsAsSup
+ */
+export type Company$fieldDefectsAsSupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FieldDefect
+   */
+  select?: Prisma.FieldDefectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FieldDefect
+   */
+  omit?: Prisma.FieldDefectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FieldDefectInclude<ExtArgs> | null
+  where?: Prisma.FieldDefectWhereInput
+  orderBy?: Prisma.FieldDefectOrderByWithRelationInput | Prisma.FieldDefectOrderByWithRelationInput[]
+  cursor?: Prisma.FieldDefectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FieldDefectScalarFieldEnum | Prisma.FieldDefectScalarFieldEnum[]
 }
 
 /**

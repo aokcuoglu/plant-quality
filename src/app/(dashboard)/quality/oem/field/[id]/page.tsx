@@ -143,14 +143,26 @@ export default async function OemFieldDetailPage({
               <DetailRow label="Description" value={<p className="whitespace-pre-wrap">{fd.description}</p>} />
               <DetailRow label="Source" value={<FieldDefectSourceBadge source={fd.source} />} />
               <DetailRow label="Severity" value={<FieldDefectSeverityBadge severity={fd.severity} />} />
-              {fd.category && (
-                <DetailRow label="Category" value={<span className="text-sm text-foreground">{fd.category}{fd.subcategory ? ` / ${fd.subcategory}` : ""}</span>} />
-              )}
+              <DetailRow label="Category" value={
+                fd.category ? (
+                  <span className="text-sm text-foreground">
+                    {fd.category}{fd.subcategory ? ` / ${fd.subcategory}` : ""}
+                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-emerald-500">(AI)</span>}
+                  </span>
+                ) : (
+                  <span className="text-sm italic text-muted-foreground">Uncategorized</span>
+                )
+              } />
               {fd.probableArea && (
-                <DetailRow label="Probable Area" value={fd.probableArea} />
+                <DetailRow label="Probable Area" value={
+                  <span className="text-sm text-foreground">
+                    {fd.probableArea}
+                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-emerald-500">(AI)</span>}
+                  </span>
+                } />
               )}
               {fd.aiCategoryApplied && (
-                <DetailRow label="AI Classification" value={<span className="text-xs font-medium text-emerald-500">Applied by AI</span>} />
+                <DetailRow label="Classification Source" value={<span className="text-xs font-medium text-emerald-500">AI-applied classification</span>} />
               )}
               <DetailRow label="Safety Impact" value={fd.safetyImpact ? "⚠️ Yes" : "No"} />
               <DetailRow label="Vehicle Down" value={fd.vehicleDown ? "🚫 Yes" : "No"} />

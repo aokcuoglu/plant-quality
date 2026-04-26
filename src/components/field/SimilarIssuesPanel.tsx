@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { SearchIcon, RefreshCwIcon } from "lucide-react"
 import { FieldDefectStatusBadge } from "./FieldDefectStatusBadge"
 import { FieldDefectSeverityBadge } from "./FieldDefectSeverityBadge"
@@ -34,6 +35,7 @@ export function SimilarIssuesPanel({
   similarIssues,
   canManage,
 }: SimilarIssuesPanelProps) {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
 
@@ -47,7 +49,7 @@ export function SimilarIssuesPanel({
         const data = await res.json()
         setError(data.error || "Failed to find similar issues")
       } else {
-        window.location.reload()
+        router.refresh()
       }
     })
   }

@@ -58,7 +58,7 @@ export default async function OemFieldPage({
   const params = await searchParams
   const filter = params.filter ?? ""
   const search = params.q ?? ""
-  const page = parseInt(params.page ?? "1", 10)
+  const page = Math.max(1, parseInt(params.page ?? "1", 10) || 1)
 
   const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page)
   const totalPages = Math.ceil(totalCount / FIELD_DEFECT_PAGE_SIZE)
@@ -227,8 +227,14 @@ export default async function OemFieldPage({
                   </Td>
                   <Td>
                     <span className="text-xs text-muted-foreground">
-                      {fd.category ?? "—"}
-                      {fd.subcategory ? ` / ${fd.subcategory}` : ""}
+                      {fd.category ? (
+                        <>
+                          {fd.category}
+                          {fd.subcategory ? ` / ${fd.subcategory}` : ""}
+                        </>
+                      ) : (
+                        <span className="italic">Uncategorized</span>
+                      )}
                     </span>
                   </Td>
                   <Td>

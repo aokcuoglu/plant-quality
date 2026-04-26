@@ -355,14 +355,20 @@ export async function updateFieldDefect(id: string, formData: FormData) {
   if (vin !== null) data.vin = vin || null
   if (vehicleModel !== null) data.vehicleModel = vehicleModel || null
   if (vehicleVariant !== null) data.vehicleVariant = vehicleVariant || null
-  if (mileage !== null) data.mileage = mileage ? parseInt(mileage) : null
+  if (mileage !== null) {
+    const parsedMileage = mileage ? parseInt(mileage) : null
+    if (parsedMileage !== null && (isNaN(parsedMileage) || parsedMileage < 0)) {
+      return { success: false as const, error: "Mileage must be a positive number" }
+    }
+    data.mileage = parsedMileage
+  }
   if (failureDate !== null) data.failureDate = failureDate ? new Date(failureDate) : null
   if (location !== null) data.location = location || null
   if (partNumber !== null) data.partNumber = partNumber || null
   if (partName !== null) data.partName = partName || null
-  if (category !== null) data.category = category || null
-  if (subcategory !== null) data.subcategory = subcategory || null
-  if (probableArea !== null) data.probableArea = probableArea || null
+  if (category !== null) data.category = category.trim() || null
+  if (subcategory !== null) data.subcategory = subcategory.trim() || null
+  if (probableArea !== null) data.probableArea = probableArea.trim() || null
 
   await prisma.fieldDefect.update({
     where: { id, oemId: session.user.companyId },
@@ -876,16 +882,16 @@ export async function updateFieldDefectCategories(
   }
 
   const updateData: Record<string, unknown> = { updatedById: session.user.id }
-  if (data.category !== undefined) updateData.category = data.category || null
-  if (data.subcategory !== undefined) updateData.subcategory = data.subcategory || null
-  if (data.probableArea !== undefined) updateData.probableArea = data.probableArea || null
+  if (data.category !== undefined) updateData.category = data.category?.trim().slice(0, 100) || null
+  if (data.subcategory !== undefined) updateData.subcategory = data.subcategory?.trim().slice(0, 100) || null
+  if (data.probableArea !== undefined) updateData.probableArea = data.probableArea?.trim().slice(0, 100) || null
 
   await prisma.fieldDefect.update({
     where: { id, oemId: session.user.companyId },
     data: updateData,
   })
 
-  await logFieldDefectEvent(id, "FIELD_DEFECT_STATUS_CHANGED", session.user.id, {
+  await logFieldDefectEvent(id, "FIELD_DEFECT_CATEGORY_UPDATED", session.user.id, {
     action: "category_updated",
     category: data.category ?? fieldDefect.category,
     subcategory: data.subcategory ?? fieldDefect.subcategory,

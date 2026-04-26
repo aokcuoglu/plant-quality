@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { SparklesIcon, CheckIcon, XIcon, RefreshCwIcon } from "lucide-react"
 
 interface Classification {
@@ -70,6 +71,7 @@ export function AiInsightPanel({
   isPro,
   canManage,
 }: AiInsightPanelProps) {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
 
@@ -90,7 +92,7 @@ export function AiInsightPanel({
         const data = await res.json()
         setError(data.error || "Failed to generate classification")
       } else {
-        window.location.reload()
+        router.refresh()
       }
     })
   }
@@ -106,7 +108,7 @@ export function AiInsightPanel({
         const data = await res.json()
         setError(data.error || `Failed to ${action} suggestion`)
       } else {
-        window.location.reload()
+        router.refresh()
       }
     })
   }

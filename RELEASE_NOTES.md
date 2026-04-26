@@ -1,3 +1,112 @@
+# PlantQuality v1.8.1 — Release Notes
+
+## Dashboard/Category UX Polish & Bugfix
+
+**Release Date:** 2026-04-26  
+**Version:** 1.8.1
+
+---
+
+## Summary
+
+PlantQuality v1.8.1 is a stabilization and UX polish patch on top of v1.8.0. It improves the Quality Intelligence Dashboard labels and empty states, polishes category/subcategory display across OEM and supplier views, hardens AI accept/reject feedback, fixes minor bugs, and adds a new event type for category updates. No new product features are introduced.
+
+---
+
+## Dashboard UX Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| KPI card labels | "Open", "Overdue", "Critical" | "Open Field Defects", "Overdue Field Defects", "Critical Field Defects" |
+| AI acceptance rate | Hidden entirely when no suggestions exist | Shows "—" dash with "No classification suggestions generated yet" when no suggestions, hidden only when zero defects |
+| Zero-defect state | No guidance | Empty state with icon, message, and CTA to create first field defect |
+| Ranking table links | Category links use `/quality/oem/field?filter=cat:` | Unchanged (working correctly) |
+| Long names in ranking tables | No truncation, could overflow | `max-w-[calc(100%-3rem)]` truncation with hover underline preserved |
+
+---
+
+## Category Display Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| Null category in field list | Shows "—" em dash | Shows italic "Uncategorized" |
+| Null category in OEM detail | Hidden entirely (conditional row) | Always shown — displays italic "Uncategorized" when null |
+| Null category in supplier detail | Hidden entirely | Always shown — displays italic "Uncategorized" when null |
+| AI-applied category indicator | Separate "AI Classification" row, subtle | Category and probable area show "(AI)" inline badge; renamed to "Classification Source" |
+| Category in field list table | Simple text with "/" separator | Unchanged format, shows "(Uncategorized)" for null |
+
+---
+
+## AI Accept Feedback Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| Accept/reject result | Full page reload via `window.location.reload()` | Server component refresh via `router.refresh()` (preserves scroll, no flash) |
+| Similar Issues refresh | Full page reload via `window.location.reload()` | Server component refresh via `router.refresh()` |
+
+---
+
+## Manual Category Edit Validation
+
+| Area | Before | After |
+|------|--------|-------|
+| Whitespace trimming | No trimming (raw form values saved) | Category, subcategory, probableArea trimmed server-side in both `updateFieldDefect` and `updateFieldDefectCategories` |
+| Max length | No validation | `maxLength={100}` added to input fields; server-side `slice(0, 100)` in `updateFieldDefectCategories` |
+| Empty strings | Could be saved as empty string | Converted to `null` (consistent with optional schema) |
+| Mileage validation | `updateFieldDefect` allowed `NaN` for non-numeric mileage input | Added `isNaN` guard returning error — consistent with `createFieldDefect` |
+
+---
+
+## Bug Fixes
+
+| Bug | Description | Fix |
+|-----|-------------|-----|
+| Wrong event type for category updates | `updateFieldDefectCategories` logged `FIELD_DEFECT_STATUS_CHANGED` | New enum value `FIELD_DEFECT_CATEGORY_UPDATED` added; used in both `updateFieldDefectCategories` and `event-labels.ts` |
+| Page number NaN | `parseInt(params.page)` could produce `NaN` for non-numeric `?page=` | Added `|| 1` fallback and `Math.max(1, ...)` guard |
+
+---
+
+## Database Changes
+
+| Change | Detail |
+|--------|--------|
+| `DefectEventType` enum | Added `FIELD_DEFECT_CATEGORY_UPDATED` value |
+
+Requires `npx prisma db push` and `npx prisma generate`.
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `prisma/schema.prisma` | Added `FIELD_DEFECT_CATEGORY_UPDATED` to `DefectEventType` enum |
+| `src/lib/event-labels.ts` | Added `FIELD_DEFECT_CATEGORY_UPDATED` label |
+| `src/app/(dashboard)/quality/oem/quality-intelligence/page.tsx` | Polished KPI labels, added zero-defect empty state, conditional ranking sections, AI rate dash state |
+| `src/app/(dashboard)/quality/oem/field/page.tsx` | NaN page guard, "Uncategorized" text for null categories |
+| `src/app/(dashboard)/quality/oem/field/[id]/page.tsx` | Always-show category row, "(AI)" badge, "Classification Source" label |
+| `src/app/(dashboard)/quality/supplier/field/[id]/page.tsx` | Always-show category row with "Uncategorized" and "(AI)" badge |
+| `src/app/(dashboard)/quality/oem/field/[id]/edit/edit-form.tsx` | Added `maxLength={100}` on category inputs, helper text |
+| `src/app/(dashboard)/field/actions.ts` | Mileage NaN guard, whitespace trim for category fields, `FIELD_DEFECT_CATEGORY_UPDATED` event type |
+| `src/components/field/AiInsightPanel.tsx` | Replaced `window.location.reload()` with `router.refresh()` |
+| `src/components/field/SimilarIssuesPanel.tsx` | Replaced `window.location.reload()` with `router.refresh()` |
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| Root cause suggestion | v1.9+ |
+| AI 8D review | v1.9+ |
+| Supplier risk prediction | v1.9+ |
+| Warranty cost prediction | v2.0+ |
+| Image-based AI classification | v2.0+ |
+| Export/report builder | v2.0+ |
+| Predefined category taxonomy | v1.9+ |
+
+---
+
 # PlantQuality v1.8.0 — Release Notes
 
 ## Category Intelligence & Quality Dashboard

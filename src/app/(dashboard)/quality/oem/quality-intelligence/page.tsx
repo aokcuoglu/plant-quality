@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { BugIcon, AlertTriangleIcon, ClockIcon, GaugeIcon, SparklesIcon } from "lucide-react"
+import { BugIcon, AlertTriangleIcon, ClockIcon, GaugeIcon, SparklesIcon, PlusCircleIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { getQualityIntelligenceSummary } from "@/app/(dashboard)/quality/intelligence-actions"
@@ -31,11 +31,11 @@ function RankingTable({
           {items.map((item, i) => (
             <div key={i} className="flex items-center justify-between px-4 py-2.5">
               {hrefPrefix ? (
-                <Link href={`${hrefPrefix}${encodeURIComponent(item.name)}`} className="text-sm text-foreground hover:underline truncate">
+                <Link href={`${hrefPrefix}${encodeURIComponent(item.name)}`} className="text-sm text-foreground hover:underline truncate max-w-[calc(100%-3rem)]">
                   {item.name}
                 </Link>
               ) : (
-                <span className="text-sm text-foreground truncate">{item.name}</span>
+                <span className="text-sm text-foreground truncate max-w-[calc(100%-3rem)]">{item.name}</span>
               )}
               <span className="text-sm font-medium text-muted-foreground ml-4 shrink-0">{item.count}</span>
             </div>
@@ -69,21 +69,21 @@ export default async function QualityIntelligencePage() {
           href="/quality/oem/field"
         />
         <DashboardCard
-          title="Open"
+          title="Open Field Defects"
           value={data.openDefects}
           icon={AlertTriangleIcon}
           subtitle="Active defects"
           href="/quality/oem/field?filter=active"
         />
         <DashboardCard
-          title="Overdue"
+          title="Overdue Field Defects"
           value={data.overdueDefects}
           icon={ClockIcon}
           subtitle="Past SLA deadline"
           href="/quality/oem/field?filter=overdue"
         />
         <DashboardCard
-          title="Critical"
+          title="Critical Field Defects"
           value={data.criticalDefects}
           icon={GaugeIcon}
           subtitle="Critical severity"
@@ -91,49 +91,80 @@ export default async function QualityIntelligencePage() {
         />
       </div>
 
-      {data.aiAcceptanceRate !== null && (
+      {data.aiAcceptanceRate !== null ? (
         <DashboardCard
-          title="AI Acceptance Rate"
+          title="AI Suggestion Acceptance Rate"
           value={`${data.aiAcceptanceRate}%`}
           icon={SparklesIcon}
           subtitle={`${data.acceptedClassificationSuggestions} of ${data.totalClassificationSuggestions} classification suggestions accepted`}
         />
+      ) : data.totalDefects > 0 ? (
+        <DashboardCard
+          title="AI Suggestion Acceptance Rate"
+          value="—"
+          icon={SparklesIcon}
+          subtitle="No classification suggestions generated yet"
+        />
+      ) : null}
+
+      {data.totalDefects === 0 && (
+        <div className="rounded-lg border border-dashed bg-card p-12 text-center">
+          <BugIcon className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
+          <h3 className="text-lg font-semibold text-foreground">No field defects yet</h3>
+          <p className="text-sm text-muted-foreground mt-1">Create your first field defect to see quality intelligence analytics.</p>
+          <Link
+            href="/quality/oem/field/new"
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors"
+          >
+            <PlusCircleIcon className="h-4 w-4" />
+            Create First Field Defect
+          </Link>
+        </div>
       )}
 
-      <h2 className="text-lg font-semibold text-foreground pt-2">Top Categories & Subcategories</h2>
-      <div className="grid gap-4 md:grid-cols-2">
-        <RankingTable
-          title="Top Categories"
-          items={data.topCategories}
-          hrefPrefix="/quality/oem/field?filter=cat:"
-          emptyMessage="No categories assigned yet"
-        />
-        <RankingTable
-          title="Top Subcategories"
-          items={data.topSubcategories}
-          hrefPrefix="/quality/oem/field?filter=subcat:"
-          emptyMessage="No subcategories assigned yet"
-        />
-      </div>
+      {data.totalDefects > 0 && (
+        <h2 className="text-lg font-semibold text-foreground pt-2">Top Categories & Subcategories</h2>
+      )}
+      {data.totalDefects > 0 && (
+        <div className="grid gap-4 md:grid-cols-2">
+          <RankingTable
+            title="Top Categories"
+            items={data.topCategories}
+            hrefPrefix="/quality/oem/field?filter=cat:"
+            emptyMessage="No categories assigned yet"
+          />
+          <RankingTable
+            title="Top Subcategories"
+            items={data.topSubcategories}
+            hrefPrefix="/quality/oem/field?filter=subcat:"
+            emptyMessage="No subcategories assigned yet"
+          />
+        </div>
+      )}
 
-      <h2 className="text-lg font-semibold text-foreground pt-2">Affected Vehicles, Suppliers & Parts</h2>
-      <div className="grid gap-4 md:grid-cols-3">
-        <RankingTable
-          title="Top Vehicle Models"
-          items={data.topVehicleModels}
-          emptyMessage="No vehicle data yet"
-        />
-        <RankingTable
-          title="Top Suppliers"
-          items={data.topSuppliers.map((s) => ({ name: s.name, count: s.count }))}
-          emptyMessage="No supplier data yet"
-        />
-        <RankingTable
-          title="Top Recurring Part Numbers"
-          items={data.topPartNumbers}
-          emptyMessage="No part number data yet"
-        />
-      </div>
+      {data.totalDefects > 0 && (
+        <h2 className="text-lg font-semibold text-foreground pt-2">Affected Vehicles, Suppliers & Parts</h2>
+      )}
+
+      {data.totalDefects > 0 && (
+        <div className="grid gap-4 md:grid-cols-3">
+          <RankingTable
+            title="Top Vehicle Models"
+            items={data.topVehicleModels}
+            emptyMessage="No vehicle data yet"
+          />
+          <RankingTable
+            title="Top Suppliers"
+            items={data.topSuppliers.map((s) => ({ name: s.name, count: s.count }))}
+            emptyMessage="No supplier data yet"
+          />
+          <RankingTable
+            title="Top Recurring Part Numbers"
+            items={data.topPartNumbers}
+            emptyMessage="No part number data yet"
+          />
+        </div>
+      )}
     </div>
   )
 }

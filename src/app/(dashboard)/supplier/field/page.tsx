@@ -7,6 +7,7 @@ import { FieldDefectStatusBadge } from "@/components/field/FieldDefectStatusBadg
 import { FieldDefectSeverityBadge } from "@/components/field/FieldDefectSeverityBadge"
 import { getFieldDefects } from "@/app/(dashboard)/field/actions"
 import { FIELD_DEFECT_SOURCE_LABELS } from "@/lib/field-defect"
+import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 
 const STATUS_FILTERS = [
   { value: "active", label: "Active" },
@@ -43,7 +44,7 @@ export default async function SupplierFieldPage({
   const page = parseInt(params.page ?? "1", 10)
 
   const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page)
-  const totalPages = Math.ceil(totalCount / 20)
+  const totalPages = Math.ceil(totalCount / FIELD_DEFECT_PAGE_SIZE)
 
   function buildUrl(overrides: Record<string, string | undefined>) {
     const sp = new URLSearchParams()

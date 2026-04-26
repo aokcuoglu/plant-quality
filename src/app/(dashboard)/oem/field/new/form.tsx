@@ -35,7 +35,10 @@ export function NewFieldDefectForm({
     formData.set("_status", status)
     setError(null)
     startTransition(async () => {
-      await createFieldDefect(formData)
+      const result = await createFieldDefect(formData)
+      if (result && !result.success) {
+        setError(result.error ?? "Failed to create field defect")
+      }
     })
   }
 
@@ -48,7 +51,7 @@ export function NewFieldDefectForm({
       <h1 className="text-xl font-semibold tracking-tight">New Field Defect</h1>
 
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-400">
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           {error}
         </div>
       )}
@@ -56,7 +59,7 @@ export function NewFieldDefectForm({
       <form ref={formRef} className="space-y-5">
         <div className="space-y-2">
           <label htmlFor="title" className="text-sm font-medium">
-            Title <span className="text-red-500">*</span>
+            Title <span className="text-destructive">*</span>
           </label>
           <input
             id="title"
@@ -70,7 +73,7 @@ export function NewFieldDefectForm({
 
         <div className="space-y-2">
           <label htmlFor="description" className="text-sm font-medium">
-            Description <span className="text-red-500">*</span>
+            Description <span className="text-destructive">*</span>
           </label>
           <textarea
             id="description"

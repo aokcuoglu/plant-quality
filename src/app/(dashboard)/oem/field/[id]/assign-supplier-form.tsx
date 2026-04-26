@@ -49,7 +49,7 @@ export function AssignSupplierForm({ fieldDefectId, currentSupplierId }: { field
         >
           {isPending ? "Assigning..." : "Assign Supplier"}
         </button>
-        {error && <p className="text-xs text-red-500">{error}</p>}
+        {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
     </div>
   )

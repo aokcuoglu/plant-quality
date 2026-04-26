@@ -1,3 +1,70 @@
+# PlantQuality v1.5.1 — Release Notes
+
+## Field Quality Bugfix & UX Polish
+
+**Release Date:** 2026-04-26  
+**Version:** 1.5.1
+
+---
+
+## Summary
+
+PlantQuality v1.5.1 fixes critical bugs, hardens permissions, and polishes the Field Quality MVP introduced in v1.5.0. No new features were added.
+
+---
+
+## Bug Fixes
+
+| Area | Fix |
+|------|-----|
+| **Server Actions** | `createFieldDefect` now returns `{ success, error }` instead of `void`, preventing silent validation failures with no user feedback |
+| **Server Actions** | `assignSupplier` was allowing supplier assignment on CLOSED/CANCELLED/LINKED_TO_8D defects — now blocked to assignable statuses only |
+| **Server Actions** | `createFieldDefect` now validates mileage as a positive number server-side |
+| **Server Actions** | Removed duplicate supplier DB query in `createFieldDefect` notification path |
+| **Convert to 8D** | `partNumber` fallback changed from `"N/A"` string to `"Unspecified"` to avoid confusion with actual data |
+| **Attachments** | Upload flow replaced from client-side presigned URL to server-side FormData upload — fixes CORS/failure in development |
+| **Attachments** | Download route changed from `[id]` to `[...id]` catch-all to support multi-segment storage keys |
+| **Attachments** | Auth bypass fixed: proxy now always requires DB lookup + tenant check before serving files |
+| **Attachments** | `storageKey` prefix validation added to prevent client-injected paths |
+| **Security** | All `prisma.fieldDefect.update()` calls now include `oemId` in `where` clause (defense in depth) |
+| **Security** | `"use server"` file no longer exports non-async values — `PAGE_SIZE` and `FieldDefectRow` moved to `field-defect-types.ts` |
+
+## UX Polish
+
+| Area | Improvement |
+|------|-------------|
+| **Convert to 8D** | Confirmation dialog replaced raw `<div>` overlay with accessible `Dialog` component (ARIA roles, focus trap, escape key) |
+| **Create Form** | Error state now functional — validation errors from server are displayed inline |
+| **Design System** | All `text-red-500`, `bg-red-50`, `dark:border-red-900`, etc. replaced with semantic tokens (`text-destructive`, `bg-destructive/10`, etc.) |
+| **Design System** | Required field asterisks changed from `text-red-500` to `text-destructive` |
+| **Media Uploader** | Upload drop zone is now keyboard-accessible (`role="button"`, `tabIndex`, `onKeyDown`) |
+| **Media Uploader** | `alert()` calls replaced with inline error display |
+| **Media Uploader** | Attachment count display added ("7 of 15 attachments uploaded") |
+| **Media Uploader** | Upload zone disabled when limit reached |
+| **Pagination** | Hardcoded `20` replaced with `FIELD_DEFECT_PAGE_SIZE` constant in OEM and Supplier list pages |
+| **Inline `DetailRow`** | Extracted to shared `@/components/DetailRow.tsx` component |
+
+## Permission Hardening
+
+- Supplier cannot create, edit, assign supplier, or convert Field Defects (server-side verified)
+- Attachment access follows parent Field Defect permissions (OEM or matching supplier only)
+- `updateFieldDefect` action does not accept `companyId`, `oemId`, `createdById`, `convertedById`, `linkedDefectId` from client payload
+- Supplier list page filters to only defects assigned to the supplier's company
+
+## Deferred to v1.6.0
+
+The following features are **explicitly excluded** from v1.5.1:
+
+- SLA / escalation tracking
+- Notification infrastructure for Field Defect events
+- War Room view
+- AI defect classification
+- Similar issue detection
+- Advanced field defect analytics / dashboard
+- Mobile app / offline mode
+
+---
+
 # PlantQuality v1.5.0 — Release Notes
 
 ## Field Quality MVP

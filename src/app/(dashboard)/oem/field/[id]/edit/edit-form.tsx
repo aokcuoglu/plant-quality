@@ -58,7 +58,7 @@ export function EditFieldDefectForm({
   return (
     <form onSubmit={(e) => startTransition(() => handleSubmit(e))} className="space-y-5">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-400">
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           {error}
         </div>
       )}

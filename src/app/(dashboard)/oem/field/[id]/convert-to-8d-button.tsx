@@ -3,6 +3,15 @@
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { convertTo8D } from "@/app/(dashboard)/field/actions"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
 
 export function ConvertTo8DButton({ fieldDefectId }: { fieldDefectId: string }) {
   const router = useRouter()
@@ -24,44 +33,37 @@ export function ConvertTo8DButton({ fieldDefectId }: { fieldDefectId: string }) 
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-lg bg-emerald-500 px-3 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors"
-      >
+      <Button onClick={() => setOpen(true)} className="bg-emerald-500 hover:bg-emerald-600">
         Convert to 8D
-      </button>
+      </Button>
 
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="fixed inset-0 bg-black/10 backdrop-blur-xs" onClick={() => setOpen(false)} />
-          <div className="relative z-50 w-full max-w-lg rounded-xl border bg-popover text-popover-foreground p-6 shadow-lg">
-            <h2 className="text-lg font-semibold">Convert to 8D Report</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>Convert to 8D Report</DialogTitle>
+            <DialogDescription>
               This will create a new Defect and 8D Report from this field defect. The field defect status will be changed to &ldquo;Linked to 8D&rdquo; and cannot be converted again.
-            </p>
-            {error && (
-              <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-400">
-                {error}
-              </div>
-            )}
-            <div className="mt-6 flex items-center gap-3">
-              <button
-                onClick={() => startTransition(handleConvert)}
-                disabled={isPending}
-                className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors disabled:opacity-50"
-              >
-                {isPending ? "Converting..." : "Convert to 8D"}
-              </button>
-              <button
-                onClick={() => setOpen(false)}
-                className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
-              >
-                Cancel
-              </button>
+            </DialogDescription>
+          </DialogHeader>
+          {error && (
+            <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+              {error}
             </div>
-          </div>
-        </div>
-      )}
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpen(false)} disabled={isPending}>
+              Cancel
+            </Button>
+            <Button
+              onClick={() => startTransition(handleConvert)}
+              disabled={isPending}
+              className="bg-emerald-500 hover:bg-emerald-600"
+            >
+              {isPending ? "Converting..." : "Convert to 8D"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

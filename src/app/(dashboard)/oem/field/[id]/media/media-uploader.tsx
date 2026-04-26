@@ -6,16 +6,7 @@ import { XIcon, FileIcon, UploadIcon } from "lucide-react"
 import { softDeleteAttachment } from "@/app/(dashboard)/field/actions"
 import { cn } from "@/lib/utils"
 
-type Attachment = {
-  id: string
-  storageKey: string
-  fileName: string
-  mimeType: string
-  fileSize: number
-  createdAt: Date
-}
-
-const ALLOWED_TYPES = new Set([
+const ALLOWED_MIME_TYPES = new Set([
   "application/pdf",
   "image/png",
   "image/jpeg",
@@ -25,6 +16,16 @@ const ALLOWED_TYPES = new Set([
 ])
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024
+const MAX_ATTACHMENTS = 15
+
+type Attachment = {
+  id: string
+  storageKey: string
+  fileName: string
+  mimeType: string
+  fileSize: number
+  createdAt: Date
+}
 
 export function MediaUploader({
   fieldDefectId,
@@ -37,17 +38,22 @@ export function MediaUploader({
   const [attachments, setAttachments] = useState(existingAttachments)
   const [uploading, setUploading] = useState(false)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [uploadErrors, setUploadErrors] = useState<string[]>([])
+
+  const atLimit = attachments.length >= MAX_ATTACHMENTS
 
   async function handleUpload(files: FileList) {
+    setUploadErrors([])
+    const errors: string[] = []
     setUploading(true)
     try {
       for (const file of Array.from(files)) {
-        if (!ALLOWED_TYPES.has(file.type)) {
-          alert(`Unsupported file type: ${file.type}`)
+        if (!ALLOWED_MIME_TYPES.has(file.type)) {
+          errors.push(`${file.name}: Unsupported file type (${file.type})`)
           continue
         }
         if (file.size > MAX_FILE_SIZE) {
-          alert(`File too large: ${file.name}. Maximum 20MB.`)
+          errors.push(`${file.name}: File too large (max 20MB)`)
           continue
         }
 
@@ -62,8 +68,13 @@ export function MediaUploader({
           })
 
           if (!res.ok) {
-            const err = await res.text()
-            alert(`Upload failed for ${file.name}: ${err}`)
+            const errText = await res.text()
+            try {
+              const errJson = JSON.parse(errText)
+              errors.push(`${file.name}: ${errJson.error || "Upload failed"}`)
+            } catch {
+              errors.push(`${file.name}: Upload failed`)
+            }
             continue
           }
 
@@ -79,11 +90,11 @@ export function MediaUploader({
               createdAt: new Date(),
             },
           ])
-        } catch (e) {
-          console.error("Upload error:", e)
-          alert(`Upload failed for ${file.name}`)
+        } catch {
+          errors.push(`${file.name}: Upload failed`)
         }
       }
+      if (errors.length > 0) setUploadErrors(errors)
       router.refresh()
     } finally {
       setUploading(false)
@@ -108,15 +119,46 @@ export function MediaUploader({
 
   return (
     <div className="space-y-4">
+      {uploadErrors.length > 0 && (
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive space-y-1">
+          {uploadErrors.map((err, i) => (
+            <p key={i}>{err}</p>
+          ))}
+        </div>
+      )}
+
+      <p className="text-xs text-muted-foreground">
+        {attachments.length} of {MAX_ATTACHMENTS} attachments uploaded
+      </p>
+
       <div
-        onClick={() => document.getElementById("field-attachment-upload")?.click()}
+        role="button"
+        tabIndex={atLimit || uploading ? -1 : 0}
+        onKeyDown={(e) => {
+          if ((e.key === "Enter" || e.key === " ") && !atLimit && !uploading) {
+            e.preventDefault()
+            document.getElementById("field-attachment-upload")?.click()
+          }
+        }}
+        onClick={() => {
+          if (!atLimit && !uploading) {
+            document.getElementById("field-attachment-upload")?.click()
+          }
+        }}
         className={cn(
-          "flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed px-3 py-8 text-sm text-muted-foreground transition-colors",
-          uploading ? "pointer-events-none opacity-50" : "hover:border-muted-foreground hover:bg-muted/50"
+          "flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed px-3 py-8 text-sm transition-colors",
+          atLimit || uploading
+            ? "cursor-not-allowed opacity-50"
+            : "hover:border-muted-foreground hover:bg-muted/50",
+          atLimit
+            ? "border-muted-foreground/30 text-muted-foreground"
+            : "text-muted-foreground"
         )}
       >
         {uploading ? (
           <>Uploading...</>
+        ) : atLimit ? (
+          <>Attachment limit reached ({MAX_ATTACHMENTS})</>
         ) : (
           <>
             <UploadIcon className="h-4 w-4" />
@@ -129,7 +171,7 @@ export function MediaUploader({
           accept=".pdf,.png,.jpg,.jpeg,.webp,.mp4,.mov"
           multiple
           className="sr-only"
-          disabled={uploading}
+          disabled={uploading || atLimit}
           onChange={(e) => {
             if (e.target.files && e.target.files.length > 0) {
               handleUpload(e.target.files)
@@ -156,7 +198,8 @@ export function MediaUploader({
               <button
                 onClick={() => handleDelete(att.id)}
                 disabled={deleting === att.id}
-                className="text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-50"
+                className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
+                aria-label={`Delete ${att.fileName}`}
               >
                 <XIcon className="h-4 w-4" />
               </button>

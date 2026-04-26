@@ -71,8 +71,7 @@ export async function POST(request: NextRequest) {
         ContentType: file.type,
       }),
     )
-  } catch (err) {
-    console.error("S3 upload failed:", err)
+  } catch {
     return NextResponse.json({ error: "File storage upload failed. Please try again." }, { status: 502 })
   }
 

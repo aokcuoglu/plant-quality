@@ -149,9 +149,9 @@ async function logFieldDefectEvent(
   })
 }
 
-export async function createFieldDefect(formData: FormData): Promise<void> {
+export async function createFieldDefect(formData: FormData): Promise<{ success: boolean; error?: string }> {
   const session = await auth()
-  if (!canOemManage(session)) return
+  if (!canOemManage(session)) return { success: false, error: "Unauthorized" }
 
   const title = formData.get("title") as string
   const description = formData.get("description") as string
@@ -172,23 +172,29 @@ export async function createFieldDefect(formData: FormData): Promise<void> {
   const supplierId = (formData.get("supplierId") as string) || null
   const statusValue = formData.get("_status") as string | null
 
-  if (!title || !description) return
+  if (!title || !description) return { success: false, error: "Title and description are required" }
 
   if (vin) {
     const vinResult = validateVin(vin)
-    if (!vinResult.ok) return
+    if (!vinResult.ok) return { success: false, error: vinResult.error }
+  }
+
+  if (mileage !== null && (isNaN(mileage) || mileage < 0)) {
+    return { success: false, error: "Mileage must be a positive number" }
   }
 
   const fieldStatus: FieldDefectStatus = statusValue === "OPEN" ? "OPEN" : "DRAFT"
 
   let supplierName: string | null = null
+  let supplierUsers: { id: string }[] = []
   if (supplierId) {
     const supplier = await prisma.company.findFirst({
       where: { id: supplierId, type: "SUPPLIER" },
-      select: { name: true },
+      include: { users: { select: { id: true } } },
     })
-    if (!supplier) return
+    if (!supplier) return { success: false, error: "Invalid supplier" }
     supplierName = supplier.name
+    supplierUsers = supplier.users
   }
 
   const fieldDefect = await prisma.fieldDefect.create({
@@ -225,22 +231,16 @@ export async function createFieldDefect(formData: FormData): Promise<void> {
     supplierId,
   })
 
-  if (supplierId) {
-    const supplier = await prisma.company.findFirst({
-      where: { id: supplierId },
-      include: { users: { select: { id: true } } },
+  if (supplierId && supplierUsers.length > 0) {
+    await prisma.notification.createMany({
+      data: supplierUsers.map((user) => ({
+        userId: user.id,
+        message: `New field defect assigned: ${title}`,
+        type: "FIELD_DEFECT_ASSIGNED" as const,
+        link: `/supplier/field/${fieldDefect.id}`,
+        isRead: false,
+      })),
     })
-    if (supplier && supplier.users.length > 0) {
-      await prisma.notification.createMany({
-        data: supplier.users.map((user) => ({
-          userId: user.id,
-          message: `New field defect assigned: ${title}`,
-          type: "FIELD_DEFECT_ASSIGNED" as const,
-          link: `/supplier/field/${fieldDefect.id}`,
-          isRead: false,
-        })),
-      })
-    }
   }
 
   revalidatePath("/oem/field")
@@ -338,8 +338,12 @@ export async function assignSupplier(id: string, supplierId: string | null) {
     return { success: false as const, error: "Field defect not found" }
   }
 
-  const assignableStatuses: FieldDefectStatus[] = ["DRAFT", "OPEN", "UNDER_REVIEW"]
-  if (!assignableStatuses.includes(fieldDefect.status) && !supplierId) {
+  const assignableStatuses: FieldDefectStatus[] = ["DRAFT", "OPEN", "UNDER_REVIEW", "SUPPLIER_ASSIGNED"]
+  if (!assignableStatuses.includes(fieldDefect.status)) {
+    return { success: false as const, error: "Cannot change supplier in current status" }
+  }
+
+  if (!supplierId && !assignableStatuses.slice(0, 3).includes(fieldDefect.status)) {
     return { success: false as const, error: "Cannot unassign supplier in current status" }
   }
 
@@ -489,7 +493,7 @@ export async function convertTo8D(id: string) {
     data: {
       oemId: fieldDefect.oemId,
       supplierId: fieldDefect.supplierId,
-      partNumber: fieldDefect.partNumber ?? "N/A",
+      partNumber: fieldDefect.partNumber || "Unspecified",
       description: `[Field Defect] ${fieldDefect.title}\n\n${fieldDefect.description}${fieldDefect.vin ? `\n\nVIN: ${fieldDefect.vin}` : ""}${fieldDefect.vehicleModel ? `\nVehicle: ${fieldDefect.vehicleModel}${fieldDefect.vehicleVariant ? ` ${fieldDefect.vehicleVariant}` : ""}` : ""}${fieldDefect.mileage ? `\nMileage: ${fieldDefect.mileage} km` : ""}${fieldDefect.location ? `\nLocation: ${fieldDefect.location}` : ""}${fieldDefect.safetyImpact ? "\n\n⚠️ Safety Impact" : ""}${fieldDefect.vehicleDown ? "\n🚫 Vehicle Down" : ""}${fieldDefect.repeatIssue ? "\n🔁 Repeat Issue" : ""}`,
       status: "OPEN",
       oemOwnerId: session.user.id,

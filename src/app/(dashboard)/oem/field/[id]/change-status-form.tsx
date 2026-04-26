@@ -53,7 +53,7 @@ export function ChangeStatusForm({ fieldDefectId, currentStatus }: { fieldDefect
             {FIELD_DEFECT_STATUS_LABELS[status]}
           </button>
         ))}
-        {error && <p className="text-xs text-red-500">{error}</p>}
+        {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
     </div>
   )

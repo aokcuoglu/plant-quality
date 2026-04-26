@@ -241,17 +241,12 @@ export async function rejectSuggestion(suggestionId: string, fieldDefectId: stri
 
 export async function getSuggestions(fieldDefectId: string) {
   const session = await auth()
-  if (!session?.user?.companyId) {
+  if (!session?.user?.companyId || session.user.companyType !== "OEM") {
     return []
   }
 
-  const where: Record<string, unknown> =
-    session.user.companyType === "OEM"
-      ? { fieldDefectId, companyId: session.user.companyId }
-      : { fieldDefectId, companyId: session.user.companyId }
-
   return prisma.aiSuggestion.findMany({
-    where,
+    where: { fieldDefectId, companyId: session.user.companyId },
     orderBy: { createdAt: "desc" },
     include: {
       createdBy: { select: { name: true, email: true } },
@@ -259,8 +254,4 @@ export async function getSuggestions(fieldDefectId: string) {
       rejectedBy: { select: { name: true, email: true } },
     },
   })
-}
-
-export async function checkAiConfig() {
-  return { enabled: isAiEnabled() }
 }

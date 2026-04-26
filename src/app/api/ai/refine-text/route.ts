@@ -28,8 +28,16 @@ async function getRefinement(text: string, stepLabel: string): Promise<string> {
 
 export async function POST(req: NextRequest) {
   const session = await auth()
-  if (!session) {
+  if (!session?.user?.companyId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  if (session.user.companyType !== "OEM") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+  }
+
+  if (!["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 })
   }
 
   if (session.user.plan !== "PRO") {

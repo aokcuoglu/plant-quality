@@ -1,3 +1,134 @@
+# PlantQuality v1.7.1 — Release Notes
+
+## AI Auth Hardening & Design-System Cleanup
+
+**Release Date:** 2026-04-26  
+**Version:** 1.7.1
+
+---
+
+## Summary
+
+PlantQuality v1.7.1 is a security and quality patch on top of v1.7.0. It hardens authorization on all AI-related API routes and server actions, removes an unused dead-code export, and fixes minor design-system violations in the AI panel components. **No new product features are introduced.**
+
+---
+
+## Auth Hardening
+
+### Legacy AI Routes (`/api/ai/*`)
+
+The following routes previously only checked `session` existence and `plan === "PRO"`, allowing any authenticated user (including suppliers) to invoke AI capabilities:
+
+| Route | Before | After |
+|-------|--------|-------|
+| `POST /api/ai/suggest` | `session` check only | + `companyId`, `companyType === "OEM"`, `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/ai/vision` | `session` check only | + `companyId`, `companyType === "OEM"`, `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/ai/refine-text` | `session` check only | + `companyId`, `companyType === "OEM"`, `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/ai/fmea-suggest` | `session` check only | + `companyId`, `companyType === "OEM"`, `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/ai/suggest-diagram` | `session` check only | + `companyId`, `companyType === "OEM"`, `role in [ADMIN, QUALITY_ENGINEER]` |
+
+All five routes now return:
+- `401` if no `companyId`
+- `403` if `companyType !== "OEM"` or role is not ADMIN/QUALITY_ENGINEER
+- `403` if plan is not PRO
+
+### Field AI Routes (`/api/field/[id]/ai/*`)
+
+These routes already checked `companyId` and `companyType === "OEM"`, but did not check user role. OEM VIEWER/READER roles could invoke classification and similar-issues endpoints.
+
+| Route | Added Check |
+|-------|------------|
+| `POST /api/field/[id]/ai/classify` | `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/field/[id]/ai/similar` | `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/field/[id]/ai/suggestions/[suggestionId]/accept` | `role in [ADMIN, QUALITY_ENGINEER]` |
+| `POST /api/field/[id]/ai/suggestions/[suggestionId]/reject` | `role in [ADMIN, QUALITY_ENGINEER]` |
+
+### Server Action: `getSuggestions`
+
+Previously allowed any company type to fetch suggestions (returning empty for non-matching company). Now returns `[]` immediately for non-OEM users.
+
+### Dead Code Removed
+
+- `checkAiConfig` server action — was exported but never imported or called anywhere. Removed from `ai-actions.ts`.
+
+---
+
+## Design-System Cleanup
+
+### AiInsightPanel.tsx
+
+| Fix | Before | After |
+|-----|--------|-------|
+| Classification value text | `text-sm font-medium` (implicit color) | `text-sm font-medium text-foreground` (explicit semantic token) |
+| Similarity badge reasoning/recommended text | `text-sm` (implicit) | `text-sm text-foreground` |
+| Button accessibility | Missing `aria-label` and `disabled:cursor-not-allowed` | Added `aria-label` and `disabled:cursor-not-allowed` to all buttons |
+
+### SimilarIssuesPanel.tsx
+
+| Fix | Before | After |
+|-----|--------|-------|
+| Refresh button accessibility | Missing `aria-label` and `disabled:cursor-not-allowed` | Added `aria-label="Search for similar issues"` and `disabled:cursor-not-allowed` |
+
+Badge color patterns (`bg-blue-*`, `bg-amber-*`, `bg-red-*`, `bg-emerald-*` with dark variants) remain unchanged as they match the established `FieldDefectSeverityBadge` / `FieldDefectStatusBadge` conventions from `field-defect.ts`.
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `src/app/api/ai/suggest/route.ts` | Added OEM + role authorization checks |
+| `src/app/api/ai/vision/route.ts` | Added OEM + role authorization checks |
+| `src/app/api/ai/refine-text/route.ts` | Added OEM + role authorization checks |
+| `src/app/api/ai/fmea-suggest/route.ts` | Added OEM + role authorization checks |
+| `src/app/api/ai/suggest-diagram/route.ts` | Added OEM + role authorization checks |
+| `src/app/api/field/[id]/ai/classify/route.ts` | Added role check (ADMIN/QUALITY_ENGINEER) |
+| `src/app/api/field/[id]/ai/similar/route.ts` | Added role check (ADMIN/QUALITY_ENGINEER) |
+| `src/app/api/field/[id]/ai/suggestions/[suggestionId]/accept/route.ts` | Added role check (ADMIN/QUALITY_ENGINEER) |
+| `src/app/api/field/[id]/ai/suggestions/[suggestionId]/reject/route.ts` | Added role check (ADMIN/QUALITY_ENGINEER) |
+| `src/app/(dashboard)/field/ai-actions.ts` | Hardened `getSuggestions` to OEM-only; removed dead `checkAiConfig` export |
+| `src/components/field/AiInsightPanel.tsx` | Added `text-foreground` tokens; added `aria-label` and `disabled:cursor-not-allowed` to buttons |
+| `src/components/field/SimilarIssuesPanel.tsx` | Added `aria-label` and `disabled:cursor-not-allowed` to refresh button |
+
+---
+
+## Regression Verification
+
+- AI disabled state (no `AI_API_KEY`) still shows "AI suggestions are not configured"
+- Missing `AI_API_KEY` does not crash the app
+- AI classification requires OEM + PRO + ADMIN/QUALITY_ENGINEER
+- Similar Issues requires OEM + ADMIN/QUALITY_ENGINEER (no PRO gate, per v1.7.0 product design)
+- Supplier users cannot access any AI endpoints (403)
+- OEM VIEWER/READER cannot trigger AI actions (403)
+- Field Detail page loads correctly for both OEM and Supplier
+- Similar Issues panel visible only on OEM detail page
+- All lint, typecheck, and build checks pass
+
+---
+
+## Known Limitations (unchanged from v1.7.0)
+
+- Classification uses existing Field Defect fields only; no image-based classification yet
+- Suggested severity is the only field auto-applied on accept
+- Similar Issue Detection only searches Field Defects (not 8D Defects) within the same OEM tenant
+- AI provider must be OpenAI-compatible
+- PRO plan gating follows existing plan system; no new subscription paywall
+
+---
+
+## Deferred to Future Versions
+
+| Feature | Target |
+|---------|--------|
+| AI rerank on similar issues | v1.8+ |
+| Image-based AI classification | v1.8+ |
+| AI-generated root cause suggestions | v1.8+ |
+| Supplier risk scoring | v1.9+ |
+| Category/subcategory columns on FieldDefect | v1.8+ |
+| Vector database for semantic search | v2.0+ |
+
+---
+
 # PlantQuality v1.7.0 — Release Notes
 
 ## AI Defect Classification & Similar Issue Detection

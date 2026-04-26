@@ -173,7 +173,8 @@ export function AiInsightPanel({
               <button
                 onClick={handleGenerate}
                 disabled={isPending}
-                className="inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50"
+                aria-label="Generate AI classification"
+                className="inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <SparklesIcon className="h-4 w-4" />
                 Generate Classification
@@ -195,19 +196,19 @@ export function AiInsightPanel({
               {latestClassification.category && (
                 <div>
                   <p className="text-xs text-muted-foreground">Category</p>
-                  <p className="text-sm font-medium">{latestClassification.category}</p>
+                  <p className="text-sm font-medium text-foreground">{latestClassification.category}</p>
                 </div>
               )}
               {latestClassification.subcategory && (
                 <div>
                   <p className="text-xs text-muted-foreground">Subcategory</p>
-                  <p className="text-sm font-medium">{latestClassification.subcategory}</p>
+                  <p className="text-sm font-medium text-foreground">{latestClassification.subcategory}</p>
                 </div>
               )}
               {latestClassification.probableArea && (
                 <div>
                   <p className="text-xs text-muted-foreground">Probable Area</p>
-                  <p className="text-sm font-medium">{latestClassification.probableArea}</p>
+                  <p className="text-sm font-medium text-foreground">{latestClassification.probableArea}</p>
                 </div>
               )}
               {latestClassification.suggestedSeverity && (
@@ -221,7 +222,7 @@ export function AiInsightPanel({
               {latestClassification.suggestedSupplierName && (
                 <div className="col-span-2">
                   <p className="text-xs text-muted-foreground">Suggested Supplier</p>
-                  <p className="text-sm font-medium">{latestClassification.suggestedSupplierName}</p>
+                  <p className="text-sm font-medium text-foreground">{latestClassification.suggestedSupplierName}</p>
                 </div>
               )}
             </div>
@@ -242,14 +243,14 @@ export function AiInsightPanel({
             {latestClassification.reasoning && (
               <div>
                 <p className="text-xs text-muted-foreground">Reasoning</p>
-                <p className="text-sm">{latestClassification.reasoning}</p>
+                <p className="text-sm text-foreground">{latestClassification.reasoning}</p>
               </div>
             )}
 
             {latestClassification.recommendedAction && (
               <div>
                 <p className="text-xs text-muted-foreground">Recommended Action</p>
-                <p className="text-sm">{latestClassification.recommendedAction}</p>
+                <p className="text-sm text-foreground">{latestClassification.recommendedAction}</p>
               </div>
             )}
 
@@ -267,7 +268,8 @@ export function AiInsightPanel({
                 <button
                   onClick={() => handleAction(latestSuggestion.id, "accept")}
                   disabled={isPending}
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50"
+                  aria-label="Accept AI suggestion"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <CheckIcon className="h-4 w-4" />
                   Accept
@@ -275,7 +277,8 @@ export function AiInsightPanel({
                 <button
                   onClick={() => handleAction(latestSuggestion.id, "reject")}
                   disabled={isPending}
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-destructive/10 text-destructive px-3 py-2 text-sm font-medium hover:bg-destructive/20 transition-colors disabled:opacity-50"
+                  aria-label="Reject AI suggestion"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-destructive/10 text-destructive px-3 py-2 text-sm font-medium hover:bg-destructive/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <XIcon className="h-4 w-4" />
                   Reject
@@ -287,7 +290,8 @@ export function AiInsightPanel({
               <button
                 onClick={handleGenerate}
                 disabled={isPending}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50"
+                aria-label="Re-generate AI classification"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <RefreshCwIcon className="h-3.5 w-3.5" />
                 Re-generate

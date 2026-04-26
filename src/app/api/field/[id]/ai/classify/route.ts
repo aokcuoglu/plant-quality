@@ -11,6 +11,10 @@ export async function POST(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
+  if (!["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+  }
+
   const { id } = await params
   const result = await generateClassification(id)
 

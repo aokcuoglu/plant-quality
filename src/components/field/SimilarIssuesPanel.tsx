@@ -61,7 +61,8 @@ export function SimilarIssuesPanel({
           <button
             onClick={handleFindSimilar}
             disabled={isPending}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-1.5 text-xs font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50"
+            aria-label="Search for similar issues"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-1.5 text-xs font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? (
               <RefreshCwIcon className="h-3.5 w-3.5 animate-spin" />

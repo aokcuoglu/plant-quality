@@ -27,7 +27,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { toast } from "@/components/ui/use-toast"
-import { respondToReviewComment, saveEightDStep, submitEightDReport } from "@/app/(dashboard)/supplier/defects/actions/8d"
+import { respondToReviewComment, saveEightDStep, submitEightDReport } from "@/app/(dashboard)/quality/supplier/defects/actions/8d"
 import { UserSearchSelect } from "@/components/defects/UserSearchSelect"
 import { DatePicker } from "@/components/defects/DatePicker"
 import {
@@ -415,7 +415,7 @@ export function EightDWizardForm({
       const result = await submitEightDReport(defectId)
       if (result.success) {
         setSuccess(true)
-        setTimeout(() => router.push("/supplier/defects"), 2500)
+        setTimeout(() => router.push("/quality/supplier/defects"), 2500)
       } else {
         toast({ title: "Submit blocked", description: result.error, type: "destructive" })
       }

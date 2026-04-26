@@ -74,7 +74,8 @@ export const ModelName = {
   FieldDefectAttachment: 'FieldDefectAttachment',
   FieldDefectComment: 'FieldDefectComment',
   FieldDefectEvent: 'FieldDefectEvent',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  EscalationHistory: 'EscalationHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -171,6 +172,10 @@ export const DefectScalarFieldEnum = {
   oemReviewDueAt: 'oemReviewDueAt',
   revisionDueAt: 'revisionDueAt',
   currentActionOwner: 'currentActionOwner',
+  escalationLevel: 'escalationLevel',
+  escalatedAt: 'escalatedAt',
+  escalatedById: 'escalatedById',
+  escalationReason: 'escalationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'
@@ -438,6 +443,12 @@ export const FieldDefectScalarFieldEnum = {
   linkedDefectId: 'linkedDefectId',
   convertedTo8DAt: 'convertedTo8DAt',
   convertedById: 'convertedById',
+  responseDueAt: 'responseDueAt',
+  resolutionDueAt: 'resolutionDueAt',
+  escalationLevel: 'escalationLevel',
+  escalatedAt: 'escalatedAt',
+  escalatedById: 'escalatedById',
+  escalationReason: 'escalationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -488,14 +499,35 @@ export type FieldDefectEventScalarFieldEnum = (typeof FieldDefectEventScalarFiel
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  message: 'message',
+  companyId: 'companyId',
+  recipientSupplierId: 'recipientSupplierId',
   type: 'type',
+  title: 'title',
+  message: 'message',
+  entityType: 'entityType',
+  entityId: 'entityId',
   link: 'link',
   isRead: 'isRead',
+  readAt: 'readAt',
   createdAt: 'createdAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const EscalationHistoryScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  previousLevel: 'previousLevel',
+  newLevel: 'newLevel',
+  reason: 'reason',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type EscalationHistoryScalarFieldEnum = (typeof EscalationHistoryScalarFieldEnum)[keyof typeof EscalationHistoryScalarFieldEnum]
 
 
 export const SortOrder = {

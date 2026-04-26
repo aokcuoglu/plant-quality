@@ -1,4 +1,4 @@
-import type { FieldDefectSeverity, FieldDefectSource, FieldDefectStatus } from "@/generated/prisma/client"
+import type { EscalationLevel, FieldDefectSeverity, FieldDefectSource, FieldDefectStatus } from "@/generated/prisma/client"
 
 export const FIELD_DEFECT_PAGE_SIZE = 20
 
@@ -15,4 +15,7 @@ export interface FieldDefectRow {
   reportDate: Date
   createdAt: Date
   linkedDefectId: string | null
+  responseDueAt: Date | null
+  resolutionDueAt: Date | null
+  escalationLevel: EscalationLevel
 }

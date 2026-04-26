@@ -13,7 +13,7 @@ export function LoginRedirectHandler({ redirectTo }: { redirectTo?: string }) {
       .then((data) => {
         if (cancelled) return
         if (data?.user) {
-          router.replace(redirectTo ?? "/oem")
+          router.replace(redirectTo ?? "/quality/oem")
         }
       })
       .catch(() => {})

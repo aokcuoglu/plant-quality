@@ -8,8 +8,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { dueSoon, escalated } = await generateSlaNotifications()
-    return NextResponse.json({ success: true, dueSoon, escalated })
+    const result = await generateSlaNotifications()
+    return NextResponse.json({ success: true, ...result })
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json({ success: false, error: message }, { status: 500 })

@@ -13,6 +13,9 @@ import {
   ClipboardCheckIcon,
   ClipboardListIcon,
   ShieldAlertIcon,
+  BellIcon,
+  AlertTriangleIcon,
+  TrendingUpIcon,
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
@@ -33,6 +36,9 @@ const ICON_MAP: Record<string, LucideIcon> = {
   ClipboardCheckIcon,
   ClipboardListIcon,
   ShieldAlertIcon,
+  BellIcon,
+  AlertTriangleIcon,
+  TrendingUpIcon,
 }
 
 interface SidebarLinkItem {

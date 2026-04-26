@@ -31,7 +31,7 @@ const apps = [
     description: "AI-Powered 8D & Quality Mgmt",
     icon: ShieldCheck,
     active: true,
-    href: "/oem",
+    href: "/quality/oem",
   },
   {
     id: "dock",

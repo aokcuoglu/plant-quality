@@ -64,7 +64,7 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
   } = {}
 
   const eventPromises: Promise<unknown>[] = []
-  const notificationData: { userId: string; message: string; type: "INFO"; link: string; isRead: false }[] = []
+  const notificationData: { userId: string; companyId: string; message: string; type: "INFO"; link: string; isRead: false }[] = []
 
   if (session.user.companyType === "OEM") {
     if (!isOemEditor(session.user.role)) return { success: false as const, error: "Unauthorized" }
@@ -135,9 +135,10 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
     if (updateData.oemOwnerId) {
       notificationData.push({
         userId: updateData.oemOwnerId,
+        companyId: defect.oemId,
         message: "You were assigned as OEM owner for a defect",
         type: "INFO",
-        link: `/oem/defects/${defectId}`,
+        link: `/quality/oem/defects/${defectId}`,
         isRead: false,
       })
     }
@@ -151,9 +152,10 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
     if (updateData.supplierAssigneeId) {
       notificationData.push({
         userId: updateData.supplierAssigneeId,
+        companyId: defect.supplierId,
         message: "You were assigned to a supplier quality defect",
         type: "INFO",
-        link: `/supplier/defects/${defectId}`,
+        link: `/quality/supplier/defects/${defectId}`,
         isRead: false,
       })
     }
@@ -171,9 +173,10 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
     for (const userId of new Set(affectedUsers)) {
       notificationData.push({
         userId,
+        companyId: userId === (updateData.oemOwnerId ?? defect.oemOwnerId) ? defect.oemId : (defect.supplierId ?? session.user.companyId),
         message: "SLA due dates were updated for a defect",
         type: "INFO",
-        link: userId === (updateData.oemOwnerId ?? defect.oemOwnerId) ? `/oem/defects/${defectId}` : `/supplier/defects/${defectId}`,
+        link: userId === (updateData.oemOwnerId ?? defect.oemOwnerId) ? `/quality/oem/defects/${defectId}` : `/quality/supplier/defects/${defectId}`,
         isRead: false,
       })
     }
@@ -184,12 +187,12 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
     notificationData.length > 0 ? prisma.notification.createMany({ data: notificationData }) : Promise.resolve(),
   ])
 
-  revalidatePath(`/oem/defects/${defectId}`)
-  revalidatePath(`/supplier/defects/${defectId}`)
-  revalidatePath("/oem/defects")
-  revalidatePath("/supplier/defects")
-  revalidatePath("/oem")
-  revalidatePath("/supplier")
+  revalidatePath(`/quality/oem/defects/${defectId}`)
+  revalidatePath(`/quality/supplier/defects/${defectId}`)
+  revalidatePath("/quality/oem/defects")
+  revalidatePath("/quality/supplier/defects")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true as const }
 }

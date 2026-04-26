@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { formatDueDate } from "@/lib/sla"
-import type { DefectStatus, ActionOwner, NotificationType } from "@/generated/prisma/client"
+import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
+import type { DefectStatus, NotificationType, FieldDefectStatus } from "@/generated/prisma/client"
 
 type UserRow = {
   id: string
@@ -8,13 +9,22 @@ type UserRow = {
   company: { type: string } | null
 }
 
-export async function generateSlaNotifications(): Promise<{ dueSoon: number; escalated: number }> {
+function getCompanyForUser(userId: string, defect: { oemId: string; supplierId: string | null; oemOwnerId: string | null; supplierAssigneeId: string | null }, userMap: Map<string, UserRow>): string {
+  if (userId === defect.oemOwnerId) return defect.oemId
+  if (userId === defect.supplierAssigneeId && defect.supplierId) return defect.supplierId
+  const user = userMap.get(userId)
+  return user?.companyId ?? ""
+}
+
+export async function generateSlaNotifications(): Promise<{ dueSoon: number; escalated: number; fieldDueSoon: number; fieldEscalated: number }> {
   const now = new Date()
   const fortyEightHoursFromNow = new Date(now.getTime() + 48 * 60 * 60 * 1000)
   const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
 
   const activeStatuses: DefectStatus[] = ["OPEN", "IN_PROGRESS", "WAITING_APPROVAL", "REJECTED"]
+  const activeFieldStatuses: FieldDefectStatus[] = ["OPEN", "UNDER_REVIEW", "SUPPLIER_ASSIGNED"]
 
+  // --- 8D Defects ---
   const defects = await prisma.defect.findMany({
     where: {
       status: { in: activeStatuses },
@@ -47,6 +57,26 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
     if (d.oemOwnerId) userIds.add(d.oemOwnerId)
     if (d.supplierAssigneeId) userIds.add(d.supplierAssigneeId)
   }
+
+  const fieldDefects = await prisma.fieldDefect.findMany({
+    where: {
+      status: { in: activeFieldStatuses },
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      responseDueAt: true,
+      resolutionDueAt: true,
+      escalationLevel: true,
+      oemId: true,
+      supplierId: true,
+      createdById: true,
+    },
+  })
+
+  // Field defect notifications are handled per-defect below
 
   const users = await prisma.user.findMany({
     where: { id: { in: Array.from(userIds) } },
@@ -87,9 +117,9 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
     const linkForUser = (userId: string): string => {
       const user = userMap.get(userId)
       if (user?.company?.type === "SUPPLIER") {
-        return `/supplier/defects/${defect.id}`
+        return `/quality/supplier/defects/${defect.id}`
       }
-      return `/oem/defects/${defect.id}`
+      return `/quality/oem/defects/${defect.id}`
     }
 
     if (hasDueSoon) {
@@ -105,9 +135,11 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
       }
 
       for (const userId of targets) {
+        const userCompanyId = getCompanyForUser(userId, defect, userMap)
         const existing = await prisma.notification.findFirst({
           where: {
             userId,
+            companyId: userCompanyId,
             type: "SLA_DUE_SOON" as NotificationType,
             link: linkForUser(userId),
             createdAt: { gte: twentyFourHoursAgo },
@@ -118,6 +150,7 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
         await prisma.notification.create({
           data: {
             userId,
+            companyId: userCompanyId,
             type: "SLA_DUE_SOON" as NotificationType,
             message: `SLA deadline approaching: ${defect.partNumber} — due ${formatDueDate(soonestDueSoon.date)}`,
             link: linkForUser(userId),
@@ -137,9 +170,11 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
       if (defect.supplierAssigneeId) targets.push(defect.supplierAssigneeId)
 
       for (const userId of targets) {
+        const userCompanyId = getCompanyForUser(userId, defect, userMap)
         const existing = await prisma.notification.findFirst({
           where: {
             userId,
+            companyId: userCompanyId,
             type: "SLA_ESCALATION" as NotificationType,
             link: linkForUser(userId),
             createdAt: { gte: twentyFourHoursAgo },
@@ -150,6 +185,7 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
         await prisma.notification.create({
           data: {
             userId,
+            companyId: getCompanyForUser(userId, defect, userMap),
             type: "SLA_ESCALATION" as NotificationType,
             message: `SLA overdue: ${defect.partNumber} — was due ${formatDueDate(soonestOverdue.date)}`,
             link: linkForUser(userId),
@@ -160,5 +196,144 @@ export async function generateSlaNotifications(): Promise<{ dueSoon: number; esc
     }
   }
 
-  return { dueSoon, escalated }
+  // --- Field Defects ---
+  let fieldDueSoon = 0
+  let fieldEscalated = 0
+
+  for (const fd of fieldDefects) {
+    const slaStatus = getFieldDefectSlaStatus(fd, now)
+    if (slaStatus !== "overdue" && slaStatus !== "due-soon") continue
+
+    const linkForOem = `/quality/oem/field/${fd.id}`
+    const linkForSupplier = `/quality/supplier/field/${fd.id}`
+
+    const dueDates: Date[] = []
+    if (fd.responseDueAt) dueDates.push(fd.responseDueAt)
+    if (fd.resolutionDueAt) dueDates.push(fd.resolutionDueAt)
+    if (dueDates.length === 0) continue
+
+    const soonestDue = dueDates.sort((a, b) => a.getTime() - b.getTime())[0]
+
+    if (slaStatus === "due-soon") {
+      // Notify OEM owner
+      const oemUsers = await prisma.user.findMany({
+        where: { companyId: fd.oemId, role: { in: ["ADMIN", "QUALITY_ENGINEER"] } },
+        select: { id: true },
+      })
+      for (const user of oemUsers) {
+        const existing = await prisma.notification.findFirst({
+          where: {
+            userId: user.id,
+            companyId: fd.oemId,
+            type: "SLA_DUE_SOON" as NotificationType,
+            link: linkForOem,
+            createdAt: { gte: twentyFourHoursAgo },
+          },
+        })
+        if (existing) continue
+        await prisma.notification.create({
+          data: {
+            userId: user.id,
+            companyId: fd.oemId,
+            type: "SLA_DUE_SOON" as NotificationType,
+            message: `Field defect SLA deadline approaching: ${fd.title} — due ${formatDueDate(soonestDue)}`,
+            link: linkForOem,
+          },
+        })
+        fieldDueSoon++
+      }
+
+      // Notify supplier users if assigned
+      if (fd.supplierId) {
+        const supplierUsers = await prisma.user.findMany({
+          where: { companyId: fd.supplierId, role: { in: ["ADMIN", "QUALITY_ENGINEER"] } },
+          select: { id: true },
+        })
+        for (const user of supplierUsers) {
+          const existing = await prisma.notification.findFirst({
+            where: {
+              userId: user.id,
+              companyId: fd.supplierId,
+              type: "SLA_DUE_SOON" as NotificationType,
+              link: linkForSupplier,
+              createdAt: { gte: twentyFourHoursAgo },
+            },
+          })
+          if (existing) continue
+          await prisma.notification.create({
+            data: {
+              userId: user.id,
+              companyId: fd.supplierId,
+              type: "SLA_DUE_SOON" as NotificationType,
+              message: `Field defect SLA deadline approaching: ${fd.title} — due ${formatDueDate(soonestDue)}`,
+              link: linkForSupplier,
+            },
+          })
+          fieldDueSoon++
+        }
+      }
+    }
+
+    if (slaStatus === "overdue") {
+      // Notify OEM users
+      const oemUsers = await prisma.user.findMany({
+        where: { companyId: fd.oemId, role: { in: ["ADMIN", "QUALITY_ENGINEER"] } },
+        select: { id: true },
+      })
+      for (const user of oemUsers) {
+        const existing = await prisma.notification.findFirst({
+          where: {
+            userId: user.id,
+            companyId: fd.oemId,
+            type: "SLA_ESCALATION" as NotificationType,
+            link: linkForOem,
+            createdAt: { gte: twentyFourHoursAgo },
+          },
+        })
+        if (existing) continue
+        await prisma.notification.create({
+          data: {
+            userId: user.id,
+            companyId: fd.oemId,
+            type: "SLA_ESCALATION" as NotificationType,
+            message: `Field defect SLA overdue: ${fd.title} — was due ${formatDueDate(soonestDue)}`,
+            link: linkForOem,
+          },
+        })
+        fieldEscalated++
+      }
+
+      // Notify supplier users
+      if (fd.supplierId) {
+        const supplierUsers = await prisma.user.findMany({
+          where: { companyId: fd.supplierId, role: { in: ["ADMIN", "QUALITY_ENGINEER"] } },
+          select: { id: true },
+        })
+        for (const user of supplierUsers) {
+          const existing = await prisma.notification.findFirst({
+            where: {
+              userId: user.id,
+              companyId: fd.supplierId,
+              type: "SLA_ESCALATION" as NotificationType,
+              link: linkForSupplier,
+              createdAt: { gte: twentyFourHoursAgo },
+            },
+          })
+          if (existing) continue
+          await prisma.notification.create({
+            data: {
+              userId: user.id,
+              companyId: fd.supplierId,
+              type: "SLA_ESCALATION" as NotificationType,
+              message: `Field defect SLA overdue: ${fd.title} — was due ${formatDueDate(soonestDue)}`,
+              link: linkForSupplier,
+            },
+          })
+          fieldEscalated++
+        }
+      }
+    }
+  }
+
+  return { dueSoon, escalated, fieldDueSoon, fieldEscalated }
 }

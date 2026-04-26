@@ -10,6 +10,8 @@ import { canOemManage } from "@/lib/field-defect-server"
 import { addCalendarDays } from "@/lib/sla"
 import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import type { FieldDefectRow } from "@/lib/field-defect-types"
+import { getNextEscalationLevel } from "@/lib/escalation"
+import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
 
 function isOemEditor(role: string) {
   return role === "ADMIN" || role === "QUALITY_ENGINEER"
@@ -60,6 +62,9 @@ export async function getFieldDefects(
     reportDate: d.reportDate,
     createdAt: d.createdAt,
     linkedDefectId: d.linkedDefectId,
+    responseDueAt: d.responseDueAt,
+    resolutionDueAt: d.resolutionDueAt,
+    escalationLevel: d.escalationLevel,
   }))
 
   let filtered = rows
@@ -82,6 +87,10 @@ export async function getFieldDefects(
       filtered = rows.filter((d) => d.severity === "MAJOR")
     } else if (filter === "minor") {
       filtered = rows.filter((d) => d.severity === "MINOR")
+    } else if (filter === "overdue") {
+      filtered = rows.filter((d) => getFieldDefectSlaStatus(d) === "overdue")
+    } else if (filter === "escalated") {
+      filtered = rows.filter((d) => d.escalationLevel !== "NONE")
     }
   }
 
@@ -122,8 +131,42 @@ export async function getSuppliersForField() {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") return []
 
+  const linkedSupplierIds = await prisma.defect.findMany({
+    where: { oemId: session.user.companyId },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+  const fieldDefectSupplierIds = await prisma.fieldDefect.findMany({
+    where: { oemId: session.user.companyId, supplierId: { not: null } },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+  const ppapSupplierIds = await prisma.ppapSubmission.findMany({
+    where: { oemId: session.user.companyId },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+  const fmeaSupplierIds = await prisma.fmea.findMany({
+    where: { oemId: session.user.companyId },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+  const iqcSupplierIds = await prisma.iqcReport.findMany({
+    where: { oemId: session.user.companyId },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+
+  const supplierIds = new Set([
+    ...linkedSupplierIds.map((d) => d.supplierId),
+    ...fieldDefectSupplierIds.map((d) => d.supplierId!).filter(Boolean),
+    ...ppapSupplierIds.map((d) => d.supplierId),
+    ...fmeaSupplierIds.map((d) => d.supplierId),
+    ...iqcSupplierIds.map((d) => d.supplierId),
+  ])
+
   return prisma.company.findMany({
-    where: { type: "SUPPLIER" },
+    where: { id: { in: Array.from(supplierIds) }, type: "SUPPLIER" },
     select: {
       id: true,
       name: true,
@@ -235,18 +278,19 @@ export async function createFieldDefect(formData: FormData): Promise<{ success: 
     await prisma.notification.createMany({
       data: supplierUsers.map((user) => ({
         userId: user.id,
+        companyId: supplierId,
         message: `New field defect assigned: ${title}`,
         type: "FIELD_DEFECT_ASSIGNED" as const,
-        link: `/supplier/field/${fieldDefect.id}`,
+        link: `/quality/supplier/field/${fieldDefect.id}`,
         isRead: false,
       })),
     })
   }
 
-  revalidatePath("/oem/field")
-  revalidatePath("/supplier/field")
-  revalidatePath("/oem")
-  redirect("/oem/field")
+  revalidatePath("/quality/oem/field")
+  revalidatePath("/quality/supplier/field")
+  revalidatePath("/quality/oem")
+  redirect("/quality/oem/field")
 }
 
 export async function updateFieldDefect(id: string, formData: FormData) {
@@ -317,10 +361,10 @@ export async function updateFieldDefect(id: string, formData: FormData) {
     updatedFields: Object.keys(data).filter((k) => k !== "updatedById"),
   })
 
-  revalidatePath(`/oem/field/${id}`)
-  revalidatePath("/oem/field")
-  revalidatePath(`/supplier/field/${id}`)
-  revalidatePath("/supplier/field")
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath(`/quality/supplier/field/${id}`)
+  revalidatePath("/quality/supplier/field")
 
   return { success: true as const }
 }
@@ -392,19 +436,20 @@ export async function assignSupplier(id: string, supplierId: string | null) {
       await prisma.notification.createMany({
         data: supplier.users.map((user) => ({
           userId: user.id,
+          companyId: supplierId,
           message: `Field defect assigned to your company: ${fieldDefect.title}`,
           type: "FIELD_DEFECT_ASSIGNED" as const,
-          link: `/supplier/field/${id}`,
+          link: `/quality/supplier/field/${id}`,
           isRead: false,
         })),
       })
     }
   }
 
-  revalidatePath(`/oem/field/${id}`)
-  revalidatePath("/oem/field")
-  revalidatePath(`/supplier/field/${id}`)
-  revalidatePath("/supplier/field")
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath(`/quality/supplier/field/${id}`)
+  revalidatePath("/quality/supplier/field")
 
   return { success: true as const }
 }
@@ -455,10 +500,10 @@ export async function changeFieldDefectStatus(id: string, newStatus: FieldDefect
     newStatus,
   })
 
-  revalidatePath(`/oem/field/${id}`)
-  revalidatePath("/oem/field")
-  revalidatePath(`/supplier/field/${id}`)
-  revalidatePath("/supplier/field")
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath(`/quality/supplier/field/${id}`)
+  revalidatePath("/quality/supplier/field")
 
   return { success: true as const }
 }
@@ -512,6 +557,7 @@ export async function convertTo8D(id: string) {
   await prisma.fieldDefect.update({
     where: { id, oemId: session.user.companyId },
     data: {
+      status: "LINKED_TO_8D",
       linkedDefectId: defect.id,
       convertedTo8DAt: new Date(),
       convertedById: session.user.id,
@@ -545,22 +591,23 @@ export async function convertTo8D(id: string) {
     await prisma.notification.createMany({
       data: supplier.users.map((user) => ({
         userId: user.id,
+        companyId: fieldDefect.supplierId,
         message: `8D report created from field defect: ${fieldDefect.title}`,
         type: "FIELD_DEFECT_CONVERTED_TO_8D" as const,
-        link: `/supplier/defects/${defect.id}`,
+        link: `/quality/supplier/defects/${defect.id}`,
         isRead: false,
       })),
     })
   }
 
-  revalidatePath(`/oem/field/${id}`)
-  revalidatePath("/oem/field")
-  revalidatePath(`/oem/defects/${defect.id}`)
-  revalidatePath("/oem/defects")
-  revalidatePath(`/supplier/defects/${defect.id}`)
-  revalidatePath("/supplier/defects")
-  revalidatePath("/oem")
-  revalidatePath("/supplier")
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath(`/quality/oem/defects/${defect.id}`)
+  revalidatePath("/quality/oem/defects")
+  revalidatePath(`/quality/supplier/defects/${defect.id}`)
+  revalidatePath("/quality/supplier/defects")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true as const, defectId: defect.id }
 }
@@ -601,9 +648,9 @@ export async function addFieldDefectComment(id: string, content: string) {
     commentLength: content.trim().length,
   })
 
-  const rebasePath = isOem ? `/oem/field/${id}` : `/supplier/field/${id}`
+  const rebasePath = isOem ? `/quality/oem/field/${id}` : `/quality/supplier/field/${id}`
   revalidatePath(rebasePath)
-  revalidatePath(isOem ? "/oem/field" : "/supplier/field")
+  revalidatePath(isOem ? "/quality/oem/field" : "/quality/supplier/field")
 
   return { success: true as const }
 }
@@ -637,8 +684,163 @@ export async function softDeleteAttachment(attachmentId: string, fieldDefectId: 
     fileName: attachment.fileName,
   })
 
-  revalidatePath(`/oem/field/${fieldDefectId}`)
-  revalidatePath(`/oem/field/${fieldDefectId}/media`)
+  revalidatePath(`/quality/oem/field/${fieldDefectId}`)
+  revalidatePath(`/quality/oem/field/${fieldDefectId}/media`)
+
+  return { success: true as const }
+}
+
+export async function setFieldDefectSla(
+  id: string,
+  data: { responseDueAt?: string | null; resolutionDueAt?: string | null },
+) {
+  const session = await auth()
+  if (!canOemManage(session)) {
+    return { success: false as const, error: "Unauthorized" }
+  }
+
+  const fieldDefect = await prisma.fieldDefect.findFirst({
+    where: { id, oemId: session.user.companyId, deletedAt: null },
+  })
+  if (!fieldDefect) {
+    return { success: false as const, error: "Field defect not found" }
+  }
+
+  const closedStatuses: FieldDefectStatus[] = ["CLOSED", "CANCELLED", "LINKED_TO_8D"]
+  if (closedStatuses.includes(fieldDefect.status)) {
+    return { success: false as const, error: "Cannot set SLA on a closed or linked field defect" }
+  }
+
+  const updateData: Record<string, unknown> = { updatedById: session.user.id }
+  if (data.responseDueAt !== undefined) {
+    updateData.responseDueAt = data.responseDueAt ? new Date(data.responseDueAt) : null
+  }
+  if (data.resolutionDueAt !== undefined) {
+    updateData.resolutionDueAt = data.resolutionDueAt ? new Date(data.resolutionDueAt) : null
+  }
+
+  await prisma.fieldDefect.update({
+    where: { id, oemId: session.user.companyId },
+    data: updateData,
+  })
+
+  await logFieldDefectEvent(id, "FIELD_DEFECT_SLA_UPDATED", session.user.id, {
+    responseDueAt: data.responseDueAt ?? null,
+    resolutionDueAt: data.resolutionDueAt ?? null,
+  })
+
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath(`/quality/supplier/field/${id}`)
+  revalidatePath("/quality/supplier/field")
+
+  return { success: true as const }
+}
+
+export async function escalateFieldDefect(id: string, reason: string) {
+  const session = await auth()
+  if (!canOemManage(session)) {
+    return { success: false as const, error: "Unauthorized" }
+  }
+
+  if (!reason.trim()) {
+    return { success: false as const, error: "Escalation reason is required" }
+  }
+
+  const fieldDefect = await prisma.fieldDefect.findFirst({
+    where: { id, oemId: session.user.companyId, deletedAt: null },
+  })
+  if (!fieldDefect) {
+    return { success: false as const, error: "Field defect not found" }
+  }
+
+  const nextLevel = getNextEscalationLevel(fieldDefect.escalationLevel)
+  if (!nextLevel) {
+    return { success: false as const, error: "Field defect is already at maximum escalation level" }
+  }
+
+  const closedStatuses: FieldDefectStatus[] = ["CLOSED", "CANCELLED", "DRAFT", "LINKED_TO_8D"]
+  if (closedStatuses.includes(fieldDefect.status)) {
+    return { success: false as const, error: "Cannot escalate a field defect in this status" }
+  }
+
+  await prisma.fieldDefect.update({
+    where: { id, oemId: session.user.companyId },
+    data: {
+      escalationLevel: nextLevel,
+      escalatedAt: new Date(),
+      escalatedById: session.user.id,
+      escalationReason: reason.trim(),
+      updatedById: session.user.id,
+    },
+  })
+
+  await prisma.escalationHistory.create({
+    data: {
+      companyId: session.user.companyId,
+      entityType: "FIELD_DEFECT",
+      entityId: id,
+      previousLevel: fieldDefect.escalationLevel,
+      newLevel: nextLevel,
+      reason: reason.trim(),
+      createdById: session.user.id,
+    },
+  })
+
+  await logFieldDefectEvent(id, "FIELD_DEFECT_ESCALATED", session.user.id, {
+    previousLevel: fieldDefect.escalationLevel,
+    newLevel: nextLevel,
+    reason: reason.trim(),
+  })
+
+  if (fieldDefect.supplierId) {
+    const supplier = await prisma.company.findFirst({
+      where: { id: fieldDefect.supplierId },
+      include: { users: { select: { id: true } } },
+    })
+    if (supplier && supplier.users.length > 0) {
+      await prisma.notification.createMany({
+        data: supplier.users.map((user) => ({
+          userId: user.id,
+          companyId: fieldDefect.supplierId,
+          type: "FIELD_DEFECT_ESCALATED" as const,
+          title: `Escalated to ${nextLevel.replace("_", " ")}`,
+          message: `Field defect "${fieldDefect.title}" has been escalated: ${reason.trim()}`,
+          entityType: "FIELD_DEFECT",
+          entityId: id,
+          link: `/quality/supplier/field/${id}`,
+          isRead: false,
+        })),
+      })
+    }
+  }
+
+  const oemUsers = await prisma.user.findMany({
+    where: { companyId: session.user.companyId, role: { in: ["ADMIN", "QUALITY_ENGINEER"] } },
+    select: { id: true },
+  })
+  if (oemUsers.length > 0) {
+    await prisma.notification.createMany({
+      data: oemUsers
+        .filter((u) => u.id !== session.user.id)
+        .map((user) => ({
+          userId: user.id,
+          companyId: session.user.companyId,
+          type: "FIELD_DEFECT_ESCALATED" as const,
+          title: `Escalated to ${nextLevel.replace("_", " ")}`,
+          message: `Field defect "${fieldDefect.title}" has been escalated by ${session.user.name ?? "a user"}: ${reason.trim()}`,
+          entityType: "FIELD_DEFECT",
+          entityId: id,
+          link: `/quality/oem/field/${id}`,
+          isRead: false,
+        })),
+    })
+  }
+
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath(`/quality/supplier/field/${id}`)
+  revalidatePath("/quality/supplier/field")
 
   return { success: true as const }
 }

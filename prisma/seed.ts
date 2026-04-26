@@ -100,6 +100,7 @@ async function main() {
       partNumber: "AX-7420-B",
       description: "Surface porosity exceeding acceptable limits on cylinder head casting. Multiple pits observed on sealing surface.",
       status: "OPEN" as const,
+      supplierResponseDueAt: new Date("2026-05-10"),
     },
     {
       id: "defect-002",
@@ -108,6 +109,7 @@ async function main() {
       partNumber: "BR-1122-C",
       description: "Thread gauge failure on M12 bolts. Pitch diameter out of tolerance by 0.15mm.",
       status: "IN_PROGRESS" as const,
+      supplierResponseDueAt: new Date("2026-04-20"),
     },
     {
       id: "defect-003",
@@ -116,6 +118,10 @@ async function main() {
       partNumber: "CS-3344-D",
       description: "Crack detected during ultrasonic testing on steering knuckle forging. Linear indication 8mm length in radius area.",
       status: "OPEN" as const,
+      escalationLevel: "LEVEL_1" as const,
+      escalatedAt: new Date("2026-04-22"),
+      escalatedById: "oem-admin",
+      escalationReason: "Critical safety issue — no supplier response within SLA deadline",
     },
     {
       id: "defect-004",

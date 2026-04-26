@@ -38,6 +38,12 @@ enum NotificationType {
   FIELD_DEFECT_CREATED
   FIELD_DEFECT_ASSIGNED
   FIELD_DEFECT_CONVERTED_TO_8D
+  FIELD_DEFECT_OVERDUE
+  FIELD_DEFECT_ESCALATED
+  FIELD_DEFECT_STATUS_CHANGED
+  EIGHT_D_OVERDUE
+  EIGHT_D_ESCALATED
+  COMMENT_ADDED
 }
 
 enum ReviewCommentStatus {
@@ -80,6 +86,8 @@ enum DefectEventType {
   FIELD_DEFECT_ATTACHMENT_REMOVED
   FIELD_DEFECT_CLOSED
   FIELD_DEFECT_CANCELLED
+  FIELD_DEFECT_ESCALATED
+  FIELD_DEFECT_SLA_UPDATED
 }
 
 enum DefectStatus {
@@ -183,6 +191,13 @@ enum FieldDefectStatus {
   CANCELLED
 }
 
+enum EscalationLevel {
+  NONE
+  LEVEL_1
+  LEVEL_2
+  LEVEL_3
+}
+
 model Company {
   id           String        @id @default(uuid())
   name         String
@@ -199,6 +214,8 @@ model Company {
   fmeaAsSup    Fmea[]        @relation("SupplierFmeas")
   fieldDefectsAsOem FieldDefect[] @relation("FieldDefectOem")
   fieldDefectsAsSup FieldDefect[] @relation("FieldDefectSupplier")
+  notifications      Notification[]
+  escalationHistory   EscalationHistory[]
   createdAt    DateTime      @default(now())
 
   @@map("companies")
@@ -222,6 +239,7 @@ model User {
   rejectedReports EightDReport[] @relation("EightDRejectedBy")
   ownedDefects Defect[] @relation("DefectOemOwner")
   assignedDefects Defect[] @relation("DefectSupplierAssignee")
+  escalatedDefects Defect[] @relation("DefectEscalatedBy")
   defectEvents    DefectEvent[]  @relation("DefectEventActor")
   uploadedEvidence DefectEvidence[] @relation("DefectEvidenceUploadedBy")
   notifications  Notification[]
@@ -241,6 +259,8 @@ model User {
   createdFieldDefects     FieldDefect[] @relation("FieldDefectCreatedBy")
   updatedFieldDefects     FieldDefect[] @relation("FieldDefectUpdatedBy")
   convertedFieldDefects   FieldDefect[] @relation("FieldDefectConvertedBy")
+  escalatedFieldDefects  FieldDefect[] @relation("FieldDefectEscalatedBy")
+  escalationHistories   EscalationHistory[]
   fieldDefectAttachments  FieldDefectAttachment[] @relation("FieldDefectAttachmentUploadedBy")
   fieldDefectComments     FieldDefectComment[] @relation("FieldDefectCommentAuthor")
   fieldDefectEvents       FieldDefectEvent[] @relation("FieldDefectEventActor")
@@ -307,6 +327,11 @@ model Defect {
   oemReviewDueAt        DateTime? @map("oem_review_due_at")
   revisionDueAt         DateTime? @map("revision_due_at")
   currentActionOwner    ActionOwner @default(SUPPLIER) @map("current_action_owner")
+  escalationLevel      EscalationLevel @default(NONE) @map("escalation_level")
+  escalatedAt          DateTime?       @map("escalated_at")
+  escalatedById        String?         @map("escalated_by_id")
+  escalatedBy          User?           @relation("DefectEscalatedBy", fields: [escalatedById], references: [id])
+  escalationReason     String?         @map("escalation_reason")
   eightDReport EightDReport?
   events       DefectEvent[]
   evidences    DefectEvidence[]
@@ -637,11 +662,19 @@ model FieldDefect {
   convertedTo8DAt       DateTime?           @map("converted_to_8d_at")
   convertedById         String?             @map("converted_by_id")
   convertedBy           User?               @relation("FieldDefectConvertedBy", fields: [convertedById], references: [id])
+  responseDueAt         DateTime?          @map("response_due_at")
+  resolutionDueAt       DateTime?          @map("resolution_due_at")
+  escalationLevel       EscalationLevel     @default(NONE) @map("escalation_level")
+  escalatedAt           DateTime?           @map("escalated_at")
+  escalatedById         String?             @map("escalated_by_id")
+  escalatedBy           User?               @relation("FieldDefectEscalatedBy", fields: [escalatedById], references: [id])
+  escalationReason      String?             @map("escalation_reason")
   attachments           FieldDefectAttachment[]
   events                FieldDefectEvent[]
   comments              FieldDefectComment[]
   createdAt             DateTime            @default(now()) @map("created_at")
   updatedAt             DateTime            @updatedAt @map("updated_at")
+  closedAt              DateTime?           @map("closed_at")
   deletedAt             DateTime?           @map("deleted_at")
 
   @@index([oemId, status])
@@ -650,6 +683,9 @@ model FieldDefect {
   @@index([vin])
   @@index([createdAt])
   @@index([linkedDefectId])
+  @@index([escalationLevel])
+  @@index([responseDueAt])
+  @@index([resolutionDueAt])
   @@map("field_defects")
 }
 
@@ -700,14 +736,44 @@ model FieldDefectEvent {
 }
 
 model Notification {
-  id        String           @id @default(uuid())
-  userId    String
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  message   String
-  type      NotificationType
-  link      String?
-  isRead    Boolean          @default(false)
-  createdAt DateTime         @default(now())
+  id              String           @id @default(uuid())
+  userId          String?
+  user            User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId       String?          @map("company_id")
+  company         Company?         @relation(fields: [companyId], references: [id])
+  recipientSupplierId String?      @map("recipient_supplier_id")
+  type            NotificationType
+  title           String?
+  message         String
+  entityType       String?          @map("entity_type")
+  entityId         String?          @map("entity_id")
+  link            String?
+  isRead          Boolean          @default(false)
+  readAt          DateTime?        @map("read_at")
+  createdAt       DateTime         @default(now())
 
+  @@index([companyId, isRead])
+  @@index([userId, isRead])
+  @@index([recipientSupplierId])
+  @@index([entityType, entityId])
   @@map("notifications")
+}
+
+model EscalationHistory {
+  id                    String          @id @default(uuid())
+  companyId             String          @map("company_id")
+  company               Company         @relation(fields: [companyId], references: [id])
+  entityType            String          @map("entity_type")
+  entityId              String          @map("entity_id")
+  previousLevel         EscalationLevel @map("previous_level")
+  newLevel              EscalationLevel @map("new_level")
+  reason                String
+  createdById           String          @map("created_by_id")
+  createdBy             User            @relation(fields: [createdById], references: [id])
+  createdAt             DateTime        @default(now()) @map("created_at")
+
+  @@index([companyId, entityType])
+  @@index([entityType, entityId])
+  @@index([companyId, newLevel])
+  @@map("escalation_history")
 }

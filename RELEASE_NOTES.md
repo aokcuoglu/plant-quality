@@ -1,3 +1,272 @@
+# PlantQuality v1.6.1 — Release Notes
+
+## SLA, Escalation & Notifications Bugfix and Hardening
+
+**Release Date:** 2026-04-26  
+**Version:** 1.6.1
+
+---
+
+## Summary
+
+PlantQuality v1.6.1 stabilizes the SLA, escalation, notification, and war-room flows introduced in v1.6.0. This release focuses on runtime correctness, tenant isolation, supplier isolation, and UI polish. No new features were added.
+
+---
+
+## Bug Fixes
+
+### SLA
+
+| Fix | Description |
+|-----|-------------|
+| DRAFT SLA status | DRAFT field defects now correctly show "No SLA" instead of attempting to calculate a due date |
+| LINKED_TO_8D SLA status | LINKED_TO_8D field defects now show "Completed" instead of "No SLA" or "Overdue" |
+| `getFieldDefectActiveDueDate` | Returns `null` for DRAFT and LINKED_TO_8D statuses, preventing false overdue flags |
+| SLA cron dedup queries | Added `companyId` to all `prisma.notification.findFirst` deduplication checks in `sla-notifications.ts`, fixing a multi-tenancy gap |
+
+### Escalation
+
+| Fix | Description |
+|-----|-------------|
+| DRAFT escalation blocked in UI | EscalateButton is now hidden for DRAFT, LINKED_TO_8D, CLOSED, and CANCELLED statuses in the OEM detail page |
+| LINKED_TO_8D escalation blocked in UI | Prevents escalation at field level for defects already linked to 8D |
+| Supplier escalation access | Fixed `getEscalations` for suppliers to query by assigned field defect IDs instead of `companyId` on `EscalationHistory` (which stores OEM companyId) |
+| War Room supplier access | `getActiveEscalations` now returns `escalated: []` for non-OEM users, preventing supplier from seeing war-room data |
+
+### Notifications
+
+| Fix | Description |
+|-----|-------------|
+| Notification dedup tenant safety | All `findFirst` dedup checks in `sla-notifications.ts` now include `companyId` in the `where` clause, preventing cross-tenant dedup collisions |
+| Notification `title` field | `NotificationBell` component now displays the `title` field when present, matching the full notification page behavior |
+
+### War Room
+
+| Fix | Description |
+|-----|-------------|
+| Closed/cancelled exclusions | `getActiveEscalations` now filters by `status: { in: ["OPEN", "UNDER_REVIEW", "SUPPLIER_ASSIGNED"] }`, excluding closed/cancelled/DRAFT/LINKED_TO_8D items |
+| SLA alerts section | War Room now shows both escalated items and SLA alerts (overdue/due-soon) that aren't yet escalated, with separate tables and KPI cards |
+| OEM-only access | War Room page redirects non-OEM users; `getActiveEscalations` returns empty for suppliers |
+| Empty state | War Room shows a clear empty state with icon and message when no escapelations or SLA alerts exist |
+
+---
+
+## Permission Hardening
+
+| Area | Change |
+|------|--------|
+| Escalation action | Escalation is OEM-only; supplier cannot access the action — verified `canOemManage(session)` gate |
+| Escalation history | Supplier escalation page uses `entityId IN (supplier_field_defect_ids)` instead of `companyId` on history table |
+| Notification read/write | `markAsRead` and `markAllAsRead` filter by `userId + companyId` |
+| SLA update action | `setFieldDefectSla` blocks CLOSED, CANCELLED, and LINKED_TO_8D statuses |
+| Field update safety | `updateFieldDefect` only allows specific safe fields; `companyId`, `oemId`, `escalationLevel`, `escalatedById`, `escalationReason` are never accepted from client payload |
+| War Room access | `getActiveEscalations` returns empty arrays for non-OEM sessions |
+
+---
+
+## UX Polish
+
+| Area | Change |
+|------|--------|
+| EscalateButton | Hidden for DRAFT, LINKED_TO_8D, CLOSED, CANCELLED statuses |
+| SLA update form | Hidden for CLOSED, CANCELLED, LINKED_TO_8D statuses |
+| War Room | Added Overdue and Due Soon KPI cards; split view into Escalations and SLA Alerts tables |
+| War Room empty state | Shows AlertTriangleIcon with descriptive text |
+| NotificationBell | Now shows `title` when present for richer notification preview |
+| SLA status | LINKED_TO_8D shows "Completed" badge; DRAFT shows "No SLA" |
+
+---
+
+## Known Limitations
+
+| Area | Limitation |
+|------|-----------|
+| War Room | Available to OEM only; suppliers do not have a war-room page |
+| 8D SLA tracking | 8D defect SLA statuses are not yet displayed on the 8D detail/list pages |
+| Escalation history | Only field defect escalations are tracked; 8D escalation history to be added in future |
+| Notification dedup | 24-hour window per (userId, type, link, companyId); very high notification volumes may create duplicates |
+
+---
+
+## Deferred to v1.7.0
+
+- AI defect classification
+- Similar issue detection
+- Root cause suggestion
+- 8D SLA tracking UI
+- Advanced analytics / dashboard charts
+- Email notifications
+- Mobile push notifications
+
+---
+
+## SLA Tracking, Escalation Management & Notifications
+
+**Release Date:** 2026-04-26  
+**Version:** 1.6.0
+
+---
+
+## Summary
+
+PlantQuality v1.6.0 adds **SLA deadline tracking**, **escalation management**, and **in-app notifications** to the Field Quality and 8D workflows. OEM users can now set response/resolution SLA deadlines on field defects, escalate issues through three severity levels, and all stakeholders receive real-time notification bells for key events.
+
+---
+
+## What's New
+
+### ⏰ SLA Deadline Tracking
+
+- **Response Due & Resolution Due** dates on Field Defects (set by OEM quality engineers)
+- SLA status computed dynamically: **On Track**, **Due Soon** (48h), **Overdue**, **Completed**, **No SLA**
+- SLA status badges on list and detail pages for both OEM and Supplier views
+- SLA deadline update action (OEM only) accessible from field defect detail page
+
+### 🚨 Escalation Management
+
+- **Three escalation levels**: Level 1 (management), Level 2 (executive), Level 3 (C-suite)
+- Escalation action on field defect detail page with mandatory reason
+- Escalation badges on list and detail pages
+- Full escalation history tracked in `EscalationHistory` model
+- Notifications sent to supplier and OEM admins on escalation
+
+### 🔔 In-App Notifications
+
+- Expanded `NotificationType` enum with field defect and 8D event types
+- Notifications now include `title`, `entityType`, `entityId`, `companyId`, `readAt`
+- Dedicated notification pages: `/quality/oem/notifications` and `/quality/supplier/notifications`
+- Notification bell in header shows unread count with "Mark All as Read"
+- Sidebar navigation includes Notifications link
+
+### 📋 UI Enhancements
+
+- **SLA & Escalation card** on field defect detail pages (OEM: editable, Supplier: read-only)
+- **EscalateButton** client component with modal dialog for escalation reason
+- **SlaUpdateForm** client component for setting/updating SLA deadlines
+- **SlaStatusBadge** and **EscalationBadge** components
+- List pages (OEM & Supplier) now show SLA Status and Escalation columns
+- Overdue and Escalated quick-filter tabs on field defect list pages
+
+---
+
+## Database Schema Changes
+
+### New Enums
+
+- `EscalationLevel`: `NONE`, `LEVEL_1`, `LEVEL_2`, `LEVEL_3`
+
+### Extended Enums
+
+- `DefectEventType`: +`FIELD_DEFECT_ESCALATED`, +`FIELD_DEFECT_SLA_UPDATED`
+- `NotificationType`: +`FIELD_DEFECT_OVERDUE`, +`FIELD_DEFECT_ESCALATED`, +`FIELD_DEFECT_STATUS_CHANGED`, +`EIGHT_D_OVERDUE`, +`EIGHT_D_ESCALATED`, +`COMMENT_ADDED`
+
+### New Model: `EscalationHistory`
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | UUID | Primary key |
+| `companyId` | UUID | Tenant scope |
+| `entityType` | String | "FIELD_DEFECT" or "DEFECT" |
+| `entityId` | UUID | FK to the escalated entity |
+| `previousLevel` | EscalationLevel | Before escalation |
+| `newLevel` | EscalationLevel | After escalation |
+| `reason` | String | Mandatory reason text |
+| `createdById` | UUID | Who escalated |
+| `createdAt` | DateTime | Timestamp |
+
+### Extended Fields on `FieldDefect`
+
+- `responseDueAt` — supplier response deadline
+- `resolutionDueAt` — full resolution deadline
+- `escalationLevel` — current escalation level (default `NONE`)
+- `escalatedAt` — when last escalated
+- `escalatedById` — who escalated
+- `escalationReason` — why escalated
+
+### Extended Fields on `Defect`
+
+- `escalationLevel`, `escalatedAt`, `escalatedById`, `escalationReason` (same pattern)
+
+### Extended Fields on `Notification`
+
+- `companyId` (nullable) — tenant scope
+- `recipientSupplierId` — supplier company filter
+- `title` — short notification title
+- `entityType` / `entityId` — polymorphic link
+- `readAt` — timestamp when read
+- New indexes on `companyId+isRead`, `recipientSupplierId`, `entityType+entityId`
+
+---
+
+## New Server Actions
+
+| Action | Location | Description |
+|--------|----------|-------------|
+| `setFieldDefectSla(id, data)` | `field/actions.ts` | Set/update response and resolution SLA deadlines |
+| `escalateFieldDefect(id, reason)` | `field/actions.ts` | Escalate to next level with reason; creates EscalationHistory, event, and notifications |
+| `getNotifications(page, pageSize)` | `_actions/notifications.ts` | Paginated notification list with unread count |
+| `markAsRead(id)` | `_actions/notifications.ts` | Mark single notification as read |
+| `markAllAsRead()` | `_actions/notifications.ts` | Mark all unread as read |
+
+---
+
+## New Libraries
+
+| File | Purpose |
+|------|---------|
+| `src/lib/sla-field-defect.ts` | SLA status calculation (overdue / due-soon / on-track / no-sla / completed), badge config |
+| `src/lib/escalation.ts` | Escalation level labels, colors, descriptions, `getNextEscalationLevel()` |
+
+---
+
+## New Components
+
+| Component | Type | Description |
+|-----------|------|-------------|
+| `SlaStatusBadge` | Client | Renders SLA status pill with color |
+| `EscalationBadge` | Client | Renders escalation level pill with color |
+| `EscalateButton` | Client | Escalation modal with reason textarea |
+| `SlaUpdateForm` | Client | Set/update SLA deadlines form |
+| Notification pages (OEM/Supplier) | Server | Full notification list page with "Mark All as Read" |
+
+---
+
+## Routes
+
+| Role | Route | Description |
+|------|-------|-------------|
+| OEM | `/quality/oem/notifications` | Full notification list |
+| Supplier | `/quality/supplier/notifications` | Full notification list |
+| Both | Header → NotificationBell | Dropdown with latest 5 + unread count |
+
+---
+
+## Multi-Tenancy & Security
+
+- All Prisma queries on field defects remain scoped to `oemId` / `supplierId`
+- Escalation action verifies `canOemManage(session)` + OEM company scope
+- Escalation history scoped to `companyId`
+- Notifications created with `companyId` for supplier recipients and `companyId` for other OEM admins
+- `Notification.update` scoping to `userId` preserved (prevent cross-tenant reads/writes)
+
+---
+
+## Breaking Changes
+
+- `Notification` model gains new nullable columns (`companyId`, `title`, `entityType`, `entityId`, `readAt`, `recipientSupplierId`). Existing rows with null values are backward-compatible.
+- `FieldDefectRow` type extended with `responseDueAt`, `resolutionDueAt`, `escalationLevel`. Code consuming this type must be updated.
+
+---
+
+## What's Next (v1.7.0)
+
+- War Room view (OEM dashboard for active escalations)
+- Overdue SLA check cron / computed overdue notifications
+- 8D SLA tracking (reuse pattern for `Defect.supplierResponseDueAt`)
+- AI defect classification (PRO plan gating)
+
+---
+
 # PlantQuality v1.5.1 — Release Notes
 
 ## Field Quality Bugfix & UX Polish

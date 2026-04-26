@@ -407,7 +407,8 @@ export const ModelName = {
   FieldDefectAttachment: 'FieldDefectAttachment',
   FieldDefectComment: 'FieldDefectComment',
   FieldDefectEvent: 'FieldDefectEvent',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  EscalationHistory: 'EscalationHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -423,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2203,6 +2204,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EscalationHistory: {
+      payload: Prisma.$EscalationHistoryPayload<ExtArgs>
+      fields: Prisma.EscalationHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EscalationHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EscalationHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.EscalationHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EscalationHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.EscalationHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.EscalationHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.EscalationHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EscalationHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.EscalationHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>
+        }
+        update: {
+          args: Prisma.EscalationHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.EscalationHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EscalationHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EscalationHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.EscalationHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EscalationHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.EscalationHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEscalationHistory>
+        }
+        groupBy: {
+          args: Prisma.EscalationHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EscalationHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EscalationHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EscalationHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2320,6 +2395,10 @@ export const DefectScalarFieldEnum = {
   oemReviewDueAt: 'oemReviewDueAt',
   revisionDueAt: 'revisionDueAt',
   currentActionOwner: 'currentActionOwner',
+  escalationLevel: 'escalationLevel',
+  escalatedAt: 'escalatedAt',
+  escalatedById: 'escalatedById',
+  escalationReason: 'escalationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'
@@ -2587,6 +2666,12 @@ export const FieldDefectScalarFieldEnum = {
   linkedDefectId: 'linkedDefectId',
   convertedTo8DAt: 'convertedTo8DAt',
   convertedById: 'convertedById',
+  responseDueAt: 'responseDueAt',
+  resolutionDueAt: 'resolutionDueAt',
+  escalationLevel: 'escalationLevel',
+  escalatedAt: 'escalatedAt',
+  escalatedById: 'escalatedById',
+  escalationReason: 'escalationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -2637,14 +2722,35 @@ export type FieldDefectEventScalarFieldEnum = (typeof FieldDefectEventScalarFiel
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  message: 'message',
+  companyId: 'companyId',
+  recipientSupplierId: 'recipientSupplierId',
   type: 'type',
+  title: 'title',
+  message: 'message',
+  entityType: 'entityType',
+  entityId: 'entityId',
   link: 'link',
   isRead: 'isRead',
+  readAt: 'readAt',
   createdAt: 'createdAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const EscalationHistoryScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  previousLevel: 'previousLevel',
+  newLevel: 'newLevel',
+  reason: 'reason',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type EscalationHistoryScalarFieldEnum = (typeof EscalationHistoryScalarFieldEnum)[keyof typeof EscalationHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2803,6 +2909,20 @@ export type EnumActionOwnerFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'ActionOwner[]'
  */
 export type ListEnumActionOwnerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActionOwner[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EscalationLevel'
+ */
+export type EnumEscalationLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EscalationLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'EscalationLevel[]'
+ */
+export type ListEnumEscalationLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EscalationLevel[]'>
     
 
 
@@ -3156,6 +3276,7 @@ export type GlobalOmitConfig = {
   fieldDefectComment?: Prisma.FieldDefectCommentOmit
   fieldDefectEvent?: Prisma.FieldDefectEventOmit
   notification?: Prisma.NotificationOmit
+  escalationHistory?: Prisma.EscalationHistoryOmit
 }
 
 /* Types for Logging */

@@ -161,3 +161,8 @@ export type FieldDefectEvent = Prisma.FieldDefectEventModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model EscalationHistory
+ * 
+ */
+export type EscalationHistory = Prisma.EscalationHistoryModel

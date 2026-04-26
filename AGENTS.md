@@ -362,7 +362,7 @@ Use these exact formulas when requesting UI from any AI:
 
 **Template A — New Dashboard Page**
 ```
-Add a new page at `/oem/{slug}` inside the `(dashboard)` layout.
+Add a new page at `/quality/oem/{slug}` or `/quality/supplier/{slug}` inside the `(dashboard)` layout.
 Use PageHeader for the title. Layout: {card grid / two-column / table}.
 Reuse existing {DashboardCard / Table / Chart}. Theme-safe semantic tokens only.
 ```

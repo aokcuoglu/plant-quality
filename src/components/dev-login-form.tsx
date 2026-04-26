@@ -29,7 +29,7 @@ export function DevLoginForm({ redirectTo }: Props) {
     await signIn("credentials", {
       email,
       redirect: true,
-      callbackUrl: redirectTo && redirectTo !== "/" ? redirectTo : "/oem",
+      callbackUrl: redirectTo && redirectTo !== "/" ? redirectTo : "/quality/oem",
     })
     // redirect: true causes browser navigation; this line typically isn't reached.
   }

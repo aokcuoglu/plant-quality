@@ -63,4 +63,6 @@ export const EVENT_META: Record<DefectEventType, EventMeta> = {
   FIELD_DEFECT_ATTACHMENT_REMOVED: { label: "Attachment Removed", description: "File removed from field defect", icon: TrashIcon, iconColor: "text-red-500" },
   FIELD_DEFECT_CLOSED: { label: "Closed", description: "Field defect closed", icon: CheckIcon, iconColor: "text-green-500" },
   FIELD_DEFECT_CANCELLED: { label: "Cancelled", description: "Field defect cancelled", icon: XCircleIcon, iconColor: "text-muted-foreground" },
+  FIELD_DEFECT_ESCALATED: { label: "Escalated", description: "Field defect escalated", icon: AlertTriangleIcon, iconColor: "text-red-500" },
+  FIELD_DEFECT_SLA_UPDATED: { label: "SLA Updated", description: "Field defect SLA deadline updated", icon: CalendarIcon, iconColor: "text-amber-500" },
 }

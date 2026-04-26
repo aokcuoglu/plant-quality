@@ -68,7 +68,7 @@ const products: Product[] = [
     tagline: "AI-Powered 8D & Quality Mgmt",
     icon: ShieldCheck,
     status: "live",
-    href: "/login?redirect=/oem",
+    href: "/login?redirect=/quality/oem",
     color: "from-emerald-400 to-emerald-600",
     accent: "bg-emerald-500/10 text-emerald-400",
   },
@@ -472,7 +472,7 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
             >
-              <Link href="/login?redirect=/oem">
+              <Link href="/login?redirect=/quality/oem">
                 <Button
                   size="lg"
                   className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-background shadow-xl shadow-emerald-500/15 transition-transform hover:bg-emerald-400 hover:scale-[1.02] hover:shadow-emerald-500/25"
@@ -859,7 +859,7 @@ export default function LandingPage() {
                 Join the factories already running on PlantX. Start with PlantQuality and grow at your own pace.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Link href="/login?redirect=/oem">
+                <Link href="/login?redirect=/quality/oem">
                   <Button
                     size="lg"
                     className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-background shadow-xl shadow-emerald-500/15 hover:bg-emerald-400"

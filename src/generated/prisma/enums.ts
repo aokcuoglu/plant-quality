@@ -48,7 +48,13 @@ export const NotificationType = {
   FMEA_HIGH_RPN: 'FMEA_HIGH_RPN',
   FIELD_DEFECT_CREATED: 'FIELD_DEFECT_CREATED',
   FIELD_DEFECT_ASSIGNED: 'FIELD_DEFECT_ASSIGNED',
-  FIELD_DEFECT_CONVERTED_TO_8D: 'FIELD_DEFECT_CONVERTED_TO_8D'
+  FIELD_DEFECT_CONVERTED_TO_8D: 'FIELD_DEFECT_CONVERTED_TO_8D',
+  FIELD_DEFECT_OVERDUE: 'FIELD_DEFECT_OVERDUE',
+  FIELD_DEFECT_ESCALATED: 'FIELD_DEFECT_ESCALATED',
+  FIELD_DEFECT_STATUS_CHANGED: 'FIELD_DEFECT_STATUS_CHANGED',
+  EIGHT_D_OVERDUE: 'EIGHT_D_OVERDUE',
+  EIGHT_D_ESCALATED: 'EIGHT_D_ESCALATED',
+  COMMENT_ADDED: 'COMMENT_ADDED'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -96,7 +102,9 @@ export const DefectEventType = {
   FIELD_DEFECT_ATTACHMENT_ADDED: 'FIELD_DEFECT_ATTACHMENT_ADDED',
   FIELD_DEFECT_ATTACHMENT_REMOVED: 'FIELD_DEFECT_ATTACHMENT_REMOVED',
   FIELD_DEFECT_CLOSED: 'FIELD_DEFECT_CLOSED',
-  FIELD_DEFECT_CANCELLED: 'FIELD_DEFECT_CANCELLED'
+  FIELD_DEFECT_CANCELLED: 'FIELD_DEFECT_CANCELLED',
+  FIELD_DEFECT_ESCALATED: 'FIELD_DEFECT_ESCALATED',
+  FIELD_DEFECT_SLA_UPDATED: 'FIELD_DEFECT_SLA_UPDATED'
 } as const
 
 export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]
@@ -237,3 +245,13 @@ export const FieldDefectStatus = {
 } as const
 
 export type FieldDefectStatus = (typeof FieldDefectStatus)[keyof typeof FieldDefectStatus]
+
+
+export const EscalationLevel = {
+  NONE: 'NONE',
+  LEVEL_1: 'LEVEL_1',
+  LEVEL_2: 'LEVEL_2',
+  LEVEL_3: 'LEVEL_3'
+} as const
+
+export type EscalationLevel = (typeof EscalationLevel)[keyof typeof EscalationLevel]

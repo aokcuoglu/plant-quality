@@ -227,6 +227,13 @@ export type EnumActionOwnerFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel> | $Enums.ActionOwner
 }
 
+export type EnumEscalationLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.EscalationLevel | Prisma.EnumEscalationLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEscalationLevelFilter<$PrismaModel> | $Enums.EscalationLevel
+}
+
 export type EnumDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.DefectStatus | Prisma.EnumDefectStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DefectStatus[] | Prisma.ListEnumDefectStatusFieldRefInput<$PrismaModel>
@@ -245,6 +252,16 @@ export type EnumActionOwnerWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
   _max?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
+}
+
+export type EnumEscalationLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EscalationLevel | Prisma.EnumEscalationLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEscalationLevelWithAggregatesFilter<$PrismaModel> | $Enums.EscalationLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEscalationLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEscalationLevelFilter<$PrismaModel>
 }
 
 export type IntFilter<$PrismaModel = never> = {
@@ -785,6 +802,13 @@ export type NestedEnumActionOwnerFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel> | $Enums.ActionOwner
 }
 
+export type NestedEnumEscalationLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.EscalationLevel | Prisma.EnumEscalationLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEscalationLevelFilter<$PrismaModel> | $Enums.EscalationLevel
+}
+
 export type NestedEnumDefectStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.DefectStatus | Prisma.EnumDefectStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DefectStatus[] | Prisma.ListEnumDefectStatusFieldRefInput<$PrismaModel>
@@ -803,6 +827,16 @@ export type NestedEnumActionOwnerWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
   _max?: Prisma.NestedEnumActionOwnerFilter<$PrismaModel>
+}
+
+export type NestedEnumEscalationLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EscalationLevel | Prisma.EnumEscalationLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EscalationLevel[] | Prisma.ListEnumEscalationLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEscalationLevelWithAggregatesFilter<$PrismaModel> | $Enums.EscalationLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEscalationLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEscalationLevelFilter<$PrismaModel>
 }
 
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {

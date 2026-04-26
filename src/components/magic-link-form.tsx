@@ -23,7 +23,7 @@ export function MagicLinkForm({ redirectTo }: Props) {
       await signIn("nodemailer", {
         email,
         redirect: false,
-        callbackUrl: redirectTo && redirectTo !== "/" ? redirectTo : "/oem",
+        callbackUrl: redirectTo && redirectTo !== "/" ? redirectTo : "/quality/oem",
       })
       setSent(true)
     } catch (err) {

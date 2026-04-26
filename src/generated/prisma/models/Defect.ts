@@ -38,6 +38,10 @@ export type DefectMinAggregateOutputType = {
   oemReviewDueAt: Date | null
   revisionDueAt: Date | null
   currentActionOwner: $Enums.ActionOwner | null
+  escalationLevel: $Enums.EscalationLevel | null
+  escalatedAt: Date | null
+  escalatedById: string | null
+  escalationReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
   resolvedAt: Date | null
@@ -57,6 +61,10 @@ export type DefectMaxAggregateOutputType = {
   oemReviewDueAt: Date | null
   revisionDueAt: Date | null
   currentActionOwner: $Enums.ActionOwner | null
+  escalationLevel: $Enums.EscalationLevel | null
+  escalatedAt: Date | null
+  escalatedById: string | null
+  escalationReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
   resolvedAt: Date | null
@@ -77,6 +85,10 @@ export type DefectCountAggregateOutputType = {
   oemReviewDueAt: number
   revisionDueAt: number
   currentActionOwner: number
+  escalationLevel: number
+  escalatedAt: number
+  escalatedById: number
+  escalationReason: number
   createdAt: number
   updatedAt: number
   resolvedAt: number
@@ -98,6 +110,10 @@ export type DefectMinAggregateInputType = {
   oemReviewDueAt?: true
   revisionDueAt?: true
   currentActionOwner?: true
+  escalationLevel?: true
+  escalatedAt?: true
+  escalatedById?: true
+  escalationReason?: true
   createdAt?: true
   updatedAt?: true
   resolvedAt?: true
@@ -117,6 +133,10 @@ export type DefectMaxAggregateInputType = {
   oemReviewDueAt?: true
   revisionDueAt?: true
   currentActionOwner?: true
+  escalationLevel?: true
+  escalatedAt?: true
+  escalatedById?: true
+  escalationReason?: true
   createdAt?: true
   updatedAt?: true
   resolvedAt?: true
@@ -137,6 +157,10 @@ export type DefectCountAggregateInputType = {
   oemReviewDueAt?: true
   revisionDueAt?: true
   currentActionOwner?: true
+  escalationLevel?: true
+  escalatedAt?: true
+  escalatedById?: true
+  escalationReason?: true
   createdAt?: true
   updatedAt?: true
   resolvedAt?: true
@@ -230,6 +254,10 @@ export type DefectGroupByOutputType = {
   oemReviewDueAt: Date | null
   revisionDueAt: Date | null
   currentActionOwner: $Enums.ActionOwner
+  escalationLevel: $Enums.EscalationLevel
+  escalatedAt: Date | null
+  escalatedById: string | null
+  escalationReason: string | null
   createdAt: Date
   updatedAt: Date
   resolvedAt: Date | null
@@ -271,6 +299,10 @@ export type DefectWhereInput = {
   oemReviewDueAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   revisionDueAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFilter<"Defect"> | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFilter<"Defect"> | $Enums.EscalationLevel
+  escalatedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
+  escalatedById?: Prisma.StringNullableFilter<"Defect"> | string | null
+  escalationReason?: Prisma.StringNullableFilter<"Defect"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
@@ -278,6 +310,7 @@ export type DefectWhereInput = {
   supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   oemOwner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   supplierAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  escalatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   eightDReport?: Prisma.XOR<Prisma.EightDReportNullableScalarRelationFilter, Prisma.EightDReportWhereInput> | null
   events?: Prisma.DefectEventListRelationFilter
   evidences?: Prisma.DefectEvidenceListRelationFilter
@@ -302,6 +335,10 @@ export type DefectOrderByWithRelationInput = {
   oemReviewDueAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionDueAt?: Prisma.SortOrderInput | Prisma.SortOrder
   currentActionOwner?: Prisma.SortOrder
+  escalationLevel?: Prisma.SortOrder
+  escalatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  escalatedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  escalationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -309,6 +346,7 @@ export type DefectOrderByWithRelationInput = {
   supplier?: Prisma.CompanyOrderByWithRelationInput
   oemOwner?: Prisma.UserOrderByWithRelationInput
   supplierAssignee?: Prisma.UserOrderByWithRelationInput
+  escalatedBy?: Prisma.UserOrderByWithRelationInput
   eightDReport?: Prisma.EightDReportOrderByWithRelationInput
   events?: Prisma.DefectEventOrderByRelationAggregateInput
   evidences?: Prisma.DefectEvidenceOrderByRelationAggregateInput
@@ -336,6 +374,10 @@ export type DefectWhereUniqueInput = Prisma.AtLeast<{
   oemReviewDueAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   revisionDueAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFilter<"Defect"> | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFilter<"Defect"> | $Enums.EscalationLevel
+  escalatedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
+  escalatedById?: Prisma.StringNullableFilter<"Defect"> | string | null
+  escalationReason?: Prisma.StringNullableFilter<"Defect"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
@@ -343,6 +385,7 @@ export type DefectWhereUniqueInput = Prisma.AtLeast<{
   supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   oemOwner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   supplierAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  escalatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   eightDReport?: Prisma.XOR<Prisma.EightDReportNullableScalarRelationFilter, Prisma.EightDReportWhereInput> | null
   events?: Prisma.DefectEventListRelationFilter
   evidences?: Prisma.DefectEvidenceListRelationFilter
@@ -367,6 +410,10 @@ export type DefectOrderByWithAggregationInput = {
   oemReviewDueAt?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionDueAt?: Prisma.SortOrderInput | Prisma.SortOrder
   currentActionOwner?: Prisma.SortOrder
+  escalationLevel?: Prisma.SortOrder
+  escalatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  escalatedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  escalationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -393,6 +440,10 @@ export type DefectScalarWhereWithAggregatesInput = {
   oemReviewDueAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Defect"> | Date | string | null
   revisionDueAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Defect"> | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerWithAggregatesFilter<"Defect"> | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelWithAggregatesFilter<"Defect"> | $Enums.EscalationLevel
+  escalatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Defect"> | Date | string | null
+  escalatedById?: Prisma.StringNullableWithAggregatesFilter<"Defect"> | string | null
+  escalationReason?: Prisma.StringNullableWithAggregatesFilter<"Defect"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Defect"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Defect"> | Date | string | null
@@ -409,6 +460,9 @@ export type DefectCreateInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -416,6 +470,7 @@ export type DefectCreateInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -440,6 +495,10 @@ export type DefectUncheckedCreateInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -463,6 +522,9 @@ export type DefectUpdateInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -470,6 +532,7 @@ export type DefectUpdateInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -494,6 +557,10 @@ export type DefectUncheckedUpdateInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -521,6 +588,10 @@ export type DefectCreateManyInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -537,6 +608,9 @@ export type DefectUpdateManyMutationInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -557,6 +631,10 @@ export type DefectUncheckedUpdateManyInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -595,6 +673,10 @@ export type DefectCountOrderByAggregateInput = {
   oemReviewDueAt?: Prisma.SortOrder
   revisionDueAt?: Prisma.SortOrder
   currentActionOwner?: Prisma.SortOrder
+  escalationLevel?: Prisma.SortOrder
+  escalatedAt?: Prisma.SortOrder
+  escalatedById?: Prisma.SortOrder
+  escalationReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
@@ -614,6 +696,10 @@ export type DefectMaxOrderByAggregateInput = {
   oemReviewDueAt?: Prisma.SortOrder
   revisionDueAt?: Prisma.SortOrder
   currentActionOwner?: Prisma.SortOrder
+  escalationLevel?: Prisma.SortOrder
+  escalatedAt?: Prisma.SortOrder
+  escalatedById?: Prisma.SortOrder
+  escalationReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
@@ -633,6 +719,10 @@ export type DefectMinOrderByAggregateInput = {
   oemReviewDueAt?: Prisma.SortOrder
   revisionDueAt?: Prisma.SortOrder
   currentActionOwner?: Prisma.SortOrder
+  escalationLevel?: Prisma.SortOrder
+  escalatedAt?: Prisma.SortOrder
+  escalatedById?: Prisma.SortOrder
+  escalationReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
@@ -746,6 +836,13 @@ export type DefectCreateNestedManyWithoutSupplierAssigneeInput = {
   connect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
 }
 
+export type DefectCreateNestedManyWithoutEscalatedByInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutEscalatedByInput, Prisma.DefectUncheckedCreateWithoutEscalatedByInput> | Prisma.DefectCreateWithoutEscalatedByInput[] | Prisma.DefectUncheckedCreateWithoutEscalatedByInput[]
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutEscalatedByInput | Prisma.DefectCreateOrConnectWithoutEscalatedByInput[]
+  createMany?: Prisma.DefectCreateManyEscalatedByInputEnvelope
+  connect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+}
+
 export type DefectUncheckedCreateNestedManyWithoutOemOwnerInput = {
   create?: Prisma.XOR<Prisma.DefectCreateWithoutOemOwnerInput, Prisma.DefectUncheckedCreateWithoutOemOwnerInput> | Prisma.DefectCreateWithoutOemOwnerInput[] | Prisma.DefectUncheckedCreateWithoutOemOwnerInput[]
   connectOrCreate?: Prisma.DefectCreateOrConnectWithoutOemOwnerInput | Prisma.DefectCreateOrConnectWithoutOemOwnerInput[]
@@ -757,6 +854,13 @@ export type DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput = {
   create?: Prisma.XOR<Prisma.DefectCreateWithoutSupplierAssigneeInput, Prisma.DefectUncheckedCreateWithoutSupplierAssigneeInput> | Prisma.DefectCreateWithoutSupplierAssigneeInput[] | Prisma.DefectUncheckedCreateWithoutSupplierAssigneeInput[]
   connectOrCreate?: Prisma.DefectCreateOrConnectWithoutSupplierAssigneeInput | Prisma.DefectCreateOrConnectWithoutSupplierAssigneeInput[]
   createMany?: Prisma.DefectCreateManySupplierAssigneeInputEnvelope
+  connect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+}
+
+export type DefectUncheckedCreateNestedManyWithoutEscalatedByInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutEscalatedByInput, Prisma.DefectUncheckedCreateWithoutEscalatedByInput> | Prisma.DefectCreateWithoutEscalatedByInput[] | Prisma.DefectUncheckedCreateWithoutEscalatedByInput[]
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutEscalatedByInput | Prisma.DefectCreateOrConnectWithoutEscalatedByInput[]
+  createMany?: Prisma.DefectCreateManyEscalatedByInputEnvelope
   connect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
 }
 
@@ -788,6 +892,20 @@ export type DefectUpdateManyWithoutSupplierAssigneeNestedInput = {
   deleteMany?: Prisma.DefectScalarWhereInput | Prisma.DefectScalarWhereInput[]
 }
 
+export type DefectUpdateManyWithoutEscalatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutEscalatedByInput, Prisma.DefectUncheckedCreateWithoutEscalatedByInput> | Prisma.DefectCreateWithoutEscalatedByInput[] | Prisma.DefectUncheckedCreateWithoutEscalatedByInput[]
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutEscalatedByInput | Prisma.DefectCreateOrConnectWithoutEscalatedByInput[]
+  upsert?: Prisma.DefectUpsertWithWhereUniqueWithoutEscalatedByInput | Prisma.DefectUpsertWithWhereUniqueWithoutEscalatedByInput[]
+  createMany?: Prisma.DefectCreateManyEscalatedByInputEnvelope
+  set?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  disconnect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  delete?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  connect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  update?: Prisma.DefectUpdateWithWhereUniqueWithoutEscalatedByInput | Prisma.DefectUpdateWithWhereUniqueWithoutEscalatedByInput[]
+  updateMany?: Prisma.DefectUpdateManyWithWhereWithoutEscalatedByInput | Prisma.DefectUpdateManyWithWhereWithoutEscalatedByInput[]
+  deleteMany?: Prisma.DefectScalarWhereInput | Prisma.DefectScalarWhereInput[]
+}
+
 export type DefectUncheckedUpdateManyWithoutOemOwnerNestedInput = {
   create?: Prisma.XOR<Prisma.DefectCreateWithoutOemOwnerInput, Prisma.DefectUncheckedCreateWithoutOemOwnerInput> | Prisma.DefectCreateWithoutOemOwnerInput[] | Prisma.DefectUncheckedCreateWithoutOemOwnerInput[]
   connectOrCreate?: Prisma.DefectCreateOrConnectWithoutOemOwnerInput | Prisma.DefectCreateOrConnectWithoutOemOwnerInput[]
@@ -816,6 +934,20 @@ export type DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput = {
   deleteMany?: Prisma.DefectScalarWhereInput | Prisma.DefectScalarWhereInput[]
 }
 
+export type DefectUncheckedUpdateManyWithoutEscalatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutEscalatedByInput, Prisma.DefectUncheckedCreateWithoutEscalatedByInput> | Prisma.DefectCreateWithoutEscalatedByInput[] | Prisma.DefectUncheckedCreateWithoutEscalatedByInput[]
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutEscalatedByInput | Prisma.DefectCreateOrConnectWithoutEscalatedByInput[]
+  upsert?: Prisma.DefectUpsertWithWhereUniqueWithoutEscalatedByInput | Prisma.DefectUpsertWithWhereUniqueWithoutEscalatedByInput[]
+  createMany?: Prisma.DefectCreateManyEscalatedByInputEnvelope
+  set?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  disconnect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  delete?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  connect?: Prisma.DefectWhereUniqueInput | Prisma.DefectWhereUniqueInput[]
+  update?: Prisma.DefectUpdateWithWhereUniqueWithoutEscalatedByInput | Prisma.DefectUpdateWithWhereUniqueWithoutEscalatedByInput[]
+  updateMany?: Prisma.DefectUpdateManyWithWhereWithoutEscalatedByInput | Prisma.DefectUpdateManyWithWhereWithoutEscalatedByInput[]
+  deleteMany?: Prisma.DefectScalarWhereInput | Prisma.DefectScalarWhereInput[]
+}
+
 export type DefectCreateimageUrlsInput = {
   set: string[]
 }
@@ -831,6 +963,10 @@ export type DefectUpdateimageUrlsInput = {
 
 export type EnumActionOwnerFieldUpdateOperationsInput = {
   set?: $Enums.ActionOwner
+}
+
+export type EnumEscalationLevelFieldUpdateOperationsInput = {
+  set?: $Enums.EscalationLevel
 }
 
 export type DefectCreateNestedOneWithoutEightDReportInput = {
@@ -950,12 +1086,16 @@ export type DefectCreateWithoutOemInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -979,6 +1119,10 @@ export type DefectUncheckedCreateWithoutOemInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1012,12 +1156,16 @@ export type DefectCreateWithoutSupplierInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -1041,6 +1189,10 @@ export type DefectUncheckedCreateWithoutSupplierInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1097,6 +1249,10 @@ export type DefectScalarWhereInput = {
   oemReviewDueAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   revisionDueAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFilter<"Defect"> | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFilter<"Defect"> | $Enums.EscalationLevel
+  escalatedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
+  escalatedById?: Prisma.StringNullableFilter<"Defect"> | string | null
+  escalationReason?: Prisma.StringNullableFilter<"Defect"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Defect"> | Date | string
   resolvedAt?: Prisma.DateTimeNullableFilter<"Defect"> | Date | string | null
@@ -1129,12 +1285,16 @@ export type DefectCreateWithoutOemOwnerInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -1158,6 +1318,10 @@ export type DefectUncheckedCreateWithoutOemOwnerInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1191,12 +1355,16 @@ export type DefectCreateWithoutSupplierAssigneeInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -1220,6 +1388,10 @@ export type DefectUncheckedCreateWithoutSupplierAssigneeInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1239,6 +1411,76 @@ export type DefectCreateOrConnectWithoutSupplierAssigneeInput = {
 
 export type DefectCreateManySupplierAssigneeInputEnvelope = {
   data: Prisma.DefectCreateManySupplierAssigneeInput | Prisma.DefectCreateManySupplierAssigneeInput[]
+  skipDuplicates?: boolean
+}
+
+export type DefectCreateWithoutEscalatedByInput = {
+  id?: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
+  oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
+  supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
+  events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
+  ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
+  iqcReport?: Prisma.IqcReportCreateNestedOneWithoutDefectInput
+  fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
+  linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+}
+
+export type DefectUncheckedCreateWithoutEscalatedByInput = {
+  id?: string
+  oemId: string
+  supplierId: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  oemOwnerId?: string | null
+  supplierAssigneeId?: string | null
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
+  events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
+  ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
+  iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutDefectInput
+  fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
+  linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+}
+
+export type DefectCreateOrConnectWithoutEscalatedByInput = {
+  where: Prisma.DefectWhereUniqueInput
+  create: Prisma.XOR<Prisma.DefectCreateWithoutEscalatedByInput, Prisma.DefectUncheckedCreateWithoutEscalatedByInput>
+}
+
+export type DefectCreateManyEscalatedByInputEnvelope = {
+  data: Prisma.DefectCreateManyEscalatedByInput | Prisma.DefectCreateManyEscalatedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -1274,6 +1516,22 @@ export type DefectUpdateManyWithWhereWithoutSupplierAssigneeInput = {
   data: Prisma.XOR<Prisma.DefectUpdateManyMutationInput, Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeInput>
 }
 
+export type DefectUpsertWithWhereUniqueWithoutEscalatedByInput = {
+  where: Prisma.DefectWhereUniqueInput
+  update: Prisma.XOR<Prisma.DefectUpdateWithoutEscalatedByInput, Prisma.DefectUncheckedUpdateWithoutEscalatedByInput>
+  create: Prisma.XOR<Prisma.DefectCreateWithoutEscalatedByInput, Prisma.DefectUncheckedCreateWithoutEscalatedByInput>
+}
+
+export type DefectUpdateWithWhereUniqueWithoutEscalatedByInput = {
+  where: Prisma.DefectWhereUniqueInput
+  data: Prisma.XOR<Prisma.DefectUpdateWithoutEscalatedByInput, Prisma.DefectUncheckedUpdateWithoutEscalatedByInput>
+}
+
+export type DefectUpdateManyWithWhereWithoutEscalatedByInput = {
+  where: Prisma.DefectScalarWhereInput
+  data: Prisma.XOR<Prisma.DefectUpdateManyMutationInput, Prisma.DefectUncheckedUpdateManyWithoutEscalatedByInput>
+}
+
 export type DefectCreateWithoutEightDReportInput = {
   id?: string
   partNumber: string
@@ -1285,6 +1543,9 @@ export type DefectCreateWithoutEightDReportInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1292,6 +1553,7 @@ export type DefectCreateWithoutEightDReportInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
@@ -1315,6 +1577,10 @@ export type DefectUncheckedCreateWithoutEightDReportInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1353,6 +1619,9 @@ export type DefectUpdateWithoutEightDReportInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1360,6 +1629,7 @@ export type DefectUpdateWithoutEightDReportInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
@@ -1383,6 +1653,10 @@ export type DefectUncheckedUpdateWithoutEightDReportInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1405,6 +1679,9 @@ export type DefectCreateWithoutEventsInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1412,6 +1689,7 @@ export type DefectCreateWithoutEventsInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
@@ -1435,6 +1713,10 @@ export type DefectUncheckedCreateWithoutEventsInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1473,6 +1755,9 @@ export type DefectUpdateWithoutEventsInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1480,6 +1765,7 @@ export type DefectUpdateWithoutEventsInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
@@ -1503,6 +1789,10 @@ export type DefectUncheckedUpdateWithoutEventsInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1525,6 +1815,9 @@ export type DefectCreateWithoutEvidencesInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1532,6 +1825,7 @@ export type DefectCreateWithoutEvidencesInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
@@ -1555,6 +1849,10 @@ export type DefectUncheckedCreateWithoutEvidencesInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1593,6 +1891,9 @@ export type DefectUpdateWithoutEvidencesInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1600,6 +1901,7 @@ export type DefectUpdateWithoutEvidencesInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
@@ -1623,6 +1925,10 @@ export type DefectUncheckedUpdateWithoutEvidencesInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1645,6 +1951,9 @@ export type DefectCreateWithoutPpapInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1652,6 +1961,7 @@ export type DefectCreateWithoutPpapInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -1675,6 +1985,10 @@ export type DefectUncheckedCreateWithoutPpapInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1713,6 +2027,9 @@ export type DefectUpdateWithoutPpapInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1720,6 +2037,7 @@ export type DefectUpdateWithoutPpapInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -1743,6 +2061,10 @@ export type DefectUncheckedUpdateWithoutPpapInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1765,6 +2087,9 @@ export type DefectCreateWithoutIqcReportInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1772,6 +2097,7 @@ export type DefectCreateWithoutIqcReportInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -1795,6 +2121,10 @@ export type DefectUncheckedCreateWithoutIqcReportInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1833,6 +2163,9 @@ export type DefectUpdateWithoutIqcReportInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1840,6 +2173,7 @@ export type DefectUpdateWithoutIqcReportInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -1863,6 +2197,10 @@ export type DefectUncheckedUpdateWithoutIqcReportInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1885,6 +2223,9 @@ export type DefectCreateWithoutFmeaInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1892,6 +2233,7 @@ export type DefectCreateWithoutFmeaInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -1915,6 +2257,10 @@ export type DefectUncheckedCreateWithoutFmeaInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -1953,6 +2299,9 @@ export type DefectUpdateWithoutFmeaInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1960,6 +2309,7 @@ export type DefectUpdateWithoutFmeaInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -1983,6 +2333,10 @@ export type DefectUncheckedUpdateWithoutFmeaInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2005,6 +2359,9 @@ export type DefectCreateWithoutLinkedFieldDefectInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -2012,6 +2369,7 @@ export type DefectCreateWithoutLinkedFieldDefectInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
   eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
   events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
@@ -2035,6 +2393,10 @@ export type DefectUncheckedCreateWithoutLinkedFieldDefectInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -2073,6 +2435,9 @@ export type DefectUpdateWithoutLinkedFieldDefectInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2080,6 +2445,7 @@ export type DefectUpdateWithoutLinkedFieldDefectInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -2103,6 +2469,10 @@ export type DefectUncheckedUpdateWithoutLinkedFieldDefectInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2128,6 +2498,10 @@ export type DefectCreateManyOemInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -2147,6 +2521,10 @@ export type DefectCreateManySupplierInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -2163,12 +2541,16 @@ export type DefectUpdateWithoutOemInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -2192,6 +2574,10 @@ export type DefectUncheckedUpdateWithoutOemInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2218,6 +2604,10 @@ export type DefectUncheckedUpdateManyWithoutOemInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2234,12 +2624,16 @@ export type DefectUpdateWithoutSupplierInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -2263,6 +2657,10 @@ export type DefectUncheckedUpdateWithoutSupplierInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2289,6 +2687,10 @@ export type DefectUncheckedUpdateManyWithoutSupplierInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2308,6 +2710,10 @@ export type DefectCreateManyOemOwnerInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -2327,6 +2733,33 @@ export type DefectCreateManySupplierAssigneeInput = {
   oemReviewDueAt?: Date | string | null
   revisionDueAt?: Date | string | null
   currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+}
+
+export type DefectCreateManyEscalatedByInput = {
+  id?: string
+  oemId: string
+  supplierId: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  oemOwnerId?: string | null
+  supplierAssigneeId?: string | null
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   resolvedAt?: Date | string | null
@@ -2343,12 +2776,16 @@ export type DefectUpdateWithoutOemOwnerInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -2372,6 +2809,10 @@ export type DefectUncheckedUpdateWithoutOemOwnerInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2398,6 +2839,10 @@ export type DefectUncheckedUpdateManyWithoutOemOwnerInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2414,12 +2859,16 @@ export type DefectUpdateWithoutSupplierAssigneeInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
   eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
   events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
@@ -2443,6 +2892,10 @@ export type DefectUncheckedUpdateWithoutSupplierAssigneeInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2469,6 +2922,93 @@ export type DefectUncheckedUpdateManyWithoutSupplierAssigneeInput = {
   oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type DefectUpdateWithoutEscalatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
+  oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
+  supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
+  events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
+  ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
+  iqcReport?: Prisma.IqcReportUpdateOneWithoutDefectNestedInput
+  fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
+  linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+}
+
+export type DefectUncheckedUpdateWithoutEscalatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
+  events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
+  ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
+  iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutDefectNestedInput
+  fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
+  linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+}
+
+export type DefectUncheckedUpdateManyWithoutEscalatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2529,6 +3069,10 @@ export type DefectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   oemReviewDueAt?: boolean
   revisionDueAt?: boolean
   currentActionOwner?: boolean
+  escalationLevel?: boolean
+  escalatedAt?: boolean
+  escalatedById?: boolean
+  escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
@@ -2536,6 +3080,7 @@ export type DefectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.Defect$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
+  escalatedBy?: boolean | Prisma.Defect$escalatedByArgs<ExtArgs>
   eightDReport?: boolean | Prisma.Defect$eightDReportArgs<ExtArgs>
   events?: boolean | Prisma.Defect$eventsArgs<ExtArgs>
   evidences?: boolean | Prisma.Defect$evidencesArgs<ExtArgs>
@@ -2561,6 +3106,10 @@ export type DefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   oemReviewDueAt?: boolean
   revisionDueAt?: boolean
   currentActionOwner?: boolean
+  escalationLevel?: boolean
+  escalatedAt?: boolean
+  escalatedById?: boolean
+  escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
@@ -2568,6 +3117,7 @@ export type DefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.Defect$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
+  escalatedBy?: boolean | Prisma.Defect$escalatedByArgs<ExtArgs>
 }, ExtArgs["result"]["defect"]>
 
 export type DefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2585,6 +3135,10 @@ export type DefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   oemReviewDueAt?: boolean
   revisionDueAt?: boolean
   currentActionOwner?: boolean
+  escalationLevel?: boolean
+  escalatedAt?: boolean
+  escalatedById?: boolean
+  escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
@@ -2592,6 +3146,7 @@ export type DefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.Defect$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
+  escalatedBy?: boolean | Prisma.Defect$escalatedByArgs<ExtArgs>
 }, ExtArgs["result"]["defect"]>
 
 export type DefectSelectScalar = {
@@ -2609,17 +3164,22 @@ export type DefectSelectScalar = {
   oemReviewDueAt?: boolean
   revisionDueAt?: boolean
   currentActionOwner?: boolean
+  escalationLevel?: boolean
+  escalatedAt?: boolean
+  escalatedById?: boolean
+  escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   resolvedAt?: boolean
 }
 
-export type DefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "oemId" | "supplierId" | "partNumber" | "description" | "status" | "imageUrls" | "oemOwnerId" | "supplierAssigneeId" | "supplierResponseDueAt" | "eightDSubmissionDueAt" | "oemReviewDueAt" | "revisionDueAt" | "currentActionOwner" | "createdAt" | "updatedAt" | "resolvedAt", ExtArgs["result"]["defect"]>
+export type DefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "oemId" | "supplierId" | "partNumber" | "description" | "status" | "imageUrls" | "oemOwnerId" | "supplierAssigneeId" | "supplierResponseDueAt" | "eightDSubmissionDueAt" | "oemReviewDueAt" | "revisionDueAt" | "currentActionOwner" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "createdAt" | "updatedAt" | "resolvedAt", ExtArgs["result"]["defect"]>
 export type DefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.Defect$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
+  escalatedBy?: boolean | Prisma.Defect$escalatedByArgs<ExtArgs>
   eightDReport?: boolean | Prisma.Defect$eightDReportArgs<ExtArgs>
   events?: boolean | Prisma.Defect$eventsArgs<ExtArgs>
   evidences?: boolean | Prisma.Defect$evidencesArgs<ExtArgs>
@@ -2634,12 +3194,14 @@ export type DefectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.Defect$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
+  escalatedBy?: boolean | Prisma.Defect$escalatedByArgs<ExtArgs>
 }
 export type DefectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.Defect$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.Defect$supplierAssigneeArgs<ExtArgs>
+  escalatedBy?: boolean | Prisma.Defect$escalatedByArgs<ExtArgs>
 }
 
 export type $DefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2649,6 +3211,7 @@ export type $DefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     supplier: Prisma.$CompanyPayload<ExtArgs>
     oemOwner: Prisma.$UserPayload<ExtArgs> | null
     supplierAssignee: Prisma.$UserPayload<ExtArgs> | null
+    escalatedBy: Prisma.$UserPayload<ExtArgs> | null
     eightDReport: Prisma.$EightDReportPayload<ExtArgs> | null
     events: Prisma.$DefectEventPayload<ExtArgs>[]
     evidences: Prisma.$DefectEvidencePayload<ExtArgs>[]
@@ -2672,6 +3235,10 @@ export type $DefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     oemReviewDueAt: Date | null
     revisionDueAt: Date | null
     currentActionOwner: $Enums.ActionOwner
+    escalationLevel: $Enums.EscalationLevel
+    escalatedAt: Date | null
+    escalatedById: string | null
+    escalationReason: string | null
     createdAt: Date
     updatedAt: Date
     resolvedAt: Date | null
@@ -3073,6 +3640,7 @@ export interface Prisma__DefectClient<T, Null = never, ExtArgs extends runtime.T
   supplier<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   oemOwner<T extends Prisma.Defect$oemOwnerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$oemOwnerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   supplierAssignee<T extends Prisma.Defect$supplierAssigneeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$supplierAssigneeArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  escalatedBy<T extends Prisma.Defect$escalatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$escalatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   eightDReport<T extends Prisma.Defect$eightDReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$eightDReportArgs<ExtArgs>>): Prisma.Prisma__EightDReportClient<runtime.Types.Result.GetResult<Prisma.$EightDReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.Defect$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   evidences<T extends Prisma.Defect$evidencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$evidencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3123,6 +3691,10 @@ export interface DefectFieldRefs {
   readonly oemReviewDueAt: Prisma.FieldRef<"Defect", 'DateTime'>
   readonly revisionDueAt: Prisma.FieldRef<"Defect", 'DateTime'>
   readonly currentActionOwner: Prisma.FieldRef<"Defect", 'ActionOwner'>
+  readonly escalationLevel: Prisma.FieldRef<"Defect", 'EscalationLevel'>
+  readonly escalatedAt: Prisma.FieldRef<"Defect", 'DateTime'>
+  readonly escalatedById: Prisma.FieldRef<"Defect", 'String'>
+  readonly escalationReason: Prisma.FieldRef<"Defect", 'String'>
   readonly createdAt: Prisma.FieldRef<"Defect", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Defect", 'DateTime'>
   readonly resolvedAt: Prisma.FieldRef<"Defect", 'DateTime'>
@@ -3549,6 +4121,25 @@ export type Defect$oemOwnerArgs<ExtArgs extends runtime.Types.Extensions.Interna
  * Defect.supplierAssignee
  */
 export type Defect$supplierAssigneeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Defect.escalatedBy
+ */
+export type Defect$escalatedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */

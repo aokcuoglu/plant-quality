@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
   const session = await auth()
 
   if (session && (pathname === "/login" || pathname === "/verify-request")) {
-    const dest = session.user.companyType === "OEM" ? "/oem" : "/supplier"
+    const dest = session.user.companyType === "OEM" ? "/quality/oem" : "/quality/supplier"
     const redirectUrl = request.nextUrl.clone()
     redirectUrl.pathname = dest
     redirectUrl.search = ""

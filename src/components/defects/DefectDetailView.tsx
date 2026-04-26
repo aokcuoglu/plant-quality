@@ -49,7 +49,7 @@ import {
   rejectReport,
   reopenReviewComment,
   resolveReviewComment,
-} from "@/app/(dashboard)/oem/defects/actions/review"
+} from "@/app/(dashboard)/quality/oem/defects/actions/review"
 
 type DefectStatus = "OPEN" | "IN_PROGRESS" | "WAITING_APPROVAL" | "RESOLVED" | "REJECTED"
 type CompanyType = "OEM" | "SUPPLIER"
@@ -845,7 +845,7 @@ export function DefectDetailView({
   defect: DefectDetail
   companyType: CompanyType
 }) {
-  const backHref = companyType === "OEM" ? "/oem/defects" : "/supplier/defects"
+  const backHref = companyType === "OEM" ? "/quality/oem/defects" : "/quality/supplier/defects"
   const activeDueDate = getActiveDueDate(defect)
   const overdue = isDefectOverdue(defect)
 
@@ -1005,7 +1005,7 @@ export function DefectDetailView({
           {/* Supplier action button */}
           {companyType === "SUPPLIER" && supplierActionLabel && (
             <a
-              href={`/supplier/defects/${defect.id}/8d`}
+              href={`/quality/supplier/defects/${defect.id}/8d`}
               className={cn(
                 buttonVariants({
                   variant: defect.status === "OPEN" ? "default" : "outline",

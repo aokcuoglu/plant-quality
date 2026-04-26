@@ -2,13 +2,14 @@
 
 import { useState, useCallback, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
-import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon, ClockIcon, FileTextIcon, ClipboardCheckIcon, ShieldAlertIcon, XCircleIcon } from "lucide-react"
+import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon, ClockIcon, FileTextIcon, ClipboardCheckIcon, ShieldAlertIcon, XCircleIcon, BugIcon, MessageSquareIcon, TrendingUpIcon, CheckCheckIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { NotificationType } from "@/generated/prisma/client"
 
 type Notification = {
   id: string
+  title: string | null
   message: string
   type: NotificationType
   link: string | null
@@ -26,6 +27,7 @@ export function NotificationBell({
   const [open, setOpen] = useState(false)
   const [notifications, setNotifications] = useState<Notification[]>(initialNotifications ?? [])
   const [unreadCount, setUnreadCount] = useState(initialUnreadCount ?? 0)
+  const [markingAll, setMarkingAll] = useState(false)
   const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -51,6 +53,24 @@ export function NotificationBell({
         return <ClipboardCheckIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
       case "FMEA_HIGH_RPN":
         return <ShieldAlertIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+      case "FIELD_DEFECT_CREATED":
+        return <BugIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+      case "FIELD_DEFECT_ASSIGNED":
+        return <InfoIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+      case "FIELD_DEFECT_CONVERTED_TO_8D":
+        return <TrendingUpIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+      case "FIELD_DEFECT_OVERDUE":
+        return <ClockIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
+      case "FIELD_DEFECT_ESCALATED":
+        return <AlertTriangleIcon className="h-3.5 w-3.5 text-orange-500 shrink-0" />
+      case "FIELD_DEFECT_STATUS_CHANGED":
+        return <InfoIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+      case "EIGHT_D_OVERDUE":
+        return <ClockIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
+      case "EIGHT_D_ESCALATED":
+        return <AlertTriangleIcon className="h-3.5 w-3.5 text-orange-500 shrink-0" />
+      case "COMMENT_ADDED":
+        return <MessageSquareIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
       default:
         return <InfoIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
     }
@@ -69,10 +89,22 @@ export function NotificationBell({
       setOpen(false)
       if (notification.link) {
         router.push(notification.link)
+      } else {
+        router.refresh()
       }
     },
     [router]
   )
+
+  const handleMarkAllRead = useCallback(async () => {
+    setMarkingAll(true)
+    const { markAllAsRead } = await import("@/app/(dashboard)/_actions/notifications")
+    await markAllAsRead()
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })))
+    setUnreadCount(0)
+    setMarkingAll(false)
+    router.refresh()
+  }, [router])
 
   useEffect(() => {
     if (!initialNotifications) {
@@ -119,9 +151,18 @@ export function NotificationBell({
         <div className="absolute right-0 top-full mt-2 z-50 w-80 rounded-lg border bg-popover text-popover-foreground shadow-lg">
           <div className="flex items-center justify-between border-b px-4 py-2.5">
             <span className="text-sm font-medium">Notifications</span>
-            {unreadCount > 0 && (
-              <span className="text-xs text-muted-foreground">{unreadCount} unread</span>
-            )}
+            <div className="flex items-center gap-2">
+              {unreadCount > 0 && (
+                <button
+                  onClick={handleMarkAllRead}
+                  disabled={markingAll}
+                  className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 disabled:opacity-50 transition-colors"
+                >
+                  <CheckCheckIcon className="h-3 w-3" />
+                  {markingAll ? "Marking..." : "Mark all read"}
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="max-h-80 overflow-y-auto">
@@ -136,16 +177,24 @@ export function NotificationBell({
                   key={notification.id}
                   onClick={() => handleClick(notification)}
                   className={cn(
-                    "flex w-full gap-3 px-4 py-3 text-left text-sm transition-colors hover:bg-accent",
+                    "flex w-full gap-3 px-4 py-3 text-left text-sm transition-colors hover:bg-accent cursor-pointer",
                     !notification.isRead && "bg-accent/50"
                   )}
                 >
                   {typeIcon(notification.type)}
                   <div className="flex-1 min-w-0">
+                    {notification.title && (
+                      <p className={cn(
+                        "text-sm line-clamp-1",
+                        !notification.isRead && "font-medium"
+                      )}>
+                        {notification.title}
+                      </p>
+                    )}
                     <p
                       className={cn(
                         "line-clamp-2",
-                        !notification.isRead && "font-medium"
+                        !notification.isRead && !notification.title && "font-medium"
                       )}
                     >
                       {notification.message}

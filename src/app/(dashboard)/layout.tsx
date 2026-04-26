@@ -26,21 +26,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navItems = isOem
     ? [
-        { href: "/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
-        { href: "/oem/defects", label: "Defects", icon: "BugIcon" as const },
-        { href: "/oem/defects/new", label: "Report Defect", icon: "PlusCircleIcon" as const },
-        { href: "/oem/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
-        { href: "/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const },
-        { href: "/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
-        { href: "/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
+        { href: "/quality/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
+        { href: "/quality/oem/defects", label: "Defects", icon: "BugIcon" as const },
+        { href: "/quality/oem/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
+        { href: "/quality/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const },
+        { href: "/quality/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
+        { href: "/quality/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
+        { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const },
+        { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const },
+        { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const },
       ]
     : [
-        { href: "/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
-        { href: "/supplier/defects", label: "Defects", icon: "BugIcon" as const },
-        { href: "/supplier/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
-        { href: "/supplier/ppap", label: "PPAP", icon: "FileTextIcon" as const },
-        { href: "/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
-        { href: "/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
+        { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
+        { href: "/quality/supplier/defects", label: "Defects", icon: "BugIcon" as const },
+        { href: "/quality/supplier/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
+        { href: "/quality/supplier/ppap", label: "PPAP", icon: "FileTextIcon" as const },
+        { href: "/quality/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
+        { href: "/quality/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
+        { href: "/quality/supplier/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const },
+        { href: "/quality/supplier/notifications", label: "Notifications", icon: "BellIcon" as const },
       ]
 
   return (

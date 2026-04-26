@@ -408,7 +408,8 @@ export const ModelName = {
   FieldDefectComment: 'FieldDefectComment',
   FieldDefectEvent: 'FieldDefectEvent',
   Notification: 'Notification',
-  EscalationHistory: 'EscalationHistory'
+  EscalationHistory: 'EscalationHistory',
+  AiSuggestion: 'AiSuggestion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2278,6 +2279,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AiSuggestion: {
+      payload: Prisma.$AiSuggestionPayload<ExtArgs>
+      fields: Prisma.AiSuggestionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AiSuggestionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AiSuggestionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>
+        }
+        findFirst: {
+          args: Prisma.AiSuggestionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AiSuggestionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>
+        }
+        findMany: {
+          args: Prisma.AiSuggestionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>[]
+        }
+        create: {
+          args: Prisma.AiSuggestionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>
+        }
+        createMany: {
+          args: Prisma.AiSuggestionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AiSuggestionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>[]
+        }
+        delete: {
+          args: Prisma.AiSuggestionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>
+        }
+        update: {
+          args: Prisma.AiSuggestionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>
+        }
+        deleteMany: {
+          args: Prisma.AiSuggestionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AiSuggestionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AiSuggestionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>[]
+        }
+        upsert: {
+          args: Prisma.AiSuggestionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AiSuggestionPayload>
+        }
+        aggregate: {
+          args: Prisma.AiSuggestionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAiSuggestion>
+        }
+        groupBy: {
+          args: Prisma.AiSuggestionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiSuggestionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AiSuggestionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AiSuggestionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2674,6 +2749,7 @@ export const FieldDefectScalarFieldEnum = {
   escalationReason: 'escalationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  closedAt: 'closedAt',
   deletedAt: 'deletedAt'
 } as const
 
@@ -2753,6 +2829,26 @@ export const EscalationHistoryScalarFieldEnum = {
 export type EscalationHistoryScalarFieldEnum = (typeof EscalationHistoryScalarFieldEnum)[keyof typeof EscalationHistoryScalarFieldEnum]
 
 
+export const AiSuggestionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  fieldDefectId: 'fieldDefectId',
+  suggestionType: 'suggestionType',
+  inputHash: 'inputHash',
+  resultJson: 'resultJson',
+  status: 'status',
+  confidence: 'confidence',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  acceptedById: 'acceptedById',
+  acceptedAt: 'acceptedAt',
+  rejectedById: 'rejectedById',
+  rejectedAt: 'rejectedAt'
+} as const
+
+export type AiSuggestionScalarFieldEnum = (typeof AiSuggestionScalarFieldEnum)[keyof typeof AiSuggestionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2767,6 +2863,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -3130,6 +3233,34 @@ export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
+ * Reference to a field of type 'AiSuggestionType'
+ */
+export type EnumAiSuggestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiSuggestionType'>
+    
+
+
+/**
+ * Reference to a field of type 'AiSuggestionType[]'
+ */
+export type ListEnumAiSuggestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiSuggestionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AiSuggestionStatus'
+ */
+export type EnumAiSuggestionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiSuggestionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AiSuggestionStatus[]'
+ */
+export type ListEnumAiSuggestionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiSuggestionStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3277,6 +3408,7 @@ export type GlobalOmitConfig = {
   fieldDefectEvent?: Prisma.FieldDefectEventOmit
   notification?: Prisma.NotificationOmit
   escalationHistory?: Prisma.EscalationHistoryOmit
+  aiSuggestion?: Prisma.AiSuggestionOmit
 }
 
 /* Types for Logging */

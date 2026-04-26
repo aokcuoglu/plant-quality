@@ -69,6 +69,7 @@ export type FieldDefectMinAggregateOutputType = {
   escalationReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  closedAt: Date | null
   deletedAt: Date | null
 }
 
@@ -107,6 +108,7 @@ export type FieldDefectMaxAggregateOutputType = {
   escalationReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  closedAt: Date | null
   deletedAt: Date | null
 }
 
@@ -145,6 +147,7 @@ export type FieldDefectCountAggregateOutputType = {
   escalationReason: number
   createdAt: number
   updatedAt: number
+  closedAt: number
   deletedAt: number
   _all: number
 }
@@ -193,6 +196,7 @@ export type FieldDefectMinAggregateInputType = {
   escalationReason?: true
   createdAt?: true
   updatedAt?: true
+  closedAt?: true
   deletedAt?: true
 }
 
@@ -231,6 +235,7 @@ export type FieldDefectMaxAggregateInputType = {
   escalationReason?: true
   createdAt?: true
   updatedAt?: true
+  closedAt?: true
   deletedAt?: true
 }
 
@@ -269,6 +274,7 @@ export type FieldDefectCountAggregateInputType = {
   escalationReason?: true
   createdAt?: true
   updatedAt?: true
+  closedAt?: true
   deletedAt?: true
   _all?: true
 }
@@ -394,6 +400,7 @@ export type FieldDefectGroupByOutputType = {
   escalationReason: string | null
   createdAt: Date
   updatedAt: Date
+  closedAt: Date | null
   deletedAt: Date | null
   _count: FieldDefectCountAggregateOutputType | null
   _avg: FieldDefectAvgAggregateOutputType | null
@@ -455,6 +462,7 @@ export type FieldDefectWhereInput = {
   escalationReason?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
+  closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   supplier?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -466,6 +474,7 @@ export type FieldDefectWhereInput = {
   attachments?: Prisma.FieldDefectAttachmentListRelationFilter
   events?: Prisma.FieldDefectEventListRelationFilter
   comments?: Prisma.FieldDefectCommentListRelationFilter
+  aiSuggestions?: Prisma.AiSuggestionListRelationFilter
 }
 
 export type FieldDefectOrderByWithRelationInput = {
@@ -503,6 +512,7 @@ export type FieldDefectOrderByWithRelationInput = {
   escalationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   supplier?: Prisma.CompanyOrderByWithRelationInput
   oem?: Prisma.CompanyOrderByWithRelationInput
@@ -514,6 +524,7 @@ export type FieldDefectOrderByWithRelationInput = {
   attachments?: Prisma.FieldDefectAttachmentOrderByRelationAggregateInput
   events?: Prisma.FieldDefectEventOrderByRelationAggregateInput
   comments?: Prisma.FieldDefectCommentOrderByRelationAggregateInput
+  aiSuggestions?: Prisma.AiSuggestionOrderByRelationAggregateInput
 }
 
 export type FieldDefectWhereUniqueInput = Prisma.AtLeast<{
@@ -554,6 +565,7 @@ export type FieldDefectWhereUniqueInput = Prisma.AtLeast<{
   escalationReason?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
+  closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   supplier?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -565,6 +577,7 @@ export type FieldDefectWhereUniqueInput = Prisma.AtLeast<{
   attachments?: Prisma.FieldDefectAttachmentListRelationFilter
   events?: Prisma.FieldDefectEventListRelationFilter
   comments?: Prisma.FieldDefectCommentListRelationFilter
+  aiSuggestions?: Prisma.AiSuggestionListRelationFilter
 }, "id" | "linkedDefectId">
 
 export type FieldDefectOrderByWithAggregationInput = {
@@ -602,6 +615,7 @@ export type FieldDefectOrderByWithAggregationInput = {
   escalationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.FieldDefectCountOrderByAggregateInput
   _avg?: Prisma.FieldDefectAvgOrderByAggregateInput
@@ -648,6 +662,7 @@ export type FieldDefectScalarWhereWithAggregatesInput = {
   escalationReason?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FieldDefect"> | Date | string
+  closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FieldDefect"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FieldDefect"> | Date | string | null
 }
 
@@ -679,6 +694,7 @@ export type FieldDefectCreateInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -690,6 +706,7 @@ export type FieldDefectCreateInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateInput = {
@@ -727,10 +744,12 @@ export type FieldDefectUncheckedCreateInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUpdateInput = {
@@ -761,6 +780,7 @@ export type FieldDefectUpdateInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -772,6 +792,7 @@ export type FieldDefectUpdateInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateInput = {
@@ -809,10 +830,12 @@ export type FieldDefectUncheckedUpdateInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectCreateManyInput = {
@@ -850,6 +873,7 @@ export type FieldDefectCreateManyInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -881,6 +905,7 @@ export type FieldDefectUpdateManyMutationInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -919,6 +944,7 @@ export type FieldDefectUncheckedUpdateManyInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -972,6 +998,7 @@ export type FieldDefectCountOrderByAggregateInput = {
   escalationReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -1014,6 +1041,7 @@ export type FieldDefectMaxOrderByAggregateInput = {
   escalationReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -1052,6 +1080,7 @@ export type FieldDefectMinOrderByAggregateInput = {
   escalationReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -1406,6 +1435,20 @@ export type FieldDefectUpdateOneRequiredWithoutEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FieldDefectUpdateToOneWithWhereWithoutEventsInput, Prisma.FieldDefectUpdateWithoutEventsInput>, Prisma.FieldDefectUncheckedUpdateWithoutEventsInput>
 }
 
+export type FieldDefectCreateNestedOneWithoutAiSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiSuggestionsInput, Prisma.FieldDefectUncheckedCreateWithoutAiSuggestionsInput>
+  connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutAiSuggestionsInput
+  connect?: Prisma.FieldDefectWhereUniqueInput
+}
+
+export type FieldDefectUpdateOneRequiredWithoutAiSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiSuggestionsInput, Prisma.FieldDefectUncheckedCreateWithoutAiSuggestionsInput>
+  connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutAiSuggestionsInput
+  upsert?: Prisma.FieldDefectUpsertWithoutAiSuggestionsInput
+  connect?: Prisma.FieldDefectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FieldDefectUpdateToOneWithWhereWithoutAiSuggestionsInput, Prisma.FieldDefectUpdateWithoutAiSuggestionsInput>, Prisma.FieldDefectUncheckedUpdateWithoutAiSuggestionsInput>
+}
+
 export type FieldDefectCreateWithoutOemInput = {
   id?: string
   title: string
@@ -1434,6 +1477,7 @@ export type FieldDefectCreateWithoutOemInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -1444,6 +1488,7 @@ export type FieldDefectCreateWithoutOemInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutOemInput = {
@@ -1480,10 +1525,12 @@ export type FieldDefectUncheckedCreateWithoutOemInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutOemInput = {
@@ -1524,6 +1571,7 @@ export type FieldDefectCreateWithoutSupplierInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -1534,6 +1582,7 @@ export type FieldDefectCreateWithoutSupplierInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutSupplierInput = {
@@ -1570,10 +1619,12 @@ export type FieldDefectUncheckedCreateWithoutSupplierInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutSupplierInput = {
@@ -1640,6 +1691,7 @@ export type FieldDefectScalarWhereInput = {
   escalationReason?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   createdAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
+  closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
 }
 
@@ -1687,6 +1739,7 @@ export type FieldDefectCreateWithoutCreatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -1697,6 +1750,7 @@ export type FieldDefectCreateWithoutCreatedByInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutCreatedByInput = {
@@ -1733,10 +1787,12 @@ export type FieldDefectUncheckedCreateWithoutCreatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutCreatedByInput = {
@@ -1777,6 +1833,7 @@ export type FieldDefectCreateWithoutUpdatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -1787,6 +1844,7 @@ export type FieldDefectCreateWithoutUpdatedByInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutUpdatedByInput = {
@@ -1823,10 +1881,12 @@ export type FieldDefectUncheckedCreateWithoutUpdatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutUpdatedByInput = {
@@ -1867,6 +1927,7 @@ export type FieldDefectCreateWithoutConvertedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -1877,6 +1938,7 @@ export type FieldDefectCreateWithoutConvertedByInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutConvertedByInput = {
@@ -1913,10 +1975,12 @@ export type FieldDefectUncheckedCreateWithoutConvertedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutConvertedByInput = {
@@ -1957,6 +2021,7 @@ export type FieldDefectCreateWithoutEscalatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -1967,6 +2032,7 @@ export type FieldDefectCreateWithoutEscalatedByInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutEscalatedByInput = {
@@ -2003,10 +2069,12 @@ export type FieldDefectUncheckedCreateWithoutEscalatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutEscalatedByInput = {
@@ -2111,6 +2179,7 @@ export type FieldDefectCreateWithoutLinkedDefectInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -2121,6 +2190,7 @@ export type FieldDefectCreateWithoutLinkedDefectInput = {
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutLinkedDefectInput = {
@@ -2157,10 +2227,12 @@ export type FieldDefectUncheckedCreateWithoutLinkedDefectInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutLinkedDefectInput = {
@@ -2207,6 +2279,7 @@ export type FieldDefectUpdateWithoutLinkedDefectInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -2217,6 +2290,7 @@ export type FieldDefectUpdateWithoutLinkedDefectInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutLinkedDefectInput = {
@@ -2253,10 +2327,12 @@ export type FieldDefectUncheckedUpdateWithoutLinkedDefectInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectCreateWithoutAttachmentsInput = {
@@ -2287,6 +2363,7 @@ export type FieldDefectCreateWithoutAttachmentsInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -2297,6 +2374,7 @@ export type FieldDefectCreateWithoutAttachmentsInput = {
   escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedFieldDefectsInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutAttachmentsInput = {
@@ -2334,9 +2412,11 @@ export type FieldDefectUncheckedCreateWithoutAttachmentsInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutAttachmentsInput = {
@@ -2383,6 +2463,7 @@ export type FieldDefectUpdateWithoutAttachmentsInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -2393,6 +2474,7 @@ export type FieldDefectUpdateWithoutAttachmentsInput = {
   escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedFieldDefectsNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutAttachmentsInput = {
@@ -2430,9 +2512,11 @@ export type FieldDefectUncheckedUpdateWithoutAttachmentsInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectCreateWithoutCommentsInput = {
@@ -2463,6 +2547,7 @@ export type FieldDefectCreateWithoutCommentsInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -2473,6 +2558,7 @@ export type FieldDefectCreateWithoutCommentsInput = {
   escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedFieldDefectsInput
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutCommentsInput = {
@@ -2510,9 +2596,11 @@ export type FieldDefectUncheckedCreateWithoutCommentsInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutCommentsInput = {
@@ -2559,6 +2647,7 @@ export type FieldDefectUpdateWithoutCommentsInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -2569,6 +2658,7 @@ export type FieldDefectUpdateWithoutCommentsInput = {
   escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedFieldDefectsNestedInput
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutCommentsInput = {
@@ -2606,9 +2696,11 @@ export type FieldDefectUncheckedUpdateWithoutCommentsInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectCreateWithoutEventsInput = {
@@ -2639,6 +2731,7 @@ export type FieldDefectCreateWithoutEventsInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
@@ -2649,6 +2742,7 @@ export type FieldDefectCreateWithoutEventsInput = {
   escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedFieldDefectsInput
   attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectUncheckedCreateWithoutEventsInput = {
@@ -2686,9 +2780,11 @@ export type FieldDefectUncheckedCreateWithoutEventsInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
   comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
 }
 
 export type FieldDefectCreateOrConnectWithoutEventsInput = {
@@ -2735,6 +2831,7 @@ export type FieldDefectUpdateWithoutEventsInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -2745,6 +2842,7 @@ export type FieldDefectUpdateWithoutEventsInput = {
   escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedFieldDefectsNestedInput
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutEventsInput = {
@@ -2782,8 +2880,194 @@ export type FieldDefectUncheckedUpdateWithoutEventsInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
+}
+
+export type FieldDefectCreateWithoutAiSuggestionsInput = {
+  id?: string
+  title: string
+  description: string
+  source?: $Enums.FieldDefectSource
+  status?: $Enums.FieldDefectStatus
+  severity?: $Enums.FieldDefectSeverity
+  safetyImpact?: boolean
+  vehicleDown?: boolean
+  repeatIssue?: boolean
+  vin?: string | null
+  vehicleModel?: string | null
+  vehicleVariant?: string | null
+  mileage?: number | null
+  failureDate?: Date | string | null
+  reportDate?: Date | string
+  location?: string | null
+  partNumber?: string | null
+  partName?: string | null
+  supplierNameSnapshot?: string | null
+  convertedTo8DAt?: Date | string | null
+  responseDueAt?: Date | string | null
+  resolutionDueAt?: Date | string | null
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
+  oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedFieldDefectsInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLinkedFieldDefectInput
+  convertedBy?: Prisma.UserCreateNestedOneWithoutConvertedFieldDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedFieldDefectsInput
+  attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
+  events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
+  comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+}
+
+export type FieldDefectUncheckedCreateWithoutAiSuggestionsInput = {
+  id?: string
+  title: string
+  description: string
+  source?: $Enums.FieldDefectSource
+  status?: $Enums.FieldDefectStatus
+  severity?: $Enums.FieldDefectSeverity
+  safetyImpact?: boolean
+  vehicleDown?: boolean
+  repeatIssue?: boolean
+  vin?: string | null
+  vehicleModel?: string | null
+  vehicleVariant?: string | null
+  mileage?: number | null
+  failureDate?: Date | string | null
+  reportDate?: Date | string
+  location?: string | null
+  partNumber?: string | null
+  partName?: string | null
+  supplierId?: string | null
+  supplierNameSnapshot?: string | null
+  oemId: string
+  createdById: string
+  updatedById?: string | null
+  linkedDefectId?: string | null
+  convertedTo8DAt?: Date | string | null
+  convertedById?: string | null
+  responseDueAt?: Date | string | null
+  resolutionDueAt?: Date | string | null
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
+  events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
+  comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+}
+
+export type FieldDefectCreateOrConnectWithoutAiSuggestionsInput = {
+  where: Prisma.FieldDefectWhereUniqueInput
+  create: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiSuggestionsInput, Prisma.FieldDefectUncheckedCreateWithoutAiSuggestionsInput>
+}
+
+export type FieldDefectUpsertWithoutAiSuggestionsInput = {
+  update: Prisma.XOR<Prisma.FieldDefectUpdateWithoutAiSuggestionsInput, Prisma.FieldDefectUncheckedUpdateWithoutAiSuggestionsInput>
+  create: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiSuggestionsInput, Prisma.FieldDefectUncheckedCreateWithoutAiSuggestionsInput>
+  where?: Prisma.FieldDefectWhereInput
+}
+
+export type FieldDefectUpdateToOneWithWhereWithoutAiSuggestionsInput = {
+  where?: Prisma.FieldDefectWhereInput
+  data: Prisma.XOR<Prisma.FieldDefectUpdateWithoutAiSuggestionsInput, Prisma.FieldDefectUncheckedUpdateWithoutAiSuggestionsInput>
+}
+
+export type FieldDefectUpdateWithoutAiSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumFieldDefectSourceFieldUpdateOperationsInput | $Enums.FieldDefectSource
+  status?: Prisma.EnumFieldDefectStatusFieldUpdateOperationsInput | $Enums.FieldDefectStatus
+  severity?: Prisma.EnumFieldDefectSeverityFieldUpdateOperationsInput | $Enums.FieldDefectSeverity
+  safetyImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vehicleDown?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  repeatIssue?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  failureDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolutionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedFieldDefectsNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLinkedFieldDefectNestedInput
+  convertedBy?: Prisma.UserUpdateOneWithoutConvertedFieldDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedFieldDefectsNestedInput
+  attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
+  events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
+  comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+}
+
+export type FieldDefectUncheckedUpdateWithoutAiSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumFieldDefectSourceFieldUpdateOperationsInput | $Enums.FieldDefectSource
+  status?: Prisma.EnumFieldDefectStatusFieldUpdateOperationsInput | $Enums.FieldDefectStatus
+  severity?: Prisma.EnumFieldDefectSeverityFieldUpdateOperationsInput | $Enums.FieldDefectSeverity
+  safetyImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vehicleDown?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  repeatIssue?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  failureDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  convertedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolutionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
@@ -2821,6 +3105,7 @@ export type FieldDefectCreateManyOemInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -2858,6 +3143,7 @@ export type FieldDefectCreateManySupplierInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -2889,6 +3175,7 @@ export type FieldDefectUpdateWithoutOemInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -2899,6 +3186,7 @@ export type FieldDefectUpdateWithoutOemInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutOemInput = {
@@ -2935,10 +3223,12 @@ export type FieldDefectUncheckedUpdateWithoutOemInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateManyWithoutOemInput = {
@@ -2975,6 +3265,7 @@ export type FieldDefectUncheckedUpdateManyWithoutOemInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -3006,6 +3297,7 @@ export type FieldDefectUpdateWithoutSupplierInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -3016,6 +3308,7 @@ export type FieldDefectUpdateWithoutSupplierInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutSupplierInput = {
@@ -3052,10 +3345,12 @@ export type FieldDefectUncheckedUpdateWithoutSupplierInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateManyWithoutSupplierInput = {
@@ -3092,6 +3387,7 @@ export type FieldDefectUncheckedUpdateManyWithoutSupplierInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -3129,6 +3425,7 @@ export type FieldDefectCreateManyCreatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -3166,6 +3463,7 @@ export type FieldDefectCreateManyUpdatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -3203,6 +3501,7 @@ export type FieldDefectCreateManyConvertedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -3240,6 +3539,7 @@ export type FieldDefectCreateManyEscalatedByInput = {
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  closedAt?: Date | string | null
   deletedAt?: Date | string | null
 }
 
@@ -3271,6 +3571,7 @@ export type FieldDefectUpdateWithoutCreatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -3281,6 +3582,7 @@ export type FieldDefectUpdateWithoutCreatedByInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutCreatedByInput = {
@@ -3317,10 +3619,12 @@ export type FieldDefectUncheckedUpdateWithoutCreatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateManyWithoutCreatedByInput = {
@@ -3357,6 +3661,7 @@ export type FieldDefectUncheckedUpdateManyWithoutCreatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -3388,6 +3693,7 @@ export type FieldDefectUpdateWithoutUpdatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -3398,6 +3704,7 @@ export type FieldDefectUpdateWithoutUpdatedByInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutUpdatedByInput = {
@@ -3434,10 +3741,12 @@ export type FieldDefectUncheckedUpdateWithoutUpdatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateManyWithoutUpdatedByInput = {
@@ -3474,6 +3783,7 @@ export type FieldDefectUncheckedUpdateManyWithoutUpdatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -3505,6 +3815,7 @@ export type FieldDefectUpdateWithoutConvertedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -3515,6 +3826,7 @@ export type FieldDefectUpdateWithoutConvertedByInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutConvertedByInput = {
@@ -3551,10 +3863,12 @@ export type FieldDefectUncheckedUpdateWithoutConvertedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateManyWithoutConvertedByInput = {
@@ -3591,6 +3905,7 @@ export type FieldDefectUncheckedUpdateManyWithoutConvertedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -3622,6 +3937,7 @@ export type FieldDefectUpdateWithoutEscalatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
@@ -3632,6 +3948,7 @@ export type FieldDefectUpdateWithoutEscalatedByInput = {
   attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateWithoutEscalatedByInput = {
@@ -3668,10 +3985,12 @@ export type FieldDefectUncheckedUpdateWithoutEscalatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
   events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
   comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
 }
 
 export type FieldDefectUncheckedUpdateManyWithoutEscalatedByInput = {
@@ -3708,6 +4027,7 @@ export type FieldDefectUncheckedUpdateManyWithoutEscalatedByInput = {
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -3720,12 +4040,14 @@ export type FieldDefectCountOutputType = {
   attachments: number
   events: number
   comments: number
+  aiSuggestions: number
 }
 
 export type FieldDefectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attachments?: boolean | FieldDefectCountOutputTypeCountAttachmentsArgs
   events?: boolean | FieldDefectCountOutputTypeCountEventsArgs
   comments?: boolean | FieldDefectCountOutputTypeCountCommentsArgs
+  aiSuggestions?: boolean | FieldDefectCountOutputTypeCountAiSuggestionsArgs
 }
 
 /**
@@ -3757,6 +4079,13 @@ export type FieldDefectCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Ty
  */
 export type FieldDefectCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FieldDefectCommentWhereInput
+}
+
+/**
+ * FieldDefectCountOutputType without action
+ */
+export type FieldDefectCountOutputTypeCountAiSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiSuggestionWhereInput
 }
 
 
@@ -3795,6 +4124,7 @@ export type FieldDefectSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  closedAt?: boolean
   deletedAt?: boolean
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3806,6 +4136,7 @@ export type FieldDefectSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   attachments?: boolean | Prisma.FieldDefect$attachmentsArgs<ExtArgs>
   events?: boolean | Prisma.FieldDefect$eventsArgs<ExtArgs>
   comments?: boolean | Prisma.FieldDefect$commentsArgs<ExtArgs>
+  aiSuggestions?: boolean | Prisma.FieldDefect$aiSuggestionsArgs<ExtArgs>
   _count?: boolean | Prisma.FieldDefectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fieldDefect"]>
 
@@ -3844,6 +4175,7 @@ export type FieldDefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  closedAt?: boolean
   deletedAt?: boolean
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3889,6 +4221,7 @@ export type FieldDefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  closedAt?: boolean
   deletedAt?: boolean
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3934,10 +4267,11 @@ export type FieldDefectSelectScalar = {
   escalationReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  closedAt?: boolean
   deletedAt?: boolean
 }
 
-export type FieldDefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "source" | "status" | "severity" | "safetyImpact" | "vehicleDown" | "repeatIssue" | "vin" | "vehicleModel" | "vehicleVariant" | "mileage" | "failureDate" | "reportDate" | "location" | "partNumber" | "partName" | "supplierId" | "supplierNameSnapshot" | "oemId" | "createdById" | "updatedById" | "linkedDefectId" | "convertedTo8DAt" | "convertedById" | "responseDueAt" | "resolutionDueAt" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["fieldDefect"]>
+export type FieldDefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "source" | "status" | "severity" | "safetyImpact" | "vehicleDown" | "repeatIssue" | "vin" | "vehicleModel" | "vehicleVariant" | "mileage" | "failureDate" | "reportDate" | "location" | "partNumber" | "partName" | "supplierId" | "supplierNameSnapshot" | "oemId" | "createdById" | "updatedById" | "linkedDefectId" | "convertedTo8DAt" | "convertedById" | "responseDueAt" | "resolutionDueAt" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "createdAt" | "updatedAt" | "closedAt" | "deletedAt", ExtArgs["result"]["fieldDefect"]>
 export type FieldDefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3949,6 +4283,7 @@ export type FieldDefectInclude<ExtArgs extends runtime.Types.Extensions.Internal
   attachments?: boolean | Prisma.FieldDefect$attachmentsArgs<ExtArgs>
   events?: boolean | Prisma.FieldDefect$eventsArgs<ExtArgs>
   comments?: boolean | Prisma.FieldDefect$commentsArgs<ExtArgs>
+  aiSuggestions?: boolean | Prisma.FieldDefect$aiSuggestionsArgs<ExtArgs>
   _count?: boolean | Prisma.FieldDefectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FieldDefectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3983,6 +4318,7 @@ export type $FieldDefectPayload<ExtArgs extends runtime.Types.Extensions.Interna
     attachments: Prisma.$FieldDefectAttachmentPayload<ExtArgs>[]
     events: Prisma.$FieldDefectEventPayload<ExtArgs>[]
     comments: Prisma.$FieldDefectCommentPayload<ExtArgs>[]
+    aiSuggestions: Prisma.$AiSuggestionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4019,6 +4355,7 @@ export type $FieldDefectPayload<ExtArgs extends runtime.Types.Extensions.Interna
     escalationReason: string | null
     createdAt: Date
     updatedAt: Date
+    closedAt: Date | null
     deletedAt: Date | null
   }, ExtArgs["result"]["fieldDefect"]>
   composites: {}
@@ -4424,6 +4761,7 @@ export interface Prisma__FieldDefectClient<T, Null = never, ExtArgs extends runt
   attachments<T extends Prisma.FieldDefect$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldDefect$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.FieldDefect$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldDefect$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.FieldDefect$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldDefect$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiSuggestions<T extends Prisma.FieldDefect$aiSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldDefect$aiSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4487,6 +4825,7 @@ export interface FieldDefectFieldRefs {
   readonly escalationReason: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly createdAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
+  readonly closedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
 }
     
@@ -5053,6 +5392,30 @@ export type FieldDefect$commentsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.FieldDefectCommentScalarFieldEnum | Prisma.FieldDefectCommentScalarFieldEnum[]
+}
+
+/**
+ * FieldDefect.aiSuggestions
+ */
+export type FieldDefect$aiSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiSuggestion
+   */
+  select?: Prisma.AiSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiSuggestion
+   */
+  omit?: Prisma.AiSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiSuggestionInclude<ExtArgs> | null
+  where?: Prisma.AiSuggestionWhereInput
+  orderBy?: Prisma.AiSuggestionOrderByWithRelationInput | Prisma.AiSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.AiSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiSuggestionScalarFieldEnum | Prisma.AiSuggestionScalarFieldEnum[]
 }
 
 /**

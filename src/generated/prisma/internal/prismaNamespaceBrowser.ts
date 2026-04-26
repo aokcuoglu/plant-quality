@@ -75,7 +75,8 @@ export const ModelName = {
   FieldDefectComment: 'FieldDefectComment',
   FieldDefectEvent: 'FieldDefectEvent',
   Notification: 'Notification',
-  EscalationHistory: 'EscalationHistory'
+  EscalationHistory: 'EscalationHistory',
+  AiSuggestion: 'AiSuggestion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -451,6 +452,7 @@ export const FieldDefectScalarFieldEnum = {
   escalationReason: 'escalationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  closedAt: 'closedAt',
   deletedAt: 'deletedAt'
 } as const
 
@@ -530,6 +532,26 @@ export const EscalationHistoryScalarFieldEnum = {
 export type EscalationHistoryScalarFieldEnum = (typeof EscalationHistoryScalarFieldEnum)[keyof typeof EscalationHistoryScalarFieldEnum]
 
 
+export const AiSuggestionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  fieldDefectId: 'fieldDefectId',
+  suggestionType: 'suggestionType',
+  inputHash: 'inputHash',
+  resultJson: 'resultJson',
+  status: 'status',
+  confidence: 'confidence',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  acceptedById: 'acceptedById',
+  acceptedAt: 'acceptedAt',
+  rejectedById: 'rejectedById',
+  rejectedAt: 'rejectedAt'
+} as const
+
+export type AiSuggestionScalarFieldEnum = (typeof AiSuggestionScalarFieldEnum)[keyof typeof AiSuggestionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -544,6 +566,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

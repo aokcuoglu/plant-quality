@@ -68,6 +68,24 @@ export const ReviewCommentStatus = {
 export type ReviewCommentStatus = (typeof ReviewCommentStatus)[keyof typeof ReviewCommentStatus]
 
 
+export const AiSuggestionType = {
+  CLASSIFICATION: 'CLASSIFICATION',
+  SIMILAR_ISSUES: 'SIMILAR_ISSUES'
+} as const
+
+export type AiSuggestionType = (typeof AiSuggestionType)[keyof typeof AiSuggestionType]
+
+
+export const AiSuggestionStatus = {
+  GENERATED: 'GENERATED',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type AiSuggestionStatus = (typeof AiSuggestionStatus)[keyof typeof AiSuggestionStatus]
+
+
 export const DefectEventType = {
   CREATED: 'CREATED',
   EIGHT_D_STARTED: 'EIGHT_D_STARTED',
@@ -104,7 +122,10 @@ export const DefectEventType = {
   FIELD_DEFECT_CLOSED: 'FIELD_DEFECT_CLOSED',
   FIELD_DEFECT_CANCELLED: 'FIELD_DEFECT_CANCELLED',
   FIELD_DEFECT_ESCALATED: 'FIELD_DEFECT_ESCALATED',
-  FIELD_DEFECT_SLA_UPDATED: 'FIELD_DEFECT_SLA_UPDATED'
+  FIELD_DEFECT_SLA_UPDATED: 'FIELD_DEFECT_SLA_UPDATED',
+  AI_CLASSIFICATION_GENERATED: 'AI_CLASSIFICATION_GENERATED',
+  AI_SUGGESTION_ACCEPTED: 'AI_SUGGESTION_ACCEPTED',
+  AI_SUGGESTION_REJECTED: 'AI_SUGGESTION_REJECTED'
 } as const
 
 export type DefectEventType = (typeof DefectEventType)[keyof typeof DefectEventType]

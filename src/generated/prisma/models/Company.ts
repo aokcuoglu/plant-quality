@@ -193,6 +193,7 @@ export type CompanyWhereInput = {
   fmeaAsSup?: Prisma.FmeaListRelationFilter
   fieldDefectsAsOem?: Prisma.FieldDefectListRelationFilter
   fieldDefectsAsSup?: Prisma.FieldDefectListRelationFilter
+  aiSuggestions?: Prisma.AiSuggestionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   escalationHistory?: Prisma.EscalationHistoryListRelationFilter
 }
@@ -214,6 +215,7 @@ export type CompanyOrderByWithRelationInput = {
   fmeaAsSup?: Prisma.FmeaOrderByRelationAggregateInput
   fieldDefectsAsOem?: Prisma.FieldDefectOrderByRelationAggregateInput
   fieldDefectsAsSup?: Prisma.FieldDefectOrderByRelationAggregateInput
+  aiSuggestions?: Prisma.AiSuggestionOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   escalationHistory?: Prisma.EscalationHistoryOrderByRelationAggregateInput
 }
@@ -238,6 +240,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   fmeaAsSup?: Prisma.FmeaListRelationFilter
   fieldDefectsAsOem?: Prisma.FieldDefectListRelationFilter
   fieldDefectsAsSup?: Prisma.FieldDefectListRelationFilter
+  aiSuggestions?: Prisma.AiSuggestionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   escalationHistory?: Prisma.EscalationHistoryListRelationFilter
 }, "id">
@@ -281,6 +284,7 @@ export type CompanyCreateInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -302,6 +306,7 @@ export type CompanyUncheckedCreateInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -323,6 +328,7 @@ export type CompanyUpdateInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -344,6 +350,7 @@ export type CompanyUncheckedUpdateInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -610,6 +617,20 @@ export type CompanyUpdateOneRequiredWithoutEscalationHistoryNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutEscalationHistoryInput, Prisma.CompanyUpdateWithoutEscalationHistoryInput>, Prisma.CompanyUncheckedUpdateWithoutEscalationHistoryInput>
 }
 
+export type CompanyCreateNestedOneWithoutAiSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutAiSuggestionsInput, Prisma.CompanyUncheckedCreateWithoutAiSuggestionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutAiSuggestionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutAiSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutAiSuggestionsInput, Prisma.CompanyUncheckedCreateWithoutAiSuggestionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutAiSuggestionsInput
+  upsert?: Prisma.CompanyUpsertWithoutAiSuggestionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutAiSuggestionsInput, Prisma.CompanyUpdateWithoutAiSuggestionsInput>, Prisma.CompanyUncheckedUpdateWithoutAiSuggestionsInput>
+}
+
 export type CompanyCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -626,6 +647,7 @@ export type CompanyCreateWithoutUsersInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -646,6 +668,7 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -682,6 +705,7 @@ export type CompanyUpdateWithoutUsersInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -702,6 +726,7 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -722,6 +747,7 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -742,6 +768,7 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -767,6 +794,7 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -787,6 +815,7 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -823,6 +852,7 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -843,6 +873,7 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -874,6 +905,7 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -894,6 +926,7 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -914,6 +947,7 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -934,6 +968,7 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -959,6 +994,7 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -979,6 +1015,7 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1015,6 +1052,7 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1035,6 +1073,7 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1066,6 +1105,7 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1086,6 +1126,7 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1106,6 +1147,7 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -1126,6 +1168,7 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1151,6 +1194,7 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -1171,6 +1215,7 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1207,6 +1252,7 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1227,6 +1273,7 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1258,6 +1305,7 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1278,6 +1326,7 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1298,6 +1347,7 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -1318,6 +1368,7 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1343,6 +1394,7 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -1363,6 +1415,7 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1399,6 +1452,7 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1419,6 +1473,7 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1450,6 +1505,7 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1470,6 +1526,7 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1490,6 +1547,7 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -1510,6 +1568,7 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1535,6 +1594,7 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
@@ -1555,6 +1615,7 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
@@ -1591,6 +1652,7 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1611,6 +1673,7 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1642,6 +1705,7 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
@@ -1662,6 +1726,7 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1683,6 +1748,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
 }
 
@@ -1703,6 +1769,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1739,6 +1806,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1759,6 +1827,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1779,6 +1848,7 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
 }
 
@@ -1799,6 +1869,7 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1835,6 +1906,7 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1855,7 +1927,108 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutAiSuggestionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutAiSuggestionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutAiSuggestionsInput, Prisma.CompanyUncheckedCreateWithoutAiSuggestionsInput>
+}
+
+export type CompanyUpsertWithoutAiSuggestionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutAiSuggestionsInput, Prisma.CompanyUncheckedUpdateWithoutAiSuggestionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutAiSuggestionsInput, Prisma.CompanyUncheckedCreateWithoutAiSuggestionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutAiSuggestionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutAiSuggestionsInput, Prisma.CompanyUncheckedUpdateWithoutAiSuggestionsInput>
+}
+
+export type CompanyUpdateWithoutAiSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -1875,6 +2048,7 @@ export type CompanyCountOutputType = {
   fmeaAsSup: number
   fieldDefectsAsOem: number
   fieldDefectsAsSup: number
+  aiSuggestions: number
   notifications: number
   escalationHistory: number
 }
@@ -1891,6 +2065,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   fmeaAsSup?: boolean | CompanyCountOutputTypeCountFmeaAsSupArgs
   fieldDefectsAsOem?: boolean | CompanyCountOutputTypeCountFieldDefectsAsOemArgs
   fieldDefectsAsSup?: boolean | CompanyCountOutputTypeCountFieldDefectsAsSupArgs
+  aiSuggestions?: boolean | CompanyCountOutputTypeCountAiSuggestionsArgs
   notifications?: boolean | CompanyCountOutputTypeCountNotificationsArgs
   escalationHistory?: boolean | CompanyCountOutputTypeCountEscalationHistoryArgs
 }
@@ -1985,6 +2160,13 @@ export type CompanyCountOutputTypeCountFieldDefectsAsSupArgs<ExtArgs extends run
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountAiSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiSuggestionWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.NotificationWhereInput
 }
@@ -2014,6 +2196,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   fmeaAsSup?: boolean | Prisma.Company$fmeaAsSupArgs<ExtArgs>
   fieldDefectsAsOem?: boolean | Prisma.Company$fieldDefectsAsOemArgs<ExtArgs>
   fieldDefectsAsSup?: boolean | Prisma.Company$fieldDefectsAsSupArgs<ExtArgs>
+  aiSuggestions?: boolean | Prisma.Company$aiSuggestionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   escalationHistory?: boolean | Prisma.Company$escalationHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -2056,6 +2239,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   fmeaAsSup?: boolean | Prisma.Company$fmeaAsSupArgs<ExtArgs>
   fieldDefectsAsOem?: boolean | Prisma.Company$fieldDefectsAsOemArgs<ExtArgs>
   fieldDefectsAsSup?: boolean | Prisma.Company$fieldDefectsAsSupArgs<ExtArgs>
+  aiSuggestions?: boolean | Prisma.Company$aiSuggestionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   escalationHistory?: boolean | Prisma.Company$escalationHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -2077,6 +2261,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     fmeaAsSup: Prisma.$FmeaPayload<ExtArgs>[]
     fieldDefectsAsOem: Prisma.$FieldDefectPayload<ExtArgs>[]
     fieldDefectsAsSup: Prisma.$FieldDefectPayload<ExtArgs>[]
+    aiSuggestions: Prisma.$AiSuggestionPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     escalationHistory: Prisma.$EscalationHistoryPayload<ExtArgs>[]
   }
@@ -2491,6 +2676,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   fmeaAsSup<T extends Prisma.Company$fmeaAsSupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fmeaAsSupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FmeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fieldDefectsAsOem<T extends Prisma.Company$fieldDefectsAsOemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fieldDefectsAsOemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fieldDefectsAsSup<T extends Prisma.Company$fieldDefectsAsSupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$fieldDefectsAsSupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiSuggestions<T extends Prisma.Company$aiSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$aiSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Company$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   escalationHistory<T extends Prisma.Company$escalationHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$escalationHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EscalationHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3181,6 +3367,30 @@ export type Company$fieldDefectsAsSupArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.FieldDefectScalarFieldEnum | Prisma.FieldDefectScalarFieldEnum[]
+}
+
+/**
+ * Company.aiSuggestions
+ */
+export type Company$aiSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiSuggestion
+   */
+  select?: Prisma.AiSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiSuggestion
+   */
+  omit?: Prisma.AiSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiSuggestionInclude<ExtArgs> | null
+  where?: Prisma.AiSuggestionWhereInput
+  orderBy?: Prisma.AiSuggestionOrderByWithRelationInput | Prisma.AiSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.AiSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiSuggestionScalarFieldEnum | Prisma.AiSuggestionScalarFieldEnum[]
 }
 
 /**

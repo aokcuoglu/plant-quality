@@ -166,3 +166,8 @@ export type Notification = Prisma.NotificationModel
  * 
  */
 export type EscalationHistory = Prisma.EscalationHistoryModel
+/**
+ * Model AiSuggestion
+ * 
+ */
+export type AiSuggestion = Prisma.AiSuggestionModel

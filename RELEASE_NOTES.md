@@ -1,3 +1,153 @@
+# PlantQuality v1.7.0 — Release Notes
+
+## AI Defect Classification & Similar Issue Detection
+
+**Release Date:** 2026-04-26  
+**Version:** 1.7.0
+
+---
+
+## Summary
+
+PlantQuality v1.7.0 introduces AI-assisted Field Quality intelligence: defect classification and similar issue detection. OEM quality users can now generate AI-powered category/severity/risk suggestions for Field Defects, and discover similar historical issues using database-backed text similarity search. Similar Issue Detection works **without any AI provider** — it uses PostgreSQL full-text matching and scoring. AI Classification requires a configured AI provider (DeepSeek or OpenAI-compatible) and a PRO plan.
+
+---
+
+## New Features
+
+### AI Defect Classification (PRO-gated)
+
+| Feature | Description |
+|---------|-------------|
+| AI Insight Panel | New panel on OEM Field Defect detail page showing: category, subcategory, probable area/system, suggested severity, confidence score, reasoning, recommended action, and duplicate risk |
+| Generate Classification | Button to generate AI classification for a Field Defect using DeepSeek Chat (or configured OpenAI-compatible model) |
+| Accept/Reject Suggestion | OEM users can accept or reject AI suggestions; accepting applies suggested severity to the Field Defect |
+| Re-generate | After accept/reject, users can generate a fresh classification |
+| Audit Trail | Classification, accept, and reject actions create Field Defect Events (AI_CLASSIFICATION_GENERATED, AI_SUGGESTION_ACCEPTED, AI_SUGGESTION_REJECTED) |
+| `AiSuggestion` model | New database table storing classification and similar-issues results with input hash, confidence, status tracking, and accept/reject metadata |
+| Input hash dedup | Classification skips re-generation if input fields have not changed since last GENERATED suggestion |
+
+### Similar Issue Detection (always available, no AI required)
+
+| Feature | Description |
+|---------|-------------|
+| Similar Issues Panel | New panel on OEM Field Defect detail page showing top-ranked similar Field Defects |
+| DB Similarity Search | Matches by VIN (exact), part number (contains), supplier (exact), vehicle model (contains), title keyword overlap, and description keyword overlap |
+| Scoring | Weighted scoring: VIN=40, Part=25, Supplier=15, Vehicle Model=10, Title=10, Description=5. Results sorted by score, top 10 returned |
+| Similarity reasons | Each match shows tags: "Same VIN", "Same part number", "Same supplier", "Same vehicle model", "Similar title", "Similar description" |
+| Tenant isolation | Only searches within the current OEM company; supplier users cannot trigger Similar Issue search |
+| Refresh | OEM users can re-run the search at any time |
+
+### AI Provider Abstraction
+
+| Feature | Description |
+|---------|-------------|
+| `src/lib/ai/provider.ts` | Central AI provider module; uses existing `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL` env vars; includes `isAiEnabled()` utility checking `AI_ENABLED` env and API key presence |
+| `src/lib/ai/classify-field-defect.ts` | Classification logic using OpenAI SDK with JSON mode; structured output validated before storage |
+| `src/lib/ai/similar-issues.ts` | Pure DB similarity search; no AI dependency; always functional |
+| Safe fallback | If `AI_ENABLED=false` or API key missing, AI Insight panel shows "AI suggestions are not configured" but Similar Issues works normally |
+
+---
+
+## Database Changes
+
+| Change | Detail |
+|--------|--------|
+| New model: `ai_suggestions` | Stores AI classification and similar-issue results with status tracking (GENERATED/ACCEPTED/REJECTED/EXPIRED) |
+| New enum: `AiSuggestionType` | CLASSIFICATION, SIMILAR_ISSUES |
+| New enum: `AiSuggestionStatus` | GENERATED, ACCEPTED, REJECTED, EXPIRED |
+| New event types | AI_CLASSIFICATION_GENERATED, AI_SUGGESTION_ACCEPTED, AI_SUGGESTION_REJECTED added to DefectEventType |
+| Indexes | companyId+fieldDefectId, companyId+suggestionType, fieldDefectId+suggestionType+status, companyId+createdAt |
+
+---
+
+## API Endpoints
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/field/[id]/ai/classify` | OEM+PRO | Generate AI classification for a Field Defect |
+| POST | `/api/field/[id]/ai/similar` | OEM | Run similar issue search (always available) |
+| POST | `/api/field/[id]/ai/suggestions/[suggestionId]/accept` | OEM | Accept an AI suggestion |
+| POST | `/api/field/[id]/ai/suggestions/[suggestionId]/reject` | OEM | Reject an AI suggestion |
+
+---
+
+## UI Changes
+
+| Component | Change |
+|-----------|--------|
+| OEM Field Detail page | Added AiInsightPanel (right column) showing AI classification when available, or disabled state |
+| OEM Field Detail page | Added SimilarIssuesPanel (right column) always visible for OEM users |
+| Event labels | Added icons/labels for AI_CLASSIFICATION_GENERATED, AI_SUGGESTION_ACCEPTED, AI_SUGGESTION_REJECTED |
+
+---
+
+## New Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/ai/provider.ts` | AI provider module with `isAiEnabled()` and `aiClassify()` |
+| `src/lib/ai/classify-field-defect.ts` | AI classification prompt and structured output |
+| `src/lib/ai/similar-issues.ts` | DB-based similarity search with scoring |
+| `src/app/(dashboard)/field/ai-actions.ts` | Server actions: generateClassification, generateSimilarIssues, acceptSuggestion, rejectSuggestion, getSuggestions, checkAiConfig |
+| `src/app/api/field/[id]/ai/classify/route.ts` | API route for AI classification |
+| `src/app/api/field/[id]/ai/similar/route.ts` | API route for similar issues |
+| `src/app/api/field/[id]/ai/suggestions/[suggestionId]/accept/route.ts` | API route to accept suggestion |
+| `src/app/api/field/[id]/ai/suggestions/[suggestionId]/reject/route.ts` | API route to reject suggestion |
+| `src/components/field/AiInsightPanel.tsx` | Client component for AI Insight panel |
+| `src/components/field/SimilarIssuesPanel.tsx` | Client component for Similar Issues panel |
+
+---
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `AI_ENABLED` | `"true"` | Global toggle for AI features; set `"false"` to disable all AI features |
+| `AI_API_KEY` | `""` | OpenAI-compatible API key (existing) |
+| `AI_BASE_URL` | `"https://api.deepseek.com/v1"` | OpenAI-compatible base URL (existing) |
+| `AI_MODEL` | `"deepseek-chat"` | Model name (existing) |
+
+---
+
+## Permission Model
+
+| Action | OEM Admin | OEM QE | OEM Viewer | Supplier Admin | Supplier QE |
+|--------|-----------|--------|------------|----------------|-------------|
+| Generate AI Classification | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| Find Similar Issues | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Accept/Reject Suggestion | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| View AI Insight Panel | ✅ (PRO) | ✅ (PRO) | ❌ | Not shown | Not shown |
+| View Similar Issues Panel | ✅ | ✅ | ✅ | Not shown | Not shown |
+
+---
+
+## Known Limitations
+
+- Classification uses existing Field Defect fields only (title, description, part, vehicle, severity). No image-based classification yet.
+- Suggested severity is the only field auto-applied on accept. Category/subcategory/area suggestions are stored in resultJson but `category`/`subcategory` columns do not exist on FieldDefect yet.
+- Similar Issue Detection only searches Field Defects (not 8D Defects) within the same OEM tenant.
+- AI provider must be OpenAI-compatible. No fallback provider auto-selection.
+- PRO plan gating follows existing plan system. No new subscription paywall added.
+
+---
+
+## Deferred to Future Versions
+
+| Feature | Target |
+|---------|--------|
+| Image-based AI classification | v1.8+ |
+| Include 8D Defects in similar search | v1.8+ |
+| AI rerank/explanation on similar issues (Stage 2) | v1.8+ |
+| AI-generated root cause suggestions | v1.8+ |
+| AI-generated 8D steps | v1.8+ |
+| Predictive quality / warranty cost | v1.9+ |
+| Supplier risk AI scoring | v1.9+ |
+| Vector database for semantic search | v2.0+ |
+| Category/subcategory columns on FieldDefect | v1.8+ |
+
+---
+
 # PlantQuality v1.6.1 — Release Notes
 
 ## Lint Debt Cleanup & Regression Hardening

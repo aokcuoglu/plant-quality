@@ -17,6 +17,7 @@ import {
   ClipboardCheckIcon,
   ShieldAlertIcon,
   AlertTriangleIcon,
+  SparklesIcon,
 } from "lucide-react"
 
 type IconComponent = typeof PlusIcon
@@ -65,4 +66,7 @@ export const EVENT_META: Record<DefectEventType, EventMeta> = {
   FIELD_DEFECT_CANCELLED: { label: "Cancelled", description: "Field defect cancelled", icon: XCircleIcon, iconColor: "text-muted-foreground" },
   FIELD_DEFECT_ESCALATED: { label: "Escalated", description: "Field defect escalated", icon: AlertTriangleIcon, iconColor: "text-red-500" },
   FIELD_DEFECT_SLA_UPDATED: { label: "SLA Updated", description: "Field defect SLA deadline updated", icon: CalendarIcon, iconColor: "text-amber-500" },
+  AI_CLASSIFICATION_GENERATED: { label: "AI Classification", description: "AI classification generated for field defect", icon: SparklesIcon, iconColor: "text-emerald-500" },
+  AI_SUGGESTION_ACCEPTED: { label: "AI Accepted", description: "AI suggestion accepted", icon: CheckIcon, iconColor: "text-green-500" },
+  AI_SUGGESTION_REJECTED: { label: "AI Rejected", description: "AI suggestion rejected", icon: XCircleIcon, iconColor: "text-red-500" },
 }

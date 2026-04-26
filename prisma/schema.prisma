@@ -51,6 +51,18 @@ enum ReviewCommentStatus {
   RESOLVED
 }
 
+enum AiSuggestionType {
+  CLASSIFICATION
+  SIMILAR_ISSUES
+}
+
+enum AiSuggestionStatus {
+  GENERATED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
 enum DefectEventType {
   CREATED
   EIGHT_D_STARTED
@@ -88,6 +100,9 @@ enum DefectEventType {
   FIELD_DEFECT_CANCELLED
   FIELD_DEFECT_ESCALATED
   FIELD_DEFECT_SLA_UPDATED
+  AI_CLASSIFICATION_GENERATED
+  AI_SUGGESTION_ACCEPTED
+  AI_SUGGESTION_REJECTED
 }
 
 enum DefectStatus {
@@ -214,6 +229,7 @@ model Company {
   fmeaAsSup    Fmea[]        @relation("SupplierFmeas")
   fieldDefectsAsOem FieldDefect[] @relation("FieldDefectOem")
   fieldDefectsAsSup FieldDefect[] @relation("FieldDefectSupplier")
+  aiSuggestions     AiSuggestion[]
   notifications      Notification[]
   escalationHistory   EscalationHistory[]
   createdAt    DateTime      @default(now())
@@ -261,6 +277,9 @@ model User {
   convertedFieldDefects   FieldDefect[] @relation("FieldDefectConvertedBy")
   escalatedFieldDefects  FieldDefect[] @relation("FieldDefectEscalatedBy")
   escalationHistories   EscalationHistory[]
+  createdAiSuggestions  AiSuggestion[] @relation("AiSuggestionCreatedBy")
+  acceptedAiSuggestions AiSuggestion[] @relation("AiSuggestionAcceptedBy")
+  rejectedAiSuggestions AiSuggestion[] @relation("AiSuggestionRejectedBy")
   fieldDefectAttachments  FieldDefectAttachment[] @relation("FieldDefectAttachmentUploadedBy")
   fieldDefectComments     FieldDefectComment[] @relation("FieldDefectCommentAuthor")
   fieldDefectEvents       FieldDefectEvent[] @relation("FieldDefectEventActor")
@@ -672,6 +691,7 @@ model FieldDefect {
   attachments           FieldDefectAttachment[]
   events                FieldDefectEvent[]
   comments              FieldDefectComment[]
+  aiSuggestions         AiSuggestion[]
   createdAt             DateTime            @default(now()) @map("created_at")
   updatedAt             DateTime            @updatedAt @map("updated_at")
   closedAt              DateTime?           @map("closed_at")
@@ -776,4 +796,32 @@ model EscalationHistory {
   @@index([entityType, entityId])
   @@index([companyId, newLevel])
   @@map("escalation_history")
+}
+
+model AiSuggestion {
+  id              String           @id @default(uuid())
+  companyId       String           @map("company_id")
+  company         Company          @relation(fields: [companyId], references: [id])
+  fieldDefectId   String           @map("field_defect_id")
+  fieldDefect     FieldDefect      @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  suggestionType  AiSuggestionType @map("suggestion_type")
+  inputHash       String?          @map("input_hash")
+  resultJson      Json             @map("result_json")
+  status          AiSuggestionStatus @default(GENERATED)
+  confidence      Float?           @map("confidence")
+  createdById     String           @map("created_by_id")
+  createdBy       User             @relation("AiSuggestionCreatedBy", fields: [createdById], references: [id])
+  createdAt       DateTime         @default(now()) @map("created_at")
+  acceptedById    String?          @map("accepted_by_id")
+  acceptedBy      User?            @relation("AiSuggestionAcceptedBy", fields: [acceptedById], references: [id])
+  acceptedAt      DateTime?        @map("accepted_at")
+  rejectedById    String?          @map("rejected_by_id")
+  rejectedBy      User?            @relation("AiSuggestionRejectedBy", fields: [rejectedById], references: [id])
+  rejectedAt      DateTime?        @map("rejected_at")
+
+  @@index([companyId, fieldDefectId])
+  @@index([companyId, suggestionType])
+  @@index([fieldDefectId, suggestionType, status])
+  @@index([companyId, createdAt])
+  @@map("ai_suggestions")
 }

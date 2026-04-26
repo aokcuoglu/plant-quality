@@ -14,9 +14,13 @@ import { CommentSection } from "./comment-section"
 import { ConvertTo8DButton } from "./convert-to-8d-button"
 import { EscalateButton } from "./escalate-button"
 import { SlaUpdateForm } from "./sla-update-form"
+import { AiInsightPanel } from "@/components/field/AiInsightPanel"
+import { SimilarIssuesPanel } from "@/components/field/SimilarIssuesPanel"
 import { DetailRow } from "@/components/DetailRow"
 import { formatDueDate } from "@/lib/sla"
 import { getFieldDefectSlaStatus, getFieldDefectActiveDueDate } from "@/lib/sla-field-defect"
+import { isAiEnabled } from "@/lib/ai/provider"
+import { findSimilarIssues } from "@/lib/ai/similar-issues"
 
 export default async function OemFieldDetailPage({
   params,
@@ -50,6 +54,60 @@ export default async function OemFieldDetailPage({
   const canConvert = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role) && !fd.linkedDefectId && fd.supplierId && ["OPEN", "UNDER_REVIEW", "SUPPLIER_ASSIGNED"].includes(fd.status)
   const canChangeStatus = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
   const canAssign = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role) && ["DRAFT", "OPEN", "UNDER_REVIEW"].includes(fd.status)
+  const aiEnabled = isAiEnabled()
+  const isPro = session.user.plan === "PRO"
+
+  const aiSuggestions = aiEnabled && isPro
+    ? await prisma.aiSuggestion.findMany({
+        where: { fieldDefectId: id, companyId: session.user.companyId },
+        orderBy: { createdAt: "desc" },
+        include: {
+          createdBy: { select: { name: true, email: true } },
+          acceptedBy: { select: { name: true, email: true } },
+          rejectedBy: { select: { name: true, email: true } },
+        },
+      })
+    : []
+
+  const similarIssueSuggestion = aiSuggestions.find(
+    (s) => s.suggestionType === "SIMILAR_ISSUES" && s.status === "GENERATED",
+  )
+
+  const similarIssues: Array<{
+    id: string
+    title: string
+    status: string
+    severity: string
+    supplierName: string | null
+    vehicleModel: string | null
+    partNumber: string | null
+    partName: string | null
+    similarityReasons: string[]
+    similarityScore: number
+    sourceType: string
+  }> = similarIssueSuggestion
+    ? (similarIssueSuggestion.resultJson as Array<{
+        id: string
+        title: string
+        status: string
+        severity: string
+        supplierName: string | null
+        vehicleModel: string | null
+        partNumber: string | null
+        partName: string | null
+        similarityReasons: string[]
+        similarityScore: number
+        sourceType: string
+      }>)
+    : await findSimilarIssues(session.user.companyId, id, {
+        title: fd.title,
+        description: fd.description,
+        partNumber: fd.partNumber,
+        partName: fd.partName,
+        vehicleModel: fd.vehicleModel,
+        vin: fd.vin,
+        supplierId: fd.supplierId,
+      })
 
   const slaStatus = getFieldDefectSlaStatus(fd)
   const activeDueDate = getFieldDefectActiveDueDate(fd)
@@ -318,6 +376,32 @@ export default async function OemFieldDetailPage({
               )}
             </div>
           </div>
+
+          <AiInsightPanel
+            fieldDefectId={id}
+            suggestions={aiSuggestions.map((s) => ({
+              id: s.id,
+              suggestionType: s.suggestionType,
+              status: s.status,
+              resultJson: s.resultJson as Record<string, unknown>,
+              confidence: s.confidence,
+              createdAt: s.createdAt.toISOString(),
+              createdBy: s.createdBy ? { name: s.createdBy.name, email: s.createdBy.email } : null,
+              acceptedBy: s.acceptedBy ? { name: s.acceptedBy.name, email: s.acceptedBy.email } : null,
+              rejectedBy: s.rejectedBy ? { name: s.rejectedBy.name, email: s.rejectedBy.email } : null,
+              acceptedAt: s.acceptedAt?.toISOString() ?? null,
+              rejectedAt: s.rejectedAt?.toISOString() ?? null,
+            }))}
+            aiEnabled={aiEnabled}
+            isPro={isPro}
+            canManage={canEdit}
+          />
+
+          <SimilarIssuesPanel
+            fieldDefectId={id}
+            similarIssues={similarIssues}
+            canManage={canEdit}
+          />
         </div>
       </div>
     </div>

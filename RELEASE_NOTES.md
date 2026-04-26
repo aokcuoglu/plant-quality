@@ -1,3 +1,174 @@
+# PlantQuality v1.8.0 — Release Notes
+
+## Category Intelligence & Quality Dashboard
+
+**Release Date:** 2026-04-26  
+**Version:** 1.8.0
+
+---
+
+## Summary
+
+PlantQuality v1.8.0 converts AI classification output into structured Field Quality data and exposes quality intelligence dashboards based on category/subcategory trends. AI suggestion accept now applies `category`, `subcategory`, and `probableArea` directly to FieldDefect records. OEM users can manually edit classification fields. Similar Issue Detection now uses category/subcategory in its scoring model. A new Quality Intelligence Dashboard provides trending analytics for OEM users.
+
+**Core promise:** "AI suggestions are no longer just recommendations — accepted suggestions become structured field quality data, visible in management dashboards."
+
+---
+
+## New Features
+
+### FieldDefect Category Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `category` | String? | High-level defect classification (e.g., "Electrical", "Mechanical") |
+| `subcategory` | String? | Detailed classification (e.g., "Wiring Harness", "Brake System") |
+| `probableArea` | String? | Suspected area of the defect (e.g., "Front Left Door Module") |
+| `aiCategoryApplied` | Boolean | Whether AI classification was accepted and applied |
+| `aiCategoryAppliedAt` | DateTime? | When AI category was applied |
+| `aiCategoryAppliedById` | String? | Who accepted the AI suggestion |
+
+### AI Suggestion Application
+
+| Change | Description |
+|--------|-------------|
+| Accept applies category fields | `category`, `subcategory`, `probableArea` are written to FieldDefect on AI classification accept |
+| Accept applies severity | Suggested severity continues to be applied (existing behavior) |
+| AI category marker | `aiCategoryApplied` boolean set to `true`, `aiCategoryAppliedAt` and `aiCategoryAppliedById` recorded |
+| Defense-in-depth | `prisma.fieldDefect.update` now includes `oemId` in `where` clause for accept action |
+
+### Manual Category Editing
+
+| Change | Description |
+|--------|-------------|
+| Edit form | OEM users can edit `category`, `subcategory`, `probableArea` in field defect edit form |
+| Server action | New `updateFieldDefectCategories()` action for inline category updates |
+| Update action | Existing `updateFieldDefect()` now accepts `category`, `subcategory`, `probableArea` via FormData |
+
+### Category/Subcategory Filters
+
+| Change | Description |
+|--------|-------------|
+| OEM Field list | Category and subcategory filter chips computed from visible data |
+| Filter format | `cat:Electrical` and `subcat:Wiring Harness` URL filter params |
+| Category column | Added to OEM Field list table |
+
+### Similar Issue Enhancement
+
+| Signal | Score | Description |
+|--------|-------|-------------|
+| Same category | +10 | Both defects share the same category |
+| Same subcategory | +15 | Both defects share the same subcategory |
+| Same probable area | +5 | Both defects share the same probable area |
+
+Existing weights unchanged: VIN exact (40), part number (25), supplier (15), vehicle model (10), title keywords (10), description keywords (5). Works when AI_ENABLED=false.
+
+### Quality Intelligence Dashboard
+
+New OEM route: `/quality/oem/quality-intelligence`
+
+| Metric | Description |
+|--------|-------------|
+| Total Field Defects | All non-deleted defects for the OEM |
+| Open Field Defects | Active statuses (OPEN, UNDER_REVIEW, SUPPLIER_ASSIGNED) |
+| Overdue Field Defects | Past SLA deadline |
+| Critical Field Defects | Severity = CRITICAL |
+| Top Categories | Grouped by category, top 10 |
+| Top Subcategories | Grouped by subcategory, top 10 |
+| Top Vehicle Models | Grouped by vehicle model, top 10 |
+| Top Suppliers | Grouped by assigned supplier, top 10 |
+| Top Recurring Part Numbers | Grouped by part number, top 10 |
+| AI Acceptance Rate | Accepted classification suggestions / total generated |
+
+### Supplier Visibility
+
+- Supplier users can see `category`, `subcategory`, `probableArea` on assigned field defects
+- Supplier users cannot access Quality Intelligence Dashboard
+- Supplier users cannot update category fields
+
+---
+
+## Database Changes
+
+| Change | Detail |
+|--------|--------|
+| `field_defects.category` | New nullable String column |
+| `field_defects.subcategory` | New nullable String column |
+| `field_defects.probable_area` | New nullable String column |
+| `field_defects.ai_category_applied` | New Boolean column, default `false` |
+| `field_defects.ai_category_applied_at` | New nullable DateTime column |
+| `field_defects.ai_category_applied_by_id` | New nullable String FK to `users` |
+| New indexes | `(oemId, category)`, `(oemId, subcategory)`, `(oemId, probable_area)`, `(oemId, createdAt)`, `(oemId, supplierId)`, `(oemId, vehicle_model)`, `(oemId, part_number)` |
+
+---
+
+## New Files
+
+| File | Purpose |
+|------|---------|
+| `src/app/(dashboard)/quality/oem/quality-intelligence/page.tsx` | Quality Intelligence Dashboard page |
+| `src/app/(dashboard)/quality/intelligence-actions.ts` | Server action for dashboard data |
+
+---
+
+## Modified Files
+
+| File | Change |
+|------|--------|
+| `prisma/schema.prisma` | Added category/subcategory/probableArea/aiCategoryApplied fields to FieldDefect; new indexes |
+| `src/app/(dashboard)/field/ai-actions.ts` | `acceptSuggestion` now applies category/subcategory/probableArea and sets aiCategoryApplied; added defense-in-depth oemId in update where clause |
+| `src/app/(dashboard)/field/actions.ts` | Added `updateFieldDefectCategories()` action; added category/subcategory/probableArea to `updateFieldDefect()`; added cat:/subcat: filter support; revalidate quality-intelligence paths |
+| `src/lib/ai/similar-issues.ts` | Added category (+10), subcategory (+15), probableArea (+5) scoring; updated query select and interface |
+| `src/lib/field-defect-types.ts` | Added category/subcategory/probableArea to FieldDefectRow |
+| `src/app/(dashboard)/quality/oem/field/page.tsx` | Added Category column and dynamic category/subcategory filter chips |
+| `src/app/(dashboard)/quality/oem/field/[id]/page.tsx` | Display category/subcategory/probableArea; show AI classification badge; pass category data to similar issues |
+| `src/app/(dashboard)/quality/oem/field/[id]/edit/edit-form.tsx` | Added Classification section with category/subcategory/probableArea inputs |
+| `src/app/(dashboard)/quality/supplier/field/[id]/page.tsx` | Display category/subcategory/probableArea for assigned defects |
+| `src/components/field/AiInsightPanel.tsx` | Accept button shows which fields will be applied |
+| `src/components/field/SimilarIssuesPanel.tsx` | Display category/subcategory in results |
+| `src/app/(dashboard)/layout.tsx` | Added Intelligence nav link for OEM |
+| `src/components/layout/Sidebar.tsx` | Added BarChart3Icon to icon map |
+
+---
+
+## Permission Model
+
+| Action | OEM Admin | OEM QE | OEM Viewer | Supplier Admin | Supplier QE |
+|--------|-----------|--------|------------|----------------|-------------|
+| View Quality Intelligence Dashboard | ✅ | ✅ | ✅ | ❌ | ❌ |
+| Edit category/subcategory/probableArea | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Accept AI classification (applies category) | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| View category on assigned defect | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Category filter in field list | ✅ | ✅ | ✅ | ❌ | ❌ |
+
+---
+
+## Known Limitations
+
+- Category and subcategory values are free-text (no predefined taxonomy)
+- AI classification suggest `suggestedSupplierName` is stored in resultJson but not auto-applied to avoid incorrect supplier assignment
+- Similar Issue Detection only searches Field Defects (not 8D Defects) within the same OEM tenant
+- Quality Intelligence Dashboard is page-refresh (no real-time updates)
+- No CSV/PDF export on the dashboard
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| Root cause generation | v1.9+ |
+| AI 8D review | v1.9+ |
+| Supplier risk prediction | v1.9+ |
+| Warranty cost prediction | v2.0+ |
+| Image-based AI classification | v2.0+ |
+| Vector database for semantic search | v2.0+ |
+| Advanced analytics builder | v2.0+ |
+| CSV/PDF export | v2.0+ |
+| Predefined category taxonomy | v1.9+ |
+
+---
+
 # PlantQuality v1.7.1 — Release Notes
 
 ## AI Auth Hardening & Design-System Cleanup

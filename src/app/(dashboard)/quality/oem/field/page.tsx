@@ -133,6 +133,49 @@ export default async function OemFieldPage({
         ))}
       </div>
 
+      {fieldDefects.length > 0 && (() => {
+        const catCounts = new Map<string, number>()
+        const subcatCounts = new Map<string, number>()
+        fieldDefects.forEach((fd) => {
+          if (fd.category) catCounts.set(fd.category, (catCounts.get(fd.category) ?? 0) + 1)
+          if (fd.subcategory) subcatCounts.set(fd.subcategory, (subcatCounts.get(fd.subcategory) ?? 0) + 1)
+        })
+        const uniqueCategories = Array.from(catCounts.entries()).sort((a, b) => b[1] - a[1])
+        const uniqueSubcategories = Array.from(subcatCounts.entries()).sort((a, b) => b[1] - a[1])
+        if (uniqueCategories.length === 0 && uniqueSubcategories.length === 0) return null
+        return (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-muted-foreground font-medium mr-1">Category:</span>
+            {uniqueCategories.map(([cat, count]) => (
+              <Link
+                key={cat}
+                href={buildUrl({ filter: `cat:${cat}`, page: undefined })}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
+                  filter === `cat:${cat}`
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted bg-muted/60"
+                }`}
+              >
+                {cat} ({count})
+              </Link>
+            ))}
+            {uniqueSubcategories.map(([subcat, count]) => (
+              <Link
+                key={subcat}
+                href={buildUrl({ filter: `subcat:${subcat}`, page: undefined })}
+                className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
+                  filter === `subcat:${subcat}`
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted bg-muted/60"
+                }`}
+              >
+                {subcat} ({count})
+              </Link>
+            ))}
+          </div>
+        )
+      })()}
+
       <div className="w-full max-w-sm">
         <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter"]} />
       </div>
@@ -156,6 +199,7 @@ export default async function OemFieldPage({
                 <Th>Title</Th>
                 <Th>Status</Th>
                 <Th>Severity</Th>
+                <Th>Category</Th>
                 <Th>SLA</Th>
                 <Th>Escalation</Th>
                 <Th>Source</Th>
@@ -180,6 +224,12 @@ export default async function OemFieldPage({
                   </Td>
                   <Td>
                     <FieldDefectSeverityBadge severity={fd.severity} />
+                  </Td>
+                  <Td>
+                    <span className="text-xs text-muted-foreground">
+                      {fd.category ?? "—"}
+                      {fd.subcategory ? ` / ${fd.subcategory}` : ""}
+                    </span>
                   </Td>
                   <Td>
                     <SlaStatusBadge status={getFieldDefectSlaStatus(fd)} />

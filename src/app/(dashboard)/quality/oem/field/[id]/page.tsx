@@ -85,6 +85,8 @@ export default async function OemFieldDetailPage({
     similarityReasons: string[]
     similarityScore: number
     sourceType: string
+    category: string | null
+    subcategory: string | null
   }> = similarIssueSuggestion
     ? (similarIssueSuggestion.resultJson as Array<{
         id: string
@@ -98,6 +100,8 @@ export default async function OemFieldDetailPage({
         similarityReasons: string[]
         similarityScore: number
         sourceType: string
+        category: string | null
+        subcategory: string | null
       }>)
     : await findSimilarIssues(session.user.companyId, id, {
         title: fd.title,
@@ -107,6 +111,9 @@ export default async function OemFieldDetailPage({
         vehicleModel: fd.vehicleModel,
         vin: fd.vin,
         supplierId: fd.supplierId,
+        category: fd.category,
+        subcategory: fd.subcategory,
+        probableArea: fd.probableArea,
       })
 
   const slaStatus = getFieldDefectSlaStatus(fd)
@@ -136,6 +143,15 @@ export default async function OemFieldDetailPage({
               <DetailRow label="Description" value={<p className="whitespace-pre-wrap">{fd.description}</p>} />
               <DetailRow label="Source" value={<FieldDefectSourceBadge source={fd.source} />} />
               <DetailRow label="Severity" value={<FieldDefectSeverityBadge severity={fd.severity} />} />
+              {fd.category && (
+                <DetailRow label="Category" value={<span className="text-sm text-foreground">{fd.category}{fd.subcategory ? ` / ${fd.subcategory}` : ""}</span>} />
+              )}
+              {fd.probableArea && (
+                <DetailRow label="Probable Area" value={fd.probableArea} />
+              )}
+              {fd.aiCategoryApplied && (
+                <DetailRow label="AI Classification" value={<span className="text-xs font-medium text-emerald-500">Applied by AI</span>} />
+              )}
               <DetailRow label="Safety Impact" value={fd.safetyImpact ? "⚠️ Yes" : "No"} />
               <DetailRow label="Vehicle Down" value={fd.vehicleDown ? "🚫 Yes" : "No"} />
               <DetailRow label="Repeat Issue" value={fd.repeatIssue ? "🔁 Yes" : "No"} />

@@ -18,4 +18,7 @@ export interface FieldDefectRow {
   responseDueAt: Date | null
   resolutionDueAt: Date | null
   escalationLevel: EscalationLevel
+  category: string | null
+  subcategory: string | null
+  probableArea: string | null
 }

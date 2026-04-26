@@ -23,6 +23,9 @@ type FieldDefectData = {
   location: string | null
   partNumber: string | null
   partName: string | null
+  category: string | null
+  subcategory: string | null
+  probableArea: string | null
 }
 
 export function EditFieldDefectForm({
@@ -111,6 +114,15 @@ export function EditFieldDefectForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2"><label htmlFor="partNumber" className="text-sm font-medium">Part Number</label><input id="partNumber" name="partNumber" type="text" defaultValue={fieldDefect.partNumber ?? ""} className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" /></div>
           <div className="space-y-2"><label htmlFor="partName" className="text-sm font-medium">Part Name</label><input id="partName" name="partName" type="text" defaultValue={fieldDefect.partName ?? ""} className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" /></div>
+        </div>
+      </div>
+
+      <div className="border-t pt-5">
+        <h2 className="text-sm font-semibold mb-4">Classification</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="space-y-2"><label htmlFor="category" className="text-sm font-medium">Category</label><input id="category" name="category" type="text" defaultValue={fieldDefect.category ?? ""} placeholder="e.g., Electrical" className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" /></div>
+          <div className="space-y-2"><label htmlFor="subcategory" className="text-sm font-medium">Subcategory</label><input id="subcategory" name="subcategory" type="text" defaultValue={fieldDefect.subcategory ?? ""} placeholder="e.g., Wiring Harness" className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" /></div>
+          <div className="space-y-2"><label htmlFor="probableArea" className="text-sm font-medium">Probable Area</label><input id="probableArea" name="probableArea" type="text" defaultValue={fieldDefect.probableArea ?? ""} placeholder="e.g., Front Left Door" className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" /></div>
         </div>
       </div>
 

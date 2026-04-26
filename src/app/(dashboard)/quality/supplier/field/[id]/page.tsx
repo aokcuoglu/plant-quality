@@ -66,6 +66,12 @@ export default async function SupplierFieldDetailPage({
               <DetailRow label="Description" value={<p className="whitespace-pre-wrap">{fd.description}</p>} />
               <DetailRow label="Source" value={<FieldDefectSourceBadge source={fd.source} />} />
               <DetailRow label="Severity" value={<FieldDefectSeverityBadge severity={fd.severity} />} />
+              {fd.category && (
+                <DetailRow label="Category" value={<span className="text-sm text-foreground">{fd.category}{fd.subcategory ? ` / ${fd.subcategory}` : ""}</span>} />
+              )}
+              {fd.probableArea && (
+                <DetailRow label="Probable Area" value={fd.probableArea} />
+              )}
               <DetailRow label="Safety Impact" value={fd.safetyImpact ? "⚠️ Yes" : "No"} />
               <DetailRow label="Vehicle Down" value={fd.vehicleDown ? "🚫 Yes" : "No"} />
               <DetailRow label="Repeat Issue" value={fd.repeatIssue ? "🔁 Yes" : "No"} />

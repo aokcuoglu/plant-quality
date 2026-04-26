@@ -251,6 +251,7 @@ export type UserWhereInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentListRelationFilter
   fieldDefectComments?: Prisma.FieldDefectCommentListRelationFilter
   fieldDefectEvents?: Prisma.FieldDefectEventListRelationFilter
+  aiCategoryAppliedByFor?: Prisma.FieldDefectListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -300,6 +301,7 @@ export type UserOrderByWithRelationInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentOrderByRelationAggregateInput
   fieldDefectComments?: Prisma.FieldDefectCommentOrderByRelationAggregateInput
   fieldDefectEvents?: Prisma.FieldDefectEventOrderByRelationAggregateInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -352,6 +354,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentListRelationFilter
   fieldDefectComments?: Prisma.FieldDefectCommentListRelationFilter
   fieldDefectEvents?: Prisma.FieldDefectEventListRelationFilter
+  aiCategoryAppliedByFor?: Prisma.FieldDefectListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -430,6 +433,7 @@ export type UserCreateInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -478,6 +482,7 @@ export type UserUncheckedCreateInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUpdateInput = {
@@ -526,6 +531,7 @@ export type UserUpdateInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -574,6 +580,7 @@ export type UserUncheckedUpdateInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1093,6 +1100,12 @@ export type UserUpdateOneWithoutFmeaEventActorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFmeaEventActorsInput, Prisma.UserUpdateWithoutFmeaEventActorsInput>, Prisma.UserUncheckedUpdateWithoutFmeaEventActorsInput>
 }
 
+export type UserCreateNestedOneWithoutAiCategoryAppliedByForInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiCategoryAppliedByForInput, Prisma.UserUncheckedCreateWithoutAiCategoryAppliedByForInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiCategoryAppliedByForInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserCreateNestedOneWithoutCreatedFieldDefectsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedFieldDefectsInput, Prisma.UserUncheckedCreateWithoutCreatedFieldDefectsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedFieldDefectsInput
@@ -1115,6 +1128,16 @@ export type UserCreateNestedOneWithoutEscalatedFieldDefectsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutEscalatedFieldDefectsInput, Prisma.UserUncheckedCreateWithoutEscalatedFieldDefectsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutEscalatedFieldDefectsInput
   connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAiCategoryAppliedByForNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiCategoryAppliedByForInput, Prisma.UserUncheckedCreateWithoutAiCategoryAppliedByForInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiCategoryAppliedByForInput
+  upsert?: Prisma.UserUpsertWithoutAiCategoryAppliedByForInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiCategoryAppliedByForInput, Prisma.UserUpdateWithoutAiCategoryAppliedByForInput>, Prisma.UserUncheckedUpdateWithoutAiCategoryAppliedByForInput>
 }
 
 export type UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput = {
@@ -1320,6 +1343,7 @@ export type UserCreateWithoutCompanyInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyInput = {
@@ -1367,6 +1391,7 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyInput = {
@@ -1455,6 +1480,7 @@ export type UserCreateWithoutAccountsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1502,6 +1528,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1565,6 +1592,7 @@ export type UserUpdateWithoutAccountsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1612,6 +1640,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1659,6 +1688,7 @@ export type UserCreateWithoutSessionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1706,6 +1736,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1769,6 +1800,7 @@ export type UserUpdateWithoutSessionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1816,6 +1848,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutOwnedDefectsInput = {
@@ -1863,6 +1896,7 @@ export type UserCreateWithoutOwnedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDefectsInput = {
@@ -1910,6 +1944,7 @@ export type UserUncheckedCreateWithoutOwnedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDefectsInput = {
@@ -1962,6 +1997,7 @@ export type UserCreateWithoutAssignedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedDefectsInput = {
@@ -2009,6 +2045,7 @@ export type UserUncheckedCreateWithoutAssignedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedDefectsInput = {
@@ -2061,6 +2098,7 @@ export type UserCreateWithoutEscalatedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
@@ -2108,6 +2146,7 @@ export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedDefectsInput = {
@@ -2171,6 +2210,7 @@ export type UserUpdateWithoutOwnedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
@@ -2218,6 +2258,7 @@ export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedDefectsInput = {
@@ -2276,6 +2317,7 @@ export type UserUpdateWithoutAssignedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
@@ -2323,6 +2365,7 @@ export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutEscalatedDefectsInput = {
@@ -2381,6 +2424,7 @@ export type UserUpdateWithoutEscalatedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
@@ -2428,6 +2472,7 @@ export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutApprovedReportsInput = {
@@ -2475,6 +2520,7 @@ export type UserCreateWithoutApprovedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedReportsInput = {
@@ -2522,6 +2568,7 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedReportsInput = {
@@ -2574,6 +2621,7 @@ export type UserCreateWithoutRejectedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedReportsInput = {
@@ -2621,6 +2669,7 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedReportsInput = {
@@ -2684,6 +2733,7 @@ export type UserUpdateWithoutApprovedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedReportsInput = {
@@ -2731,6 +2781,7 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedReportsInput = {
@@ -2789,6 +2840,7 @@ export type UserUpdateWithoutRejectedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedReportsInput = {
@@ -2836,6 +2888,7 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutResolvedReviewCommentsInput = {
@@ -2883,6 +2936,7 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
@@ -2930,6 +2984,7 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutResolvedReviewCommentsInput = {
@@ -2982,6 +3037,7 @@ export type UserCreateWithoutReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewCommentsInput = {
@@ -3029,6 +3085,7 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewCommentsInput = {
@@ -3092,6 +3149,7 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
@@ -3139,6 +3197,7 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutReviewCommentsInput = {
@@ -3197,6 +3256,7 @@ export type UserUpdateWithoutReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewCommentsInput = {
@@ -3244,6 +3304,7 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutDefectEventsInput = {
@@ -3291,6 +3352,7 @@ export type UserCreateWithoutDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutDefectEventsInput = {
@@ -3338,6 +3400,7 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutDefectEventsInput = {
@@ -3401,6 +3464,7 @@ export type UserUpdateWithoutDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDefectEventsInput = {
@@ -3448,6 +3512,7 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutUploadedEvidenceInput = {
@@ -3495,6 +3560,7 @@ export type UserCreateWithoutUploadedEvidenceInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
@@ -3542,6 +3608,7 @@ export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedEvidenceInput = {
@@ -3605,6 +3672,7 @@ export type UserUpdateWithoutUploadedEvidenceInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
@@ -3652,6 +3720,7 @@ export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutOwnedPpapsInput = {
@@ -3699,6 +3768,7 @@ export type UserCreateWithoutOwnedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPpapsInput = {
@@ -3746,6 +3816,7 @@ export type UserUncheckedCreateWithoutOwnedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPpapsInput = {
@@ -3798,6 +3869,7 @@ export type UserCreateWithoutAssignedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedPpapsInput = {
@@ -3845,6 +3917,7 @@ export type UserUncheckedCreateWithoutAssignedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedPpapsInput = {
@@ -3897,6 +3970,7 @@ export type UserCreateWithoutApprovedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPpapsInput = {
@@ -3944,6 +4018,7 @@ export type UserUncheckedCreateWithoutApprovedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPpapsInput = {
@@ -3996,6 +4071,7 @@ export type UserCreateWithoutRejectedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedPpapsInput = {
@@ -4043,6 +4119,7 @@ export type UserUncheckedCreateWithoutRejectedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedPpapsInput = {
@@ -4106,6 +4183,7 @@ export type UserUpdateWithoutOwnedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
@@ -4153,6 +4231,7 @@ export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedPpapsInput = {
@@ -4211,6 +4290,7 @@ export type UserUpdateWithoutAssignedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
@@ -4258,6 +4338,7 @@ export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedPpapsInput = {
@@ -4316,6 +4397,7 @@ export type UserUpdateWithoutApprovedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
@@ -4363,6 +4445,7 @@ export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedPpapsInput = {
@@ -4421,6 +4504,7 @@ export type UserUpdateWithoutRejectedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
@@ -4468,6 +4552,7 @@ export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutPpapEvidenceUploadsInput = {
@@ -4515,6 +4600,7 @@ export type UserCreateWithoutPpapEvidenceUploadsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
@@ -4562,6 +4648,7 @@ export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEvidenceUploadsInput = {
@@ -4625,6 +4712,7 @@ export type UserUpdateWithoutPpapEvidenceUploadsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
@@ -4672,6 +4760,7 @@ export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutPpapCommentResolvedInput = {
@@ -4719,6 +4808,7 @@ export type UserCreateWithoutPpapCommentResolvedInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
@@ -4766,6 +4856,7 @@ export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentResolvedInput = {
@@ -4818,6 +4909,7 @@ export type UserCreateWithoutPpapCommentAuthoredInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
@@ -4865,6 +4957,7 @@ export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentAuthoredInput = {
@@ -4928,6 +5021,7 @@ export type UserUpdateWithoutPpapCommentResolvedInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
@@ -4975,6 +5069,7 @@ export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutPpapCommentAuthoredInput = {
@@ -5033,6 +5128,7 @@ export type UserUpdateWithoutPpapCommentAuthoredInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
@@ -5080,6 +5176,7 @@ export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutPpapEventActorsInput = {
@@ -5127,6 +5224,7 @@ export type UserCreateWithoutPpapEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEventActorsInput = {
@@ -5174,6 +5272,7 @@ export type UserUncheckedCreateWithoutPpapEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEventActorsInput = {
@@ -5237,6 +5336,7 @@ export type UserUpdateWithoutPpapEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
@@ -5284,6 +5384,7 @@ export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutIqcInspectionsInput = {
@@ -5331,6 +5432,7 @@ export type UserCreateWithoutIqcInspectionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcInspectionsInput = {
@@ -5378,6 +5480,7 @@ export type UserUncheckedCreateWithoutIqcInspectionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcInspectionsInput = {
@@ -5441,6 +5544,7 @@ export type UserUpdateWithoutIqcInspectionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
@@ -5488,6 +5592,7 @@ export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutIqcEventActorsInput = {
@@ -5535,6 +5640,7 @@ export type UserCreateWithoutIqcEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcEventActorsInput = {
@@ -5582,6 +5688,7 @@ export type UserUncheckedCreateWithoutIqcEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcEventActorsInput = {
@@ -5645,6 +5752,7 @@ export type UserUpdateWithoutIqcEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
@@ -5692,6 +5800,7 @@ export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutFmeaResponsibleInput = {
@@ -5739,6 +5848,7 @@ export type UserCreateWithoutFmeaResponsibleInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
@@ -5786,6 +5896,7 @@ export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaResponsibleInput = {
@@ -5838,6 +5949,7 @@ export type UserCreateWithoutFmeaApprovedByInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
@@ -5885,6 +5997,7 @@ export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaApprovedByInput = {
@@ -5948,6 +6061,7 @@ export type UserUpdateWithoutFmeaResponsibleInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
@@ -5995,6 +6109,7 @@ export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutFmeaApprovedByInput = {
@@ -6053,6 +6168,7 @@ export type UserUpdateWithoutFmeaApprovedByInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
@@ -6100,6 +6216,7 @@ export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutFmeaEventActorsInput = {
@@ -6147,6 +6264,7 @@ export type UserCreateWithoutFmeaEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
@@ -6194,6 +6312,7 @@ export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaEventActorsInput = {
@@ -6257,6 +6376,7 @@ export type UserUpdateWithoutFmeaEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
@@ -6304,6 +6424,108 @@ export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+}
+
+export type UserCreateWithoutAiCategoryAppliedByForInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAiCategoryAppliedByForInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiCategoryAppliedByForInput, Prisma.UserUncheckedCreateWithoutAiCategoryAppliedByForInput>
 }
 
 export type UserCreateWithoutCreatedFieldDefectsInput = {
@@ -6351,6 +6573,7 @@ export type UserCreateWithoutCreatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
@@ -6398,6 +6621,7 @@ export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedFieldDefectsInput = {
@@ -6450,6 +6674,7 @@ export type UserCreateWithoutUpdatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
@@ -6497,6 +6722,7 @@ export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedFieldDefectsInput = {
@@ -6549,6 +6775,7 @@ export type UserCreateWithoutConvertedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
@@ -6596,6 +6823,7 @@ export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutConvertedFieldDefectsInput = {
@@ -6648,6 +6876,7 @@ export type UserCreateWithoutEscalatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
@@ -6695,11 +6924,119 @@ export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedFieldDefectsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutEscalatedFieldDefectsInput, Prisma.UserUncheckedCreateWithoutEscalatedFieldDefectsInput>
+}
+
+export type UserUpsertWithoutAiCategoryAppliedByForInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiCategoryAppliedByForInput, Prisma.UserUncheckedUpdateWithoutAiCategoryAppliedByForInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiCategoryAppliedByForInput, Prisma.UserUncheckedCreateWithoutAiCategoryAppliedByForInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiCategoryAppliedByForInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiCategoryAppliedByForInput, Prisma.UserUncheckedUpdateWithoutAiCategoryAppliedByForInput>
+}
+
+export type UserUpdateWithoutAiCategoryAppliedByForInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutCreatedFieldDefectsInput = {
@@ -6758,6 +7095,7 @@ export type UserUpdateWithoutCreatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
@@ -6805,6 +7143,7 @@ export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedFieldDefectsInput = {
@@ -6863,6 +7202,7 @@ export type UserUpdateWithoutUpdatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
@@ -6910,6 +7250,7 @@ export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutConvertedFieldDefectsInput = {
@@ -6968,6 +7309,7 @@ export type UserUpdateWithoutConvertedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
@@ -7015,6 +7357,7 @@ export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutEscalatedFieldDefectsInput = {
@@ -7073,6 +7416,7 @@ export type UserUpdateWithoutEscalatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
@@ -7120,6 +7464,7 @@ export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectAttachmentsInput = {
@@ -7167,6 +7512,7 @@ export type UserCreateWithoutFieldDefectAttachmentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
@@ -7214,6 +7560,7 @@ export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectAttachmentsInput = {
@@ -7277,6 +7624,7 @@ export type UserUpdateWithoutFieldDefectAttachmentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
@@ -7324,6 +7672,7 @@ export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectCommentsInput = {
@@ -7371,6 +7720,7 @@ export type UserCreateWithoutFieldDefectCommentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
@@ -7418,6 +7768,7 @@ export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectCommentsInput = {
@@ -7481,6 +7832,7 @@ export type UserUpdateWithoutFieldDefectCommentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
@@ -7528,6 +7880,7 @@ export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectEventsInput = {
@@ -7575,6 +7928,7 @@ export type UserCreateWithoutFieldDefectEventsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
@@ -7622,6 +7976,7 @@ export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectEventsInput = {
@@ -7685,6 +8040,7 @@ export type UserUpdateWithoutFieldDefectEventsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
@@ -7732,6 +8088,7 @@ export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
   rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -7779,6 +8136,7 @@ export type UserCreateWithoutNotificationsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -7826,6 +8184,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -7889,6 +8248,7 @@ export type UserUpdateWithoutNotificationsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -7936,6 +8296,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutEscalationHistoriesInput = {
@@ -7983,6 +8344,7 @@ export type UserCreateWithoutEscalationHistoriesInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
@@ -8030,6 +8392,7 @@ export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalationHistoriesInput = {
@@ -8093,6 +8456,7 @@ export type UserUpdateWithoutEscalationHistoriesInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
@@ -8140,6 +8504,7 @@ export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAiSuggestionsInput = {
@@ -8187,6 +8552,7 @@ export type UserCreateWithoutCreatedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
@@ -8234,6 +8600,7 @@ export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAiSuggestionsInput = {
@@ -8286,6 +8653,7 @@ export type UserCreateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
@@ -8333,6 +8701,7 @@ export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedAiSuggestionsInput = {
@@ -8385,6 +8754,7 @@ export type UserCreateWithoutRejectedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
@@ -8432,6 +8802,7 @@ export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedAiSuggestionsInput = {
@@ -8495,6 +8866,7 @@ export type UserUpdateWithoutCreatedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
@@ -8542,6 +8914,7 @@ export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutAcceptedAiSuggestionsInput = {
@@ -8600,6 +8973,7 @@ export type UserUpdateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
@@ -8647,6 +9021,7 @@ export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedAiSuggestionsInput = {
@@ -8705,6 +9080,7 @@ export type UserUpdateWithoutRejectedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
@@ -8752,6 +9128,7 @@ export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserCreateManyCompanyInput = {
@@ -8810,6 +9187,7 @@ export type UserUpdateWithoutCompanyInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -8857,6 +9235,7 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -8912,6 +9291,7 @@ export type UserCountOutputType = {
   fieldDefectAttachments: number
   fieldDefectComments: number
   fieldDefectEvents: number
+  aiCategoryAppliedByFor: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8951,6 +9331,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   fieldDefectAttachments?: boolean | UserCountOutputTypeCountFieldDefectAttachmentsArgs
   fieldDefectComments?: boolean | UserCountOutputTypeCountFieldDefectCommentsArgs
   fieldDefectEvents?: boolean | UserCountOutputTypeCountFieldDefectEventsArgs
+  aiCategoryAppliedByFor?: boolean | UserCountOutputTypeCountAiCategoryAppliedByForArgs
 }
 
 /**
@@ -9215,6 +9596,13 @@ export type UserCountOutputTypeCountFieldDefectEventsArgs<ExtArgs extends runtim
   where?: Prisma.FieldDefectEventWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiCategoryAppliedByForArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FieldDefectWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -9263,6 +9651,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   fieldDefectAttachments?: boolean | Prisma.User$fieldDefectAttachmentsArgs<ExtArgs>
   fieldDefectComments?: boolean | Prisma.User$fieldDefectCommentsArgs<ExtArgs>
   fieldDefectEvents?: boolean | Prisma.User$fieldDefectEventsArgs<ExtArgs>
+  aiCategoryAppliedByFor?: boolean | Prisma.User$aiCategoryAppliedByForArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -9343,6 +9732,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   fieldDefectAttachments?: boolean | Prisma.User$fieldDefectAttachmentsArgs<ExtArgs>
   fieldDefectComments?: boolean | Prisma.User$fieldDefectCommentsArgs<ExtArgs>
   fieldDefectEvents?: boolean | Prisma.User$fieldDefectEventsArgs<ExtArgs>
+  aiCategoryAppliedByFor?: boolean | Prisma.User$aiCategoryAppliedByForArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9392,6 +9782,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     fieldDefectAttachments: Prisma.$FieldDefectAttachmentPayload<ExtArgs>[]
     fieldDefectComments: Prisma.$FieldDefectCommentPayload<ExtArgs>[]
     fieldDefectEvents: Prisma.$FieldDefectEventPayload<ExtArgs>[]
+    aiCategoryAppliedByFor: Prisma.$FieldDefectPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9834,6 +10225,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   fieldDefectAttachments<T extends Prisma.User$fieldDefectAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fieldDefectAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fieldDefectComments<T extends Prisma.User$fieldDefectCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fieldDefectCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fieldDefectEvents<T extends Prisma.User$fieldDefectEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fieldDefectEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiCategoryAppliedByFor<T extends Prisma.User$aiCategoryAppliedByForArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiCategoryAppliedByForArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11153,6 +11545,30 @@ export type User$fieldDefectEventsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.FieldDefectEventScalarFieldEnum | Prisma.FieldDefectEventScalarFieldEnum[]
+}
+
+/**
+ * User.aiCategoryAppliedByFor
+ */
+export type User$aiCategoryAppliedByForArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FieldDefect
+   */
+  select?: Prisma.FieldDefectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FieldDefect
+   */
+  omit?: Prisma.FieldDefectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FieldDefectInclude<ExtArgs> | null
+  where?: Prisma.FieldDefectWhereInput
+  orderBy?: Prisma.FieldDefectOrderByWithRelationInput | Prisma.FieldDefectOrderByWithRelationInput[]
+  cursor?: Prisma.FieldDefectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FieldDefectScalarFieldEnum | Prisma.FieldDefectScalarFieldEnum[]
 }
 
 /**

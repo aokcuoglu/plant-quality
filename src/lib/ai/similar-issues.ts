@@ -12,6 +12,8 @@ export interface SimilarIssue {
   similarityReasons: string[]
   similarityScore: number
   sourceType: "field_defect" | "defect"
+  category: string | null
+  subcategory: string | null
 }
 
 const SCORE_VIN_EXACT = 40
@@ -20,6 +22,9 @@ const SCORE_SAME_SUPPLIER = 15
 const SCORE_VEHICLE_MODEL = 10
 const SCORE_TITLE_KEYWORDS = 10
 const SCORE_DESC_KEYWORDS = 5
+const SCORE_SAME_CATEGORY = 10
+const SCORE_SAME_SUBCATEGORY = 15
+const SCORE_SAME_PROBABLE_AREA = 5
 
 export async function findSimilarIssues(
   companyId: string,
@@ -32,6 +37,9 @@ export async function findSimilarIssues(
     vehicleModel?: string | null
     vin?: string | null
     supplierId?: string | null
+    category?: string | null
+    subcategory?: string | null
+    probableArea?: string | null
   },
   limit = 10,
 ): Promise<SimilarIssue[]> {
@@ -61,6 +69,12 @@ export async function findSimilarIssues(
   if (input.supplierId) {
     orConditions.push({ supplierId: input.supplierId })
   }
+  if (input.category) {
+    orConditions.push({ category: { equals: input.category, mode: "insensitive" } })
+  }
+  if (input.subcategory) {
+    orConditions.push({ subcategory: { equals: input.subcategory, mode: "insensitive" } })
+  }
 
   const fieldDefects = await prisma.fieldDefect.findMany({
     where: {
@@ -81,6 +95,9 @@ export async function findSimilarIssues(
       supplier: { select: { name: true } },
       description: true,
       vin: true,
+      category: true,
+      subcategory: true,
+      probableArea: true,
     },
     take: 50,
     orderBy: { createdAt: "desc" },
@@ -106,6 +123,18 @@ export async function findSimilarIssues(
       if (input.vehicleModel && fd.vehicleModel?.toLowerCase().includes(input.vehicleModel.toLowerCase())) {
         score += SCORE_VEHICLE_MODEL
         reasons.push("Same vehicle model")
+      }
+      if (input.category && fd.category?.toLowerCase() === input.category.toLowerCase()) {
+        score += SCORE_SAME_CATEGORY
+        reasons.push("Same category")
+      }
+      if (input.subcategory && fd.subcategory?.toLowerCase() === input.subcategory.toLowerCase()) {
+        score += SCORE_SAME_SUBCATEGORY
+        reasons.push("Same subcategory")
+      }
+      if (input.probableArea && fd.probableArea?.toLowerCase() === input.probableArea.toLowerCase()) {
+        score += SCORE_SAME_PROBABLE_AREA
+        reasons.push("Same probable area")
       }
       const titleWords = input.title.toLowerCase().split(/\s+/).filter((w) => w.length >= 4)
       const matchingTitleWords = titleWords.filter((w) => fd.title.toLowerCase().includes(w))
@@ -145,6 +174,8 @@ export async function findSimilarIssues(
         similarityReasons: reasons,
         similarityScore: score,
         sourceType: "field_defect" as const,
+        category: fd.category,
+        subcategory: fd.subcategory,
       }
     })
     .filter((r) => r.similarityScore > 0)

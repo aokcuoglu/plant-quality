@@ -114,6 +114,9 @@ export async function generateSimilarIssues(fieldDefectId: string) {
     vehicleModel: fd.vehicleModel,
     vin: fd.vin,
     supplierId: fd.supplierId,
+    category: fd.category,
+    subcategory: fd.subcategory,
+    probableArea: fd.probableArea,
   })
 
   const existing = await prisma.aiSuggestion.findFirst({
@@ -153,6 +156,13 @@ export async function acceptSuggestion(suggestionId: string, fieldDefectId: stri
     return { ok: false as const, error: "Unauthorized" }
   }
 
+  const fieldDefect = await prisma.fieldDefect.findFirst({
+    where: { id: fieldDefectId, oemId: session.user.companyId, deletedAt: null },
+  })
+  if (!fieldDefect) {
+    return { ok: false as const, error: "Field defect not found" }
+  }
+
   const suggestion = await prisma.aiSuggestion.findFirst({
     where: {
       id: suggestionId,
@@ -168,10 +178,31 @@ export async function acceptSuggestion(suggestionId: string, fieldDefectId: stri
 
   if (suggestion.suggestionType === "CLASSIFICATION") {
     const classification = suggestion.resultJson as Record<string, unknown>
+    const updateData: Record<string, unknown> = {}
+
+    if (typeof classification.category === "string" && classification.category.trim()) {
+      updateData.category = classification.category.trim()
+    }
+    if (typeof classification.subcategory === "string" && classification.subcategory.trim()) {
+      updateData.subcategory = classification.subcategory.trim()
+    }
+    if (typeof classification.probableArea === "string" && classification.probableArea.trim()) {
+      updateData.probableArea = classification.probableArea.trim()
+    }
     if (classification.suggestedSeverity && ["MINOR", "MAJOR", "CRITICAL"].includes(classification.suggestedSeverity as string)) {
+      updateData.severity = classification.suggestedSeverity as FieldDefectSeverity
+    }
+
+    if (updateData.category || updateData.subcategory || updateData.probableArea) {
+      updateData.aiCategoryApplied = true
+      updateData.aiCategoryAppliedAt = new Date()
+      updateData.aiCategoryAppliedById = session.user.id
+    }
+
+    if (Object.keys(updateData).length > 0) {
       await prisma.fieldDefect.update({
-        where: { id: fieldDefectId },
-        data: { severity: classification.suggestedSeverity as FieldDefectSeverity },
+        where: { id: fieldDefectId, oemId: session.user.companyId },
+        data: updateData,
       })
     }
   }
@@ -195,6 +226,8 @@ export async function acceptSuggestion(suggestionId: string, fieldDefectId: stri
   })
 
   revalidatePath(`/quality/oem/field/${fieldDefectId}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath("/quality/oem/quality-intelligence")
   return { ok: true as const }
 }
 

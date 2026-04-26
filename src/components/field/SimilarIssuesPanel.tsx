@@ -19,6 +19,8 @@ interface SimilarIssue {
   similarityReasons: string[]
   similarityScore: number
   sourceType: string
+  category: string | null
+  subcategory: string | null
 }
 
 interface SimilarIssuesPanelProps {
@@ -104,6 +106,8 @@ export function SimilarIssuesPanel({
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 mt-1.5 text-xs text-muted-foreground">
+                  {issue.category && <span className="font-medium text-foreground">{issue.category}</span>}
+                  {issue.subcategory && <span>{issue.subcategory}</span>}
                   {issue.supplierName && <span>{issue.supplierName}</span>}
                   {issue.vehicleModel && <span>{issue.vehicleModel}</span>}
                   {issue.partNumber && <span className="font-mono">{issue.partNumber}</span>}

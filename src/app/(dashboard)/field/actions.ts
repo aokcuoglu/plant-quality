@@ -65,6 +65,9 @@ export async function getFieldDefects(
     responseDueAt: d.responseDueAt,
     resolutionDueAt: d.resolutionDueAt,
     escalationLevel: d.escalationLevel,
+    category: d.category,
+    subcategory: d.subcategory,
+    probableArea: d.probableArea,
   }))
 
   let filtered = rows
@@ -91,6 +94,10 @@ export async function getFieldDefects(
       filtered = rows.filter((d) => getFieldDefectSlaStatus(d) === "overdue")
     } else if (filter === "escalated") {
       filtered = rows.filter((d) => d.escalationLevel !== "NONE")
+    } else if (filter.startsWith("cat:")) {
+      filtered = rows.filter((d) => d.category === filter.slice(4))
+    } else if (filter.startsWith("subcat:")) {
+      filtered = rows.filter((d) => d.subcategory === filter.slice(7))
     }
   }
 
@@ -326,6 +333,9 @@ export async function updateFieldDefect(id: string, formData: FormData) {
   const location = formData.get("location") as string | null
   const partNumber = formData.get("partNumber") as string | null
   const partName = formData.get("partName") as string | null
+  const category = formData.get("category") as string | null
+  const subcategory = formData.get("subcategory") as string | null
+  const probableArea = formData.get("probableArea") as string | null
 
   if (vin) {
     const vinResult = validateVin(vin)
@@ -350,6 +360,9 @@ export async function updateFieldDefect(id: string, formData: FormData) {
   if (location !== null) data.location = location || null
   if (partNumber !== null) data.partNumber = partNumber || null
   if (partName !== null) data.partName = partName || null
+  if (category !== null) data.category = category || null
+  if (subcategory !== null) data.subcategory = subcategory || null
+  if (probableArea !== null) data.probableArea = probableArea || null
 
   await prisma.fieldDefect.update({
     where: { id, oemId: session.user.companyId },
@@ -365,6 +378,7 @@ export async function updateFieldDefect(id: string, formData: FormData) {
   revalidatePath("/quality/oem/field")
   revalidatePath(`/quality/supplier/field/${id}`)
   revalidatePath("/quality/supplier/field")
+  revalidatePath("/quality/oem/quality-intelligence")
 
   return { success: true as const }
 }
@@ -841,6 +855,46 @@ export async function escalateFieldDefect(id: string, reason: string) {
   revalidatePath("/quality/oem/field")
   revalidatePath(`/quality/supplier/field/${id}`)
   revalidatePath("/quality/supplier/field")
+
+  return { success: true as const }
+}
+
+export async function updateFieldDefectCategories(
+  id: string,
+  data: { category?: string | null; subcategory?: string | null; probableArea?: string | null },
+) {
+  const session = await auth()
+  if (!canOemManage(session)) {
+    return { success: false as const, error: "Unauthorized" }
+  }
+
+  const fieldDefect = await prisma.fieldDefect.findFirst({
+    where: { id, oemId: session.user.companyId, deletedAt: null },
+  })
+  if (!fieldDefect) {
+    return { success: false as const, error: "Field defect not found" }
+  }
+
+  const updateData: Record<string, unknown> = { updatedById: session.user.id }
+  if (data.category !== undefined) updateData.category = data.category || null
+  if (data.subcategory !== undefined) updateData.subcategory = data.subcategory || null
+  if (data.probableArea !== undefined) updateData.probableArea = data.probableArea || null
+
+  await prisma.fieldDefect.update({
+    where: { id, oemId: session.user.companyId },
+    data: updateData,
+  })
+
+  await logFieldDefectEvent(id, "FIELD_DEFECT_STATUS_CHANGED", session.user.id, {
+    action: "category_updated",
+    category: data.category ?? fieldDefect.category,
+    subcategory: data.subcategory ?? fieldDefect.subcategory,
+    probableArea: data.probableArea ?? fieldDefect.probableArea,
+  })
+
+  revalidatePath(`/quality/oem/field/${id}`)
+  revalidatePath("/quality/oem/field")
+  revalidatePath("/quality/oem/quality-intelligence")
 
   return { success: true as const }
 }

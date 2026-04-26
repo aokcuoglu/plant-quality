@@ -53,6 +53,12 @@ export type FieldDefectMinAggregateOutputType = {
   location: string | null
   partNumber: string | null
   partName: string | null
+  category: string | null
+  subcategory: string | null
+  probableArea: string | null
+  aiCategoryApplied: boolean | null
+  aiCategoryAppliedAt: Date | null
+  aiCategoryAppliedById: string | null
   supplierId: string | null
   supplierNameSnapshot: string | null
   oemId: string | null
@@ -92,6 +98,12 @@ export type FieldDefectMaxAggregateOutputType = {
   location: string | null
   partNumber: string | null
   partName: string | null
+  category: string | null
+  subcategory: string | null
+  probableArea: string | null
+  aiCategoryApplied: boolean | null
+  aiCategoryAppliedAt: Date | null
+  aiCategoryAppliedById: string | null
   supplierId: string | null
   supplierNameSnapshot: string | null
   oemId: string | null
@@ -131,6 +143,12 @@ export type FieldDefectCountAggregateOutputType = {
   location: number
   partNumber: number
   partName: number
+  category: number
+  subcategory: number
+  probableArea: number
+  aiCategoryApplied: number
+  aiCategoryAppliedAt: number
+  aiCategoryAppliedById: number
   supplierId: number
   supplierNameSnapshot: number
   oemId: number
@@ -180,6 +198,12 @@ export type FieldDefectMinAggregateInputType = {
   location?: true
   partNumber?: true
   partName?: true
+  category?: true
+  subcategory?: true
+  probableArea?: true
+  aiCategoryApplied?: true
+  aiCategoryAppliedAt?: true
+  aiCategoryAppliedById?: true
   supplierId?: true
   supplierNameSnapshot?: true
   oemId?: true
@@ -219,6 +243,12 @@ export type FieldDefectMaxAggregateInputType = {
   location?: true
   partNumber?: true
   partName?: true
+  category?: true
+  subcategory?: true
+  probableArea?: true
+  aiCategoryApplied?: true
+  aiCategoryAppliedAt?: true
+  aiCategoryAppliedById?: true
   supplierId?: true
   supplierNameSnapshot?: true
   oemId?: true
@@ -258,6 +288,12 @@ export type FieldDefectCountAggregateInputType = {
   location?: true
   partNumber?: true
   partName?: true
+  category?: true
+  subcategory?: true
+  probableArea?: true
+  aiCategoryApplied?: true
+  aiCategoryAppliedAt?: true
+  aiCategoryAppliedById?: true
   supplierId?: true
   supplierNameSnapshot?: true
   oemId?: true
@@ -384,6 +420,12 @@ export type FieldDefectGroupByOutputType = {
   location: string | null
   partNumber: string | null
   partName: string | null
+  category: string | null
+  subcategory: string | null
+  probableArea: string | null
+  aiCategoryApplied: boolean
+  aiCategoryAppliedAt: Date | null
+  aiCategoryAppliedById: string | null
   supplierId: string | null
   supplierNameSnapshot: string | null
   oemId: string
@@ -446,6 +488,12 @@ export type FieldDefectWhereInput = {
   location?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   partNumber?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   partName?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  category?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  subcategory?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  probableArea?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  aiCategoryApplied?: Prisma.BoolFilter<"FieldDefect"> | boolean
+  aiCategoryAppliedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
+  aiCategoryAppliedById?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   supplierId?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   supplierNameSnapshot?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   oemId?: Prisma.StringFilter<"FieldDefect"> | string
@@ -464,6 +512,7 @@ export type FieldDefectWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
+  aiCategoryAppliedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   supplier?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -496,6 +545,12 @@ export type FieldDefectOrderByWithRelationInput = {
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   partNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   partName?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  subcategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  probableArea?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCategoryApplied?: Prisma.SortOrder
+  aiCategoryAppliedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCategoryAppliedById?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierNameSnapshot?: Prisma.SortOrderInput | Prisma.SortOrder
   oemId?: Prisma.SortOrder
@@ -514,6 +569,7 @@ export type FieldDefectOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCategoryAppliedBy?: Prisma.UserOrderByWithRelationInput
   supplier?: Prisma.CompanyOrderByWithRelationInput
   oem?: Prisma.CompanyOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
@@ -550,6 +606,12 @@ export type FieldDefectWhereUniqueInput = Prisma.AtLeast<{
   location?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   partNumber?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   partName?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  category?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  subcategory?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  probableArea?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  aiCategoryApplied?: Prisma.BoolFilter<"FieldDefect"> | boolean
+  aiCategoryAppliedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
+  aiCategoryAppliedById?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   supplierId?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   supplierNameSnapshot?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   oemId?: Prisma.StringFilter<"FieldDefect"> | string
@@ -567,6 +629,7 @@ export type FieldDefectWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
+  aiCategoryAppliedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   supplier?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -599,6 +662,12 @@ export type FieldDefectOrderByWithAggregationInput = {
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   partNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   partName?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  subcategory?: Prisma.SortOrderInput | Prisma.SortOrder
+  probableArea?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCategoryApplied?: Prisma.SortOrder
+  aiCategoryAppliedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  aiCategoryAppliedById?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierNameSnapshot?: Prisma.SortOrderInput | Prisma.SortOrder
   oemId?: Prisma.SortOrder
@@ -646,6 +715,12 @@ export type FieldDefectScalarWhereWithAggregatesInput = {
   location?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   partNumber?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   partName?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
+  category?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
+  subcategory?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
+  probableArea?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
+  aiCategoryApplied?: Prisma.BoolWithAggregatesFilter<"FieldDefect"> | boolean
+  aiCategoryAppliedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FieldDefect"> | Date | string | null
+  aiCategoryAppliedById?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   supplierId?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   supplierNameSnapshot?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   oemId?: Prisma.StringWithAggregatesFilter<"FieldDefect"> | string
@@ -685,6 +760,11 @@ export type FieldDefectCreateInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -696,6 +776,7 @@ export type FieldDefectCreateInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -728,6 +809,12 @@ export type FieldDefectUncheckedCreateInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -771,6 +858,11 @@ export type FieldDefectUpdateInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -782,6 +874,7 @@ export type FieldDefectUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -814,6 +907,12 @@ export type FieldDefectUncheckedUpdateInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -857,6 +956,12 @@ export type FieldDefectCreateManyInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -896,6 +1001,11 @@ export type FieldDefectUpdateManyMutationInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -928,6 +1038,12 @@ export type FieldDefectUncheckedUpdateManyInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -982,6 +1098,12 @@ export type FieldDefectCountOrderByAggregateInput = {
   location?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  subcategory?: Prisma.SortOrder
+  probableArea?: Prisma.SortOrder
+  aiCategoryApplied?: Prisma.SortOrder
+  aiCategoryAppliedAt?: Prisma.SortOrder
+  aiCategoryAppliedById?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   supplierNameSnapshot?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
@@ -1025,6 +1147,12 @@ export type FieldDefectMaxOrderByAggregateInput = {
   location?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  subcategory?: Prisma.SortOrder
+  probableArea?: Prisma.SortOrder
+  aiCategoryApplied?: Prisma.SortOrder
+  aiCategoryAppliedAt?: Prisma.SortOrder
+  aiCategoryAppliedById?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   supplierNameSnapshot?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
@@ -1064,6 +1192,12 @@ export type FieldDefectMinOrderByAggregateInput = {
   location?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  subcategory?: Prisma.SortOrder
+  probableArea?: Prisma.SortOrder
+  aiCategoryApplied?: Prisma.SortOrder
+  aiCategoryAppliedAt?: Prisma.SortOrder
+  aiCategoryAppliedById?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   supplierNameSnapshot?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
@@ -1205,6 +1339,13 @@ export type FieldDefectCreateNestedManyWithoutEscalatedByInput = {
   connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
 }
 
+export type FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput = {
+  create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput> | Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput[]
+  connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput | Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput[]
+  createMany?: Prisma.FieldDefectCreateManyAiCategoryAppliedByInputEnvelope
+  connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+}
+
 export type FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput = {
   create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutCreatedByInput, Prisma.FieldDefectUncheckedCreateWithoutCreatedByInput> | Prisma.FieldDefectCreateWithoutCreatedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutCreatedByInput | Prisma.FieldDefectCreateOrConnectWithoutCreatedByInput[]
@@ -1230,6 +1371,13 @@ export type FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput = {
   create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutEscalatedByInput, Prisma.FieldDefectUncheckedCreateWithoutEscalatedByInput> | Prisma.FieldDefectCreateWithoutEscalatedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutEscalatedByInput[]
   connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutEscalatedByInput | Prisma.FieldDefectCreateOrConnectWithoutEscalatedByInput[]
   createMany?: Prisma.FieldDefectCreateManyEscalatedByInputEnvelope
+  connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+}
+
+export type FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput = {
+  create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput> | Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput[]
+  connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput | Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput[]
+  createMany?: Prisma.FieldDefectCreateManyAiCategoryAppliedByInputEnvelope
   connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
 }
 
@@ -1289,6 +1437,20 @@ export type FieldDefectUpdateManyWithoutEscalatedByNestedInput = {
   deleteMany?: Prisma.FieldDefectScalarWhereInput | Prisma.FieldDefectScalarWhereInput[]
 }
 
+export type FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput = {
+  create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput> | Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput[]
+  connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput | Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput[]
+  upsert?: Prisma.FieldDefectUpsertWithWhereUniqueWithoutAiCategoryAppliedByInput | Prisma.FieldDefectUpsertWithWhereUniqueWithoutAiCategoryAppliedByInput[]
+  createMany?: Prisma.FieldDefectCreateManyAiCategoryAppliedByInputEnvelope
+  set?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  disconnect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  delete?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  update?: Prisma.FieldDefectUpdateWithWhereUniqueWithoutAiCategoryAppliedByInput | Prisma.FieldDefectUpdateWithWhereUniqueWithoutAiCategoryAppliedByInput[]
+  updateMany?: Prisma.FieldDefectUpdateManyWithWhereWithoutAiCategoryAppliedByInput | Prisma.FieldDefectUpdateManyWithWhereWithoutAiCategoryAppliedByInput[]
+  deleteMany?: Prisma.FieldDefectScalarWhereInput | Prisma.FieldDefectScalarWhereInput[]
+}
+
 export type FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput = {
   create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutCreatedByInput, Prisma.FieldDefectUncheckedCreateWithoutCreatedByInput> | Prisma.FieldDefectCreateWithoutCreatedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutCreatedByInput | Prisma.FieldDefectCreateOrConnectWithoutCreatedByInput[]
@@ -1342,6 +1504,20 @@ export type FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput = {
   connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
   update?: Prisma.FieldDefectUpdateWithWhereUniqueWithoutEscalatedByInput | Prisma.FieldDefectUpdateWithWhereUniqueWithoutEscalatedByInput[]
   updateMany?: Prisma.FieldDefectUpdateManyWithWhereWithoutEscalatedByInput | Prisma.FieldDefectUpdateManyWithWhereWithoutEscalatedByInput[]
+  deleteMany?: Prisma.FieldDefectScalarWhereInput | Prisma.FieldDefectScalarWhereInput[]
+}
+
+export type FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput = {
+  create?: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput> | Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput[] | Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput[]
+  connectOrCreate?: Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput | Prisma.FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput[]
+  upsert?: Prisma.FieldDefectUpsertWithWhereUniqueWithoutAiCategoryAppliedByInput | Prisma.FieldDefectUpsertWithWhereUniqueWithoutAiCategoryAppliedByInput[]
+  createMany?: Prisma.FieldDefectCreateManyAiCategoryAppliedByInputEnvelope
+  set?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  disconnect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  delete?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  connect?: Prisma.FieldDefectWhereUniqueInput | Prisma.FieldDefectWhereUniqueInput[]
+  update?: Prisma.FieldDefectUpdateWithWhereUniqueWithoutAiCategoryAppliedByInput | Prisma.FieldDefectUpdateWithWhereUniqueWithoutAiCategoryAppliedByInput[]
+  updateMany?: Prisma.FieldDefectUpdateManyWithWhereWithoutAiCategoryAppliedByInput | Prisma.FieldDefectUpdateManyWithWhereWithoutAiCategoryAppliedByInput[]
   deleteMany?: Prisma.FieldDefectScalarWhereInput | Prisma.FieldDefectScalarWhereInput[]
 }
 
@@ -1468,6 +1644,11 @@ export type FieldDefectCreateWithoutOemInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -1479,6 +1660,7 @@ export type FieldDefectCreateWithoutOemInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedFieldDefectsInput
@@ -1510,6 +1692,12 @@ export type FieldDefectUncheckedCreateWithoutOemInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   createdById: string
@@ -1562,6 +1750,11 @@ export type FieldDefectCreateWithoutSupplierInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -1573,6 +1766,7 @@ export type FieldDefectCreateWithoutSupplierInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedFieldDefectsInput
@@ -1604,6 +1798,12 @@ export type FieldDefectUncheckedCreateWithoutSupplierInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
   createdById: string
@@ -1675,6 +1875,12 @@ export type FieldDefectScalarWhereInput = {
   location?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   partNumber?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   partName?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  category?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  subcategory?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  probableArea?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  aiCategoryApplied?: Prisma.BoolFilter<"FieldDefect"> | boolean
+  aiCategoryAppliedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
+  aiCategoryAppliedById?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   supplierId?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   supplierNameSnapshot?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   oemId?: Prisma.StringFilter<"FieldDefect"> | string
@@ -1730,6 +1936,11 @@ export type FieldDefectCreateWithoutCreatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -1741,6 +1952,7 @@ export type FieldDefectCreateWithoutCreatedByInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedFieldDefectsInput
@@ -1772,6 +1984,12 @@ export type FieldDefectUncheckedCreateWithoutCreatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -1824,6 +2042,11 @@ export type FieldDefectCreateWithoutUpdatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -1835,6 +2058,7 @@ export type FieldDefectCreateWithoutUpdatedByInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -1866,6 +2090,12 @@ export type FieldDefectUncheckedCreateWithoutUpdatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -1918,6 +2148,11 @@ export type FieldDefectCreateWithoutConvertedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -1929,6 +2164,7 @@ export type FieldDefectCreateWithoutConvertedByInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -1960,6 +2196,12 @@ export type FieldDefectUncheckedCreateWithoutConvertedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -2012,6 +2254,11 @@ export type FieldDefectCreateWithoutEscalatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -2023,6 +2270,7 @@ export type FieldDefectCreateWithoutEscalatedByInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -2054,6 +2302,12 @@ export type FieldDefectUncheckedCreateWithoutEscalatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -2084,6 +2338,112 @@ export type FieldDefectCreateOrConnectWithoutEscalatedByInput = {
 
 export type FieldDefectCreateManyEscalatedByInputEnvelope = {
   data: Prisma.FieldDefectCreateManyEscalatedByInput | Prisma.FieldDefectCreateManyEscalatedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type FieldDefectCreateWithoutAiCategoryAppliedByInput = {
+  id?: string
+  title: string
+  description: string
+  source?: $Enums.FieldDefectSource
+  status?: $Enums.FieldDefectStatus
+  severity?: $Enums.FieldDefectSeverity
+  safetyImpact?: boolean
+  vehicleDown?: boolean
+  repeatIssue?: boolean
+  vin?: string | null
+  vehicleModel?: string | null
+  vehicleVariant?: string | null
+  mileage?: number | null
+  failureDate?: Date | string | null
+  reportDate?: Date | string
+  location?: string | null
+  partNumber?: string | null
+  partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  supplierNameSnapshot?: string | null
+  convertedTo8DAt?: Date | string | null
+  responseDueAt?: Date | string | null
+  resolutionDueAt?: Date | string | null
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
+  oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedFieldDefectsInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLinkedFieldDefectInput
+  convertedBy?: Prisma.UserCreateNestedOneWithoutConvertedFieldDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedFieldDefectsInput
+  attachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutFieldDefectInput
+  events?: Prisma.FieldDefectEventCreateNestedManyWithoutFieldDefectInput
+  comments?: Prisma.FieldDefectCommentCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutFieldDefectInput
+}
+
+export type FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput = {
+  id?: string
+  title: string
+  description: string
+  source?: $Enums.FieldDefectSource
+  status?: $Enums.FieldDefectStatus
+  severity?: $Enums.FieldDefectSeverity
+  safetyImpact?: boolean
+  vehicleDown?: boolean
+  repeatIssue?: boolean
+  vin?: string | null
+  vehicleModel?: string | null
+  vehicleVariant?: string | null
+  mileage?: number | null
+  failureDate?: Date | string | null
+  reportDate?: Date | string
+  location?: string | null
+  partNumber?: string | null
+  partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  supplierId?: string | null
+  supplierNameSnapshot?: string | null
+  oemId: string
+  createdById: string
+  updatedById?: string | null
+  linkedDefectId?: string | null
+  convertedTo8DAt?: Date | string | null
+  convertedById?: string | null
+  responseDueAt?: Date | string | null
+  resolutionDueAt?: Date | string | null
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deletedAt?: Date | string | null
+  attachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutFieldDefectInput
+  events?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutFieldDefectInput
+  comments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutFieldDefectInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutFieldDefectInput
+}
+
+export type FieldDefectCreateOrConnectWithoutAiCategoryAppliedByInput = {
+  where: Prisma.FieldDefectWhereUniqueInput
+  create: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput>
+}
+
+export type FieldDefectCreateManyAiCategoryAppliedByInputEnvelope = {
+  data: Prisma.FieldDefectCreateManyAiCategoryAppliedByInput | Prisma.FieldDefectCreateManyAiCategoryAppliedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -2151,6 +2511,22 @@ export type FieldDefectUpdateManyWithWhereWithoutEscalatedByInput = {
   data: Prisma.XOR<Prisma.FieldDefectUpdateManyMutationInput, Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByInput>
 }
 
+export type FieldDefectUpsertWithWhereUniqueWithoutAiCategoryAppliedByInput = {
+  where: Prisma.FieldDefectWhereUniqueInput
+  update: Prisma.XOR<Prisma.FieldDefectUpdateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedUpdateWithoutAiCategoryAppliedByInput>
+  create: Prisma.XOR<Prisma.FieldDefectCreateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput>
+}
+
+export type FieldDefectUpdateWithWhereUniqueWithoutAiCategoryAppliedByInput = {
+  where: Prisma.FieldDefectWhereUniqueInput
+  data: Prisma.XOR<Prisma.FieldDefectUpdateWithoutAiCategoryAppliedByInput, Prisma.FieldDefectUncheckedUpdateWithoutAiCategoryAppliedByInput>
+}
+
+export type FieldDefectUpdateManyWithWhereWithoutAiCategoryAppliedByInput = {
+  where: Prisma.FieldDefectScalarWhereInput
+  data: Prisma.XOR<Prisma.FieldDefectUpdateManyMutationInput, Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByInput>
+}
+
 export type FieldDefectCreateWithoutLinkedDefectInput = {
   id?: string
   title: string
@@ -2170,6 +2546,11 @@ export type FieldDefectCreateWithoutLinkedDefectInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -2181,6 +2562,7 @@ export type FieldDefectCreateWithoutLinkedDefectInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -2212,6 +2594,12 @@ export type FieldDefectUncheckedCreateWithoutLinkedDefectInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -2270,6 +2658,11 @@ export type FieldDefectUpdateWithoutLinkedDefectInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2281,6 +2674,7 @@ export type FieldDefectUpdateWithoutLinkedDefectInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -2312,6 +2706,12 @@ export type FieldDefectUncheckedUpdateWithoutLinkedDefectInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2354,6 +2754,11 @@ export type FieldDefectCreateWithoutAttachmentsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -2365,6 +2770,7 @@ export type FieldDefectCreateWithoutAttachmentsInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -2396,6 +2802,12 @@ export type FieldDefectUncheckedCreateWithoutAttachmentsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -2454,6 +2866,11 @@ export type FieldDefectUpdateWithoutAttachmentsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2465,6 +2882,7 @@ export type FieldDefectUpdateWithoutAttachmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -2496,6 +2914,12 @@ export type FieldDefectUncheckedUpdateWithoutAttachmentsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2538,6 +2962,11 @@ export type FieldDefectCreateWithoutCommentsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -2549,6 +2978,7 @@ export type FieldDefectCreateWithoutCommentsInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -2580,6 +3010,12 @@ export type FieldDefectUncheckedCreateWithoutCommentsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -2638,6 +3074,11 @@ export type FieldDefectUpdateWithoutCommentsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2649,6 +3090,7 @@ export type FieldDefectUpdateWithoutCommentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -2680,6 +3122,12 @@ export type FieldDefectUncheckedUpdateWithoutCommentsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2722,6 +3170,11 @@ export type FieldDefectCreateWithoutEventsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -2733,6 +3186,7 @@ export type FieldDefectCreateWithoutEventsInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -2764,6 +3218,12 @@ export type FieldDefectUncheckedCreateWithoutEventsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -2822,6 +3282,11 @@ export type FieldDefectUpdateWithoutEventsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2833,6 +3298,7 @@ export type FieldDefectUpdateWithoutEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -2864,6 +3330,12 @@ export type FieldDefectUncheckedUpdateWithoutEventsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2906,6 +3378,11 @@ export type FieldDefectCreateWithoutAiSuggestionsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
   supplierNameSnapshot?: string | null
   convertedTo8DAt?: Date | string | null
   responseDueAt?: Date | string | null
@@ -2917,6 +3394,7 @@ export type FieldDefectCreateWithoutAiSuggestionsInput = {
   updatedAt?: Date | string
   closedAt?: Date | string | null
   deletedAt?: Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserCreateNestedOneWithoutAiCategoryAppliedByForInput
   supplier?: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsSupInput
   oem: Prisma.CompanyCreateNestedOneWithoutFieldDefectsAsOemInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedFieldDefectsInput
@@ -2948,6 +3426,12 @@ export type FieldDefectUncheckedCreateWithoutAiSuggestionsInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -3006,6 +3490,11 @@ export type FieldDefectUpdateWithoutAiSuggestionsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3017,6 +3506,7 @@ export type FieldDefectUpdateWithoutAiSuggestionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -3048,6 +3538,12 @@ export type FieldDefectUncheckedUpdateWithoutAiSuggestionsInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3090,6 +3586,12 @@ export type FieldDefectCreateManyOemInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   createdById: string
@@ -3128,6 +3630,12 @@ export type FieldDefectCreateManySupplierInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
   createdById: string
@@ -3166,6 +3674,11 @@ export type FieldDefectUpdateWithoutOemInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3177,6 +3690,7 @@ export type FieldDefectUpdateWithoutOemInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedFieldDefectsNestedInput
@@ -3208,6 +3722,12 @@ export type FieldDefectUncheckedUpdateWithoutOemInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3250,6 +3770,12 @@ export type FieldDefectUncheckedUpdateManyWithoutOemInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3288,6 +3814,11 @@ export type FieldDefectUpdateWithoutSupplierInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3299,6 +3830,7 @@ export type FieldDefectUpdateWithoutSupplierInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedFieldDefectsNestedInput
@@ -3330,6 +3862,12 @@ export type FieldDefectUncheckedUpdateWithoutSupplierInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3372,6 +3910,12 @@ export type FieldDefectUncheckedUpdateManyWithoutSupplierInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3410,6 +3954,12 @@ export type FieldDefectCreateManyCreatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -3448,6 +3998,12 @@ export type FieldDefectCreateManyUpdatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -3486,6 +4042,12 @@ export type FieldDefectCreateManyConvertedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -3524,6 +4086,12 @@ export type FieldDefectCreateManyEscalatedByInput = {
   location?: string | null
   partNumber?: string | null
   partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  aiCategoryAppliedById?: string | null
   supplierId?: string | null
   supplierNameSnapshot?: string | null
   oemId: string
@@ -3536,6 +4104,50 @@ export type FieldDefectCreateManyEscalatedByInput = {
   resolutionDueAt?: Date | string | null
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  closedAt?: Date | string | null
+  deletedAt?: Date | string | null
+}
+
+export type FieldDefectCreateManyAiCategoryAppliedByInput = {
+  id?: string
+  title: string
+  description: string
+  source?: $Enums.FieldDefectSource
+  status?: $Enums.FieldDefectStatus
+  severity?: $Enums.FieldDefectSeverity
+  safetyImpact?: boolean
+  vehicleDown?: boolean
+  repeatIssue?: boolean
+  vin?: string | null
+  vehicleModel?: string | null
+  vehicleVariant?: string | null
+  mileage?: number | null
+  failureDate?: Date | string | null
+  reportDate?: Date | string
+  location?: string | null
+  partNumber?: string | null
+  partName?: string | null
+  category?: string | null
+  subcategory?: string | null
+  probableArea?: string | null
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: Date | string | null
+  supplierId?: string | null
+  supplierNameSnapshot?: string | null
+  oemId: string
+  createdById: string
+  updatedById?: string | null
+  linkedDefectId?: string | null
+  convertedTo8DAt?: Date | string | null
+  convertedById?: string | null
+  responseDueAt?: Date | string | null
+  resolutionDueAt?: Date | string | null
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
   escalationReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3562,6 +4174,11 @@ export type FieldDefectUpdateWithoutCreatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3573,6 +4190,7 @@ export type FieldDefectUpdateWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedFieldDefectsNestedInput
@@ -3604,6 +4222,12 @@ export type FieldDefectUncheckedUpdateWithoutCreatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3646,6 +4270,12 @@ export type FieldDefectUncheckedUpdateManyWithoutCreatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3684,6 +4314,11 @@ export type FieldDefectUpdateWithoutUpdatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3695,6 +4330,7 @@ export type FieldDefectUpdateWithoutUpdatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -3726,6 +4362,12 @@ export type FieldDefectUncheckedUpdateWithoutUpdatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3768,6 +4410,12 @@ export type FieldDefectUncheckedUpdateManyWithoutUpdatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3806,6 +4454,11 @@ export type FieldDefectUpdateWithoutConvertedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3817,6 +4470,7 @@ export type FieldDefectUpdateWithoutConvertedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -3848,6 +4502,12 @@ export type FieldDefectUncheckedUpdateWithoutConvertedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3890,6 +4550,12 @@ export type FieldDefectUncheckedUpdateManyWithoutConvertedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3928,6 +4594,11 @@ export type FieldDefectUpdateWithoutEscalatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3939,6 +4610,7 @@ export type FieldDefectUpdateWithoutEscalatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedBy?: Prisma.UserUpdateOneWithoutAiCategoryAppliedByForNestedInput
   supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
@@ -3970,6 +4642,12 @@ export type FieldDefectUncheckedUpdateWithoutEscalatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4012,6 +4690,12 @@ export type FieldDefectUncheckedUpdateManyWithoutEscalatedByInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiCategoryAppliedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4024,6 +4708,146 @@ export type FieldDefectUncheckedUpdateManyWithoutEscalatedByInput = {
   resolutionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type FieldDefectUpdateWithoutAiCategoryAppliedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumFieldDefectSourceFieldUpdateOperationsInput | $Enums.FieldDefectSource
+  status?: Prisma.EnumFieldDefectStatusFieldUpdateOperationsInput | $Enums.FieldDefectStatus
+  severity?: Prisma.EnumFieldDefectSeverityFieldUpdateOperationsInput | $Enums.FieldDefectSeverity
+  safetyImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vehicleDown?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  repeatIssue?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  failureDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolutionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supplier?: Prisma.CompanyUpdateOneWithoutFieldDefectsAsSupNestedInput
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutFieldDefectsAsOemNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedFieldDefectsNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedFieldDefectsNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLinkedFieldDefectNestedInput
+  convertedBy?: Prisma.UserUpdateOneWithoutConvertedFieldDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedFieldDefectsNestedInput
+  attachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutFieldDefectNestedInput
+  events?: Prisma.FieldDefectEventUpdateManyWithoutFieldDefectNestedInput
+  comments?: Prisma.FieldDefectCommentUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutFieldDefectNestedInput
+}
+
+export type FieldDefectUncheckedUpdateWithoutAiCategoryAppliedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumFieldDefectSourceFieldUpdateOperationsInput | $Enums.FieldDefectSource
+  status?: Prisma.EnumFieldDefectStatusFieldUpdateOperationsInput | $Enums.FieldDefectStatus
+  severity?: Prisma.EnumFieldDefectSeverityFieldUpdateOperationsInput | $Enums.FieldDefectSeverity
+  safetyImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vehicleDown?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  repeatIssue?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  failureDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  convertedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolutionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  attachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  events?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutFieldDefectNestedInput
+  comments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutFieldDefectNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutFieldDefectNestedInput
+}
+
+export type FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  source?: Prisma.EnumFieldDefectSourceFieldUpdateOperationsInput | $Enums.FieldDefectSource
+  status?: Prisma.EnumFieldDefectStatusFieldUpdateOperationsInput | $Enums.FieldDefectStatus
+  severity?: Prisma.EnumFieldDefectSeverityFieldUpdateOperationsInput | $Enums.FieldDefectSeverity
+  safetyImpact?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vehicleDown?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  repeatIssue?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mileage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  failureDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reportDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subcategory?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  probableArea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiCategoryApplied?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiCategoryAppliedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNameSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convertedTo8DAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  convertedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  resolutionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4108,6 +4932,12 @@ export type FieldDefectSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   location?: boolean
   partNumber?: boolean
   partName?: boolean
+  category?: boolean
+  subcategory?: boolean
+  probableArea?: boolean
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: boolean
+  aiCategoryAppliedById?: boolean
   supplierId?: boolean
   supplierNameSnapshot?: boolean
   oemId?: boolean
@@ -4126,6 +4956,7 @@ export type FieldDefectSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   closedAt?: boolean
   deletedAt?: boolean
+  aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4159,6 +4990,12 @@ export type FieldDefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   location?: boolean
   partNumber?: boolean
   partName?: boolean
+  category?: boolean
+  subcategory?: boolean
+  probableArea?: boolean
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: boolean
+  aiCategoryAppliedById?: boolean
   supplierId?: boolean
   supplierNameSnapshot?: boolean
   oemId?: boolean
@@ -4177,6 +5014,7 @@ export type FieldDefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   closedAt?: boolean
   deletedAt?: boolean
+  aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4205,6 +5043,12 @@ export type FieldDefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   location?: boolean
   partNumber?: boolean
   partName?: boolean
+  category?: boolean
+  subcategory?: boolean
+  probableArea?: boolean
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: boolean
+  aiCategoryAppliedById?: boolean
   supplierId?: boolean
   supplierNameSnapshot?: boolean
   oemId?: boolean
@@ -4223,6 +5067,7 @@ export type FieldDefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   closedAt?: boolean
   deletedAt?: boolean
+  aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4251,6 +5096,12 @@ export type FieldDefectSelectScalar = {
   location?: boolean
   partNumber?: boolean
   partName?: boolean
+  category?: boolean
+  subcategory?: boolean
+  probableArea?: boolean
+  aiCategoryApplied?: boolean
+  aiCategoryAppliedAt?: boolean
+  aiCategoryAppliedById?: boolean
   supplierId?: boolean
   supplierNameSnapshot?: boolean
   oemId?: boolean
@@ -4271,8 +5122,9 @@ export type FieldDefectSelectScalar = {
   deletedAt?: boolean
 }
 
-export type FieldDefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "source" | "status" | "severity" | "safetyImpact" | "vehicleDown" | "repeatIssue" | "vin" | "vehicleModel" | "vehicleVariant" | "mileage" | "failureDate" | "reportDate" | "location" | "partNumber" | "partName" | "supplierId" | "supplierNameSnapshot" | "oemId" | "createdById" | "updatedById" | "linkedDefectId" | "convertedTo8DAt" | "convertedById" | "responseDueAt" | "resolutionDueAt" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "createdAt" | "updatedAt" | "closedAt" | "deletedAt", ExtArgs["result"]["fieldDefect"]>
+export type FieldDefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "source" | "status" | "severity" | "safetyImpact" | "vehicleDown" | "repeatIssue" | "vin" | "vehicleModel" | "vehicleVariant" | "mileage" | "failureDate" | "reportDate" | "location" | "partNumber" | "partName" | "category" | "subcategory" | "probableArea" | "aiCategoryApplied" | "aiCategoryAppliedAt" | "aiCategoryAppliedById" | "supplierId" | "supplierNameSnapshot" | "oemId" | "createdById" | "updatedById" | "linkedDefectId" | "convertedTo8DAt" | "convertedById" | "responseDueAt" | "resolutionDueAt" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "createdAt" | "updatedAt" | "closedAt" | "deletedAt", ExtArgs["result"]["fieldDefect"]>
 export type FieldDefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4287,6 +5139,7 @@ export type FieldDefectInclude<ExtArgs extends runtime.Types.Extensions.Internal
   _count?: boolean | Prisma.FieldDefectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FieldDefectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4296,6 +5149,7 @@ export type FieldDefectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.
   escalatedBy?: boolean | Prisma.FieldDefect$escalatedByArgs<ExtArgs>
 }
 export type FieldDefectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -4308,6 +5162,7 @@ export type FieldDefectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type $FieldDefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FieldDefect"
   objects: {
+    aiCategoryAppliedBy: Prisma.$UserPayload<ExtArgs> | null
     supplier: Prisma.$CompanyPayload<ExtArgs> | null
     oem: Prisma.$CompanyPayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs>
@@ -4339,6 +5194,12 @@ export type $FieldDefectPayload<ExtArgs extends runtime.Types.Extensions.Interna
     location: string | null
     partNumber: string | null
     partName: string | null
+    category: string | null
+    subcategory: string | null
+    probableArea: string | null
+    aiCategoryApplied: boolean
+    aiCategoryAppliedAt: Date | null
+    aiCategoryAppliedById: string | null
     supplierId: string | null
     supplierNameSnapshot: string | null
     oemId: string
@@ -4751,6 +5612,7 @@ readonly fields: FieldDefectFieldRefs;
  */
 export interface Prisma__FieldDefectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  aiCategoryAppliedBy<T extends Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   supplier<T extends Prisma.FieldDefect$supplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldDefect$supplierArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   oem<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -4809,6 +5671,12 @@ export interface FieldDefectFieldRefs {
   readonly location: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly partNumber: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly partName: Prisma.FieldRef<"FieldDefect", 'String'>
+  readonly category: Prisma.FieldRef<"FieldDefect", 'String'>
+  readonly subcategory: Prisma.FieldRef<"FieldDefect", 'String'>
+  readonly probableArea: Prisma.FieldRef<"FieldDefect", 'String'>
+  readonly aiCategoryApplied: Prisma.FieldRef<"FieldDefect", 'Boolean'>
+  readonly aiCategoryAppliedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
+  readonly aiCategoryAppliedById: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly supplierId: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly supplierNameSnapshot: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly oemId: Prisma.FieldRef<"FieldDefect", 'String'>
@@ -5225,6 +6093,25 @@ export type FieldDefectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many FieldDefects to delete.
    */
   limit?: number
+}
+
+/**
+ * FieldDefect.aiCategoryAppliedBy
+ */
+export type FieldDefect$aiCategoryAppliedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

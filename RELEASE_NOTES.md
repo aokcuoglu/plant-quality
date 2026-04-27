@@ -1,3 +1,118 @@
+# PlantQuality v1.9.1 — Release Notes
+
+## AI 8D Review Hardening & QA Patch
+
+**Release Date:** 2026-04-27  
+**Version:** 1.9.1
+
+---
+
+## Summary
+
+PlantQuality v1.9.1 is a stabilization patch on top of v1.9.0. It hardens AI 8D Review and Root Cause Suggestion runtime behavior, improves invalid JSON handling from AI providers, adds permission enforcement for review lifecycle actions, polishes deterministic completeness validation, and fixes a client-side state bug in the root cause suggestion panel. **No new major features are introduced.**
+
+---
+
+## Runtime Hardening
+
+| Fix | Description |
+|-----|-------------|
+| AI provider timeout | Added 60s timeout to OpenAI client via `timeout` option; prevents indefinite hangs |
+| Timeout error detection | AI request timeouts return "AI request timed out" instead of generic error |
+| Auth error detection | 401/authentication errors from AI provider return "AI service authentication failed" instead of generic error |
+| Pre-parse JSON validation | `aiClassify()` validates `JSON.parse(content)` before returning, catching malformed AI responses early |
+| Missing AI_API_KEY | No crash when `AI_API_KEY` is empty — `isAiEnabled()` returns false, panel shows disabled state |
+| AI_ENABLED=false | No crash — panel shows "AI suggestions are not configured" |
+
+---
+
+## AI JSON Response Validation
+
+| Fix | Description |
+|-----|-------------|
+| 8D Review full validation | All fields of `Ai8dReviewResult` are now explicitly validated and defaulted: `completeness` sub-object booleans, string arrays (filtered for `typeof === "string"`, capped at 5 items), `reasoningSummary` fallback to `""` |
+| Missing completeness sub-object | Previously trusted as-is; now each boolean is safely coerced with `Boolean()` |
+| Malformed string arrays | If AI returns non-string items in suggestion arrays, they are now filtered out |
+| Root Cause full validation | All fields of `RootCauseSuggestion` are now explicitly validated; `suggestedInvestigationMethods`, `suggestedContainmentActions`, and `reasoning` are no longer trusted as-is |
+| Client-side resultJson parsing | `Ai8dReviewPanel` no longer uses unsafe `as Ai8dReviewResult` cast — uses safe `parseReviewResult()` that validates all fields |
+| OEM field page parsing | Compact AI review status on linked 8D card now safely extracts `overallScore` and `reviewStatus` with type checks |
+
+---
+
+## Permission Hardening
+
+| Fix | Description |
+|-----|-------------|
+| Mark as Reviewed requires PRO | `markAi8dReviewAsReviewed` now checks `session.user.plan === "PRO"` (previously any OEM Admin/QE could mark) |
+| Reject Review requires PRO | `rejectAi8dReview` now checks `session.user.plan === "PRO"` (previously any OEM Admin/QE could reject) |
+| companyId in update where clause | `prisma.ai8dReview.update()` now includes `companyId: session.user.companyId` in `where` clause for defense-in-depth (previously only `id: reviewId`) |
+| View helper | New `canViewAiReview()` for read-only actions — only requires OEM companyType, not specific role |
+| getAi8dReviews / getLatestAi8dReview | Now use `canViewAiReview()` instead of manual `companyType` check |
+| Supplier isolation | Confirmed: no AI 8D review components, actions, or data are accessible to supplier users |
+
+---
+
+## Deterministic Completeness Check
+
+| Fix | Description |
+|-----|-------------|
+| Safe array access | `validateEightDCompleteness()` no longer uses unsafe `as ContainmentAction[]` type assertions; uses generic `hasTextProperty()` reflection instead |
+| Null/malformed JSONB | If `containmentActions`, `d5Actions`, or `d6Actions` are not arrays or contain non-object items, the check now safely returns `false` for that section instead of potentially throwing |
+| Removed unused interfaces | `ContainmentAction`, `D5Action`, `D6Action` interfaces removed from `validate-8d-completeness.ts` since they are no longer used |
+| No AI dependency | Confirmed: `validateEightDCompleteness()` is a pure function with no LLM calls |
+
+---
+
+## Client-Side Bug Fixes
+
+| Fix | Description |
+|-----|-------------|
+| Root cause loading state | `rootCausePending` was incorrectly set to `false` inside `startTransition()` callback, which ran synchronously before the async server action resolved. Changed to use `async` function directly, so `setRootCausePending(false)` runs after the server action completes |
+| Regenerate review | Clicking "Generate AI Review" or "Regenerate Review" while pending now correctly disables buttons via `isPending` state |
+
+---
+
+## No New Features
+
+- No AI 8D auto-fill
+- No automatic 8D approval/rejection
+- No supplier-facing AI critique
+- No supplier risk scoring
+- No warranty cost prediction
+- No image AI
+- No plan gating changes
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| Plan gating | v2.0 |
+| Supplier-facing AI critique | v2.0+ |
+| AI 8D auto-fill | v2.0+ |
+| Supplier risk scoring | v2.0+ |
+| Warranty cost prediction | v2.0+ |
+| Image AI | v2.0+ |
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version bumped to 1.9.1 |
+| `src/lib/ai/provider.ts` | Added 60s timeout, timeout/auth error detection, pre-parse JSON validation |
+| `src/lib/ai/review-8d.ts` | Full field validation with defaults for all Ai8dReviewResult fields |
+| `src/lib/ai/root-cause-suggestion.ts` | Full field validation with defaults for all RootCauseSuggestion fields; added `parseRootCauseSuggestion()` export |
+| `src/lib/ai/validate-8d-completeness.ts` | Safe array access via `hasTextProperty()`; removed unused type interfaces |
+| `src/app/(dashboard)/quality/oem/defects/actions/ai-review.ts` | PRO gate on mark/reject; `companyId` in update where clause; `canViewAiReview()` for reads; simplified `resultJson` serialization |
+| `src/components/defects/Ai8dReviewPanel.tsx` | Safe `parseReviewResult()` for resultJson; fixed `rootCausePending` state bug; removed unused `parseRootCauseRaw` |
+| `src/app/(dashboard)/quality/oem/field/[id]/page.tsx` | Safe type-checked extraction of `overallScore` and `reviewStatus` from resultJson |
+| `RELEASE_NOTES.md` | v1.9.1 section |
+
+---
+
 # PlantQuality v1.9.0 — Release Notes
 
 ## AI 8D Review & Root Cause Suggestion

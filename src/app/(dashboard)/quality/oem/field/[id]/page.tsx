@@ -241,18 +241,20 @@ export default async function OemFieldDetailPage({
                   <div className="mt-2 flex items-center gap-2">
                     {(() => {
                       const r = fd.linkedDefect.eightDReport.ai8dReviews[0]
-                      const review = r.resultJson as { overallScore?: number; reviewStatus?: string }
+                      const raw = r.resultJson as Record<string, unknown> | null
+                      const overallScore = typeof raw?.overallScore === "number" ? raw.overallScore : null
+                      const reviewStatus = typeof raw?.reviewStatus === "string" ? raw.reviewStatus : null
                       const statusLabel = r.status === "GENERATED" ? "Pending" : r.status === "REVIEWED" ? "Reviewed" : r.status === "REJECTED" ? "Rejected" : r.status
-                      const reviewLabel = review.reviewStatus === "STRONG" ? "Strong" : review.reviewStatus === "NEEDS_IMPROVEMENT" ? "Needs Improvement" : review.reviewStatus === "INCOMPLETE" ? "Incomplete" : review.reviewStatus === "RISKY" ? "Risky" : null
+                      const reviewLabel = reviewStatus === "STRONG" ? "Strong" : reviewStatus === "NEEDS_IMPROVEMENT" ? "Needs Improvement" : reviewStatus === "INCOMPLETE" ? "Incomplete" : reviewStatus === "RISKY" ? "Risky" : null
                       return (
                         <>
                           <span className="text-xs text-muted-foreground">AI Review:</span>
-                          <span className="text-xs font-medium text-foreground">{review.overallScore ?? "—"}/100</span>
+                          <span className="text-xs font-medium text-foreground">{overallScore ?? "—"}/100</span>
                           {reviewLabel && (
                             <span className={`text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full ${
-                              review.reviewStatus === "STRONG" ? "bg-emerald-500/10 text-emerald-500" :
-                              review.reviewStatus === "NEEDS_IMPROVEMENT" ? "bg-amber-500/10 text-amber-500" :
-                              review.reviewStatus === "INCOMPLETE" || review.reviewStatus === "RISKY" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"
+                              reviewStatus === "STRONG" ? "bg-emerald-500/10 text-emerald-500" :
+                              reviewStatus === "NEEDS_IMPROVEMENT" ? "bg-amber-500/10 text-amber-500" :
+                              reviewStatus === "INCOMPLETE" || reviewStatus === "RISKY" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"
                             }`}>
                               {reviewLabel}
                             </span>

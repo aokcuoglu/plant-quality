@@ -75,6 +75,40 @@ const statusLabels: Record<string, string> = {
   EXPIRED: "Expired",
 }
 
+function parseReviewResult(raw: unknown): Ai8dReviewResult | null {
+  if (!raw || typeof raw !== "object") return null
+  const r = raw as Record<string, unknown>
+  if (
+    typeof r.overallScore !== "number" ||
+    !["STRONG", "NEEDS_IMPROVEMENT", "INCOMPLETE", "RISKY"].includes(r.reviewStatus as string) ||
+    typeof r.confidence !== "number"
+  ) {
+    return null
+  }
+  const comp = r.completeness as Record<string, unknown> | undefined
+  return {
+    overallScore: Math.max(0, Math.min(100, Math.round(r.overallScore))),
+    reviewStatus: r.reviewStatus as Ai8dReviewResult["reviewStatus"],
+    completeness: {
+      problemDescriptionComplete: Boolean(comp?.problemDescriptionComplete),
+      containmentDefined: Boolean(comp?.containmentDefined),
+      rootCauseDefined: Boolean(comp?.rootCauseDefined),
+      correctiveActionDefined: Boolean(comp?.correctiveActionDefined),
+      preventiveActionDefined: Boolean(comp?.preventiveActionDefined),
+      verificationDefined: Boolean(comp?.verificationDefined),
+    },
+    weakPoints: Array.isArray(r.weakPoints) ? r.weakPoints.filter((s: unknown) => typeof s === "string") : [],
+    missingItems: Array.isArray(r.missingItems) ? r.missingItems.filter((s: unknown) => typeof s === "string") : [],
+    suggestedQuestionsForSupplier: Array.isArray(r.suggestedQuestionsForSupplier) ? r.suggestedQuestionsForSupplier.filter((s: unknown) => typeof s === "string") : [],
+    suggestedRootCauseAngles: Array.isArray(r.suggestedRootCauseAngles) ? r.suggestedRootCauseAngles.filter((s: unknown) => typeof s === "string") : [],
+    suggestedContainmentActions: Array.isArray(r.suggestedContainmentActions) ? r.suggestedContainmentActions.filter((s: unknown) => typeof s === "string") : [],
+    suggestedCorrectiveActions: Array.isArray(r.suggestedCorrectiveActions) ? r.suggestedCorrectiveActions.filter((s: unknown) => typeof s === "string") : [],
+    suggestedPreventiveActions: Array.isArray(r.suggestedPreventiveActions) ? r.suggestedPreventiveActions.filter((s: unknown) => typeof s === "string") : [],
+    reasoningSummary: typeof r.reasoningSummary === "string" ? r.reasoningSummary : "",
+    confidence: Math.max(0, Math.min(100, Math.round(r.confidence))),
+  }
+}
+
 function CompletenessChecklist({ completeness }: { completeness: EightDCompletenessResult }) {
   const items = [
     { label: "Problem Description (D2)", complete: completeness.problemDescriptionComplete },
@@ -166,9 +200,7 @@ export function Ai8dReviewPanel({
   const [rootCauseError, setRootCauseError] = useState<string | null>(null)
   const [showRootCause, setShowRootCause] = useState(false)
 
-  const review: Ai8dReviewResult | null = latestReview
-    ? (latestReview.resultJson as Ai8dReviewResult)
-    : null
+  const review: Ai8dReviewResult | null = parseReviewResult(latestReview?.resultJson)
   const reviewStatus = latestReview?.status ?? null
 
   function handleGenerate() {
@@ -210,20 +242,18 @@ export function Ai8dReviewPanel({
     })
   }
 
-  function handleRootCause() {
+  async function handleRootCause() {
     setRootCauseError(null)
     setRootCausePending(true)
-    startTransition(async () => {
-      const result = await generateRootCauseSuggestion(defectId)
-      setRootCausePending(false)
-      if (!result.success) {
-        setRootCauseError(result.error)
-        toast({ title: "Root Cause Suggestion Failed", description: result.error, type: "destructive" })
-      } else {
-        setRootCauseResult(result.suggestion)
-        setShowRootCause(true)
-      }
-    })
+    const result = await generateRootCauseSuggestion(defectId)
+    setRootCausePending(false)
+    if (!result.success) {
+      setRootCauseError(result.error)
+      toast({ title: "Root Cause Suggestion Failed", description: result.error, type: "destructive" })
+    } else {
+      setRootCauseResult(result.suggestion)
+      setShowRootCause(true)
+    }
   }
 
   if (!eightDReportExists) {

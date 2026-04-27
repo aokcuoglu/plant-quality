@@ -9,39 +9,13 @@ export interface EightDCompletenessResult {
   completenessPercent: number
 }
 
-interface ContainmentAction {
-  id: string
-  description: string
-  responsibleUserId: string
-  responsibleName: string
-  effectiveness: number
-  targetDate: string
-  actualDate: string
-}
-
-interface D5Action {
-  id: string
-  action: string
-  verificationMethod: string
-  effectiveness: number
-}
-
-interface D6Action {
-  id: string
-  actionId: string
-  actionDescription: string
-  targetDate: string
-  actualDate: string
-  validatedByUserId: string
-  validatedByName: string
-}
-
 function hasText(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0
 }
 
-function hasArrayItems(value: unknown): boolean {
-  return Array.isArray(value) && value.length > 0
+function hasTextProperty(obj: unknown, key: string): boolean {
+  if (typeof obj !== "object" || obj === null) return false
+  return hasText((obj as Record<string, unknown>)[key])
 }
 
 export function validateEightDCompleteness(report: {
@@ -55,13 +29,17 @@ export function validateEightDCompleteness(report: {
   d7Impacts: unknown
   d8_recognition: string | null
 }): EightDCompletenessResult {
+  const safeContainmentActions = Array.isArray(report.containmentActions) ? report.containmentActions : []
+  const safeD5Actions = Array.isArray(report.d5Actions) ? report.d5Actions : []
+  const safeD6Actions = Array.isArray(report.d6Actions) ? report.d6Actions : []
+
   const checks = {
     problemDescriptionComplete: hasText(report.d2_problem),
-    containmentDefined: hasArrayItems(report.containmentActions) && (report.containmentActions as ContainmentAction[]).some((a) => hasText(a.description)),
+    containmentDefined: safeContainmentActions.length > 0 && safeContainmentActions.some((a) => hasTextProperty(a, "description")),
     rootCauseDefined: hasText(report.d4_rootCause),
-    correctiveActionDefined: hasArrayItems(report.d5Actions) && (report.d5Actions as D5Action[]).some((a) => hasText(a.action) && hasText(a.verificationMethod)),
+    correctiveActionDefined: safeD5Actions.length > 0 && safeD5Actions.some((a) => hasTextProperty(a, "action") && hasTextProperty(a, "verificationMethod")),
     preventiveActionDefined: hasText(report.d7Preventive),
-    verificationDefined: hasArrayItems(report.d6Actions) && (report.d6Actions as D6Action[]).some((a) => hasText(a.actionId) && hasText(a.validatedByUserId)),
+    verificationDefined: safeD6Actions.length > 0 && safeD6Actions.some((a) => hasTextProperty(a, "actionId") && hasTextProperty(a, "validatedByUserId")),
   }
 
   const missingItems: string[] = []

@@ -74,12 +74,20 @@ export async function suggestRootCause(input: {
   if (!result.ok) return result
 
   try {
-    const parsed = JSON.parse(result.result) as RootCauseSuggestion
+    const raw = JSON.parse(result.result)
+
+    const parsed: RootCauseSuggestion = {
+      suggestedRootCauses: Array.isArray(raw.suggestedRootCauses) ? raw.suggestedRootCauses.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggestedInvestigationMethods: Array.isArray(raw.suggestedInvestigationMethods) ? raw.suggestedInvestigationMethods.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggested5WhyChain: Array.isArray(raw.suggested5WhyChain) ? raw.suggested5WhyChain.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggestedContainmentActions: Array.isArray(raw.suggestedContainmentActions) ? raw.suggestedContainmentActions.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      reasoning: typeof raw.reasoning === "string" ? raw.reasoning : "",
+      confidence: typeof raw.confidence === "number" ? raw.confidence : 50,
+    }
 
     if (
-      !Array.isArray(parsed.suggestedRootCauses) ||
-      !Array.isArray(parsed.suggested5WhyChain) ||
-      typeof parsed.confidence !== "number"
+      parsed.suggestedRootCauses.length === 0 &&
+      parsed.suggested5WhyChain.length === 0
     ) {
       return { ok: false, error: "AI returned invalid root cause suggestion structure" }
     }
@@ -90,4 +98,19 @@ export async function suggestRootCause(input: {
   } catch {
     return { ok: false, error: "Failed to parse AI root cause suggestion response" }
   }
+}
+
+export function parseRootCauseSuggestion(raw: unknown): RootCauseSuggestion | null {
+  if (!raw || typeof raw !== "object") return null
+  const r = raw as Record<string, unknown>
+  const result: RootCauseSuggestion = {
+    suggestedRootCauses: Array.isArray(r.suggestedRootCauses) ? r.suggestedRootCauses.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+    suggestedInvestigationMethods: Array.isArray(r.suggestedInvestigationMethods) ? r.suggestedInvestigationMethods.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+    suggested5WhyChain: Array.isArray(r.suggested5WhyChain) ? r.suggested5WhyChain.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+    suggestedContainmentActions: Array.isArray(r.suggestedContainmentActions) ? r.suggestedContainmentActions.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+    reasoning: typeof r.reasoning === "string" ? r.reasoning : "",
+    confidence: typeof r.confidence === "number" ? Math.max(0, Math.min(100, Math.round(r.confidence))) : 50,
+  }
+  if (result.suggestedRootCauses.length === 0 && result.suggested5WhyChain.length === 0) return null
+  return result
 }

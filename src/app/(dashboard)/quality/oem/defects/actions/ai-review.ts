@@ -18,6 +18,13 @@ function canReviewAi(session: Session | null): session is Session {
   )
 }
 
+function canViewAiReview(session: Session | null): session is Session {
+  return Boolean(
+    session &&
+      session.user.companyType === "OEM",
+  )
+}
+
 async function logDefectEvent(
   defectId: string,
   type: "AI_8D_REVIEW_GENERATED" | "AI_8D_REVIEW_MARKED_REVIEWED" | "AI_8D_REVIEW_REJECTED" | "AI_ROOT_CAUSE_SUGGESTED",
@@ -120,7 +127,7 @@ export async function generateAi8dReview(defectId: string) {
       companyId: session.user.companyId,
       eightDId: report.id,
       linkedFieldDefectId: defect.linkedFieldDefect?.id ?? null,
-      resultJson: JSON.parse(JSON.stringify(result.review)),
+      resultJson: result.review as unknown as Prisma.InputJsonValue,
       status: "GENERATED",
       score: result.review.overallScore,
       createdById: session.user.id,
@@ -216,6 +223,10 @@ export async function markAi8dReviewAsReviewed(reviewId: string) {
     return { success: false as const, error: "Unauthorized" }
   }
 
+  if (session.user.plan !== "PRO") {
+    return { success: false as const, error: "AI features require a PRO plan" }
+  }
+
   const review = await prisma.ai8dReview.findFirst({
     where: { id: reviewId, companyId: session.user.companyId, status: "GENERATED" },
     include: { eightDReport: { select: { defectId: true } } },
@@ -226,7 +237,7 @@ export async function markAi8dReviewAsReviewed(reviewId: string) {
   }
 
   await prisma.ai8dReview.update({
-    where: { id: reviewId },
+    where: { id: reviewId, companyId: session.user.companyId },
     data: {
       status: "REVIEWED",
       reviewedById: session.user.id,
@@ -249,6 +260,10 @@ export async function rejectAi8dReview(reviewId: string) {
     return { success: false as const, error: "Unauthorized" }
   }
 
+  if (session.user.plan !== "PRO") {
+    return { success: false as const, error: "AI features require a PRO plan" }
+  }
+
   const review = await prisma.ai8dReview.findFirst({
     where: { id: reviewId, companyId: session.user.companyId, status: "GENERATED" },
     include: { eightDReport: { select: { defectId: true } } },
@@ -259,7 +274,7 @@ export async function rejectAi8dReview(reviewId: string) {
   }
 
   await prisma.ai8dReview.update({
-    where: { id: reviewId },
+    where: { id: reviewId, companyId: session.user.companyId },
     data: {
       status: "REJECTED",
       rejectedById: session.user.id,
@@ -278,7 +293,7 @@ export async function rejectAi8dReview(reviewId: string) {
 
 export async function getAi8dReviews(eightDId: string) {
   const session = await auth()
-  if (!session?.user?.companyId || session.user.companyType !== "OEM") {
+  if (!canViewAiReview(session)) {
     return []
   }
 
@@ -302,7 +317,7 @@ export async function getAi8dReviews(eightDId: string) {
 
 export async function getLatestAi8dReview(defectId: string) {
   const session = await auth()
-  if (!session?.user?.companyId || session.user.companyType !== "OEM") {
+  if (!canViewAiReview(session)) {
     return null
   }
 

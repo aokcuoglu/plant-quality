@@ -137,16 +137,30 @@ export async function reviewEightD(input: {
   if (!result.ok) return result
 
   try {
-    const parsed = JSON.parse(result.result) as Ai8dReviewResult
+    const raw = JSON.parse(result.result)
 
-    if (
-      typeof parsed.overallScore !== "number" ||
-      !["STRONG", "NEEDS_IMPROVEMENT", "INCOMPLETE", "RISKY"].includes(parsed.reviewStatus) ||
-      typeof parsed.confidence !== "number" ||
-      !Array.isArray(parsed.weakPoints) ||
-      !Array.isArray(parsed.missingItems)
-    ) {
-      return { ok: false, error: "AI returned invalid review structure" }
+    const parsed: Ai8dReviewResult = {
+      overallScore: typeof raw.overallScore === "number" ? raw.overallScore : 50,
+      reviewStatus: ["STRONG", "NEEDS_IMPROVEMENT", "INCOMPLETE", "RISKY"].includes(raw.reviewStatus)
+        ? raw.reviewStatus
+        : "NEEDS_IMPROVEMENT",
+      completeness: {
+        problemDescriptionComplete: Boolean(raw.completeness?.problemDescriptionComplete),
+        containmentDefined: Boolean(raw.completeness?.containmentDefined),
+        rootCauseDefined: Boolean(raw.completeness?.rootCauseDefined),
+        correctiveActionDefined: Boolean(raw.completeness?.correctiveActionDefined),
+        preventiveActionDefined: Boolean(raw.completeness?.preventiveActionDefined),
+        verificationDefined: Boolean(raw.completeness?.verificationDefined),
+      },
+      weakPoints: Array.isArray(raw.weakPoints) ? raw.weakPoints.filter((s: unknown) => typeof s === "string") : [],
+      missingItems: Array.isArray(raw.missingItems) ? raw.missingItems.filter((s: unknown) => typeof s === "string") : [],
+      suggestedQuestionsForSupplier: Array.isArray(raw.suggestedQuestionsForSupplier) ? raw.suggestedQuestionsForSupplier.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggestedRootCauseAngles: Array.isArray(raw.suggestedRootCauseAngles) ? raw.suggestedRootCauseAngles.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggestedContainmentActions: Array.isArray(raw.suggestedContainmentActions) ? raw.suggestedContainmentActions.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggestedCorrectiveActions: Array.isArray(raw.suggestedCorrectiveActions) ? raw.suggestedCorrectiveActions.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      suggestedPreventiveActions: Array.isArray(raw.suggestedPreventiveActions) ? raw.suggestedPreventiveActions.filter((s: unknown) => typeof s === "string").slice(0, 5) : [],
+      reasoningSummary: typeof raw.reasoningSummary === "string" ? raw.reasoningSummary : "",
+      confidence: typeof raw.confidence === "number" ? raw.confidence : 50,
     }
 
     parsed.overallScore = Math.max(0, Math.min(100, Math.round(parsed.overallScore)))

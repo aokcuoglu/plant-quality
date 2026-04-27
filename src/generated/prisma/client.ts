@@ -171,3 +171,8 @@ export type EscalationHistory = Prisma.EscalationHistoryModel
  * 
  */
 export type AiSuggestion = Prisma.AiSuggestionModel
+/**
+ * Model Ai8dReview
+ * 
+ */
+export type Ai8dReview = Prisma.Ai8dReviewModel

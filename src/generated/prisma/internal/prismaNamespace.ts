@@ -409,7 +409,8 @@ export const ModelName = {
   FieldDefectEvent: 'FieldDefectEvent',
   Notification: 'Notification',
   EscalationHistory: 'EscalationHistory',
-  AiSuggestion: 'AiSuggestion'
+  AiSuggestion: 'AiSuggestion',
+  Ai8dReview: 'Ai8dReview'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2353,6 +2354,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Ai8dReview: {
+      payload: Prisma.$Ai8dReviewPayload<ExtArgs>
+      fields: Prisma.Ai8dReviewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.Ai8dReviewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.Ai8dReviewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>
+        }
+        findFirst: {
+          args: Prisma.Ai8dReviewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.Ai8dReviewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>
+        }
+        findMany: {
+          args: Prisma.Ai8dReviewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>[]
+        }
+        create: {
+          args: Prisma.Ai8dReviewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>
+        }
+        createMany: {
+          args: Prisma.Ai8dReviewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.Ai8dReviewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>[]
+        }
+        delete: {
+          args: Prisma.Ai8dReviewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>
+        }
+        update: {
+          args: Prisma.Ai8dReviewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>
+        }
+        deleteMany: {
+          args: Prisma.Ai8dReviewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.Ai8dReviewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.Ai8dReviewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>[]
+        }
+        upsert: {
+          args: Prisma.Ai8dReviewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$Ai8dReviewPayload>
+        }
+        aggregate: {
+          args: Prisma.Ai8dReviewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAi8dReview>
+        }
+        groupBy: {
+          args: Prisma.Ai8dReviewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Ai8dReviewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.Ai8dReviewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Ai8dReviewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2855,6 +2930,25 @@ export const AiSuggestionScalarFieldEnum = {
 export type AiSuggestionScalarFieldEnum = (typeof AiSuggestionScalarFieldEnum)[keyof typeof AiSuggestionScalarFieldEnum]
 
 
+export const Ai8dReviewScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  eightDId: 'eightDId',
+  linkedFieldDefectId: 'linkedFieldDefectId',
+  resultJson: 'resultJson',
+  status: 'status',
+  score: 'score',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  rejectedById: 'rejectedById',
+  rejectedAt: 'rejectedAt'
+} as const
+
+export type Ai8dReviewScalarFieldEnum = (typeof Ai8dReviewScalarFieldEnum)[keyof typeof Ai8dReviewScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3279,6 +3373,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
+
+/**
+ * Reference to a field of type 'Ai8dReviewStatus'
+ */
+export type EnumAi8dReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ai8dReviewStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'Ai8dReviewStatus[]'
+ */
+export type ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ai8dReviewStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3415,6 +3523,7 @@ export type GlobalOmitConfig = {
   notification?: Prisma.NotificationOmit
   escalationHistory?: Prisma.EscalationHistoryOmit
   aiSuggestion?: Prisma.AiSuggestionOmit
+  ai8dReview?: Prisma.Ai8dReviewOmit
 }
 
 /* Types for Logging */

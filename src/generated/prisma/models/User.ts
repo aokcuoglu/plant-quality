@@ -252,6 +252,9 @@ export type UserWhereInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentListRelationFilter
   fieldDefectEvents?: Prisma.FieldDefectEventListRelationFilter
   aiCategoryAppliedByFor?: Prisma.FieldDefectListRelationFilter
+  createdAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
+  reviewedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
+  rejectedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -302,6 +305,9 @@ export type UserOrderByWithRelationInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentOrderByRelationAggregateInput
   fieldDefectEvents?: Prisma.FieldDefectEventOrderByRelationAggregateInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectOrderByRelationAggregateInput
+  createdAi8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -355,6 +361,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   fieldDefectComments?: Prisma.FieldDefectCommentListRelationFilter
   fieldDefectEvents?: Prisma.FieldDefectEventListRelationFilter
   aiCategoryAppliedByFor?: Prisma.FieldDefectListRelationFilter
+  createdAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
+  reviewedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
+  rejectedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -434,6 +443,9 @@ export type UserCreateInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -483,6 +495,9 @@ export type UserUncheckedCreateInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUpdateInput = {
@@ -532,6 +547,9 @@ export type UserUpdateInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -581,6 +599,9 @@ export type UserUncheckedUpdateInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1298,6 +1319,52 @@ export type UserUpdateOneWithoutRejectedAiSuggestionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRejectedAiSuggestionsInput, Prisma.UserUpdateWithoutRejectedAiSuggestionsInput>, Prisma.UserUncheckedUpdateWithoutRejectedAiSuggestionsInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedAi8dReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutCreatedAi8dReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAi8dReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedAi8dReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutReviewedAi8dReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedAi8dReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRejectedAi8dReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRejectedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutRejectedAi8dReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRejectedAi8dReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedAi8dReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutCreatedAi8dReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAi8dReviewsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedAi8dReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedAi8dReviewsInput, Prisma.UserUpdateWithoutCreatedAi8dReviewsInput>, Prisma.UserUncheckedUpdateWithoutCreatedAi8dReviewsInput>
+}
+
+export type UserUpdateOneWithoutReviewedAi8dReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutReviewedAi8dReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedAi8dReviewsInput
+  upsert?: Prisma.UserUpsertWithoutReviewedAi8dReviewsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedAi8dReviewsInput, Prisma.UserUpdateWithoutReviewedAi8dReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewedAi8dReviewsInput>
+}
+
+export type UserUpdateOneWithoutRejectedAi8dReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRejectedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutRejectedAi8dReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRejectedAi8dReviewsInput
+  upsert?: Prisma.UserUpsertWithoutRejectedAi8dReviewsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRejectedAi8dReviewsInput, Prisma.UserUpdateWithoutRejectedAi8dReviewsInput>, Prisma.UserUncheckedUpdateWithoutRejectedAi8dReviewsInput>
+}
+
 export type UserCreateWithoutCompanyInput = {
   id?: string
   email: string
@@ -1344,6 +1411,9 @@ export type UserCreateWithoutCompanyInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyInput = {
@@ -1392,6 +1462,9 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyInput = {
@@ -1481,6 +1554,9 @@ export type UserCreateWithoutAccountsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1529,6 +1605,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1593,6 +1672,9 @@ export type UserUpdateWithoutAccountsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1641,6 +1723,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1689,6 +1774,9 @@ export type UserCreateWithoutSessionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1737,6 +1825,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1801,6 +1892,9 @@ export type UserUpdateWithoutSessionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1849,6 +1943,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutOwnedDefectsInput = {
@@ -1897,6 +1994,9 @@ export type UserCreateWithoutOwnedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDefectsInput = {
@@ -1945,6 +2045,9 @@ export type UserUncheckedCreateWithoutOwnedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDefectsInput = {
@@ -1998,6 +2101,9 @@ export type UserCreateWithoutAssignedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedDefectsInput = {
@@ -2046,6 +2152,9 @@ export type UserUncheckedCreateWithoutAssignedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedDefectsInput = {
@@ -2099,6 +2208,9 @@ export type UserCreateWithoutEscalatedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
@@ -2147,6 +2259,9 @@ export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedDefectsInput = {
@@ -2211,6 +2326,9 @@ export type UserUpdateWithoutOwnedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
@@ -2259,6 +2377,9 @@ export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedDefectsInput = {
@@ -2318,6 +2439,9 @@ export type UserUpdateWithoutAssignedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
@@ -2366,6 +2490,9 @@ export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutEscalatedDefectsInput = {
@@ -2425,6 +2552,9 @@ export type UserUpdateWithoutEscalatedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
@@ -2473,6 +2603,9 @@ export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutApprovedReportsInput = {
@@ -2521,6 +2654,9 @@ export type UserCreateWithoutApprovedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedReportsInput = {
@@ -2569,6 +2705,9 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedReportsInput = {
@@ -2622,6 +2761,9 @@ export type UserCreateWithoutRejectedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedReportsInput = {
@@ -2670,6 +2812,9 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedReportsInput = {
@@ -2734,6 +2879,9 @@ export type UserUpdateWithoutApprovedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedReportsInput = {
@@ -2782,6 +2930,9 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedReportsInput = {
@@ -2841,6 +2992,9 @@ export type UserUpdateWithoutRejectedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedReportsInput = {
@@ -2889,6 +3043,9 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutResolvedReviewCommentsInput = {
@@ -2937,6 +3094,9 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
@@ -2985,6 +3145,9 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutResolvedReviewCommentsInput = {
@@ -3038,6 +3201,9 @@ export type UserCreateWithoutReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewCommentsInput = {
@@ -3086,6 +3252,9 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewCommentsInput = {
@@ -3150,6 +3319,9 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
@@ -3198,6 +3370,9 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutReviewCommentsInput = {
@@ -3257,6 +3432,9 @@ export type UserUpdateWithoutReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewCommentsInput = {
@@ -3305,6 +3483,9 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutDefectEventsInput = {
@@ -3353,6 +3534,9 @@ export type UserCreateWithoutDefectEventsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutDefectEventsInput = {
@@ -3401,6 +3585,9 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutDefectEventsInput = {
@@ -3465,6 +3652,9 @@ export type UserUpdateWithoutDefectEventsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDefectEventsInput = {
@@ -3513,6 +3703,9 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutUploadedEvidenceInput = {
@@ -3561,6 +3754,9 @@ export type UserCreateWithoutUploadedEvidenceInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
@@ -3609,6 +3805,9 @@ export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedEvidenceInput = {
@@ -3673,6 +3872,9 @@ export type UserUpdateWithoutUploadedEvidenceInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
@@ -3721,6 +3923,9 @@ export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutOwnedPpapsInput = {
@@ -3769,6 +3974,9 @@ export type UserCreateWithoutOwnedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPpapsInput = {
@@ -3817,6 +4025,9 @@ export type UserUncheckedCreateWithoutOwnedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPpapsInput = {
@@ -3870,6 +4081,9 @@ export type UserCreateWithoutAssignedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedPpapsInput = {
@@ -3918,6 +4132,9 @@ export type UserUncheckedCreateWithoutAssignedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedPpapsInput = {
@@ -3971,6 +4188,9 @@ export type UserCreateWithoutApprovedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPpapsInput = {
@@ -4019,6 +4239,9 @@ export type UserUncheckedCreateWithoutApprovedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPpapsInput = {
@@ -4072,6 +4295,9 @@ export type UserCreateWithoutRejectedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedPpapsInput = {
@@ -4120,6 +4346,9 @@ export type UserUncheckedCreateWithoutRejectedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedPpapsInput = {
@@ -4184,6 +4413,9 @@ export type UserUpdateWithoutOwnedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
@@ -4232,6 +4464,9 @@ export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedPpapsInput = {
@@ -4291,6 +4526,9 @@ export type UserUpdateWithoutAssignedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
@@ -4339,6 +4577,9 @@ export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedPpapsInput = {
@@ -4398,6 +4639,9 @@ export type UserUpdateWithoutApprovedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
@@ -4446,6 +4690,9 @@ export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedPpapsInput = {
@@ -4505,6 +4752,9 @@ export type UserUpdateWithoutRejectedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
@@ -4553,6 +4803,9 @@ export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutPpapEvidenceUploadsInput = {
@@ -4601,6 +4854,9 @@ export type UserCreateWithoutPpapEvidenceUploadsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
@@ -4649,6 +4905,9 @@ export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEvidenceUploadsInput = {
@@ -4713,6 +4972,9 @@ export type UserUpdateWithoutPpapEvidenceUploadsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
@@ -4761,6 +5023,9 @@ export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutPpapCommentResolvedInput = {
@@ -4809,6 +5074,9 @@ export type UserCreateWithoutPpapCommentResolvedInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
@@ -4857,6 +5125,9 @@ export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentResolvedInput = {
@@ -4910,6 +5181,9 @@ export type UserCreateWithoutPpapCommentAuthoredInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
@@ -4958,6 +5232,9 @@ export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentAuthoredInput = {
@@ -5022,6 +5299,9 @@ export type UserUpdateWithoutPpapCommentResolvedInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
@@ -5070,6 +5350,9 @@ export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutPpapCommentAuthoredInput = {
@@ -5129,6 +5412,9 @@ export type UserUpdateWithoutPpapCommentAuthoredInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
@@ -5177,6 +5463,9 @@ export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutPpapEventActorsInput = {
@@ -5225,6 +5514,9 @@ export type UserCreateWithoutPpapEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEventActorsInput = {
@@ -5273,6 +5565,9 @@ export type UserUncheckedCreateWithoutPpapEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEventActorsInput = {
@@ -5337,6 +5632,9 @@ export type UserUpdateWithoutPpapEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
@@ -5385,6 +5683,9 @@ export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutIqcInspectionsInput = {
@@ -5433,6 +5734,9 @@ export type UserCreateWithoutIqcInspectionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcInspectionsInput = {
@@ -5481,6 +5785,9 @@ export type UserUncheckedCreateWithoutIqcInspectionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcInspectionsInput = {
@@ -5545,6 +5852,9 @@ export type UserUpdateWithoutIqcInspectionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
@@ -5593,6 +5903,9 @@ export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutIqcEventActorsInput = {
@@ -5641,6 +5954,9 @@ export type UserCreateWithoutIqcEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcEventActorsInput = {
@@ -5689,6 +6005,9 @@ export type UserUncheckedCreateWithoutIqcEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcEventActorsInput = {
@@ -5753,6 +6072,9 @@ export type UserUpdateWithoutIqcEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
@@ -5801,6 +6123,9 @@ export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutFmeaResponsibleInput = {
@@ -5849,6 +6174,9 @@ export type UserCreateWithoutFmeaResponsibleInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
@@ -5897,6 +6225,9 @@ export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaResponsibleInput = {
@@ -5950,6 +6281,9 @@ export type UserCreateWithoutFmeaApprovedByInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
@@ -5998,6 +6332,9 @@ export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaApprovedByInput = {
@@ -6062,6 +6399,9 @@ export type UserUpdateWithoutFmeaResponsibleInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
@@ -6110,6 +6450,9 @@ export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutFmeaApprovedByInput = {
@@ -6169,6 +6512,9 @@ export type UserUpdateWithoutFmeaApprovedByInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
@@ -6217,6 +6563,9 @@ export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutFmeaEventActorsInput = {
@@ -6265,6 +6614,9 @@ export type UserCreateWithoutFmeaEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
@@ -6313,6 +6665,9 @@ export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaEventActorsInput = {
@@ -6377,6 +6732,9 @@ export type UserUpdateWithoutFmeaEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
@@ -6425,6 +6783,9 @@ export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutAiCategoryAppliedByForInput = {
@@ -6473,6 +6834,9 @@ export type UserCreateWithoutAiCategoryAppliedByForInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
@@ -6521,6 +6885,9 @@ export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutAiCategoryAppliedByForInput = {
@@ -6574,6 +6941,9 @@ export type UserCreateWithoutCreatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
@@ -6622,6 +6992,9 @@ export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedFieldDefectsInput = {
@@ -6675,6 +7048,9 @@ export type UserCreateWithoutUpdatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
@@ -6723,6 +7099,9 @@ export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedFieldDefectsInput = {
@@ -6776,6 +7155,9 @@ export type UserCreateWithoutConvertedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
@@ -6824,6 +7206,9 @@ export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutConvertedFieldDefectsInput = {
@@ -6877,6 +7262,9 @@ export type UserCreateWithoutEscalatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
@@ -6925,6 +7313,9 @@ export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedFieldDefectsInput = {
@@ -6989,6 +7380,9 @@ export type UserUpdateWithoutAiCategoryAppliedByForInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
@@ -7037,6 +7431,9 @@ export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedFieldDefectsInput = {
@@ -7096,6 +7493,9 @@ export type UserUpdateWithoutCreatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
@@ -7144,6 +7544,9 @@ export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedFieldDefectsInput = {
@@ -7203,6 +7606,9 @@ export type UserUpdateWithoutUpdatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
@@ -7251,6 +7657,9 @@ export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutConvertedFieldDefectsInput = {
@@ -7310,6 +7719,9 @@ export type UserUpdateWithoutConvertedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
@@ -7358,6 +7770,9 @@ export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutEscalatedFieldDefectsInput = {
@@ -7417,6 +7832,9 @@ export type UserUpdateWithoutEscalatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
@@ -7465,6 +7883,9 @@ export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectAttachmentsInput = {
@@ -7513,6 +7934,9 @@ export type UserCreateWithoutFieldDefectAttachmentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
@@ -7561,6 +7985,9 @@ export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectAttachmentsInput = {
@@ -7625,6 +8052,9 @@ export type UserUpdateWithoutFieldDefectAttachmentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
@@ -7673,6 +8103,9 @@ export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectCommentsInput = {
@@ -7721,6 +8154,9 @@ export type UserCreateWithoutFieldDefectCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
@@ -7769,6 +8205,9 @@ export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectCommentsInput = {
@@ -7833,6 +8272,9 @@ export type UserUpdateWithoutFieldDefectCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
@@ -7881,6 +8323,9 @@ export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectEventsInput = {
@@ -7929,6 +8374,9 @@ export type UserCreateWithoutFieldDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
@@ -7977,6 +8425,9 @@ export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectEventsInput = {
@@ -8041,6 +8492,9 @@ export type UserUpdateWithoutFieldDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
@@ -8089,6 +8543,9 @@ export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
   fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -8137,6 +8594,9 @@ export type UserCreateWithoutNotificationsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -8185,6 +8645,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -8249,6 +8712,9 @@ export type UserUpdateWithoutNotificationsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -8297,6 +8763,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutEscalationHistoriesInput = {
@@ -8345,6 +8814,9 @@ export type UserCreateWithoutEscalationHistoriesInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
@@ -8393,6 +8865,9 @@ export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalationHistoriesInput = {
@@ -8457,6 +8932,9 @@ export type UserUpdateWithoutEscalationHistoriesInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
@@ -8505,6 +8983,9 @@ export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAiSuggestionsInput = {
@@ -8553,6 +9034,9 @@ export type UserCreateWithoutCreatedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
@@ -8601,6 +9085,9 @@ export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAiSuggestionsInput = {
@@ -8654,6 +9141,9 @@ export type UserCreateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
@@ -8702,6 +9192,9 @@ export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedAiSuggestionsInput = {
@@ -8755,6 +9248,9 @@ export type UserCreateWithoutRejectedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
@@ -8803,6 +9299,9 @@ export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedAiSuggestionsInput = {
@@ -8867,6 +9366,9 @@ export type UserUpdateWithoutCreatedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
@@ -8915,6 +9417,9 @@ export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutAcceptedAiSuggestionsInput = {
@@ -8974,6 +9479,9 @@ export type UserUpdateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
@@ -9022,6 +9530,9 @@ export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedAiSuggestionsInput = {
@@ -9081,6 +9592,9 @@ export type UserUpdateWithoutRejectedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
@@ -9129,6 +9643,669 @@ export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserCreateWithoutCreatedAi8dReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedAi8dReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedAi8dReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutCreatedAi8dReviewsInput>
+}
+
+export type UserCreateWithoutReviewedAi8dReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserUncheckedCreateWithoutReviewedAi8dReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserCreateOrConnectWithoutReviewedAi8dReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutReviewedAi8dReviewsInput>
+}
+
+export type UserCreateWithoutRejectedAi8dReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutRejectedAi8dReviewsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutRejectedAi8dReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRejectedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutRejectedAi8dReviewsInput>
+}
+
+export type UserUpsertWithoutCreatedAi8dReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAi8dReviewsInput, Prisma.UserUncheckedUpdateWithoutCreatedAi8dReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutCreatedAi8dReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedAi8dReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAi8dReviewsInput, Prisma.UserUncheckedUpdateWithoutCreatedAi8dReviewsInput>
+}
+
+export type UserUpdateWithoutCreatedAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUpsertWithoutReviewedAi8dReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedAi8dReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewedAi8dReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutReviewedAi8dReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedAi8dReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedAi8dReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewedAi8dReviewsInput>
+}
+
+export type UserUpdateWithoutReviewedAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUpsertWithoutRejectedAi8dReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRejectedAi8dReviewsInput, Prisma.UserUncheckedUpdateWithoutRejectedAi8dReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRejectedAi8dReviewsInput, Prisma.UserUncheckedCreateWithoutRejectedAi8dReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRejectedAi8dReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRejectedAi8dReviewsInput, Prisma.UserUncheckedUpdateWithoutRejectedAi8dReviewsInput>
+}
+
+export type UserUpdateWithoutRejectedAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRejectedAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateManyCompanyInput = {
@@ -9188,6 +10365,9 @@ export type UserUpdateWithoutCompanyInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -9236,6 +10416,9 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
   fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
   aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -9292,6 +10475,9 @@ export type UserCountOutputType = {
   fieldDefectComments: number
   fieldDefectEvents: number
   aiCategoryAppliedByFor: number
+  createdAi8dReviews: number
+  reviewedAi8dReviews: number
+  rejectedAi8dReviews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9332,6 +10518,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   fieldDefectComments?: boolean | UserCountOutputTypeCountFieldDefectCommentsArgs
   fieldDefectEvents?: boolean | UserCountOutputTypeCountFieldDefectEventsArgs
   aiCategoryAppliedByFor?: boolean | UserCountOutputTypeCountAiCategoryAppliedByForArgs
+  createdAi8dReviews?: boolean | UserCountOutputTypeCountCreatedAi8dReviewsArgs
+  reviewedAi8dReviews?: boolean | UserCountOutputTypeCountReviewedAi8dReviewsArgs
+  rejectedAi8dReviews?: boolean | UserCountOutputTypeCountRejectedAi8dReviewsArgs
 }
 
 /**
@@ -9603,6 +10792,27 @@ export type UserCountOutputTypeCountAiCategoryAppliedByForArgs<ExtArgs extends r
   where?: Prisma.FieldDefectWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.Ai8dReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.Ai8dReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRejectedAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.Ai8dReviewWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -9652,6 +10862,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   fieldDefectComments?: boolean | Prisma.User$fieldDefectCommentsArgs<ExtArgs>
   fieldDefectEvents?: boolean | Prisma.User$fieldDefectEventsArgs<ExtArgs>
   aiCategoryAppliedByFor?: boolean | Prisma.User$aiCategoryAppliedByForArgs<ExtArgs>
+  createdAi8dReviews?: boolean | Prisma.User$createdAi8dReviewsArgs<ExtArgs>
+  reviewedAi8dReviews?: boolean | Prisma.User$reviewedAi8dReviewsArgs<ExtArgs>
+  rejectedAi8dReviews?: boolean | Prisma.User$rejectedAi8dReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -9733,6 +10946,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   fieldDefectComments?: boolean | Prisma.User$fieldDefectCommentsArgs<ExtArgs>
   fieldDefectEvents?: boolean | Prisma.User$fieldDefectEventsArgs<ExtArgs>
   aiCategoryAppliedByFor?: boolean | Prisma.User$aiCategoryAppliedByForArgs<ExtArgs>
+  createdAi8dReviews?: boolean | Prisma.User$createdAi8dReviewsArgs<ExtArgs>
+  reviewedAi8dReviews?: boolean | Prisma.User$reviewedAi8dReviewsArgs<ExtArgs>
+  rejectedAi8dReviews?: boolean | Prisma.User$rejectedAi8dReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9783,6 +10999,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     fieldDefectComments: Prisma.$FieldDefectCommentPayload<ExtArgs>[]
     fieldDefectEvents: Prisma.$FieldDefectEventPayload<ExtArgs>[]
     aiCategoryAppliedByFor: Prisma.$FieldDefectPayload<ExtArgs>[]
+    createdAi8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
+    reviewedAi8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
+    rejectedAi8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -10226,6 +11445,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   fieldDefectComments<T extends Prisma.User$fieldDefectCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fieldDefectCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fieldDefectEvents<T extends Prisma.User$fieldDefectEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fieldDefectEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiCategoryAppliedByFor<T extends Prisma.User$aiCategoryAppliedByForArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiCategoryAppliedByForArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAi8dReviews<T extends Prisma.User$createdAi8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdAi8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedAi8dReviews<T extends Prisma.User$reviewedAi8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedAi8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  rejectedAi8dReviews<T extends Prisma.User$rejectedAi8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rejectedAi8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11569,6 +12791,78 @@ export type User$aiCategoryAppliedByForArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.FieldDefectScalarFieldEnum | Prisma.FieldDefectScalarFieldEnum[]
+}
+
+/**
+ * User.createdAi8dReviews
+ */
+export type User$createdAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ai8dReview
+   */
+  select?: Prisma.Ai8dReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ai8dReview
+   */
+  omit?: Prisma.Ai8dReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.Ai8dReviewInclude<ExtArgs> | null
+  where?: Prisma.Ai8dReviewWhereInput
+  orderBy?: Prisma.Ai8dReviewOrderByWithRelationInput | Prisma.Ai8dReviewOrderByWithRelationInput[]
+  cursor?: Prisma.Ai8dReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Ai8dReviewScalarFieldEnum | Prisma.Ai8dReviewScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedAi8dReviews
+ */
+export type User$reviewedAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ai8dReview
+   */
+  select?: Prisma.Ai8dReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ai8dReview
+   */
+  omit?: Prisma.Ai8dReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.Ai8dReviewInclude<ExtArgs> | null
+  where?: Prisma.Ai8dReviewWhereInput
+  orderBy?: Prisma.Ai8dReviewOrderByWithRelationInput | Prisma.Ai8dReviewOrderByWithRelationInput[]
+  cursor?: Prisma.Ai8dReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Ai8dReviewScalarFieldEnum | Prisma.Ai8dReviewScalarFieldEnum[]
+}
+
+/**
+ * User.rejectedAi8dReviews
+ */
+export type User$rejectedAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ai8dReview
+   */
+  select?: Prisma.Ai8dReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ai8dReview
+   */
+  omit?: Prisma.Ai8dReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.Ai8dReviewInclude<ExtArgs> | null
+  where?: Prisma.Ai8dReviewWhereInput
+  orderBy?: Prisma.Ai8dReviewOrderByWithRelationInput | Prisma.Ai8dReviewOrderByWithRelationInput[]
+  cursor?: Prisma.Ai8dReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Ai8dReviewScalarFieldEnum | Prisma.Ai8dReviewScalarFieldEnum[]
 }
 
 /**

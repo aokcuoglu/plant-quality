@@ -18,6 +18,8 @@ import {
   ShieldAlertIcon,
   AlertTriangleIcon,
   SparklesIcon,
+  EyeIcon,
+  LightbulbIcon,
 } from "lucide-react"
 
 type IconComponent = typeof PlusIcon
@@ -70,4 +72,8 @@ export const EVENT_META: Record<DefectEventType, EventMeta> = {
   AI_CLASSIFICATION_GENERATED: { label: "AI Classification", description: "AI classification generated for field defect", icon: SparklesIcon, iconColor: "text-emerald-500" },
   AI_SUGGESTION_ACCEPTED: { label: "AI Accepted", description: "AI suggestion accepted", icon: CheckIcon, iconColor: "text-green-500" },
   AI_SUGGESTION_REJECTED: { label: "AI Rejected", description: "AI suggestion rejected", icon: XCircleIcon, iconColor: "text-red-500" },
+  AI_8D_REVIEW_GENERATED: { label: "AI 8D Review", description: "AI review generated for 8D report", icon: SparklesIcon, iconColor: "text-emerald-500" },
+  AI_8D_REVIEW_MARKED_REVIEWED: { label: "AI Review Reviewed", description: "AI 8D review marked as reviewed", icon: EyeIcon, iconColor: "text-emerald-500" },
+  AI_8D_REVIEW_REJECTED: { label: "AI Review Rejected", description: "AI 8D review rejected", icon: XCircleIcon, iconColor: "text-red-500" },
+  AI_ROOT_CAUSE_SUGGESTED: { label: "AI Root Cause", description: "AI root cause suggestion generated", icon: LightbulbIcon, iconColor: "text-amber-500" },
 }

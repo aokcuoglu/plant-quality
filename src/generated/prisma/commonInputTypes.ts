@@ -688,6 +688,23 @@ export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatNullableFilter<$PrismaModel>
 }
 
+export type EnumAi8dReviewStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.Ai8dReviewStatus | Prisma.EnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel> | $Enums.Ai8dReviewStatus
+}
+
+export type EnumAi8dReviewStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Ai8dReviewStatus | Prisma.EnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAi8dReviewStatusWithAggregatesFilter<$PrismaModel> | $Enums.Ai8dReviewStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1308,6 +1325,23 @@ export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatNullableFilter<$PrismaModel>
   _min?: Prisma.NestedFloatNullableFilter<$PrismaModel>
   _max?: Prisma.NestedFloatNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumAi8dReviewStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.Ai8dReviewStatus | Prisma.EnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel> | $Enums.Ai8dReviewStatus
+}
+
+export type NestedEnumAi8dReviewStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Ai8dReviewStatus | Prisma.EnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Ai8dReviewStatus[] | Prisma.ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAi8dReviewStatusWithAggregatesFilter<$PrismaModel> | $Enums.Ai8dReviewStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
 }
 
 

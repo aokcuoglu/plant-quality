@@ -41,7 +41,7 @@ export default async function OemFieldDetailPage({
       updatedBy: { select: { name: true, email: true } },
       convertedBy: { select: { name: true, email: true } },
       escalatedBy: { select: { name: true, email: true } },
-      linkedDefect: { select: { id: true, partNumber: true, description: true, status: true } },
+      linkedDefect: { select: { id: true, partNumber: true, description: true, status: true, eightDReport: { select: { id: true, ai8dReviews: { where: { companyId: session.user.companyId }, orderBy: { createdAt: "desc" }, take: 1, select: { id: true, status: true, score: true, resultJson: true, createdAt: true } } } } } },
       attachments: { where: { deletedAt: null }, orderBy: { createdAt: "desc" } },
       comments: { include: { author: { select: { name: true, email: true, companyId: true } } }, orderBy: { createdAt: "asc" } },
       events: { include: { actor: { select: { name: true, email: true } } }, orderBy: { createdAt: "desc" } },
@@ -236,6 +236,32 @@ export default async function OemFieldDetailPage({
                     Converted on {formatDate(fd.convertedTo8DAt)}
                     {fd.convertedBy && ` by ${fd.convertedBy.name ?? fd.convertedBy.email}`}
                   </p>
+                )}
+                {fd.linkedDefect.eightDReport?.ai8dReviews?.[0] && (
+                  <div className="mt-2 flex items-center gap-2">
+                    {(() => {
+                      const r = fd.linkedDefect.eightDReport.ai8dReviews[0]
+                      const review = r.resultJson as { overallScore?: number; reviewStatus?: string }
+                      const statusLabel = r.status === "GENERATED" ? "Pending" : r.status === "REVIEWED" ? "Reviewed" : r.status === "REJECTED" ? "Rejected" : r.status
+                      const reviewLabel = review.reviewStatus === "STRONG" ? "Strong" : review.reviewStatus === "NEEDS_IMPROVEMENT" ? "Needs Improvement" : review.reviewStatus === "INCOMPLETE" ? "Incomplete" : review.reviewStatus === "RISKY" ? "Risky" : null
+                      return (
+                        <>
+                          <span className="text-xs text-muted-foreground">AI Review:</span>
+                          <span className="text-xs font-medium text-foreground">{review.overallScore ?? "—"}/100</span>
+                          {reviewLabel && (
+                            <span className={`text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full ${
+                              review.reviewStatus === "STRONG" ? "bg-emerald-500/10 text-emerald-500" :
+                              review.reviewStatus === "NEEDS_IMPROVEMENT" ? "bg-amber-500/10 text-amber-500" :
+                              review.reviewStatus === "INCOMPLETE" || review.reviewStatus === "RISKY" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"
+                            }`}>
+                              {reviewLabel}
+                            </span>
+                          )}
+                          <span className="text-[10px] text-muted-foreground">({statusLabel})</span>
+                        </>
+                      )
+                    })()}
+                  </div>
                 )}
               </div>
             </div>

@@ -76,7 +76,8 @@ export const ModelName = {
   FieldDefectEvent: 'FieldDefectEvent',
   Notification: 'Notification',
   EscalationHistory: 'EscalationHistory',
-  AiSuggestion: 'AiSuggestion'
+  AiSuggestion: 'AiSuggestion',
+  Ai8dReview: 'Ai8dReview'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -556,6 +557,25 @@ export const AiSuggestionScalarFieldEnum = {
 } as const
 
 export type AiSuggestionScalarFieldEnum = (typeof AiSuggestionScalarFieldEnum)[keyof typeof AiSuggestionScalarFieldEnum]
+
+
+export const Ai8dReviewScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  eightDId: 'eightDId',
+  linkedFieldDefectId: 'linkedFieldDefectId',
+  resultJson: 'resultJson',
+  status: 'status',
+  score: 'score',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  rejectedById: 'rejectedById',
+  rejectedAt: 'rejectedAt'
+} as const
+
+export type Ai8dReviewScalarFieldEnum = (typeof Ai8dReviewScalarFieldEnum)[keyof typeof Ai8dReviewScalarFieldEnum]
 
 
 export const SortOrder = {

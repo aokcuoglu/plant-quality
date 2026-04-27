@@ -56,6 +56,13 @@ enum AiSuggestionType {
   SIMILAR_ISSUES
 }
 
+enum Ai8dReviewStatus {
+  GENERATED
+  REVIEWED
+  REJECTED
+  EXPIRED
+}
+
 enum AiSuggestionStatus {
   GENERATED
   ACCEPTED
@@ -104,6 +111,10 @@ enum DefectEventType {
   AI_CLASSIFICATION_GENERATED
   AI_SUGGESTION_ACCEPTED
   AI_SUGGESTION_REJECTED
+  AI_8D_REVIEW_GENERATED
+  AI_8D_REVIEW_MARKED_REVIEWED
+  AI_8D_REVIEW_REJECTED
+  AI_ROOT_CAUSE_SUGGESTED
 }
 
 enum DefectStatus {
@@ -233,6 +244,7 @@ model Company {
   aiSuggestions     AiSuggestion[]
   notifications      Notification[]
   escalationHistory   EscalationHistory[]
+  ai8dReviews        Ai8dReview[]
   createdAt    DateTime      @default(now())
 
   @@map("companies")
@@ -285,6 +297,9 @@ model User {
   fieldDefectComments     FieldDefectComment[] @relation("FieldDefectCommentAuthor")
   fieldDefectEvents       FieldDefectEvent[] @relation("FieldDefectEventActor")
   aiCategoryAppliedByFor  FieldDefect[] @relation("FieldDefectAiCategoryAppliedBy")
+  createdAi8dReviews      Ai8dReview[] @relation("Ai8dReviewCreatedBy")
+  reviewedAi8dReviews     Ai8dReview[] @relation("Ai8dReviewReviewedBy")
+  rejectedAi8dReviews     Ai8dReview[] @relation("Ai8dReviewRejectedBy")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -395,6 +410,7 @@ model EightDReport {
   d6Actions          Json?   @map("d6_actions")
   d7Impacts          Json?   @map("d7_impacts")
   d7Preventive       String? @map("d7_preventive")
+  ai8dReviews        Ai8dReview[]
 
   @@map("eight_d_reports")
 }
@@ -840,4 +856,31 @@ model AiSuggestion {
   @@index([fieldDefectId, suggestionType, status])
   @@index([companyId, createdAt])
   @@map("ai_suggestions")
+}
+
+model Ai8dReview {
+  id                    String           @id @default(uuid())
+  companyId             String           @map("company_id")
+  company               Company          @relation(fields: [companyId], references: [id])
+  eightDId              String           @map("eight_d_id")
+  eightDReport          EightDReport     @relation(fields: [eightDId], references: [id], onDelete: Cascade)
+  linkedFieldDefectId   String?          @map("linked_field_defect_id")
+  resultJson            Json             @map("result_json")
+  status                Ai8dReviewStatus @default(GENERATED)
+  score                 Int?             @map("score")
+  createdById           String           @map("created_by_id")
+  createdBy             User             @relation("Ai8dReviewCreatedBy", fields: [createdById], references: [id])
+  createdAt             DateTime         @default(now()) @map("created_at")
+  reviewedById          String?          @map("reviewed_by_id")
+  reviewedBy            User?            @relation("Ai8dReviewReviewedBy", fields: [reviewedById], references: [id])
+  reviewedAt            DateTime?        @map("reviewed_at")
+  rejectedById          String?          @map("rejected_by_id")
+  rejectedBy            User?            @relation("Ai8dReviewRejectedBy", fields: [rejectedById], references: [id])
+  rejectedAt            DateTime?        @map("rejected_at")
+
+  @@index([companyId, eightDId])
+  @@index([companyId, status])
+  @@index([companyId, createdAt])
+  @@index([eightDId, status])
+  @@map("ai_8d_reviews")
 }

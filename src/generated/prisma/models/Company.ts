@@ -196,6 +196,7 @@ export type CompanyWhereInput = {
   aiSuggestions?: Prisma.AiSuggestionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   escalationHistory?: Prisma.EscalationHistoryListRelationFilter
+  ai8dReviews?: Prisma.Ai8dReviewListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -218,6 +219,7 @@ export type CompanyOrderByWithRelationInput = {
   aiSuggestions?: Prisma.AiSuggestionOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   escalationHistory?: Prisma.EscalationHistoryOrderByRelationAggregateInput
+  ai8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -243,6 +245,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   aiSuggestions?: Prisma.AiSuggestionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   escalationHistory?: Prisma.EscalationHistoryListRelationFilter
+  ai8dReviews?: Prisma.Ai8dReviewListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -287,6 +290,7 @@ export type CompanyCreateInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -309,6 +313,7 @@ export type CompanyUncheckedCreateInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -331,6 +336,7 @@ export type CompanyUpdateInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -353,6 +359,7 @@ export type CompanyUncheckedUpdateInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -631,6 +638,20 @@ export type CompanyUpdateOneRequiredWithoutAiSuggestionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutAiSuggestionsInput, Prisma.CompanyUpdateWithoutAiSuggestionsInput>, Prisma.CompanyUncheckedUpdateWithoutAiSuggestionsInput>
 }
 
+export type CompanyCreateNestedOneWithoutAi8dReviewsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutAi8dReviewsInput, Prisma.CompanyUncheckedCreateWithoutAi8dReviewsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutAi8dReviewsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutAi8dReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutAi8dReviewsInput, Prisma.CompanyUncheckedCreateWithoutAi8dReviewsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutAi8dReviewsInput
+  upsert?: Prisma.CompanyUpsertWithoutAi8dReviewsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutAi8dReviewsInput, Prisma.CompanyUpdateWithoutAi8dReviewsInput>, Prisma.CompanyUncheckedUpdateWithoutAi8dReviewsInput>
+}
+
 export type CompanyCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -650,6 +671,7 @@ export type CompanyCreateWithoutUsersInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutUsersInput = {
@@ -671,6 +693,7 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutUsersInput = {
@@ -708,6 +731,7 @@ export type CompanyUpdateWithoutUsersInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsersInput = {
@@ -729,6 +753,7 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDefectsAsOemInput = {
@@ -750,6 +775,7 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
@@ -771,6 +797,7 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsOemInput = {
@@ -797,6 +824,7 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
@@ -818,6 +846,7 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsSupInput = {
@@ -855,6 +884,7 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
@@ -876,6 +906,7 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutDefectsAsSupInput = {
@@ -908,6 +939,7 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
@@ -929,6 +961,7 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutPpapAsOemInput = {
@@ -950,6 +983,7 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
@@ -971,6 +1005,7 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsOemInput = {
@@ -997,6 +1032,7 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
@@ -1018,6 +1054,7 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsSupInput = {
@@ -1055,6 +1092,7 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
@@ -1076,6 +1114,7 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutPpapAsSupInput = {
@@ -1108,6 +1147,7 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
@@ -1129,6 +1169,7 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutIqcAsOemInput = {
@@ -1150,6 +1191,7 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
@@ -1171,6 +1213,7 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsOemInput = {
@@ -1197,6 +1240,7 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
@@ -1218,6 +1262,7 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsSupInput = {
@@ -1255,6 +1300,7 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
@@ -1276,6 +1322,7 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutIqcAsSupInput = {
@@ -1308,6 +1355,7 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
@@ -1329,6 +1377,7 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFmeaAsOemInput = {
@@ -1350,6 +1399,7 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
@@ -1371,6 +1421,7 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsOemInput = {
@@ -1397,6 +1448,7 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
@@ -1418,6 +1470,7 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsSupInput = {
@@ -1455,6 +1508,7 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
@@ -1476,6 +1530,7 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutFmeaAsSupInput = {
@@ -1508,6 +1563,7 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
@@ -1529,6 +1585,7 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFieldDefectsAsSupInput = {
@@ -1550,6 +1607,7 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
@@ -1571,6 +1629,7 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsSupInput = {
@@ -1597,6 +1656,7 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
@@ -1618,6 +1678,7 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsOemInput = {
@@ -1655,6 +1716,7 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
@@ -1676,6 +1738,7 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutFieldDefectsAsOemInput = {
@@ -1708,6 +1771,7 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
@@ -1729,6 +1793,7 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutNotificationsInput = {
@@ -1750,6 +1815,7 @@ export type CompanyCreateWithoutNotificationsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutNotificationsInput = {
@@ -1771,6 +1837,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutNotificationsInput = {
@@ -1808,6 +1875,7 @@ export type CompanyUpdateWithoutNotificationsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutNotificationsInput = {
@@ -1829,6 +1897,7 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutEscalationHistoryInput = {
@@ -1850,6 +1919,7 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
@@ -1871,6 +1941,7 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutEscalationHistoryInput = {
@@ -1908,6 +1979,7 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
@@ -1929,6 +2001,7 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAiSuggestionsInput = {
@@ -1950,6 +2023,7 @@ export type CompanyCreateWithoutAiSuggestionsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
@@ -1971,6 +2045,7 @@ export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAiSuggestionsInput = {
@@ -2008,6 +2083,7 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
@@ -2027,6 +2103,111 @@ export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
   fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
   fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutAi8dReviewsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutAi8dReviewsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutAi8dReviewsInput, Prisma.CompanyUncheckedCreateWithoutAi8dReviewsInput>
+}
+
+export type CompanyUpsertWithoutAi8dReviewsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutAi8dReviewsInput, Prisma.CompanyUncheckedUpdateWithoutAi8dReviewsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutAi8dReviewsInput, Prisma.CompanyUncheckedCreateWithoutAi8dReviewsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutAi8dReviewsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutAi8dReviewsInput, Prisma.CompanyUncheckedUpdateWithoutAi8dReviewsInput>
+}
+
+export type CompanyUpdateWithoutAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -2051,6 +2232,7 @@ export type CompanyCountOutputType = {
   aiSuggestions: number
   notifications: number
   escalationHistory: number
+  ai8dReviews: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2068,6 +2250,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   aiSuggestions?: boolean | CompanyCountOutputTypeCountAiSuggestionsArgs
   notifications?: boolean | CompanyCountOutputTypeCountNotificationsArgs
   escalationHistory?: boolean | CompanyCountOutputTypeCountEscalationHistoryArgs
+  ai8dReviews?: boolean | CompanyCountOutputTypeCountAi8dReviewsArgs
 }
 
 /**
@@ -2178,6 +2361,13 @@ export type CompanyCountOutputTypeCountEscalationHistoryArgs<ExtArgs extends run
   where?: Prisma.EscalationHistoryWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountAi8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.Ai8dReviewWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2199,6 +2389,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   aiSuggestions?: boolean | Prisma.Company$aiSuggestionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   escalationHistory?: boolean | Prisma.Company$escalationHistoryArgs<ExtArgs>
+  ai8dReviews?: boolean | Prisma.Company$ai8dReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -2242,6 +2433,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   aiSuggestions?: boolean | Prisma.Company$aiSuggestionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   escalationHistory?: boolean | Prisma.Company$escalationHistoryArgs<ExtArgs>
+  ai8dReviews?: boolean | Prisma.Company$ai8dReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2264,6 +2456,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     aiSuggestions: Prisma.$AiSuggestionPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     escalationHistory: Prisma.$EscalationHistoryPayload<ExtArgs>[]
+    ai8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2679,6 +2872,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   aiSuggestions<T extends Prisma.Company$aiSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$aiSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Company$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   escalationHistory<T extends Prisma.Company$escalationHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$escalationHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EscalationHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ai8dReviews<T extends Prisma.Company$ai8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$ai8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3439,6 +3633,30 @@ export type Company$escalationHistoryArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.EscalationHistoryScalarFieldEnum | Prisma.EscalationHistoryScalarFieldEnum[]
+}
+
+/**
+ * Company.ai8dReviews
+ */
+export type Company$ai8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Ai8dReview
+   */
+  select?: Prisma.Ai8dReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Ai8dReview
+   */
+  omit?: Prisma.Ai8dReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.Ai8dReviewInclude<ExtArgs> | null
+  where?: Prisma.Ai8dReviewWhereInput
+  orderBy?: Prisma.Ai8dReviewOrderByWithRelationInput | Prisma.Ai8dReviewOrderByWithRelationInput[]
+  cursor?: Prisma.Ai8dReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Ai8dReviewScalarFieldEnum | Prisma.Ai8dReviewScalarFieldEnum[]
 }
 
 /**

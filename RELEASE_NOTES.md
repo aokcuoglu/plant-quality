@@ -1,3 +1,222 @@
+# PlantQuality v1.9.0 — Release Notes
+
+## AI 8D Review & Root Cause Suggestion
+
+**Release Date:** 2026-04-27  
+**Version:** 1.9.0
+
+---
+
+## Summary
+
+PlantQuality v1.9.0 adds AI-assisted quality engineering support for 8D and root cause workflows. OEM quality engineers can now generate AI reviews of supplier-submitted 8D reports, receive root cause suggestions, and benefit from a deterministic completeness check that works without AI configuration. AI reviews are advisory — they never automatically change 8D status, reject supplier responses, or assign fault.
+
+**Core promise:** "Supplier'ın 8D cevabını kalite açısından değerlendir, eksik noktaları göster ve kök neden / aksiyon önerileri üret."
+
+---
+
+## New Features
+
+### AI 8D Review
+
+| Feature | Description |
+|---------|-------------|
+| AI 8D Review Panel | New panel on OEM defect detail page showing: overall score (0-100), review status (Strong/Needs Improvement/Incomplete/Risky), completeness checklist, weak points, missing items, suggested questions for supplier, suggested root cause angles, suggested containment/corrective/preventive actions, reasoning summary, confidence score |
+| Generate AI Review | OEM Admin/QE users can generate AI review for any 8D report (PRO plan required) |
+| Mark as Reviewed | OEM user acknowledges they have reviewed the AI suggestion |
+| Reject Review | OEM user dismisses the AI review as not useful |
+| Regenerate Review | Generate a fresh AI review after previous one is processed |
+| Audit Trail | AI review events logged in defect event timeline |
+| Multi-review History | Multiple AI reviews stored per 8D report; latest shown by default |
+
+### Root Cause Suggestion
+
+| Feature | Description |
+|---------|-------------|
+| Collapsible Root Cause Panel | Expandable section within AI 8D Review panel |
+| Suggested Root Causes | 3-5 potential root causes ordered by likelihood |
+| 5-Why Chain | Automated 5-Why analysis starting from defect symptom |
+| Investigation Methods | 3-5 suggested investigation approaches |
+| Suggested Containment | Immediate containment action recommendations |
+| Regenerate | Refresh root cause suggestions |
+
+### Deterministic 8D Completeness Check
+
+| Feature | Description |
+|---------|-------------|
+| No-AI Completeness | Works when `AI_ENABLED=false` or AI API key is missing |
+| 6-point Checklist | D2 Problem, D3 Containment, D4 Root Cause, D5 Corrective Actions, D6 Verification, D7 Preventive Actions |
+| Completeness Percent | Calculated percentage of completed sections |
+| Visual Progress Bar | Color-coded progress indicator (green/amber/red) |
+
+### Compact AI Review on Field Defect Detail
+
+| Feature | Description |
+|---------|-------------|
+| Linked 8D Review Status | When a field defect is linked to an 8D report, the linked 8D card shows compact AI review score and status |
+
+### AI Disabled Fallback
+
+| State | Behavior |
+|-------|----------|
+| `AI_ENABLED=false` or no API key | AI 8D Review panel shows "AI suggestions are not configured" message |
+| Non-PRO plan | Panel shows "AI features require a PRO plan" |
+| No 8D report | Panel shows "8D report has not been submitted yet" with deterministic completeness check |
+
+---
+
+## AI 8D Review Output Shape
+
+```json
+{
+  "overallScore": 72,
+  "reviewStatus": "NEEDS_IMPROVEMENT",
+  "completeness": {
+    "problemDescriptionComplete": true,
+    "containmentDefined": true,
+    "rootCauseDefined": true,
+    "correctiveActionDefined": false,
+    "preventiveActionDefined": true,
+    "verificationDefined": false
+  },
+  "weakPoints": ["..."],
+  "missingItems": ["..."],
+  "suggestedQuestionsForSupplier": ["..."],
+  "suggestedRootCauseAngles": ["..."],
+  "suggestedContainmentActions": ["..."],
+  "suggestedCorrectiveActions": ["..."],
+  "suggestedPreventiveActions": ["..."],
+  "reasoningSummary": "...",
+  "confidence": 75
+}
+```
+
+---
+
+## Database Changes
+
+| Change | Detail |
+|--------|--------|
+| New model: `ai_8d_reviews` | Stores AI 8D review results with status tracking (GENERATED/REVIEWED/REJECTED/EXPIRED) |
+| New enum: `Ai8dReviewStatus` | GENERATED, REVIEWED, REJECTED, EXPIRED |
+| New event types | AI_8D_REVIEW_GENERATED, AI_8D_REVIEW_MARKED_REVIEWED, AI_8D_REVIEW_REJECTED, AI_ROOT_CAUSE_SUGGESTED added to `DefectEventType` |
+| New indexes | `(companyId, eightDId)`, `(companyId, status)`, `(companyId, createdAt)`, `(eightDId, status)` |
+| User model | Added `createdAi8dReviews`, `reviewedAi8dReviews`, `rejectedAi8dReviews` relations |
+| Company model | Added `ai8dReviews` relation |
+| EightDReport model | Added `ai8dReviews` relation |
+
+---
+
+## Server Actions
+
+| Action | Location | Description |
+|--------|----------|-------------|
+| `generateAi8dReview(defectId)` | `ai-review.ts` | Generate AI review for an 8D report (OEM + PRO required) |
+| `generateRootCauseSuggestion(defectId)` | `ai-review.ts` | Generate root cause suggestions (OEM + PRO required) |
+| `markAi8dReviewAsReviewed(reviewId)` | `ai-review.ts` | Mark AI review as reviewed by OEM user |
+| `rejectAi8dReview(reviewId)` | `ai-review.ts` | Reject AI review |
+| `getAi8dReviews(eightDId)` | `ai-review.ts` | Get all AI reviews for an 8D report |
+| `getLatestAi8dReview(defectId)` | `ai-review.ts` | Get latest AI review for a defect |
+
+---
+
+## AI Service Layer
+
+| File | Purpose |
+|------|---------|
+| `src/lib/ai/review-8d.ts` | AI 8D review prompt engineering, structured output parsing, validation |
+| `src/lib/ai/root-cause-suggestion.ts` | Root cause suggestion prompt engineering, structured output parsing |
+| `src/lib/ai/validate-8d-completeness.ts` | Deterministic 8D completeness check (no AI required) |
+
+---
+
+## UI Changes
+
+| Component | Change |
+|-----------|--------|
+| OEM Defect Detail page | Added `Ai8dReviewPanel` below the 8D report view |
+| OEM Field Defect Detail page | Linked 8D card now shows compact AI review score and status |
+| Event timeline | New icons/labels for AI_8D_REVIEW_GENERATED, AI_8D_REVIEW_MARKED_REVIEWED, AI_8D_REVIEW_REJECTED, AI_ROOT_CAUSE_SUGGESTED |
+
+---
+
+## New Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/ai/review-8d.ts` | AI 8D review service |
+| `src/lib/ai/root-cause-suggestion.ts` | Root cause suggestion service |
+| `src/lib/ai/validate-8d-completeness.ts` | Deterministic completeness check |
+| `src/app/(dashboard)/quality/oem/defects/actions/ai-review.ts` | Server actions for AI 8D review |
+| `src/components/defects/Ai8dReviewPanel.tsx` | Client component for AI 8D Review panel |
+| `prisma/migrations/20260427080000_add_ai_8d_reviews/migration.sql` | Database migration |
+
+---
+
+## Modified Files
+
+| File | Change |
+|------|--------|
+| `prisma/schema.prisma` | Added `Ai8dReview` model, `Ai8dReviewStatus` enum, new `DefectEventType` values, new relations |
+| `package.json` | Version bumped to 1.9.0 |
+| `src/lib/event-labels.ts` | Added labels for AI_8D_REVIEW_GENERATED, AI_8D_REVIEW_MARKED_REVIEWED, AI_8D_REVIEW_REJECTED, AI_ROOT_CAUSE_SUGGESTED |
+| `src/app/(dashboard)/quality/oem/defects/[id]/page.tsx` | Added AI review data fetching and `Ai8dReviewPanel` rendering |
+| `src/app/(dashboard)/quality/oem/field/[id]/page.tsx` | Added compact AI review status on linked 8D card |
+
+---
+
+## Permission Model
+
+| Action | OEM Admin | OEM QE | OEM Viewer | Supplier Admin | Supplier QE |
+|--------|-----------|--------|------------|----------------|-------------|
+| Generate AI 8D Review | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| Generate Root Cause Suggestion | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| Mark AI Review as Reviewed | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| Reject AI Review | ✅ (PRO) | ✅ (PRO) | ❌ | ❌ | ❌ |
+| View Deterministic Completeness | ✅ | ✅ | ✅ | ❌ | ❌ |
+| View AI Review Panel | ✅ (PRO) | ✅ (PRO) | Panel hidden | Not shown | Not shown |
+| View Compact AI Status on Field Defect | ✅ | ✅ | ✅ | ❌ | ❌ |
+
+---
+
+## Security
+
+- All server actions verify OEM `companyType`, `role` in [ADMIN, QUALITY_ENGINEER], and PRO `plan`
+- AI reviews are scoped to `companyId` — cross-tenant access is impossible
+- Review ID cannot be guessed to access other tenant's reviews
+- AI API key is never exposed to the client
+- Supplier users cannot generate, view, or interact with AI 8D reviews in v1.9.0
+- AI review never changes 8D status, never auto-rejects, never auto-approves
+- AI review never blames supplier automatically
+
+---
+
+## Known Limitations
+
+- AI review requires a configured AI provider (DeepSeek or OpenAI-compatible) and PRO plan
+- Deterministic completeness check does not validate evidence attachments
+- Root cause suggestions are not persisted in the database (ephemeral, regenerated on demand)
+- Similar Issues remains DB-only (unchanged from v1.7+)
+- AI review confidence may be low for significantly incomplete 8D reports
+- No email notifications for AI review events
+- No supplier-facing AI critique in v1.9.0
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| AI-generated 8D (auto-fill) | v2.0+ |
+| Supplier-facing AI feedback | v2.0+ (requires careful design) |
+| Supplier risk scoring | v2.0+ |
+| Warranty cost prediction | v2.0+ |
+| Image-based AI analysis | v2.0+ |
+| Vector database for semantic search | v2.0+ |
+| Predefined category taxonomy | v1.10+ |
+
+---
+
 # PlantQuality v1.8.2 — Release Notes
 
 ## Internal App Design System Patch

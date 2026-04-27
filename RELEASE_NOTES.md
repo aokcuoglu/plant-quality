@@ -1,3 +1,130 @@
+# PlantQuality v1.8.2 — Release Notes
+
+## Internal App Design System Patch
+
+**Release Date:** 2026-04-27  
+**Version:** 1.8.2
+
+---
+
+## Summary
+
+PlantQuality v1.8.2 is an internal app UI/UX design system patch. It improves visual consistency across the internal app using a refined black/white/gray palette, tighter form layouts using shadcn/ui components, better detail page composition, and more consistent badge/card/button patterns. No major product features are added. The public landing page is unchanged.
+
+---
+
+## Badge & Color System
+
+| Area | Before | After |
+|------|--------|-------|
+| Status badge colors | Flat bg colors (`bg-red-50 text-red-700`, `bg-amber-50 text-amber-700`, etc.) | Semantic alpha-based colors (`bg-destructive/10 text-destructive`, `bg-amber-500/10 text-amber-600`, etc.) |
+| Severity badges | Direct Tailwind color pairs with manual dark overrides | Semantic alpha colors with automatic dark mode |
+| Escalation badges | Same pattern | Same semantic alpha pattern (`bg-amber-500/10`, `bg-destructive/10`) |
+| SLA status badges | Same pattern | Same semantic alpha pattern |
+| AI Insight panel badges | Same pattern | Same semantic alpha pattern |
+| Source badges | Per-source distinct colors (`bg-blue-50`, `bg-purple-50`, etc.) | Neutral `bg-secondary text-secondary-foreground` |
+| Pro plan badge | `bg-amber-500/10 text-amber-400 border-amber-500/20` | No change (semantic accent for plan tier) |
+
+---
+
+## Form Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| New Field Defect form | Raw `<input>`, `<textarea>`, `<select>`, `<input type="checkbox">` | shadcn/ui `Input`, `Textarea`, `Label`, `Checkbox` components |
+| Edit Field Defect form | Same raw HTML elements | Same shadcn/ui component migration |
+| Form section dividers | `border-t pt-5` with `mb-4` | `Separator` component with consistent `space-y-4` rhythm |
+| Label spacing | `space-y-2` | `space-y-1.5` (tighter) |
+| Action buttons | Hardcoded `bg-emerald-500 text-white` for save, hand-crafted cancel | shadcn/ui `Button` with `default`, `outline`, `ghost` variants |
+| Max-width | `max-w-2xl` | Same, kept |
+
+---
+
+## Detail Page Layout Rebalance
+
+| Area | Before | After |
+|------|--------|-------|
+| Grid ratio | `lg:grid-cols-[2fr_1fr]` | `lg:grid-cols-[3fr_1fr]` (more left content width) |
+| Right rail behavior | Scrolls with page | `lg:sticky lg:top-6` (stays visible) |
+| Summary + SLA cards | Two separate cards stacked | Merged into single "Overview" card with `divide-y` rows |
+| Comment section | Left column (below content) | Full-width below the grid |
+| Activity max-height | `max-h-80` | `max-h-64` (more compact) |
+| Boolean flags | Emoji-based (⚠️, 🚫, 🔁) | Semantic text (`text-destructive font-medium`, `text-amber-600 font-medium`) |
+| Linked 8D card | Bright `bg-emerald-500/10` accent | Subtle `bg-emerald-500/5 border-emerald-500/20` |
+| "Manage Media" link | `text-emerald-500` | `text-muted-foreground hover:text-foreground` |
+| Action links | `border border-border` outline style | `rounded-md px-3 py-2 text-muted-foreground hover:bg-muted` (subtler) |
+
+---
+
+## Dashboard & Card Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| DashboardCard icon | `bg-primary/10 text-primary` sized `h-10 w-10` | `bg-muted text-muted-foreground` sized `h-9 w-9` |
+| DashboardCard title | `text-sm text-muted-foreground` plain | `text-xs font-medium uppercase tracking-wider text-muted-foreground` |
+| DashboardCard border | `rounded-xl` | `rounded-lg` (matches other cards) |
+| War Room KPI cards | Inline `rounded-lg border bg-card p-4` | `DashboardCard` component reuse |
+| "Create First" empty CTA | `bg-emerald-500 text-white` button | `Button` component |
+| Filter chips on field list | String interpolation with `className` | `cn()` utility with explicit `border` states |
+| Defects page chips | `rounded-md` with border | `rounded-full` with `border-transparent`/`border-primary` |
+
+---
+
+## Sidebar Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| Logo icon background | `bg-gradient-to-br from-emerald-500 to-blue-600` with shadow | `bg-foreground text-background` (neutral) |
+| User avatar initial | `bg-emerald-500/10 text-emerald-400` | `bg-muted text-foreground` |
+| Nav link hover | `hover:border-emerald-500/40` with `group-hover:text-emerald-400` | `hover:bg-sidebar-accent` with `group-hover:text-foreground` |
+| Sign out hover | `hover:bg-red-500/10 hover:text-red-400` | `hover:bg-destructive/10 hover:text-destructive` |
+
+---
+
+## Misc UX Polish
+
+| Area | Before | After |
+|------|--------|-------|
+| DetailRow | `py-2` gap | `py-2.5` for more breathing room, explicit `text-foreground` on `<dd>` |
+| PageHeader | `space-y-0.5` between title/desc | `space-y-1` |
+| Evidence badges in defects table | `bg-red-50 text-red-700` etc. | `bg-destructive/10 text-destructive`, `bg-emerald-500/10 text-emerald-600` |
+| Quality Intelligence CTA | `bg-emerald-500 text-white` | `Button` component |
+
+---
+
+## Files Changed
+
+- `src/lib/field-defect.ts` — Badge color configs neutralized
+- `src/lib/escalation.ts` — Badge color configs neutralized
+- `src/lib/sla-field-defect.ts` — SLA status color configs neutralized
+- `src/components/ui/status-badge.tsx` — Badge colors neutralized
+- `src/components/field/FieldDefectSourceBadge.tsx` — Neutral source badges
+- `src/components/field/AiInsightPanel.tsx` — Badge/status colors neutralized
+- `src/components/layout/DashboardCard.tsx` — Neutral icon styling, tighter label
+- `src/components/layout/PageHeader.tsx` — Spacing adjustment
+- `src/components/layout/Sidebar.tsx` — Neutral logo, avatar, hover states
+- `src/components/DetailRow.tsx` — Better spacing, explicit text color
+- `src/app/(dashboard)/quality/oem/field/new/form.tsx` — Full shadcn/ui form refactor
+- `src/app/(dashboard)/quality/oem/field/[id]/edit/edit-form.tsx` — Full shadcn/ui form refactor
+- `src/app/(dashboard)/quality/oem/field/[id]/page.tsx` — Layout rebalance, sticky rail, merged cards
+- `src/app/(dashboard)/quality/oem/field/page.tsx` — Button component, cn() for chips
+- `src/app/(dashboard)/quality/oem/quality-intelligence/page.tsx` — Button for CTA
+- `src/app/(dashboard)/quality/oem/war-room/page.tsx` — DashboardCard reuse
+- `src/app/(dashboard)/quality/oem/defects/page.tsx` — cn() for filter chips, neutral evidence badges
+
+---
+
+## No Changes
+
+- Public landing page (unchanged)
+- Product logic / data flow (unchanged)
+- Database schema (unchanged)
+- API endpoints (unchanged)
+- Auth/multi-tenancy logic (unchanged)
+- 8D wizard, FMEA editor, PPAP, IQC pages (not touched in this patch)
+
+---
+
 # PlantQuality v1.8.1 — Release Notes
 
 ## Dashboard/Category UX Polish & Bugfix

@@ -1,14 +1,16 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
+import { PlusCircleIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { SearchInput } from "@/components/ui/search-input"
+import { Button } from "@/components/ui/button"
 import { FieldDefectStatusBadge } from "@/components/field/FieldDefectStatusBadge"
 import { FieldDefectSeverityBadge } from "@/components/field/FieldDefectSeverityBadge"
 import { SlaStatusBadge } from "@/components/field/SlaStatusBadge"
 import { EscalationBadge } from "@/components/field/EscalationBadge"
 import { getFieldDefects } from "@/app/(dashboard)/field/actions"
-import { PlusCircleIcon } from "lucide-react"
 import { FIELD_DEFECT_SOURCE_LABELS } from "@/lib/field-defect"
 import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
@@ -81,26 +83,26 @@ export default async function OemFieldPage({
         title="Field Quality"
         description="Track and manage field defects from the field"
         actions={
-          <Link
-            href="/quality/oem/field/new"
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors"
-          >
-            <PlusCircleIcon className="h-4 w-4" />
-            New Field Defect
+          <Link href="/quality/oem/field/new">
+            <Button>
+              <PlusCircleIcon className="mr-1.5 h-4 w-4" />
+              New Field Defect
+            </Button>
           </Link>
         }
       />
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-1.5">
         {STATUS_FILTERS.map((sf) => (
           <Link
             key={sf.value}
             href={buildUrl({ filter: sf.value, page: undefined })}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
               filter === sf.value
-                ? "border-primary bg-primary/10 text-primary"
-                : "text-muted-foreground hover:bg-muted"
-            }`}
+                ? "border border-primary bg-primary/10 text-primary"
+                : "border border-transparent text-muted-foreground hover:bg-muted"
+            )}
           >
             {sf.label}
           </Link>
@@ -109,11 +111,12 @@ export default async function OemFieldPage({
           <Link
             key={sf.value}
             href={buildUrl({ filter: sf.value, page: undefined })}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
               filter === sf.value
-                ? "border-primary bg-primary/10 text-primary"
-                : "text-muted-foreground hover:bg-muted"
-            }`}
+                ? "border border-primary bg-primary/10 text-primary"
+                : "border border-transparent text-muted-foreground hover:bg-muted"
+            )}
           >
             {sf.label}
           </Link>
@@ -122,11 +125,12 @@ export default async function OemFieldPage({
           <Link
             key={sf.value}
             href={buildUrl({ filter: sf.value, page: undefined })}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
               filter === sf.value
-                ? "border-primary bg-primary/10 text-primary"
-                : "text-muted-foreground hover:bg-muted"
-            }`}
+                ? "border border-primary bg-primary/10 text-primary"
+                : "border border-transparent text-muted-foreground hover:bg-muted"
+            )}
           >
             {sf.label}
           </Link>
@@ -144,17 +148,18 @@ export default async function OemFieldPage({
         const uniqueSubcategories = Array.from(subcatCounts.entries()).sort((a, b) => b[1] - a[1])
         if (uniqueCategories.length === 0 && uniqueSubcategories.length === 0) return null
         return (
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs text-muted-foreground font-medium mr-1">Category:</span>
             {uniqueCategories.map(([cat, count]) => (
               <Link
                 key={cat}
                 href={buildUrl({ filter: `cat:${cat}`, page: undefined })}
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
+                className={cn(
+                  "rounded-md px-2 py-0.5 text-xs font-medium transition-colors",
                   filter === `cat:${cat}`
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-muted bg-muted/60"
-                }`}
+                    ? "border border-primary bg-primary/10 text-primary"
+                    : "border border-transparent bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
               >
                 {cat} ({count})
               </Link>
@@ -163,11 +168,12 @@ export default async function OemFieldPage({
               <Link
                 key={subcat}
                 href={buildUrl({ filter: `subcat:${subcat}`, page: undefined })}
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors ${
+                className={cn(
+                  "rounded-md px-2 py-0.5 text-xs font-medium transition-colors",
                   filter === `subcat:${subcat}`
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-muted bg-muted/60"
-                }`}
+                    ? "border border-primary bg-primary/10 text-primary"
+                    : "border border-transparent bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
               >
                 {subcat} ({count})
               </Link>
@@ -183,12 +189,11 @@ export default async function OemFieldPage({
       {fieldDefects.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
           <p className="text-muted-foreground">No field defects found</p>
-          <Link
-            href="/quality/oem/field/new"
-            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600"
-          >
-            <PlusCircleIcon className="h-4 w-4" />
-            Create First Field Defect
+          <Link href="/quality/oem/field/new" className="mt-4">
+            <Button>
+              <PlusCircleIcon className="mr-1.5 h-4 w-4" />
+              Create First Field Defect
+            </Button>
           </Link>
         </div>
       ) : (

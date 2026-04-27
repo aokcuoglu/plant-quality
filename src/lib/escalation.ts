@@ -21,15 +21,15 @@ export const ESCALATION_COLORS: Record<EscalationLevel, { dot: string; bg: strin
   },
   LEVEL_1: {
     dot: "bg-amber-500",
-    bg: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400",
+    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
   },
   LEVEL_2: {
     dot: "bg-orange-500",
-    bg: "bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-400",
+    bg: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
   },
   LEVEL_3: {
-    dot: "bg-red-500",
-    bg: "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive",
   },
 }
 

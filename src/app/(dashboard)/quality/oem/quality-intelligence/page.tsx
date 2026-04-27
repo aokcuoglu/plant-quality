@@ -4,6 +4,7 @@ import Link from "next/link"
 import { BugIcon, AlertTriangleIcon, ClockIcon, GaugeIcon, SparklesIcon, PlusCircleIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
+import { Button } from "@/components/ui/button"
 import { getQualityIntelligenceSummary } from "@/app/(dashboard)/quality/intelligence-actions"
 
 function RankingTable({
@@ -112,12 +113,11 @@ export default async function QualityIntelligencePage() {
           <BugIcon className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-foreground">No field defects yet</h3>
           <p className="text-sm text-muted-foreground mt-1">Create your first field defect to see quality intelligence analytics.</p>
-          <Link
-            href="/quality/oem/field/new"
-            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors"
-          >
-            <PlusCircleIcon className="h-4 w-4" />
-            Create First Field Defect
+          <Link href="/quality/oem/field/new" className="mt-4 inline-block">
+            <Button>
+              <PlusCircleIcon className="mr-1.5 h-4 w-4" />
+              Create First Field Defect
+            </Button>
           </Link>
         </div>
       )}

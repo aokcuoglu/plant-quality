@@ -95,8 +95,8 @@ export function Sidebar({ navItems, user }: SidebarProps) {
               isCollapsed ? "justify-center w-full" : "gap-2.5 px-5"
             )}
           >
-            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 shadow-lg shadow-emerald-500/20">
-              <Factory className="size-4 text-white" strokeWidth={2.5} />
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
+              <Factory className="size-4" strokeWidth={2.5} />
             </div>
             <span
               className={cn(
@@ -133,7 +133,7 @@ export function Sidebar({ navItems, user }: SidebarProps) {
               isCollapsed ? "justify-center p-2" : "gap-3 px-2 py-2.5"
             )}
           >
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-semibold text-emerald-400">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-semibold text-foreground">
               {user.email?.charAt(0).toUpperCase() ?? "U"}
             </div>
             <div
@@ -189,7 +189,7 @@ function SignOutButton({ collapsed }: { collapsed?: boolean }) {
     <button
       onClick={() => signOut()}
       className={cn(
-        "flex items-center gap-2 rounded-md text-xs text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-400",
+        "flex items-center gap-2 rounded-md text-xs text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive",
         collapsed ? "justify-center p-2" : "w-full px-2 py-1.5"
       )}
     >
@@ -213,11 +213,11 @@ function SidebarLink({
       href={item.href}
       className={cn(
         "group flex items-center rounded-lg text-sm font-medium border-l-0 transition-all hover:text-sidebar-accent-foreground hover:bg-sidebar-accent",
-        isCollapsed ? "justify-center p-2" : "gap-2.5 px-3 py-2 border-l-4 border-transparent hover:border-emerald-500/40"
+        isCollapsed ? "justify-center p-2" : "gap-2.5 px-3 py-2"
       )}
       data-active={undefined}
     >
-      <Icon className="size-4 shrink-0 text-muted-foreground group-hover:text-emerald-400" />
+      <Icon className="size-4 shrink-0 text-muted-foreground group-hover:text-foreground" />
       <span
         className={cn(
           "whitespace-nowrap overflow-hidden transition-all duration-300",

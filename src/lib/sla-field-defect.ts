@@ -37,18 +37,18 @@ export function getFieldDefectSlaStatus(fd: SlaFieldDefect, now = new Date()): S
 export const SLA_STATUS_CONFIG: Record<SlaStatus, { label: string; dotClass: string; bgClass: string }> = {
   overdue: {
     label: "Overdue",
-    dotClass: "bg-red-500",
-    bgClass: "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+    dotClass: "bg-destructive",
+    bgClass: "bg-destructive/10 text-destructive",
   },
   "due-soon": {
     label: "Due Soon",
     dotClass: "bg-amber-500",
-    bgClass: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400",
+    bgClass: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
   },
   "on-track": {
     label: "On Track",
-    dotClass: "bg-green-500",
-    bgClass: "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400",
+    dotClass: "bg-emerald-500",
+    bgClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
   },
   "no-sla": {
     label: "No SLA",
@@ -57,7 +57,7 @@ export const SLA_STATUS_CONFIG: Record<SlaStatus, { label: string; dotClass: str
   },
   completed: {
     label: "Completed",
-    dotClass: "bg-green-500",
-    bgClass: "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400",
+    dotClass: "bg-emerald-500",
+    bgClass: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
   },
 }

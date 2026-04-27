@@ -1,8 +1,9 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { AlertTriangleIcon, ClockIcon } from "lucide-react"
+import { AlertTriangleIcon, ClockIcon, AlertCircleIcon, TimerIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
+import { DashboardCard } from "@/components/layout/DashboardCard"
 import { EscalationBadge } from "@/components/field/EscalationBadge"
 import { SlaStatusBadge } from "@/components/field/SlaStatusBadge"
 import { FieldDefectSeverityBadge } from "@/components/field/FieldDefectSeverityBadge"
@@ -33,26 +34,11 @@ export default async function WarRoomPage() {
       />
 
       <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Level 3 (Critical)</p>
-          <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{criticalCount}</p>
-        </div>
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Level 2 (High)</p>
-          <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{highCount}</p>
-        </div>
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Level 1 (Medium)</p>
-          <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{mediumCount}</p>
-        </div>
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Overdue</p>
-          <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{overdueCount}</p>
-        </div>
-        <div className="rounded-lg border bg-card p-4">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Due Soon</p>
-          <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">{dueSoonCount}</p>
-        </div>
+        <DashboardCard title="Level 3 (Critical)" value={criticalCount} icon={AlertTriangleIcon} />
+        <DashboardCard title="Level 2 (High)" value={highCount} icon={AlertCircleIcon} />
+        <DashboardCard title="Level 1 (Medium)" value={mediumCount} icon={AlertTriangleIcon} />
+        <DashboardCard title="Overdue" value={overdueCount} icon={ClockIcon} />
+        <DashboardCard title="Due Soon" value={dueSoonCount} icon={TimerIcon} />
       </div>
 
       {!hasItems ? (

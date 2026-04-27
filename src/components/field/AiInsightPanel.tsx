@@ -39,15 +39,15 @@ interface AiInsightPanelProps {
 }
 
 const severityColors: Record<string, string> = {
-  MINOR: "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400",
-  MAJOR: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400",
-  CRITICAL: "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+  MINOR: "bg-primary/10 text-primary",
+  MAJOR: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  CRITICAL: "bg-destructive/10 text-destructive",
 }
 
 const riskColors: Record<string, string> = {
   LOW: "text-emerald-500",
   MEDIUM: "text-amber-500",
-  HIGH: "text-red-500",
+  HIGH: "text-destructive",
 }
 
 const statusLabels: Record<string, string> = {
@@ -58,9 +58,9 @@ const statusLabels: Record<string, string> = {
 }
 
 const statusColors: Record<string, string> = {
-  GENERATED: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400",
-  ACCEPTED: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400",
-  REJECTED: "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+  GENERATED: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  ACCEPTED: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  REJECTED: "bg-destructive/10 text-destructive",
   EXPIRED: "bg-muted text-muted-foreground",
 }
 

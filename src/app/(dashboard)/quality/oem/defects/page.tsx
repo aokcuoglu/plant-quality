@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
+import { cn } from "@/lib/utils"
 import { getDefects, PAGE_SIZE } from "./queries"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { StatusBadge } from "@/components/ui/status-badge"
@@ -49,7 +50,7 @@ export default async function DefectsPage({
 
       <SearchInput placeholder="Search by part number or description…" />
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         {[
           ["all", "All"],
           ["open", "Open"],
@@ -65,11 +66,12 @@ export default async function DefectsPage({
           <Link
             key={value}
             href={buildUrl({ filter: value, q: search })}
-            className={`rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors border",
               (value === "all" && !filter) || filter === value
                 ? "border-primary bg-primary/10 text-primary"
-                : "text-muted-foreground hover:bg-muted"
-            }`}
+                : "border-transparent text-muted-foreground hover:bg-muted"
+            )}
           >
             {label}
           </Link>
@@ -108,12 +110,12 @@ export default async function DefectsPage({
                 <Td className="text-muted-foreground">{d.supplierAssigneeName ?? "Unassigned"}</Td>
                 <Td className="text-muted-foreground">{getActionOwnerLabel(d)}</Td>
                 <Td>
-                  <span className={d.isOverdue ? "inline-block max-w-[140px] truncate rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-700 dark:bg-red-950/30 dark:text-red-300" : "inline-block max-w-[120px] truncate text-muted-foreground"}>
-                    {d.isOverdue ? `Overdue · ${formatDueDate(d.activeDueDate)}` : formatDueDate(d.activeDueDate)}
+                  <span className={d.isOverdue ? "inline-block max-w-[140px] truncate rounded-md bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive" : "inline-block max-w-[120px] truncate text-muted-foreground"}>
+                    {d.isOverdue ? `Overdue \u00b7 ${formatDueDate(d.activeDueDate)}` : formatDueDate(d.activeDueDate)}
                   </span>
                 </Td>
                 <Td>
-                  <span className={d.evidenceReady ? "inline-block rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300" : "inline-block rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"}>
+                  <span className={d.evidenceReady ? "inline-block rounded-md bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400" : "inline-block rounded-md bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-600 dark:text-amber-400"}>
                     {d.evidenceReady ? "Ready" : "Missing"}
                   </span>
                 </Td>

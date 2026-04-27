@@ -36,16 +36,16 @@ export const FIELD_DEFECT_SEVERITY_COLORS: Record<
   { dot: string; bg: string }
 > = {
   MINOR: {
-    dot: "bg-blue-500",
-    bg: "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400",
+    dot: "bg-primary",
+    bg: "bg-primary/10 text-primary",
   },
   MAJOR: {
     dot: "bg-amber-500",
-    bg: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400",
+    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
   },
   CRITICAL: {
-    dot: "bg-red-500",
-    bg: "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive",
   },
 }
 
@@ -58,24 +58,24 @@ export const FIELD_DEFECT_STATUS_COLORS: Record<
     bg: "bg-muted text-muted-foreground",
   },
   OPEN: {
-    dot: "bg-red-500",
-    bg: "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive",
   },
   UNDER_REVIEW: {
     dot: "bg-amber-500",
-    bg: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-400",
+    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
   },
   SUPPLIER_ASSIGNED: {
-    dot: "bg-blue-500",
-    bg: "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400",
+    dot: "bg-primary",
+    bg: "bg-primary/10 text-primary",
   },
   LINKED_TO_8D: {
     dot: "bg-emerald-500",
-    bg: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400",
+    bg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
   },
   CLOSED: {
-    dot: "bg-green-500",
-    bg: "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400",
+    dot: "bg-emerald-500",
+    bg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
   },
   CANCELLED: {
     dot: "bg-muted-foreground",

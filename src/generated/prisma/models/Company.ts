@@ -28,6 +28,10 @@ export type CompanyMinAggregateOutputType = {
   id: string | null
   name: string | null
   type: $Enums.CompanyType | null
+  plan: $Enums.Plan | null
+  planStatus: string | null
+  planStartedAt: Date | null
+  trialEndsAt: Date | null
   taxNumber: string | null
   createdAt: Date | null
 }
@@ -36,6 +40,10 @@ export type CompanyMaxAggregateOutputType = {
   id: string | null
   name: string | null
   type: $Enums.CompanyType | null
+  plan: $Enums.Plan | null
+  planStatus: string | null
+  planStartedAt: Date | null
+  trialEndsAt: Date | null
   taxNumber: string | null
   createdAt: Date | null
 }
@@ -44,6 +52,10 @@ export type CompanyCountAggregateOutputType = {
   id: number
   name: number
   type: number
+  plan: number
+  planStatus: number
+  planStartedAt: number
+  trialEndsAt: number
   taxNumber: number
   createdAt: number
   _all: number
@@ -54,6 +66,10 @@ export type CompanyMinAggregateInputType = {
   id?: true
   name?: true
   type?: true
+  plan?: true
+  planStatus?: true
+  planStartedAt?: true
+  trialEndsAt?: true
   taxNumber?: true
   createdAt?: true
 }
@@ -62,6 +78,10 @@ export type CompanyMaxAggregateInputType = {
   id?: true
   name?: true
   type?: true
+  plan?: true
+  planStatus?: true
+  planStartedAt?: true
+  trialEndsAt?: true
   taxNumber?: true
   createdAt?: true
 }
@@ -70,6 +90,10 @@ export type CompanyCountAggregateInputType = {
   id?: true
   name?: true
   type?: true
+  plan?: true
+  planStatus?: true
+  planStartedAt?: true
+  trialEndsAt?: true
   taxNumber?: true
   createdAt?: true
   _all?: true
@@ -151,6 +175,10 @@ export type CompanyGroupByOutputType = {
   id: string
   name: string
   type: $Enums.CompanyType
+  plan: $Enums.Plan
+  planStatus: string | null
+  planStartedAt: Date | null
+  trialEndsAt: Date | null
   taxNumber: string | null
   createdAt: Date
   _count: CompanyCountAggregateOutputType | null
@@ -180,6 +208,10 @@ export type CompanyWhereInput = {
   id?: Prisma.StringFilter<"Company"> | string
   name?: Prisma.StringFilter<"Company"> | string
   type?: Prisma.EnumCompanyTypeFilter<"Company"> | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFilter<"Company"> | $Enums.Plan
+  planStatus?: Prisma.StringNullableFilter<"Company"> | string | null
+  planStartedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
+  trialEndsAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
   taxNumber?: Prisma.StringNullableFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -197,12 +229,17 @@ export type CompanyWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   escalationHistory?: Prisma.EscalationHistoryListRelationFilter
   ai8dReviews?: Prisma.Ai8dReviewListRelationFilter
+  usageCounters?: Prisma.UsageCounterListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  planStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  planStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  trialEndsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   taxNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
@@ -220,6 +257,7 @@ export type CompanyOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   escalationHistory?: Prisma.EscalationHistoryOrderByRelationAggregateInput
   ai8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
+  usageCounters?: Prisma.UsageCounterOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -229,6 +267,10 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[]
   name?: Prisma.StringFilter<"Company"> | string
   type?: Prisma.EnumCompanyTypeFilter<"Company"> | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFilter<"Company"> | $Enums.Plan
+  planStatus?: Prisma.StringNullableFilter<"Company"> | string | null
+  planStartedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
+  trialEndsAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
   taxNumber?: Prisma.StringNullableFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -246,12 +288,17 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   escalationHistory?: Prisma.EscalationHistoryListRelationFilter
   ai8dReviews?: Prisma.Ai8dReviewListRelationFilter
+  usageCounters?: Prisma.UsageCounterListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  planStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  planStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  trialEndsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   taxNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CompanyCountOrderByAggregateInput
@@ -266,6 +313,10 @@ export type CompanyScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Company"> | string
   name?: Prisma.StringWithAggregatesFilter<"Company"> | string
   type?: Prisma.EnumCompanyTypeWithAggregatesFilter<"Company"> | $Enums.CompanyType
+  plan?: Prisma.EnumPlanWithAggregatesFilter<"Company"> | $Enums.Plan
+  planStatus?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  planStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
+  trialEndsAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
   taxNumber?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
 }
@@ -274,6 +325,10 @@ export type CompanyCreateInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -291,12 +346,17 @@ export type CompanyCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -314,12 +374,17 @@ export type CompanyUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -337,12 +402,17 @@ export type CompanyUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -360,12 +430,17 @@ export type CompanyUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
 }
@@ -374,6 +449,10 @@ export type CompanyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -382,6 +461,10 @@ export type CompanyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -390,6 +473,10 @@ export type CompanyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  planStatus?: Prisma.SortOrder
+  planStartedAt?: Prisma.SortOrder
+  trialEndsAt?: Prisma.SortOrder
   taxNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -398,6 +485,10 @@ export type CompanyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  planStatus?: Prisma.SortOrder
+  planStartedAt?: Prisma.SortOrder
+  trialEndsAt?: Prisma.SortOrder
   taxNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -406,6 +497,10 @@ export type CompanyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  plan?: Prisma.SortOrder
+  planStatus?: Prisma.SortOrder
+  planStartedAt?: Prisma.SortOrder
+  trialEndsAt?: Prisma.SortOrder
   taxNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -428,8 +523,16 @@ export type EnumCompanyTypeFieldUpdateOperationsInput = {
   set?: $Enums.CompanyType
 }
 
+export type EnumPlanFieldUpdateOperationsInput = {
+  set?: $Enums.Plan
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -652,10 +755,28 @@ export type CompanyUpdateOneRequiredWithoutAi8dReviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutAi8dReviewsInput, Prisma.CompanyUpdateWithoutAi8dReviewsInput>, Prisma.CompanyUncheckedUpdateWithoutAi8dReviewsInput>
 }
 
+export type CompanyCreateNestedOneWithoutUsageCountersInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutUsageCountersInput, Prisma.CompanyUncheckedCreateWithoutUsageCountersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutUsageCountersInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutUsageCountersNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutUsageCountersInput, Prisma.CompanyUncheckedCreateWithoutUsageCountersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutUsageCountersInput
+  upsert?: Prisma.CompanyUpsertWithoutUsageCountersInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutUsageCountersInput, Prisma.CompanyUpdateWithoutUsageCountersInput>, Prisma.CompanyUncheckedUpdateWithoutUsageCountersInput>
+}
+
 export type CompanyCreateWithoutUsersInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
@@ -672,12 +793,17 @@ export type CompanyCreateWithoutUsersInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
@@ -694,6 +820,7 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutUsersInput = {
@@ -716,6 +843,10 @@ export type CompanyUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
@@ -732,12 +863,17 @@ export type CompanyUpdateWithoutUsersInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
@@ -754,12 +890,17 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDefectsAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -776,12 +917,17 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -798,6 +944,7 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsOemInput = {
@@ -809,6 +956,10 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -825,12 +976,17 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -847,6 +1003,7 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsSupInput = {
@@ -869,6 +1026,10 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -885,12 +1046,17 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -907,6 +1073,7 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutDefectsAsSupInput = {
@@ -924,6 +1091,10 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -940,12 +1111,17 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -962,12 +1138,17 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutPpapAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -984,12 +1165,17 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1006,6 +1192,7 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsOemInput = {
@@ -1017,6 +1204,10 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1033,12 +1224,17 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1055,6 +1251,7 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsSupInput = {
@@ -1077,6 +1274,10 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1093,12 +1294,17 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1115,6 +1321,7 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutPpapAsSupInput = {
@@ -1132,6 +1339,10 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1148,12 +1359,17 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1170,12 +1386,17 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutIqcAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1192,12 +1413,17 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1214,6 +1440,7 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsOemInput = {
@@ -1225,6 +1452,10 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1241,12 +1472,17 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1263,6 +1499,7 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsSupInput = {
@@ -1285,6 +1522,10 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1301,12 +1542,17 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1323,6 +1569,7 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutIqcAsSupInput = {
@@ -1340,6 +1587,10 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1356,12 +1607,17 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1378,12 +1634,17 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFmeaAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1400,12 +1661,17 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1422,6 +1688,7 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsOemInput = {
@@ -1433,6 +1700,10 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1449,12 +1720,17 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1471,6 +1747,7 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsSupInput = {
@@ -1493,6 +1770,10 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1509,12 +1790,17 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1531,6 +1817,7 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutFmeaAsSupInput = {
@@ -1548,6 +1835,10 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1564,12 +1855,17 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1586,12 +1882,17 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1608,12 +1909,17 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1630,6 +1936,7 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsSupInput = {
@@ -1641,6 +1948,10 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1657,12 +1968,17 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1679,6 +1995,7 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsOemInput = {
@@ -1701,6 +2018,10 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1717,12 +2038,17 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1739,6 +2065,7 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutFieldDefectsAsOemInput = {
@@ -1756,6 +2083,10 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1772,12 +2103,17 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1794,12 +2130,17 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutNotificationsInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1816,12 +2157,17 @@ export type CompanyCreateWithoutNotificationsInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutNotificationsInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1838,6 +2184,7 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutNotificationsInput = {
@@ -1860,6 +2207,10 @@ export type CompanyUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1876,12 +2227,17 @@ export type CompanyUpdateWithoutNotificationsInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1898,12 +2254,17 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutEscalationHistoryInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -1920,12 +2281,17 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -1942,6 +2308,7 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutEscalationHistoryInput = {
@@ -1964,6 +2331,10 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -1980,12 +2351,17 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2002,12 +2378,17 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAiSuggestionsInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -2024,12 +2405,17 @@ export type CompanyCreateWithoutAiSuggestionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -2046,6 +2432,7 @@ export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAiSuggestionsInput = {
@@ -2068,6 +2455,10 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -2084,12 +2475,17 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2106,12 +2502,17 @@ export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAi8dReviewsInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
@@ -2128,12 +2529,17 @@ export type CompanyCreateWithoutAi8dReviewsInput = {
   aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
@@ -2150,6 +2556,7 @@ export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAi8dReviewsInput = {
@@ -2172,6 +2579,10 @@ export type CompanyUpdateWithoutAi8dReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
@@ -2188,12 +2599,17 @@ export type CompanyUpdateWithoutAi8dReviewsInput = {
   aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2210,6 +2626,131 @@ export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
   aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
   escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutUsageCountersInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutUsageCountersInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutUsageCountersInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutUsageCountersInput, Prisma.CompanyUncheckedCreateWithoutUsageCountersInput>
+}
+
+export type CompanyUpsertWithoutUsageCountersInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutUsageCountersInput, Prisma.CompanyUncheckedUpdateWithoutUsageCountersInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutUsageCountersInput, Prisma.CompanyUncheckedCreateWithoutUsageCountersInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutUsageCountersInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutUsageCountersInput, Prisma.CompanyUncheckedUpdateWithoutUsageCountersInput>
+}
+
+export type CompanyUpdateWithoutUsageCountersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -2233,6 +2774,7 @@ export type CompanyCountOutputType = {
   notifications: number
   escalationHistory: number
   ai8dReviews: number
+  usageCounters: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2251,6 +2793,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   notifications?: boolean | CompanyCountOutputTypeCountNotificationsArgs
   escalationHistory?: boolean | CompanyCountOutputTypeCountEscalationHistoryArgs
   ai8dReviews?: boolean | CompanyCountOutputTypeCountAi8dReviewsArgs
+  usageCounters?: boolean | CompanyCountOutputTypeCountUsageCountersArgs
 }
 
 /**
@@ -2368,11 +2911,22 @@ export type CompanyCountOutputTypeCountAi8dReviewsArgs<ExtArgs extends runtime.T
   where?: Prisma.Ai8dReviewWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountUsageCountersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UsageCounterWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   type?: boolean
+  plan?: boolean
+  planStatus?: boolean
+  planStartedAt?: boolean
+  trialEndsAt?: boolean
   taxNumber?: boolean
   createdAt?: boolean
   users?: boolean | Prisma.Company$usersArgs<ExtArgs>
@@ -2390,6 +2944,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   escalationHistory?: boolean | Prisma.Company$escalationHistoryArgs<ExtArgs>
   ai8dReviews?: boolean | Prisma.Company$ai8dReviewsArgs<ExtArgs>
+  usageCounters?: boolean | Prisma.Company$usageCountersArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -2397,6 +2952,10 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   name?: boolean
   type?: boolean
+  plan?: boolean
+  planStatus?: boolean
+  planStartedAt?: boolean
+  trialEndsAt?: boolean
   taxNumber?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["company"]>
@@ -2405,6 +2964,10 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   name?: boolean
   type?: boolean
+  plan?: boolean
+  planStatus?: boolean
+  planStartedAt?: boolean
+  trialEndsAt?: boolean
   taxNumber?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["company"]>
@@ -2413,11 +2976,15 @@ export type CompanySelectScalar = {
   id?: boolean
   name?: boolean
   type?: boolean
+  plan?: boolean
+  planStatus?: boolean
+  planStartedAt?: boolean
+  trialEndsAt?: boolean
   taxNumber?: boolean
   createdAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "taxNumber" | "createdAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "plan" | "planStatus" | "planStartedAt" | "trialEndsAt" | "taxNumber" | "createdAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Company$usersArgs<ExtArgs>
   defectsAsOem?: boolean | Prisma.Company$defectsAsOemArgs<ExtArgs>
@@ -2434,6 +3001,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   notifications?: boolean | Prisma.Company$notificationsArgs<ExtArgs>
   escalationHistory?: boolean | Prisma.Company$escalationHistoryArgs<ExtArgs>
   ai8dReviews?: boolean | Prisma.Company$ai8dReviewsArgs<ExtArgs>
+  usageCounters?: boolean | Prisma.Company$usageCountersArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2457,11 +3025,16 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     escalationHistory: Prisma.$EscalationHistoryPayload<ExtArgs>[]
     ai8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
+    usageCounters: Prisma.$UsageCounterPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     type: $Enums.CompanyType
+    plan: $Enums.Plan
+    planStatus: string | null
+    planStartedAt: Date | null
+    trialEndsAt: Date | null
     taxNumber: string | null
     createdAt: Date
   }, ExtArgs["result"]["company"]>
@@ -2873,6 +3446,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   notifications<T extends Prisma.Company$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   escalationHistory<T extends Prisma.Company$escalationHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$escalationHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EscalationHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ai8dReviews<T extends Prisma.Company$ai8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$ai8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usageCounters<T extends Prisma.Company$usageCountersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$usageCountersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsageCounterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2905,6 +3479,10 @@ export interface CompanyFieldRefs {
   readonly id: Prisma.FieldRef<"Company", 'String'>
   readonly name: Prisma.FieldRef<"Company", 'String'>
   readonly type: Prisma.FieldRef<"Company", 'CompanyType'>
+  readonly plan: Prisma.FieldRef<"Company", 'Plan'>
+  readonly planStatus: Prisma.FieldRef<"Company", 'String'>
+  readonly planStartedAt: Prisma.FieldRef<"Company", 'DateTime'>
+  readonly trialEndsAt: Prisma.FieldRef<"Company", 'DateTime'>
   readonly taxNumber: Prisma.FieldRef<"Company", 'String'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>
 }
@@ -3657,6 +4235,30 @@ export type Company$ai8dReviewsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.Ai8dReviewScalarFieldEnum | Prisma.Ai8dReviewScalarFieldEnum[]
+}
+
+/**
+ * Company.usageCounters
+ */
+export type Company$usageCountersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UsageCounter
+   */
+  select?: Prisma.UsageCounterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UsageCounter
+   */
+  omit?: Prisma.UsageCounterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsageCounterInclude<ExtArgs> | null
+  where?: Prisma.UsageCounterWhereInput
+  orderBy?: Prisma.UsageCounterOrderByWithRelationInput | Prisma.UsageCounterOrderByWithRelationInput[]
+  cursor?: Prisma.UsageCounterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UsageCounterScalarFieldEnum | Prisma.UsageCounterScalarFieldEnum[]
 }
 
 /**

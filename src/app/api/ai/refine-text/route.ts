@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import OpenAI from "openai"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 
 const client = new OpenAI({
   apiKey: process.env.AI_API_KEY ?? "",
@@ -40,8 +41,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 })
   }
 
-  if (session.user.plan !== "PRO") {
-    return NextResponse.json({ error: "This is a PRO feature. Please upgrade your plan." }, { status: 403 })
+  const featureGate = requireFeature(session, "EIGHT_D")
+  if (!featureGate.allowed) {
+    return NextResponse.json({ error: featureGate.reason }, { status: 403 })
   }
 
   const { text, stepLabel } = await req.json()

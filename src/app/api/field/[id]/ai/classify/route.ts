@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 import { generateClassification } from "@/app/(dashboard)/field/ai-actions"
 
 export async function POST(
@@ -13,6 +14,11 @@ export async function POST(
 
   if (!["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+  }
+
+  const featureGate = requireFeature(session, "AI_CLASSIFICATION")
+  if (!featureGate.allowed) {
+    return NextResponse.json({ error: featureGate.reason }, { status: 403 })
   }
 
   const { id } = await params

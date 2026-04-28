@@ -20,7 +20,9 @@ enum Role {
 
 enum Plan {
   BASIC
+  FREE
   PRO
+  ENTERPRISE
 }
 
 enum NotificationType {
@@ -226,26 +228,31 @@ enum EscalationLevel {
 }
 
 model Company {
-  id           String        @id @default(uuid())
-  name         String
-  type         CompanyType
-  taxNumber    String?
-  users        User[]
-  defectsAsOem Defect[]      @relation("OemDefects")
-  defectsAsSup Defect[]      @relation("SupplierDefects")
-  ppapAsOem    PpapSubmission[] @relation("OemPpapSubmissions")
-  ppapAsSup    PpapSubmission[] @relation("SupplierPpapSubmissions")
-  iqcAsOem     IqcReport[]   @relation("OemIqcReports")
-  iqcAsSup     IqcReport[]   @relation("SupplierIqcReports")
-  fmeaAsOem    Fmea[]        @relation("OemFmeas")
-  fmeaAsSup    Fmea[]        @relation("SupplierFmeas")
+  id              String        @id @default(uuid())
+  name            String
+  type            CompanyType
+  plan            Plan           @default(FREE)
+  planStatus      String?        @map("plan_status")
+  planStartedAt   DateTime?     @map("plan_started_at")
+  trialEndsAt     DateTime?     @map("trial_ends_at")
+  taxNumber       String?
+  users           User[]
+  defectsAsOem    Defect[]       @relation("OemDefects")
+  defectsAsSup    Defect[]       @relation("SupplierDefects")
+  ppapAsOem       PpapSubmission[] @relation("OemPpapSubmissions")
+  ppapAsSup       PpapSubmission[] @relation("SupplierPpapSubmissions")
+  iqcAsOem        IqcReport[]   @relation("OemIqcReports")
+  iqcAsSup        IqcReport[]   @relation("SupplierIqcReports")
+  fmeaAsOem       Fmea[]        @relation("OemFmeas")
+  fmeaAsSup       Fmea[]        @relation("SupplierFmeas")
   fieldDefectsAsOem FieldDefect[] @relation("FieldDefectOem")
   fieldDefectsAsSup FieldDefect[] @relation("FieldDefectSupplier")
-  aiSuggestions     AiSuggestion[]
+  aiSuggestions      AiSuggestion[]
   notifications      Notification[]
-  escalationHistory   EscalationHistory[]
+  escalationHistory  EscalationHistory[]
   ai8dReviews        Ai8dReview[]
-  createdAt    DateTime      @default(now())
+  usageCounters      UsageCounter[]
+  createdAt       DateTime      @default(now())
 
   @@map("companies")
 }
@@ -883,4 +890,20 @@ model Ai8dReview {
   @@index([companyId, createdAt])
   @@index([eightDId, status])
   @@map("ai_8d_reviews")
+}
+
+model UsageCounter {
+  id           String   @id @default(cuid())
+  companyId    String   @map("company_id")
+  company      Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  usageKey     String   @map("usage_key")
+  periodStart  DateTime @map("period_start")
+  periodEnd    DateTime @map("period_end")
+  count        Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@unique([companyId, usageKey, periodStart, periodEnd])
+  @@index([companyId, usageKey, periodStart])
+  @@map("usage_counters")
 }

@@ -28,7 +28,9 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const Plan = {
   BASIC: 'BASIC',
-  PRO: 'PRO'
+  FREE: 'FREE',
+  PRO: 'PRO',
+  ENTERPRISE: 'ENTERPRISE'
 } as const
 
 export type Plan = (typeof Plan)[keyof typeof Plan]

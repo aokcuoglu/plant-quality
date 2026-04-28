@@ -737,16 +737,8 @@ export type UserUncheckedUpdateManyWithoutCompanyNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
-}
-
-export type EnumPlanFieldUpdateOperationsInput = {
-  set?: $Enums.Plan
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {

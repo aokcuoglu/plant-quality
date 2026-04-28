@@ -8,6 +8,14 @@ import { NotificationBell } from "@/components/notifications/NotificationBell"
 import { AppSwitcher } from "@/components/layout/AppSwitcher"
 import { Sidebar } from "@/components/layout/Sidebar"
 import { useSession } from "@/hooks/useSession"
+import type { FeatureKey } from "@/lib/billing/features"
+
+interface NavItem {
+  href: string
+  label: string
+  icon: string
+  gate?: FeatureKey
+}
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { session, loading } = useSession()
@@ -24,18 +32,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const isOem = session.user.companyType === "OEM"
 
-  const navItems = isOem
+  const navItems: NavItem[] = isOem
     ? [
         { href: "/quality/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
-        { href: "/quality/oem/defects", label: "Defects", icon: "BugIcon" as const },
-        { href: "/quality/oem/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
-        { href: "/quality/oem/quality-intelligence", label: "Intelligence", icon: "BarChart3Icon" as const },
-        { href: "/quality/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const },
-        { href: "/quality/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
-        { href: "/quality/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },
-        { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const },
-        { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const },
-        { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const },
+        { href: "/quality/oem/defects", label: "Defects", icon: "BugIcon" as const, gate: "DEFECTS" },
+        { href: "/quality/oem/field", label: "Field Quality", icon: "ClipboardListIcon" as const, gate: "FIELD_QUALITY" },
+        { href: "/quality/oem/quality-intelligence", label: "Intelligence", icon: "BarChart3Icon" as const, gate: "QUALITY_INTELLIGENCE" },
+        { href: "/quality/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const, gate: "PPAP" },
+        { href: "/quality/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
+        { href: "/quality/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },
+        { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const, gate: "ESCALATION" },
+        { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const, gate: "WAR_ROOM" },
+        { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const, gate: "NOTIFICATIONS" },
       ]
     : [
         { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },

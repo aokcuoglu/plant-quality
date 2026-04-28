@@ -17,6 +17,7 @@ import {
   AlertTriangleIcon,
   TrendingUpIcon,
   BarChart3Icon,
+  LockIcon,
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
@@ -28,6 +29,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
+import { PlanBadge } from "@/components/billing/PlanBadge"
+import type { PlanKey } from "@/lib/billing/plans"
+import { checkFeatureAccess, type FeatureKey } from "@/lib/billing/features"
 
 const ICON_MAP: Record<string, LucideIcon> = {
   LayoutDashboardIcon,
@@ -47,6 +51,7 @@ interface SidebarLinkItem {
   href: string
   label: string
   icon: string
+  gate?: FeatureKey
 }
 
 interface SidebarProps {
@@ -65,6 +70,8 @@ export function Sidebar({ navItems, user }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const isClient = useSyncExternalStore(noop, () => true, () => false)
 
+  const normalizedPlan = (user.plan ?? "FREE") as PlanKey
+
   useEffect(() => {
     const stored = localStorage.getItem("sidebar-collapsed")
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -78,6 +85,8 @@ export function Sidebar({ navItems, user }: SidebarProps) {
       return next
     })
   }
+
+  const isSupplier = user.companyType === "SUPPLIER"
 
   return (
     <TooltipProvider>
@@ -117,13 +126,34 @@ export function Sidebar({ navItems, user }: SidebarProps) {
         </div>
 
         <nav className={cn("flex-1 space-y-1 overflow-hidden", isCollapsed ? "p-2" : "p-3")}>
-          {navItems.map((item) => (
-            <SidebarLink
-              key={item.href}
-              item={item}
-              isCollapsed={isCollapsed}
-            />
-          ))}
+          {navItems.map((item) => {
+            const gated = item.gate
+            const access = gated ? checkFeatureAccess(normalizedPlan, user.companyType, gated) : { allowed: true, reason: null }
+
+            if (!access.allowed) {
+              if (isSupplier && gated === "SUPPLIER_PORTAL") {
+                return null
+              }
+              if (isSupplier) return null
+
+              return (
+                <LockedSidebarLink
+                  key={item.href}
+                  item={item}
+                  isCollapsed={isCollapsed}
+                  reason={access.reason}
+                />
+              )
+            }
+
+            return (
+              <SidebarLink
+                key={item.href}
+                item={item}
+                isCollapsed={isCollapsed}
+              />
+            )
+          })}
         </nav>
 
         <div className={cn("overflow-hidden border-t border-sidebar-border bg-sidebar", isCollapsed ? "p-2" : "p-3")}>
@@ -148,16 +178,7 @@ export function Sidebar({ navItems, user }: SidebarProps) {
                 {user.companyName}
               </p>
               <p className="truncate text-xs text-muted-foreground">{user.email}</p>
-              <span
-                className={cn(
-                  "mt-0.5 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase",
-                  user.plan === "PRO"
-                    ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-                    : "bg-muted text-muted-foreground border border-border"
-                )}
-              >
-                {user.plan}
-              </span>
+              <PlanBadge plan={normalizedPlan} size="sm" className="mt-0.5" />
             </div>
           </div>
 
@@ -239,6 +260,55 @@ function SidebarLink({
         </TooltipTrigger>
         <TooltipContent side="right">
           {item.label}
+        </TooltipContent>
+      </Tooltip>
+    )
+  }
+
+  return link
+}
+
+function LockedSidebarLink({
+  item,
+  isCollapsed,
+  reason,
+}: {
+  item: SidebarLinkItem
+  isCollapsed: boolean
+  reason: string | null
+}) {
+  const Icon = ICON_MAP[item.icon]
+
+  const link = (
+    <div
+      className={cn(
+        "group flex items-center rounded-lg text-sm font-medium border-l-0 transition-all opacity-50 cursor-not-allowed",
+        isCollapsed ? "justify-center p-2" : "gap-2.5 px-3 py-2"
+      )}
+    >
+      <Icon className="size-4 shrink-0 text-muted-foreground" />
+      <span
+        className={cn(
+          "whitespace-nowrap overflow-hidden transition-all duration-300",
+          isCollapsed
+            ? "hidden"
+            : "max-w-32 opacity-100"
+        )}
+      >
+        {item.label}
+      </span>
+      <LockIcon className="size-3 shrink-0 text-muted-foreground ml-auto" />
+    </div>
+  )
+
+  if (isCollapsed) {
+    return (
+      <Tooltip>
+        <TooltipTrigger className="w-full flex justify-center cursor-not-allowed">
+          {link}
+        </TooltipTrigger>
+        <TooltipContent side="right">
+          {item.label} — {reason ?? "Requires upgrade"}
         </TooltipContent>
       </Tooltip>
     )

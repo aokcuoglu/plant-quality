@@ -14,6 +14,7 @@ async function main() {
       name: "PlantX Automotive",
       type: "OEM",
       taxNumber: "1234567890",
+      plan: "PRO",
     },
   });
 
@@ -25,6 +26,7 @@ async function main() {
       name: "Precision Parts Inc.",
       type: "SUPPLIER",
       taxNumber: "9876543210",
+      plan: "FREE",
     },
   });
 
@@ -36,6 +38,7 @@ async function main() {
       name: "SteelForged Co.",
       type: "SUPPLIER",
       taxNumber: "5556667777",
+      plan: "FREE",
     },
   });
 

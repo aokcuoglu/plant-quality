@@ -79,7 +79,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             plan: true,
             emailVerified: true,
             companyId: true,
-            company: { select: { type: true, name: true } },
+            company: { select: { type: true, name: true, plan: true } },
           },
         })
         if (!user) return null
@@ -95,7 +95,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: user.email,
           name: user.name,
           role: user.role,
-          plan: user.plan,
+          plan: user.company?.plan ?? user.plan,
           companyId: user.companyId ?? undefined,
           companyName: user.company?.name ?? undefined,
           companyType: user.company?.type ?? undefined,
@@ -138,12 +138,12 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             role: true,
             plan: true,
             companyId: true,
-            company: { select: { type: true, name: true } },
+            company: { select: { type: true, name: true, plan: true } },
           },
         })
         token.id = dbUser?.id ?? user.id
         token.role = dbUser?.role ?? user.role
-        token.plan = dbUser?.plan ?? user.plan
+        token.plan = dbUser?.company?.plan ?? dbUser?.plan ?? user.plan
         token.companyId = dbUser?.companyId ?? user.companyId
         token.companyName = dbUser?.company?.name ?? user.companyName
         token.companyType = dbUser?.company?.type ?? user.companyType

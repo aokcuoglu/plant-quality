@@ -77,7 +77,8 @@ export const ModelName = {
   Notification: 'Notification',
   EscalationHistory: 'EscalationHistory',
   AiSuggestion: 'AiSuggestion',
-  Ai8dReview: 'Ai8dReview'
+  Ai8dReview: 'Ai8dReview',
+  UsageCounter: 'UsageCounter'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,6 +101,10 @@ export const CompanyScalarFieldEnum = {
   id: 'id',
   name: 'name',
   type: 'type',
+  plan: 'plan',
+  planStatus: 'planStatus',
+  planStartedAt: 'planStartedAt',
+  trialEndsAt: 'trialEndsAt',
   taxNumber: 'taxNumber',
   createdAt: 'createdAt'
 } as const
@@ -576,6 +581,20 @@ export const Ai8dReviewScalarFieldEnum = {
 } as const
 
 export type Ai8dReviewScalarFieldEnum = (typeof Ai8dReviewScalarFieldEnum)[keyof typeof Ai8dReviewScalarFieldEnum]
+
+
+export const UsageCounterScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  usageKey: 'usageKey',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  count: 'count',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UsageCounterScalarFieldEnum = (typeof UsageCounterScalarFieldEnum)[keyof typeof UsageCounterScalarFieldEnum]
 
 
 export const SortOrder = {

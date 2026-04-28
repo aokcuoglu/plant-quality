@@ -1,0 +1,63 @@
+import { normalizePlan, type PlanKey, PLAN_LABELS } from "@/lib/billing/plans"
+import { checkFeatureAccess } from "@/lib/billing/features"
+import { cn } from "@/lib/utils"
+
+interface UpgradeCTAProps {
+  currentPlan: string | null | undefined
+  featureName: string
+  minPlan?: PlanKey
+  companyType?: string | null
+  className?: string
+  compact?: boolean
+}
+
+export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, className, compact }: UpgradeCTAProps) {
+  const plan = normalizePlan(currentPlan)
+  const effectiveCompanyType = companyType ?? "OEM"
+
+  const targetPlan: PlanKey = minPlan ?? "PRO"
+
+  if (plan === "ENTERPRISE") return null
+  if (companyType === "SUPPLIER") {
+    return (
+      <div className={cn("rounded-lg border border-border bg-card p-4 text-center", className)}>
+        <p className="text-sm text-muted-foreground">
+          {featureName} is not available for supplier accounts.
+        </p>
+      </div>
+    )
+  }
+
+  const access = checkFeatureAccess(plan, effectiveCompanyType, targetPlan === "ENTERPRISE" ? "AI_8D_REVIEW" as const : "SLA" as const)
+  if (access.allowed && !minPlan) return null
+
+  if (compact) {
+    return (
+      <span className={cn("text-xs text-muted-foreground", className)}>
+        Requires {PLAN_LABELS[targetPlan]}
+      </span>
+    )
+  }
+
+  return (
+    <div className={cn("rounded-lg border border-border bg-card p-6 text-center", className)}>
+      <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-full bg-muted">
+        <svg className="size-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+        </svg>
+      </div>
+      <h3 className="text-sm font-semibold text-foreground">{featureName}</h3>
+      <p className="mt-1 text-xs text-muted-foreground">
+        {targetPlan === "ENTERPRISE"
+          ? "This feature is available on the Enterprise plan."
+          : "This feature requires a Pro plan or higher."}
+      </p>
+      <a
+        href="/quality/oem/settings/plan"
+        className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
+      >
+        Upgrade to {PLAN_LABELS[targetPlan]}
+      </a>
+    </div>
+  )
+}

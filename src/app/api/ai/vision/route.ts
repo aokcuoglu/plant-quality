@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import OpenAI from "openai"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 import { s3Client, S3_BUCKET_NAME } from "@/lib/s3"
 import { GetObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
@@ -44,8 +45,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 })
   }
 
-  if (session.user.plan !== "PRO") {
-    return NextResponse.json({ error: "This is a PRO feature. Please upgrade your plan." }, { status: 403 })
+  const featureGate = requireFeature(session, "AI_CLASSIFICATION")
+  if (!featureGate.allowed) {
+    return NextResponse.json({ error: featureGate.reason }, { status: 403 })
   }
 
   const { imageUrl, stepId } = await req.json()

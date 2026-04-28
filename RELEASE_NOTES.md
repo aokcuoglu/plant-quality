@@ -1,3 +1,259 @@
+# PlantQuality v2.0.0 — Release Notes
+
+## Plan Gating, Packaging & Usage Limits
+
+**Release Date:** 2026-04-28  
+**Version:** 2.0.0
+
+---
+
+## Summary
+
+PlantQuality v2.0.0 introduces plan gating, packaging, and usage limits to support Free, Pro, and Enterprise plans. This release productizes and monetizes the quality management platform by implementing a central feature gate system, usage limit tracking, plan badge display, upgrade CTAs, and an admin plan/settings page. No payment processing, Stripe integration, or billing workflows are included — those are deferred to v2.1.0+.
+
+**Core promise:** "Every feature is now gated by plan. Free = adoption. Pro = operations. Enterprise = intelligence, control, integration."
+
+---
+
+## Plan Definitions
+
+| Plan | Purpose |
+|------|---------|
+| **Free** | Trial and adoption. Users experience enough value to understand the platform, then hit natural limits. |
+| **Pro** | Active quality operations. Full operational loop for OEM quality teams. |
+| **Enterprise** | Intelligence, control, integration, and scale for large OEMs. |
+
+Supplier Portal remains **free for supplier-side users** — access is controlled by OEM relationship and assignment.
+
+---
+
+## Feature Matrix
+
+| Feature | Free | Pro | Enterprise |
+|---------|------|-----|------------|
+| Dashboard | Basic | Full | Full |
+| Defects | Limited (25/mo) | Full | Full |
+| Field Quality | Limited (10/mo) | Full | Full |
+| 8D | Basic | Full | Full + AI Review |
+| Supplier Portal | View-only (assigned) | Full | Full |
+| PPAP | — | Basic | Advanced |
+| IQC | — | Basic | Advanced |
+| FMEA | — | Basic | Advanced |
+| SLA Tracking | — | Full | Full |
+| Escalation | — | Full | Full |
+| War Room | — | Basic | Advanced |
+| Notifications | Basic | Full | Full + Email |
+| Similar Issues | — | Full | Full |
+| AI Classification | — | Full (w/ limit) | Full (w/ higher limit) |
+| Category Intelligence | — | Full | Full |
+| Quality Intelligence | — | Full | Full |
+| AI 8D Review | — | — | Full |
+| Root Cause Suggestion | — | — | Full |
+| API Access | — | — | Full |
+| Webhooks | — | — | Full |
+| SSO | — | — | Full (gate only) |
+| Multi-Plant | — | — | Full |
+| Advanced Audit Log | — | — | Full |
+| Email Notifications | — | — | Full (gate only) |
+| Supplier Scorecard | — | — | Full |
+
+---
+
+## Usage Limits
+
+| Limit | Free | Pro | Enterprise |
+|-------|------|-----|------------|
+| Monthly Defects | 25 | Unlimited | Unlimited |
+| Monthly Field Defects | 10 | Unlimited | Unlimited |
+| Suppliers | 3 | 25 | Unlimited |
+| Users | 3 | 30 | Unlimited |
+| Storage | 1 GB | 200 GB | Custom |
+| AI Classification Runs | 0 | 2,000/mo | Unlimited |
+| AI 8D Review Runs | 0 | 0 | Unlimited |
+| Similar Issue Searches | 0 | 2,500/mo | Unlimited |
+| War Room Items | 0 | 50 | Unlimited |
+| PPAP Packages | 0 | 25 | Unlimited |
+| IQC Inspections | 0 | Unlimited | Unlimited |
+| FMEA Records | 0 | 50 | Unlimited |
+
+---
+
+## New Features
+
+### Central Feature Gate System
+
+- `src/lib/billing/plans.ts` — Plan definitions, limits, normalization, badge config
+- `src/lib/billing/features.ts` — Feature matrix with 24 feature keys, access checking
+- `src/lib/billing/usage.ts` — Usage counter service with monthly and cumulative tracking
+- `src/lib/billing/guards.ts` — Server-side `requireFeature()` guard for actions/routes
+- `src/lib/billing/index.ts` — Barrel export
+
+All plan checks flow through `checkFeatureAccess(plan, companyType, featureKey)`. No scattered plan name comparisons.
+
+### Usage Limit Tracking
+
+- New `usage_counters` database table with monthly and cumulative tracking
+- `canConsumeUsage()`, `consumeUsage()`, `getUsageLimitStatus()` service functions
+- Monthly counters auto-rotate (start/end of month)
+- Enterprise plans use `null` limits for unlimited (no infinity/overflow)
+
+### Plan Badge
+
+- `PlanBadge` component with Free/Pro/Enterprise styling
+- Shows in sidebar user section
+- Semantic colors: muted (Free), amber (Pro), emerald (Enterprise)
+
+### Upgrade CTA
+
+- `UpgradeCTA` component — neutral B2B-style upgrade prompt
+- `LockedFeatureCard` component — disabled feature card with upgrade link
+- Links to admin plan/settings page
+
+### Admin Plan/Settings Page
+
+- `/quality/oem/settings/plan` — full plan overview
+- Current plan badge, status, dates
+- Usage summary with visual progress bars (green/amber/red)
+- Feature access matrix with enabled/disabled indicators
+- Upgrade CTA placeholder ("Billing integration is not enabled yet")
+
+### Sidebar Gating
+
+- Locked nav items shown as dimmed with lock icon
+- Supplier-only features hidden for OEM and vice versa
+- Plan badge replaces raw plan text in user section
+
+---
+
+## Database Changes
+
+| Change | Detail |
+|--------|--------|
+| `Plan` enum | Added `FREE`, `ENTERPRISE` values (kept `BASIC` for backward compat) |
+| `companies.plan` | New column with `DEFAULT 'FREE'`; existing OEM companies set to `PRO` |
+| `companies.plan_status` | New nullable text column for ACTIVE/TRIALING/PAST_DUE/CANCELED |
+| `companies.plan_started_at` | New nullable DateTime column |
+| `companies.trial_ends_at` | New nullable DateTime column |
+| New model: `usage_counters` | Tracks usage per company/key/period with count |
+
+---
+
+## Server-Side Enforcement
+
+All gated features now enforce plan requirements on the backend:
+
+| Feature | Enforcement |
+|---------|-------------|
+| AI Classification (legacy `/api/ai/*`) | `requireFeature("AI_CLASSIFICATION")` |
+| AI Vision | `requireFeature("AI_CLASSIFICATION")` |
+| AI FMEA Suggest | `requireFeature("FMEA")` |
+| AI Refine Text | `requireFeature("EIGHT_D")` |
+| AI Suggest Diagram | `requireFeature("AI_CLASSIFICATION")` |
+| AI Classify Field Defect | `requireFeature("AI_CLASSIFICATION")` |
+| Similar Issues Field Search | `requireFeature("SIMILAR_ISSUES")` |
+| AI 8D Review Generate | `requireFeature("AI_8D_REVIEW")` — Enterprise only |
+| AI 8D Review Mark Reviewed | `requireFeature("AI_8D_REVIEW")` — Enterprise only |
+| AI 8D Review Reject | `requireFeature("AI_8D_REVIEW")` — Enterprise only |
+| Root Cause Suggestion | `requireFeature("ROOT_CAUSE_SUGGESTION")` — Enterprise only |
+
+---
+
+## Auth Changes
+
+- Session `plan` now reads from `company.plan` (authoritative) with fallback to `user.plan` (legacy)
+- `normalizePlan()` maps `BASIC` → `FREE` for backward compatibility
+
+---
+
+## Seed Changes
+
+- OEM company seeded with `plan: "PRO"`
+- Supplier companies seeded with `plan: "FREE"`
+
+---
+
+## Supplier Portal Behavior
+
+- Suppliers access assigned records regardless of being on "Free"
+- Supplier-specific nav items remain visible (Defects, Field Quality, PPAP, IQC, FMEA)
+- Suppliers blocked from: AI Classification, Similar Issues, Quality Intelligence, War Room, AI 8D Review, Root Cause
+- No forced payment for suppliers in v2.0.0
+
+---
+
+## Breaking Changes
+
+- AI 8D Review and Root Cause Suggestion now require **Enterprise** plan (previously PRO)
+- Existing inline `plan !== "PRO"` checks replaced with central feature gates
+
+---
+
+## Known Limitations
+
+- No payment processing or Stripe integration
+- No invoice management
+- No ERP integration
+- No SSO implementation (gate placeholder only)
+- No advanced billing (prorating, mid-cycle upgrades)
+- No custom contract workflows
+- No automated plan provisioning
+- Usage limits are enforced on the backend but not yet consumed/incremented for all actions (defect creation, field defect creation)
+- Enterprise-only features (AI 8D Review, Root Cause) previously worked on PRO — now gated to Enterprise
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| Stripe/payment integration | v2.1.0+ |
+| Invoice management | v2.1.0+ |
+| ERP integration | v2.1.0+ |
+| SSO implementation | v2.1.0+ |
+| Advanced billing | v2.1.0+ |
+| Custom contract workflows | v2.1.0+ |
+| Usage consumption on defect/field creation | v2.0.1 |
+| Storage usage tracking | v2.0.1 |
+
+---
+
+## Files Changed
+
+### New Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/billing/index.ts` | Barrel export for billing module |
+| `src/lib/billing/plans.ts` | Plan definitions, limits, normalization |
+| `src/lib/billing/features.ts` | Feature matrix and access checking |
+| `src/lib/billing/usage.ts` | Usage counter service |
+| `src/lib/billing/guards.ts` | Server-side feature guards |
+| `src/components/billing/PlanBadge.tsx` | Plan badge UI component |
+| `src/components/billing/UpgradeCTA.tsx` | Upgrade call-to-action component |
+| `src/components/billing/LockedFeatureCard.tsx` | Locked feature card component |
+| `src/app/(dashboard)/quality/oem/settings/plan/page.tsx` | Admin plan/settings page |
+| `prisma/migrations/20260428080000_add_plan_gating_and_usage_counters/migration.sql` | Database migration |
+
+### Modified Files
+
+| File | Change |
+|------|--------|
+| `prisma/schema.prisma` | Added FREE/ENTERPRISE to Plan enum, plan fields to Company, UsageCounter model |
+| `src/lib/auth.ts` | Session plan reads from company.plan with user.plan fallback |
+| `src/app/(dashboard)/layout.tsx` | Added feature gate keys to OEM nav items |
+| `src/components/layout/Sidebar.tsx` | Plan badge, locked nav items, feature gating |
+| `src/app/api/ai/suggest/route.ts` | Central feature gate replaces inline plan check |
+| `src/app/api/ai/vision/route.ts` | Central feature gate replaces inline plan check |
+| `src/app/api/ai/fmea-suggest/route.ts` | Central feature gate replaces inline plan check |
+| `src/app/api/ai/refine-text/route.ts` | Central feature gate replaces inline plan check |
+| `src/app/api/ai/suggest-diagram/route.ts` | Central feature gate replaces inline plan check |
+| `src/app/api/field/[id]/ai/classify/route.ts` | Added AI_CLASSIFICATION feature gate |
+| `src/app/api/field/[id]/ai/similar/route.ts` | Added SIMILAR_ISSUES feature gate |
+| `src/app/(dashboard)/quality/oem/defects/actions/ai-review.ts` | AI_8D_REVIEW/ROOT_CAUSE feature gates |
+| `prisma/seed.ts` | Added plan to company seed data |
+
+---
+
 # PlantQuality v1.9.1 — Release Notes
 
 ## AI 8D Review Hardening & QA Patch

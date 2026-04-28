@@ -152,3 +152,8 @@ export type AiSuggestion = Prisma.AiSuggestionModel
  * 
  */
 export type Ai8dReview = Prisma.Ai8dReviewModel
+/**
+ * Model UsageCounter
+ * 
+ */
+export type UsageCounter = Prisma.UsageCounterModel

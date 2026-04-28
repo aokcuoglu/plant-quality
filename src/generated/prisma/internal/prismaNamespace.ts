@@ -410,7 +410,8 @@ export const ModelName = {
   Notification: 'Notification',
   EscalationHistory: 'EscalationHistory',
   AiSuggestion: 'AiSuggestion',
-  Ai8dReview: 'Ai8dReview'
+  Ai8dReview: 'Ai8dReview',
+  UsageCounter: 'UsageCounter'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2428,6 +2429,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UsageCounter: {
+      payload: Prisma.$UsageCounterPayload<ExtArgs>
+      fields: Prisma.UsageCounterFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UsageCounterFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UsageCounterFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>
+        }
+        findFirst: {
+          args: Prisma.UsageCounterFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UsageCounterFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>
+        }
+        findMany: {
+          args: Prisma.UsageCounterFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>[]
+        }
+        create: {
+          args: Prisma.UsageCounterCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>
+        }
+        createMany: {
+          args: Prisma.UsageCounterCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UsageCounterCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>[]
+        }
+        delete: {
+          args: Prisma.UsageCounterDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>
+        }
+        update: {
+          args: Prisma.UsageCounterUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>
+        }
+        deleteMany: {
+          args: Prisma.UsageCounterDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UsageCounterUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UsageCounterUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>[]
+        }
+        upsert: {
+          args: Prisma.UsageCounterUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsageCounterPayload>
+        }
+        aggregate: {
+          args: Prisma.UsageCounterAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUsageCounter>
+        }
+        groupBy: {
+          args: Prisma.UsageCounterGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UsageCounterGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UsageCounterCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UsageCounterCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2471,6 +2546,10 @@ export const CompanyScalarFieldEnum = {
   id: 'id',
   name: 'name',
   type: 'type',
+  plan: 'plan',
+  planStatus: 'planStatus',
+  planStartedAt: 'planStartedAt',
+  trialEndsAt: 'trialEndsAt',
   taxNumber: 'taxNumber',
   createdAt: 'createdAt'
 } as const
@@ -2949,6 +3028,20 @@ export const Ai8dReviewScalarFieldEnum = {
 export type Ai8dReviewScalarFieldEnum = (typeof Ai8dReviewScalarFieldEnum)[keyof typeof Ai8dReviewScalarFieldEnum]
 
 
+export const UsageCounterScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  usageKey: 'usageKey',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  count: 'count',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UsageCounterScalarFieldEnum = (typeof UsageCounterScalarFieldEnum)[keyof typeof UsageCounterScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3032,6 +3125,20 @@ export type ListEnumCompanyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'Plan'
+ */
+export type EnumPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Plan'>
+    
+
+
+/**
+ * Reference to a field of type 'Plan[]'
+ */
+export type ListEnumPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Plan[]'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -3056,20 +3163,6 @@ export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Role[]'
  */
 export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
-    
-
-
-/**
- * Reference to a field of type 'Plan'
- */
-export type EnumPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Plan'>
-    
-
-
-/**
- * Reference to a field of type 'Plan[]'
- */
-export type ListEnumPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Plan[]'>
     
 
 
@@ -3524,6 +3617,7 @@ export type GlobalOmitConfig = {
   escalationHistory?: Prisma.EscalationHistoryOmit
   aiSuggestion?: Prisma.AiSuggestionOmit
   ai8dReview?: Prisma.Ai8dReviewOmit
+  usageCounter?: Prisma.UsageCounterOmit
 }
 
 /* Types for Logging */

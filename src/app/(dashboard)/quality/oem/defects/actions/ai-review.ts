@@ -6,6 +6,7 @@ import { reviewEightD, type Ai8dReviewResult, type EightDCompletenessResult } fr
 import { suggestRootCause, type RootCauseSuggestion } from "@/lib/ai/root-cause-suggestion"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { validateEightDCompleteness } from "@/lib/ai/validate-8d-completeness"
+import { requireFeature } from "@/lib/billing"
 import { revalidatePath } from "next/cache"
 import type { Prisma } from "@/generated/prisma/client"
 import type { Session } from "next-auth"
@@ -46,8 +47,9 @@ export async function generateAi8dReview(defectId: string) {
     return { success: false as const, error: "AI suggestions are not configured" }
   }
 
-  if (session.user.plan !== "PRO") {
-    return { success: false as const, error: "AI features require a PRO plan" }
+  const featureGate = requireFeature(session, "AI_8D_REVIEW")
+  if (!featureGate.allowed) {
+    return { success: false as const, error: featureGate.reason ?? "This feature requires an Enterprise plan" }
   }
 
   const defect = await prisma.defect.findFirst({
@@ -160,8 +162,9 @@ export async function generateRootCauseSuggestion(defectId: string) {
     return { success: false as const, error: "AI suggestions are not configured" }
   }
 
-  if (session.user.plan !== "PRO") {
-    return { success: false as const, error: "AI features require a PRO plan" }
+  const featureGate = requireFeature(session, "ROOT_CAUSE_SUGGESTION")
+  if (!featureGate.allowed) {
+    return { success: false as const, error: featureGate.reason ?? "This feature requires an Enterprise plan" }
   }
 
   const defect = await prisma.defect.findFirst({
@@ -223,8 +226,9 @@ export async function markAi8dReviewAsReviewed(reviewId: string) {
     return { success: false as const, error: "Unauthorized" }
   }
 
-  if (session.user.plan !== "PRO") {
-    return { success: false as const, error: "AI features require a PRO plan" }
+  const featureGate = requireFeature(session, "AI_8D_REVIEW")
+  if (!featureGate.allowed) {
+    return { success: false as const, error: featureGate.reason ?? "This feature requires an Enterprise plan" }
   }
 
   const review = await prisma.ai8dReview.findFirst({
@@ -260,8 +264,9 @@ export async function rejectAi8dReview(reviewId: string) {
     return { success: false as const, error: "Unauthorized" }
   }
 
-  if (session.user.plan !== "PRO") {
-    return { success: false as const, error: "AI features require a PRO plan" }
+  const featureGate = requireFeature(session, "AI_8D_REVIEW")
+  if (!featureGate.allowed) {
+    return { success: false as const, error: featureGate.reason ?? "This feature requires an Enterprise plan" }
   }
 
   const review = await prisma.ai8dReview.findFirst({

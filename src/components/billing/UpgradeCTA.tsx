@@ -53,7 +53,7 @@ export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, cla
           : "This feature requires a Pro plan or higher."}
       </p>
       <a
-        href="/quality/oem/settings/plan"
+        href="/oem/settings/plan"
         className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
       >
         Upgrade to {PLAN_LABELS[targetPlan]}

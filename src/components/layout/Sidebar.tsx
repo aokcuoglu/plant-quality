@@ -17,6 +17,7 @@ import {
   AlertTriangleIcon,
   TrendingUpIcon,
   BarChart3Icon,
+  CreditCardIcon,
   LockIcon,
   type LucideIcon,
 } from "lucide-react"
@@ -45,6 +46,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   AlertTriangleIcon,
   TrendingUpIcon,
   BarChart3Icon,
+  CreditCardIcon,
 }
 
 interface SidebarLinkItem {
@@ -52,6 +54,7 @@ interface SidebarLinkItem {
   label: string
   icon: string
   gate?: FeatureKey
+  adminOnly?: boolean
 }
 
 interface SidebarProps {
@@ -61,6 +64,7 @@ interface SidebarProps {
     companyName: string
     companyType: string
     plan: string
+    role: string
   }
 }
 
@@ -127,6 +131,8 @@ export function Sidebar({ navItems, user }: SidebarProps) {
 
         <nav className={cn("flex-1 space-y-1 overflow-hidden", isCollapsed ? "p-2" : "p-3")}>
           {navItems.map((item) => {
+            if (item.adminOnly && (isSupplier || user.role !== "ADMIN")) return null
+
             const gated = item.gate
             const access = gated ? checkFeatureAccess(normalizedPlan, user.companyType, gated) : { allowed: true, reason: null }
 

@@ -15,6 +15,7 @@ interface NavItem {
   label: string
   icon: string
   gate?: FeatureKey
+  adminOnly?: boolean
 }
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -44,6 +45,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const, gate: "ESCALATION" },
         { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const, gate: "WAR_ROOM" },
         { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const, gate: "NOTIFICATIONS" },
+        { href: "/oem/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const, adminOnly: true },
       ]
     : [
         { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
@@ -65,6 +67,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           companyName: session.user.companyName ?? "",
           companyType: session.user.companyType ?? "",
           plan: session.user.plan ?? "BASIC",
+          role: session.user.role ?? "",
         }}
       />
 

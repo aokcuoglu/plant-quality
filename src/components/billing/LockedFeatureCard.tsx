@@ -34,7 +34,7 @@ export function LockedFeatureCard({ featureKey, currentPlan, companyType, title,
           )}
         </div>
         <a
-          href="/quality/oem/settings/plan"
+          href="/oem/settings/plan"
           className="shrink-0 rounded-md bg-emerald-500 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
         >
           Upgrade

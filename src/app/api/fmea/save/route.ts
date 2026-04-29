@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { requireFeature } from "@/lib/billing"
 import type { Prisma } from "@/generated/prisma/client"
 
 export async function POST(req: NextRequest) {
@@ -11,6 +12,11 @@ export async function POST(req: NextRequest) {
 
   if (!["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return NextResponse.json({ error: "Insufficient permissions" }, { status: 403 })
+  }
+
+  const featureGate = requireFeature(session, "FMEA")
+  if (!featureGate.allowed) {
+    return NextResponse.json({ error: featureGate.reason ?? "FMEA requires a higher plan" }, { status: 403 })
   }
 
   const { fmeaId, rows } = await req.json()

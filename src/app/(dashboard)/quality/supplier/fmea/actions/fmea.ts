@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 import { revalidatePath } from "next/cache"
 import type { FmeaType } from "@/generated/prisma/client"
 
@@ -31,6 +32,9 @@ export async function createFmea(formData: FormData) {
   if (!session || session.user.companyType !== "OEM" || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return
   }
+
+  const featureGate = requireFeature(session, "FMEA")
+  if (!featureGate.allowed) return
 
   const supplierId = formData.get("supplierId") as string
   const title = formData.get("title") as string
@@ -75,6 +79,11 @@ export async function saveFmeaRows(fmeaId: string, rows: FmeaRow[]) {
   const session = await auth()
   if (!session || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return { success: false, error: "Unauthorized" }
+  }
+
+  const featureGate = requireFeature(session, "FMEA")
+  if (!featureGate.allowed) {
+    return { success: false, error: featureGate.reason ?? "FMEA requires a higher plan" }
   }
 
   const fmea = await prisma.fmea.findFirst({
@@ -163,6 +172,11 @@ export async function approveFmea(fmeaId: string) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM" || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return { success: false, error: "Unauthorized" }
+  }
+
+  const featureGate = requireFeature(session, "FMEA")
+  if (!featureGate.allowed) {
+    return { success: false, error: featureGate.reason ?? "FMEA requires a higher plan" }
   }
 
   const fmea = await prisma.fmea.findFirst({

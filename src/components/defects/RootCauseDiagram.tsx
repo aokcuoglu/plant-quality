@@ -11,6 +11,7 @@ import {
   CheckIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { normalizePlan, canUseFeature } from "@/lib/billing/client"
 import {
   Table,
   TableBody,
@@ -36,7 +37,7 @@ function genId() {
 export function RootCauseDiagram({
   d2Problem,
   initialRootCauses,
-  isPro,
+  plan,
   onShowUpgradeModal,
   onRootCausesChange,
   defectTitle,
@@ -45,13 +46,15 @@ export function RootCauseDiagram({
 }: {
   d2Problem: string
   initialRootCauses: RootCauseRow[]
-  isPro: boolean
+  plan: string
   onShowUpgradeModal: () => void
   onRootCausesChange: (causes: RootCauseRow[]) => void
   defectTitle?: string
   partName?: string
   symptoms?: string
 }) {
+  const normalizedPlan = normalizePlan(plan)
+  const canUseRootCause = canUseFeature(normalizedPlan, "OEM", "ROOT_CAUSE_SUGGESTION")
   const [aiLoading, setAiLoading] = useState(false)
 
   const totalContribution = useMemo(
@@ -60,7 +63,7 @@ export function RootCauseDiagram({
   )
 
   const handleAi = useCallback(async () => {
-    if (!isPro) { onShowUpgradeModal(); return }
+    if (!canUseRootCause) { onShowUpgradeModal(); return }
     setAiLoading(true)
     try {
       const res = await fetch("/api/ai/suggest", {
@@ -83,7 +86,7 @@ export function RootCauseDiagram({
     } finally {
       setAiLoading(false)
     }
-  }, [isPro, onShowUpgradeModal, defectTitle, partName, symptoms, d2Problem, onRootCausesChange])
+  }, [canUseRootCause, onShowUpgradeModal, defectTitle, partName, symptoms, d2Problem, onRootCausesChange])
 
   return (
     <div className="space-y-4">
@@ -150,11 +153,11 @@ export function RootCauseDiagram({
           onClick={() => onRootCausesChange([...initialRootCauses, { id: genId(), cause: "", contribution: 0 }])}>
           <PlusIcon className="mr-1 h-3.5 w-3.5" /> Add Root Cause
         </Button>
-        <button type="button" onClick={() => isPro ? handleAi() : onShowUpgradeModal()} disabled={aiLoading}
+        <button type="button" onClick={() => canUseRootCause ? handleAi() : onShowUpgradeModal()} disabled={aiLoading}
           className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50"
         >
-          {aiLoading ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
-          {aiLoading ? "Brainstorming..." : isPro ? "AI Brainstorm Root Causes" : "AI Brainstorm — Upgrade to PRO"}
+          {aiLoading ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : canUseRootCause ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
+          {aiLoading ? "Brainstorming..." : canUseRootCause ? "AI Brainstorm Root Causes" : "AI Brainstorm — Upgrade to Enterprise"}
         </button>
       </div>
     </div>

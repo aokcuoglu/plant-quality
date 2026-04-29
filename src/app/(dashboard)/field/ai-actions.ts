@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma"
 import { classifyFieldDefect } from "@/lib/ai/classify-field-defect"
 import { findSimilarIssues } from "@/lib/ai/similar-issues"
 import { isAiEnabled } from "@/lib/ai/provider"
+import { requireFeature } from "@/lib/billing"
 import { revalidatePath } from "next/cache"
 import { createHash } from "crypto"
 import type { FieldDefectSeverity } from "@/generated/prisma/client"
@@ -23,8 +24,9 @@ export async function generateClassification(fieldDefectId: string) {
     return { ok: false as const, error: "AI suggestions are not configured" }
   }
 
-  if (session.user.plan !== "PRO") {
-    return { ok: false as const, error: "AI features require a PRO plan" }
+  const featureGate = requireFeature(session, "AI_CLASSIFICATION")
+  if (!featureGate.allowed) {
+    return { ok: false as const, error: featureGate.reason ?? "AI Classification requires a higher plan" }
   }
 
   const fd = await prisma.fieldDefect.findFirst({
@@ -97,6 +99,11 @@ export async function generateSimilarIssues(fieldDefectId: string) {
   const session = await auth()
   if (!session?.user?.companyId || !isOemEditor(session.user.role) || session.user.companyType !== "OEM") {
     return { ok: false as const, error: "Unauthorized" }
+  }
+
+  const featureGate = requireFeature(session, "SIMILAR_ISSUES")
+  if (!featureGate.allowed) {
+    return { ok: false as const, error: featureGate.reason ?? "Similar Issues requires a higher plan" }
   }
 
   const fd = await prisma.fieldDefect.findFirst({

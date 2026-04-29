@@ -15,6 +15,7 @@ import {
   ShieldCheckIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { normalizePlan, canUseFeature } from "@/lib/billing/client"
 import {
   generateAi8dReview,
   generateRootCauseSuggestion,
@@ -41,7 +42,7 @@ interface Ai8dReviewPanelProps {
   defectId: string
   eightDReportExists: boolean
   aiEnabled: boolean
-  isPro: boolean
+  plan: string
   canManage: boolean
   latestReview: Ai8dReviewRecord | null
   deterministicCompleteness: EightDCompletenessResult | null
@@ -187,11 +188,14 @@ export function Ai8dReviewPanel({
   defectId,
   eightDReportExists,
   aiEnabled,
-  isPro,
+  plan,
   canManage,
   latestReview,
   deterministicCompleteness,
 }: Ai8dReviewPanelProps) {
+  const normalizedPlan = normalizePlan(plan)
+  const canUseAi8d = canUseFeature(normalizedPlan, "OEM", "AI_8D_REVIEW")
+  const canUseRootCause = canUseFeature(normalizedPlan, "OEM", "ROOT_CAUSE_SUGGESTION")
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -295,7 +299,7 @@ export function Ai8dReviewPanel({
     )
   }
 
-  if (!isPro) {
+  if (!canUseAi8d) {
     return (
       <div className="rounded-lg border bg-card">
         <div className="px-4 py-3 border-b border-border">
@@ -305,7 +309,7 @@ export function Ai8dReviewPanel({
           </h2>
         </div>
         <div className="px-4 py-6 text-center">
-          <p className="text-sm text-muted-foreground">AI features require a PRO plan.</p>
+          <p className="text-sm text-muted-foreground">AI 8D Review requires an Enterprise plan.</p>
           <p className="text-xs text-muted-foreground mt-1">Upgrade your plan to unlock AI-powered 8D review.</p>
         </div>
       </div>
@@ -336,7 +340,7 @@ export function Ai8dReviewPanel({
         {!review && !isPending && (
           <div className="text-center py-4">
             <p className="text-sm text-muted-foreground mb-3">No AI review generated yet.</p>
-            {canManage && (
+        {canManage && canUseRootCause && (
               <button
                 onClick={handleGenerate}
                 disabled={isPending}

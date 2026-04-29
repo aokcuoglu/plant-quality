@@ -2,10 +2,16 @@
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { requireFeature } from "@/lib/billing"
 
 export async function getQualityIntelligenceSummary() {
   const session = await auth()
   if (!session?.user?.companyId || session.user.companyType !== "OEM") {
+    return null
+  }
+
+  const featureGate = requireFeature(session, "QUALITY_INTELLIGENCE")
+  if (!featureGate.allowed) {
     return null
   }
 

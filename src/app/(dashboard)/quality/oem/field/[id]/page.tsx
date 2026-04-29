@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect, notFound } from "next/navigation"
+import { normalizePlan, canUseFeature } from "@/lib/billing"
 import Link from "next/link"
 import { ArrowLeftIcon, PencilIcon, LinkIcon } from "lucide-react"
 import { FieldDefectStatusBadge } from "@/components/field/FieldDefectStatusBadge"
@@ -55,9 +56,11 @@ export default async function OemFieldDetailPage({
   const canChangeStatus = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
   const canAssign = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role) && ["DRAFT", "OPEN", "UNDER_REVIEW"].includes(fd.status)
   const aiEnabled = isAiEnabled()
-  const isPro = session.user.plan === "PRO"
+  const plan = normalizePlan(session.user.plan)
+  const canUseAi = canUseFeature(plan, "OEM", "AI_CLASSIFICATION")
+  const canUseSimilar = canUseFeature(plan, "OEM", "SIMILAR_ISSUES")
 
-  const aiSuggestions = aiEnabled && isPro
+  const aiSuggestions = aiEnabled && canUseAi
     ? await prisma.aiSuggestion.findMany({
         where: { fieldDefectId: id, companyId: session.user.companyId },
         orderBy: { createdAt: "desc" },
@@ -103,18 +106,20 @@ export default async function OemFieldDetailPage({
         category: string | null
         subcategory: string | null
       }>)
-    : await findSimilarIssues(session.user.companyId, id, {
-        title: fd.title,
-        description: fd.description,
-        partNumber: fd.partNumber,
-        partName: fd.partName,
-        vehicleModel: fd.vehicleModel,
-        vin: fd.vin,
-        supplierId: fd.supplierId,
-        category: fd.category,
-        subcategory: fd.subcategory,
-        probableArea: fd.probableArea,
-      })
+    : canUseSimilar && aiEnabled
+      ? await findSimilarIssues(session.user.companyId, id, {
+          title: fd.title,
+          description: fd.description,
+          partNumber: fd.partNumber,
+          partName: fd.partName,
+          vehicleModel: fd.vehicleModel,
+          vin: fd.vin,
+          supplierId: fd.supplierId,
+          category: fd.category,
+          subcategory: fd.subcategory,
+          probableArea: fd.probableArea,
+        })
+      : []
 
   const slaStatus = getFieldDefectSlaStatus(fd)
   const activeDueDate = getFieldDefectActiveDueDate(fd)
@@ -429,7 +434,7 @@ export default async function OemFieldDetailPage({
               rejectedAt: s.rejectedAt?.toISOString() ?? null,
             }))}
             aiEnabled={aiEnabled}
-            isPro={isPro}
+            plan={plan}
             canManage={canEdit}
           />
 
@@ -437,6 +442,7 @@ export default async function OemFieldDetailPage({
             fieldDefectId={id}
             similarIssues={similarIssues}
             canManage={canEdit}
+            canUseSimilar={canUseSimilar}
           />
         </div>
       </div>

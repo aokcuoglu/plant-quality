@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 import { revalidatePath } from "next/cache"
 import type { PpapLevel, PpapSubmissionRequirement } from "@/generated/prisma/client"
 
@@ -36,6 +37,9 @@ function requirementKeys(): PpapSubmissionRequirement[] {
 export async function createPpap(formData: FormData) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM" || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) return
+
+  const featureGate = requireFeature(session, "PPAP")
+  if (!featureGate.allowed) return
 
   const supplierId = formData.get("supplierId") as string
   const partNumber = formData.get("partNumber") as string
@@ -120,6 +124,11 @@ export async function approvePpap(ppapId: string) {
     return { success: false, error: "Unauthorized" }
   }
 
+  const featureGate = requireFeature(session, "PPAP")
+  if (!featureGate.allowed) {
+    return { success: false, error: featureGate.reason ?? "PPAP requires a higher plan" }
+  }
+
   const ppap = await prisma.ppapSubmission.findFirst({
     where: { id: ppapId, oemId: session.user.companyId, status: "SUBMITTED" },
     include: { supplier: { include: { users: { select: { id: true } } } } },
@@ -173,6 +182,11 @@ export async function rejectPpap(ppapId: string, reason: string) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM" || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return { success: false, error: "Unauthorized" }
+  }
+
+  const featureGate = requireFeature(session, "PPAP")
+  if (!featureGate.allowed) {
+    return { success: false, error: featureGate.reason ?? "PPAP requires a higher plan" }
   }
 
   const ppap = await prisma.ppapSubmission.findFirst({

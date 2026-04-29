@@ -5,6 +5,7 @@ import { PlusCircleIcon, TrashIcon, SparklesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { normalizePlan, canUseFeature } from "@/lib/billing/client"
 
 interface FmeaRow {
   id: string
@@ -124,8 +125,10 @@ export function FmeaEditor({
     }
   }, [fmeaId, rows])
 
+  const normalizedPlan = normalizePlan(plan)
+  const canUseAi = canUseFeature(normalizedPlan, "OEM", "FMEA")
   const handleAiSuggest = useCallback(async () => {
-    if (plan !== "PRO") return
+    if (!canUseAi) return
     setAiLoading(true)
     setAiError(null)
     try {
@@ -184,7 +187,7 @@ export function FmeaEditor({
     } finally {
       setAiLoading(false)
     }
-  }, [plan, partNumber, partName, fmeaType, processStep])
+  }, [canUseAi, partNumber, partName, fmeaType, processStep])
 
   return (
     <div className="space-y-4">
@@ -195,7 +198,7 @@ export function FmeaEditor({
               <PlusCircleIcon className="mr-1.5 size-4" />
               Add Row
             </Button>
-            {plan === "PRO" && (
+            {canUseAi && (
               <Button variant="outline" size="sm" onClick={handleAiSuggest} disabled={aiLoading}>
                 <SparklesIcon className="mr-1.5 size-4 text-emerald-400" />
                 {aiLoading ? "Analyzing..." : "AI Suggest Failures"}

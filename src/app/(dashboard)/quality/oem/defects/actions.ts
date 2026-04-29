@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import { canConsumeUsage, consumeUsage } from "@/lib/billing"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import { addCalendarDays } from "@/lib/sla"
@@ -13,6 +14,9 @@ export async function createDefect(formData: FormData): Promise<void> {
     session.user.companyType !== "OEM" ||
     !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
   ) return
+
+  const canCreate = await canConsumeUsage(session.user.companyId, "MONTHLY_DEFECTS")
+  if (!canCreate) return
 
   const supplierId = formData.get("supplierId") as string
   const supplierAssigneeId = (formData.get("supplierAssigneeId") as string) || null
@@ -57,6 +61,8 @@ export async function createDefect(formData: FormData): Promise<void> {
       currentActionOwner: "SUPPLIER",
     },
   })
+
+  await consumeUsage(session.user.companyId, "MONTHLY_DEFECTS")
 
   await prisma.defectEvent.create({
     data: {

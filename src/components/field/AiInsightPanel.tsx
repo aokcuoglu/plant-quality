@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { SparklesIcon, CheckIcon, XIcon, RefreshCwIcon } from "lucide-react"
+import { normalizePlan, canUseFeature } from "@/lib/billing/client"
 
 interface Classification {
   category: string | null
@@ -34,7 +35,7 @@ interface AiInsightPanelProps {
   fieldDefectId: string
   suggestions: Suggestion[]
   aiEnabled: boolean
-  isPro: boolean
+  plan: string
   canManage: boolean
 }
 
@@ -68,9 +69,11 @@ export function AiInsightPanel({
   fieldDefectId,
   suggestions,
   aiEnabled,
-  isPro,
+  plan,
   canManage,
 }: AiInsightPanelProps) {
+  const normalizedPlan = normalizePlan(plan)
+  const canUseAi = canUseFeature(normalizedPlan, "OEM", "AI_CLASSIFICATION")
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -130,7 +133,7 @@ export function AiInsightPanel({
     )
   }
 
-  if (!isPro) {
+  if (!canUseAi) {
     return (
       <div className="rounded-lg border bg-card">
         <div className="px-4 py-3 border-b border-border">
@@ -140,7 +143,7 @@ export function AiInsightPanel({
           </h2>
         </div>
         <div className="px-4 py-6 text-center">
-          <p className="text-sm text-muted-foreground">AI features require a PRO plan.</p>
+          <p className="text-sm text-muted-foreground">AI features require a PRO plan or higher.</p>
           <p className="text-xs text-muted-foreground mt-1">Upgrade your plan to unlock AI-powered classification.</p>
         </div>
       </div>

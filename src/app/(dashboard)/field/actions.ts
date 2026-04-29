@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { requireFeature, canConsumeUsage, consumeUsage } from "@/lib/billing"
 import type { DefectEventType, FieldDefectSeverity, FieldDefectSource, FieldDefectStatus, Prisma } from "@/generated/prisma/client"
 import { isValidStatusTransition, validateVin } from "@/lib/field-defect"
 import { canOemManage } from "@/lib/field-defect-server"
@@ -203,6 +204,11 @@ export async function createFieldDefect(formData: FormData): Promise<{ success: 
   const session = await auth()
   if (!canOemManage(session)) return { success: false, error: "Unauthorized" }
 
+  const canCreate = await canConsumeUsage(session.user.companyId, "MONTHLY_FIELD_DEFECTS")
+  if (!canCreate) {
+    return { success: false, error: "Monthly field defect limit reached. Please upgrade your plan." }
+  }
+
   const title = formData.get("title") as string
   const description = formData.get("description") as string
   const source = (formData.get("source") as FieldDefectSource) || "FIELD"
@@ -280,6 +286,8 @@ export async function createFieldDefect(formData: FormData): Promise<{ success: 
     status: fieldStatus,
     supplierId,
   })
+
+  await consumeUsage(session.user.companyId, "MONTHLY_FIELD_DEFECTS")
 
   if (supplierId && supplierUsers.length > 0) {
     await prisma.notification.createMany({
@@ -719,6 +727,11 @@ export async function setFieldDefectSla(
     return { success: false as const, error: "Unauthorized" }
   }
 
+  const featureGate = requireFeature(session, "SLA")
+  if (!featureGate.allowed) {
+    return { success: false as const, error: featureGate.reason ?? "SLA tracking requires a higher plan" }
+  }
+
   const fieldDefect = await prisma.fieldDefect.findFirst({
     where: { id, oemId: session.user.companyId, deletedAt: null },
   })
@@ -761,6 +774,11 @@ export async function escalateFieldDefect(id: string, reason: string) {
   const session = await auth()
   if (!canOemManage(session)) {
     return { success: false as const, error: "Unauthorized" }
+  }
+
+  const featureGate = requireFeature(session, "ESCALATION")
+  if (!featureGate.allowed) {
+    return { success: false as const, error: featureGate.reason ?? "Escalation requires a higher plan" }
   }
 
   if (!reason.trim()) {

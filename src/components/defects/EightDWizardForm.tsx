@@ -27,6 +27,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { toast } from "@/components/ui/use-toast"
+import { normalizePlan, canUseFeature } from "@/lib/billing/client"
 import { respondToReviewComment, saveEightDStep, submitEightDReport } from "@/app/(dashboard)/quality/supplier/defects/actions/8d"
 import { UserSearchSelect } from "@/components/defects/UserSearchSelect"
 import { DatePicker } from "@/components/defects/DatePicker"
@@ -260,7 +261,10 @@ export function EightDWizardForm({
   const [evidences, setEvidences] = useState<EvidenceItem[]>(initialEvidences ?? [])
   const [uploadingSection, setUploadingSection] = useState<EightDSection | null>(null)
   const [removingEvidenceId, setRemovingEvidenceId] = useState<string | null>(null)
-  const isPro = userPlan === "PRO"
+  const normalizedPlan = normalizePlan(userPlan)
+  const canBrainstorm = canUseFeature(normalizedPlan, "OEM", "AI_CLASSIFICATION")
+  const _canRootCause = canUseFeature(normalizedPlan, "OEM", "ROOT_CAUSE_SUGGESTION")
+  const isPro = canBrainstorm
 
   const [d2Problem, setD2Problem] = useState(initialData.d2_problem ?? "")
   const [teamMembers, setTeamMembers] = useState<TeamMemberRow[]>(() => {
@@ -437,7 +441,7 @@ export function EightDWizardForm({
   }, [commentResponses, showSaved, startSave])
 
   const handleSuggest = useCallback(async (fieldName: string, contextText?: string) => {
-    if (userPlan !== "PRO") {
+    if (!canBrainstorm) {
       setShowUpgradeModal(true)
       return
     }
@@ -477,10 +481,10 @@ export function EightDWizardForm({
     } finally {
       setSuggesting(null)
     }
-  }, [userPlan, defectTitle, partName, symptoms, combinedRootCause])
+  }, [canBrainstorm, defectTitle, partName, symptoms, combinedRootCause])
 
   const handleVisionAnalyze = useCallback(async (imageUrl: string) => {
-    if (userPlan !== "PRO") {
+    if (!canBrainstorm) {
       setShowUpgradeModal(true)
       return
     }
@@ -527,7 +531,7 @@ export function EightDWizardForm({
     } finally {
       setAnalyzing(null)
     }
-  }, [userPlan])
+  }, [canBrainstorm])
 
   const handleEvidenceUpload = useCallback(async (section: EightDSection, file: File | null) => {
     if (!file) return
@@ -845,13 +849,13 @@ export function EightDWizardForm({
                   <button type="button" onClick={() => isPro ? handleSuggest("d2_problem") : setShowUpgradeModal(true)} disabled={suggesting === "d2_problem"}
                     className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                     {suggesting === "d2_problem" ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
-                    {suggesting === "d2_problem" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to PRO"}
+                    {suggesting === "d2_problem" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to Pro"}
                   </button>
                   {imageUrls && imageUrls.length > 0 && imageUrls.map((url, imgIdx) => (
                     <button key={`${url}-${imgIdx}`} type="button" onClick={() => isPro ? handleVisionAnalyze(url) : setShowUpgradeModal(true)} disabled={analyzing === url}
                       className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                       {analyzing === url ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
-                      {analyzing === url ? "Analyzing..." : isPro ? `Analyze Photo ${imgIdx + 1}` : `Analyze Photo ${imgIdx + 1} — Upgrade to PRO`}
+                      {analyzing === url ? "Analyzing..." : isPro ? `Analyze Photo ${imgIdx + 1}` : `Analyze Photo ${imgIdx + 1} — Upgrade to Pro`}
                     </button>
                   ))}
                 </div>
@@ -918,7 +922,7 @@ export function EightDWizardForm({
               <button type="button" onClick={() => isPro ? handleSuggest("d3_containment") : setShowUpgradeModal(true)} disabled={suggesting === "d3_containment"}
                 className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                 {suggesting === "d3_containment" ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
-                {suggesting === "d3_containment" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to PRO"}
+                {suggesting === "d3_containment" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to Pro"}
               </button>
             </div>
             {renderEvidenceSection("D3")}
@@ -935,7 +939,7 @@ export function EightDWizardForm({
             <RootCauseDiagram
               d2Problem={d2Problem}
               initialRootCauses={rootCauses}
-              isPro={isPro}
+              plan={userPlan ?? "FREE"}
               onShowUpgradeModal={() => setShowUpgradeModal(true)}
               onRootCausesChange={setRootCauses}
               defectTitle={defectTitle}
@@ -1112,7 +1116,7 @@ export function EightDWizardForm({
               <button type="button" onClick={() => isPro ? handleSuggest("d7_preventive") : setShowUpgradeModal(true)} disabled={suggesting === "d7_preventive"}
                 className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                 {suggesting === "d7_preventive" ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
-                {suggesting === "d7_preventive" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to PRO"}
+                {suggesting === "d7_preventive" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to Pro"}
               </button>
             </div>
             {renderEvidenceSection("D7")}

@@ -28,12 +28,14 @@ interface SimilarIssuesPanelProps {
   fieldDefectId: string
   similarIssues: SimilarIssue[]
   canManage: boolean
+  canUseSimilar?: boolean
 }
 
 export function SimilarIssuesPanel({
   fieldDefectId,
   similarIssues,
   canManage,
+  canUseSimilar = true,
 }: SimilarIssuesPanelProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
@@ -61,7 +63,7 @@ export function SimilarIssuesPanel({
           <SearchIcon className="h-4 w-4 text-emerald-500" />
           Similar Issues
         </h2>
-        {canManage && (
+        {canManage && canUseSimilar && (
           <button
             onClick={handleFindSimilar}
             disabled={isPending}

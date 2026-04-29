@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { normalizePlan } from "@/lib/billing"
 import { DefectDetailView, type ReviewSection } from "@/components/defects/DefectDetailView"
 import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
 import { Ai8dReviewPanel } from "@/components/defects/Ai8dReviewPanel"
@@ -126,7 +127,7 @@ export default async function OemDefectDetailPage({
   const evidenceReady = hasRequiredSubmissionEvidence(evidenceCounts)
 
   const aiEnabled = isAiEnabled()
-  const isPro = session.user.plan === "PRO"
+  const plan = normalizePlan(session.user.plan)
   const canManage = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
 
   const latestAiReview = report?.ai8dReviews?.[0] ?? null
@@ -222,7 +223,7 @@ export default async function OemDefectDetailPage({
         defectId={defect.id}
         eightDReportExists={!!report}
         aiEnabled={aiEnabled}
-        isPro={isPro}
+        plan={plan}
         canManage={canManage}
         latestReview={aiReviewData}
         deterministicCompleteness={deterministicCompleteness}

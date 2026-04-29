@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 import { revalidatePath } from "next/cache"
 import type { IqcStatus, Prisma } from "@/generated/prisma/client"
 
@@ -22,6 +23,9 @@ export async function createIqcReport(formData: FormData) {
   if (!session || session.user.companyType !== "OEM" || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return
   }
+
+  const featureGate = requireFeature(session, "IQC")
+  if (!featureGate.allowed) return
 
   const supplierId = formData.get("supplierId") as string
   const lotNumber = formData.get("lotNumber") as string
@@ -74,6 +78,11 @@ export async function completeIqcReport(
   const session = await auth()
   if (!session || session.user.companyType !== "OEM" || !["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)) {
     return { success: false, error: "Unauthorized" }
+  }
+
+  const featureGate = requireFeature(session, "IQC")
+  if (!featureGate.allowed) {
+    return { success: false, error: featureGate.reason ?? "IQC requires a higher plan" }
   }
 
   const report = await prisma.iqcReport.findFirst({

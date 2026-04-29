@@ -32,6 +32,9 @@ export function LockedFeatureCard({ featureKey, currentPlan, companyType, title,
           {access.reason && (
             <p className="mt-0.5 text-xs text-muted-foreground">{access.reason}</p>
           )}
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            Billing integration is not enabled yet. Please contact PlantX sales or your system administrator to upgrade.
+          </p>
         </div>
         <a
           href="/oem/settings/plan"

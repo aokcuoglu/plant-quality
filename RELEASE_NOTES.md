@@ -1,3 +1,49 @@
+# PlantQuality v2.0.2 — Release Notes
+
+## Plan Usage Release Polish
+
+**Release Date:** 2026-04-29  
+**Version:** 2.0.2
+
+---
+
+## Summary
+
+PlantQuality v2.0.2 completes the Plan & Usage release polish by bumping the package version and expanding the upgrade placeholder copy across all upgrade-facing components. No billing, payment, or plan gating logic changes were made.
+
+---
+
+## Changes
+
+### Version bump
+- `package.json` version bumped from 2.0.1 to 2.0.2
+- `package-lock.json` synced
+
+### Upgrade placeholder copy
+- **Plan & Usage page** (`/oem/settings/plan`): Full copy — "Billing integration is not enabled yet. Please contact PlantX sales or your system administrator to upgrade. Enterprise plans are handled by custom quote."
+- **UpgradeCTA component**: Pro target — "This feature requires a Pro plan or higher. Billing integration is not enabled yet — please contact PlantX sales or your system administrator to upgrade." Enterprise target — "Enterprise plans are handled by custom quote. Please contact PlantX sales or your system administrator."
+- **LockedFeatureCard component**: Added "Billing integration is not enabled yet. Please contact PlantX sales or your system administrator to upgrade."
+
+### No changes
+- No billing, Stripe, or payment integration
+- No plan gating logic changes
+- No usage limit logic changes
+- No landing page changes
+- No app redesign
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.0.2 |
+| `package-lock.json` | Lockfile metadata synced |
+| `src/components/billing/UpgradeCTA.tsx` | Expanded Pro and Enterprise upgrade messages |
+| `src/components/billing/LockedFeatureCard.tsx` | Added billing placeholder note |
+
+---
+
 # PlantQuality v2.0.1 — Release Notes
 
 ## Plan & Usage Route & Navigation Polish

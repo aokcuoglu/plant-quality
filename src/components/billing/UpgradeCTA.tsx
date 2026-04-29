@@ -49,8 +49,8 @@ export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, cla
       <h3 className="text-sm font-semibold text-foreground">{featureName}</h3>
       <p className="mt-1 text-xs text-muted-foreground">
         {targetPlan === "ENTERPRISE"
-          ? "This feature is available on the Enterprise plan."
-          : "This feature requires a Pro plan or higher."}
+          ? "Enterprise plans are handled by custom quote. Please contact PlantX sales or your system administrator."
+          : "This feature requires a Pro plan or higher. Billing integration is not enabled yet — please contact PlantX sales or your system administrator to upgrade."}
       </p>
       <a
         href="/oem/settings/plan"

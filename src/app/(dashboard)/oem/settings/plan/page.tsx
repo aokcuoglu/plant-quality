@@ -9,7 +9,7 @@ import { normalizePlan, getPlanLimits, formatLimit } from "@/lib/billing/plans"
 import { getAllFeatures, checkFeatureAccess } from "@/lib/billing/features"
 import { getUsageLimitStatus, type UsageKey } from "@/lib/billing/usage"
 
-export const metadata = { title: "Plan & Billing — PlantQuality" }
+export const metadata = { title: "Plan & Usage — PlantQuality" }
 
 export default async function PlanSettingsPage() {
   const session = await auth()
@@ -63,8 +63,8 @@ export default async function PlanSettingsPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Plan & Billing"
-        description={`Manage your subscription and view usage for ${company.name}`}
+        title="Plan & Usage"
+        description={`Manage your plan and view usage for ${company.name}`}
       />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">

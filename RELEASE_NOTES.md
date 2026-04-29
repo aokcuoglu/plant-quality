@@ -1,3 +1,66 @@
+# PlantQuality v2.0.1 — Release Notes
+
+## Plan & Usage Route & Navigation Polish
+
+**Release Date:** 2026-04-29  
+**Version:** 2.0.1
+
+---
+
+## Summary
+
+PlantQuality v2.0.1 polishes the Plan & Usage route and navigation for discoverability. The canonical route is now `/oem/settings/plan` (matching the OEM route convention). A sidebar footer entry exposes Plan & Usage to OEM admins only. The legacy route `/quality/oem/settings/plan` redirects to the new canonical route. No plan gating logic, usage limits, or billing changes were made.
+
+---
+
+## Changes
+
+### Route consistency
+- Canonical Plan & Usage route: `/oem/settings/plan`
+- Legacy route `/quality/oem/settings/plan` redirects to `/oem/settings/plan`
+- All internal links (`UpgradeCTA`, `LockedFeatureCard`) updated to `/oem/settings/plan`
+
+### Sidebar navigation
+- Plan & Usage moved from main module nav list to sidebar footer (below user info, above Sign Out)
+- Only visible to OEM Admin users
+- Not shown to supplier users or non-admin OEM users
+- Uses `CreditCardIcon`, links to `/oem/settings/plan`
+
+### Label consistency
+- Page title updated from "Plan & Billing" to "Plan & Usage" to match nav label
+- Metadata title updated accordingly
+
+### Access control (preserved, not changed)
+- OEM Admin can access `/oem/settings/plan`
+- Supplier cannot access `/oem/settings/plan` (server-side redirect to `/login`)
+- Supplier cannot see Plan & Usage link (no `planNavItem` passed)
+- Direct URL access remains protected server-side
+
+---
+
+## No Changes
+
+- Plan gating logic
+- Usage limit logic
+- Stripe or billing integration
+- Sidebar main module items
+- Landing page
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `src/app/(dashboard)/oem/settings/plan/page.tsx` | Title "Plan & Billing" → "Plan & Usage" |
+| `src/app/(dashboard)/quality/oem/settings/plan/page.tsx` | Redirect preserved; title updated |
+| `src/app/(dashboard)/layout.tsx` | Plan & Usage removed from navItems; passed as `planNavItem` prop for OEM admins only |
+| `src/components/layout/Sidebar.tsx` | Added `planNavItem` prop; renders in footer area before ThemeToggle |
+| `src/components/billing/UpgradeCTA.tsx` | Already pointed to `/oem/settings/plan` (unchanged from v2.0.0) |
+| `src/components/billing/LockedFeatureCard.tsx` | Already pointed to `/oem/settings/plan` (unchanged from v2.0.0) |
+
+---
+
 # PlantQuality v2.0.0 — Release Notes
 
 ## Plan Gating, Packaging & Usage Limits
@@ -111,7 +174,7 @@ All plan checks flow through `checkFeatureAccess(plan, companyType, featureKey)`
 
 ### Admin Plan/Settings Page
 
-- `/quality/oem/settings/plan` — full plan overview
+- `/oem/settings/plan` — full plan overview (canonical route)
 - Current plan badge, status, dates
 - Usage summary with visual progress bars (green/amber/red)
 - Feature access matrix with enabled/disabled indicators
@@ -231,7 +294,8 @@ All gated features now enforce plan requirements on the backend:
 | `src/components/billing/PlanBadge.tsx` | Plan badge UI component |
 | `src/components/billing/UpgradeCTA.tsx` | Upgrade call-to-action component |
 | `src/components/billing/LockedFeatureCard.tsx` | Locked feature card component |
-| `src/app/(dashboard)/quality/oem/settings/plan/page.tsx` | Admin plan/settings page |
+| `src/app/(dashboard)/oem/settings/plan/page.tsx` | Admin plan/settings page (new canonical route) |
+| `src/app/(dashboard)/quality/oem/settings/plan/page.tsx` | Legacy redirect to `/oem/settings/plan` |
 | `prisma/migrations/20260428080000_add_plan_gating_and_usage_counters/migration.sql` | Database migration |
 
 ### Modified Files

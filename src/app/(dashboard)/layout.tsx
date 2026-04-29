@@ -15,7 +15,6 @@ interface NavItem {
   label: string
   icon: string
   gate?: FeatureKey
-  adminOnly?: boolean
 }
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -32,6 +31,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (!session) return null
 
   const isOem = session.user.companyType === "OEM"
+  const isOemAdmin = isOem && session.user.role === "ADMIN"
 
   const navItems: NavItem[] = isOem
     ? [
@@ -45,7 +45,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const, gate: "ESCALATION" },
         { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const, gate: "WAR_ROOM" },
         { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const, gate: "NOTIFICATIONS" },
-        { href: "/oem/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const, adminOnly: true },
       ]
     : [
         { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
@@ -62,6 +61,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex h-screen">
       <Sidebar
         navItems={navItems}
+        planNavItem={isOemAdmin ? { href: "/oem/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined}
         user={{
           email: session.user.email ?? "",
           companyName: session.user.companyName ?? "",

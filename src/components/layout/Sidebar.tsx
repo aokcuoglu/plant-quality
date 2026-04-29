@@ -54,11 +54,11 @@ interface SidebarLinkItem {
   label: string
   icon: string
   gate?: FeatureKey
-  adminOnly?: boolean
 }
 
 interface SidebarProps {
   navItems: SidebarLinkItem[]
+  planNavItem?: SidebarLinkItem
   user: {
     email: string
     companyName: string
@@ -70,7 +70,7 @@ interface SidebarProps {
 
 const noop = () => () => {}
 
-export function Sidebar({ navItems, user }: SidebarProps) {
+export function Sidebar({ navItems, planNavItem, user }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const isClient = useSyncExternalStore(noop, () => true, () => false)
 
@@ -131,8 +131,6 @@ export function Sidebar({ navItems, user }: SidebarProps) {
 
         <nav className={cn("flex-1 space-y-1 overflow-hidden", isCollapsed ? "p-2" : "p-3")}>
           {navItems.map((item) => {
-            if (item.adminOnly && (isSupplier || user.role !== "ADMIN")) return null
-
             const gated = item.gate
             const access = gated ? checkFeatureAccess(normalizedPlan, user.companyType, gated) : { allowed: true, reason: null }
 
@@ -189,6 +187,7 @@ export function Sidebar({ navItems, user }: SidebarProps) {
           </div>
 
           <div className={cn(isCollapsed ? "mt-2 flex flex-col items-center gap-2" : "mt-1 space-y-1")}>
+            {planNavItem && <SidebarLink item={planNavItem} isCollapsed={isCollapsed} />}
             <ThemeToggle collapsed={isCollapsed} />
 
             <SignOutButton collapsed={isCollapsed} />

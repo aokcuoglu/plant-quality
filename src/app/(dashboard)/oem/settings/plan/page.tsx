@@ -102,7 +102,7 @@ export default async function PlanSettingsPage() {
                   Upgrade to {plan === "FREE" ? "Pro" : "Enterprise"}
                 </a>
                 <p className="mt-1.5 text-xs text-muted-foreground">
-                  Billing integration is not enabled yet.
+                  Billing integration is not enabled yet. Please contact PlantX sales or your system administrator to upgrade. Enterprise plans are handled by custom quote.
                 </p>
               </div>
             )}

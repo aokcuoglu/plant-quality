@@ -6,15 +6,41 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const oemCompany = await prisma.company.upsert({
-    where: { id: "oem-company" },
+  // ── Companies ────────────────────────────────────────────────────
+
+  const oemFreeCompany = await prisma.company.upsert({
+    where: { id: "oem-free-company" },
     update: {},
+    create: {
+      id: "oem-free-company",
+      name: "TestFree OEM Corp",
+      type: "OEM",
+      taxNumber: "1112223330",
+      plan: "FREE",
+    },
+  });
+
+  const oemProCompany = await prisma.company.upsert({
+    where: { id: "oem-company" },
+    update: { plan: "PRO" },
     create: {
       id: "oem-company",
       name: "PlantX Automotive",
       type: "OEM",
       taxNumber: "1234567890",
       plan: "PRO",
+    },
+  });
+
+  const oemEnterpriseCompany = await prisma.company.upsert({
+    where: { id: "oem-enterprise-company" },
+    update: {},
+    create: {
+      id: "oem-enterprise-company",
+      name: "Enterprise Motors Group",
+      type: "OEM",
+      taxNumber: "9998887770",
+      plan: "ENTERPRISE",
     },
   });
 
@@ -42,20 +68,50 @@ async function main() {
     },
   });
 
+  // ── Users ────────────────────────────────────────────────────────
+
   const users = [
+    {
+      id: "oem-free-admin",
+      email: "admin-free@oem.com",
+      name: "OEM Free Admin",
+      role: "ADMIN" as const,
+      companyId: oemFreeCompany.id,
+    },
+    {
+      id: "oem-pro-admin",
+      email: "admin-pro@oem.com",
+      name: "OEM Pro Admin",
+      role: "ADMIN" as const,
+      companyId: oemProCompany.id,
+    },
+    {
+      id: "oem-pro-qe",
+      email: "qe-pro@oem.com",
+      name: "OEM Pro Quality Engineer",
+      role: "QUALITY_ENGINEER" as const,
+      companyId: oemProCompany.id,
+    },
+    {
+      id: "oem-enterprise-admin",
+      email: "admin-enterprise@oem.com",
+      name: "OEM Enterprise Admin",
+      role: "ADMIN" as const,
+      companyId: oemEnterpriseCompany.id,
+    },
     {
       id: "oem-admin",
       email: "admin@oem.com",
       name: "OEM Admin",
       role: "ADMIN" as const,
-      companyId: oemCompany.id,
+      companyId: oemProCompany.id,
     },
     {
       id: "oem-quality",
       email: "quality@oem.com",
       name: "OEM Quality Engineer",
       role: "QUALITY_ENGINEER" as const,
-      companyId: oemCompany.id,
+      companyId: oemProCompany.id,
     },
     {
       id: "supplier-admin",
@@ -95,40 +151,44 @@ async function main() {
     });
   }
 
+  // ── Defects (PRO OEM) ────────────────────────────────────────────
+
   const defects = [
     {
       id: "defect-001",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       partNumber: "AX-7420-B",
       description: "Surface porosity exceeding acceptable limits on cylinder head casting. Multiple pits observed on sealing surface.",
       status: "OPEN" as const,
+      oemOwnerId: "oem-quality",
       supplierResponseDueAt: new Date("2026-05-10"),
     },
     {
       id: "defect-002",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       partNumber: "BR-1122-C",
       description: "Thread gauge failure on M12 bolts. Pitch diameter out of tolerance by 0.15mm.",
       status: "IN_PROGRESS" as const,
+      oemOwnerId: "oem-pro-qe",
       supplierResponseDueAt: new Date("2026-04-20"),
     },
     {
       id: "defect-003",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany2.id,
       partNumber: "CS-3344-D",
       description: "Crack detected during ultrasonic testing on steering knuckle forging. Linear indication 8mm length in radius area.",
       status: "OPEN" as const,
       escalationLevel: "LEVEL_1" as const,
       escalatedAt: new Date("2026-04-22"),
-      escalatedById: "oem-admin",
+      escalatedById: "oem-pro-admin",
       escalationReason: "Critical safety issue — no supplier response within SLA deadline",
     },
     {
       id: "defect-004",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       partNumber: "AX-7420-B",
       description: "Hardness below specification after heat treatment. Measured 38 HRC vs required 42-46 HRC.",
@@ -140,10 +200,138 @@ async function main() {
   for (const defect of defects) {
     await prisma.defect.upsert({
       where: { id: defect.id },
+      update: { oemId: defect.oemId, supplierId: defect.supplierId, partNumber: defect.partNumber, description: defect.description, status: defect.status, oemOwnerId: defect.oemOwnerId ?? null, supplierResponseDueAt: defect.supplierResponseDueAt ?? null, escalationLevel: defect.escalationLevel ?? "NONE", escalatedAt: defect.escalatedAt ?? null, escalatedById: defect.escalatedById ?? null, escalationReason: defect.escalationReason ?? null, resolvedAt: defect.resolvedAt ?? null },
+      create: defect,
+    });
+  }
+
+  // ── Defects (FREE OEM) ────────────────────────────────────────────
+
+  const freeDefects = [
+    {
+      id: "defect-free-001",
+      oemId: oemFreeCompany.id,
+      supplierId: supplierCompany.id,
+      partNumber: "FT-001-A",
+      description: "Paint adhesion failure on interior trim panel. Bubbling observed after humidity test.",
+      status: "OPEN" as const,
+      oemOwnerId: "oem-free-admin",
+      supplierResponseDueAt: new Date("2026-05-15"),
+    },
+    {
+      id: "defect-free-002",
+      oemId: oemFreeCompany.id,
+      supplierId: supplierCompany2.id,
+      partNumber: "FT-002-B",
+      description: "Dimensional non-conformance on mounting bracket. Hole pattern offset by 0.3mm.",
+      status: "IN_PROGRESS" as const,
+      oemOwnerId: "oem-free-admin",
+    },
+  ];
+
+  for (const defect of freeDefects) {
+    await prisma.defect.upsert({
+      where: { id: defect.id },
       update: {},
       create: defect,
     });
   }
+
+  // ── Defects (ENTERPRISE OEM) ──────────────────────────────────────
+
+  const enterpriseDefects = [
+    {
+      id: "defect-ent-001",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany.id,
+      partNumber: "ENG-5500-X",
+      description: "Catastrophic bearing failure on transmission output shaft. Metal fatigue observed on inner race. Multiple vehicle reports.",
+      status: "OPEN" as const,
+      oemOwnerId: "oem-enterprise-admin",
+      escalationLevel: "LEVEL_2" as const,
+      escalatedAt: new Date("2026-04-20"),
+      escalatedById: "oem-enterprise-admin",
+      escalationReason: "Safety-critical failure with multiple field reports — immediate investigation required",
+      supplierResponseDueAt: new Date("2026-05-05"),
+    },
+    {
+      id: "defect-ent-002",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany2.id,
+      partNumber: "ENG-7700-Y",
+      description: "Corrosion pitting on suspension control arm after 12-month field exposure. Structural integrity concern.",
+      status: "IN_PROGRESS" as const,
+      oemOwnerId: "oem-enterprise-admin",
+      supplierResponseDueAt: new Date("2026-05-12"),
+    },
+  ];
+
+  for (const defect of enterpriseDefects) {
+    await prisma.defect.upsert({
+      where: { id: defect.id },
+      update: {},
+      create: defect,
+    });
+  }
+
+  // ── 8D Reports ──────────────────────────────────────────────────────
+
+  const eightDReports = [
+    {
+      id: "8d-001",
+      defectId: "defect-002",
+      d2_problem: "Thread gauge failure on M12 bolts — pitch diameter consistently out of tolerance by 0.15mm",
+      d4_rootCause: "Tool wear on rolling die causing pitch diameter drift beyond specification",
+      team: [
+        { id: "tm1", name: "Alex Kim", role: "Lead QE", company: "PlantX Automotive" },
+        { id: "tm2", name: "Sara Yilmaz", role: "Process Engineer", company: "Precision Parts Inc." },
+      ],
+      containmentActions: [
+        { id: "ca1", action: "Quarantine affected lot and inspect 100% of remaining stock", owner: "OEM", dueDate: "2026-04-15", status: "COMPLETED" },
+      ],
+      d5Actions: [
+        { id: "d5a1", action: "Replace rolling die and recalibrate tooling", owner: "SUPPLIER", dueDate: "2026-04-25", status: "IN_PROGRESS", contribution: 80 },
+      ],
+      d6Actions: [
+        { id: "d6a1", action: "Verify first article after die replacement meets specification", owner: "OEM", dueDate: "2026-04-28", status: "PENDING", contribution: 100 },
+      ],
+      d7Impacts: { customerImpact: "Low — caught during IQC", recurrenceRisk: "Medium — tool wear is recurring" },
+      d7Preventive: "Implement tool wear monitoring and preventive die replacement schedule",
+      lastSubmittedAt: new Date("2026-04-18"),
+      revisionNo: 1,
+    },
+    {
+      id: "8d-002",
+      defectId: "defect-ent-001",
+      d2_problem: "Catastrophic bearing failure on transmission output shaft — inner race fatigue cracking observed",
+      team: [
+        { id: "tm3", name: "Maria Chen", role: "Senior QE", company: "Enterprise Motors Group" },
+        { id: "tm4", name: "James Park", role: "Failure Analysis Lead", company: "Enterprise Motors Group" },
+      ],
+      containmentActions: [
+        { id: "ca2", action: "Immediate field quarantine of affected VIN range", owner: "OEM", dueDate: "2026-04-22", status: "COMPLETED" },
+        { id: "ca3", action: "Inspect all in-transit and warehouse stock", owner: "SUPPLIER", dueDate: "2026-04-24", status: "IN_PROGRESS" },
+      ],
+      d5Actions: [
+        { id: "d5a2", action: "Increase inner race fillet radius from R2 to R4 per fatigue analysis", owner: "SUPPLIER", dueDate: "2026-05-10", status: "IN_PROGRESS", contribution: 60 },
+        { id: "d5a3", action: "Add ultrasonic crack detection to 100% of production output", owner: "SUPPLIER", dueDate: "2026-05-05", status: "PENDING", contribution: 30 },
+      ],
+      d6Actions: [
+        { id: "d6a2", action: "Run accelerated life test on redesigned bearing for 500k cycles", owner: "OEM", dueDate: "2026-06-01", status: "PENDING", contribution: 100 },
+      ],
+      d7Impacts: { customerImpact: "Critical — multiple vehicle failures, safety concern", recurrenceRisk: "High — design flaw in fillet radius" },
+      d7Preventive: "Update bearing design specification to require minimum R4 fillet radius; add fatigue simulation to design review checklist",
+      lastSubmittedAt: new Date("2026-04-23"),
+      revisionNo: 2,
+    },
+  ];
+
+  for (const report of eightDReports) {
+    await prisma.eightDReport.deleteMany({ where: { defectId: report.defectId } }).catch(() => {});
+    await prisma.eightDReport.create({ data: report });
+  }
+
+  // ── PPAP Submissions ───────────────────────────────────────────────
 
   const ppapSubmissions = [
     {
@@ -153,7 +341,7 @@ async function main() {
       revision: "A",
       level: "LEVEL_3" as const,
       status: "SUBMITTED" as const,
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       oemOwnerId: "oem-quality",
       supplierAssigneeId: "supplier-engineer",
@@ -177,9 +365,9 @@ async function main() {
       revision: "B",
       level: "LEVEL_2" as const,
       status: "DRAFT" as const,
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
-      oemOwnerId: "oem-admin",
+      oemOwnerId: "oem-pro-admin",
       defectId: "defect-002",
     },
     {
@@ -189,21 +377,23 @@ async function main() {
       revision: "A",
       level: "LEVEL_3" as const,
       status: "APPROVED" as const,
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany2.id,
       defectId: "defect-003",
       approvedById: "oem-quality",
       approvedAt: new Date("2026-01-15"),
     },
-  ]
+  ];
 
   for (const ppap of ppapSubmissions) {
     await prisma.ppapSubmission.upsert({
       where: { id: ppap.id },
       update: {},
       create: ppap,
-    })
+    });
   }
+
+  // ── IQC Reports ────────────────────────────────────────────────────
 
   const iqcReports = [
     {
@@ -215,14 +405,14 @@ async function main() {
       quantityAccepted: 45,
       quantityRejected: 5,
       status: "FAILED" as const,
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       inspectorId: "oem-quality",
       defectId: "defect-001",
       inspectionDate: new Date("2026-04-10"),
       measurements: [
         { characteristic: "Surface Porosity", specification: "< 3 pits/cm²", measured: "8 pits/cm²", result: "FAIL" },
-        { characteristic: "Surface Roughness (Ra)", specification: "1.6 μm max", measured: "1.2 μm", result: "PASS" },
+        { characteristic: "Surface Roughness (Ra)", specification: "1.6 um max", measured: "1.2 um", result: "PASS" },
       ],
       nonconformities: [
         { description: "Excessive surface porosity on sealing surface", severity: "Major" },
@@ -239,7 +429,7 @@ async function main() {
       quantityAccepted: 200,
       quantityRejected: 0,
       status: "PASSED" as const,
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       inspectorId: "oem-quality",
       inspectionDate: new Date("2026-04-18"),
@@ -249,15 +439,17 @@ async function main() {
       ],
       completedAt: new Date("2026-04-19"),
     },
-  ]
+  ];
 
   for (const iqc of iqcReports) {
     await prisma.iqcReport.upsert({
       where: { id: iqc.id },
       update: {},
       create: iqc,
-    })
+    });
   }
+
+  // ── FMEAs ──────────────────────────────────────────────────────────
 
   const fmeas = [
     {
@@ -268,7 +460,7 @@ async function main() {
       partNumber: "AX-7420-B",
       partName: "Cylinder Head Casting",
       processStep: "Casting - Gravity Die Casting",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       responsibleId: "supplier-engineer",
       defectId: "defect-001",
@@ -309,7 +501,7 @@ async function main() {
       status: "APPROVED" as const,
       partNumber: "CS-3344-D",
       partName: "Steering Knuckle Forging",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany2.id,
       responsibleId: "steelforged-engineer",
       approvedById: "oem-quality",
@@ -334,17 +526,18 @@ async function main() {
         },
       ],
     },
-  ]
+  ];
 
   for (const fmea of fmeas) {
     await prisma.fmea.upsert({
       where: { id: fmea.id },
       update: {},
       create: fmea,
-    })
+    });
   }
 
-  // Field Defects seed
+  // ── Field Defects (PRO OEM) ────────────────────────────────────────
+
   const fieldDefects = [
     {
       id: "fd-001",
@@ -365,7 +558,7 @@ async function main() {
       location: "Istanbul Service Center",
       partNumber: "BR-5501-A",
       partName: "Front Brake Disc Assembly",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       supplierNameSnapshot: "Precision Parts Inc.",
       createdById: "oem-quality",
@@ -388,10 +581,10 @@ async function main() {
       location: "Ankara Auto Gallery",
       partNumber: "PS-2233-B",
       partName: "Electronic Power Steering Module",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       supplierNameSnapshot: "Precision Parts Inc.",
-      createdById: "oem-admin",
+      createdById: "oem-pro-admin",
     },
     {
       id: "fd-003",
@@ -403,7 +596,7 @@ async function main() {
       safetyImpact: false,
       vehicleDown: false,
       repeatIssue: false,
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       createdById: "oem-quality",
     },
     {
@@ -419,7 +612,7 @@ async function main() {
       vehicleModel: "Model S 2024",
       partNumber: "DH-1100-C",
       partName: "Exterior Door Handle Assembly",
-      oemId: oemCompany.id,
+      oemId: oemProCompany.id,
       supplierId: supplierCompany2.id,
       supplierNameSnapshot: "SteelForged Co.",
       createdById: "oem-quality",
@@ -427,25 +620,185 @@ async function main() {
       convertedTo8DAt: new Date("2026-04-20"),
       convertedById: "oem-quality",
     },
-  ]
+  ];
 
   for (const fd of fieldDefects) {
     await prisma.fieldDefect.upsert({
       where: { id: fd.id },
-      update: {},
+      update: { title: fd.title, description: fd.description, source: fd.source, status: fd.status, severity: fd.severity, safetyImpact: fd.safetyImpact, vehicleDown: fd.vehicleDown ?? false, repeatIssue: fd.repeatIssue ?? false, vin: fd.vin ?? null, vehicleModel: fd.vehicleModel ?? null, vehicleVariant: fd.vehicleVariant ?? null, mileage: fd.mileage ?? null, failureDate: fd.failureDate ?? null, reportDate: fd.reportDate, location: fd.location ?? null, partNumber: fd.partNumber ?? null, partName: fd.partName ?? null, oemId: fd.oemId, supplierId: fd.supplierId ?? null, supplierNameSnapshot: fd.supplierNameSnapshot ?? null, createdById: fd.createdById, linkedDefectId: fd.linkedDefectId ?? null, convertedTo8DAt: fd.convertedTo8DAt ?? null, convertedById: fd.convertedById ?? null },
       create: fd,
-    })
+    });
   }
 
-  console.log("Seed completed successfully!");
-  console.log("Test accounts:");
-  console.log("  admin@oem.com (OEM Admin)");
-  console.log("  quality@oem.com (OEM Quality Engineer)");
-  console.log("  admin@supplier.com (Supplier Admin)");
-  console.log("  engineer@supplier.com (Supplier Engineer)");
-  console.log("  admin@steelforged.com (SteelForged Admin)");
-  console.log("  engineer@steelforged.com (SteelForged Engineer)");
-  console.log(`\nSeeded ${defects.length} defects, ${ppapSubmissions.length} PPAPs, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs, ${fieldDefects.length} field defects.`);
+  // ── Field Defects (FREE OEM) ──────────────────────────────────────
+
+  const freeFieldDefects = [
+    {
+      id: "fd-free-001",
+      title: "Windshield wiper streaking",
+      description: "Wiper blades leaving streaks on windshield after 3 months of use. Drivers report reduced visibility during rain.",
+      source: "FIELD" as const,
+      status: "OPEN" as const,
+      severity: "MINOR" as const,
+      safetyImpact: false,
+      vehicleDown: false,
+      repeatIssue: true,
+      vehicleModel: "Compact 2025",
+      partNumber: "WW-100-A",
+      partName: "Front Wiper Blade Set",
+      oemId: oemFreeCompany.id,
+      supplierId: supplierCompany.id,
+      supplierNameSnapshot: "Precision Parts Inc.",
+      createdById: "oem-free-admin",
+      reportDate: new Date("2026-04-25"),
+    },
+  ];
+
+  for (const fd of freeFieldDefects) {
+    await prisma.fieldDefect.upsert({
+      where: { id: fd.id },
+      update: {},
+      create: fd,
+    });
+  }
+
+  // ── Field Defects (ENTERPRISE OEM) ─────────────────────────────────
+
+  const enterpriseFieldDefects = [
+    {
+      id: "fd-ent-001",
+      title: "Transmission output shaft bearing failure",
+      description: "Catastrophic bearing failure observed on multiple vehicles. Inner race fatigue cracking leading to complete bearing seizure. Safety-critical — immediate investigation and corrective action required.",
+      source: "FIELD" as const,
+      status: "SUPPLIER_ASSIGNED" as const,
+      severity: "CRITICAL" as const,
+      safetyImpact: true,
+      vehicleDown: true,
+      repeatIssue: true,
+      vin: "ENG3CZWE000001",
+      vehicleModel: "Flagship EV 2026",
+      vehicleVariant: "Performance",
+      mileage: 42000,
+      failureDate: new Date("2026-04-15"),
+      reportDate: new Date("2026-04-16"),
+      location: "Detroit Service Center",
+      partNumber: "ENG-5500-X",
+      partName: "Transmission Output Shaft Bearing Assembly",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany.id,
+      supplierNameSnapshot: "Precision Parts Inc.",
+      createdById: "oem-enterprise-admin",
+    },
+    {
+      id: "fd-ent-002",
+      title: "Suspension control arm corrosion",
+      description: "Corrosion pitting observed on suspension control arms after 12-month field exposure in high-salt regions. Structural integrity may be compromised.",
+      source: "CUSTOMER" as const,
+      status: "OPEN" as const,
+      severity: "MAJOR" as const,
+      safetyImpact: true,
+      vehicleDown: false,
+      repeatIssue: false,
+      vehicleModel: "Flagship EV 2025",
+      partNumber: "ENG-7700-Y",
+      partName: "Front Lower Control Arm",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany2.id,
+      supplierNameSnapshot: "SteelForged Co.",
+      createdById: "oem-enterprise-admin",
+      reportDate: new Date("2026-04-20"),
+    },
+  ];
+
+  for (const fd of enterpriseFieldDefects) {
+    await prisma.fieldDefect.upsert({
+      where: { id: fd.id },
+      update: {},
+      create: fd,
+    });
+  }
+
+  // ── Usage Counters ─────────────────────────────────────────────────
+
+  const now = new Date();
+  const periodStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const periodEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
+  const usageCounters = [
+    // FREE OEM — some usage to show limits being approached
+    { companyId: oemFreeCompany.id, usageKey: "MONTHLY_DEFECTS", count: 18, periodStart, periodEnd },
+    { companyId: oemFreeCompany.id, usageKey: "MONTHLY_FIELD_DEFECTS", count: 6, periodStart, periodEnd },
+    { companyId: oemFreeCompany.id, usageKey: "SUPPLIERS", count: 2, periodStart, periodEnd },
+    { companyId: oemFreeCompany.id, usageKey: "USERS", count: 1, periodStart, periodEnd },
+
+    // PRO OEM — meaningful usage
+    { companyId: oemProCompany.id, usageKey: "MONTHLY_DEFECTS", count: 42, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "MONTHLY_FIELD_DEFECTS", count: 15, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "SUPPLIERS", count: 8, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "USERS", count: 5, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "AI_CLASSIFICATION_RUNS", count: 320, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "SIMILAR_ISSUE_SEARCHES", count: 180, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "WAR_ROOM_ITEMS", count: 3, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "PPAP_PACKAGES", count: 2, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "FMEA_RECORDS", count: 4, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "IQC_INSPECTIONS", count: 12, periodStart, periodEnd },
+    { companyId: oemProCompany.id, usageKey: "STORAGE_MB", count: 450, periodStart, periodEnd },
+
+    // ENTERPRISE OEM — higher usage, shows unlimited works
+    { companyId: oemEnterpriseCompany.id, usageKey: "MONTHLY_DEFECTS", count: 87, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "MONTHLY_FIELD_DEFECTS", count: 34, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "SUPPLIERS", count: 15, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "USERS", count: 12, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "AI_CLASSIFICATION_RUNS", count: 890, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "AI_8D_REVIEW_RUNS", count: 23, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "SIMILAR_ISSUE_SEARCHES", count: 456, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "WAR_ROOM_ITEMS", count: 8, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "PPAP_PACKAGES", count: 7, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "FMEA_RECORDS", count: 12, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "IQC_INSPECTIONS", count: 28, periodStart, periodEnd },
+    { companyId: oemEnterpriseCompany.id, usageKey: "STORAGE_MB", count: 2800, periodStart, periodEnd },
+  ];
+
+  for (const counter of usageCounters) {
+    await prisma.usageCounter.upsert({
+      where: {
+        companyId_usageKey_periodStart_periodEnd: {
+          companyId: counter.companyId,
+          usageKey: counter.usageKey,
+          periodStart: counter.periodStart,
+          periodEnd: counter.periodEnd,
+        },
+      },
+      update: { count: counter.count },
+      create: counter,
+    });
+  }
+
+  // ── Summary ────────────────────────────────────────────────────────
+
+  console.log("v2.0.3 Seed completed successfully!");
+  console.log("");
+  console.log("=== Test Accounts (Dev Credentials) ===");
+  console.log("");
+  console.log("FREE OEM:");
+  console.log("  admin-free@oem.com    — TestFree OEM Corp (FREE plan, OEM Admin)");
+  console.log("");
+  console.log("PRO OEM:");
+  console.log("  admin-pro@oem.com     — PlantX Automotive (PRO plan, OEM Admin)");
+  console.log("  qe-pro@oem.com        — PlantX Automotive (PRO plan, OEM QE)");
+  console.log("  admin@oem.com         — PlantX Automotive (PRO plan, OEM Admin) [legacy]");
+  console.log("  quality@oem.com       — PlantX Automotive (PRO plan, OEM QE) [legacy]");
+  console.log("");
+  console.log("ENTERPRISE OEM:");
+  console.log("  admin-enterprise@oem.com — Enterprise Motors Group (ENTERPRISE plan, OEM Admin)");
+  console.log("");
+  console.log("SUPPLIER:");
+  console.log("  admin@supplier.com    — Precision Parts Inc. (FREE, Supplier Admin)");
+  console.log("  engineer@supplier.com — Precision Parts Inc. (FREE, Supplier QE)");
+  console.log("  admin@steelforged.com — SteelForged Co. (FREE, Supplier Admin)");
+  console.log("  engineer@steelforged.com — SteelForged Co. (FREE, Supplier QE)");
+  console.log("");
+  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${usageCounters.length} usage counters.`);
 }
 
 main()

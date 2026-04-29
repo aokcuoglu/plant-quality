@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { AlertTriangleIcon, ClockIcon, AlertCircleIcon, TimerIcon } from "lucide-react"
+import { requireFeature } from "@/lib/billing"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { EscalationBadge } from "@/components/field/EscalationBadge"
@@ -15,6 +16,8 @@ import type { EscalationLevel } from "@/generated/prisma/client"
 export default async function WarRoomPage() {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") redirect("/login")
+  const warRoomGate = requireFeature(session, "WAR_ROOM")
+  if (!warRoomGate.allowed) redirect("/quality/oem")
 
   const { escalated, overdue, totalCount } = await getActiveEscalations()
 

@@ -15,8 +15,12 @@ import {
 } from "lucide-react"
 
 const ACCOUNTS = [
-  { value: "admin@oem.com", label: "admin@oem.com (OEM Admin)" },
-  { value: "quality@oem.com", label: "quality@oem.com (OEM QE)" },
+  { value: "admin-free@oem.com", label: "admin-free@oem.com (OEM Free Admin)" },
+  { value: "admin-pro@oem.com", label: "admin-pro@oem.com (OEM Pro Admin)" },
+  { value: "qe-pro@oem.com", label: "qe-pro@oem.com (OEM Pro QE)" },
+  { value: "admin-enterprise@oem.com", label: "admin-enterprise@oem.com (OEM Enterprise Admin)" },
+  { value: "admin@oem.com", label: "admin@oem.com (OEM Pro Admin — legacy)" },
+  { value: "quality@oem.com", label: "quality@oem.com (OEM Pro QE — legacy)" },
   { value: "admin@supplier.com", label: "admin@supplier.com (Supplier Admin)" },
   { value: "engineer@supplier.com", label: "engineer@supplier.com (Supplier QE)" },
   { value: "admin@steelforged.com", label: "admin@steelforged.com (SteelForged)" },
@@ -31,7 +35,7 @@ const errorMessages: Record<string, string> = {
 }
 
 function LoginContent() {
-  const [devEmail, setDevEmail] = useState("admin@oem.com")
+  const [devEmail, setDevEmail] = useState("admin-free@oem.com")
   const [csrfToken, setCsrfToken] = useState("")
   const [magicEmail, setMagicEmail] = useState("")
   const [magicSent, setMagicSent] = useState(false)

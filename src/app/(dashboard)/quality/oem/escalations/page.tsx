@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
+import { requireFeature } from "@/lib/billing"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { EscalationBadge } from "@/components/field/EscalationBadge"
 import { getEscalations } from "@/app/(dashboard)/_actions/escalations"
@@ -19,6 +20,8 @@ export default async function OemEscalationsPage({
 }) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") redirect("/login")
+  const escalationGate = requireFeature(session, "ESCALATION")
+  if (!escalationGate.allowed) redirect("/quality/oem")
 
   const params = await searchParams
   const filter = params.filter ?? ""

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import { requireFeature } from "@/lib/billing"
 import { ClipboardCheckIcon } from "lucide-react"
 import Link from "next/link"
 
@@ -8,6 +9,8 @@ export default async function OemIqcPage() {
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
+  const iqcGate = requireFeature(session, "IQC")
+  if (!iqcGate.allowed) redirect("/quality/oem")
 
   const reports = await prisma.iqcReport.findMany({
     where: { oemId: session.user.companyId },

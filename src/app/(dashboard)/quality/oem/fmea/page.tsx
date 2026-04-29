@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import { requireFeature } from "@/lib/billing"
 import { ShieldAlertIcon } from "lucide-react"
 import Link from "next/link"
 
@@ -8,6 +9,8 @@ export default async function OemFmeaPage() {
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
+  const fmeaGate = requireFeature(session, "FMEA")
+  if (!fmeaGate.allowed) redirect("/quality/oem")
 
   const fmeas = await prisma.fmea.findMany({
     where: { oemId: session.user.companyId },

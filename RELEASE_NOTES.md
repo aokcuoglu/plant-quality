@@ -1,3 +1,85 @@
+# PlantQuality v2.0.3 — Release Notes
+
+## Plan Gating QA Seed Data & Demo Personas
+
+**Release Date:** 2026-04-29  
+**Version:** 2.0.3
+
+---
+
+## Summary
+
+PlantQuality v2.0.3 adds QA/demo seed data support for plan gating validation. It introduces Free, Pro, and Enterprise OEM test companies with matching users, demo records, and usage counters so every plan behavior can be manually tested. It also fixes a security gap where Free OEM users could access Pro-gated page reads via direct URL navigation.
+
+---
+
+## Changes
+
+### Seed Data
+
+- **OEM Free company** (`TestFree OEM Corp`, plan: `FREE`) with admin user
+- **OEM Pro company** (`PlantX Automotive`, plan: `PRO`, updated from existing) with admin and QE users
+- **OEM Enterprise company** (`Enterprise Motors Group`, plan: `ENTERPRISE`) with admin user
+- **Supplier companies** preserved (FREE plan, unchanged)
+- **Demo records** per plan tier: defects, field defects, 8D reports
+- **Usage counters** seeded for all companies with representative usage values
+
+### New Test Accounts
+
+| Email | Company | Plan | Role | Purpose |
+|-------|---------|------|------|---------|
+| `admin-free@oem.com` | TestFree OEM Corp | FREE | Admin | Verify free limits and locked features |
+| `admin-pro@oem.com` | PlantX Automotive | PRO | Admin | Verify Pro features and AI access |
+| `qe-pro@oem.com` | PlantX Automotive | PRO | QE | Verify plan inheritance, non-admin role |
+| `admin-enterprise@oem.com` | Enterprise Motors Group | ENTERPRISE | Admin | Verify Enterprise-only AI features |
+
+Legacy accounts preserved: `admin@oem.com`, `quality@oem.com`, and all supplier accounts.
+
+### Security Fixes
+
+- **PPAP page**: Added `requireFeature(session, "PPAP")` — Free OEM users can no longer read PPAP data via direct URL
+- **IQC page**: Added `requireFeature(session, "IQC")` — Free OEM users can no longer read IQC data via direct URL
+- **FMEA page**: Added `requireFeature(session, "FMEA")` — Free OEM users can no longer read FMEA data via direct URL
+- **War Room page**: Added `requireFeature(session, "WAR_ROOM")` — Free OEM users can no longer read War Room data via direct URL
+- **Escalations page**: Added `requireFeature(session, "ESCALATION")` — Free OEM users can no longer read Escalation data via direct URL
+
+Previously, these pages only gated sidebar navigation (client-side) and mutations (server actions), leaving the read surface exposed. Now all five pages enforce the plan gate server-side.
+
+### Login Page Updates
+
+- Added new plan-specific test accounts to the dev login dropdown
+- Default dev login changed to `admin-free@oem.com` for easier Free plan testing
+
+### Documentation
+
+- `docs/qa/v2.0.3-plan-gating-manual-qa.md` — Manual QA checklist with 50+ test cases across Free, Pro, Enterprise, and Supplier personas
+
+### No Changes
+
+- No billing, Stripe, or payment integration
+- No plan gating strategy changes
+- No feature gate logic changes
+- No landing page changes
+- No app redesign
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `prisma/seed.ts` | Added Free/Enterprise OEM companies, plan-specific users, demo records, 8D reports, usage counters |
+| `package.json` | Version → 2.0.3 |
+| `src/app/(auth)/login/page.tsx` | Added plan-specific test accounts to dropdown; default email updated |
+| `src/app/(dashboard)/quality/oem/ppap/page.tsx` | Added `requireFeature("PPAP")` server-side gate |
+| `src/app/(dashboard)/quality/oem/iqc/page.tsx` | Added `requireFeature("IQC")` server-side gate |
+| `src/app/(dashboard)/quality/oem/fmea/page.tsx` | Added `requireFeature("FMEA")` server-side gate |
+| `src/app/(dashboard)/quality/oem/war-room/page.tsx` | Added `requireFeature("WAR_ROOM")` server-side gate |
+| `src/app/(dashboard)/quality/oem/escalations/page.tsx` | Added `requireFeature("ESCALATION")` server-side gate |
+| `docs/qa/v2.0.3-plan-gating-manual-qa.md` | New manual QA checklist |
+
+---
+
 # PlantQuality v2.0.2 — Release Notes
 
 ## Plan Usage Release Polish

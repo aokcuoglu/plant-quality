@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import { requireFeature } from "@/lib/billing"
 import { FileTextIcon } from "lucide-react"
 import Link from "next/link"
 
@@ -8,6 +9,8 @@ export default async function OemPpapPage() {
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
+  const ppapGate = requireFeature(session, "PPAP")
+  if (!ppapGate.allowed) redirect("/quality/oem")
 
   const submissions = await prisma.ppapSubmission.findMany({
     where: { oemId: session.user.companyId },

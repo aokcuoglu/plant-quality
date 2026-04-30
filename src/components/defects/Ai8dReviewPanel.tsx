@@ -22,7 +22,9 @@ import {
   markAi8dReviewAsReviewed,
   rejectAi8dReview,
 } from "@/app/(dashboard)/quality/oem/defects/actions/ai-review"
-import type { Ai8dReviewResult, EightDCompletenessResult, RootCauseSuggestion } from "@/app/(dashboard)/quality/oem/defects/actions/ai-review"
+import type { Ai8dReviewResult } from "@/lib/ai/review-8d"
+import type { EightDCompletenessResult } from "@/lib/ai/validate-8d-completeness"
+import type { RootCauseSuggestion } from "@/lib/ai/root-cause-suggestion"
 import { toast } from "@/components/ui/use-toast"
 
 interface Ai8dReviewRecord {

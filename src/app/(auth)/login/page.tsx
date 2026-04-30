@@ -23,8 +23,8 @@ const ACCOUNTS = [
   { value: "quality@oem.com", label: "quality@oem.com (OEM Pro QE — legacy)" },
   { value: "admin@supplier.com", label: "admin@supplier.com (Supplier Admin)" },
   { value: "engineer@supplier.com", label: "engineer@supplier.com (Supplier QE)" },
-  { value: "admin@steelforged.com", label: "admin@steelforged.com (SteelForged)" },
-  { value: "engineer@steelforged.com", label: "engineer@steelforged.com (SteelForged)" },
+  { value: "admin@steelforged.com", label: "admin@steelforged.com (Supplier Admin — SteelForged)" },
+  { value: "engineer@steelforged.com", label: "engineer@steelforged.com (Supplier QE — SteelForged)" },
 ]
 
 const errorMessages: Record<string, string> = {

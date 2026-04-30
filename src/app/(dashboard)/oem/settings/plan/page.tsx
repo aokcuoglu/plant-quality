@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { PlanBadge } from "@/components/billing/PlanBadge"
-import { normalizePlan, getPlanLimits, formatLimit } from "@/lib/billing/plans"
+import { normalizePlan, getPlanLimits, formatLimit, PLAN_LABELS } from "@/lib/billing/plans"
 import { getAllFeatures, checkFeatureAccess } from "@/lib/billing/features"
 import { getUsageLimitStatus, type UsageKey } from "@/lib/billing/usage"
 
@@ -38,7 +38,7 @@ export default async function PlanSettingsPage() {
     { key: "MONTHLY_FIELD_DEFECTS", label: "Monthly Field Defects" },
     { key: "SUPPLIERS", label: "Suppliers" },
     { key: "USERS", label: "Users" },
-    { key: "STORAGE_MB", label: "Storage (MB)" },
+    { key: "STORAGE_MB", label: "Storage" },
     { key: "AI_CLASSIFICATION_RUNS", label: "AI Classification Runs" },
     { key: "AI_8D_REVIEW_RUNS", label: "AI 8D Review Runs" },
     { key: "SIMILAR_ISSUE_SEARCHES", label: "Similar Issue Searches" },
@@ -119,33 +119,40 @@ export default async function PlanSettingsPage() {
             <div className="space-y-2">
               {usageStatuses.map(({ key, status }) => {
                 const label = usageKeys.find((u) => u.key === key)?.label ?? key
+                const isBlocked = status.limit === 0
                 return (
                   <div key={key} className="flex items-center justify-between text-sm">
                     <span className="text-muted-foreground">{label}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-foreground font-medium">
-                        {status.current.toLocaleString()}
-                      </span>
-                      <span className="text-muted-foreground">/</span>
-                      <span className="text-foreground">
-                        {formatLimit(status.limit)}
-                      </span>
-                      {status.percentage !== null && (
-                        <div className="w-16">
-                          <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                            <div
-                              className={cn(
-                                "h-full rounded-full transition-all",
-                                status.isOver
-                                  ? "bg-destructive"
-                                  : status.isNear
-                                    ? "bg-amber-500"
-                                    : "bg-emerald-500"
-                              )}
-                              style={{ width: `${Math.min(100, status.percentage)}%` }}
-                            />
-                          </div>
-                        </div>
+                      {isBlocked ? (
+                        <span className="text-muted-foreground">—</span>
+                      ) : (
+                        <>
+                          <span className="text-foreground font-medium">
+                            {status.current.toLocaleString()}
+                          </span>
+                          <span className="text-muted-foreground">/</span>
+                          <span className="text-foreground">
+                            {formatLimit(status.limit)}
+                          </span>
+                          {status.percentage !== null && (
+                            <div className="w-16">
+                              <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                                <div
+                                  className={cn(
+                                    "h-full rounded-full transition-all",
+                                    status.isOver
+                                      ? "bg-destructive"
+                                      : status.isNear
+                                        ? "bg-amber-500"
+                                        : "bg-emerald-500"
+                                  )}
+                                  style={{ width: `${Math.min(100, status.percentage)}%` }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
@@ -172,7 +179,7 @@ export default async function PlanSettingsPage() {
                 </span>
                 {!f.access.allowed && (
                   <span className="text-xs text-muted-foreground ml-auto">
-                    {f.minPlan}
+                    {PLAN_LABELS[f.minPlan] ?? f.minPlan}
                   </span>
                 )}
               </div>

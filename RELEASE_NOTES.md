@@ -1,3 +1,60 @@
+# PlantQuality v2.0.4 — Release Notes
+
+## Plan QA Polish & Medium Issue Cleanup
+
+**Release Date:** 2026-04-30  
+**Version:** 2.0.4
+
+---
+
+## Summary
+
+PlantQuality v2.0.4 is a polish patch that fixes two medium display issues deferred from the v2.0.3 review, improves Plan & Usage page display for blocked features and feature labels, updates seed documentation, and adds a v2.0.4 QA supplement. No billing, payment, or plan gating logic changes were made.
+
+---
+
+## Changes
+
+### Plan & Usage Display Fixes
+
+- **Blocked feature usage rows**: When a feature limit is 0 (not available at current plan), the usage row now shows an em dash (`—`) instead of `0 / —` with a misleading red progress bar. This eliminates confusion for FREE plan users who saw false "over limit" indicators.
+- **Feature access labels**: Locked features in the Feature Access matrix now show formatted plan labels ("Pro", "Enterprise") instead of raw enum keys ("PRO", "ENTERPRISE").
+- **Storage label**: Simplified from "Storage (MB)" to "Storage" for cleaner display.
+
+### Seed Documentation
+
+- Seed console message updated from "v2.0.3" to "v2.0.4".
+- Login dropdown labels for SteelForged accounts clarified: now show "(Supplier Admin — SteelForged)" and "(Supplier QE — SteelForged)" instead of just "(SteelForged)".
+
+### Documentation
+
+- New `docs/qa/v2.0.4-plan-qa-polish.md` — QA supplement with v2.0.4-specific regression tests, updated test account reference, and medium issue verification checklist.
+
+### No Changes
+
+- No billing, Stripe, or payment integration
+- No plan gating logic changes
+- No usage limit logic changes
+- No core product feature changes
+- No landing page changes
+- No app redesign
+- No database schema changes
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.0.4 |
+| `src/app/(dashboard)/oem/settings/plan/page.tsx` | Blocked feature rows show "—" instead of "0 / —"; Feature access labels use `PLAN_LABELS` instead of raw enum; Storage label simplified |
+| `src/app/(auth)/login/page.tsx` | SteelForged login labels clarified with role and company |
+| `prisma/seed.ts` | Console message updated to v2.0.4 |
+| `docs/qa/v2.0.4-plan-qa-polish.md` | New QA supplement for v2.0.4 |
+| `RELEASE_NOTES.md` | v2.0.4 section |
+
+---
+
 # PlantQuality v2.0.3 — Release Notes
 
 ## Plan Gating QA Seed Data & Demo Personas

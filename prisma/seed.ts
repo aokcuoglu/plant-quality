@@ -776,7 +776,7 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.0.3 Seed completed successfully!");
+  console.log("v2.0.4 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials) ===");
   console.log("");

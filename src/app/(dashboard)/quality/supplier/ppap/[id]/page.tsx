@@ -2,7 +2,8 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
-import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS } from "@/lib/ppap"
+import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS, isPpapOverdue } from "@/lib/ppap"
+import { requireFeature } from "@/lib/billing"
 import { SupplierPpapActions } from "./SupplierPpapActions"
 import { SupplierDocumentUpload } from "./SupplierDocumentUpload"
 
@@ -11,6 +12,8 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "SUPPLIER") redirect("/quality/oem")
+  const ppapGate = requireFeature(session, "PPAP")
+  if (!ppapGate.allowed) redirect("/quality/supplier")
 
   const ppap = await prisma.ppapSubmission.findFirst({
     where: { id, supplierId: session.user.companyId },
@@ -99,7 +102,13 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
               <dt className="text-muted-foreground">Reason</dt>
               <dd className="text-foreground">{reasonMap[ppap.reasonForSubmission] ?? ppap.reasonForSubmission}</dd>
               <dt className="text-muted-foreground">Due Date</dt>
-              <dd className="text-foreground">{ppap.dueDate?.toLocaleDateString() ?? "—"}</dd>
+              <dd className="text-foreground">
+                {ppap.dueDate
+                  ? isPpapOverdue(ppap.dueDate, ppap.status)
+                    ? <span className="text-red-400 font-medium">{ppap.dueDate.toLocaleDateString()} (Overdue)</span>
+                    : ppap.dueDate.toLocaleDateString()
+                  : "—"}
+              </dd>
             </dl>
             {ppap.notes && (
               <div className="border-t border-border pt-3">

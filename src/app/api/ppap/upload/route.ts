@@ -5,7 +5,8 @@ import { s3Client, S3_BUCKET_NAME } from "@/lib/s3"
 import { PutObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { randomUUID } from "crypto"
-import { DefectEventType } from "@/generated/prisma/client"
+
+const UPLOADABLE_STATUSES = ["REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"] as const
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -21,14 +22,12 @@ export async function POST(req: NextRequest) {
   const ppap = await prisma.ppapSubmission.findFirst({
     where: {
       id: ppapId,
-      OR: [
-        { oemId: session.user.companyId },
-        { supplierId: session.user.companyId },
-      ],
+      supplierId: session.user.companyId,
+      status: { in: [...UPLOADABLE_STATUSES] },
     },
   })
   if (!ppap) {
-    return NextResponse.json({ error: "PPAP not found" }, { status: 404 })
+    return NextResponse.json({ error: "PPAP not found or not in an uploadable status" }, { status: 403 })
   }
 
   const ext = fileName.split(".").pop() ?? "bin"
@@ -70,6 +69,10 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
   }
 
+  if (!UPLOADABLE_STATUSES.includes(evidence.ppap.status as typeof UPLOADABLE_STATUSES[number])) {
+    return NextResponse.json({ error: "PPAP is not in an uploadable status" }, { status: 400 })
+  }
+
   const updated = await prisma.ppapEvidence.update({
     where: { id: evidenceId },
     data: {
@@ -94,7 +97,7 @@ export async function PUT(req: NextRequest) {
   await prisma.ppapEvent.create({
     data: {
       ppapId: evidence.ppapId,
-      type: "PPAP_DOCUMENT_UPLOADED" as DefectEventType,
+      type: "PPAP_DOCUMENT_UPLOADED",
       actorId: session.user.id,
       metadata: { requirement: evidence.requirement },
     },

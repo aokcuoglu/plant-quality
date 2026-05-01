@@ -28,16 +28,18 @@ export function PpapDocumentReview({
   const router = useRouter()
   const [oemComment, setOemComment] = useState("")
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleReview(action: "APPROVED" | "REJECTED" | "REVISION_REQUIRED") {
     setLoading(true)
+    setError(null)
     const result = await reviewPpapDocument(evidence.id, action, oemComment || undefined)
     setLoading(false)
     if (result.success) {
       setOemComment("")
       router.refresh()
     } else {
-      alert(result.error)
+      setError(result.error ?? "Failed to review document")
     }
   }
 
@@ -69,6 +71,11 @@ export function PpapDocumentReview({
 
       {isReviewable && (
         <div className="border-t border-border pt-2 space-y-2">
+          {error && (
+            <div className="rounded border border-red-500/20 bg-red-500/5 px-2 py-1 text-xs text-red-400">
+              {error}
+            </div>
+          )}
           <input
             type="text"
             value={oemComment}

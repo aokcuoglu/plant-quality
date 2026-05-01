@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
-import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS } from "@/lib/ppap"
+import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS, isPpapOverdue } from "@/lib/ppap"
 import { PpapDetailActions } from "./PpapDetailActions"
 import { PpapDocumentReview } from "./PpapDocumentReview"
 import { PpapReviewCommentForm } from "./PpapReviewCommentForm"
@@ -121,7 +121,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
                 <dd className="text-foreground">{ppap.drawingNumber}</dd>
               </>}
               <dt className="text-muted-foreground">Supplier</dt>
-              <dd className="text-foreground">{ppap.supplier.name}</dd>
+              <dd className="text-foreground truncate max-w-[200px]" title={ppap.supplier.name}>{ppap.supplier.name}</dd>
               <dt className="text-muted-foreground">OEM Owner</dt>
               <dd className="text-foreground">{ppap.oemOwner?.name ?? "Unassigned"}</dd>
               <dt className="text-muted-foreground">Supplier Assignee</dt>
@@ -131,7 +131,13 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
               <dt className="text-muted-foreground">Reason</dt>
               <dd className="text-foreground">{reasonMap[ppap.reasonForSubmission] ?? ppap.reasonForSubmission}</dd>
               <dt className="text-muted-foreground">Due Date</dt>
-              <dd className="text-foreground">{ppap.dueDate?.toLocaleDateString() ?? "—"}</dd>
+              <dd className="text-foreground">
+                {ppap.dueDate
+                  ? isPpapOverdue(ppap.dueDate, ppap.status)
+                    ? <span className="text-red-400 font-medium">{ppap.dueDate.toLocaleDateString()} (Overdue)</span>
+                    : ppap.dueDate.toLocaleDateString()
+                  : "—"}
+              </dd>
               <dt className="text-muted-foreground">Created</dt>
               <dd className="text-foreground">{ppap.createdAt.toLocaleDateString()}</dd>
               {ppap.submittedAt && <>

@@ -3,12 +3,15 @@ import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { FileTextIcon } from "lucide-react"
 import Link from "next/link"
-import { getPpapStatusColor, PPAP_STATUS_LABELS } from "@/lib/ppap"
+import { getPpapStatusColor, PPAP_STATUS_LABELS, isPpapOverdue } from "@/lib/ppap"
+import { requireFeature } from "@/lib/billing"
 
 export default async function SupplierPpapPage() {
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "SUPPLIER") redirect("/quality/oem")
+  const ppapGate = requireFeature(session, "PPAP")
+  if (!ppapGate.allowed) redirect("/quality/supplier")
 
   const submissions = await prisma.ppapSubmission.findMany({
     where: { supplierId: session.user.companyId },
@@ -51,6 +54,7 @@ export default async function SupplierPpapPage() {
                 {submissions.map((s) => {
                   const total = s.evidences.length
                   const uploaded = s.evidences.filter((e) => e.status !== "MISSING").length
+                  const overdue = isPpapOverdue(s.dueDate, s.status)
                   return (
                     <tr key={s.id} className="transition-colors hover:bg-muted/50">
                       <td className="px-4 py-3">
@@ -60,17 +64,23 @@ export default async function SupplierPpapPage() {
                       </td>
                       <td className="px-4 py-3">
                         <div className="text-foreground">{s.partNumber}</div>
-                        <div className="text-xs text-muted-foreground">{s.partName}</div>
+                        <div className="text-xs text-muted-foreground truncate max-w-[200px]">{s.partName}</div>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{s.level.replace("LEVEL_", "Level ")}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{s.oem.name}</td>
+                      <td className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{s.oem.name}</td>
                       <td className="px-4 py-3 text-muted-foreground">{uploaded}/{total}</td>
                       <td className="px-4 py-3">
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getPpapStatusColor(s.status)}`}>
                           {PPAP_STATUS_LABELS[s.status] ?? s.status.replace("_", " ")}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">{s.dueDate?.toLocaleDateString() ?? "—"}</td>
+                      <td className="px-4 py-3">
+                        {overdue ? (
+                          <span className="text-xs font-medium text-red-400">Overdue</span>
+                        ) : (
+                          <span className="text-muted-foreground">{s.dueDate?.toLocaleDateString() ?? "—"}</span>
+                        )}
+                      </td>
                     </tr>
                   )
                 })}

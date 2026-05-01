@@ -29,20 +29,23 @@ export function SupplierDocumentUpload({
   const [supplierComment, setSupplierComment] = useState("")
   const [uploading, setUploading] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const isMissing = evidence.status === "MISSING"
   const needsRevision = evidence.status === "REVISION_REQUIRED"
   const canUploadThis = canUpload && (isMissing || needsRevision)
 
-  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
     setSelectedFile(file)
+    setError(null)
   }
 
   async function handleUpload() {
     if (!selectedFile) return
     setUploading(true)
+    setError(null)
 
     try {
       const res = await fetch("/api/ppap/upload", {
@@ -56,8 +59,8 @@ export function SupplierDocumentUpload({
         }),
       })
       const data = await res.json()
-      if (!data.key || !data.uploadUrl) {
-        throw new Error("Failed to get upload URL")
+      if (!res.ok || !data.key || !data.uploadUrl) {
+        throw new Error(data.error || "Failed to get upload URL")
       }
 
       const uploadRes = await fetch(data.uploadUrl, {
@@ -66,20 +69,19 @@ export function SupplierDocumentUpload({
         body: selectedFile,
       })
       if (!uploadRes.ok) {
-        throw new Error("Failed to upload file")
+        throw new Error("Failed to upload file to storage")
       }
 
       const formData = new FormData()
       formData.set("supplierComment", supplierComment)
 
       const result = await uploadPpapDocument(ppapId, evidence.requirement, formData)
-
       if (!result.success) {
         throw new Error(result.error ?? "Failed to update document record")
       }
 
       if (result.evidenceId) {
-        await fetch("/api/ppap/upload", {
+        const putRes = await fetch("/api/ppap/upload", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -91,13 +93,20 @@ export function SupplierDocumentUpload({
             supplierComment: supplierComment || null,
           }),
         })
+        if (!putRes.ok) {
+          const putData = await putRes.json().catch(() => null)
+          throw new Error(putData?.error || "Failed to save file metadata")
+        }
       }
 
       setSelectedFile(null)
       setSupplierComment("")
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""
+      }
       router.refresh()
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Upload failed")
+      setError(err instanceof Error ? err.message : "Upload failed")
     } finally {
       setUploading(false)
     }
@@ -125,6 +134,12 @@ export function SupplierDocumentUpload({
         </div>
       )}
 
+      {error && (
+        <div className="rounded border border-red-500/20 bg-red-500/5 px-2 py-1 text-xs text-red-400">
+          {error}
+        </div>
+      )}
+
       {canUploadThis && (
         <div className="border-t border-border pt-2 space-y-2">
           <div className="flex items-center gap-2">
@@ -132,7 +147,8 @@ export function SupplierDocumentUpload({
               ref={fileInputRef}
               type="file"
               onChange={handleFileChange}
-              className="block w-full text-xs text-muted-foreground file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-2 file:py-1 file:text-xs file:font-medium file:text-foreground hover:file:bg-muted/80"
+              disabled={uploading}
+              className="block w-full text-xs text-muted-foreground file:mr-2 file:rounded-md file:border-0 file:bg-muted file:px-2 file:py-1 file:text-xs file:font-medium file:text-foreground hover:file:bg-muted/80 disabled:opacity-50"
             />
           </div>
           {selectedFile && (
@@ -142,7 +158,8 @@ export function SupplierDocumentUpload({
                 value={supplierComment}
                 onChange={(e) => setSupplierComment(e.target.value)}
                 placeholder="Optional comment..."
-                className="flex w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                disabled={uploading}
+                className="flex w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-50"
               />
               <button
                 onClick={handleUpload}

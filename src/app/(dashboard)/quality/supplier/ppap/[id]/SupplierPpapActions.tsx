@@ -17,21 +17,28 @@ export function SupplierPpapActions({
   const [supplierNotes, setSupplierNotes] = useState("")
   const [loading, setLoading] = useState(false)
   const [showSubmit, setShowSubmit] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit() {
     setLoading(true)
+    setError(null)
     const result = await submitPpapPackage(ppapId, supplierNotes || undefined)
     setLoading(false)
     if (result.success) {
       setShowSubmit(false)
       router.refresh()
     } else {
-      alert(result.error)
+      setError(result.error ?? "Failed to submit PPAP package")
     }
   }
 
   return (
     <div className="space-y-3">
+      {error && (
+        <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+          {error}
+        </div>
+      )}
       <div className="flex items-center gap-2">
         <button
           onClick={() => setShowSubmit(true)}

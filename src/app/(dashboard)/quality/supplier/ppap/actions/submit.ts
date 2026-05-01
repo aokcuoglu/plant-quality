@@ -59,7 +59,9 @@ export async function uploadPpapDocument(ppapId: string, requirement: string, fo
   }
 
   revalidatePath(`/quality/supplier/ppap/${ppapId}`)
+  revalidatePath("/quality/supplier/ppap")
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
+  revalidatePath("/quality/oem/ppap")
 
   return { success: true, evidenceId: existing.id }
 }

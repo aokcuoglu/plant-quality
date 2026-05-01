@@ -1,3 +1,175 @@
+# PlantQuality v2.2.1 — Release Notes
+
+## PPAP Upload & Review Bugfix Patch
+
+**Release Date:** 2026-05-02  
+**Version:** 2.2.1
+
+---
+
+## Summary
+
+PlantQuality v2.2.1 is a stabilization patch on top of v2.2.0 (PPAP Workflow MVP). It fixes upload reliability issues, hardens OEM document review permissions, adds supplier notification for cancelled PPAPs, enforces PPAP status validation during document review, adds overdue indicators, and replaces all `alert()` calls with inline error UI. No new major product features are introduced.
+
+---
+
+## PPAP Upload UX & Reliability Fixes
+
+### Upload Error Handling
+
+- **Upload button state**: File input now resets correctly on success (`fileInputRef.current.value = ""`); pending state clears on both success and failure
+- **Inline error display**: Replaced `alert()` with inline error banner in `SupplierDocumentUpload` — upload errors show as a red-bordered message below the status badge, consistent with design system
+- **File input disabled during upload**: `<input type="file">` now uses `disabled={uploading}` to prevent re-selection mid-upload
+- **Comment input disabled during upload**: Supplier comment field also disabled during upload
+
+### Upload API Route Hardening
+
+- **POST `/api/ppap/upload`**: Now restricts presigned URL generation to supplier-users only (`supplierId: session.user.companyId`), and verifies PPAP is in an uploadable status (`REQUESTED`, `SUPPLIER_IN_PROGRESS`, `REVISION_REQUIRED`). Previously, any authenticated user (including OEM) could request a presigned URL for any PPAP they could see.
+- **PUT `/api/ppap/upload`**: Added status check — file metadata update now rejects requests when PPAP is in a terminal status (`APPROVED`, `REJECTED`, `CANCELLED`, `EXPIRED`). Previously, a supplier could overwrite file metadata on a closed PPAP.
+- **Event type fix**: Changed `PPAP_DOCUMENT_UPLOADED` cast from `as DefectEventType` to a plain string literal, matching the Prisma enum value directly.
+
+### Upload Flow Reliability
+
+- **PUT response handling**: `SupplierDocumentUpload` now checks `putRes.ok` and shows error from response JSON if the PUT metadata save fails, instead of silently succeeding.
+- **Presigned URL error**: Now shows the server error message from `data.error` when presigned URL generation fails, instead of generic "Failed to get upload URL".
+
+---
+
+## PPAP Document Review Fixes
+
+### Review Permission Hardening
+
+- **`reviewPpapDocument` server action**: Added PPAP status validation — OEM can only review documents on PPAPs in `SUBMITTED` or `UNDER_REVIEW` status. Previously, review was allowed on any status including `DRAFT`, `REQUESTED`, and `CANCELLED`.
+- **Document status validation**: Review actions now verify that the evidence is in a reviewable status (`UPLOADED`, `UNDER_REVIEW`, `REVISION_REQUIRED`). Attempting to review a `MISSING`, `APPROVED`, or `REJECTED` document returns a descriptive error.
+- **Review comment persistence**: Confirmed `oemComment` is correctly saved on review actions — no fix needed, working as designed.
+
+### Review UI Error Handling
+
+- **`PpapDocumentReview`**: Replaced `alert()` with inline `error` state banner. Error message shows below the document status badge, auto-clears on next action attempt.
+- **`PpapReviewCommentForm`**: Replaced `alert()` with inline `error` state banner above the form fields.
+
+---
+
+## PPAP Final Status Action Fixes
+
+### Cancel PPAP Notification
+
+- **`cancelPpap`**: Now sends notifications to supplier users when a PPAP is cancelled, using `INFO` notification type. Previously, supplier users received no notification on cancellation.
+
+### Final Approval Validation
+
+- **Confirmed**: `approvePpap` correctly checks for `MISSING`, `REJECTED`, and `REVISION_REQUIRED` documents before allowing approval. No changes needed.
+- **Terminal status hiding**: Action buttons correctly render only for `SUBMITTED`, `UNDER_REVIEW` (review actions) and `DRAFT`, `REQUESTED`, `SUPPLIER_IN_PROGRESS` (cancel action). No changes needed.
+
+### OEM Action UI Error Handling
+
+- **`PpapDetailActions`**: Replaced `alert()` calls for approve, reject, revision, and cancel with inline `error` state banner. Error messages appear above the action buttons and auto-clear on next action attempt.
+
+---
+
+## Server Action Refresh Consistency
+
+All PPAP server actions now revalidate both detail and list paths for both OEM and supplier views:
+
+| Action | Added Revalidation |
+|--------|-------------------|
+| `uploadPpapDocument` | `/quality/supplier/ppap` (list), `/quality/oem/ppap` (list) |
+| `reviewPpapDocument` | `/quality/oem/ppap` (list), `/quality/supplier/ppap` (list) |
+| `addPpapReviewComment` | `/quality/oem/ppap` (list) |
+| `approvePpap` | `/quality/supplier/ppap` (list) |
+| `rejectPpap` | `/quality/supplier/ppap` (list) |
+| `requestPpapRevision` | `/quality/supplier/ppap` (list) |
+| `cancelPpap` | Already had full revalidation ✅ |
+| `createPpapRequest` | Already had full revalidation ✅ |
+| `submitPpapPackage` | Already had full revalidation ✅ |
+
+Previously, several actions only revalidated the detail page but not the list page, causing stale data after navigating back.
+
+---
+
+## Supplier & OEM Access Hardening
+
+### PPAP Feature Gate Enforcement
+
+- **Supplier PPAP list page** (`/quality/supplier/ppap`): Now checks `requireFeature(session, "PPAP")` before rendering. Redirects to `/quality/supplier` if not allowed. (Suppliers with `supplierAccess: true` on Free plan still pass this gate.)
+- **Supplier PPAP detail page** (`/quality/supplier/ppap/[id]`): Same feature gate check added.
+
+### Upload API Access Control
+
+- **Presigned URL generation**: Now restricted to supplier users (`supplierId`) and only for PPAPs in uploadable status. OEM users can no longer generate upload URLs for supplier documents.
+- **File metadata update (PUT)**: Added PPAP status check — prevents file overwrite on terminal-status PPAPs.
+
+### Tenant Isolation
+
+- **Confirmed**: All PPAP list queries scope to `oemId: session.user.companyId` (OEM) or `supplierId: session.user.companyId` (supplier).
+- **Confirmed**: All PPAP detail/action queries verify ownership via `oemId` or `supplierId` match. Cross-tenant access returns `notFound()` or unauthorized error.
+
+---
+
+## UX Polish
+
+### Overdue Indicators
+
+- **OEM PPAP list**: Due date column now shows "Overdue" in red for past-due PPAPs that are not in a terminal status.
+- **Supplier PPAP list**: Same overdue indicator added.
+- **OEM PPAP detail**: Due date field shows "(Overdue)" suffix in red for past-due non-terminal PPAPs.
+- **Supplier PPAP detail**: Same overdue indicator on due date field.
+- **Helper function**: `isPpapOverdue(dueDate, status)` added to `src/lib/ppap/index.ts` — returns `true` only when due date is past and status is not terminal (APPROVED, REJECTED, CANCELLED, EXPIRED).
+
+### Text Truncation
+
+- **Long part names**: Part name columns in OEM and supplier PPAP lists now truncate with `max-w-[200px]` and `truncate` class.
+- **Long supplier/OEM names**: Supplier/OEM name columns truncate at `max-w-[150px]`.
+
+### Error Display Pattern
+
+- All PPAP client components now use inline `error` state with red-bordered banners instead of `alert()`:
+  - `SupplierDocumentUpload`
+  - `SupplierPpapActions`
+  - `PpapDocumentReview`
+  - `PpapDetailActions`
+  - `PpapReviewCommentForm`
+  - `PpapCreateForm` (already had inline error)
+
+---
+
+## No Changes
+
+- No new major product features
+- No APQP implementation
+- No AI PPAP review
+- No PDF export
+- No e-signature
+- No ERP integration
+- No landing page changes
+- No database schema changes
+- No plan gating logic changes
+- No billing/payment changes
+- No redesign of existing modules
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.2.1 |
+| `src/lib/ppap/index.ts` | Added `isPpapOverdue()` helper function |
+| `src/app/api/ppap/upload/route.ts` | Restricted POST to supplier + uploadable status; Added PUT status check; Removed DefectEventType import |
+| `src/app/(dashboard)/quality/supplier/ppap/[id]/SupplierDocumentUpload.tsx` | Replaced `alert()` with inline error state; Reset file input on success; Disable inputs during upload; Check PUT response |
+| `src/app/(dashboard)/quality/supplier/ppap/actions/submit.ts` | Added list revalidation paths to `uploadPpapDocument` |
+| `src/app/(dashboard)/quality/oem/ppap/actions/review.ts` | Added PPAP status + evidence status validation to `reviewPpapDocument`; Added list revalidation paths to all actions; Added supplier notification to `cancelPpap`; Replaced `PPAP_CANCELLED` notification type with `INFO` |
+| `src/app/(dashboard)/quality/oem/ppap/[id]/PpapDetailActions.tsx` | Replaced `alert()` with inline error state banner |
+| `src/app/(dashboard)/quality/oem/ppap/[id]/PpapDocumentReview.tsx` | Replaced `alert()` with inline error state banner |
+| `src/app/(dashboard)/quality/oem/ppap/[id]/PpapReviewCommentForm.tsx` | Replaced `alert()` with inline error state banner |
+| `src/app/(dashboard)/quality/oem/ppap/[id]/page.tsx` | Added overdue indicator on due date; Added `isPpapOverdue` import |
+| `src/app/(dashboard)/quality/oem/ppap/page.tsx` | Added overdue indicator on due date column; Added name truncation; Added `isPpapOverdue` import |
+| `src/app/(dashboard)/quality/supplier/ppap/[id]/SupplierPpapActions.tsx` | Replaced `alert()` with inline error state banner |
+| `src/app/(dashboard)/quality/supplier/ppap/[id]/page.tsx` | Added overdue indicator on due date; Added `requireFeature` and `isPpapOverdue` imports |
+| `src/app/(dashboard)/quality/supplier/ppap/page.tsx` | Added overdue indicator on due date column; Added name truncation; Added `requireFeature` and `isPpapOverdue` imports |
+
+---
+
 # PlantQuality v2.2.0 — Release Notes
 
 ## PPAP Workflow MVP

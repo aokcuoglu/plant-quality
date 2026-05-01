@@ -192,6 +192,7 @@ export async function approvePpap(ppapId: string) {
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
   revalidatePath("/quality/oem/ppap")
   revalidatePath(`/quality/supplier/ppap/${ppapId}`)
+  revalidatePath("/quality/supplier/ppap")
 
   return { success: true }
 }
@@ -249,6 +250,7 @@ export async function rejectPpap(ppapId: string, reason: string) {
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
   revalidatePath("/quality/oem/ppap")
   revalidatePath(`/quality/supplier/ppap/${ppapId}`)
+  revalidatePath("/quality/supplier/ppap")
 
   return { success: true }
 }
@@ -302,6 +304,7 @@ export async function requestPpapRevision(ppapId: string, reason: string) {
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
   revalidatePath("/quality/oem/ppap")
   revalidatePath(`/quality/supplier/ppap/${ppapId}`)
+  revalidatePath("/quality/supplier/ppap")
 
   return { success: true }
 }
@@ -316,6 +319,7 @@ export async function cancelPpap(ppapId: string) {
 
   const ppap = await prisma.ppapSubmission.findFirst({
     where: { id: ppapId, oemId: session.user.companyId, status: { in: ["DRAFT", "REQUESTED", "SUPPLIER_IN_PROGRESS"] } },
+    include: { supplier: { include: { users: { select: { id: true } } } } },
   })
   if (!ppap) return { success: false, error: "PPAP not found or cannot be cancelled" }
 
@@ -332,6 +336,19 @@ export async function cancelPpap(ppapId: string) {
       metadata: { partNumber: ppap.partNumber },
     },
   })
+
+  if (ppap.supplier.users.length > 0) {
+    await prisma.notification.createMany({
+      data: ppap.supplier.users.map((user) => ({
+        userId: user.id,
+        companyId: ppap.supplierId,
+        message: `PPAP ${ppap.requestNumber} (${ppap.partNumber}) cancelled by OEM`,
+        type: "INFO",
+        link: `/quality/supplier/ppap/${ppapId}`,
+        isRead: false,
+      })),
+    })
+  }
 
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
   revalidatePath("/quality/oem/ppap")
@@ -355,6 +372,14 @@ export async function reviewPpapDocument(evidenceId: string, action: "APPROVED" 
   })
   if (!evidence) return { success: false, error: "Document not found" }
   if (evidence.ppap.oemId !== session.user.companyId) return { success: false, error: "Unauthorized" }
+  if (!["SUBMITTED", "UNDER_REVIEW"].includes(evidence.ppap.status)) {
+    return { success: false, error: "PPAP is not in a reviewable status" }
+  }
+
+  const reviewableStatuses = ["UPLOADED", "UNDER_REVIEW", "REVISION_REQUIRED"]
+  if (!reviewableStatuses.includes(evidence.status)) {
+    return { success: false, error: `Document status '${evidence.status}' cannot be reviewed` }
+  }
 
   const eventType = action === "APPROVED" ? "PPAP_DOCUMENT_APPROVED" : action === "REJECTED" ? "PPAP_DOCUMENT_REJECTED" : "PPAP_DOCUMENT_REVISION_REQUESTED"
 
@@ -385,7 +410,9 @@ export async function reviewPpapDocument(evidenceId: string, action: "APPROVED" 
   })
 
   revalidatePath(`/quality/oem/ppap/${evidence.ppapId}`)
+  revalidatePath("/quality/oem/ppap")
   revalidatePath(`/quality/supplier/ppap/${evidence.ppapId}`)
+  revalidatePath("/quality/supplier/ppap")
 
   return { success: true }
 }
@@ -419,6 +446,7 @@ export async function addPpapReviewComment(ppapId: string, requirement: PpapSubm
   })
 
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
+  revalidatePath("/quality/oem/ppap")
 
   return { success: true }
 }

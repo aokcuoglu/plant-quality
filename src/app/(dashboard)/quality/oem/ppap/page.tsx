@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { requireFeature } from "@/lib/billing"
 import { FileTextIcon, PlusIcon } from "lucide-react"
 import Link from "next/link"
-import { getPpapStatusColor, PPAP_STATUS_LABELS } from "@/lib/ppap"
+import { getPpapStatusColor, PPAP_STATUS_LABELS, isPpapOverdue } from "@/lib/ppap"
 import { Button } from "@/components/ui/button"
 
 export default async function OemPpapPage() {
@@ -71,6 +71,7 @@ export default async function OemPpapPage() {
                 {submissions.map((s) => {
                   const totalRequired = s.evidences.length
                   const completed = s.evidences.filter((e) => e.status === "APPROVED").length
+                  const overdue = isPpapOverdue(s.dueDate, s.status)
                   return (
                     <tr key={s.id} className="transition-colors hover:bg-muted/50">
                       <td className="px-4 py-3">
@@ -78,10 +79,10 @@ export default async function OemPpapPage() {
                       </td>
                       <td className="px-4 py-3">
                         <div className="text-foreground">{s.partNumber}</div>
-                        <div className="text-xs text-muted-foreground">{s.partName}</div>
+                        <div className="text-xs text-muted-foreground truncate max-w-[200px]">{s.partName}</div>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{s.level.replace("LEVEL_", "Level ")}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{s.supplier.name}</td>
+                      <td className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{s.supplier.name}</td>
                       <td className="px-4 py-3 text-muted-foreground">
                         {completed}/{totalRequired}
                       </td>
@@ -90,7 +91,13 @@ export default async function OemPpapPage() {
                           {PPAP_STATUS_LABELS[s.status] ?? s.status}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">{s.dueDate?.toLocaleDateString() ?? "—"}</td>
+                      <td className="px-4 py-3">
+                        {overdue ? (
+                          <span className="text-xs font-medium text-red-400">Overdue</span>
+                        ) : (
+                          <span className="text-muted-foreground">{s.dueDate?.toLocaleDateString() ?? "—"}</span>
+                        )}
+                      </td>
                       <td className="px-4 py-3 text-muted-foreground">{s.createdAt.toLocaleDateString()}</td>
                     </tr>
                   )

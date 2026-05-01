@@ -16,24 +16,31 @@ export function PpapReviewCommentForm({
   const [requirement, setRequirement] = useState(requirements[0]?.key ?? "")
   const [comment, setComment] = useState("")
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!comment.trim()) return
     setLoading(true)
+    setError(null)
     const result = await addPpapReviewComment(ppapId, requirement as PpapSubmissionRequirement, comment)
     setLoading(false)
     if (result.success) {
       setComment("")
       router.refresh()
     } else {
-      alert(result.error)
+      setError(result.error ?? "Failed to add comment")
     }
   }
 
   return (
     <div className="rounded-lg border bg-card p-4 space-y-3">
       <h2 className="text-sm font-medium text-foreground">Add Review Comment</h2>
+      {error && (
+        <div className="rounded border border-red-500/20 bg-red-500/5 px-3 py-2 text-xs text-red-400">
+          {error}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="space-y-2">
         <select
           value={requirement}

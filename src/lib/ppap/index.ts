@@ -149,3 +149,10 @@ export function getDocumentStatusColor(status: string): string {
       return "bg-muted text-muted-foreground"
   }
 }
+
+export function isPpapOverdue(dueDate: Date | null, status: string): boolean {
+  if (!dueDate) return false
+  const terminalStatuses = ["APPROVED", "REJECTED", "CANCELLED", "EXPIRED"]
+  if (terminalStatuses.includes(status)) return false
+  return dueDate < new Date()
+}

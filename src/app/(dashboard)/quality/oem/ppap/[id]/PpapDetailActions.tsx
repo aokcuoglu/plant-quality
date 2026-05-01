@@ -21,46 +21,56 @@ export function PpapDetailActions({
   const [showReject, setShowReject] = useState(false)
   const [showRevision, setShowRevision] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const isReviewable = ["SUBMITTED", "UNDER_REVIEW"].includes(status)
 
   async function handleApprove() {
     setLoading(true)
+    setError(null)
     const result = await approvePpap(ppapId)
     setLoading(false)
     if (result.success) router.refresh()
-    else alert(result.error)
+    else setError(result.error ?? "Failed to approve PPAP")
   }
 
   async function handleReject() {
     if (!rejectReason.trim()) return
     setLoading(true)
+    setError(null)
     const result = await rejectPpap(ppapId, rejectReason)
     setLoading(false)
     if (result.success) { setShowReject(false); router.refresh() }
-    else alert(result.error)
+    else setError(result.error ?? "Failed to reject PPAP")
   }
 
   async function handleRevisionRequest() {
     if (!revisionReason.trim()) return
     setLoading(true)
+    setError(null)
     const result = await requestPpapRevision(ppapId, revisionReason)
     setLoading(false)
     if (result.success) { setShowRevision(false); router.refresh() }
-    else alert(result.error)
+    else setError(result.error ?? "Failed to request revision")
   }
 
   async function handleCancel() {
     if (!confirm("Are you sure you want to cancel this PPAP request?")) return
     setLoading(true)
+    setError(null)
     const result = await cancelPpap(ppapId)
     setLoading(false)
     if (result.success) router.refresh()
-    else alert(result.error)
+    else setError(result.error ?? "Failed to cancel PPAP")
   }
 
   return (
     <div className="space-y-3">
+      {error && (
+        <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+          {error}
+        </div>
+      )}
       {isReviewable && (
         <div className="flex flex-wrap items-center gap-2">
           <button

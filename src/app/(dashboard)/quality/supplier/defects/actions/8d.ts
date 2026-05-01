@@ -196,6 +196,8 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
   })
 
   revalidatePath(`/quality/supplier/defects/${defectId}/8d`)
+  revalidatePath(`/quality/oem/defects/${defectId}`)
+  revalidatePath(`/quality/supplier/defects/${defectId}`)
 
   return { success: true as const }
 }

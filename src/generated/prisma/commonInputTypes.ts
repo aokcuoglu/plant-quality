@@ -705,6 +705,23 @@ export type EnumAi8dReviewStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
 }
 
+export type EnumUpgradeRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.UpgradeRequestStatus | Prisma.EnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel> | $Enums.UpgradeRequestStatus
+}
+
+export type EnumUpgradeRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UpgradeRequestStatus | Prisma.EnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUpgradeRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.UpgradeRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1342,6 +1359,23 @@ export type NestedEnumAi8dReviewStatusWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAi8dReviewStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumUpgradeRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.UpgradeRequestStatus | Prisma.EnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel> | $Enums.UpgradeRequestStatus
+}
+
+export type NestedEnumUpgradeRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UpgradeRequestStatus | Prisma.EnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UpgradeRequestStatus[] | Prisma.ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUpgradeRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.UpgradeRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
 }
 
 

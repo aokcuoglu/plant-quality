@@ -74,6 +74,7 @@ export async function addReviewComment(
   })
 
   revalidatePath(`/quality/oem/defects/${defectId}`)
+  revalidatePath(`/quality/supplier/defects/${defectId}`)
 
   return { success: true as const }
 }
@@ -151,6 +152,7 @@ export async function approveReport(defectId: string) {
 
   revalidatePath(`/quality/oem/defects/${defectId}`)
   revalidatePath("/quality/oem")
+  revalidatePath(`/quality/supplier/defects/${defectId}`)
 
   return { success: true as const }
 }
@@ -226,6 +228,7 @@ export async function rejectReport(defectId: string) {
 
   revalidatePath(`/quality/oem/defects/${defectId}`)
   revalidatePath("/quality/oem")
+  revalidatePath(`/quality/supplier/defects/${defectId}`)
 
   return { success: true as const }
 }

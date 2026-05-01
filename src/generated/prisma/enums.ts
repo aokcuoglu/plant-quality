@@ -98,6 +98,17 @@ export const AiSuggestionStatus = {
 export type AiSuggestionStatus = (typeof AiSuggestionStatus)[keyof typeof AiSuggestionStatus]
 
 
+export const UpgradeRequestStatus = {
+  OPEN: 'OPEN',
+  CONTACTED: 'CONTACTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type UpgradeRequestStatus = (typeof UpgradeRequestStatus)[keyof typeof UpgradeRequestStatus]
+
+
 export const DefectEventType = {
   CREATED: 'CREATED',
   EIGHT_D_STARTED: 'EIGHT_D_STARTED',

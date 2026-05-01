@@ -78,7 +78,8 @@ export const ModelName = {
   EscalationHistory: 'EscalationHistory',
   AiSuggestion: 'AiSuggestion',
   Ai8dReview: 'Ai8dReview',
-  UsageCounter: 'UsageCounter'
+  UsageCounter: 'UsageCounter',
+  UpgradeRequest: 'UpgradeRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -595,6 +596,25 @@ export const UsageCounterScalarFieldEnum = {
 } as const
 
 export type UsageCounterScalarFieldEnum = (typeof UsageCounterScalarFieldEnum)[keyof typeof UsageCounterScalarFieldEnum]
+
+
+export const UpgradeRequestScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  requestedById: 'requestedById',
+  currentPlan: 'currentPlan',
+  requestedPlan: 'requestedPlan',
+  sourceFeature: 'sourceFeature',
+  message: 'message',
+  status: 'status',
+  adminNote: 'adminNote',
+  resolvedAt: 'resolvedAt',
+  resolvedById: 'resolvedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UpgradeRequestScalarFieldEnum = (typeof UpgradeRequestScalarFieldEnum)[keyof typeof UpgradeRequestScalarFieldEnum]
 
 
 export const SortOrder = {

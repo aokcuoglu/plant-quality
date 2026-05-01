@@ -36,7 +36,7 @@ export function SlaUpdateForm({
         setError(result.error)
       } else {
         setOpen(false)
-        router.replace(window.location.pathname + window.location.search)
+        router.refresh()
       }
     })
   }

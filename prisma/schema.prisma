@@ -72,6 +72,14 @@ enum AiSuggestionStatus {
   EXPIRED
 }
 
+enum UpgradeRequestStatus {
+  OPEN
+  CONTACTED
+  APPROVED
+  REJECTED
+  CLOSED
+}
+
 enum DefectEventType {
   CREATED
   EIGHT_D_STARTED
@@ -252,6 +260,7 @@ model Company {
   escalationHistory  EscalationHistory[]
   ai8dReviews        Ai8dReview[]
   usageCounters      UsageCounter[]
+  upgradeRequests    UpgradeRequest[]
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -297,6 +306,8 @@ model User {
   convertedFieldDefects   FieldDefect[] @relation("FieldDefectConvertedBy")
   escalatedFieldDefects  FieldDefect[] @relation("FieldDefectEscalatedBy")
   escalationHistories   EscalationHistory[]
+  createdUpgradeRequests UpgradeRequest[] @relation("UpgradeRequestCreatedBy")
+  resolvedUpgradeRequests UpgradeRequest[] @relation("UpgradeRequestResolvedBy")
   createdAiSuggestions  AiSuggestion[] @relation("AiSuggestionCreatedBy")
   acceptedAiSuggestions AiSuggestion[] @relation("AiSuggestionAcceptedBy")
   rejectedAiSuggestions AiSuggestion[] @relation("AiSuggestionRejectedBy")
@@ -906,4 +917,29 @@ model UsageCounter {
   @@unique([companyId, usageKey, periodStart, periodEnd])
   @@index([companyId, usageKey, periodStart])
   @@map("usage_counters")
+}
+
+model UpgradeRequest {
+  id              String              @id @default(uuid())
+  companyId       String              @map("company_id")
+  company         Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  requestedById   String              @map("requested_by_id")
+  requestedBy     User                @relation("UpgradeRequestCreatedBy", fields: [requestedById], references: [id])
+  currentPlan     String              @map("current_plan")
+  requestedPlan   String              @map("requested_plan")
+  sourceFeature   String?             @map("source_feature")
+  message         String?
+  status          UpgradeRequestStatus @default(OPEN)
+  adminNote       String?             @map("admin_note")
+  resolvedAt      DateTime?           @map("resolved_at")
+  resolvedById    String?             @map("resolved_by_id")
+  resolvedBy     User?                @relation("UpgradeRequestResolvedBy", fields: [resolvedById], references: [id])
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @updatedAt @map("updated_at")
+
+  @@index([companyId, status])
+  @@index([companyId, createdAt])
+  @@index([requestedById])
+  @@index([requestedPlan])
+  @@map("upgrade_requests")
 }

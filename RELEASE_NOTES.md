@@ -1,3 +1,154 @@
+# PlantQuality v2.1.0 — Release Notes
+
+## Upgrade Request Workflow & Server Action Refresh Consistency
+
+**Release Date:** 2026-05-01  
+**Version:** 2.1.0
+
+---
+
+## Summary
+
+PlantQuality v2.1.0 adds an Upgrade Request workflow so locked feature interest becomes a trackable sales/admin signal, and fixes global server-action refresh consistency so UI updates immediately after mutations. Specifically, Field Defect status/action changes now update the UI without a manual browser refresh.
+
+---
+
+## Upgrade Request Workflow
+
+### Data Model
+
+- New `UpgradeRequest` model with status lifecycle: OPEN → CONTACTED → APPROVED → REJECTED → CLOSED
+- Fields: `id`, `companyId`, `requestedById`, `currentPlan`, `requestedPlan`, `sourceFeature`, `message`, `status`, `adminNote`, `resolvedAt`, `resolvedById`, `createdAt`, `updatedAt`
+- New `UpgradeRequestStatus` enum: OPEN, CONTACTED, APPROVED, REJECTED, CLOSED
+- Indexes on `companyId+status`, `companyId+createdAt`, `requestedById`, `requestedPlan`
+
+### Server Actions
+
+- `createUpgradeRequest`: OEM users can request Pro or Enterprise upgrade; duplicate OPEN requests for same plan+feature return existing request
+- `listUpgradeRequestsForCompany`: OEM users can view their company's requests
+- `updateUpgradeRequestStatus`: OEM Admin can manage request status with valid transition enforcement
+- Security: Only OEM users can create; only OEM Admin can manage; companyId from session (never client-provided); approval does NOT automatically change plan
+
+### UI Changes
+
+- **Plan & Usage page** (`/oem/settings/plan`): Added "Request Pro" / "Request Enterprise" buttons; displays upgrade request history with expandable details and status actions; shows duplicate detection friendly message
+- **UpgradeCTA**: Replaced static `<a>` link with `UpgradeRequestDialog` to create upgrade requests directly from locked feature cards
+- **LockedFeatureCard**: Replaced static `<a>` link with `UpgradeRequestDialog` for in-context upgrade requests
+- **UpgradeRequestDialog**: New client component with plan selection, optional message, and success/duplicate states
+- All upgrade request UI shows: "Billing integration is not enabled yet. Approval does not automatically change your plan."
+
+### Supplier Access
+
+- Supplier users cannot access `/oem/settings/plan`
+- Supplier users see static "not available for supplier accounts" message in `UpgradeCTA` and `LockedFeatureCard`
+- No upgrade request creation or management for supplier users
+
+---
+
+## Server Action Refresh Consistency
+
+### Bug Fix: Field Defect Status/Action Updates
+
+On Field Defect detail pages (`/quality/oem/field/[id]`), status changes, supplier assignments, SLA updates, and escalation actions now update the UI immediately without requiring a manual browser refresh.
+
+### Root Cause
+
+- `change-status-form.tsx`: `startTransition` was wrapping the async function call but `router.refresh()` was called after `startTransition` completed, causing a race condition
+- `escalate-button.tsx`: Used `router.replace(window.location.pathname + window.location.search)` instead of `router.refresh()`
+- `sla-update-form.tsx`: Same `router.replace()` pattern as escalate button
+- `convert-to-8d-button.tsx`: Redundant `router.refresh()` after `router.push()` to different page
+
+### Fixes Applied
+
+| Component | Before | After |
+|-----------|--------|-------|
+| `change-status-form.tsx` | `router.refresh()` outside `startTransition` | `router.refresh()` inside `startTransition` callback |
+| `escalate-button.tsx` | `router.replace(window.location.pathname + window.location.search)` | `router.refresh()` |
+| `sla-update-form.tsx` | `router.replace(window.location.pathname + window.location.search)` | `router.refresh()` |
+| `convert-to-8d-button.tsx` | `router.push()` + `router.refresh()` | `router.push()` only (refresh redundant after navigation) |
+
+### Broader Revalidation Fixes
+
+| Action | Missing Revalidation | Fix |
+|--------|---------------------|-----|
+| `saveEightDStep` | OEM detail, supplier detail | Added `/quality/oem/defects/${defectId}` and `/quality/supplier/defects/${defectId}` |
+| `addReviewComment` | Supplier detail | Added `/quality/supplier/defects/${defectId}` |
+| `approveReport` | Supplier detail | Added `/quality/supplier/defects/${defectId}` |
+| `rejectReport` | Supplier detail | Added `/quality/supplier/defects/${defectId}` |
+| `createDefect` | Supplier list, dashboards | Added `/quality/supplier/defects`, `/quality/oem`, `/quality/supplier` |
+
+---
+
+## Database Changes
+
+| Change | Detail |
+|--------|--------|
+| New enum: `UpgradeRequestStatus` | OPEN, CONTACTED, APPROVED, REJECTED, CLOSED |
+| New model: `upgrade_requests` | Tracks upgrade requests per company with lifecycle status |
+| New indexes | `companyId+status`, `companyId+createdAt`, `requestedById`, `requestedPlan` |
+| New relations | `Company.upgradeRequests`, `User.createdUpgradeRequests`, `User.resolvedUpgradeRequests` |
+| Migration | `20260501080000_add_upgrade_requests` |
+
+---
+
+## Files Changed
+
+### New Files
+
+| File | Purpose |
+|------|---------|
+| `prisma/migrations/20260501080000_add_upgrade_requests/migration.sql` | Database migration for UpgradeRequest model |
+| `src/app/(dashboard)/_actions/upgrade-requests.ts` | Server actions for upgrade request CRUD |
+| `src/app/(dashboard)/oem/settings/plan/upgrade-request-form.tsx` | Client component for creating upgrade requests |
+| `src/app/(dashboard)/oem/settings/plan/upgrade-request-list.tsx` | Client component for managing upgrade requests (Admin) |
+| `src/components/billing/UpgradeRequestDialog.tsx` | Reusable dialog for upgrade requests from locked features |
+
+### Modified Files
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.1.0 |
+| `prisma/schema.prisma` | Added `UpgradeRequestStatus` enum, `UpgradeRequest` model, relations |
+| `src/app/(dashboard)/oem/settings/plan/page.tsx` | Added upgrade request form and list |
+| `src/components/billing/UpgradeCTA.tsx` | Replaced static link with `UpgradeRequestDialog` |
+| `src/components/billing/LockedFeatureCard.tsx` | Replaced static link with `UpgradeRequestDialog` |
+| `src/app/(dashboard)/quality/oem/field/[id]/change-status-form.tsx` | Moved `router.refresh()` inside `startTransition` |
+| `src/app/(dashboard)/quality/oem/field/[id]/escalate-button.tsx` | Changed `router.replace()` to `router.refresh()` |
+| `src/app/(dashboard)/quality/oem/field/[id]/sla-update-form.tsx` | Changed `router.replace()` to `router.refresh()` |
+| `src/app/(dashboard)/quality/oem/field/[id]/convert-to-8d-button.tsx` | Removed redundant `router.refresh()` |
+| `src/app/(dashboard)/quality/supplier/defects/actions/8d.ts` | Added OEM/supplier detail revalidation to `saveEightDStep` |
+| `src/app/(dashboard)/quality/oem/defects/actions/review.ts` | Added supplier detail revalidation to `addReviewComment`, `approveReport`, `rejectReport` |
+| `src/app/(dashboard)/quality/oem/defects/actions.ts` | Added supplier list and dashboard revalidation to `createDefect` |
+
+---
+
+## Security
+
+- Upgrade requests are scoped to `session.user.companyId` — no cross-tenant access
+- Supplier users cannot create or manage upgrade requests (server-enforced)
+- Supplier users cannot access `/oem/settings/plan` (server redirect)
+- `companyId` is never trusted from client — always derived from session
+- OEM non-admin users can create requests but cannot manage request status transitions
+- Approval does NOT automatically change the company plan — it is only a status change
+- Valid status transitions enforced server-side (OPEN→CONTACTED/APPROVED/REJECTED/CLOSED, CONTACTED→APPROVED/REJECTED/CLOSED, APPROVED/REJECTED→CLOSED)
+- Duplicate detection prevents spam: same company + plan + feature + OPEN status returns existing request
+
+---
+
+## No Changes
+
+- No real payment/billing integration
+- No Stripe integration
+- No invoice management
+- No automatic plan upgrade on approval
+- No SSO implementation
+- No ERP integration
+- No landing page changes
+- No plan gating loosening
+- No tenant isolation changes
+
+---
+
 # PlantQuality v2.0.5 — Release Notes
 
 ## Field Defect Action Bugfixes

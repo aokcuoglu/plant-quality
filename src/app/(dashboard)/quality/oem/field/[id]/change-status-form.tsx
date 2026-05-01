@@ -25,16 +25,18 @@ export function ChangeStatusForm({ fieldDefectId, currentStatus }: { fieldDefect
 
   async function handleStatusChange(newStatus: FieldDefectStatus) {
     setError(null)
-    try {
-      const result = await changeFieldDefectStatus(fieldDefectId, newStatus)
-      if (result.success) {
-        router.refresh()
-      } else {
-        setError(result.error ?? "Failed to change status")
+    startTransition(async () => {
+      try {
+        const result = await changeFieldDefectStatus(fieldDefectId, newStatus)
+        if (result.success) {
+          router.refresh()
+        } else {
+          setError(result.error ?? "Failed to change status")
+        }
+      } catch {
+        setError("An unexpected error occurred. Please try again.")
       }
-    } catch {
-      setError("An unexpected error occurred. Please try again.")
-    }
+    })
   }
 
   if (nextStatuses.length === 0) {
@@ -50,7 +52,7 @@ export function ChangeStatusForm({ fieldDefectId, currentStatus }: { fieldDefect
         {nextStatuses.map((status) => (
           <button
             key={status}
-            onClick={() => startTransition(() => handleStatusChange(status))}
+            onClick={() => handleStatusChange(status)}
             disabled={isPending}
             className="w-full rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted transition-colors disabled:opacity-50 text-left"
           >

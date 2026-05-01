@@ -157,3 +157,8 @@ export type Ai8dReview = Prisma.Ai8dReviewModel
  * 
  */
 export type UsageCounter = Prisma.UsageCounterModel
+/**
+ * Model UpgradeRequest
+ * 
+ */
+export type UpgradeRequest = Prisma.UpgradeRequestModel

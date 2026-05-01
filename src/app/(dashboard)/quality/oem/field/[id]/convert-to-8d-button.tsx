@@ -26,7 +26,6 @@ export function ConvertTo8DButton({ fieldDefectId }: { fieldDefectId: string }) 
       if (result.success && result.defectId) {
         setOpen(false)
         router.push(`/quality/oem/defects/${result.defectId}`)
-        router.refresh()
       } else {
         setError(result.error ?? "Failed to convert to 8D")
       }

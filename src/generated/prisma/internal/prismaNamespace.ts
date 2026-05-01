@@ -411,7 +411,8 @@ export const ModelName = {
   EscalationHistory: 'EscalationHistory',
   AiSuggestion: 'AiSuggestion',
   Ai8dReview: 'Ai8dReview',
-  UsageCounter: 'UsageCounter'
+  UsageCounter: 'UsageCounter',
+  UpgradeRequest: 'UpgradeRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2503,6 +2504,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UpgradeRequest: {
+      payload: Prisma.$UpgradeRequestPayload<ExtArgs>
+      fields: Prisma.UpgradeRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UpgradeRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UpgradeRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.UpgradeRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UpgradeRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>
+        }
+        findMany: {
+          args: Prisma.UpgradeRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>[]
+        }
+        create: {
+          args: Prisma.UpgradeRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>
+        }
+        createMany: {
+          args: Prisma.UpgradeRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UpgradeRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.UpgradeRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>
+        }
+        update: {
+          args: Prisma.UpgradeRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.UpgradeRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UpgradeRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UpgradeRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.UpgradeRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UpgradeRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.UpgradeRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUpgradeRequest>
+        }
+        groupBy: {
+          args: Prisma.UpgradeRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UpgradeRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UpgradeRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UpgradeRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3042,6 +3117,25 @@ export const UsageCounterScalarFieldEnum = {
 export type UsageCounterScalarFieldEnum = (typeof UsageCounterScalarFieldEnum)[keyof typeof UsageCounterScalarFieldEnum]
 
 
+export const UpgradeRequestScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  requestedById: 'requestedById',
+  currentPlan: 'currentPlan',
+  requestedPlan: 'requestedPlan',
+  sourceFeature: 'sourceFeature',
+  message: 'message',
+  status: 'status',
+  adminNote: 'adminNote',
+  resolvedAt: 'resolvedAt',
+  resolvedById: 'resolvedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UpgradeRequestScalarFieldEnum = (typeof UpgradeRequestScalarFieldEnum)[keyof typeof UpgradeRequestScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3480,6 +3574,20 @@ export type EnumAi8dReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumAi8dReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Ai8dReviewStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'UpgradeRequestStatus'
+ */
+export type EnumUpgradeRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UpgradeRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'UpgradeRequestStatus[]'
+ */
+export type ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UpgradeRequestStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3618,6 +3726,7 @@ export type GlobalOmitConfig = {
   aiSuggestion?: Prisma.AiSuggestionOmit
   ai8dReview?: Prisma.Ai8dReviewOmit
   usageCounter?: Prisma.UsageCounterOmit
+  upgradeRequest?: Prisma.UpgradeRequestOmit
 }
 
 /* Types for Logging */

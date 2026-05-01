@@ -11,11 +11,15 @@ export function ConvertTo8DConfirmation({ fieldDefectId }: { fieldDefectId: stri
 
   async function handleConvert() {
     setError(null)
-    const result = await convertTo8D(fieldDefectId)
-    if (result.success && result.defectId) {
-      router.push(`/quality/oem/defects/${result.defectId}`)
-    } else {
-      setError(result.error ?? "Failed to convert to 8D")
+    try {
+      const result = await convertTo8D(fieldDefectId)
+      if (result.success && result.defectId) {
+        router.push(`/quality/oem/defects/${result.defectId}`)
+      } else {
+        setError(result.error ?? "Failed to convert to 8D")
+      }
+    } catch {
+      setError("An unexpected error occurred. Please try again.")
     }
   }
 

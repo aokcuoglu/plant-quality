@@ -8,6 +8,8 @@ import { PlanBadge } from "@/components/billing/PlanBadge"
 import { normalizePlan, getPlanLimits, formatLimit, PLAN_LABELS } from "@/lib/billing/plans"
 import { getAllFeatures, checkFeatureAccess } from "@/lib/billing/features"
 import { getUsageLimitStatus, type UsageKey } from "@/lib/billing/usage"
+import { UpgradeRequestForm } from "./upgrade-request-form"
+import { UpgradeRequestList } from "./upgrade-request-list"
 
 export const metadata = { title: "Plan & Usage — PlantQuality" }
 
@@ -60,6 +62,29 @@ export default async function PlanSettingsPage() {
     access: checkFeatureAccess(plan, "OEM", f.key),
   }))
 
+  const upgradeRequests = await prisma.upgradeRequest.findMany({
+    where: { companyId: session.user.companyId },
+    orderBy: { createdAt: "desc" },
+    include: {
+      requestedBy: { select: { name: true, email: true } },
+      resolvedBy: { select: { name: true, email: true } },
+    },
+  })
+
+  const serializedRequests = upgradeRequests.map((r) => ({
+    id: r.id,
+    currentPlan: r.currentPlan,
+    requestedPlan: r.requestedPlan,
+    sourceFeature: r.sourceFeature,
+    message: r.message,
+    status: r.status,
+    adminNote: r.adminNote,
+    createdAt: r.createdAt.toISOString(),
+    requestedBy: r.requestedBy ? { name: r.requestedBy.name, email: r.requestedBy.email } : null,
+    resolvedBy: r.resolvedBy ? { name: r.resolvedBy.name, email: r.resolvedBy.email } : null,
+    resolvedAt: r.resolvedAt?.toISOString() ?? null,
+  }))
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -94,17 +119,7 @@ export default async function PlanSettingsPage() {
               </p>
             )}
             {plan !== "ENTERPRISE" && (
-              <div className="pt-2">
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
-                >
-                  Upgrade to {plan === "FREE" ? "Pro" : "Enterprise"}
-                </a>
-                <p className="mt-1.5 text-xs text-muted-foreground">
-                  Billing integration is not enabled yet. Please contact PlantX sales or your system administrator to upgrade. Enterprise plans are handled by custom quote.
-                </p>
-              </div>
+              <UpgradeRequestForm currentPlan={plan} />
             )}
           </CardContent>
         </Card>
@@ -125,7 +140,7 @@ export default async function PlanSettingsPage() {
                     <span className="text-muted-foreground">{label}</span>
                     <div className="flex items-center gap-2">
                       {isBlocked ? (
-                        <span className="text-muted-foreground">—</span>
+                        <span className="text-muted-foreground">&mdash;</span>
                       ) : (
                         <>
                           <span className="text-foreground font-medium">
@@ -185,6 +200,17 @@ export default async function PlanSettingsPage() {
               </div>
             ))}
           </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+            Upgrade Requests
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <UpgradeRequestList requests={serializedRequests} />
         </CardContent>
       </Card>
     </div>

@@ -37,7 +37,7 @@ export function EscalateButton({
       } else {
         setOpen(false)
         setReason("")
-        router.replace(window.location.pathname + window.location.search)
+        router.refresh()
       }
     })
   }

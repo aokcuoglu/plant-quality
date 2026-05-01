@@ -95,5 +95,8 @@ export async function createDefect(formData: FormData): Promise<void> {
   }
 
   revalidatePath("/quality/oem/defects")
+  revalidatePath("/quality/supplier/defects")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
   redirect("/quality/oem/defects")
 }

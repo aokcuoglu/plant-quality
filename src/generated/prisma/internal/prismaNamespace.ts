@@ -2785,10 +2785,16 @@ export type DefectEvidenceScalarFieldEnum = (typeof DefectEvidenceScalarFieldEnu
 
 export const PpapSubmissionScalarFieldEnum = {
   id: 'id',
+  requestNumber: 'requestNumber',
   partNumber: 'partNumber',
   partName: 'partName',
+  projectName: 'projectName',
+  vehicleModel: 'vehicleModel',
+  revisionLevel: 'revisionLevel',
+  drawingNumber: 'drawingNumber',
   revision: 'revision',
   level: 'level',
+  reasonForSubmission: 'reasonForSubmission',
   status: 'status',
   oemId: 'oemId',
   supplierId: 'supplierId',
@@ -2797,6 +2803,7 @@ export const PpapSubmissionScalarFieldEnum = {
   defectId: 'defectId',
   submittedAt: 'submittedAt',
   reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
   approvedAt: 'approvedAt',
   rejectedAt: 'rejectedAt',
   approvedById: 'approvedById',
@@ -2817,13 +2824,19 @@ export const PpapEvidenceScalarFieldEnum = {
   id: 'id',
   ppapId: 'ppapId',
   requirement: 'requirement',
+  status: 'status',
   storageKey: 'storageKey',
   fileName: 'fileName',
   mimeType: 'mimeType',
   sizeBytes: 'sizeBytes',
   uploadedById: 'uploadedById',
+  supplierComment: 'supplierComment',
+  oemComment: 'oemComment',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
   companyId: 'companyId',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
@@ -3387,6 +3400,20 @@ export type ListEnumPpapLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'PpapReasonForSubmission'
+ */
+export type EnumPpapReasonForSubmissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PpapReasonForSubmission'>
+    
+
+
+/**
+ * Reference to a field of type 'PpapReasonForSubmission[]'
+ */
+export type ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PpapReasonForSubmission[]'>
+    
+
+
+/**
  * Reference to a field of type 'PpapStatus'
  */
 export type EnumPpapStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PpapStatus'>
@@ -3411,6 +3438,20 @@ export type EnumPpapSubmissionRequirementFieldRefInput<$PrismaModel> = FieldRefI
  * Reference to a field of type 'PpapSubmissionRequirement[]'
  */
 export type ListEnumPpapSubmissionRequirementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PpapSubmissionRequirement[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PpapDocumentStatus'
+ */
+export type EnumPpapDocumentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PpapDocumentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PpapDocumentStatus[]'
+ */
+export type ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PpapDocumentStatus[]'>
     
 
 

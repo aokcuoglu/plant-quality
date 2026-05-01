@@ -1,3 +1,148 @@
+# PlantQuality v2.2.0 — Release Notes
+
+## PPAP Workflow MVP
+
+**Release Date:** 2026-05-02  
+**Version:** 2.2.0
+
+---
+
+## Summary
+
+PlantQuality v2.2.0 introduces a complete Production Part Approval Process (PPAP) workflow MVP, transforming the existing placeholder PPAP module into a fully functional OEM-to-Supplier approval workflow. OEM users can create PPAP requests with configurable document checklists, assign suppliers, review individual documents, and approve/reject/request revision on packages. Supplier users can view assigned requests, upload required documents, and submit complete PPAP packages.
+
+---
+
+## PPAP Workflow
+
+### Data Model
+
+- **New enums**: `PpapReasonForSubmission` (NEW_PART, ENGINEERING_CHANGE, SUPPLIER_CHANGE, PROCESS_CHANGE, TOOLING_CHANGE, ANNUAL_REVALIDATION, CORRECTIVE_ACTION_FOLLOW_UP, OTHER), `PpapDocumentStatus` (MISSING, UPLOADED, UNDER_REVIEW, APPROVED, REJECTED, REVISION_REQUIRED)
+- **Extended `PpapStatus`**: Added REQUESTED, SUPPLIER_IN_PROGRESS, REVISION_REQUIRED, CANCELLED, EXPIRED
+- **Extended `PpapLevel`**: Added LEVEL_5
+- **Extended `PpapSubmissionRequirement`**: Added CUSTOMER_SPECIFIC_REQUIREMENTS
+- **Extended `DefectEventType`**: Added PPAP_REVISION_REQUESTED, PPAP_CANCELLED, PPAP_DOCUMENT_UPLOADED, PPAP_DOCUMENT_APPROVED, PPAP_DOCUMENT_REJECTED, PPAP_DOCUMENT_REVISION_REQUESTED
+- **New fields on `PpapSubmission`**: `requestNumber` (unique), `projectName`, `vehicleModel`, `revisionLevel`, `drawingNumber`, `reasonForSubmission`, `reviewedAt`, `reviewedById`
+- **New fields on `PpapEvidence`**: `status` (PpapDocumentStatus, default MISSING), `supplierComment`, `oemComment`, `reviewedById`, `reviewedAt`, `updatedAt`; made `storageKey`, `fileName`, `mimeType`, `sizeBytes`, `uploadedById` nullable to support empty checklist states
+- **New indexes**: `ppap_submissions_request_number_key`, `ppap_submissions(reviewed_by_id)`, `ppap_evidence(ppap_id, status)`, `ppap_evidence(reviewed_by_id)`
+
+### OEM PPAP Request Creation
+
+- New page `/quality/oem/ppap/new` with form for creating PPAP requests
+- Fields: supplier, part number, part name, project name, vehicle model, revision level, drawing number, PPAP level, reason for submission, due date, notes, and required document checklist
+- Default checklist generated based on PPAP level (Level 1 → PSW + design records; Level 2 → + process flow; Level 3 → full major elements; Level 4 → all but customer engineering + samples; Level 5 → all)
+- OEM can toggle individual checklist items on/off
+- Creates `PpapSubmission` in REQUESTED status + creates `PpapEvidence` records for each required document
+- Sends notifications to assigned supplier users
+- Feature-gated: PPAP requires Pro or Enterprise plan for OEM users
+
+### OEM PPAP List & Detail
+
+- **List page** (`/quality/oem/ppap`): Enhanced with request number, document completion summary (approved/total), and due date columns
+- **Detail page** (`/quality/oem/ppap/[id]`): Shows full request details, document checklist with per-document status, OEM review actions, review comments, and activity timeline
+- **Document review actions**: OEM can approve, reject, or request revision on individual documents
+- **Final PPAP actions**: Approve PPAP (required: no missing/rejected documents), Reject PPAP (with reason), Request Revision (with reason), Cancel PPAP (only for DRAFT/REQUESTED/SUPPLIER_IN_PROGRESS states)
+- Status transitions: REQUESTED → SUPPLIER_IN_PROGRESS → SUBMITTED → UNDER_REVIEW → APPROVED/REJECTED/REVISION_REQUIRED
+
+### Supplier PPAP Flow
+
+- **List page** (`/quality/supplier/ppap`): Shows only assigned PPAP requests with document completion stats
+- **Detail page** (`/quality/supplier/ppap/[id]`): View request details, document checklist, upload documents per requirement, add supplier comments, submit PPAP package when all required documents are uploaded
+- **Document upload**: Presigned URL flow via `/api/ppap/upload` — client gets presigned PUT URL, uploads directly to MinIO/R2, then updates evidence record
+- **Package submission**: Validates all required documents are uploaded before allowing submission
+- Supplier access does NOT require a paid plan (participant access per feature gate `supplierAccess: true`)
+
+### PPAP Status Tracking
+
+| Status | Description |
+|--------|-------------|
+| DRAFT | Initial creation (legacy status, new PPAPs start as REQUESTED) |
+| REQUESTED | OEM has created the request, awaiting supplier action |
+| SUPPLIER_IN_PROGRESS | Supplier has started uploading documents |
+| SUBMITTED | Supplier has submitted the complete package |
+| UNDER_REVIEW | OEM is reviewing documents |
+| REVISION_REQUIRED | OEM has requested changes |
+| APPROVED | PPAP fully approved |
+| REJECTED | PPAP rejected with reason |
+| CANCELLED | OEM cancelled the request |
+| EXPIRED | Request expired without action |
+
+### Document Status Tracking
+
+| Status | Description |
+|--------|-------------|
+| MISSING | Required document not yet uploaded |
+| UPLOADED | Supplier has uploaded the document |
+| UNDER_REVIEW | OEM is reviewing the document |
+| APPROVED | OEM has approved the document |
+| REJECTED | OEM has rejected the document |
+| REVISION_REQUIRED | OEM has requested a new version |
+
+### File Upload Integration
+
+- New API route `/api/ppap/upload` with POST (presigned URL generation) and PUT (evidence record update) methods
+- Files stored in MinIO/R2 under `ppap/{companyId}/{ppapId}/{requirementId}/{uuid}.{ext}` key pattern
+- Presigned URLs with 5-minute expiry
+- Tenant isolation enforced: upload and download verify company membership
+
+### Plan Gating
+
+- PPAP feature remains PRO+ for OEM users (as before)
+- Supplier users can access assigned PPAP requests regardless of their plan
+- Free OEM users see locked PPAP in sidebar and are redirected when accessing PPAP pages
+- Backend enforcement in all server actions: `requireFeature(session, "PPAP")` check
+
+### Security
+
+- All OEM PPAP server actions verify `session.user.companyType === "OEM"` and appropriate role
+- All supplier PPAP server actions verify `session.user.companyType === "SUPPLIER"` and appropriate role
+- All queries scoped to `companyId` — no cross-tenant data access
+- Supplier actions verify `supplierId === session.user.companyId` before allowing access
+- PPAP review/approve/reject actions verify `ppap.oemId === session.user.companyId`
+- Document upload verifies PPAP assignment before allowing file operations
+
+### Seed Data
+
+- Updated existing PPAP submissions with `requestNumber`, `reasonForSubmission`, `projectName`, `vehicleModel` fields
+- Added `ppap-004` for Enterprise OEM with LEVEL_4 and UNDER_REVIEW status
+- Added 32 PPAP Evidence records across all 4 submissions with mixed statuses (MISSING, UPLOADED, APPROVED, REVISION_REQUIRED)
+- Added 8 PPAP Events tracking creation and submission milestones
+
+### Default Document Checklist
+
+| Level | Required Documents |
+|-------|-------------------|
+| Level 1 | Part Submission Warrant, Design Records |
+| Level 2 | + Process Flow Diagram |
+| Level 3 | + Process FMEA, Control Plan, MSA, Dimensional Results, Material/Performance Results, Initial Process Study, Qualified Lab Docs |
+| Level 4 | All except Customer Engineering Approval, Sample Production Parts |
+| Level 5 | All 18 requirements |
+
+---
+
+## Known Limitations
+
+- Advanced PPAP templates (custom requirement sets per customer) — deferred
+- Multi-stage approval routing (multi-level sign-off) — deferred
+- Digital signatures (e-signature) — deferred
+- PPAP PDF package export — deferred
+- AI PPAP review — deferred
+- Full APQP program management — deferred
+- ERP integration — deferred
+- Supplier scorecard — deferred
+
+---
+
+## Migration
+
+- **Migration**: `20260502080000_add_ppap_workflow_v220`
+- Adds new enums, extends existing enums, adds columns to `ppap_submissions` and `ppap_evidence` tables
+- Backwards compatible: existing PPAP data preserved, new columns have defaults
+- `requestNumber` populated for existing rows with `PPAP-{id}` pattern
+- Existing `PpapEvidence` records with `storageKey` values updated to `UPLOADED` status
+
+---
+
 # PlantQuality v2.1.0 — Release Notes
 
 ## Upgrade Request Workflow & Server Action Refresh Consistency

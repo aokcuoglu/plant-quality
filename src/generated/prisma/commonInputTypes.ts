@@ -400,6 +400,13 @@ export type EnumPpapLevelFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumPpapLevelFilter<$PrismaModel> | $Enums.PpapLevel
 }
 
+export type EnumPpapReasonForSubmissionFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapReasonForSubmission | Prisma.EnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapReasonForSubmissionFilter<$PrismaModel> | $Enums.PpapReasonForSubmission
+}
+
 export type EnumPpapStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.PpapStatus | Prisma.EnumPpapStatusFieldRefInput<$PrismaModel>
   in?: $Enums.PpapStatus[] | Prisma.ListEnumPpapStatusFieldRefInput<$PrismaModel>
@@ -415,6 +422,16 @@ export type EnumPpapLevelWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPpapLevelFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPpapLevelFilter<$PrismaModel>
+}
+
+export type EnumPpapReasonForSubmissionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapReasonForSubmission | Prisma.EnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapReasonForSubmissionWithAggregatesFilter<$PrismaModel> | $Enums.PpapReasonForSubmission
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPpapReasonForSubmissionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPpapReasonForSubmissionFilter<$PrismaModel>
 }
 
 export type EnumPpapStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -434,6 +451,13 @@ export type EnumPpapSubmissionRequirementFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumPpapSubmissionRequirementFilter<$PrismaModel> | $Enums.PpapSubmissionRequirement
 }
 
+export type EnumPpapDocumentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapDocumentStatus | Prisma.EnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel> | $Enums.PpapDocumentStatus
+}
+
 export type EnumPpapSubmissionRequirementWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.PpapSubmissionRequirement | Prisma.EnumPpapSubmissionRequirementFieldRefInput<$PrismaModel>
   in?: $Enums.PpapSubmissionRequirement[] | Prisma.ListEnumPpapSubmissionRequirementFieldRefInput<$PrismaModel>
@@ -442,6 +466,16 @@ export type EnumPpapSubmissionRequirementWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPpapSubmissionRequirementFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPpapSubmissionRequirementFilter<$PrismaModel>
+}
+
+export type EnumPpapDocumentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapDocumentStatus | Prisma.EnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapDocumentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PpapDocumentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel>
 }
 
 export type EnumIqcStatusFilter<$PrismaModel = never> = {
@@ -1094,6 +1128,13 @@ export type NestedEnumPpapLevelFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumPpapLevelFilter<$PrismaModel> | $Enums.PpapLevel
 }
 
+export type NestedEnumPpapReasonForSubmissionFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapReasonForSubmission | Prisma.EnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapReasonForSubmissionFilter<$PrismaModel> | $Enums.PpapReasonForSubmission
+}
+
 export type NestedEnumPpapStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.PpapStatus | Prisma.EnumPpapStatusFieldRefInput<$PrismaModel>
   in?: $Enums.PpapStatus[] | Prisma.ListEnumPpapStatusFieldRefInput<$PrismaModel>
@@ -1109,6 +1150,16 @@ export type NestedEnumPpapLevelWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPpapLevelFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPpapLevelFilter<$PrismaModel>
+}
+
+export type NestedEnumPpapReasonForSubmissionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapReasonForSubmission | Prisma.EnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapReasonForSubmission[] | Prisma.ListEnumPpapReasonForSubmissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapReasonForSubmissionWithAggregatesFilter<$PrismaModel> | $Enums.PpapReasonForSubmission
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPpapReasonForSubmissionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPpapReasonForSubmissionFilter<$PrismaModel>
 }
 
 export type NestedEnumPpapStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -1128,6 +1179,13 @@ export type NestedEnumPpapSubmissionRequirementFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumPpapSubmissionRequirementFilter<$PrismaModel> | $Enums.PpapSubmissionRequirement
 }
 
+export type NestedEnumPpapDocumentStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapDocumentStatus | Prisma.EnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel> | $Enums.PpapDocumentStatus
+}
+
 export type NestedEnumPpapSubmissionRequirementWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.PpapSubmissionRequirement | Prisma.EnumPpapSubmissionRequirementFieldRefInput<$PrismaModel>
   in?: $Enums.PpapSubmissionRequirement[] | Prisma.ListEnumPpapSubmissionRequirementFieldRefInput<$PrismaModel>
@@ -1136,6 +1194,16 @@ export type NestedEnumPpapSubmissionRequirementWithAggregatesFilter<$PrismaModel
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPpapSubmissionRequirementFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPpapSubmissionRequirementFilter<$PrismaModel>
+}
+
+export type NestedEnumPpapDocumentStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PpapDocumentStatus | Prisma.EnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PpapDocumentStatus[] | Prisma.ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPpapDocumentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PpapDocumentStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumIqcStatusFilter<$PrismaModel = never> = {

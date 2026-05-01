@@ -38,13 +38,19 @@ export type PpapEvidenceMinAggregateOutputType = {
   id: string | null
   ppapId: string | null
   requirement: $Enums.PpapSubmissionRequirement | null
+  status: $Enums.PpapDocumentStatus | null
   storageKey: string | null
   fileName: string | null
   mimeType: string | null
   sizeBytes: number | null
   uploadedById: string | null
+  supplierComment: string | null
+  oemComment: string | null
+  reviewedById: string | null
+  reviewedAt: Date | null
   companyId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
   deletedAt: Date | null
 }
 
@@ -52,13 +58,19 @@ export type PpapEvidenceMaxAggregateOutputType = {
   id: string | null
   ppapId: string | null
   requirement: $Enums.PpapSubmissionRequirement | null
+  status: $Enums.PpapDocumentStatus | null
   storageKey: string | null
   fileName: string | null
   mimeType: string | null
   sizeBytes: number | null
   uploadedById: string | null
+  supplierComment: string | null
+  oemComment: string | null
+  reviewedById: string | null
+  reviewedAt: Date | null
   companyId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
   deletedAt: Date | null
 }
 
@@ -66,13 +78,19 @@ export type PpapEvidenceCountAggregateOutputType = {
   id: number
   ppapId: number
   requirement: number
+  status: number
   storageKey: number
   fileName: number
   mimeType: number
   sizeBytes: number
   uploadedById: number
+  supplierComment: number
+  oemComment: number
+  reviewedById: number
+  reviewedAt: number
   companyId: number
   createdAt: number
+  updatedAt: number
   deletedAt: number
   _all: number
 }
@@ -90,13 +108,19 @@ export type PpapEvidenceMinAggregateInputType = {
   id?: true
   ppapId?: true
   requirement?: true
+  status?: true
   storageKey?: true
   fileName?: true
   mimeType?: true
   sizeBytes?: true
   uploadedById?: true
+  supplierComment?: true
+  oemComment?: true
+  reviewedById?: true
+  reviewedAt?: true
   companyId?: true
   createdAt?: true
+  updatedAt?: true
   deletedAt?: true
 }
 
@@ -104,13 +128,19 @@ export type PpapEvidenceMaxAggregateInputType = {
   id?: true
   ppapId?: true
   requirement?: true
+  status?: true
   storageKey?: true
   fileName?: true
   mimeType?: true
   sizeBytes?: true
   uploadedById?: true
+  supplierComment?: true
+  oemComment?: true
+  reviewedById?: true
+  reviewedAt?: true
   companyId?: true
   createdAt?: true
+  updatedAt?: true
   deletedAt?: true
 }
 
@@ -118,13 +148,19 @@ export type PpapEvidenceCountAggregateInputType = {
   id?: true
   ppapId?: true
   requirement?: true
+  status?: true
   storageKey?: true
   fileName?: true
   mimeType?: true
   sizeBytes?: true
   uploadedById?: true
+  supplierComment?: true
+  oemComment?: true
+  reviewedById?: true
+  reviewedAt?: true
   companyId?: true
   createdAt?: true
+  updatedAt?: true
   deletedAt?: true
   _all?: true
 }
@@ -219,13 +255,19 @@ export type PpapEvidenceGroupByOutputType = {
   id: string
   ppapId: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  uploadedById: string
+  status: $Enums.PpapDocumentStatus
+  storageKey: string | null
+  fileName: string | null
+  mimeType: string | null
+  sizeBytes: number | null
+  uploadedById: string | null
+  supplierComment: string | null
+  oemComment: string | null
+  reviewedById: string | null
+  reviewedAt: Date | null
   companyId: string
   createdAt: Date
+  updatedAt: Date
   deletedAt: Date | null
   _count: PpapEvidenceCountAggregateOutputType | null
   _avg: PpapEvidenceAvgAggregateOutputType | null
@@ -256,32 +298,46 @@ export type PpapEvidenceWhereInput = {
   id?: Prisma.StringFilter<"PpapEvidence"> | string
   ppapId?: Prisma.StringFilter<"PpapEvidence"> | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFilter<"PpapEvidence"> | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFilter<"PpapEvidence"> | string
-  fileName?: Prisma.StringFilter<"PpapEvidence"> | string
-  mimeType?: Prisma.StringFilter<"PpapEvidence"> | string
-  sizeBytes?: Prisma.IntFilter<"PpapEvidence"> | number
-  uploadedById?: Prisma.StringFilter<"PpapEvidence"> | string
+  status?: Prisma.EnumPpapDocumentStatusFilter<"PpapEvidence"> | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  fileName?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  mimeType?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  sizeBytes?: Prisma.IntNullableFilter<"PpapEvidence"> | number | null
+  uploadedById?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  supplierComment?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  oemComment?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  reviewedById?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"PpapEvidence"> | Date | string | null
   companyId?: Prisma.StringFilter<"PpapEvidence"> | string
   createdAt?: Prisma.DateTimeFilter<"PpapEvidence"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PpapEvidence"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PpapEvidence"> | Date | string | null
   ppap?: Prisma.XOR<Prisma.PpapSubmissionScalarRelationFilter, Prisma.PpapSubmissionWhereInput>
-  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type PpapEvidenceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   ppapId?: Prisma.SortOrder
   requirement?: Prisma.SortOrder
-  storageKey?: Prisma.SortOrder
-  fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  uploadedById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  storageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileName?: Prisma.SortOrderInput | Prisma.SortOrder
+  mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  sizeBytes?: Prisma.SortOrderInput | Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierComment?: Prisma.SortOrderInput | Prisma.SortOrder
+  oemComment?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   ppap?: Prisma.PpapSubmissionOrderByWithRelationInput
   uploadedBy?: Prisma.UserOrderByWithRelationInput
+  reviewedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type PpapEvidenceWhereUniqueInput = Prisma.AtLeast<{
@@ -291,29 +347,42 @@ export type PpapEvidenceWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PpapEvidenceWhereInput | Prisma.PpapEvidenceWhereInput[]
   ppapId?: Prisma.StringFilter<"PpapEvidence"> | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFilter<"PpapEvidence"> | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFilter<"PpapEvidence"> | string
-  fileName?: Prisma.StringFilter<"PpapEvidence"> | string
-  mimeType?: Prisma.StringFilter<"PpapEvidence"> | string
-  sizeBytes?: Prisma.IntFilter<"PpapEvidence"> | number
-  uploadedById?: Prisma.StringFilter<"PpapEvidence"> | string
+  status?: Prisma.EnumPpapDocumentStatusFilter<"PpapEvidence"> | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  fileName?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  mimeType?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  sizeBytes?: Prisma.IntNullableFilter<"PpapEvidence"> | number | null
+  uploadedById?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  supplierComment?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  oemComment?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  reviewedById?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"PpapEvidence"> | Date | string | null
   companyId?: Prisma.StringFilter<"PpapEvidence"> | string
   createdAt?: Prisma.DateTimeFilter<"PpapEvidence"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PpapEvidence"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PpapEvidence"> | Date | string | null
   ppap?: Prisma.XOR<Prisma.PpapSubmissionScalarRelationFilter, Prisma.PpapSubmissionWhereInput>
-  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type PpapEvidenceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   ppapId?: Prisma.SortOrder
   requirement?: Prisma.SortOrder
-  storageKey?: Prisma.SortOrder
-  fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  uploadedById?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  storageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileName?: Prisma.SortOrderInput | Prisma.SortOrder
+  mimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  sizeBytes?: Prisma.SortOrderInput | Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierComment?: Prisma.SortOrderInput | Prisma.SortOrder
+  oemComment?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PpapEvidenceCountOrderByAggregateInput
   _avg?: Prisma.PpapEvidenceAvgOrderByAggregateInput
@@ -329,69 +398,99 @@ export type PpapEvidenceScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
   ppapId?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
   requirement?: Prisma.EnumPpapSubmissionRequirementWithAggregatesFilter<"PpapEvidence"> | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
-  fileName?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
-  mimeType?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
-  sizeBytes?: Prisma.IntWithAggregatesFilter<"PpapEvidence"> | number
-  uploadedById?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
+  status?: Prisma.EnumPpapDocumentStatusWithAggregatesFilter<"PpapEvidence"> | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  fileName?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  mimeType?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  sizeBytes?: Prisma.IntNullableWithAggregatesFilter<"PpapEvidence"> | number | null
+  uploadedById?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  supplierComment?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  oemComment?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  reviewedById?: Prisma.StringNullableWithAggregatesFilter<"PpapEvidence"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PpapEvidence"> | Date | string | null
   companyId?: Prisma.StringWithAggregatesFilter<"PpapEvidence"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PpapEvidence"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PpapEvidence"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PpapEvidence"> | Date | string | null
 }
 
 export type PpapEvidenceCreateInput = {
   id?: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   ppap: Prisma.PpapSubmissionCreateNestedOneWithoutEvidencesInput
-  uploadedBy: Prisma.UserCreateNestedOneWithoutPpapEvidenceUploadsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutPpapEvidenceUploadsInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutPpapEvidenceReviewedInput
 }
 
 export type PpapEvidenceUncheckedCreateInput = {
   id?: string
   ppapId: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  uploadedById: string
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  uploadedById?: string | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
 export type PpapEvidenceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ppap?: Prisma.PpapSubmissionUpdateOneRequiredWithoutEvidencesNestedInput
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutPpapEvidenceUploadsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutPpapEvidenceUploadsNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutPpapEvidenceReviewedNestedInput
 }
 
 export type PpapEvidenceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ppapId?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -399,25 +498,36 @@ export type PpapEvidenceCreateManyInput = {
   id?: string
   ppapId: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  uploadedById: string
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  uploadedById?: string | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
 export type PpapEvidenceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -425,13 +535,19 @@ export type PpapEvidenceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ppapId?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -449,13 +565,19 @@ export type PpapEvidenceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ppapId?: Prisma.SortOrder
   requirement?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   sizeBytes?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrder
+  supplierComment?: Prisma.SortOrder
+  oemComment?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -467,13 +589,19 @@ export type PpapEvidenceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ppapId?: Prisma.SortOrder
   requirement?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   sizeBytes?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrder
+  supplierComment?: Prisma.SortOrder
+  oemComment?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -481,13 +609,19 @@ export type PpapEvidenceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ppapId?: Prisma.SortOrder
   requirement?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   storageKey?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   sizeBytes?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrder
+  supplierComment?: Prisma.SortOrder
+  oemComment?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
@@ -502,10 +636,24 @@ export type PpapEvidenceCreateNestedManyWithoutUploadedByInput = {
   connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
 }
 
+export type PpapEvidenceCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput> | Prisma.PpapEvidenceCreateWithoutReviewedByInput[] | Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput | Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.PpapEvidenceCreateManyReviewedByInputEnvelope
+  connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+}
+
 export type PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput = {
   create?: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutUploadedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutUploadedByInput> | Prisma.PpapEvidenceCreateWithoutUploadedByInput[] | Prisma.PpapEvidenceUncheckedCreateWithoutUploadedByInput[]
   connectOrCreate?: Prisma.PpapEvidenceCreateOrConnectWithoutUploadedByInput | Prisma.PpapEvidenceCreateOrConnectWithoutUploadedByInput[]
   createMany?: Prisma.PpapEvidenceCreateManyUploadedByInputEnvelope
+  connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+}
+
+export type PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput> | Prisma.PpapEvidenceCreateWithoutReviewedByInput[] | Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput | Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.PpapEvidenceCreateManyReviewedByInputEnvelope
   connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
 }
 
@@ -523,6 +671,20 @@ export type PpapEvidenceUpdateManyWithoutUploadedByNestedInput = {
   deleteMany?: Prisma.PpapEvidenceScalarWhereInput | Prisma.PpapEvidenceScalarWhereInput[]
 }
 
+export type PpapEvidenceUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput> | Prisma.PpapEvidenceCreateWithoutReviewedByInput[] | Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput | Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.PpapEvidenceUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.PpapEvidenceUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.PpapEvidenceCreateManyReviewedByInputEnvelope
+  set?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  disconnect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  delete?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  update?: Prisma.PpapEvidenceUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.PpapEvidenceUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.PpapEvidenceUpdateManyWithWhereWithoutReviewedByInput | Prisma.PpapEvidenceUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.PpapEvidenceScalarWhereInput | Prisma.PpapEvidenceScalarWhereInput[]
+}
+
 export type PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput = {
   create?: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutUploadedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutUploadedByInput> | Prisma.PpapEvidenceCreateWithoutUploadedByInput[] | Prisma.PpapEvidenceUncheckedCreateWithoutUploadedByInput[]
   connectOrCreate?: Prisma.PpapEvidenceCreateOrConnectWithoutUploadedByInput | Prisma.PpapEvidenceCreateOrConnectWithoutUploadedByInput[]
@@ -534,6 +696,20 @@ export type PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput = {
   connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
   update?: Prisma.PpapEvidenceUpdateWithWhereUniqueWithoutUploadedByInput | Prisma.PpapEvidenceUpdateWithWhereUniqueWithoutUploadedByInput[]
   updateMany?: Prisma.PpapEvidenceUpdateManyWithWhereWithoutUploadedByInput | Prisma.PpapEvidenceUpdateManyWithWhereWithoutUploadedByInput[]
+  deleteMany?: Prisma.PpapEvidenceScalarWhereInput | Prisma.PpapEvidenceScalarWhereInput[]
+}
+
+export type PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput> | Prisma.PpapEvidenceCreateWithoutReviewedByInput[] | Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput | Prisma.PpapEvidenceCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.PpapEvidenceUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.PpapEvidenceUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.PpapEvidenceCreateManyReviewedByInputEnvelope
+  set?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  disconnect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  delete?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  connect?: Prisma.PpapEvidenceWhereUniqueInput | Prisma.PpapEvidenceWhereUniqueInput[]
+  update?: Prisma.PpapEvidenceUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.PpapEvidenceUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.PpapEvidenceUpdateManyWithWhereWithoutReviewedByInput | Prisma.PpapEvidenceUpdateManyWithWhereWithoutReviewedByInput[]
   deleteMany?: Prisma.PpapEvidenceScalarWhereInput | Prisma.PpapEvidenceScalarWhereInput[]
 }
 
@@ -583,29 +759,45 @@ export type EnumPpapSubmissionRequirementFieldUpdateOperationsInput = {
   set?: $Enums.PpapSubmissionRequirement
 }
 
+export type EnumPpapDocumentStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PpapDocumentStatus
+}
+
 export type PpapEvidenceCreateWithoutUploadedByInput = {
   id?: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   ppap: Prisma.PpapSubmissionCreateNestedOneWithoutEvidencesInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutPpapEvidenceReviewedInput
 }
 
 export type PpapEvidenceUncheckedCreateWithoutUploadedByInput = {
   id?: string
   ppapId: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
@@ -616,6 +808,54 @@ export type PpapEvidenceCreateOrConnectWithoutUploadedByInput = {
 
 export type PpapEvidenceCreateManyUploadedByInputEnvelope = {
   data: Prisma.PpapEvidenceCreateManyUploadedByInput | Prisma.PpapEvidenceCreateManyUploadedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type PpapEvidenceCreateWithoutReviewedByInput = {
+  id?: string
+  requirement: $Enums.PpapSubmissionRequirement
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedAt?: Date | string | null
+  companyId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  ppap: Prisma.PpapSubmissionCreateNestedOneWithoutEvidencesInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutPpapEvidenceUploadsInput
+}
+
+export type PpapEvidenceUncheckedCreateWithoutReviewedByInput = {
+  id?: string
+  ppapId: string
+  requirement: $Enums.PpapSubmissionRequirement
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  uploadedById?: string | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedAt?: Date | string | null
+  companyId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type PpapEvidenceCreateOrConnectWithoutReviewedByInput = {
+  where: Prisma.PpapEvidenceWhereUniqueInput
+  create: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput>
+}
+
+export type PpapEvidenceCreateManyReviewedByInputEnvelope = {
+  data: Prisma.PpapEvidenceCreateManyReviewedByInput | Prisma.PpapEvidenceCreateManyReviewedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -642,39 +882,73 @@ export type PpapEvidenceScalarWhereInput = {
   id?: Prisma.StringFilter<"PpapEvidence"> | string
   ppapId?: Prisma.StringFilter<"PpapEvidence"> | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFilter<"PpapEvidence"> | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFilter<"PpapEvidence"> | string
-  fileName?: Prisma.StringFilter<"PpapEvidence"> | string
-  mimeType?: Prisma.StringFilter<"PpapEvidence"> | string
-  sizeBytes?: Prisma.IntFilter<"PpapEvidence"> | number
-  uploadedById?: Prisma.StringFilter<"PpapEvidence"> | string
+  status?: Prisma.EnumPpapDocumentStatusFilter<"PpapEvidence"> | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  fileName?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  mimeType?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  sizeBytes?: Prisma.IntNullableFilter<"PpapEvidence"> | number | null
+  uploadedById?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  supplierComment?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  oemComment?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  reviewedById?: Prisma.StringNullableFilter<"PpapEvidence"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"PpapEvidence"> | Date | string | null
   companyId?: Prisma.StringFilter<"PpapEvidence"> | string
   createdAt?: Prisma.DateTimeFilter<"PpapEvidence"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"PpapEvidence"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"PpapEvidence"> | Date | string | null
+}
+
+export type PpapEvidenceUpsertWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.PpapEvidenceWhereUniqueInput
+  update: Prisma.XOR<Prisma.PpapEvidenceUpdateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedUpdateWithoutReviewedByInput>
+  create: Prisma.XOR<Prisma.PpapEvidenceCreateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedCreateWithoutReviewedByInput>
+}
+
+export type PpapEvidenceUpdateWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.PpapEvidenceWhereUniqueInput
+  data: Prisma.XOR<Prisma.PpapEvidenceUpdateWithoutReviewedByInput, Prisma.PpapEvidenceUncheckedUpdateWithoutReviewedByInput>
+}
+
+export type PpapEvidenceUpdateManyWithWhereWithoutReviewedByInput = {
+  where: Prisma.PpapEvidenceScalarWhereInput
+  data: Prisma.XOR<Prisma.PpapEvidenceUpdateManyMutationInput, Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByInput>
 }
 
 export type PpapEvidenceCreateWithoutPpapInput = {
   id?: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
-  uploadedBy: Prisma.UserCreateNestedOneWithoutPpapEvidenceUploadsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutPpapEvidenceUploadsInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutPpapEvidenceReviewedInput
 }
 
 export type PpapEvidenceUncheckedCreateWithoutPpapInput = {
   id?: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  uploadedById: string
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  uploadedById?: string | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
@@ -708,38 +982,75 @@ export type PpapEvidenceCreateManyUploadedByInput = {
   id?: string
   ppapId: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type PpapEvidenceCreateManyReviewedByInput = {
+  id?: string
+  ppapId: string
+  requirement: $Enums.PpapSubmissionRequirement
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  uploadedById?: string | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedAt?: Date | string | null
+  companyId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
 export type PpapEvidenceUpdateWithoutUploadedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ppap?: Prisma.PpapSubmissionUpdateOneRequiredWithoutEvidencesNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutPpapEvidenceReviewedNestedInput
 }
 
 export type PpapEvidenceUncheckedUpdateWithoutUploadedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ppapId?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -747,64 +1058,151 @@ export type PpapEvidenceUncheckedUpdateManyWithoutUploadedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ppapId?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type PpapEvidenceUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ppap?: Prisma.PpapSubmissionUpdateOneRequiredWithoutEvidencesNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutPpapEvidenceUploadsNestedInput
+}
+
+export type PpapEvidenceUncheckedUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppapId?: Prisma.StringFieldUpdateOperationsInput | string
+  requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type PpapEvidenceUncheckedUpdateManyWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppapId?: Prisma.StringFieldUpdateOperationsInput | string
+  requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PpapEvidenceCreateManyPpapInput = {
   id?: string
   requirement: $Enums.PpapSubmissionRequirement
-  storageKey: string
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  uploadedById: string
+  status?: $Enums.PpapDocumentStatus
+  storageKey?: string | null
+  fileName?: string | null
+  mimeType?: string | null
+  sizeBytes?: number | null
+  uploadedById?: string | null
+  supplierComment?: string | null
+  oemComment?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
   companyId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
 export type PpapEvidenceUpdateWithoutPpapInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutPpapEvidenceUploadsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutPpapEvidenceUploadsNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutPpapEvidenceReviewedNestedInput
 }
 
 export type PpapEvidenceUncheckedUpdateWithoutPpapInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PpapEvidenceUncheckedUpdateManyWithoutPpapInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   requirement?: Prisma.EnumPpapSubmissionRequirementFieldUpdateOperationsInput | $Enums.PpapSubmissionRequirement
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumPpapDocumentStatusFieldUpdateOperationsInput | $Enums.PpapDocumentStatus
+  storageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -814,95 +1212,132 @@ export type PpapEvidenceSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   ppapId?: boolean
   requirement?: boolean
+  status?: boolean
   storageKey?: boolean
   fileName?: boolean
   mimeType?: boolean
   sizeBytes?: boolean
   uploadedById?: boolean
+  supplierComment?: boolean
+  oemComment?: boolean
+  reviewedById?: boolean
+  reviewedAt?: boolean
   companyId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
   ppap?: boolean | Prisma.PpapSubmissionDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.PpapEvidence$uploadedByArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapEvidence$reviewedByArgs<ExtArgs>
 }, ExtArgs["result"]["ppapEvidence"]>
 
 export type PpapEvidenceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ppapId?: boolean
   requirement?: boolean
+  status?: boolean
   storageKey?: boolean
   fileName?: boolean
   mimeType?: boolean
   sizeBytes?: boolean
   uploadedById?: boolean
+  supplierComment?: boolean
+  oemComment?: boolean
+  reviewedById?: boolean
+  reviewedAt?: boolean
   companyId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
   ppap?: boolean | Prisma.PpapSubmissionDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.PpapEvidence$uploadedByArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapEvidence$reviewedByArgs<ExtArgs>
 }, ExtArgs["result"]["ppapEvidence"]>
 
 export type PpapEvidenceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ppapId?: boolean
   requirement?: boolean
+  status?: boolean
   storageKey?: boolean
   fileName?: boolean
   mimeType?: boolean
   sizeBytes?: boolean
   uploadedById?: boolean
+  supplierComment?: boolean
+  oemComment?: boolean
+  reviewedById?: boolean
+  reviewedAt?: boolean
   companyId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
   ppap?: boolean | Prisma.PpapSubmissionDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.PpapEvidence$uploadedByArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapEvidence$reviewedByArgs<ExtArgs>
 }, ExtArgs["result"]["ppapEvidence"]>
 
 export type PpapEvidenceSelectScalar = {
   id?: boolean
   ppapId?: boolean
   requirement?: boolean
+  status?: boolean
   storageKey?: boolean
   fileName?: boolean
   mimeType?: boolean
   sizeBytes?: boolean
   uploadedById?: boolean
+  supplierComment?: boolean
+  oemComment?: boolean
+  reviewedById?: boolean
+  reviewedAt?: boolean
   companyId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type PpapEvidenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ppapId" | "requirement" | "storageKey" | "fileName" | "mimeType" | "sizeBytes" | "uploadedById" | "companyId" | "createdAt" | "deletedAt", ExtArgs["result"]["ppapEvidence"]>
+export type PpapEvidenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ppapId" | "requirement" | "status" | "storageKey" | "fileName" | "mimeType" | "sizeBytes" | "uploadedById" | "supplierComment" | "oemComment" | "reviewedById" | "reviewedAt" | "companyId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["ppapEvidence"]>
 export type PpapEvidenceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ppap?: boolean | Prisma.PpapSubmissionDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.PpapEvidence$uploadedByArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapEvidence$reviewedByArgs<ExtArgs>
 }
 export type PpapEvidenceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ppap?: boolean | Prisma.PpapSubmissionDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.PpapEvidence$uploadedByArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapEvidence$reviewedByArgs<ExtArgs>
 }
 export type PpapEvidenceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ppap?: boolean | Prisma.PpapSubmissionDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.PpapEvidence$uploadedByArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapEvidence$reviewedByArgs<ExtArgs>
 }
 
 export type $PpapEvidencePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PpapEvidence"
   objects: {
     ppap: Prisma.$PpapSubmissionPayload<ExtArgs>
-    uploadedBy: Prisma.$UserPayload<ExtArgs>
+    uploadedBy: Prisma.$UserPayload<ExtArgs> | null
+    reviewedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     ppapId: string
     requirement: $Enums.PpapSubmissionRequirement
-    storageKey: string
-    fileName: string
-    mimeType: string
-    sizeBytes: number
-    uploadedById: string
+    status: $Enums.PpapDocumentStatus
+    storageKey: string | null
+    fileName: string | null
+    mimeType: string | null
+    sizeBytes: number | null
+    uploadedById: string | null
+    supplierComment: string | null
+    oemComment: string | null
+    reviewedById: string | null
+    reviewedAt: Date | null
     companyId: string
     createdAt: Date
+    updatedAt: Date
     deletedAt: Date | null
   }, ExtArgs["result"]["ppapEvidence"]>
   composites: {}
@@ -1299,7 +1734,8 @@ readonly fields: PpapEvidenceFieldRefs;
 export interface Prisma__PpapEvidenceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   ppap<T extends Prisma.PpapSubmissionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmissionDefaultArgs<ExtArgs>>): Prisma.Prisma__PpapSubmissionClient<runtime.Types.Result.GetResult<Prisma.$PpapSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  uploadedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  uploadedBy<T extends Prisma.PpapEvidence$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapEvidence$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  reviewedBy<T extends Prisma.PpapEvidence$reviewedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapEvidence$reviewedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1332,13 +1768,19 @@ export interface PpapEvidenceFieldRefs {
   readonly id: Prisma.FieldRef<"PpapEvidence", 'String'>
   readonly ppapId: Prisma.FieldRef<"PpapEvidence", 'String'>
   readonly requirement: Prisma.FieldRef<"PpapEvidence", 'PpapSubmissionRequirement'>
+  readonly status: Prisma.FieldRef<"PpapEvidence", 'PpapDocumentStatus'>
   readonly storageKey: Prisma.FieldRef<"PpapEvidence", 'String'>
   readonly fileName: Prisma.FieldRef<"PpapEvidence", 'String'>
   readonly mimeType: Prisma.FieldRef<"PpapEvidence", 'String'>
   readonly sizeBytes: Prisma.FieldRef<"PpapEvidence", 'Int'>
   readonly uploadedById: Prisma.FieldRef<"PpapEvidence", 'String'>
+  readonly supplierComment: Prisma.FieldRef<"PpapEvidence", 'String'>
+  readonly oemComment: Prisma.FieldRef<"PpapEvidence", 'String'>
+  readonly reviewedById: Prisma.FieldRef<"PpapEvidence", 'String'>
+  readonly reviewedAt: Prisma.FieldRef<"PpapEvidence", 'DateTime'>
   readonly companyId: Prisma.FieldRef<"PpapEvidence", 'String'>
   readonly createdAt: Prisma.FieldRef<"PpapEvidence", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"PpapEvidence", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"PpapEvidence", 'DateTime'>
 }
     
@@ -1738,6 +2180,44 @@ export type PpapEvidenceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many PpapEvidences to delete.
    */
   limit?: number
+}
+
+/**
+ * PpapEvidence.uploadedBy
+ */
+export type PpapEvidence$uploadedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * PpapEvidence.reviewedBy
+ */
+export type PpapEvidence$reviewedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

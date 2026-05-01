@@ -100,6 +100,12 @@ enum DefectEventType {
   PPAP_SUBMITTED
   PPAP_APPROVED
   PPAP_REJECTED
+  PPAP_REVISION_REQUESTED
+  PPAP_CANCELLED
+  PPAP_DOCUMENT_UPLOADED
+  PPAP_DOCUMENT_APPROVED
+  PPAP_DOCUMENT_REJECTED
+  PPAP_DOCUMENT_REVISION_REQUESTED
   IQC_CREATED
   IQC_COMPLETED
   IQC_FAILED
@@ -153,15 +159,40 @@ enum PpapLevel {
   LEVEL_2
   LEVEL_3
   LEVEL_4
+  LEVEL_5
+}
+
+enum PpapReasonForSubmission {
+  NEW_PART
+  ENGINEERING_CHANGE
+  SUPPLIER_CHANGE
+  PROCESS_CHANGE
+  TOOLING_CHANGE
+  ANNUAL_REVALIDATION
+  CORRECTIVE_ACTION_FOLLOW_UP
+  OTHER
+}
+
+enum PpapDocumentStatus {
+  MISSING
+  UPLOADED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  REVISION_REQUIRED
 }
 
 enum PpapStatus {
   DRAFT
+  REQUESTED
+  SUPPLIER_IN_PROGRESS
   SUBMITTED
   UNDER_REVIEW
+  REVISION_REQUIRED
   APPROVED
   REJECTED
-  REVISED
+  CANCELLED
+  EXPIRED
 }
 
 enum PpapSubmissionRequirement {
@@ -181,6 +212,7 @@ enum PpapSubmissionRequirement {
   SAMPLE_PRODUCTION_PARTS
   MASTER_SAMPLE
   CHECKING_ASSIST
+  CUSTOMER_SPECIFIC_REQUIREMENTS
   PART_SUBMISSION_WARRANT
 }
 
@@ -292,7 +324,9 @@ model User {
   assignedPpaps  PpapSubmission[] @relation("PpapSupplierAssignee")
   approvedPpaps  PpapSubmission[] @relation("PpapApprovedBy")
   rejectedPpaps  PpapSubmission[] @relation("PpapRejectedBy")
+  reviewedPpaps        PpapSubmission[] @relation("PpapReviewedBy")
   ppapEvidenceUploads PpapEvidence[] @relation("PpapEvidenceUploadedBy")
+  ppapEvidenceReviewed PpapEvidence[] @relation("PpapEvidenceReviewedBy")
   ppapCommentResolved  PpapReviewComment[] @relation("PpapCommentResolvedBy")
   ppapCommentAuthored  PpapReviewComment[] @relation("PpapCommentAuthor")
   ppapEventActors PpapEvent[] @relation("PpapEventActor")
@@ -487,10 +521,16 @@ model DefectEvidence {
 
 model PpapSubmission {
   id                    String        @id @default(uuid())
+  requestNumber         String        @unique @map("request_number")
   partNumber           String        @map("part_number")
   partName             String        @map("part_name")
+  projectName          String?       @map("project_name")
+  vehicleModel         String?       @map("vehicle_model")
+  revisionLevel        String?       @map("revision_level")
+  drawingNumber        String?       @map("drawing_number")
   revision              String        @default("A") @map("revision")
   level                 PpapLevel     @default(LEVEL_3) @map("level")
+  reasonForSubmission  PpapReasonForSubmission @default(NEW_PART) @map("reason_for_submission")
   status                PpapStatus    @default(DRAFT)
   oemId                 String        @map("oem_id")
   oem                   Company       @relation("OemPpapSubmissions", fields: [oemId], references: [id])
@@ -504,6 +544,8 @@ model PpapSubmission {
   defect                Defect?       @relation(fields: [defectId], references: [id])
   submittedAt           DateTime?     @map("submitted_at")
   reviewedAt            DateTime?     @map("reviewed_at")
+  reviewedById          String?       @map("reviewed_by_id")
+  reviewedBy            User?         @relation("PpapReviewedBy", fields: [reviewedById], references: [id])
   approvedAt            DateTime?     @map("approved_at")
   rejectedAt            DateTime?     @map("rejected_at")
   approvedById          String?       @map("approved_by_id")
@@ -532,17 +574,25 @@ model PpapEvidence {
   ppapId          String          @map("ppap_id")
   ppap            PpapSubmission  @relation(fields: [ppapId], references: [id], onDelete: Cascade)
   requirement     PpapSubmissionRequirement
-  storageKey      String          @map("storage_key")
-  fileName        String          @map("file_name")
-  mimeType        String          @map("mime_type")
-  sizeBytes       Int             @map("size_bytes")
-  uploadedById    String          @map("uploaded_by_id")
-  uploadedBy      User            @relation("PpapEvidenceUploadedBy", fields: [uploadedById], references: [id])
+  status          PpapDocumentStatus @default(MISSING) @map("status")
+  storageKey      String?         @map("storage_key")
+  fileName        String?         @map("file_name")
+  mimeType        String?         @map("mime_type")
+  sizeBytes       Int?            @map("size_bytes")
+  uploadedById    String?         @map("uploaded_by_id")
+  uploadedBy      User?           @relation("PpapEvidenceUploadedBy", fields: [uploadedById], references: [id])
+  supplierComment  String?        @map("supplier_comment")
+  oemComment      String?         @map("oem_comment")
+  reviewedById    String?         @map("reviewed_by_id")
+  reviewedBy      User?           @relation("PpapEvidenceReviewedBy", fields: [reviewedById], references: [id])
+  reviewedAt      DateTime?       @map("reviewed_at")
   companyId       String          @map("company_id")
   createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
   deletedAt       DateTime?       @map("deleted_at")
 
   @@index([ppapId, requirement])
+  @@index([ppapId, status])
   @@index([companyId, createdAt])
   @@map("ppap_evidence")
 }

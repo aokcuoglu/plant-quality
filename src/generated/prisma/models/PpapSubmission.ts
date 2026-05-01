@@ -26,10 +26,16 @@ export type AggregatePpapSubmission = {
 
 export type PpapSubmissionMinAggregateOutputType = {
   id: string | null
+  requestNumber: string | null
   partNumber: string | null
   partName: string | null
+  projectName: string | null
+  vehicleModel: string | null
+  revisionLevel: string | null
+  drawingNumber: string | null
   revision: string | null
   level: $Enums.PpapLevel | null
+  reasonForSubmission: $Enums.PpapReasonForSubmission | null
   status: $Enums.PpapStatus | null
   oemId: string | null
   supplierId: string | null
@@ -38,6 +44,7 @@ export type PpapSubmissionMinAggregateOutputType = {
   defectId: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
+  reviewedById: string | null
   approvedAt: Date | null
   rejectedAt: Date | null
   approvedById: string | null
@@ -52,10 +59,16 @@ export type PpapSubmissionMinAggregateOutputType = {
 
 export type PpapSubmissionMaxAggregateOutputType = {
   id: string | null
+  requestNumber: string | null
   partNumber: string | null
   partName: string | null
+  projectName: string | null
+  vehicleModel: string | null
+  revisionLevel: string | null
+  drawingNumber: string | null
   revision: string | null
   level: $Enums.PpapLevel | null
+  reasonForSubmission: $Enums.PpapReasonForSubmission | null
   status: $Enums.PpapStatus | null
   oemId: string | null
   supplierId: string | null
@@ -64,6 +77,7 @@ export type PpapSubmissionMaxAggregateOutputType = {
   defectId: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
+  reviewedById: string | null
   approvedAt: Date | null
   rejectedAt: Date | null
   approvedById: string | null
@@ -78,10 +92,16 @@ export type PpapSubmissionMaxAggregateOutputType = {
 
 export type PpapSubmissionCountAggregateOutputType = {
   id: number
+  requestNumber: number
   partNumber: number
   partName: number
+  projectName: number
+  vehicleModel: number
+  revisionLevel: number
+  drawingNumber: number
   revision: number
   level: number
+  reasonForSubmission: number
   status: number
   oemId: number
   supplierId: number
@@ -90,6 +110,7 @@ export type PpapSubmissionCountAggregateOutputType = {
   defectId: number
   submittedAt: number
   reviewedAt: number
+  reviewedById: number
   approvedAt: number
   rejectedAt: number
   approvedById: number
@@ -107,10 +128,16 @@ export type PpapSubmissionCountAggregateOutputType = {
 
 export type PpapSubmissionMinAggregateInputType = {
   id?: true
+  requestNumber?: true
   partNumber?: true
   partName?: true
+  projectName?: true
+  vehicleModel?: true
+  revisionLevel?: true
+  drawingNumber?: true
   revision?: true
   level?: true
+  reasonForSubmission?: true
   status?: true
   oemId?: true
   supplierId?: true
@@ -119,6 +146,7 @@ export type PpapSubmissionMinAggregateInputType = {
   defectId?: true
   submittedAt?: true
   reviewedAt?: true
+  reviewedById?: true
   approvedAt?: true
   rejectedAt?: true
   approvedById?: true
@@ -133,10 +161,16 @@ export type PpapSubmissionMinAggregateInputType = {
 
 export type PpapSubmissionMaxAggregateInputType = {
   id?: true
+  requestNumber?: true
   partNumber?: true
   partName?: true
+  projectName?: true
+  vehicleModel?: true
+  revisionLevel?: true
+  drawingNumber?: true
   revision?: true
   level?: true
+  reasonForSubmission?: true
   status?: true
   oemId?: true
   supplierId?: true
@@ -145,6 +179,7 @@ export type PpapSubmissionMaxAggregateInputType = {
   defectId?: true
   submittedAt?: true
   reviewedAt?: true
+  reviewedById?: true
   approvedAt?: true
   rejectedAt?: true
   approvedById?: true
@@ -159,10 +194,16 @@ export type PpapSubmissionMaxAggregateInputType = {
 
 export type PpapSubmissionCountAggregateInputType = {
   id?: true
+  requestNumber?: true
   partNumber?: true
   partName?: true
+  projectName?: true
+  vehicleModel?: true
+  revisionLevel?: true
+  drawingNumber?: true
   revision?: true
   level?: true
+  reasonForSubmission?: true
   status?: true
   oemId?: true
   supplierId?: true
@@ -171,6 +212,7 @@ export type PpapSubmissionCountAggregateInputType = {
   defectId?: true
   submittedAt?: true
   reviewedAt?: true
+  reviewedById?: true
   approvedAt?: true
   rejectedAt?: true
   approvedById?: true
@@ -259,10 +301,16 @@ export type PpapSubmissionGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type PpapSubmissionGroupByOutputType = {
   id: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName: string | null
+  vehicleModel: string | null
+  revisionLevel: string | null
+  drawingNumber: string | null
   revision: string
   level: $Enums.PpapLevel
+  reasonForSubmission: $Enums.PpapReasonForSubmission
   status: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -271,6 +319,7 @@ export type PpapSubmissionGroupByOutputType = {
   defectId: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
+  reviewedById: string | null
   approvedAt: Date | null
   rejectedAt: Date | null
   approvedById: string | null
@@ -307,10 +356,16 @@ export type PpapSubmissionWhereInput = {
   OR?: Prisma.PpapSubmissionWhereInput[]
   NOT?: Prisma.PpapSubmissionWhereInput | Prisma.PpapSubmissionWhereInput[]
   id?: Prisma.StringFilter<"PpapSubmission"> | string
+  requestNumber?: Prisma.StringFilter<"PpapSubmission"> | string
   partNumber?: Prisma.StringFilter<"PpapSubmission"> | string
   partName?: Prisma.StringFilter<"PpapSubmission"> | string
+  projectName?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  vehicleModel?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  revisionLevel?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  drawingNumber?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   revision?: Prisma.StringFilter<"PpapSubmission"> | string
   level?: Prisma.EnumPpapLevelFilter<"PpapSubmission"> | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFilter<"PpapSubmission"> | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFilter<"PpapSubmission"> | $Enums.PpapStatus
   oemId?: Prisma.StringFilter<"PpapSubmission"> | string
   supplierId?: Prisma.StringFilter<"PpapSubmission"> | string
@@ -319,6 +374,7 @@ export type PpapSubmissionWhereInput = {
   defectId?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   submittedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
+  reviewedById?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
@@ -335,6 +391,7 @@ export type PpapSubmissionWhereInput = {
   oemOwner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   supplierAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   defect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   rejectedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   evidences?: Prisma.PpapEvidenceListRelationFilter
@@ -344,10 +401,16 @@ export type PpapSubmissionWhereInput = {
 
 export type PpapSubmissionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  requestNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrderInput | Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrderInput | Prisma.SortOrder
+  revisionLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  drawingNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   revision?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  reasonForSubmission?: Prisma.SortOrder
   status?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
@@ -356,6 +419,7 @@ export type PpapSubmissionOrderByWithRelationInput = {
   defectId?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -372,6 +436,7 @@ export type PpapSubmissionOrderByWithRelationInput = {
   oemOwner?: Prisma.UserOrderByWithRelationInput
   supplierAssignee?: Prisma.UserOrderByWithRelationInput
   defect?: Prisma.DefectOrderByWithRelationInput
+  reviewedBy?: Prisma.UserOrderByWithRelationInput
   approvedBy?: Prisma.UserOrderByWithRelationInput
   rejectedBy?: Prisma.UserOrderByWithRelationInput
   evidences?: Prisma.PpapEvidenceOrderByRelationAggregateInput
@@ -381,14 +446,20 @@ export type PpapSubmissionOrderByWithRelationInput = {
 
 export type PpapSubmissionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  requestNumber?: string
   defectId?: string
   AND?: Prisma.PpapSubmissionWhereInput | Prisma.PpapSubmissionWhereInput[]
   OR?: Prisma.PpapSubmissionWhereInput[]
   NOT?: Prisma.PpapSubmissionWhereInput | Prisma.PpapSubmissionWhereInput[]
   partNumber?: Prisma.StringFilter<"PpapSubmission"> | string
   partName?: Prisma.StringFilter<"PpapSubmission"> | string
+  projectName?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  vehicleModel?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  revisionLevel?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  drawingNumber?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   revision?: Prisma.StringFilter<"PpapSubmission"> | string
   level?: Prisma.EnumPpapLevelFilter<"PpapSubmission"> | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFilter<"PpapSubmission"> | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFilter<"PpapSubmission"> | $Enums.PpapStatus
   oemId?: Prisma.StringFilter<"PpapSubmission"> | string
   supplierId?: Prisma.StringFilter<"PpapSubmission"> | string
@@ -396,6 +467,7 @@ export type PpapSubmissionWhereUniqueInput = Prisma.AtLeast<{
   supplierAssigneeId?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   submittedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
+  reviewedById?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
@@ -412,19 +484,26 @@ export type PpapSubmissionWhereUniqueInput = Prisma.AtLeast<{
   oemOwner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   supplierAssignee?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   defect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   rejectedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   evidences?: Prisma.PpapEvidenceListRelationFilter
   reviewComments?: Prisma.PpapReviewCommentListRelationFilter
   events?: Prisma.PpapEventListRelationFilter
-}, "id" | "defectId">
+}, "id" | "requestNumber" | "defectId">
 
 export type PpapSubmissionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  requestNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrderInput | Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrderInput | Prisma.SortOrder
+  revisionLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  drawingNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   revision?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  reasonForSubmission?: Prisma.SortOrder
   status?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
@@ -433,6 +512,7 @@ export type PpapSubmissionOrderByWithAggregationInput = {
   defectId?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -454,10 +534,16 @@ export type PpapSubmissionScalarWhereWithAggregatesInput = {
   OR?: Prisma.PpapSubmissionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PpapSubmissionScalarWhereWithAggregatesInput | Prisma.PpapSubmissionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
+  requestNumber?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
   partNumber?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
   partName?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
+  projectName?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
+  vehicleModel?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
+  revisionLevel?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
+  drawingNumber?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
   revision?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
   level?: Prisma.EnumPpapLevelWithAggregatesFilter<"PpapSubmission"> | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionWithAggregatesFilter<"PpapSubmission"> | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusWithAggregatesFilter<"PpapSubmission"> | $Enums.PpapStatus
   oemId?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
   supplierId?: Prisma.StringWithAggregatesFilter<"PpapSubmission"> | string
@@ -466,6 +552,7 @@ export type PpapSubmissionScalarWhereWithAggregatesInput = {
   defectId?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
   submittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PpapSubmission"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PpapSubmission"> | Date | string | null
+  reviewedById?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PpapSubmission"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PpapSubmission"> | Date | string | null
   approvedById?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
@@ -481,10 +568,16 @@ export type PpapSubmissionScalarWhereWithAggregatesInput = {
 
 export type PpapSubmissionCreateInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -502,6 +595,7 @@ export type PpapSubmissionCreateInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -511,10 +605,16 @@ export type PpapSubmissionCreateInput = {
 
 export type PpapSubmissionUncheckedCreateInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -523,6 +623,7 @@ export type PpapSubmissionUncheckedCreateInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -541,10 +642,16 @@ export type PpapSubmissionUncheckedCreateInput = {
 
 export type PpapSubmissionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -562,6 +669,7 @@ export type PpapSubmissionUpdateInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -571,10 +679,16 @@ export type PpapSubmissionUpdateInput = {
 
 export type PpapSubmissionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -583,6 +697,7 @@ export type PpapSubmissionUncheckedUpdateInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -601,10 +716,16 @@ export type PpapSubmissionUncheckedUpdateInput = {
 
 export type PpapSubmissionCreateManyInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -613,6 +734,7 @@ export type PpapSubmissionCreateManyInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -628,10 +750,16 @@ export type PpapSubmissionCreateManyInput = {
 
 export type PpapSubmissionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -648,10 +776,16 @@ export type PpapSubmissionUpdateManyMutationInput = {
 
 export type PpapSubmissionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -660,6 +794,7 @@ export type PpapSubmissionUncheckedUpdateManyInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -690,10 +825,16 @@ export type PpapSubmissionNullableScalarRelationFilter = {
 
 export type PpapSubmissionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  requestNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  revisionLevel?: Prisma.SortOrder
+  drawingNumber?: Prisma.SortOrder
   revision?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  reasonForSubmission?: Prisma.SortOrder
   status?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
@@ -702,6 +843,7 @@ export type PpapSubmissionCountOrderByAggregateInput = {
   defectId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
@@ -717,10 +859,16 @@ export type PpapSubmissionCountOrderByAggregateInput = {
 
 export type PpapSubmissionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  requestNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  revisionLevel?: Prisma.SortOrder
+  drawingNumber?: Prisma.SortOrder
   revision?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  reasonForSubmission?: Prisma.SortOrder
   status?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
@@ -729,6 +877,7 @@ export type PpapSubmissionMaxOrderByAggregateInput = {
   defectId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
@@ -743,10 +892,16 @@ export type PpapSubmissionMaxOrderByAggregateInput = {
 
 export type PpapSubmissionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  requestNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  revisionLevel?: Prisma.SortOrder
+  drawingNumber?: Prisma.SortOrder
   revision?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  reasonForSubmission?: Prisma.SortOrder
   status?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
@@ -755,6 +910,7 @@ export type PpapSubmissionMinOrderByAggregateInput = {
   defectId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
@@ -884,6 +1040,13 @@ export type PpapSubmissionCreateNestedManyWithoutRejectedByInput = {
   connect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
 }
 
+export type PpapSubmissionCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput> | Prisma.PpapSubmissionCreateWithoutReviewedByInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput | Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.PpapSubmissionCreateManyReviewedByInputEnvelope
+  connect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+}
+
 export type PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput = {
   create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutOemOwnerInput, Prisma.PpapSubmissionUncheckedCreateWithoutOemOwnerInput> | Prisma.PpapSubmissionCreateWithoutOemOwnerInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutOemOwnerInput[]
   connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutOemOwnerInput | Prisma.PpapSubmissionCreateOrConnectWithoutOemOwnerInput[]
@@ -909,6 +1072,13 @@ export type PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput = {
   create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutRejectedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutRejectedByInput> | Prisma.PpapSubmissionCreateWithoutRejectedByInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutRejectedByInput[]
   connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutRejectedByInput | Prisma.PpapSubmissionCreateOrConnectWithoutRejectedByInput[]
   createMany?: Prisma.PpapSubmissionCreateManyRejectedByInputEnvelope
+  connect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+}
+
+export type PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput> | Prisma.PpapSubmissionCreateWithoutReviewedByInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput | Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.PpapSubmissionCreateManyReviewedByInputEnvelope
   connect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
 }
 
@@ -968,6 +1138,20 @@ export type PpapSubmissionUpdateManyWithoutRejectedByNestedInput = {
   deleteMany?: Prisma.PpapSubmissionScalarWhereInput | Prisma.PpapSubmissionScalarWhereInput[]
 }
 
+export type PpapSubmissionUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput> | Prisma.PpapSubmissionCreateWithoutReviewedByInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput | Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.PpapSubmissionUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.PpapSubmissionUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.PpapSubmissionCreateManyReviewedByInputEnvelope
+  set?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  disconnect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  delete?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  connect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  update?: Prisma.PpapSubmissionUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.PpapSubmissionUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.PpapSubmissionUpdateManyWithWhereWithoutReviewedByInput | Prisma.PpapSubmissionUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.PpapSubmissionScalarWhereInput | Prisma.PpapSubmissionScalarWhereInput[]
+}
+
 export type PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput = {
   create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutOemOwnerInput, Prisma.PpapSubmissionUncheckedCreateWithoutOemOwnerInput> | Prisma.PpapSubmissionCreateWithoutOemOwnerInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutOemOwnerInput[]
   connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutOemOwnerInput | Prisma.PpapSubmissionCreateOrConnectWithoutOemOwnerInput[]
@@ -1024,6 +1208,20 @@ export type PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput = {
   deleteMany?: Prisma.PpapSubmissionScalarWhereInput | Prisma.PpapSubmissionScalarWhereInput[]
 }
 
+export type PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput> | Prisma.PpapSubmissionCreateWithoutReviewedByInput[] | Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput | Prisma.PpapSubmissionCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.PpapSubmissionUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.PpapSubmissionUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.PpapSubmissionCreateManyReviewedByInputEnvelope
+  set?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  disconnect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  delete?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  connect?: Prisma.PpapSubmissionWhereUniqueInput | Prisma.PpapSubmissionWhereUniqueInput[]
+  update?: Prisma.PpapSubmissionUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.PpapSubmissionUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.PpapSubmissionUpdateManyWithWhereWithoutReviewedByInput | Prisma.PpapSubmissionUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.PpapSubmissionScalarWhereInput | Prisma.PpapSubmissionScalarWhereInput[]
+}
+
 export type PpapSubmissionCreateNestedOneWithoutDefectInput = {
   create?: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutDefectInput, Prisma.PpapSubmissionUncheckedCreateWithoutDefectInput>
   connectOrCreate?: Prisma.PpapSubmissionCreateOrConnectWithoutDefectInput
@@ -1058,6 +1256,10 @@ export type PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput = {
 
 export type EnumPpapLevelFieldUpdateOperationsInput = {
   set?: $Enums.PpapLevel
+}
+
+export type EnumPpapReasonForSubmissionFieldUpdateOperationsInput = {
+  set?: $Enums.PpapReasonForSubmission
 }
 
 export type EnumPpapStatusFieldUpdateOperationsInput = {
@@ -1108,10 +1310,16 @@ export type PpapSubmissionUpdateOneRequiredWithoutEventsNestedInput = {
 
 export type PpapSubmissionCreateWithoutOemInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1128,6 +1336,7 @@ export type PpapSubmissionCreateWithoutOemInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -1137,10 +1346,16 @@ export type PpapSubmissionCreateWithoutOemInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutOemInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   supplierId: string
   oemOwnerId?: string | null
@@ -1148,6 +1363,7 @@ export type PpapSubmissionUncheckedCreateWithoutOemInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1176,10 +1392,16 @@ export type PpapSubmissionCreateManyOemInputEnvelope = {
 
 export type PpapSubmissionCreateWithoutSupplierInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1196,6 +1418,7 @@ export type PpapSubmissionCreateWithoutSupplierInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -1205,10 +1428,16 @@ export type PpapSubmissionCreateWithoutSupplierInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutSupplierInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   oemOwnerId?: string | null
@@ -1216,6 +1445,7 @@ export type PpapSubmissionUncheckedCreateWithoutSupplierInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1263,10 +1493,16 @@ export type PpapSubmissionScalarWhereInput = {
   OR?: Prisma.PpapSubmissionScalarWhereInput[]
   NOT?: Prisma.PpapSubmissionScalarWhereInput | Prisma.PpapSubmissionScalarWhereInput[]
   id?: Prisma.StringFilter<"PpapSubmission"> | string
+  requestNumber?: Prisma.StringFilter<"PpapSubmission"> | string
   partNumber?: Prisma.StringFilter<"PpapSubmission"> | string
   partName?: Prisma.StringFilter<"PpapSubmission"> | string
+  projectName?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  vehicleModel?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  revisionLevel?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  drawingNumber?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   revision?: Prisma.StringFilter<"PpapSubmission"> | string
   level?: Prisma.EnumPpapLevelFilter<"PpapSubmission"> | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFilter<"PpapSubmission"> | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFilter<"PpapSubmission"> | $Enums.PpapStatus
   oemId?: Prisma.StringFilter<"PpapSubmission"> | string
   supplierId?: Prisma.StringFilter<"PpapSubmission"> | string
@@ -1275,6 +1511,7 @@ export type PpapSubmissionScalarWhereInput = {
   defectId?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   submittedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
+  reviewedById?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"PpapSubmission"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
@@ -1306,10 +1543,16 @@ export type PpapSubmissionUpdateManyWithWhereWithoutSupplierInput = {
 
 export type PpapSubmissionCreateWithoutOemOwnerInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1326,6 +1569,7 @@ export type PpapSubmissionCreateWithoutOemOwnerInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutPpapAsSupInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -1335,10 +1579,16 @@ export type PpapSubmissionCreateWithoutOemOwnerInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutOemOwnerInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1346,6 +1596,7 @@ export type PpapSubmissionUncheckedCreateWithoutOemOwnerInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1374,10 +1625,16 @@ export type PpapSubmissionCreateManyOemOwnerInputEnvelope = {
 
 export type PpapSubmissionCreateWithoutSupplierAssigneeInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1394,6 +1651,7 @@ export type PpapSubmissionCreateWithoutSupplierAssigneeInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutPpapAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -1403,10 +1661,16 @@ export type PpapSubmissionCreateWithoutSupplierAssigneeInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutSupplierAssigneeInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1414,6 +1678,7 @@ export type PpapSubmissionUncheckedCreateWithoutSupplierAssigneeInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1442,10 +1707,16 @@ export type PpapSubmissionCreateManySupplierAssigneeInputEnvelope = {
 
 export type PpapSubmissionCreateWithoutApprovedByInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1463,6 +1734,7 @@ export type PpapSubmissionCreateWithoutApprovedByInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
   reviewComments?: Prisma.PpapReviewCommentCreateNestedManyWithoutPpapInput
@@ -1471,10 +1743,16 @@ export type PpapSubmissionCreateWithoutApprovedByInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutApprovedByInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1483,6 +1761,7 @@ export type PpapSubmissionUncheckedCreateWithoutApprovedByInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedById?: string | null
@@ -1510,10 +1789,16 @@ export type PpapSubmissionCreateManyApprovedByInputEnvelope = {
 
 export type PpapSubmissionCreateWithoutRejectedByInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1531,6 +1816,7 @@ export type PpapSubmissionCreateWithoutRejectedByInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
   reviewComments?: Prisma.PpapReviewCommentCreateNestedManyWithoutPpapInput
@@ -1539,10 +1825,16 @@ export type PpapSubmissionCreateWithoutRejectedByInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutRejectedByInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1551,6 +1843,7 @@ export type PpapSubmissionUncheckedCreateWithoutRejectedByInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1573,6 +1866,88 @@ export type PpapSubmissionCreateOrConnectWithoutRejectedByInput = {
 
 export type PpapSubmissionCreateManyRejectedByInputEnvelope = {
   data: Prisma.PpapSubmissionCreateManyRejectedByInput | Prisma.PpapSubmissionCreateManyRejectedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type PpapSubmissionCreateWithoutReviewedByInput = {
+  id?: string
+  requestNumber: string
+  partNumber: string
+  partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
+  revision?: string
+  level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
+  status?: $Enums.PpapStatus
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  rejectionReason?: string | null
+  dueDate?: Date | string | null
+  requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: string | null
+  supplierNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutPpapAsSupInput
+  oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
+  supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
+  defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
+  rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
+  evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
+  reviewComments?: Prisma.PpapReviewCommentCreateNestedManyWithoutPpapInput
+  events?: Prisma.PpapEventCreateNestedManyWithoutPpapInput
+}
+
+export type PpapSubmissionUncheckedCreateWithoutReviewedByInput = {
+  id?: string
+  requestNumber: string
+  partNumber: string
+  partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
+  revision?: string
+  level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
+  status?: $Enums.PpapStatus
+  oemId: string
+  supplierId: string
+  oemOwnerId?: string | null
+  supplierAssigneeId?: string | null
+  defectId?: string | null
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  approvedById?: string | null
+  rejectedById?: string | null
+  rejectionReason?: string | null
+  dueDate?: Date | string | null
+  requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: string | null
+  supplierNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
+  reviewComments?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutPpapInput
+  events?: Prisma.PpapEventUncheckedCreateNestedManyWithoutPpapInput
+}
+
+export type PpapSubmissionCreateOrConnectWithoutReviewedByInput = {
+  where: Prisma.PpapSubmissionWhereUniqueInput
+  create: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput>
+}
+
+export type PpapSubmissionCreateManyReviewedByInputEnvelope = {
+  data: Prisma.PpapSubmissionCreateManyReviewedByInput | Prisma.PpapSubmissionCreateManyReviewedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -1640,12 +2015,34 @@ export type PpapSubmissionUpdateManyWithWhereWithoutRejectedByInput = {
   data: Prisma.XOR<Prisma.PpapSubmissionUpdateManyMutationInput, Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByInput>
 }
 
+export type PpapSubmissionUpsertWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.PpapSubmissionWhereUniqueInput
+  update: Prisma.XOR<Prisma.PpapSubmissionUpdateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedUpdateWithoutReviewedByInput>
+  create: Prisma.XOR<Prisma.PpapSubmissionCreateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedCreateWithoutReviewedByInput>
+}
+
+export type PpapSubmissionUpdateWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.PpapSubmissionWhereUniqueInput
+  data: Prisma.XOR<Prisma.PpapSubmissionUpdateWithoutReviewedByInput, Prisma.PpapSubmissionUncheckedUpdateWithoutReviewedByInput>
+}
+
+export type PpapSubmissionUpdateManyWithWhereWithoutReviewedByInput = {
+  where: Prisma.PpapSubmissionScalarWhereInput
+  data: Prisma.XOR<Prisma.PpapSubmissionUpdateManyMutationInput, Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByInput>
+}
+
 export type PpapSubmissionCreateWithoutDefectInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1662,6 +2059,7 @@ export type PpapSubmissionCreateWithoutDefectInput = {
   supplier: Prisma.CompanyCreateNestedOneWithoutPpapAsSupInput
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -1671,10 +2069,16 @@ export type PpapSubmissionCreateWithoutDefectInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutDefectInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1682,6 +2086,7 @@ export type PpapSubmissionUncheckedCreateWithoutDefectInput = {
   supplierAssigneeId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1716,10 +2121,16 @@ export type PpapSubmissionUpdateToOneWithWhereWithoutDefectInput = {
 
 export type PpapSubmissionUpdateWithoutDefectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1736,6 +2147,7 @@ export type PpapSubmissionUpdateWithoutDefectInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -1745,10 +2157,16 @@ export type PpapSubmissionUpdateWithoutDefectInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutDefectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1756,6 +2174,7 @@ export type PpapSubmissionUncheckedUpdateWithoutDefectInput = {
   supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1774,10 +2193,16 @@ export type PpapSubmissionUncheckedUpdateWithoutDefectInput = {
 
 export type PpapSubmissionCreateWithoutEvidencesInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1795,6 +2220,7 @@ export type PpapSubmissionCreateWithoutEvidencesInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   reviewComments?: Prisma.PpapReviewCommentCreateNestedManyWithoutPpapInput
@@ -1803,10 +2229,16 @@ export type PpapSubmissionCreateWithoutEvidencesInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutEvidencesInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1815,6 +2247,7 @@ export type PpapSubmissionUncheckedCreateWithoutEvidencesInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1848,10 +2281,16 @@ export type PpapSubmissionUpdateToOneWithWhereWithoutEvidencesInput = {
 
 export type PpapSubmissionUpdateWithoutEvidencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1869,6 +2308,7 @@ export type PpapSubmissionUpdateWithoutEvidencesInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   reviewComments?: Prisma.PpapReviewCommentUpdateManyWithoutPpapNestedInput
@@ -1877,10 +2317,16 @@ export type PpapSubmissionUpdateWithoutEvidencesInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutEvidencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1889,6 +2335,7 @@ export type PpapSubmissionUncheckedUpdateWithoutEvidencesInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1906,10 +2353,16 @@ export type PpapSubmissionUncheckedUpdateWithoutEvidencesInput = {
 
 export type PpapSubmissionCreateWithoutReviewCommentsInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -1927,6 +2380,7 @@ export type PpapSubmissionCreateWithoutReviewCommentsInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -1935,10 +2389,16 @@ export type PpapSubmissionCreateWithoutReviewCommentsInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutReviewCommentsInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -1947,6 +2407,7 @@ export type PpapSubmissionUncheckedCreateWithoutReviewCommentsInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -1980,10 +2441,16 @@ export type PpapSubmissionUpdateToOneWithWhereWithoutReviewCommentsInput = {
 
 export type PpapSubmissionUpdateWithoutReviewCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2001,6 +2468,7 @@ export type PpapSubmissionUpdateWithoutReviewCommentsInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -2009,10 +2477,16 @@ export type PpapSubmissionUpdateWithoutReviewCommentsInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutReviewCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2021,6 +2495,7 @@ export type PpapSubmissionUncheckedUpdateWithoutReviewCommentsInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2038,10 +2513,16 @@ export type PpapSubmissionUncheckedUpdateWithoutReviewCommentsInput = {
 
 export type PpapSubmissionCreateWithoutEventsInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
@@ -2059,6 +2540,7 @@ export type PpapSubmissionCreateWithoutEventsInput = {
   oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedPpapsInput
   supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedPpapsInput
   defect?: Prisma.DefectCreateNestedOneWithoutPpapInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutReviewedPpapsInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutApprovedPpapsInput
   rejectedBy?: Prisma.UserCreateNestedOneWithoutRejectedPpapsInput
   evidences?: Prisma.PpapEvidenceCreateNestedManyWithoutPpapInput
@@ -2067,10 +2549,16 @@ export type PpapSubmissionCreateWithoutEventsInput = {
 
 export type PpapSubmissionUncheckedCreateWithoutEventsInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -2079,6 +2567,7 @@ export type PpapSubmissionUncheckedCreateWithoutEventsInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -2112,10 +2601,16 @@ export type PpapSubmissionUpdateToOneWithWhereWithoutEventsInput = {
 
 export type PpapSubmissionUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2133,6 +2628,7 @@ export type PpapSubmissionUpdateWithoutEventsInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -2141,10 +2637,16 @@ export type PpapSubmissionUpdateWithoutEventsInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2153,6 +2655,7 @@ export type PpapSubmissionUncheckedUpdateWithoutEventsInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2170,10 +2673,16 @@ export type PpapSubmissionUncheckedUpdateWithoutEventsInput = {
 
 export type PpapSubmissionCreateManyOemInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   supplierId: string
   oemOwnerId?: string | null
@@ -2181,6 +2690,7 @@ export type PpapSubmissionCreateManyOemInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -2196,10 +2706,16 @@ export type PpapSubmissionCreateManyOemInput = {
 
 export type PpapSubmissionCreateManySupplierInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   oemOwnerId?: string | null
@@ -2207,6 +2723,7 @@ export type PpapSubmissionCreateManySupplierInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -2222,10 +2739,16 @@ export type PpapSubmissionCreateManySupplierInput = {
 
 export type PpapSubmissionUpdateWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2242,6 +2765,7 @@ export type PpapSubmissionUpdateWithoutOemInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -2251,10 +2775,16 @@ export type PpapSubmissionUpdateWithoutOemInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2262,6 +2792,7 @@ export type PpapSubmissionUncheckedUpdateWithoutOemInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2280,10 +2811,16 @@ export type PpapSubmissionUncheckedUpdateWithoutOemInput = {
 
 export type PpapSubmissionUncheckedUpdateManyWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2291,6 +2828,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutOemInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2306,10 +2844,16 @@ export type PpapSubmissionUncheckedUpdateManyWithoutOemInput = {
 
 export type PpapSubmissionUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2326,6 +2870,7 @@ export type PpapSubmissionUpdateWithoutSupplierInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -2335,10 +2880,16 @@ export type PpapSubmissionUpdateWithoutSupplierInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2346,6 +2897,7 @@ export type PpapSubmissionUncheckedUpdateWithoutSupplierInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2364,10 +2916,16 @@ export type PpapSubmissionUncheckedUpdateWithoutSupplierInput = {
 
 export type PpapSubmissionUncheckedUpdateManyWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2375,6 +2933,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutSupplierInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2390,10 +2949,16 @@ export type PpapSubmissionUncheckedUpdateManyWithoutSupplierInput = {
 
 export type PpapSubmissionCreateManyOemOwnerInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -2401,6 +2966,7 @@ export type PpapSubmissionCreateManyOemOwnerInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -2416,10 +2982,16 @@ export type PpapSubmissionCreateManyOemOwnerInput = {
 
 export type PpapSubmissionCreateManySupplierAssigneeInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -2427,6 +2999,7 @@ export type PpapSubmissionCreateManySupplierAssigneeInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -2442,10 +3015,16 @@ export type PpapSubmissionCreateManySupplierAssigneeInput = {
 
 export type PpapSubmissionCreateManyApprovedByInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -2454,6 +3033,7 @@ export type PpapSubmissionCreateManyApprovedByInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   rejectedById?: string | null
@@ -2468,10 +3048,16 @@ export type PpapSubmissionCreateManyApprovedByInput = {
 
 export type PpapSubmissionCreateManyRejectedByInput = {
   id?: string
+  requestNumber: string
   partNumber: string
   partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
   revision?: string
   level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
   status?: $Enums.PpapStatus
   oemId: string
   supplierId: string
@@ -2480,6 +3066,7 @@ export type PpapSubmissionCreateManyRejectedByInput = {
   defectId?: string | null
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   approvedById?: string | null
@@ -2492,12 +3079,51 @@ export type PpapSubmissionCreateManyRejectedByInput = {
   updatedAt?: Date | string
 }
 
+export type PpapSubmissionCreateManyReviewedByInput = {
+  id?: string
+  requestNumber: string
+  partNumber: string
+  partName: string
+  projectName?: string | null
+  vehicleModel?: string | null
+  revisionLevel?: string | null
+  drawingNumber?: string | null
+  revision?: string
+  level?: $Enums.PpapLevel
+  reasonForSubmission?: $Enums.PpapReasonForSubmission
+  status?: $Enums.PpapStatus
+  oemId: string
+  supplierId: string
+  oemOwnerId?: string | null
+  supplierAssigneeId?: string | null
+  defectId?: string | null
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  approvedById?: string | null
+  rejectedById?: string | null
+  rejectionReason?: string | null
+  dueDate?: Date | string | null
+  requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: string | null
+  supplierNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
 export type PpapSubmissionUpdateWithoutOemOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2514,6 +3140,7 @@ export type PpapSubmissionUpdateWithoutOemOwnerInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsSupNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -2523,10 +3150,16 @@ export type PpapSubmissionUpdateWithoutOemOwnerInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutOemOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2534,6 +3167,7 @@ export type PpapSubmissionUncheckedUpdateWithoutOemOwnerInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2552,10 +3186,16 @@ export type PpapSubmissionUncheckedUpdateWithoutOemOwnerInput = {
 
 export type PpapSubmissionUncheckedUpdateManyWithoutOemOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2563,6 +3203,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutOemOwnerInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2578,10 +3219,16 @@ export type PpapSubmissionUncheckedUpdateManyWithoutOemOwnerInput = {
 
 export type PpapSubmissionUpdateWithoutSupplierAssigneeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2598,6 +3245,7 @@ export type PpapSubmissionUpdateWithoutSupplierAssigneeInput = {
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsSupNestedInput
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
@@ -2607,10 +3255,16 @@ export type PpapSubmissionUpdateWithoutSupplierAssigneeInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutSupplierAssigneeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2618,6 +3272,7 @@ export type PpapSubmissionUncheckedUpdateWithoutSupplierAssigneeInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2636,10 +3291,16 @@ export type PpapSubmissionUncheckedUpdateWithoutSupplierAssigneeInput = {
 
 export type PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2647,6 +3308,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2662,10 +3324,16 @@ export type PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeInput = {
 
 export type PpapSubmissionUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2683,6 +3351,7 @@ export type PpapSubmissionUpdateWithoutApprovedByInput = {
   oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
   rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
   reviewComments?: Prisma.PpapReviewCommentUpdateManyWithoutPpapNestedInput
@@ -2691,10 +3360,16 @@ export type PpapSubmissionUpdateWithoutApprovedByInput = {
 
 export type PpapSubmissionUncheckedUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2703,6 +3378,7 @@ export type PpapSubmissionUncheckedUpdateWithoutApprovedByInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2720,10 +3396,16 @@ export type PpapSubmissionUncheckedUpdateWithoutApprovedByInput = {
 
 export type PpapSubmissionUncheckedUpdateManyWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2732,6 +3414,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutApprovedByInput = {
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2746,10 +3429,121 @@ export type PpapSubmissionUncheckedUpdateManyWithoutApprovedByInput = {
 
 export type PpapSubmissionUpdateWithoutRejectedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
+  status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsSupNestedInput
+  oemOwner?: Prisma.UserUpdateOneWithoutOwnedPpapsNestedInput
+  supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
+  defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutReviewedPpapsNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
+  evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
+  reviewComments?: Prisma.PpapReviewCommentUpdateManyWithoutPpapNestedInput
+  events?: Prisma.PpapEventUpdateManyWithoutPpapNestedInput
+}
+
+export type PpapSubmissionUncheckedUpdateWithoutRejectedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
+  status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
+  reviewComments?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutPpapNestedInput
+  events?: Prisma.PpapEventUncheckedUpdateManyWithoutPpapNestedInput
+}
+
+export type PpapSubmissionUncheckedUpdateManyWithoutRejectedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
+  status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PpapSubmissionUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2768,17 +3562,24 @@ export type PpapSubmissionUpdateWithoutRejectedByInput = {
   supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedPpapsNestedInput
   defect?: Prisma.DefectUpdateOneWithoutPpapNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutApprovedPpapsNestedInput
+  rejectedBy?: Prisma.UserUpdateOneWithoutRejectedPpapsNestedInput
   evidences?: Prisma.PpapEvidenceUpdateManyWithoutPpapNestedInput
   reviewComments?: Prisma.PpapReviewCommentUpdateManyWithoutPpapNestedInput
   events?: Prisma.PpapEventUpdateManyWithoutPpapNestedInput
 }
 
-export type PpapSubmissionUncheckedUpdateWithoutRejectedByInput = {
+export type PpapSubmissionUncheckedUpdateWithoutReviewedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2790,6 +3591,7 @@ export type PpapSubmissionUncheckedUpdateWithoutRejectedByInput = {
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -2802,12 +3604,18 @@ export type PpapSubmissionUncheckedUpdateWithoutRejectedByInput = {
   events?: Prisma.PpapEventUncheckedUpdateManyWithoutPpapNestedInput
 }
 
-export type PpapSubmissionUncheckedUpdateManyWithoutRejectedByInput = {
+export type PpapSubmissionUncheckedUpdateManyWithoutReviewedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.StringFieldUpdateOperationsInput | string
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  drawingNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revision?: Prisma.StringFieldUpdateOperationsInput | string
   level?: Prisma.EnumPpapLevelFieldUpdateOperationsInput | $Enums.PpapLevel
+  reasonForSubmission?: Prisma.EnumPpapReasonForSubmissionFieldUpdateOperationsInput | $Enums.PpapReasonForSubmission
   status?: Prisma.EnumPpapStatusFieldUpdateOperationsInput | $Enums.PpapStatus
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2819,6 +3627,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutRejectedByInput = {
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -2879,10 +3688,16 @@ export type PpapSubmissionCountOutputTypeCountEventsArgs<ExtArgs extends runtime
 
 export type PpapSubmissionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  requestNumber?: boolean
   partNumber?: boolean
   partName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revisionLevel?: boolean
+  drawingNumber?: boolean
   revision?: boolean
   level?: boolean
+  reasonForSubmission?: boolean
   status?: boolean
   oemId?: boolean
   supplierId?: boolean
@@ -2891,6 +3706,7 @@ export type PpapSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   defectId?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   approvedById?: boolean
@@ -2907,6 +3723,7 @@ export type PpapSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   oemOwner?: boolean | Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>
   defect?: boolean | Prisma.PpapSubmission$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapSubmission$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.PpapSubmission$approvedByArgs<ExtArgs>
   rejectedBy?: boolean | Prisma.PpapSubmission$rejectedByArgs<ExtArgs>
   evidences?: boolean | Prisma.PpapSubmission$evidencesArgs<ExtArgs>
@@ -2917,10 +3734,16 @@ export type PpapSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type PpapSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  requestNumber?: boolean
   partNumber?: boolean
   partName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revisionLevel?: boolean
+  drawingNumber?: boolean
   revision?: boolean
   level?: boolean
+  reasonForSubmission?: boolean
   status?: boolean
   oemId?: boolean
   supplierId?: boolean
@@ -2929,6 +3752,7 @@ export type PpapSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   defectId?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   approvedById?: boolean
@@ -2945,16 +3769,23 @@ export type PpapSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   oemOwner?: boolean | Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>
   defect?: boolean | Prisma.PpapSubmission$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapSubmission$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.PpapSubmission$approvedByArgs<ExtArgs>
   rejectedBy?: boolean | Prisma.PpapSubmission$rejectedByArgs<ExtArgs>
 }, ExtArgs["result"]["ppapSubmission"]>
 
 export type PpapSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  requestNumber?: boolean
   partNumber?: boolean
   partName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revisionLevel?: boolean
+  drawingNumber?: boolean
   revision?: boolean
   level?: boolean
+  reasonForSubmission?: boolean
   status?: boolean
   oemId?: boolean
   supplierId?: boolean
@@ -2963,6 +3794,7 @@ export type PpapSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   defectId?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   approvedById?: boolean
@@ -2979,16 +3811,23 @@ export type PpapSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   oemOwner?: boolean | Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>
   defect?: boolean | Prisma.PpapSubmission$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapSubmission$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.PpapSubmission$approvedByArgs<ExtArgs>
   rejectedBy?: boolean | Prisma.PpapSubmission$rejectedByArgs<ExtArgs>
 }, ExtArgs["result"]["ppapSubmission"]>
 
 export type PpapSubmissionSelectScalar = {
   id?: boolean
+  requestNumber?: boolean
   partNumber?: boolean
   partName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revisionLevel?: boolean
+  drawingNumber?: boolean
   revision?: boolean
   level?: boolean
+  reasonForSubmission?: boolean
   status?: boolean
   oemId?: boolean
   supplierId?: boolean
@@ -2997,6 +3836,7 @@ export type PpapSubmissionSelectScalar = {
   defectId?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   approvedById?: boolean
@@ -3010,13 +3850,14 @@ export type PpapSubmissionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PpapSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "partNumber" | "partName" | "revision" | "level" | "status" | "oemId" | "supplierId" | "oemOwnerId" | "supplierAssigneeId" | "defectId" | "submittedAt" | "reviewedAt" | "approvedAt" | "rejectedAt" | "approvedById" | "rejectedById" | "rejectionReason" | "dueDate" | "requirements" | "notes" | "supplierNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["ppapSubmission"]>
+export type PpapSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requestNumber" | "partNumber" | "partName" | "projectName" | "vehicleModel" | "revisionLevel" | "drawingNumber" | "revision" | "level" | "reasonForSubmission" | "status" | "oemId" | "supplierId" | "oemOwnerId" | "supplierAssigneeId" | "defectId" | "submittedAt" | "reviewedAt" | "reviewedById" | "approvedAt" | "rejectedAt" | "approvedById" | "rejectedById" | "rejectionReason" | "dueDate" | "requirements" | "notes" | "supplierNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["ppapSubmission"]>
 export type PpapSubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   oemOwner?: boolean | Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>
   defect?: boolean | Prisma.PpapSubmission$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapSubmission$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.PpapSubmission$approvedByArgs<ExtArgs>
   rejectedBy?: boolean | Prisma.PpapSubmission$rejectedByArgs<ExtArgs>
   evidences?: boolean | Prisma.PpapSubmission$evidencesArgs<ExtArgs>
@@ -3030,6 +3871,7 @@ export type PpapSubmissionIncludeCreateManyAndReturn<ExtArgs extends runtime.Typ
   oemOwner?: boolean | Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>
   defect?: boolean | Prisma.PpapSubmission$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapSubmission$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.PpapSubmission$approvedByArgs<ExtArgs>
   rejectedBy?: boolean | Prisma.PpapSubmission$rejectedByArgs<ExtArgs>
 }
@@ -3039,6 +3881,7 @@ export type PpapSubmissionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Typ
   oemOwner?: boolean | Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>
   supplierAssignee?: boolean | Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>
   defect?: boolean | Prisma.PpapSubmission$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.PpapSubmission$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.PpapSubmission$approvedByArgs<ExtArgs>
   rejectedBy?: boolean | Prisma.PpapSubmission$rejectedByArgs<ExtArgs>
 }
@@ -3051,6 +3894,7 @@ export type $PpapSubmissionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     oemOwner: Prisma.$UserPayload<ExtArgs> | null
     supplierAssignee: Prisma.$UserPayload<ExtArgs> | null
     defect: Prisma.$DefectPayload<ExtArgs> | null
+    reviewedBy: Prisma.$UserPayload<ExtArgs> | null
     approvedBy: Prisma.$UserPayload<ExtArgs> | null
     rejectedBy: Prisma.$UserPayload<ExtArgs> | null
     evidences: Prisma.$PpapEvidencePayload<ExtArgs>[]
@@ -3059,10 +3903,16 @@ export type $PpapSubmissionPayload<ExtArgs extends runtime.Types.Extensions.Inte
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    requestNumber: string
     partNumber: string
     partName: string
+    projectName: string | null
+    vehicleModel: string | null
+    revisionLevel: string | null
+    drawingNumber: string | null
     revision: string
     level: $Enums.PpapLevel
+    reasonForSubmission: $Enums.PpapReasonForSubmission
     status: $Enums.PpapStatus
     oemId: string
     supplierId: string
@@ -3071,6 +3921,7 @@ export type $PpapSubmissionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     defectId: string | null
     submittedAt: Date | null
     reviewedAt: Date | null
+    reviewedById: string | null
     approvedAt: Date | null
     rejectedAt: Date | null
     approvedById: string | null
@@ -3481,6 +4332,7 @@ export interface Prisma__PpapSubmissionClient<T, Null = never, ExtArgs extends r
   oemOwner<T extends Prisma.PpapSubmission$oemOwnerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$oemOwnerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   supplierAssignee<T extends Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$supplierAssigneeArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   defect<T extends Prisma.PpapSubmission$defectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$defectArgs<ExtArgs>>): Prisma.Prisma__DefectClient<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  reviewedBy<T extends Prisma.PpapSubmission$reviewedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$reviewedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approvedBy<T extends Prisma.PpapSubmission$approvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$approvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   rejectedBy<T extends Prisma.PpapSubmission$rejectedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$rejectedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   evidences<T extends Prisma.PpapSubmission$evidencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PpapSubmission$evidencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PpapEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3516,10 +4368,16 @@ export interface Prisma__PpapSubmissionClient<T, Null = never, ExtArgs extends r
  */
 export interface PpapSubmissionFieldRefs {
   readonly id: Prisma.FieldRef<"PpapSubmission", 'String'>
+  readonly requestNumber: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly partNumber: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly partName: Prisma.FieldRef<"PpapSubmission", 'String'>
+  readonly projectName: Prisma.FieldRef<"PpapSubmission", 'String'>
+  readonly vehicleModel: Prisma.FieldRef<"PpapSubmission", 'String'>
+  readonly revisionLevel: Prisma.FieldRef<"PpapSubmission", 'String'>
+  readonly drawingNumber: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly revision: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly level: Prisma.FieldRef<"PpapSubmission", 'PpapLevel'>
+  readonly reasonForSubmission: Prisma.FieldRef<"PpapSubmission", 'PpapReasonForSubmission'>
   readonly status: Prisma.FieldRef<"PpapSubmission", 'PpapStatus'>
   readonly oemId: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly supplierId: Prisma.FieldRef<"PpapSubmission", 'String'>
@@ -3528,6 +4386,7 @@ export interface PpapSubmissionFieldRefs {
   readonly defectId: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly submittedAt: Prisma.FieldRef<"PpapSubmission", 'DateTime'>
   readonly reviewedAt: Prisma.FieldRef<"PpapSubmission", 'DateTime'>
+  readonly reviewedById: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly approvedAt: Prisma.FieldRef<"PpapSubmission", 'DateTime'>
   readonly rejectedAt: Prisma.FieldRef<"PpapSubmission", 'DateTime'>
   readonly approvedById: Prisma.FieldRef<"PpapSubmission", 'String'>
@@ -3994,6 +4853,25 @@ export type PpapSubmission$defectArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.DefectInclude<ExtArgs> | null
   where?: Prisma.DefectWhereInput
+}
+
+/**
+ * PpapSubmission.reviewedBy
+ */
+export type PpapSubmission$reviewedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

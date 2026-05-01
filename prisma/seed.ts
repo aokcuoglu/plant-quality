@@ -336,10 +336,12 @@ async function main() {
   const ppapSubmissions = [
     {
       id: "ppap-001",
+      requestNumber: "PPAP-LZ7K9M",
       partNumber: "AX-7420-B",
       partName: "Cylinder Head Casting",
       revision: "A",
       level: "LEVEL_3" as const,
+      reasonForSubmission: "NEW_PART" as const,
       status: "SUBMITTED" as const,
       oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
@@ -347,6 +349,11 @@ async function main() {
       supplierAssigneeId: "supplier-engineer",
       defectId: "defect-001",
       dueDate: new Date("2026-05-30"),
+      submittedAt: new Date("2026-04-28"),
+      projectName: null,
+      vehicleModel: null,
+      revisionLevel: null,
+      drawingNumber: null,
       requirements: {
         DESIGN_RECORDS: true,
         PROCESS_FLOW_DIAGRAM: true,
@@ -360,36 +367,184 @@ async function main() {
     },
     {
       id: "ppap-002",
+      requestNumber: "PPAP-MH4F2X",
       partNumber: "BR-1122-C",
       partName: "M12 Hex Bolt",
       revision: "B",
       level: "LEVEL_2" as const,
-      status: "DRAFT" as const,
+      reasonForSubmission: "ENGINEERING_CHANGE" as const,
+      status: "REQUESTED" as const,
       oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       oemOwnerId: "oem-pro-admin",
       defectId: "defect-002",
+      projectName: null,
+      vehicleModel: null,
+      revisionLevel: null,
+      drawingNumber: null,
     },
     {
       id: "ppap-003",
+      requestNumber: "PPAP-QJ8R5N",
       partNumber: "CS-3344-D",
       partName: "Steering Knuckle Forging",
       revision: "A",
       level: "LEVEL_3" as const,
+      reasonForSubmission: "SUPPLIER_CHANGE" as const,
       status: "APPROVED" as const,
       oemId: oemProCompany.id,
       supplierId: supplierCompany2.id,
       defectId: "defect-003",
       approvedById: "oem-quality",
       approvedAt: new Date("2026-01-15"),
+      reviewedAt: new Date("2026-01-14"),
+      reviewedById: "oem-quality",
+      submittedAt: new Date("2026-01-10"),
+      projectName: null,
+      vehicleModel: null,
+      revisionLevel: null,
+      drawingNumber: null,
+      requirements: {
+        DESIGN_RECORDS: true,
+        PROCESS_FLOW_DIAGRAM: true,
+        PROCESS_FMEA: true,
+        CONTROL_PLAN: true,
+        MEASUREMENT_SYSTEM_ANALYSIS: true,
+        DIMENSIONAL_RESULTS: true,
+        MATERIAL_PERFORMANCE_RESULTS: true,
+        INITIAL_PROCESS_STUDY: true,
+        PART_SUBMISSION_WARRANT: true,
+      },
+    },
+    {
+      id: "ppap-004",
+      requestNumber: "PPAP-ENTER-VK3T",
+      partNumber: "ENG-5500-X",
+      partName: "Transmission Output Shaft Bearing Assembly",
+      projectName: "Flagship EV Platform",
+      vehicleModel: "Flagship EV 2026",
+      revision: "C",
+      revisionLevel: "Rev C",
+      drawingNumber: "DWG-5500-001",
+      level: "LEVEL_4" as const,
+      reasonForSubmission: "CORRECTIVE_ACTION_FOLLOW_UP" as const,
+      status: "UNDER_REVIEW" as const,
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany.id,
+      oemOwnerId: "oem-enterprise-admin",
+      supplierAssigneeId: "supplier-engineer",
+      dueDate: new Date("2026-06-15"),
+      submittedAt: new Date("2026-04-25"),
+      requirements: {
+        DESIGN_RECORDS: true,
+        ENGINEERING_CHANGE_DOCUMENTS: true,
+        DESIGN_FMEA: true,
+        PROCESS_FLOW_DIAGRAM: true,
+        PROCESS_FMEA: true,
+        CONTROL_PLAN: true,
+        MEASUREMENT_SYSTEM_ANALYSIS: true,
+        DIMENSIONAL_RESULTS: true,
+        MATERIAL_PERFORMANCE_RESULTS: true,
+        INITIAL_PROCESS_STUDY: true,
+        QUALIFIED_LABORATORY_DOCUMENTATION: true,
+        PART_SUBMISSION_WARRANT: true,
+      },
     },
   ];
 
   for (const ppap of ppapSubmissions) {
+    const ppapData = {
+      ...ppap,
+      projectName: ppap.projectName ?? null,
+      vehicleModel: ppap.vehicleModel ?? null,
+      revisionLevel: ppap.revisionLevel ?? null,
+      drawingNumber: ppap.drawingNumber ?? null,
+    };
     await prisma.ppapSubmission.upsert({
       where: { id: ppap.id },
+      update: { requestNumber: ppap.requestNumber, partNumber: ppap.partNumber, partName: ppap.partName, level: ppap.level, reasonForSubmission: ppap.reasonForSubmission, status: ppap.status, oemId: ppap.oemId, supplierId: ppap.supplierId, oemOwnerId: ppap.oemOwnerId ?? null, supplierAssigneeId: ppap.supplierAssigneeId ?? null, defectId: ppap.defectId ?? null, dueDate: ppap.dueDate ?? null, submittedAt: ppap.submittedAt ?? null, approvedAt: ppap.approvedAt ?? null, approvedById: ppap.approvedById ?? null, reviewedAt: ppap.reviewedAt ?? null, reviewedById: ppap.reviewedById ?? null, requirements: ppap.requirements ?? undefined, projectName: ppap.projectName ?? null, vehicleModel: ppap.vehicleModel ?? null, revisionLevel: ppap.revisionLevel ?? null, drawingNumber: ppap.drawingNumber ?? null },
+      create: ppapData as Parameters<typeof prisma.ppapSubmission.create>[0]["data"],
+    });
+  }
+
+  // ── PPAP Evidence (Document Checklist) ──────────────────────────────
+
+  // ppap-001: SUBMITTED - mix of UPLOADED, APPROVED, MISSING
+  const ppap001Evidences = [
+    { id: "ppe-001-01", ppapId: "ppap-001", requirement: "DESIGN_RECORDS" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/design-records.pdf", fileName: "design-records.pdf", mimeType: "application/pdf", sizeBytes: 245000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-001-02", ppapId: "ppap-001", requirement: "PROCESS_FLOW_DIAGRAM" as const, status: "APPROVED" as const, storageKey: "ppap/mock/process-flow.pdf", fileName: "process-flow.pdf", mimeType: "application/pdf", sizeBytes: 128000, uploadedById: "supplier-engineer", companyId: supplierCompany.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-04-29") },
+    { id: "ppe-001-03", ppapId: "ppap-001", requirement: "PROCESS_FMEA" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/process-fmea.pdf", fileName: "process-fmea.pdf", mimeType: "application/pdf", sizeBytes: 310000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-001-04", ppapId: "ppap-001", requirement: "CONTROL_PLAN" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/control-plan.pdf", fileName: "control-plan.pdf", mimeType: "application/pdf", sizeBytes: 187000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-001-05", ppapId: "ppap-001", requirement: "MEASUREMENT_SYSTEM_ANALYSIS" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+    { id: "ppe-001-06", ppapId: "ppap-001", requirement: "DIMENSIONAL_RESULTS" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+    { id: "ppe-001-07", ppapId: "ppap-001", requirement: "MATERIAL_PERFORMANCE_RESULTS" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/material-results.pdf", fileName: "material-results.pdf", mimeType: "application/pdf", sizeBytes: 95000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-001-08", ppapId: "ppap-001", requirement: "PART_SUBMISSION_WARRANT" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+  ];
+
+  // ppap-002: REQUESTED - all MISSING
+  const ppap002Evidences = [
+    { id: "ppe-002-01", ppapId: "ppap-002", requirement: "DESIGN_RECORDS" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+    { id: "ppe-002-02", ppapId: "ppap-002", requirement: "PROCESS_FLOW_DIAGRAM" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+    { id: "ppe-002-03", ppapId: "ppap-002", requirement: "PART_SUBMISSION_WARRANT" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+  ];
+
+  // ppap-003: APPROVED - all APPROVED
+  const ppap003Evidences = [
+    { id: "ppe-003-01", ppapId: "ppap-003", requirement: "DESIGN_RECORDS" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-design.pdf", fileName: "cs-design-records.pdf", mimeType: "application/pdf", sizeBytes: 280000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-02", ppapId: "ppap-003", requirement: "PROCESS_FLOW_DIAGRAM" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-flow.pdf", fileName: "cs-process-flow.pdf", mimeType: "application/pdf", sizeBytes: 145000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-03", ppapId: "ppap-003", requirement: "PROCESS_FMEA" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-fmea.pdf", fileName: "cs-process-fmea.pdf", mimeType: "application/pdf", sizeBytes: 350000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-04", ppapId: "ppap-003", requirement: "CONTROL_PLAN" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-cp.pdf", fileName: "cs-control-plan.pdf", mimeType: "application/pdf", sizeBytes: 190000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-05", ppapId: "ppap-003", requirement: "MEASUREMENT_SYSTEM_ANALYSIS" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-msa.pdf", fileName: "cs-msa.pdf", mimeType: "application/pdf", sizeBytes: 88000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-06", ppapId: "ppap-003", requirement: "DIMENSIONAL_RESULTS" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-dim.pdf", fileName: "cs-dimensional-results.pdf", mimeType: "application/pdf", sizeBytes: 210000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-07", ppapId: "ppap-003", requirement: "MATERIAL_PERFORMANCE_RESULTS" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-mat.pdf", fileName: "cs-material-results.pdf", mimeType: "application/pdf", sizeBytes: 165000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-08", ppapId: "ppap-003", requirement: "INITIAL_PROCESS_STUDY" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-spc.pdf", fileName: "cs-initial-process-study.pdf", mimeType: "application/pdf", sizeBytes: 120000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+    { id: "ppe-003-09", ppapId: "ppap-003", requirement: "PART_SUBMISSION_WARRANT" as const, status: "APPROVED" as const, storageKey: "ppap/mock/cs-psw.pdf", fileName: "cs-psw.pdf", mimeType: "application/pdf", sizeBytes: 75000, uploadedById: "steelforged-engineer", companyId: supplierCompany2.id, reviewedById: "oem-quality", reviewedAt: new Date("2026-01-14") },
+  ];
+
+  // ppap-004: UNDER_REVIEW - mix of APPROVED and REVISION_REQUIRED
+  const ppap004Evidences = [
+    { id: "ppe-004-01", ppapId: "ppap-004", requirement: "DESIGN_RECORDS" as const, status: "APPROVED" as const, storageKey: "ppap/mock/eng-design.pdf", fileName: "eng-design-records.pdf", mimeType: "application/pdf", sizeBytes: 320000, uploadedById: "supplier-engineer", companyId: supplierCompany.id, reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-04-27") },
+    { id: "ppe-004-02", ppapId: "ppap-004", requirement: "ENGINEERING_CHANGE_DOCUMENTS" as const, status: "APPROVED" as const, storageKey: "ppap/mock/eng-ecn.pdf", fileName: "eng-ecn.pdf", mimeType: "application/pdf", sizeBytes: 95000, uploadedById: "supplier-engineer", companyId: supplierCompany.id, reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-04-27") },
+    { id: "ppe-004-03", ppapId: "ppap-004", requirement: "DESIGN_FMEA" as const, status: "REVISION_REQUIRED" as const, storageKey: "ppap/mock/eng-dfmea.pdf", fileName: "eng-dfmea.pdf", mimeType: "application/pdf", sizeBytes: 280000, uploadedById: "supplier-engineer", companyId: supplierCompany.id, oemComment: "RPN for item 3 exceeds threshold. Please update and resubmit.", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-04-28") },
+    { id: "ppe-004-04", ppapId: "ppap-004", requirement: "PROCESS_FLOW_DIAGRAM" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/eng-pfd.pdf", fileName: "eng-process-flow.pdf", mimeType: "application/pdf", sizeBytes: 150000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-004-05", ppapId: "ppap-004", requirement: "PROCESS_FMEA" as const, status: "MISSING" as const, companyId: oemEnterpriseCompany.id },
+    { id: "ppe-004-06", ppapId: "ppap-004", requirement: "CONTROL_PLAN" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/eng-cp.pdf", fileName: "eng-control-plan.pdf", mimeType: "application/pdf", sizeBytes: 195000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-004-07", ppapId: "ppap-004", requirement: "MEASUREMENT_SYSTEM_ANALYSIS" as const, status: "MISSING" as const, companyId: oemEnterpriseCompany.id },
+    { id: "ppe-004-08", ppapId: "ppap-004", requirement: "DIMENSIONAL_RESULTS" as const, status: "UPLOADED" as const, storageKey: "ppap/mock/eng-dim.pdf", fileName: "eng-dimensional-results.pdf", mimeType: "application/pdf", sizeBytes: 225000, uploadedById: "supplier-engineer", companyId: supplierCompany.id },
+    { id: "ppe-004-09", ppapId: "ppap-004", requirement: "MATERIAL_PERFORMANCE_RESULTS" as const, status: "MISSING" as const, companyId: oemEnterpriseCompany.id },
+    { id: "ppe-004-10", ppapId: "ppap-004", requirement: "INITIAL_PROCESS_STUDY" as const, status: "MISSING" as const, companyId: oemEnterpriseCompany.id },
+    { id: "ppe-004-11", ppapId: "ppap-004", requirement: "QUALIFIED_LABORATORY_DOCUMENTATION" as const, status: "MISSING" as const, companyId: oemEnterpriseCompany.id },
+    { id: "ppe-004-12", ppapId: "ppap-004", requirement: "PART_SUBMISSION_WARRANT" as const, status: "MISSING" as const, companyId: oemEnterpriseCompany.id },
+  ];
+
+  const allPpapEvidences: Parameters<typeof prisma.ppapEvidence.create>[0]["data"][] = [...ppap001Evidences, ...ppap002Evidences, ...ppap003Evidences, ...ppap004Evidences] as Parameters<typeof prisma.ppapEvidence.create>[0]["data"][];
+
+  for (const ev of allPpapEvidences) {
+    await prisma.ppapEvidence.upsert({
+      where: { id: ev.id! },
+      update: { status: ev.status, storageKey: ev.storageKey ?? null, fileName: ev.fileName ?? null, mimeType: ev.mimeType ?? null, sizeBytes: ev.sizeBytes ?? null, uploadedById: ev.uploadedById ?? null, reviewedById: ev.reviewedById ?? null, reviewedAt: ev.reviewedAt ?? null, oemComment: ev.oemComment ?? null },
+      create: ev,
+    });
+  }
+
+  // ── PPAP Events ─────────────────────────────────────────────────────
+
+  const ppapEvents = [
+    { id: "ppe-evt-001", ppapId: "ppap-001", type: "PPAP_CREATED" as const, actorId: "oem-quality", metadata: { partNumber: "AX-7420-B", requestNumber: "PPAP-LZ7K9M" } },
+    { id: "ppe-evt-002", ppapId: "ppap-001", type: "PPAP_SUBMITTED" as const, actorId: "supplier-engineer", metadata: { partNumber: "AX-7420-B" } },
+    { id: "ppe-evt-003", ppapId: "ppap-002", type: "PPAP_CREATED" as const, actorId: "oem-pro-admin", metadata: { partNumber: "BR-1122-C", requestNumber: "PPAP-MH4F2X" } },
+    { id: "ppe-evt-004", ppapId: "ppap-003", type: "PPAP_CREATED" as const, actorId: "oem-quality", metadata: { partNumber: "CS-3344-D", requestNumber: "PPAP-QJ8R5N" } },
+    { id: "ppe-evt-005", ppapId: "ppap-003", type: "PPAP_SUBMITTED" as const, actorId: "steelforged-engineer", metadata: { partNumber: "CS-3344-D" } },
+    { id: "ppe-evt-006", ppapId: "ppap-003", type: "PPAP_APPROVED" as const, actorId: "oem-quality", metadata: { partNumber: "CS-3344-D" } },
+    { id: "ppe-evt-007", ppapId: "ppap-004", type: "PPAP_CREATED" as const, actorId: "oem-enterprise-admin", metadata: { partNumber: "ENG-5500-X", requestNumber: "PPAP-ENTER-VK3T" } },
+    { id: "ppe-evt-008", ppapId: "ppap-004", type: "PPAP_SUBMITTED" as const, actorId: "supplier-engineer", metadata: { partNumber: "ENG-5500-X" } },
+  ];
+
+  for (const evt of ppapEvents) {
+    await prisma.ppapEvent.upsert({
+      where: { id: evt.id },
       update: {},
-      create: ppap,
+      create: evt,
     });
   }
 
@@ -776,7 +931,7 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.0.5 Seed completed successfully!");
+  console.log("v2.2.0 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials) ===");
   console.log("");
@@ -798,7 +953,7 @@ async function main() {
   console.log("  admin@steelforged.com — SteelForged Co. (FREE, Supplier Admin)");
   console.log("  engineer@steelforged.com — SteelForged Co. (FREE, Supplier QE)");
   console.log("");
-  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${usageCounters.length} usage counters.`);
+  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${allPpapEvidences.length} PPAP documents, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${ppapEvents.length} PPAP events, ${usageCounters.length} usage counters.`);
 }
 
 main()

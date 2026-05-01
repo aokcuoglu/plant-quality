@@ -18,11 +18,15 @@ export function AssignSupplierForm({ fieldDefectId, currentSupplierId }: { field
 
   async function handleAssign() {
     setError(null)
-    const result = await assignSupplier(fieldDefectId, selectedSupplier || null)
-    if (result.success) {
-      router.refresh()
-    } else {
-      setError(result.error ?? "Failed to assign supplier")
+    try {
+      const result = await assignSupplier(fieldDefectId, selectedSupplier || null)
+      if (result.success) {
+        router.refresh()
+      } else {
+        setError(result.error ?? "Failed to assign supplier")
+      }
+    } catch {
+      setError("An unexpected error occurred. Please try again.")
     }
   }
 

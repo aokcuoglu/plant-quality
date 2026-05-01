@@ -1,3 +1,53 @@
+# PlantQuality v2.0.5 — Release Notes
+
+## Field Defect Action Bugfixes
+
+**Release Date:** 2026-04-30  
+**Version:** 2.0.5
+
+---
+
+## Summary
+
+PlantQuality v2.0.5 fixes two bugs found during v2.0.4 review: unchecked boolean checkboxes in the Field Defect edit form were not persisted as `false`, and three server action call sites could leave the UI in a pending state on thrown exceptions. No new product features were added.
+
+---
+
+## Changes
+
+### Checkbox Persistence Fix
+
+- **`updateFieldDefect`**: Boolean fields `safetyImpact`, `vehicleDown`, and `repeatIssue` are now always set in the update data object. Previously, an `if (value !== null)` guard prevented unchecked checkboxes from being saved as `false`, because HTML forms omit unchecked checkbox values from `FormData`. The fix unconditionally sets `data.safetyImpact = safetyImpact === "on"`, so unchecked → `false` persists correctly.
+
+### Server Action Error Handling
+
+- **`change-status-form.tsx`**: Wrapped `changeFieldDefectStatus` call in try/catch. On thrown exception, `error` state is set to a user-facing message and `isPending` resets normally.
+- **`convert-to-8d-button.tsx`**: Wrapped `convertTo8D` call in try/catch. On thrown exception, `error` state is set and the dialog stays open with the error message. `isPending` resets normally.
+- **`assign-supplier-form.tsx`**: Wrapped `assignSupplier` call in try/catch. On thrown exception, `error` state is set and `isPending` resets normally.
+
+### No Changes
+
+- No new product features
+- No plan gating logic changes
+- No billing or payment changes
+- No database schema changes
+- No landing page changes
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.0.5 |
+| `src/app/(dashboard)/field/actions.ts` | Boolean fields always set in `updateFieldDefect` data; removed `!== null` guards for `safetyImpact`, `vehicleDown`, `repeatIssue` |
+| `src/app/(dashboard)/quality/oem/field/[id]/change-status-form.tsx` | try/catch around `changeFieldDefectStatus` |
+| `src/app/(dashboard)/quality/oem/field/[id]/convert-to-8d-button.tsx` | try/catch around `convertTo8D` |
+| `src/app/(dashboard)/quality/oem/field/[id]/assign-supplier-form.tsx` | try/catch around `assignSupplier` |
+| `RELEASE_NOTES.md` | v2.0.5 section |
+
+---
+
 # PlantQuality v2.0.4 — Release Notes
 
 ## Plan QA Polish & Medium Issue Cleanup

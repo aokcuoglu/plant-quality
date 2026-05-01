@@ -21,13 +21,17 @@ export function ConvertTo8DButton({ fieldDefectId }: { fieldDefectId: string }) 
 
   async function handleConvert() {
     setError(null)
-    const result = await convertTo8D(fieldDefectId)
-    if (result.success && result.defectId) {
-      setOpen(false)
-      router.push(`/quality/oem/defects/${result.defectId}`)
-      router.refresh()
-    } else {
-      setError(result.error ?? "Failed to convert to 8D")
+    try {
+      const result = await convertTo8D(fieldDefectId)
+      if (result.success && result.defectId) {
+        setOpen(false)
+        router.push(`/quality/oem/defects/${result.defectId}`)
+        router.refresh()
+      } else {
+        setError(result.error ?? "Failed to convert to 8D")
+      }
+    } catch {
+      setError("An unexpected error occurred. Please try again.")
     }
   }
 

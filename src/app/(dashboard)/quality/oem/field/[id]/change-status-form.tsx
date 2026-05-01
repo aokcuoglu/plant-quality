@@ -25,11 +25,15 @@ export function ChangeStatusForm({ fieldDefectId, currentStatus }: { fieldDefect
 
   async function handleStatusChange(newStatus: FieldDefectStatus) {
     setError(null)
-    const result = await changeFieldDefectStatus(fieldDefectId, newStatus)
-    if (result.success) {
-      router.refresh()
-    } else {
-      setError(result.error ?? "Failed to change status")
+    try {
+      const result = await changeFieldDefectStatus(fieldDefectId, newStatus)
+      if (result.success) {
+        router.refresh()
+      } else {
+        setError(result.error ?? "Failed to change status")
+      }
+    } catch {
+      setError("An unexpected error occurred. Please try again.")
     }
   }
 

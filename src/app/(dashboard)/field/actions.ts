@@ -357,9 +357,9 @@ export async function updateFieldDefect(id: string, formData: FormData) {
   if (description !== null) data.description = description
   if (source !== null) data.source = source
   if (severity !== null) data.severity = severity
-  if (safetyImpact !== null) data.safetyImpact = safetyImpact === "on"
-  if (vehicleDown !== null) data.vehicleDown = vehicleDown === "on"
-  if (repeatIssue !== null) data.repeatIssue = repeatIssue === "on"
+  data.safetyImpact = safetyImpact === "on"
+  data.vehicleDown = vehicleDown === "on"
+  data.repeatIssue = repeatIssue === "on"
   if (vin !== null) data.vin = vin || null
   if (vehicleModel !== null) data.vehicleModel = vehicleModel || null
   if (vehicleVariant !== null) data.vehicleVariant = vehicleVariant || null

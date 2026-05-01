@@ -150,8 +150,8 @@ export async function approvePpap(ppapId: string) {
   const requiredEvidences = await prisma.ppapEvidence.findMany({
     where: { ppapId, deletedAt: null },
   })
-  const hasMissingOrRejected = requiredEvidences.some((e) => e.status === "MISSING" || e.status === "REJECTED" || e.status === "REVISION_REQUIRED")
-  if (hasMissingOrRejected) return { success: false, error: "Cannot approve — some required documents are missing, rejected, or need revision" }
+  const hasIneligibleDocs = requiredEvidences.some((e) => e.status !== "APPROVED")
+  if (hasIneligibleDocs) return { success: false, error: "Cannot approve — all required documents must be approved before final PPAP approval" }
 
   const now = new Date()
   await prisma.ppapSubmission.update({

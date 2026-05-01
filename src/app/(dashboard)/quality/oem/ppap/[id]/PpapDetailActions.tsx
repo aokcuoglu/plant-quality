@@ -96,7 +96,7 @@ export function PpapDetailActions({
             Reject PPAP
           </button>
           {!hasAllDocsApproved && (
-            <span className="text-xs text-amber-400">Some required documents need approval before final PPAP approval</span>
+            <span className="text-xs text-amber-400">All required documents must be approved before final PPAP approval</span>
           )}
         </div>
       )}

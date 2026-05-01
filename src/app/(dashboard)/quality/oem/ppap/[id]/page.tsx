@@ -42,8 +42,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
 
   const totalRequired = requiredKeys.length
   const approvedDocs = ppap.evidences.filter((e) => e.status === "APPROVED").length
-  const missingDocs = ppap.evidences.filter((e) => e.status === "MISSING" || e.status === "REVISION_REQUIRED").length
-  const uploadedDocs = ppap.evidences.filter((e) => e.status === "UPLOADED" || e.status === "UNDER_REVIEW").length
+  const notApprovedDocs = ppap.evidences.filter((e) => e.status !== "APPROVED").length
 
   const reasonMap: Record<string, string> = {
     NEW_PART: "New Part",
@@ -82,7 +81,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
         <PpapDetailActions
           ppapId={ppap.id}
           status={ppap.status}
-          hasAllDocsApproved={missingDocs === 0 && uploadedDocs === 0}
+          hasAllDocsApproved={notApprovedDocs === 0 && totalRequired > 0}
         />
       )}
       {canCancel && (
@@ -174,7 +173,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
           <div className="rounded-lg border bg-card p-4 space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-medium text-foreground">Document Checklist</h2>
-              <span className="text-xs text-muted-foreground">{approvedDocs}/{totalRequired} approved &middot; {missingDocs} missing &middot; {uploadedDocs} pending review</span>
+              <span className="text-xs text-muted-foreground">{approvedDocs}/{totalRequired} approved &middot; {notApprovedDocs} pending</span>
             </div>
             <div className="space-y-2">
               {ppap.evidences.map((e) => (

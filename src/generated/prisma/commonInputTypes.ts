@@ -478,11 +478,35 @@ export type EnumPpapDocumentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel>
 }
 
+export type EnumIqcInspectionTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcInspectionType | Prisma.EnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcInspectionTypeFilter<$PrismaModel> | $Enums.IqcInspectionType
+}
+
 export type EnumIqcStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.IqcStatus | Prisma.EnumIqcStatusFieldRefInput<$PrismaModel>
   in?: $Enums.IqcStatus[] | Prisma.ListEnumIqcStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.IqcStatus[] | Prisma.ListEnumIqcStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumIqcStatusFilter<$PrismaModel> | $Enums.IqcStatus
+}
+
+export type EnumIqcResultNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcResult | Prisma.EnumIqcResultFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIqcResultNullableFilter<$PrismaModel> | $Enums.IqcResult | null
+}
+
+export type EnumIqcInspectionTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcInspectionType | Prisma.EnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcInspectionTypeWithAggregatesFilter<$PrismaModel> | $Enums.IqcInspectionType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIqcInspectionTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIqcInspectionTypeFilter<$PrismaModel>
 }
 
 export type EnumIqcStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -493,6 +517,33 @@ export type EnumIqcStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumIqcStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumIqcStatusFilter<$PrismaModel>
+}
+
+export type EnumIqcResultNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcResult | Prisma.EnumIqcResultFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIqcResultNullableWithAggregatesFilter<$PrismaModel> | $Enums.IqcResult | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIqcResultNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIqcResultNullableFilter<$PrismaModel>
+}
+
+export type EnumIqcChecklistResultFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcChecklistResult | Prisma.EnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcChecklistResultFilter<$PrismaModel> | $Enums.IqcChecklistResult
+}
+
+export type EnumIqcChecklistResultWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcChecklistResult | Prisma.EnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcChecklistResultWithAggregatesFilter<$PrismaModel> | $Enums.IqcChecklistResult
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIqcChecklistResultFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIqcChecklistResultFilter<$PrismaModel>
 }
 
 export type EnumFmeaTypeFilter<$PrismaModel = never> = {
@@ -1206,11 +1257,35 @@ export type NestedEnumPpapDocumentStatusWithAggregatesFilter<$PrismaModel = neve
   _max?: Prisma.NestedEnumPpapDocumentStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumIqcInspectionTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcInspectionType | Prisma.EnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcInspectionTypeFilter<$PrismaModel> | $Enums.IqcInspectionType
+}
+
 export type NestedEnumIqcStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.IqcStatus | Prisma.EnumIqcStatusFieldRefInput<$PrismaModel>
   in?: $Enums.IqcStatus[] | Prisma.ListEnumIqcStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.IqcStatus[] | Prisma.ListEnumIqcStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumIqcStatusFilter<$PrismaModel> | $Enums.IqcStatus
+}
+
+export type NestedEnumIqcResultNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcResult | Prisma.EnumIqcResultFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIqcResultNullableFilter<$PrismaModel> | $Enums.IqcResult | null
+}
+
+export type NestedEnumIqcInspectionTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcInspectionType | Prisma.EnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcInspectionType[] | Prisma.ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcInspectionTypeWithAggregatesFilter<$PrismaModel> | $Enums.IqcInspectionType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIqcInspectionTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIqcInspectionTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumIqcStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -1221,6 +1296,33 @@ export type NestedEnumIqcStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumIqcStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumIqcStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumIqcResultNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcResult | Prisma.EnumIqcResultFieldRefInput<$PrismaModel> | null
+  in?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.IqcResult[] | Prisma.ListEnumIqcResultFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumIqcResultNullableWithAggregatesFilter<$PrismaModel> | $Enums.IqcResult | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIqcResultNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIqcResultNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumIqcChecklistResultFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcChecklistResult | Prisma.EnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcChecklistResultFilter<$PrismaModel> | $Enums.IqcChecklistResult
+}
+
+export type NestedEnumIqcChecklistResultWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IqcChecklistResult | Prisma.EnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  in?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IqcChecklistResult[] | Prisma.ListEnumIqcChecklistResultFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIqcChecklistResultWithAggregatesFilter<$PrismaModel> | $Enums.IqcChecklistResult
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIqcChecklistResultFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIqcChecklistResultFilter<$PrismaModel>
 }
 
 export type NestedEnumFmeaTypeFilter<$PrismaModel = never> = {

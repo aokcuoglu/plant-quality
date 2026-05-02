@@ -1,3 +1,288 @@
+# PlantQuality v2.3.0 — Release Notes
+
+## IQC Workflow MVP
+
+**Release Date:** 2026-05-02  
+**Version:** 2.3.0
+
+---
+
+## Summary
+
+PlantQuality v2.3.0 introduces the IQC (Incoming Quality Control) Workflow MVP, transforming the existing placeholder IQC module into a fully functional incoming inspection workflow. OEM users can create IQC inspections, complete checklists, record results, and create defects from non-conforming inspections. Supplier users can view assigned IQC records relevant to their company.
+
+---
+
+## Data Model
+
+### New Enums
+
+- **`IqcStatus`**: Replaced `PENDING | IN_PROGRESS | PASSED | FAILED | CONDITIONALLY_ACCEPTED` with `DRAFT | PLANNED | IN_PROGRESS | COMPLETED | CANCELLED`
+- **`IqcResult`**: New enum — `ACCEPTED | CONDITIONAL_ACCEPTED | REJECTED | ON_HOLD | REWORK_REQUIRED | SORTING_REQUIRED`
+- **`IqcInspectionType`**: New enum — `RECEIVING_INSPECTION | FIRST_ARTICLE_INSPECTION | CONTAINMENT_INSPECTION | RE_INSPECTION | DOCK_AUDIT`
+- **`IqcChecklistResult`**: New enum — `PENDING | OK | NOK | NA`
+- **`DefectEventType`**: Added `IQC_CHECKLIST_UPDATED`, `IQC_CANCELLED`, `IQC_RESULT_SET`
+- **`NotificationType`**: Added `IQC_COMPLETED_FOR_SUPPLIER`, `IQC_RESULT_SET`
+
+### New Model: `IqcChecklistItem`
+
+- `id`, `iqcInspectionId` (FK cascade), `itemName`, `requirement` (nullable), `result` (default PENDING), `measuredValue` (nullable), `comment` (nullable), `evidenceFileName` (nullable), `evidenceStorageKey` (nullable), `createdAt`, `updatedAt`
+- Index on `iqcInspectionId + result`
+
+### Updated Model: `IqcReport`
+
+- **New fields**: `inspectionNumber` (unique), `purchaseOrder`, `deliveryNote`, `lotNumber` (moved), `batchNumber`, `quantityReceived`, `inspectionQuantity`, `vehicleModel`, `projectName`, `inspectionType`, `samplingPlan`, `result` (IqcResult nullable), `notes`, `linkedDefectId` (unique nullable, replaces old `defectId`), `createdById` (required), `completedById` (nullable), `completedBy` relation
+- **Removed fields**: `quantity` (replaced by `quantityReceived`), `defectId` (replaced by `linkedDefectId`)
+- **Relation changes**: `linkedDefect` → `Defect?` via `linkedDefectId`, `createdBy` → `User`, `completedBy` → `User?`, `checklistItems` → `IqcChecklistItem[]`
+- **New indexes**: `[oemId, supplierId]`, `[oemId, result]`, `[oemId, createdAt]`
+- **Existing data migrated**: `PENDING` → `PLANNED`, `PASSED/FAILED/CONDITIONALLY_ACCEPTED` → `COMPLETED` with appropriate `result` values
+
+### Defect Model Change
+
+- Added `iqcReport IqcReport?` inverse relation (replacing old `iqcReport` via `defectId`)
+- `Defect.iqcReport` now references `IqcReport.linkedDefectId`
+
+---
+
+## OEM IQC Workflow
+
+### IQC Inspection Creation (`/oem/iqc/new`)
+
+- New OEM page for creating IQC inspections
+- Fields: supplier, part number, part name, purchase order, delivery note, lot/batch number, quantity received, inspection quantity, vehicle model, project name, inspector, inspection date, inspection type, sampling plan, notes
+- Auto-generates `inspectionNumber` with format `IQC-{timestamp}-{random}`
+- Creates 9 default checklist items on creation
+- Sends notification to assigned supplier users
+- Plan-gated: requires PRO or Enterprise for OEM users
+
+### Default Checklist Items
+
+On every IQC inspection creation, 9 default checklist items are created:
+
+1. Packaging Condition
+2. Label / Traceability Check
+3. Visual Inspection
+4. Dimensional Check
+5. Functional Check
+6. Material Certificate Check
+7. Quantity Check
+8. Damage Check
+9. Special Characteristic Check
+
+Each item has PENDING result by default with a predefined requirement description.
+
+### OEM IQC List (`/oem/iqc`)
+
+- Enhanced table showing: inspection number, part number/name, supplier, type, status, result, date
+- Color-coded status and result badges
+- Link to detail page
+- "New Inspection" button linking to creation page
+
+### OEM IQC Detail (`/oem/iqc/[id]`)
+
+- Inspection details: all fields including type, quantities, lot/batch, PO, vehicle/model, project
+- **Checklist inline editing**: OEM users can edit checklist item result, measured value, and comment directly on the detail page for PLANNED/IN_PROGRESS inspections
+- Checklist summary: OK/NOK/NA/pending counts
+- Disposition notes section
+- Notes section
+- **Complete Inspection dialog**: OEM users must select a result (ACCEPTED, CONDITIONAL_ACCEPTED, REJECTED, ON_HOLD, REWORK_REQUIRED, SORTING_REQUIRED), enter quantities, and optionally add disposition notes
+- NOK checklist items block ACCEPTED result (warning shown, must choose appropriate result)
+- **Cancel Inspection** with confirmation dialog
+- **Create Defect from IQC** with confirmation dialog (only for non-conforming results, prevents duplicates)
+- Linked defect with navigation link
+- Activity timeline
+- Feature-gated: requires PRO/Enterprise plan (redirects if FREE)
+
+### IQC Result Workflow
+
+| Status | Description |
+|--------|-------------|
+| DRAFT | Initial creation (reserved for future use) |
+| PLANNED | Created, awaiting inspection |
+| IN_PROGRESS | Checklist items being updated |
+| COMPLETED | Inspection completed with final result |
+| CANCELLED | Cancelled by OEM |
+
+| Result | Description |
+|--------|-------------|
+| ACCEPTED | Lot accepted, no issues found |
+| CONDITIONAL_ACCEPTED | Accepted with conditions/notes |
+| REJECTED | Lot rejected, non-conforming |
+| ON_HOLD | Inspection on hold pending decision |
+| REWORK_REQUIRED | Rework required before acceptance |
+| SORTING_REQUIRED | Sorting required to separate conforming from non-conforming |
+
+- Any checklist item with NOK result prevents defaulting result to ACCEPTED
+- NOK checklist items require user to choose appropriate non-conforming result
+- Create Defect from IQC: OEM can create a defect from REJECTED/ON_HOLD/REWORK_REQUIRED/SORTING_REQUIRED inspections
+  - Defect is pre-filled with supplier, part number, description from IQC disposition
+  - IQC is linked to the created defect via `linkedDefectId`
+  - Does not create duplicate defect if already linked
+
+### Checklist Inline Editing
+
+- OEM users with ADMIN/QUALITY_ENGINEER role can edit checklist items on PLANNED/IN_PROGRESS inspections
+- Editable fields: Result (PENDING/OK/NOK/NA), Measured Value, Comment
+- Editing any checklist item on a PLANNED inspection automatically transitions status to IN_PROGRESS
+- Editing is blocked on COMPLETED/CANCELLED inspections (server-side validation)
+- Supplier users see a read-only checklist with no edit capability
+- UI refreshes after each save via `router.refresh()`
+
+### Result Workflow
+
+- OEM must select a final result when completing an inspection:
+  - ACCEPTED: Lot accepted, no issues
+  - CONDITIONAL_ACCEPTED: Accepted with conditions
+  - REJECTED: Lot rejected
+  - ON_HOLD: Pending decision
+  - REWORK_REQUIRED: Rework needed before acceptance
+  - SORTING_REQUIRED: Sort conforming from non-conforming
+- If any checklist item has NOK result, ACCEPTED is blocked and a warning is shown
+- Completion requires quantity accepted and quantity rejected counts
+- Optional disposition notes can be added
+- Upon completion: status → COMPLETED, `completedAt` and `completedById` are set
+
+---
+
+## Supplier IQC Visibility
+
+### Supplier IQC List (`/supplier/iqc`)
+
+- Shows only IQC inspections assigned to the supplier's company
+- Displays: inspection number, part number/name, OEM, status, result, date
+- Supplier cannot create, modify, or complete inspections
+
+### Supplier IQC Detail (`/supplier/iqc/[id]`)
+
+- Read-only view of inspection details
+- Checklist summary (OK/NOK/NA/Pending counts) without edit capability
+- Activity timeline
+- Related defect information (if any)
+- Tenant scoped: supplier can only access their own IQC records
+
+### Supplier Restrictions
+
+- Cannot create IQC inspections
+- Cannot modify checklist results
+- Cannot complete or cancel inspections
+- Cannot access another supplier's IQC data
+- Supplier access does not require a paid plan (participant access)
+
+---
+
+## Server Actions
+
+All IQC server actions are in `src/app/(dashboard)/quality/oem/iqc/actions/report.ts`:
+
+| Action | Description | Plan Gate |
+|--------|-------------|-----------|
+| `createIqcInspection` | Create new IQC inspection with default checklist | PRO+ |
+| `updateIqcChecklistItem` | Update checklist item result, measured value, or comment | PRO+ |
+| `completeIqcInspection` | Complete inspection with final result and quantities | PRO+ |
+| `cancelIqcInspection` | Cancel a PLANNED or IN_PROGRESS inspection | PRO+ |
+| `createDefectFromIqc` | Create a defect from a non-conforming IQC inspection | PRO+ |
+
+### Security
+
+- All OEM actions explicitly verify `session.user.companyType === "OEM"` and `["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)`
+- All OEM actions invoke `requireFeature(session, "IQC")` for plan gating (including `createDefectFromIqc`)
+- All queries are scoped to `oemId: session.user.companyId` (OEM) or `supplierId: session.user.companyId` (Supplier)
+- `companyId`/`supplierId` never trusted from client input
+- Checklist item updates verify OEM ownership of the parent inspection AND that the inspection is in PLANNED/IN_PROGRESS status (prevents editing COMPLETED/CANCELLED inspections)
+- Completion validates that NOK checklist items are not set to ACCEPTED
+- OEM IQC detail page enforces `requireFeature(session, "IQC")` — direct URL access by FREE users redirects to dashboard
+- Supplier users cannot create, edit, complete, or cancel IQC inspections (read-only access)
+- Create Defect from IQC is plan-gated and tenant-scoped
+
+### Refresh Consistency
+
+All server actions revalidate affected paths after mutations:
+
+| Action | Revalidated Paths |
+|--------|-------------------|
+| `createIqcInspection` | `/quality/oem/iqc`, `/quality/supplier/iqc` |
+| `updateIqcChecklistItem` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc` |
+| `completeIqcInspection` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc` |
+| `cancelIqcInspection` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc` |
+| `createDefectFromIqc` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/oem/defects`, `/quality/supplier/defects`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc` |
+
+---
+
+## Plan Gating
+
+- **Free OEM**: IQC locked — sidebar shows lock icon, `/quality/oem/iqc` redirects to OEM dashboard
+- **Pro OEM**: IQC enabled — full creation, editing, completion
+- **Enterprise OEM**: IQC enabled — full creation, editing, completion
+- **Supplier users**: Can view assigned IQC records regardless of plan (participant access)
+- Backend enforcement via `requireFeature(session, "IQC")`
+- Frontend gating via sidebar lock icon and `isFeatureGatedNav`
+
+---
+
+## Seed Data
+
+Updated existing IQC records with new fields:
+
+- **iqc-001** (PRO OEM, REJECTED): Cylinder Head Casting from Precision Parts Inc. — 9 checklist items with 3 NOK results, linked to defect-001
+- **iqc-002** (PRO OEM, ACCEPTED): M12 Hex Bolt from Precision Parts Inc. — 9 checklist items all OK
+- **iqc-003** (ENTERPRISE OEM, IN_PROGRESS): Steering Knuckle Forging from SteelForged Co. — 9 checklist items with 2 OK, 1 NA, 6 PENDING
+
+Added 5 IQC events tracking creation and completion milestones.
+
+---
+
+## Dashboard Updates
+
+- OEM dashboard IQC pass rate now uses `status: "COMPLETED"` with `result: "ACCEPTED"` instead of old `PASSED` status
+- Supplier dashboard IQC failed count now uses `result: { in: ["REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"] }` instead of old `status: "FAILED"`
+
+---
+
+## Migration
+
+- **Migration**: `20260502080001_add_iqc_workflow_v230`
+- Creates new enums: `IqcResult`, `IqcInspectionType`, `IqcChecklistResult`
+- Replaces `IqcStatus` enum with new values
+- Creates `iqc_checklist_items` table
+- Adds new columns to `iqc_reports`
+- Migrates existing data: old statuses → new statuses/values
+- Backfills `inspection_number` from record ID
+- Backfills `created_by_id` from `inspector_id`
+- Removes old `defect_id` column, adds `linked_defect_id`
+
+---
+
+## Known Limitations
+
+- No AQL engine or advanced sampling plans
+- No ERP/MRP/PO integration
+- No barcode/RFID scanning
+- No AI IQC review
+- No PDF/Excel export
+- No supplier scorecard
+- No advanced control plan linkage
+- No full traceability/carbon integration
+- Evidence upload on checklist items is storage-key-only (no presigned URL upload flow yet)
+- No supplier-side IQC actions (acknowledge, respond) — supplier view is read-only
+- Supplier dropdown on create only shows suppliers already linked to existing records
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| AQL/sampling engine | Future release |
+| ERP integration | Future release |
+| Barcode/RFID | Future release |
+| AI IQC review | Future release |
+| PDF/Excel export | Future release |
+| Supplier scorecard | Enterprise release |
+| Advanced control plan linkage | Future release |
+| Full traceability/carbon integration | Future release |
+
+---
+
 # PlantQuality v2.2.2 — Release Notes
 
 ## PPAP Minor Cleanup + Supplier Comment Refresh

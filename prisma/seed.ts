@@ -550,58 +550,129 @@ async function main() {
 
   // ── IQC Reports ────────────────────────────────────────────────────
 
+  // Delete old checklist items first (dependent records)
+  await prisma.iqcChecklistItem.deleteMany({});
+  await prisma.iqcEvent.deleteMany({ where: { reportId: { in: ["iqc-001", "iqc-002", "iqc-003"] } } });
+  await prisma.iqcReport.deleteMany({ where: { id: { in: ["iqc-001", "iqc-002", "iqc-003"] } } });
+
   const iqcReports = [
     {
       id: "iqc-001",
-      lotNumber: "LOT-2026-0042",
+      inspectionNumber: "IQC-2026-0001",
       partNumber: "AX-7420-B",
       partName: "Cylinder Head Casting",
-      quantity: 50,
-      quantityAccepted: 45,
-      quantityRejected: 5,
-      status: "FAILED" as const,
+      lotNumber: "LOT-2026-0042",
+      quantityReceived: 50,
+      inspectionQuantity: 10,
+      status: "COMPLETED" as const,
+      result: "REJECTED" as const,
       oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       inspectorId: "oem-quality",
-      defectId: "defect-001",
       inspectionDate: new Date("2026-04-10"),
-      measurements: [
-        { characteristic: "Surface Porosity", specification: "< 3 pits/cm²", measured: "8 pits/cm²", result: "FAIL" },
-        { characteristic: "Surface Roughness (Ra)", specification: "1.6 um max", measured: "1.2 um", result: "PASS" },
-      ],
-      nonconformities: [
-        { description: "Excessive surface porosity on sealing surface", severity: "Major" },
-      ],
+      inspectionType: "RECEIVING_INSPECTION" as const,
+      linkedDefectId: "defect-001",
+      createdById: "oem-quality",
+      completedById: "oem-quality",
+      quantityAccepted: 45,
+      quantityRejected: 5,
       dispositionNotes: "Reject entire lot. Surface porosity exceeds acceptable limits on 5 units.",
       completedAt: new Date("2026-04-12"),
     },
     {
       id: "iqc-002",
-      lotNumber: "LOT-2026-0055",
+      inspectionNumber: "IQC-2026-0002",
       partNumber: "BR-1122-C",
       partName: "M12 Hex Bolt",
-      quantity: 200,
-      quantityAccepted: 200,
-      quantityRejected: 0,
-      status: "PASSED" as const,
+      lotNumber: "LOT-2026-0055",
+      quantityReceived: 200,
+      inspectionQuantity: 20,
+      status: "COMPLETED" as const,
+      result: "ACCEPTED" as const,
       oemId: oemProCompany.id,
       supplierId: supplierCompany.id,
       inspectorId: "oem-quality",
       inspectionDate: new Date("2026-04-18"),
-      measurements: [
-        { characteristic: "Pitch Diameter", specification: "10.013-10.028mm", measured: "10.020mm", result: "PASS" },
-        { characteristic: "Hardness (HRC)", specification: "32-38 HRC", measured: "35 HRC", result: "PASS" },
-      ],
+      inspectionType: "RECEIVING_INSPECTION" as const,
+      createdById: "oem-quality",
+      completedById: "oem-quality",
+      quantityAccepted: 200,
+      quantityRejected: 0,
       completedAt: new Date("2026-04-19"),
+    },
+    {
+      id: "iqc-003",
+      inspectionNumber: "IQC-2026-0003",
+      partNumber: "CS-3344-D",
+      partName: "Steering Knuckle Forging",
+      lotNumber: "LOT-2026-0078",
+      quantityReceived: 30,
+      inspectionQuantity: 8,
+      status: "IN_PROGRESS" as const,
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany2.id,
+      inspectorId: "oem-enterprise-admin",
+      inspectionDate: new Date("2026-04-28"),
+      inspectionType: "FIRST_ARTICLE_INSPECTION" as const,
+      createdById: "oem-enterprise-admin",
     },
   ];
 
   for (const iqc of iqcReports) {
-    await prisma.iqcReport.upsert({
-      where: { id: iqc.id },
-      update: {},
-      create: iqc,
-    });
+    await prisma.iqcReport.create({ data: iqc });
+  }
+
+  // IQC Checklist Items
+  const iqcChecklistItems = [
+    // iqc-001 (COMPLETED/REJECTED) - mixed results
+    { id: "iqc-cli-001-01", iqcInspectionId: "iqc-001", itemName: "Packaging Condition", requirement: "No visible damage, contamination, or deterioration on packaging", result: "OK" as const },
+    { id: "iqc-cli-001-02", iqcInspectionId: "iqc-001", itemName: "Label / Traceability Check", requirement: "Labels match PO, part number, lot/batch number, and supplier ID", result: "OK" as const },
+    { id: "iqc-cli-001-03", iqcInspectionId: "iqc-001", itemName: "Visual Inspection", requirement: "No visible defects, discoloration, foreign material, or surface irregularities", result: "NOK" as const, comment: "Surface porosity observed on 5 units" },
+    { id: "iqc-cli-001-04", iqcInspectionId: "iqc-001", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances per drawing", result: "OK" as const },
+    { id: "iqc-cli-001-05", iqcInspectionId: "iqc-001", itemName: "Functional Check", requirement: "Part functions as intended per specification", result: "NA" as const },
+    { id: "iqc-cli-001-06", iqcInspectionId: "iqc-001", itemName: "Material Certificate Check", requirement: "Material certification/test report matches specification", result: "OK" as const },
+    { id: "iqc-cli-001-07", iqcInspectionId: "iqc-001", itemName: "Quantity Check", requirement: "Received quantity matches PO quantity", result: "OK" as const },
+    { id: "iqc-cli-001-08", iqcInspectionId: "iqc-001", itemName: "Damage Check", requirement: "No shipping damage, dents, scratches, or impact marks", result: "NOK" as const, comment: "3 units with visible transit damage" },
+    { id: "iqc-cli-001-09", iqcInspectionId: "iqc-001", itemName: "Special Characteristic Check", requirement: "Safety or regulatory critical characteristics verified per control plan", result: "NOK" as const, comment: "Sealing surface porosity exceeds limit" },
+
+    // iqc-002 (COMPLETED/ACCEPTED) - all OK
+    { id: "iqc-cli-002-01", iqcInspectionId: "iqc-002", itemName: "Packaging Condition", requirement: "No visible damage, contamination, or deterioration on packaging", result: "OK" as const },
+    { id: "iqc-cli-002-02", iqcInspectionId: "iqc-002", itemName: "Label / Traceability Check", requirement: "Labels match PO, part number, lot/batch number, and supplier ID", result: "OK" as const },
+    { id: "iqc-cli-002-03", iqcInspectionId: "iqc-002", itemName: "Visual Inspection", requirement: "No visible defects, discoloration, foreign material, or surface irregularities", result: "OK" as const },
+    { id: "iqc-cli-002-04", iqcInspectionId: "iqc-002", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances per drawing", result: "OK" as const },
+    { id: "iqc-cli-002-05", iqcInspectionId: "iqc-002", itemName: "Functional Check", requirement: "Part functions as intended per specification", result: "OK" as const },
+    { id: "iqc-cli-002-06", iqcInspectionId: "iqc-002", itemName: "Material Certificate Check", requirement: "Material certification/test report matches specification", result: "OK" as const },
+    { id: "iqc-cli-002-07", iqcInspectionId: "iqc-002", itemName: "Quantity Check", requirement: "Received quantity matches PO quantity", result: "OK" as const },
+    { id: "iqc-cli-002-08", iqcInspectionId: "iqc-002", itemName: "Damage Check", requirement: "No shipping damage, dents, scratches, or impact marks", result: "OK" as const },
+    { id: "iqc-cli-002-09", iqcInspectionId: "iqc-002", itemName: "Special Characteristic Check", requirement: "Safety or regulatory critical characteristics verified per control plan", result: "OK" as const },
+
+    // iqc-003 (IN_PROGRESS) - some pending, some results
+    { id: "iqc-cli-003-01", iqcInspectionId: "iqc-003", itemName: "Packaging Condition", requirement: "No visible damage, contamination, or deterioration on packaging", result: "OK" as const },
+    { id: "iqc-cli-003-02", iqcInspectionId: "iqc-003", itemName: "Label / Traceability Check", requirement: "Labels match PO, part number, lot/batch number, and supplier ID", result: "OK" as const },
+    { id: "iqc-cli-003-03", iqcInspectionId: "iqc-003", itemName: "Visual Inspection", requirement: "No visible defects, discoloration, foreign material, or surface irregularities", result: "PENDING" as const },
+    { id: "iqc-cli-003-04", iqcInspectionId: "iqc-003", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances per drawing", result: "PENDING" as const },
+    { id: "iqc-cli-003-05", iqcInspectionId: "iqc-003", itemName: "Functional Check", requirement: "Part functions as intended per specification", result: "PENDING" as const },
+    { id: "iqc-cli-003-06", iqcInspectionId: "iqc-003", itemName: "Material Certificate Check", requirement: "Material certification/test report matches specification", result: "NA" as const },
+    { id: "iqc-cli-003-07", iqcInspectionId: "iqc-003", itemName: "Quantity Check", requirement: "Received quantity matches PO quantity", result: "PENDING" as const },
+    { id: "iqc-cli-003-08", iqcInspectionId: "iqc-003", itemName: "Damage Check", requirement: "No shipping damage, dents, scratches, or impact marks", result: "PENDING" as const },
+    { id: "iqc-cli-003-09", iqcInspectionId: "iqc-003", itemName: "Special Characteristic Check", requirement: "Safety or regulatory critical characteristics verified per control plan", result: "PENDING" as const },
+  ];
+
+  for (const item of iqcChecklistItems) {
+    await prisma.iqcChecklistItem.create({ data: item });
+  }
+
+  // IQC Events
+  const iqcEvents = [
+    { id: "iqc-evt-001", reportId: "iqc-001", type: "IQC_CREATED" as const, actorId: "oem-quality", metadata: { inspectionNumber: "IQC-2026-0001", partNumber: "AX-7420-B" } },
+    { id: "iqc-evt-002", reportId: "iqc-001", type: "IQC_COMPLETED" as const, actorId: "oem-quality", metadata: { inspectionNumber: "IQC-2026-0001", result: "REJECTED" } },
+    { id: "iqc-evt-003", reportId: "iqc-002", type: "IQC_CREATED" as const, actorId: "oem-quality", metadata: { inspectionNumber: "IQC-2026-0002", partNumber: "BR-1122-C" } },
+    { id: "iqc-evt-004", reportId: "iqc-002", type: "IQC_COMPLETED" as const, actorId: "oem-quality", metadata: { inspectionNumber: "IQC-2026-0002", result: "ACCEPTED" } },
+    { id: "iqc-evt-005", reportId: "iqc-003", type: "IQC_CREATED" as const, actorId: "oem-enterprise-admin", metadata: { inspectionNumber: "IQC-2026-0003", partNumber: "CS-3344-D" } },
+  ];
+
+  for (const evt of iqcEvents) {
+    await prisma.iqcEvent.create({ data: evt });
   }
 
   // ── FMEAs ──────────────────────────────────────────────────────────
@@ -931,7 +1002,7 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.2.0 Seed completed successfully!");
+  console.log("v2.3.0 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials) ===");
   console.log("");
@@ -953,7 +1024,7 @@ async function main() {
   console.log("  admin@steelforged.com — SteelForged Co. (FREE, Supplier Admin)");
   console.log("  engineer@steelforged.com — SteelForged Co. (FREE, Supplier QE)");
   console.log("");
-  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${allPpapEvidences.length} PPAP documents, ${iqcReports.length} IQC reports, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${ppapEvents.length} PPAP events, ${usageCounters.length} usage counters.`);
+  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${allPpapEvidences.length} PPAP documents, ${iqcReports.length} IQC reports, ${iqcChecklistItems.length} IQC checklist items, ${iqcEvents.length} IQC events, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${ppapEvents.length} PPAP events, ${usageCounters.length} usage counters.`);
 }
 
 main()

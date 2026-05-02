@@ -238,6 +238,8 @@ export type UserWhereInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentListRelationFilter
   ppapEventActors?: Prisma.PpapEventListRelationFilter
   iqcInspections?: Prisma.IqcReportListRelationFilter
+  iqcCreatedReports?: Prisma.IqcReportListRelationFilter
+  iqcCompletedReports?: Prisma.IqcReportListRelationFilter
   iqcEventActors?: Prisma.IqcEventListRelationFilter
   fmeaResponsible?: Prisma.FmeaListRelationFilter
   fmeaApprovedBy?: Prisma.FmeaListRelationFilter
@@ -295,6 +297,8 @@ export type UserOrderByWithRelationInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentOrderByRelationAggregateInput
   ppapEventActors?: Prisma.PpapEventOrderByRelationAggregateInput
   iqcInspections?: Prisma.IqcReportOrderByRelationAggregateInput
+  iqcCreatedReports?: Prisma.IqcReportOrderByRelationAggregateInput
+  iqcCompletedReports?: Prisma.IqcReportOrderByRelationAggregateInput
   iqcEventActors?: Prisma.IqcEventOrderByRelationAggregateInput
   fmeaResponsible?: Prisma.FmeaOrderByRelationAggregateInput
   fmeaApprovedBy?: Prisma.FmeaOrderByRelationAggregateInput
@@ -355,6 +359,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   ppapCommentAuthored?: Prisma.PpapReviewCommentListRelationFilter
   ppapEventActors?: Prisma.PpapEventListRelationFilter
   iqcInspections?: Prisma.IqcReportListRelationFilter
+  iqcCreatedReports?: Prisma.IqcReportListRelationFilter
+  iqcCompletedReports?: Prisma.IqcReportListRelationFilter
   iqcEventActors?: Prisma.IqcEventListRelationFilter
   fmeaResponsible?: Prisma.FmeaListRelationFilter
   fmeaApprovedBy?: Prisma.FmeaListRelationFilter
@@ -441,6 +447,8 @@ export type UserCreateInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -497,6 +505,8 @@ export type UserUncheckedCreateInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -553,6 +563,8 @@ export type UserUpdateInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -609,6 +621,8 @@ export type UserUncheckedUpdateInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -1101,6 +1115,18 @@ export type UserCreateNestedOneWithoutIqcInspectionsInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutIqcCreatedReportsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIqcCreatedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCreatedReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIqcCreatedReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutIqcCompletedReportsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIqcCompletedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCompletedReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIqcCompletedReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneWithoutIqcInspectionsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutIqcInspectionsInput, Prisma.UserUncheckedCreateWithoutIqcInspectionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutIqcInspectionsInput
@@ -1109,6 +1135,24 @@ export type UserUpdateOneWithoutIqcInspectionsNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIqcInspectionsInput, Prisma.UserUpdateWithoutIqcInspectionsInput>, Prisma.UserUncheckedUpdateWithoutIqcInspectionsInput>
+}
+
+export type UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIqcCreatedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCreatedReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIqcCreatedReportsInput
+  upsert?: Prisma.UserUpsertWithoutIqcCreatedReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIqcCreatedReportsInput, Prisma.UserUpdateWithoutIqcCreatedReportsInput>, Prisma.UserUncheckedUpdateWithoutIqcCreatedReportsInput>
+}
+
+export type UserUpdateOneWithoutIqcCompletedReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIqcCompletedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCompletedReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIqcCompletedReportsInput
+  upsert?: Prisma.UserUpsertWithoutIqcCompletedReportsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIqcCompletedReportsInput, Prisma.UserUpdateWithoutIqcCompletedReportsInput>, Prisma.UserUncheckedUpdateWithoutIqcCompletedReportsInput>
 }
 
 export type UserCreateNestedOneWithoutIqcEventActorsInput = {
@@ -1481,6 +1525,8 @@ export type UserCreateWithoutCompanyInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -1536,6 +1582,8 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -1632,6 +1680,8 @@ export type UserCreateWithoutAccountsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -1687,6 +1737,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -1758,6 +1810,8 @@ export type UserUpdateWithoutAccountsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -1813,6 +1867,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -1868,6 +1924,8 @@ export type UserCreateWithoutSessionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -1923,6 +1981,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -1994,6 +2054,8 @@ export type UserUpdateWithoutSessionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -2049,6 +2111,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -2104,6 +2168,8 @@ export type UserCreateWithoutOwnedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -2159,6 +2225,8 @@ export type UserUncheckedCreateWithoutOwnedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -2219,6 +2287,8 @@ export type UserCreateWithoutAssignedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -2274,6 +2344,8 @@ export type UserUncheckedCreateWithoutAssignedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -2334,6 +2406,8 @@ export type UserCreateWithoutEscalatedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -2389,6 +2463,8 @@ export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -2460,6 +2536,8 @@ export type UserUpdateWithoutOwnedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -2515,6 +2593,8 @@ export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -2581,6 +2661,8 @@ export type UserUpdateWithoutAssignedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -2636,6 +2718,8 @@ export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -2702,6 +2786,8 @@ export type UserUpdateWithoutEscalatedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -2757,6 +2843,8 @@ export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -2812,6 +2900,8 @@ export type UserCreateWithoutApprovedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -2867,6 +2957,8 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -2927,6 +3019,8 @@ export type UserCreateWithoutRejectedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -2982,6 +3076,8 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -3053,6 +3149,8 @@ export type UserUpdateWithoutApprovedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -3108,6 +3206,8 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -3174,6 +3274,8 @@ export type UserUpdateWithoutRejectedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -3229,6 +3331,8 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -3284,6 +3388,8 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -3339,6 +3445,8 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -3399,6 +3507,8 @@ export type UserCreateWithoutReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -3454,6 +3564,8 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -3525,6 +3637,8 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -3580,6 +3694,8 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -3646,6 +3762,8 @@ export type UserUpdateWithoutReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -3701,6 +3819,8 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -3756,6 +3876,8 @@ export type UserCreateWithoutDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -3811,6 +3933,8 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -3882,6 +4006,8 @@ export type UserUpdateWithoutDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -3937,6 +4063,8 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -3992,6 +4120,8 @@ export type UserCreateWithoutUploadedEvidenceInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -4047,6 +4177,8 @@ export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -4118,6 +4250,8 @@ export type UserUpdateWithoutUploadedEvidenceInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -4173,6 +4307,8 @@ export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -4228,6 +4364,8 @@ export type UserCreateWithoutOwnedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -4283,6 +4421,8 @@ export type UserUncheckedCreateWithoutOwnedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -4343,6 +4483,8 @@ export type UserCreateWithoutAssignedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -4398,6 +4540,8 @@ export type UserUncheckedCreateWithoutAssignedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -4458,6 +4602,8 @@ export type UserCreateWithoutReviewedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -4513,6 +4659,8 @@ export type UserUncheckedCreateWithoutReviewedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -4573,6 +4721,8 @@ export type UserCreateWithoutApprovedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -4628,6 +4778,8 @@ export type UserUncheckedCreateWithoutApprovedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -4688,6 +4840,8 @@ export type UserCreateWithoutRejectedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -4743,6 +4897,8 @@ export type UserUncheckedCreateWithoutRejectedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -4814,6 +4970,8 @@ export type UserUpdateWithoutOwnedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -4869,6 +5027,8 @@ export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -4935,6 +5095,8 @@ export type UserUpdateWithoutAssignedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -4990,6 +5152,8 @@ export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -5056,6 +5220,8 @@ export type UserUpdateWithoutReviewedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -5111,6 +5277,8 @@ export type UserUncheckedUpdateWithoutReviewedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -5177,6 +5345,8 @@ export type UserUpdateWithoutApprovedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -5232,6 +5402,8 @@ export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -5298,6 +5470,8 @@ export type UserUpdateWithoutRejectedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -5353,6 +5527,8 @@ export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -5408,6 +5584,8 @@ export type UserCreateWithoutPpapEvidenceUploadsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -5463,6 +5641,8 @@ export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -5523,6 +5703,8 @@ export type UserCreateWithoutPpapEvidenceReviewedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -5578,6 +5760,8 @@ export type UserUncheckedCreateWithoutPpapEvidenceReviewedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -5649,6 +5833,8 @@ export type UserUpdateWithoutPpapEvidenceUploadsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -5704,6 +5890,8 @@ export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -5770,6 +5958,8 @@ export type UserUpdateWithoutPpapEvidenceReviewedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -5825,6 +6015,8 @@ export type UserUncheckedUpdateWithoutPpapEvidenceReviewedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -5880,6 +6072,8 @@ export type UserCreateWithoutPpapCommentResolvedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -5935,6 +6129,8 @@ export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -5995,6 +6191,8 @@ export type UserCreateWithoutPpapCommentAuthoredInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -6050,6 +6248,8 @@ export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -6121,6 +6321,8 @@ export type UserUpdateWithoutPpapCommentResolvedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -6176,6 +6378,8 @@ export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -6242,6 +6446,8 @@ export type UserUpdateWithoutPpapCommentAuthoredInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -6297,6 +6503,8 @@ export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -6352,6 +6560,8 @@ export type UserCreateWithoutPpapEventActorsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -6407,6 +6617,8 @@ export type UserUncheckedCreateWithoutPpapEventActorsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -6478,6 +6690,8 @@ export type UserUpdateWithoutPpapEventActorsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -6533,6 +6747,8 @@ export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -6588,6 +6804,8 @@ export type UserCreateWithoutIqcInspectionsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -6643,6 +6861,8 @@ export type UserUncheckedCreateWithoutIqcInspectionsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -6669,6 +6889,244 @@ export type UserUncheckedCreateWithoutIqcInspectionsInput = {
 export type UserCreateOrConnectWithoutIqcInspectionsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutIqcInspectionsInput, Prisma.UserUncheckedCreateWithoutIqcInspectionsInput>
+}
+
+export type UserCreateWithoutIqcCreatedReportsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserUncheckedCreateWithoutIqcCreatedReportsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserCreateOrConnectWithoutIqcCreatedReportsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutIqcCreatedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCreatedReportsInput>
+}
+
+export type UserCreateWithoutIqcCompletedReportsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserUncheckedCreateWithoutIqcCompletedReportsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+}
+
+export type UserCreateOrConnectWithoutIqcCompletedReportsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutIqcCompletedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCompletedReportsInput>
 }
 
 export type UserUpsertWithoutIqcInspectionsInput = {
@@ -6714,6 +7172,8 @@ export type UserUpdateWithoutIqcInspectionsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -6769,6 +7229,258 @@ export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
   ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUpsertWithoutIqcCreatedReportsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutIqcCreatedReportsInput, Prisma.UserUncheckedUpdateWithoutIqcCreatedReportsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutIqcCreatedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCreatedReportsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutIqcCreatedReportsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutIqcCreatedReportsInput, Prisma.UserUncheckedUpdateWithoutIqcCreatedReportsInput>
+}
+
+export type UserUpdateWithoutIqcCreatedReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutIqcCreatedReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUpsertWithoutIqcCompletedReportsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutIqcCompletedReportsInput, Prisma.UserUncheckedUpdateWithoutIqcCompletedReportsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutIqcCompletedReportsInput, Prisma.UserUncheckedCreateWithoutIqcCompletedReportsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutIqcCompletedReportsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutIqcCompletedReportsInput, Prisma.UserUncheckedUpdateWithoutIqcCompletedReportsInput>
+}
+
+export type UserUpdateWithoutIqcCompletedReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutIqcCompletedReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -6825,6 +7537,8 @@ export type UserCreateWithoutIqcEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
   fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
@@ -6880,6 +7594,8 @@ export type UserUncheckedCreateWithoutIqcEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
   fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
@@ -6951,6 +7667,8 @@ export type UserUpdateWithoutIqcEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
   fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
@@ -7006,6 +7724,8 @@ export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
   fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
@@ -7061,6 +7781,8 @@ export type UserCreateWithoutFmeaResponsibleInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
   fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
@@ -7116,6 +7838,8 @@ export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
   fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
@@ -7176,6 +7900,8 @@ export type UserCreateWithoutFmeaApprovedByInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
@@ -7231,6 +7957,8 @@ export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
@@ -7302,6 +8030,8 @@ export type UserUpdateWithoutFmeaResponsibleInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
   fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
@@ -7357,6 +8087,8 @@ export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
   fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
@@ -7423,6 +8155,8 @@ export type UserUpdateWithoutFmeaApprovedByInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
@@ -7478,6 +8212,8 @@ export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
@@ -7533,6 +8269,8 @@ export type UserCreateWithoutFmeaEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -7588,6 +8326,8 @@ export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -7659,6 +8399,8 @@ export type UserUpdateWithoutFmeaEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -7714,6 +8456,8 @@ export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -7769,6 +8513,8 @@ export type UserCreateWithoutAiCategoryAppliedByForInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -7824,6 +8570,8 @@ export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -7884,6 +8632,8 @@ export type UserCreateWithoutCreatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -7939,6 +8689,8 @@ export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -7999,6 +8751,8 @@ export type UserCreateWithoutUpdatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -8054,6 +8808,8 @@ export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -8114,6 +8870,8 @@ export type UserCreateWithoutConvertedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -8169,6 +8927,8 @@ export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -8229,6 +8989,8 @@ export type UserCreateWithoutEscalatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -8284,6 +9046,8 @@ export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -8355,6 +9119,8 @@ export type UserUpdateWithoutAiCategoryAppliedByForInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -8410,6 +9176,8 @@ export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -8476,6 +9244,8 @@ export type UserUpdateWithoutCreatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -8531,6 +9301,8 @@ export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -8597,6 +9369,8 @@ export type UserUpdateWithoutUpdatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -8652,6 +9426,8 @@ export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -8718,6 +9494,8 @@ export type UserUpdateWithoutConvertedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -8773,6 +9551,8 @@ export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -8839,6 +9619,8 @@ export type UserUpdateWithoutEscalatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -8894,6 +9676,8 @@ export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -8949,6 +9733,8 @@ export type UserCreateWithoutFieldDefectAttachmentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -9004,6 +9790,8 @@ export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -9075,6 +9863,8 @@ export type UserUpdateWithoutFieldDefectAttachmentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -9130,6 +9920,8 @@ export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -9185,6 +9977,8 @@ export type UserCreateWithoutFieldDefectCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -9240,6 +10034,8 @@ export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -9311,6 +10107,8 @@ export type UserUpdateWithoutFieldDefectCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -9366,6 +10164,8 @@ export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -9421,6 +10221,8 @@ export type UserCreateWithoutFieldDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -9476,6 +10278,8 @@ export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -9547,6 +10351,8 @@ export type UserUpdateWithoutFieldDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -9602,6 +10408,8 @@ export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -9656,6 +10464,8 @@ export type UserCreateWithoutNotificationsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -9711,6 +10521,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -9782,6 +10594,8 @@ export type UserUpdateWithoutNotificationsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -9837,6 +10651,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -9893,6 +10709,8 @@ export type UserCreateWithoutEscalationHistoriesInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -9948,6 +10766,8 @@ export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -10019,6 +10839,8 @@ export type UserUpdateWithoutEscalationHistoriesInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -10074,6 +10896,8 @@ export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -10129,6 +10953,8 @@ export type UserCreateWithoutCreatedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -10184,6 +11010,8 @@ export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -10244,6 +11072,8 @@ export type UserCreateWithoutAcceptedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -10299,6 +11129,8 @@ export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -10359,6 +11191,8 @@ export type UserCreateWithoutRejectedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -10414,6 +11248,8 @@ export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -10485,6 +11321,8 @@ export type UserUpdateWithoutCreatedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -10540,6 +11378,8 @@ export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -10606,6 +11446,8 @@ export type UserUpdateWithoutAcceptedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -10661,6 +11503,8 @@ export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -10727,6 +11571,8 @@ export type UserUpdateWithoutRejectedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -10782,6 +11628,8 @@ export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -10837,6 +11685,8 @@ export type UserCreateWithoutCreatedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -10892,6 +11742,8 @@ export type UserUncheckedCreateWithoutCreatedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -10952,6 +11804,8 @@ export type UserCreateWithoutReviewedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -11007,6 +11861,8 @@ export type UserUncheckedCreateWithoutReviewedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -11067,6 +11923,8 @@ export type UserCreateWithoutRejectedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -11122,6 +11980,8 @@ export type UserUncheckedCreateWithoutRejectedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -11193,6 +12053,8 @@ export type UserUpdateWithoutCreatedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -11248,6 +12110,8 @@ export type UserUncheckedUpdateWithoutCreatedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -11314,6 +12178,8 @@ export type UserUpdateWithoutReviewedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -11369,6 +12235,8 @@ export type UserUncheckedUpdateWithoutReviewedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -11435,6 +12303,8 @@ export type UserUpdateWithoutRejectedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -11490,6 +12360,8 @@ export type UserUncheckedUpdateWithoutRejectedAi8dReviewsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -11545,6 +12417,8 @@ export type UserCreateWithoutCreatedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -11600,6 +12474,8 @@ export type UserUncheckedCreateWithoutCreatedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -11660,6 +12536,8 @@ export type UserCreateWithoutResolvedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
@@ -11715,6 +12593,8 @@ export type UserUncheckedCreateWithoutResolvedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
   ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
   iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
   iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
   fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
@@ -11786,6 +12666,8 @@ export type UserUpdateWithoutCreatedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -11841,6 +12723,8 @@ export type UserUncheckedUpdateWithoutCreatedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -11907,6 +12791,8 @@ export type UserUpdateWithoutResolvedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -11962,6 +12848,8 @@ export type UserUncheckedUpdateWithoutResolvedUpgradeRequestsInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -12027,6 +12915,8 @@ export type UserUpdateWithoutCompanyInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
@@ -12082,6 +12972,8 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
   ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
   iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
   iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
   fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
   fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
@@ -12145,6 +13037,8 @@ export type UserCountOutputType = {
   ppapCommentAuthored: number
   ppapEventActors: number
   iqcInspections: number
+  iqcCreatedReports: number
+  iqcCompletedReports: number
   iqcEventActors: number
   fmeaResponsible: number
   fmeaApprovedBy: number
@@ -12192,6 +13086,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   ppapCommentAuthored?: boolean | UserCountOutputTypeCountPpapCommentAuthoredArgs
   ppapEventActors?: boolean | UserCountOutputTypeCountPpapEventActorsArgs
   iqcInspections?: boolean | UserCountOutputTypeCountIqcInspectionsArgs
+  iqcCreatedReports?: boolean | UserCountOutputTypeCountIqcCreatedReportsArgs
+  iqcCompletedReports?: boolean | UserCountOutputTypeCountIqcCompletedReportsArgs
   iqcEventActors?: boolean | UserCountOutputTypeCountIqcEventActorsArgs
   fmeaResponsible?: boolean | UserCountOutputTypeCountFmeaResponsibleArgs
   fmeaApprovedBy?: boolean | UserCountOutputTypeCountFmeaApprovedByArgs
@@ -12389,6 +13285,20 @@ export type UserCountOutputTypeCountIqcInspectionsArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountIqcCreatedReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IqcReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountIqcCompletedReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IqcReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountIqcEventActorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.IqcEventWhereInput
 }
@@ -12568,6 +13478,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   ppapCommentAuthored?: boolean | Prisma.User$ppapCommentAuthoredArgs<ExtArgs>
   ppapEventActors?: boolean | Prisma.User$ppapEventActorsArgs<ExtArgs>
   iqcInspections?: boolean | Prisma.User$iqcInspectionsArgs<ExtArgs>
+  iqcCreatedReports?: boolean | Prisma.User$iqcCreatedReportsArgs<ExtArgs>
+  iqcCompletedReports?: boolean | Prisma.User$iqcCompletedReportsArgs<ExtArgs>
   iqcEventActors?: boolean | Prisma.User$iqcEventActorsArgs<ExtArgs>
   fmeaResponsible?: boolean | Prisma.User$fmeaResponsibleArgs<ExtArgs>
   fmeaApprovedBy?: boolean | Prisma.User$fmeaApprovedByArgs<ExtArgs>
@@ -12656,6 +13568,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   ppapCommentAuthored?: boolean | Prisma.User$ppapCommentAuthoredArgs<ExtArgs>
   ppapEventActors?: boolean | Prisma.User$ppapEventActorsArgs<ExtArgs>
   iqcInspections?: boolean | Prisma.User$iqcInspectionsArgs<ExtArgs>
+  iqcCreatedReports?: boolean | Prisma.User$iqcCreatedReportsArgs<ExtArgs>
+  iqcCompletedReports?: boolean | Prisma.User$iqcCompletedReportsArgs<ExtArgs>
   iqcEventActors?: boolean | Prisma.User$iqcEventActorsArgs<ExtArgs>
   fmeaResponsible?: boolean | Prisma.User$fmeaResponsibleArgs<ExtArgs>
   fmeaApprovedBy?: boolean | Prisma.User$fmeaApprovedByArgs<ExtArgs>
@@ -12713,6 +13627,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     ppapCommentAuthored: Prisma.$PpapReviewCommentPayload<ExtArgs>[]
     ppapEventActors: Prisma.$PpapEventPayload<ExtArgs>[]
     iqcInspections: Prisma.$IqcReportPayload<ExtArgs>[]
+    iqcCreatedReports: Prisma.$IqcReportPayload<ExtArgs>[]
+    iqcCompletedReports: Prisma.$IqcReportPayload<ExtArgs>[]
     iqcEventActors: Prisma.$IqcEventPayload<ExtArgs>[]
     fmeaResponsible: Prisma.$FmeaPayload<ExtArgs>[]
     fmeaApprovedBy: Prisma.$FmeaPayload<ExtArgs>[]
@@ -13163,6 +14079,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   ppapCommentAuthored<T extends Prisma.User$ppapCommentAuthoredArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ppapCommentAuthoredArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PpapReviewCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ppapEventActors<T extends Prisma.User$ppapEventActorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ppapEventActorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PpapEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   iqcInspections<T extends Prisma.User$iqcInspectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$iqcInspectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  iqcCreatedReports<T extends Prisma.User$iqcCreatedReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$iqcCreatedReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  iqcCompletedReports<T extends Prisma.User$iqcCompletedReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$iqcCompletedReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   iqcEventActors<T extends Prisma.User$iqcEventActorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$iqcEventActorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fmeaResponsible<T extends Prisma.User$fmeaResponsibleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fmeaResponsibleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FmeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fmeaApprovedBy<T extends Prisma.User$fmeaApprovedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fmeaApprovedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FmeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14173,6 +15091,54 @@ export type User$ppapEventActorsArgs<ExtArgs extends runtime.Types.Extensions.In
  * User.iqcInspections
  */
 export type User$iqcInspectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IqcReport
+   */
+  select?: Prisma.IqcReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IqcReport
+   */
+  omit?: Prisma.IqcReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IqcReportInclude<ExtArgs> | null
+  where?: Prisma.IqcReportWhereInput
+  orderBy?: Prisma.IqcReportOrderByWithRelationInput | Prisma.IqcReportOrderByWithRelationInput[]
+  cursor?: Prisma.IqcReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IqcReportScalarFieldEnum | Prisma.IqcReportScalarFieldEnum[]
+}
+
+/**
+ * User.iqcCreatedReports
+ */
+export type User$iqcCreatedReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IqcReport
+   */
+  select?: Prisma.IqcReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IqcReport
+   */
+  omit?: Prisma.IqcReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IqcReportInclude<ExtArgs> | null
+  where?: Prisma.IqcReportWhereInput
+  orderBy?: Prisma.IqcReportOrderByWithRelationInput | Prisma.IqcReportOrderByWithRelationInput[]
+  cursor?: Prisma.IqcReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IqcReportScalarFieldEnum | Prisma.IqcReportScalarFieldEnum[]
+}
+
+/**
+ * User.iqcCompletedReports
+ */
+export type User$iqcCompletedReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the IqcReport
    */

@@ -36,6 +36,8 @@ enum NotificationType {
   PPAP_APPROVED
   PPAP_REJECTED
   IQC_FAILED
+  IQC_COMPLETED_FOR_SUPPLIER
+  IQC_RESULT_SET
   FMEA_HIGH_RPN
   FIELD_DEFECT_CREATED
   FIELD_DEFECT_ASSIGNED
@@ -109,6 +111,9 @@ enum DefectEventType {
   IQC_CREATED
   IQC_COMPLETED
   IQC_FAILED
+  IQC_CHECKLIST_UPDATED
+  IQC_CANCELLED
+  IQC_RESULT_SET
   FMEA_CREATED
   FMEA_UPDATED
   FMEA_APPROVED
@@ -217,11 +222,35 @@ enum PpapSubmissionRequirement {
 }
 
 enum IqcStatus {
-  PENDING
+  DRAFT
+  PLANNED
   IN_PROGRESS
-  PASSED
-  FAILED
-  CONDITIONALLY_ACCEPTED
+  COMPLETED
+  CANCELLED
+}
+
+enum IqcResult {
+  ACCEPTED
+  CONDITIONAL_ACCEPTED
+  REJECTED
+  ON_HOLD
+  REWORK_REQUIRED
+  SORTING_REQUIRED
+}
+
+enum IqcInspectionType {
+  RECEIVING_INSPECTION
+  FIRST_ARTICLE_INSPECTION
+  CONTAINMENT_INSPECTION
+  RE_INSPECTION
+  DOCK_AUDIT
+}
+
+enum IqcChecklistResult {
+  PENDING
+  OK
+  NOK
+  NA
 }
 
 enum FmeaStatus {
@@ -331,6 +360,8 @@ model User {
   ppapCommentAuthored  PpapReviewComment[] @relation("PpapCommentAuthor")
   ppapEventActors PpapEvent[] @relation("PpapEventActor")
   iqcInspections IqcReport[] @relation("IqcInspector")
+  iqcCreatedReports IqcReport[] @relation("IqcCreatedBy")
+  iqcCompletedReports IqcReport[] @relation("IqcCompletedBy")
   iqcEventActors IqcEvent[] @relation("IqcEventActor")
   fmeaResponsible Fmea[] @relation("FmeaResponsible")
   fmeaApprovedBy Fmea[] @relation("FmeaApprovedBy")
@@ -424,9 +455,9 @@ model Defect {
   events       DefectEvent[]
   evidences    DefectEvidence[]
   ppap         PpapSubmission?
-  iqcReport    IqcReport?
   fmea         Fmea?
   linkedFieldDefect FieldDefect?
+  iqcReport    IqcReport?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   resolvedAt   DateTime?
@@ -631,35 +662,71 @@ model PpapEvent {
 }
 
 model IqcReport {
-  id                    String      @id @default(uuid())
-  lotNumber             String      @map("lot_number")
-  partNumber            String      @map("part_number")
-  partName              String?     @map("part_name")
-  quantity              Int         @default(0)
-  quantityAccepted      Int         @default(0) @map("quantity_accepted")
-  quantityRejected      Int         @default(0) @map("quantity_rejected")
-  status                IqcStatus   @default(PENDING)
-  oemId                 String      @map("oem_id")
-  oem                   Company     @relation("OemIqcReports", fields: [oemId], references: [id])
-  supplierId            String      @map("supplier_id")
-  supplier              Company     @relation("SupplierIqcReports", fields: [supplierId], references: [id])
-  inspectorId           String?     @map("inspector_id")
-  inspector             User?       @relation("IqcInspector", fields: [inspectorId], references: [id])
-  defectId              String?     @unique @map("defect_id")
-  defect                Defect?     @relation(fields: [defectId], references: [id])
-  inspectionDate        DateTime?   @map("inspection_date")
-  measurements          Json?       @map("measurements")
-  nonconformities       Json?       @map("nonconformities")
-  dispositionNotes      String?     @map("disposition_notes")
-  completedAt           DateTime?   @map("completed_at")
-  events                IqcEvent[]
-  createdAt             DateTime    @default(now()) @map("created_at")
-  updatedAt             DateTime    @updatedAt @map("updated_at")
+  id                     String              @id @default(uuid())
+  inspectionNumber       String              @unique @map("inspection_number")
+  partNumber             String              @map("part_number")
+  partName               String?             @map("part_name")
+  purchaseOrder          String?             @map("purchase_order")
+  deliveryNote           String?             @map("delivery_note")
+  lotNumber              String?             @map("lot_number")
+  batchNumber            String?             @map("batch_number")
+  quantityReceived        Int                 @default(0) @map("quantity_received")
+  inspectionQuantity     Int                 @default(0) @map("inspection_quantity")
+  vehicleModel           String?             @map("vehicle_model")
+  projectName            String?             @map("project_name")
+  oemId                  String              @map("oem_id")
+  oem                    Company             @relation("OemIqcReports", fields: [oemId], references: [id])
+  supplierId             String              @map("supplier_id")
+  supplier               Company             @relation("SupplierIqcReports", fields: [supplierId], references: [id])
+  inspectorId            String?             @map("inspector_id")
+  inspector              User?               @relation("IqcInspector", fields: [inspectorId], references: [id])
+  inspectionDate          DateTime?          @map("inspection_date")
+  inspectionType          IqcInspectionType  @default(RECEIVING_INSPECTION) @map("inspection_type")
+  samplingPlan            String?            @map("sampling_plan")
+  status                  IqcStatus          @default(PLANNED)
+  result                  IqcResult?
+  notes                   String?
+  linkedDefectId          String?            @unique @map("linked_defect_id")
+  linkedDefect            Defect?            @relation(fields: [linkedDefectId], references: [id])
+  createdById             String             @map("created_by_id")
+  createdBy               User              @relation("IqcCreatedBy", fields: [createdById], references: [id])
+  completedAt             DateTime?          @map("completed_at")
+  completedById            String?           @map("completed_by_id")
+  completedBy             User?             @relation("IqcCompletedBy", fields: [completedById], references: [id])
+  quantityAccepted        Int                @default(0) @map("quantity_accepted")
+  quantityRejected        Int                @default(0) @map("quantity_rejected")
+  measurements            Json?              @map("measurements")
+  nonconformities         Json?              @map("nonconformities")
+  dispositionNotes        String?            @map("disposition_notes")
+  checklistItems          IqcChecklistItem[]
+  events                  IqcEvent[]
+  createdAt               DateTime           @default(now()) @map("created_at")
+  updatedAt               DateTime           @updatedAt @map("updated_at")
 
+  @@index([oemId, supplierId])
   @@index([oemId, status])
   @@index([supplierId, status])
-  @@index([defectId])
+  @@index([oemId, result])
+  @@index([oemId, createdAt])
   @@map("iqc_reports")
+}
+
+model IqcChecklistItem {
+  id                  String             @id @default(uuid())
+  iqcInspectionId     String             @map("iqc_inspection_id")
+  iqcInspection       IqcReport          @relation(fields: [iqcInspectionId], references: [id], onDelete: Cascade)
+  itemName            String             @map("item_name")
+  requirement          String?
+  result               IqcChecklistResult @default(PENDING)
+  measuredValue         String?           @map("measured_value")
+  comment              String?
+  evidenceFileName     String?            @map("evidence_file_name")
+  evidenceStorageKey   String?            @map("evidence_storage_key")
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
+
+  @@index([iqcInspectionId, result])
+  @@map("iqc_checklist_items")
 }
 
 model IqcEvent {

@@ -27,75 +27,116 @@ export type AggregateIqcReport = {
 }
 
 export type IqcReportAvgAggregateOutputType = {
-  quantity: number | null
+  quantityReceived: number | null
+  inspectionQuantity: number | null
   quantityAccepted: number | null
   quantityRejected: number | null
 }
 
 export type IqcReportSumAggregateOutputType = {
-  quantity: number | null
+  quantityReceived: number | null
+  inspectionQuantity: number | null
   quantityAccepted: number | null
   quantityRejected: number | null
 }
 
 export type IqcReportMinAggregateOutputType = {
   id: string | null
-  lotNumber: string | null
+  inspectionNumber: string | null
   partNumber: string | null
   partName: string | null
-  quantity: number | null
-  quantityAccepted: number | null
-  quantityRejected: number | null
-  status: $Enums.IqcStatus | null
+  purchaseOrder: string | null
+  deliveryNote: string | null
+  lotNumber: string | null
+  batchNumber: string | null
+  quantityReceived: number | null
+  inspectionQuantity: number | null
+  vehicleModel: string | null
+  projectName: string | null
   oemId: string | null
   supplierId: string | null
   inspectorId: string | null
-  defectId: string | null
   inspectionDate: Date | null
-  dispositionNotes: string | null
+  inspectionType: $Enums.IqcInspectionType | null
+  samplingPlan: string | null
+  status: $Enums.IqcStatus | null
+  result: $Enums.IqcResult | null
+  notes: string | null
+  linkedDefectId: string | null
+  createdById: string | null
   completedAt: Date | null
+  completedById: string | null
+  quantityAccepted: number | null
+  quantityRejected: number | null
+  dispositionNotes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type IqcReportMaxAggregateOutputType = {
   id: string | null
-  lotNumber: string | null
+  inspectionNumber: string | null
   partNumber: string | null
   partName: string | null
-  quantity: number | null
-  quantityAccepted: number | null
-  quantityRejected: number | null
-  status: $Enums.IqcStatus | null
+  purchaseOrder: string | null
+  deliveryNote: string | null
+  lotNumber: string | null
+  batchNumber: string | null
+  quantityReceived: number | null
+  inspectionQuantity: number | null
+  vehicleModel: string | null
+  projectName: string | null
   oemId: string | null
   supplierId: string | null
   inspectorId: string | null
-  defectId: string | null
   inspectionDate: Date | null
-  dispositionNotes: string | null
+  inspectionType: $Enums.IqcInspectionType | null
+  samplingPlan: string | null
+  status: $Enums.IqcStatus | null
+  result: $Enums.IqcResult | null
+  notes: string | null
+  linkedDefectId: string | null
+  createdById: string | null
   completedAt: Date | null
+  completedById: string | null
+  quantityAccepted: number | null
+  quantityRejected: number | null
+  dispositionNotes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type IqcReportCountAggregateOutputType = {
   id: number
-  lotNumber: number
+  inspectionNumber: number
   partNumber: number
   partName: number
-  quantity: number
-  quantityAccepted: number
-  quantityRejected: number
-  status: number
+  purchaseOrder: number
+  deliveryNote: number
+  lotNumber: number
+  batchNumber: number
+  quantityReceived: number
+  inspectionQuantity: number
+  vehicleModel: number
+  projectName: number
   oemId: number
   supplierId: number
   inspectorId: number
-  defectId: number
   inspectionDate: number
+  inspectionType: number
+  samplingPlan: number
+  status: number
+  result: number
+  notes: number
+  linkedDefectId: number
+  createdById: number
+  completedAt: number
+  completedById: number
+  quantityAccepted: number
+  quantityRejected: number
   measurements: number
   nonconformities: number
   dispositionNotes: number
-  completedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -103,75 +144,116 @@ export type IqcReportCountAggregateOutputType = {
 
 
 export type IqcReportAvgAggregateInputType = {
-  quantity?: true
+  quantityReceived?: true
+  inspectionQuantity?: true
   quantityAccepted?: true
   quantityRejected?: true
 }
 
 export type IqcReportSumAggregateInputType = {
-  quantity?: true
+  quantityReceived?: true
+  inspectionQuantity?: true
   quantityAccepted?: true
   quantityRejected?: true
 }
 
 export type IqcReportMinAggregateInputType = {
   id?: true
-  lotNumber?: true
+  inspectionNumber?: true
   partNumber?: true
   partName?: true
-  quantity?: true
-  quantityAccepted?: true
-  quantityRejected?: true
-  status?: true
+  purchaseOrder?: true
+  deliveryNote?: true
+  lotNumber?: true
+  batchNumber?: true
+  quantityReceived?: true
+  inspectionQuantity?: true
+  vehicleModel?: true
+  projectName?: true
   oemId?: true
   supplierId?: true
   inspectorId?: true
-  defectId?: true
   inspectionDate?: true
-  dispositionNotes?: true
+  inspectionType?: true
+  samplingPlan?: true
+  status?: true
+  result?: true
+  notes?: true
+  linkedDefectId?: true
+  createdById?: true
   completedAt?: true
+  completedById?: true
+  quantityAccepted?: true
+  quantityRejected?: true
+  dispositionNotes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type IqcReportMaxAggregateInputType = {
   id?: true
-  lotNumber?: true
+  inspectionNumber?: true
   partNumber?: true
   partName?: true
-  quantity?: true
-  quantityAccepted?: true
-  quantityRejected?: true
-  status?: true
+  purchaseOrder?: true
+  deliveryNote?: true
+  lotNumber?: true
+  batchNumber?: true
+  quantityReceived?: true
+  inspectionQuantity?: true
+  vehicleModel?: true
+  projectName?: true
   oemId?: true
   supplierId?: true
   inspectorId?: true
-  defectId?: true
   inspectionDate?: true
-  dispositionNotes?: true
+  inspectionType?: true
+  samplingPlan?: true
+  status?: true
+  result?: true
+  notes?: true
+  linkedDefectId?: true
+  createdById?: true
   completedAt?: true
+  completedById?: true
+  quantityAccepted?: true
+  quantityRejected?: true
+  dispositionNotes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type IqcReportCountAggregateInputType = {
   id?: true
-  lotNumber?: true
+  inspectionNumber?: true
   partNumber?: true
   partName?: true
-  quantity?: true
-  quantityAccepted?: true
-  quantityRejected?: true
-  status?: true
+  purchaseOrder?: true
+  deliveryNote?: true
+  lotNumber?: true
+  batchNumber?: true
+  quantityReceived?: true
+  inspectionQuantity?: true
+  vehicleModel?: true
+  projectName?: true
   oemId?: true
   supplierId?: true
   inspectorId?: true
-  defectId?: true
   inspectionDate?: true
+  inspectionType?: true
+  samplingPlan?: true
+  status?: true
+  result?: true
+  notes?: true
+  linkedDefectId?: true
+  createdById?: true
+  completedAt?: true
+  completedById?: true
+  quantityAccepted?: true
+  quantityRejected?: true
   measurements?: true
   nonconformities?: true
   dispositionNotes?: true
-  completedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -265,22 +347,35 @@ export type IqcReportGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type IqcReportGroupByOutputType = {
   id: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName: string | null
-  quantity: number
-  quantityAccepted: number
-  quantityRejected: number
-  status: $Enums.IqcStatus
+  purchaseOrder: string | null
+  deliveryNote: string | null
+  lotNumber: string | null
+  batchNumber: string | null
+  quantityReceived: number
+  inspectionQuantity: number
+  vehicleModel: string | null
+  projectName: string | null
   oemId: string
   supplierId: string
   inspectorId: string | null
-  defectId: string | null
   inspectionDate: Date | null
+  inspectionType: $Enums.IqcInspectionType
+  samplingPlan: string | null
+  status: $Enums.IqcStatus
+  result: $Enums.IqcResult | null
+  notes: string | null
+  linkedDefectId: string | null
+  createdById: string
+  completedAt: Date | null
+  completedById: string | null
+  quantityAccepted: number
+  quantityRejected: number
   measurements: runtime.JsonValue | null
   nonconformities: runtime.JsonValue | null
   dispositionNotes: string | null
-  completedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: IqcReportCountAggregateOutputType | null
@@ -310,106 +405,167 @@ export type IqcReportWhereInput = {
   OR?: Prisma.IqcReportWhereInput[]
   NOT?: Prisma.IqcReportWhereInput | Prisma.IqcReportWhereInput[]
   id?: Prisma.StringFilter<"IqcReport"> | string
-  lotNumber?: Prisma.StringFilter<"IqcReport"> | string
+  inspectionNumber?: Prisma.StringFilter<"IqcReport"> | string
   partNumber?: Prisma.StringFilter<"IqcReport"> | string
   partName?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  quantity?: Prisma.IntFilter<"IqcReport"> | number
-  quantityAccepted?: Prisma.IntFilter<"IqcReport"> | number
-  quantityRejected?: Prisma.IntFilter<"IqcReport"> | number
-  status?: Prisma.EnumIqcStatusFilter<"IqcReport"> | $Enums.IqcStatus
+  purchaseOrder?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  deliveryNote?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  lotNumber?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  batchNumber?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  quantityReceived?: Prisma.IntFilter<"IqcReport"> | number
+  inspectionQuantity?: Prisma.IntFilter<"IqcReport"> | number
+  vehicleModel?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  projectName?: Prisma.StringNullableFilter<"IqcReport"> | string | null
   oemId?: Prisma.StringFilter<"IqcReport"> | string
   supplierId?: Prisma.StringFilter<"IqcReport"> | string
   inspectorId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  defectId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
   inspectionDate?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFilter<"IqcReport"> | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  status?: Prisma.EnumIqcStatusFilter<"IqcReport"> | $Enums.IqcStatus
+  result?: Prisma.EnumIqcResultNullableFilter<"IqcReport"> | $Enums.IqcResult | null
+  notes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  linkedDefectId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  createdById?: Prisma.StringFilter<"IqcReport"> | string
+  completedAt?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
+  completedById?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  quantityAccepted?: Prisma.IntFilter<"IqcReport"> | number
+  quantityRejected?: Prisma.IntFilter<"IqcReport"> | number
   measurements?: Prisma.JsonNullableFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   inspector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  defect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  linkedDefect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  completedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  checklistItems?: Prisma.IqcChecklistItemListRelationFilter
   events?: Prisma.IqcEventListRelationFilter
 }
 
 export type IqcReportOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  lotNumber?: Prisma.SortOrder
+  inspectionNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrderInput | Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  quantityAccepted?: Prisma.SortOrder
-  quantityRejected?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  purchaseOrder?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryNote?: Prisma.SortOrderInput | Prisma.SortOrder
+  lotNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrderInput | Prisma.SortOrder
+  projectName?: Prisma.SortOrderInput | Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   inspectorId?: Prisma.SortOrderInput | Prisma.SortOrder
-  defectId?: Prisma.SortOrderInput | Prisma.SortOrder
   inspectionDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  inspectionType?: Prisma.SortOrder
+  samplingPlan?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  result?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdById?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  completedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantityAccepted?: Prisma.SortOrder
+  quantityRejected?: Prisma.SortOrder
   measurements?: Prisma.SortOrderInput | Prisma.SortOrder
   nonconformities?: Prisma.SortOrderInput | Prisma.SortOrder
   dispositionNotes?: Prisma.SortOrderInput | Prisma.SortOrder
-  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   oem?: Prisma.CompanyOrderByWithRelationInput
   supplier?: Prisma.CompanyOrderByWithRelationInput
   inspector?: Prisma.UserOrderByWithRelationInput
-  defect?: Prisma.DefectOrderByWithRelationInput
+  linkedDefect?: Prisma.DefectOrderByWithRelationInput
+  createdBy?: Prisma.UserOrderByWithRelationInput
+  completedBy?: Prisma.UserOrderByWithRelationInput
+  checklistItems?: Prisma.IqcChecklistItemOrderByRelationAggregateInput
   events?: Prisma.IqcEventOrderByRelationAggregateInput
 }
 
 export type IqcReportWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  defectId?: string
+  inspectionNumber?: string
+  linkedDefectId?: string
   AND?: Prisma.IqcReportWhereInput | Prisma.IqcReportWhereInput[]
   OR?: Prisma.IqcReportWhereInput[]
   NOT?: Prisma.IqcReportWhereInput | Prisma.IqcReportWhereInput[]
-  lotNumber?: Prisma.StringFilter<"IqcReport"> | string
   partNumber?: Prisma.StringFilter<"IqcReport"> | string
   partName?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  quantity?: Prisma.IntFilter<"IqcReport"> | number
-  quantityAccepted?: Prisma.IntFilter<"IqcReport"> | number
-  quantityRejected?: Prisma.IntFilter<"IqcReport"> | number
-  status?: Prisma.EnumIqcStatusFilter<"IqcReport"> | $Enums.IqcStatus
+  purchaseOrder?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  deliveryNote?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  lotNumber?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  batchNumber?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  quantityReceived?: Prisma.IntFilter<"IqcReport"> | number
+  inspectionQuantity?: Prisma.IntFilter<"IqcReport"> | number
+  vehicleModel?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  projectName?: Prisma.StringNullableFilter<"IqcReport"> | string | null
   oemId?: Prisma.StringFilter<"IqcReport"> | string
   supplierId?: Prisma.StringFilter<"IqcReport"> | string
   inspectorId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
   inspectionDate?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFilter<"IqcReport"> | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  status?: Prisma.EnumIqcStatusFilter<"IqcReport"> | $Enums.IqcStatus
+  result?: Prisma.EnumIqcResultNullableFilter<"IqcReport"> | $Enums.IqcResult | null
+  notes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  createdById?: Prisma.StringFilter<"IqcReport"> | string
+  completedAt?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
+  completedById?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  quantityAccepted?: Prisma.IntFilter<"IqcReport"> | number
+  quantityRejected?: Prisma.IntFilter<"IqcReport"> | number
   measurements?: Prisma.JsonNullableFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   inspector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  defect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  linkedDefect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  completedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  checklistItems?: Prisma.IqcChecklistItemListRelationFilter
   events?: Prisma.IqcEventListRelationFilter
-}, "id" | "defectId">
+}, "id" | "inspectionNumber" | "linkedDefectId">
 
 export type IqcReportOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  lotNumber?: Prisma.SortOrder
+  inspectionNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrderInput | Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  quantityAccepted?: Prisma.SortOrder
-  quantityRejected?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  purchaseOrder?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryNote?: Prisma.SortOrderInput | Prisma.SortOrder
+  lotNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  batchNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrderInput | Prisma.SortOrder
+  projectName?: Prisma.SortOrderInput | Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   inspectorId?: Prisma.SortOrderInput | Prisma.SortOrder
-  defectId?: Prisma.SortOrderInput | Prisma.SortOrder
   inspectionDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  inspectionType?: Prisma.SortOrder
+  samplingPlan?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  result?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdById?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  completedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  quantityAccepted?: Prisma.SortOrder
+  quantityRejected?: Prisma.SortOrder
   measurements?: Prisma.SortOrderInput | Prisma.SortOrder
   nonconformities?: Prisma.SortOrderInput | Prisma.SortOrder
   dispositionNotes?: Prisma.SortOrderInput | Prisma.SortOrder
-  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.IqcReportCountOrderByAggregateInput
@@ -424,176 +580,282 @@ export type IqcReportScalarWhereWithAggregatesInput = {
   OR?: Prisma.IqcReportScalarWhereWithAggregatesInput[]
   NOT?: Prisma.IqcReportScalarWhereWithAggregatesInput | Prisma.IqcReportScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
-  lotNumber?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
+  inspectionNumber?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
   partNumber?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
   partName?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
-  quantity?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
-  quantityAccepted?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
-  quantityRejected?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
-  status?: Prisma.EnumIqcStatusWithAggregatesFilter<"IqcReport"> | $Enums.IqcStatus
+  purchaseOrder?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  deliveryNote?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  lotNumber?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  batchNumber?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  quantityReceived?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
+  inspectionQuantity?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
+  vehicleModel?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  projectName?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
   oemId?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
   supplierId?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
   inspectorId?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
-  defectId?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
   inspectionDate?: Prisma.DateTimeNullableWithAggregatesFilter<"IqcReport"> | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeWithAggregatesFilter<"IqcReport"> | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  status?: Prisma.EnumIqcStatusWithAggregatesFilter<"IqcReport"> | $Enums.IqcStatus
+  result?: Prisma.EnumIqcResultNullableWithAggregatesFilter<"IqcReport"> | $Enums.IqcResult | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  linkedDefectId?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  createdById?: Prisma.StringWithAggregatesFilter<"IqcReport"> | string
+  completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"IqcReport"> | Date | string | null
+  completedById?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  quantityAccepted?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
+  quantityRejected?: Prisma.IntWithAggregatesFilter<"IqcReport"> | number
   measurements?: Prisma.JsonNullableWithAggregatesFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableWithAggregatesFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
-  completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"IqcReport"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IqcReport"> | Date | string
 }
 
 export type IqcReportCreateInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
   quantityAccepted?: number
   quantityRejected?: number
-  status?: $Enums.IqcStatus
-  inspectionDate?: Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
   inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
-  defect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
 }
 
 export type IqcReportUncheckedCreateInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   supplierId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
 }
 
 export type IqcReportUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
   inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
-  defect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportCreateManyInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   supplierId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type IqcReportUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type IqcReportUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -615,74 +877,115 @@ export type IqcReportNullableScalarRelationFilter = {
 
 export type IqcReportCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  lotNumber?: Prisma.SortOrder
+  inspectionNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  quantityAccepted?: Prisma.SortOrder
-  quantityRejected?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  purchaseOrder?: Prisma.SortOrder
+  deliveryNote?: Prisma.SortOrder
+  lotNumber?: Prisma.SortOrder
+  batchNumber?: Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   inspectorId?: Prisma.SortOrder
-  defectId?: Prisma.SortOrder
   inspectionDate?: Prisma.SortOrder
+  inspectionType?: Prisma.SortOrder
+  samplingPlan?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  result?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
+  completedById?: Prisma.SortOrder
+  quantityAccepted?: Prisma.SortOrder
+  quantityRejected?: Prisma.SortOrder
   measurements?: Prisma.SortOrder
   nonconformities?: Prisma.SortOrder
   dispositionNotes?: Prisma.SortOrder
-  completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type IqcReportAvgOrderByAggregateInput = {
-  quantity?: Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
   quantityAccepted?: Prisma.SortOrder
   quantityRejected?: Prisma.SortOrder
 }
 
 export type IqcReportMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  lotNumber?: Prisma.SortOrder
+  inspectionNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  quantityAccepted?: Prisma.SortOrder
-  quantityRejected?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  purchaseOrder?: Prisma.SortOrder
+  deliveryNote?: Prisma.SortOrder
+  lotNumber?: Prisma.SortOrder
+  batchNumber?: Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   inspectorId?: Prisma.SortOrder
-  defectId?: Prisma.SortOrder
   inspectionDate?: Prisma.SortOrder
-  dispositionNotes?: Prisma.SortOrder
+  inspectionType?: Prisma.SortOrder
+  samplingPlan?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  result?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  completedById?: Prisma.SortOrder
+  quantityAccepted?: Prisma.SortOrder
+  quantityRejected?: Prisma.SortOrder
+  dispositionNotes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type IqcReportMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  lotNumber?: Prisma.SortOrder
+  inspectionNumber?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  quantityAccepted?: Prisma.SortOrder
-  quantityRejected?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  purchaseOrder?: Prisma.SortOrder
+  deliveryNote?: Prisma.SortOrder
+  lotNumber?: Prisma.SortOrder
+  batchNumber?: Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   inspectorId?: Prisma.SortOrder
-  defectId?: Prisma.SortOrder
   inspectionDate?: Prisma.SortOrder
-  dispositionNotes?: Prisma.SortOrder
+  inspectionType?: Prisma.SortOrder
+  samplingPlan?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  result?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  completedById?: Prisma.SortOrder
+  quantityAccepted?: Prisma.SortOrder
+  quantityRejected?: Prisma.SortOrder
+  dispositionNotes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type IqcReportSumOrderByAggregateInput = {
-  quantity?: Prisma.SortOrder
+  quantityReceived?: Prisma.SortOrder
+  inspectionQuantity?: Prisma.SortOrder
   quantityAccepted?: Prisma.SortOrder
   quantityRejected?: Prisma.SortOrder
 }
@@ -783,10 +1086,38 @@ export type IqcReportCreateNestedManyWithoutInspectorInput = {
   connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
 }
 
+export type IqcReportCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCreatedByInput, Prisma.IqcReportUncheckedCreateWithoutCreatedByInput> | Prisma.IqcReportCreateWithoutCreatedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCreatedByInput | Prisma.IqcReportCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCreatedByInputEnvelope
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+}
+
+export type IqcReportCreateNestedManyWithoutCompletedByInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCompletedByInput, Prisma.IqcReportUncheckedCreateWithoutCompletedByInput> | Prisma.IqcReportCreateWithoutCompletedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCompletedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCompletedByInput | Prisma.IqcReportCreateOrConnectWithoutCompletedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCompletedByInputEnvelope
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+}
+
 export type IqcReportUncheckedCreateNestedManyWithoutInspectorInput = {
   create?: Prisma.XOR<Prisma.IqcReportCreateWithoutInspectorInput, Prisma.IqcReportUncheckedCreateWithoutInspectorInput> | Prisma.IqcReportCreateWithoutInspectorInput[] | Prisma.IqcReportUncheckedCreateWithoutInspectorInput[]
   connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutInspectorInput | Prisma.IqcReportCreateOrConnectWithoutInspectorInput[]
   createMany?: Prisma.IqcReportCreateManyInspectorInputEnvelope
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+}
+
+export type IqcReportUncheckedCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCreatedByInput, Prisma.IqcReportUncheckedCreateWithoutCreatedByInput> | Prisma.IqcReportCreateWithoutCreatedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCreatedByInput | Prisma.IqcReportCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCreatedByInputEnvelope
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+}
+
+export type IqcReportUncheckedCreateNestedManyWithoutCompletedByInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCompletedByInput, Prisma.IqcReportUncheckedCreateWithoutCompletedByInput> | Prisma.IqcReportCreateWithoutCompletedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCompletedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCompletedByInput | Prisma.IqcReportCreateOrConnectWithoutCompletedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCompletedByInputEnvelope
   connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
 }
 
@@ -804,6 +1135,34 @@ export type IqcReportUpdateManyWithoutInspectorNestedInput = {
   deleteMany?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
 }
 
+export type IqcReportUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCreatedByInput, Prisma.IqcReportUncheckedCreateWithoutCreatedByInput> | Prisma.IqcReportCreateWithoutCreatedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCreatedByInput | Prisma.IqcReportCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.IqcReportUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.IqcReportUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCreatedByInputEnvelope
+  set?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  disconnect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  delete?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  update?: Prisma.IqcReportUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.IqcReportUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.IqcReportUpdateManyWithWhereWithoutCreatedByInput | Prisma.IqcReportUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
+}
+
+export type IqcReportUpdateManyWithoutCompletedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCompletedByInput, Prisma.IqcReportUncheckedCreateWithoutCompletedByInput> | Prisma.IqcReportCreateWithoutCompletedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCompletedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCompletedByInput | Prisma.IqcReportCreateOrConnectWithoutCompletedByInput[]
+  upsert?: Prisma.IqcReportUpsertWithWhereUniqueWithoutCompletedByInput | Prisma.IqcReportUpsertWithWhereUniqueWithoutCompletedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCompletedByInputEnvelope
+  set?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  disconnect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  delete?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  update?: Prisma.IqcReportUpdateWithWhereUniqueWithoutCompletedByInput | Prisma.IqcReportUpdateWithWhereUniqueWithoutCompletedByInput[]
+  updateMany?: Prisma.IqcReportUpdateManyWithWhereWithoutCompletedByInput | Prisma.IqcReportUpdateManyWithWhereWithoutCompletedByInput[]
+  deleteMany?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
+}
+
 export type IqcReportUncheckedUpdateManyWithoutInspectorNestedInput = {
   create?: Prisma.XOR<Prisma.IqcReportCreateWithoutInspectorInput, Prisma.IqcReportUncheckedCreateWithoutInspectorInput> | Prisma.IqcReportCreateWithoutInspectorInput[] | Prisma.IqcReportUncheckedCreateWithoutInspectorInput[]
   connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutInspectorInput | Prisma.IqcReportCreateOrConnectWithoutInspectorInput[]
@@ -818,40 +1177,90 @@ export type IqcReportUncheckedUpdateManyWithoutInspectorNestedInput = {
   deleteMany?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
 }
 
-export type IqcReportCreateNestedOneWithoutDefectInput = {
-  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutDefectInput, Prisma.IqcReportUncheckedCreateWithoutDefectInput>
-  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutDefectInput
+export type IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCreatedByInput, Prisma.IqcReportUncheckedCreateWithoutCreatedByInput> | Prisma.IqcReportCreateWithoutCreatedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCreatedByInput | Prisma.IqcReportCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.IqcReportUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.IqcReportUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCreatedByInputEnvelope
+  set?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  disconnect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  delete?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  update?: Prisma.IqcReportUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.IqcReportUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.IqcReportUpdateManyWithWhereWithoutCreatedByInput | Prisma.IqcReportUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
+}
+
+export type IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutCompletedByInput, Prisma.IqcReportUncheckedCreateWithoutCompletedByInput> | Prisma.IqcReportCreateWithoutCompletedByInput[] | Prisma.IqcReportUncheckedCreateWithoutCompletedByInput[]
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutCompletedByInput | Prisma.IqcReportCreateOrConnectWithoutCompletedByInput[]
+  upsert?: Prisma.IqcReportUpsertWithWhereUniqueWithoutCompletedByInput | Prisma.IqcReportUpsertWithWhereUniqueWithoutCompletedByInput[]
+  createMany?: Prisma.IqcReportCreateManyCompletedByInputEnvelope
+  set?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  disconnect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  delete?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  connect?: Prisma.IqcReportWhereUniqueInput | Prisma.IqcReportWhereUniqueInput[]
+  update?: Prisma.IqcReportUpdateWithWhereUniqueWithoutCompletedByInput | Prisma.IqcReportUpdateWithWhereUniqueWithoutCompletedByInput[]
+  updateMany?: Prisma.IqcReportUpdateManyWithWhereWithoutCompletedByInput | Prisma.IqcReportUpdateManyWithWhereWithoutCompletedByInput[]
+  deleteMany?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
+}
+
+export type IqcReportCreateNestedOneWithoutLinkedDefectInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedCreateWithoutLinkedDefectInput>
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutLinkedDefectInput
   connect?: Prisma.IqcReportWhereUniqueInput
 }
 
-export type IqcReportUncheckedCreateNestedOneWithoutDefectInput = {
-  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutDefectInput, Prisma.IqcReportUncheckedCreateWithoutDefectInput>
-  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutDefectInput
+export type IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedCreateWithoutLinkedDefectInput>
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutLinkedDefectInput
   connect?: Prisma.IqcReportWhereUniqueInput
 }
 
-export type IqcReportUpdateOneWithoutDefectNestedInput = {
-  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutDefectInput, Prisma.IqcReportUncheckedCreateWithoutDefectInput>
-  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutDefectInput
-  upsert?: Prisma.IqcReportUpsertWithoutDefectInput
+export type IqcReportUpdateOneWithoutLinkedDefectNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedCreateWithoutLinkedDefectInput>
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutLinkedDefectInput
+  upsert?: Prisma.IqcReportUpsertWithoutLinkedDefectInput
   disconnect?: Prisma.IqcReportWhereInput | boolean
   delete?: Prisma.IqcReportWhereInput | boolean
   connect?: Prisma.IqcReportWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.IqcReportUpdateToOneWithWhereWithoutDefectInput, Prisma.IqcReportUpdateWithoutDefectInput>, Prisma.IqcReportUncheckedUpdateWithoutDefectInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IqcReportUpdateToOneWithWhereWithoutLinkedDefectInput, Prisma.IqcReportUpdateWithoutLinkedDefectInput>, Prisma.IqcReportUncheckedUpdateWithoutLinkedDefectInput>
 }
 
-export type IqcReportUncheckedUpdateOneWithoutDefectNestedInput = {
-  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutDefectInput, Prisma.IqcReportUncheckedCreateWithoutDefectInput>
-  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutDefectInput
-  upsert?: Prisma.IqcReportUpsertWithoutDefectInput
+export type IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedCreateWithoutLinkedDefectInput>
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutLinkedDefectInput
+  upsert?: Prisma.IqcReportUpsertWithoutLinkedDefectInput
   disconnect?: Prisma.IqcReportWhereInput | boolean
   delete?: Prisma.IqcReportWhereInput | boolean
   connect?: Prisma.IqcReportWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.IqcReportUpdateToOneWithWhereWithoutDefectInput, Prisma.IqcReportUpdateWithoutDefectInput>, Prisma.IqcReportUncheckedUpdateWithoutDefectInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IqcReportUpdateToOneWithWhereWithoutLinkedDefectInput, Prisma.IqcReportUpdateWithoutLinkedDefectInput>, Prisma.IqcReportUncheckedUpdateWithoutLinkedDefectInput>
+}
+
+export type EnumIqcInspectionTypeFieldUpdateOperationsInput = {
+  set?: $Enums.IqcInspectionType
 }
 
 export type EnumIqcStatusFieldUpdateOperationsInput = {
   set?: $Enums.IqcStatus
+}
+
+export type NullableEnumIqcResultFieldUpdateOperationsInput = {
+  set?: $Enums.IqcResult | null
+}
+
+export type IqcReportCreateNestedOneWithoutChecklistItemsInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutChecklistItemsInput, Prisma.IqcReportUncheckedCreateWithoutChecklistItemsInput>
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutChecklistItemsInput
+  connect?: Prisma.IqcReportWhereUniqueInput
+}
+
+export type IqcReportUpdateOneRequiredWithoutChecklistItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.IqcReportCreateWithoutChecklistItemsInput, Prisma.IqcReportUncheckedCreateWithoutChecklistItemsInput>
+  connectOrCreate?: Prisma.IqcReportCreateOrConnectWithoutChecklistItemsInput
+  upsert?: Prisma.IqcReportUpsertWithoutChecklistItemsInput
+  connect?: Prisma.IqcReportWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IqcReportUpdateToOneWithWhereWithoutChecklistItemsInput, Prisma.IqcReportUpdateWithoutChecklistItemsInput>, Prisma.IqcReportUncheckedUpdateWithoutChecklistItemsInput>
 }
 
 export type IqcReportCreateNestedOneWithoutEventsInput = {
@@ -870,45 +1279,73 @@ export type IqcReportUpdateOneRequiredWithoutEventsNestedInput = {
 
 export type IqcReportCreateWithoutOemInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
   quantityAccepted?: number
   quantityRejected?: number
-  status?: $Enums.IqcStatus
-  inspectionDate?: Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
   inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
-  defect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
 }
 
 export type IqcReportUncheckedCreateWithoutOemInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   supplierId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
 }
 
@@ -924,45 +1361,73 @@ export type IqcReportCreateManyOemInputEnvelope = {
 
 export type IqcReportCreateWithoutSupplierInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
   quantityAccepted?: number
   quantityRejected?: number
-  status?: $Enums.IqcStatus
-  inspectionDate?: Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
   inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
-  defect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
 }
 
 export type IqcReportUncheckedCreateWithoutSupplierInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
 }
 
@@ -997,22 +1462,35 @@ export type IqcReportScalarWhereInput = {
   OR?: Prisma.IqcReportScalarWhereInput[]
   NOT?: Prisma.IqcReportScalarWhereInput | Prisma.IqcReportScalarWhereInput[]
   id?: Prisma.StringFilter<"IqcReport"> | string
-  lotNumber?: Prisma.StringFilter<"IqcReport"> | string
+  inspectionNumber?: Prisma.StringFilter<"IqcReport"> | string
   partNumber?: Prisma.StringFilter<"IqcReport"> | string
   partName?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  quantity?: Prisma.IntFilter<"IqcReport"> | number
-  quantityAccepted?: Prisma.IntFilter<"IqcReport"> | number
-  quantityRejected?: Prisma.IntFilter<"IqcReport"> | number
-  status?: Prisma.EnumIqcStatusFilter<"IqcReport"> | $Enums.IqcStatus
+  purchaseOrder?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  deliveryNote?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  lotNumber?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  batchNumber?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  quantityReceived?: Prisma.IntFilter<"IqcReport"> | number
+  inspectionQuantity?: Prisma.IntFilter<"IqcReport"> | number
+  vehicleModel?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  projectName?: Prisma.StringNullableFilter<"IqcReport"> | string | null
   oemId?: Prisma.StringFilter<"IqcReport"> | string
   supplierId?: Prisma.StringFilter<"IqcReport"> | string
   inspectorId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  defectId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
   inspectionDate?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFilter<"IqcReport"> | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  status?: Prisma.EnumIqcStatusFilter<"IqcReport"> | $Enums.IqcStatus
+  result?: Prisma.EnumIqcResultNullableFilter<"IqcReport"> | $Enums.IqcResult | null
+  notes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  linkedDefectId?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  createdById?: Prisma.StringFilter<"IqcReport"> | string
+  completedAt?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
+  completedById?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  quantityAccepted?: Prisma.IntFilter<"IqcReport"> | number
+  quantityRejected?: Prisma.IntFilter<"IqcReport"> | number
   measurements?: Prisma.JsonNullableFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
-  completedAt?: Prisma.DateTimeNullableFilter<"IqcReport"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
 }
@@ -1035,45 +1513,73 @@ export type IqcReportUpdateManyWithWhereWithoutSupplierInput = {
 
 export type IqcReportCreateWithoutInspectorInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
   quantityAccepted?: number
   quantityRejected?: number
-  status?: $Enums.IqcStatus
-  inspectionDate?: Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
-  defect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
 }
 
 export type IqcReportUncheckedCreateWithoutInspectorInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   supplierId: string
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
 }
 
@@ -1084,6 +1590,170 @@ export type IqcReportCreateOrConnectWithoutInspectorInput = {
 
 export type IqcReportCreateManyInspectorInputEnvelope = {
   data: Prisma.IqcReportCreateManyInspectorInput | Prisma.IqcReportCreateManyInspectorInput[]
+  skipDuplicates?: boolean
+}
+
+export type IqcReportCreateWithoutCreatedByInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
+  inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
+  events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
+}
+
+export type IqcReportUncheckedCreateWithoutCreatedByInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  oemId: string
+  supplierId: string
+  inspectorId?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
+  events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
+}
+
+export type IqcReportCreateOrConnectWithoutCreatedByInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutCreatedByInput, Prisma.IqcReportUncheckedCreateWithoutCreatedByInput>
+}
+
+export type IqcReportCreateManyCreatedByInputEnvelope = {
+  data: Prisma.IqcReportCreateManyCreatedByInput | Prisma.IqcReportCreateManyCreatedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type IqcReportCreateWithoutCompletedByInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
+  inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
+  events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
+}
+
+export type IqcReportUncheckedCreateWithoutCompletedByInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  oemId: string
+  supplierId: string
+  inspectorId?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
+  events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
+}
+
+export type IqcReportCreateOrConnectWithoutCompletedByInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutCompletedByInput, Prisma.IqcReportUncheckedCreateWithoutCompletedByInput>
+}
+
+export type IqcReportCreateManyCompletedByInputEnvelope = {
+  data: Prisma.IqcReportCreateManyCompletedByInput | Prisma.IqcReportCreateManyCompletedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -1103,105 +1773,353 @@ export type IqcReportUpdateManyWithWhereWithoutInspectorInput = {
   data: Prisma.XOR<Prisma.IqcReportUpdateManyMutationInput, Prisma.IqcReportUncheckedUpdateManyWithoutInspectorInput>
 }
 
-export type IqcReportCreateWithoutDefectInput = {
+export type IqcReportUpsertWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  update: Prisma.XOR<Prisma.IqcReportUpdateWithoutCreatedByInput, Prisma.IqcReportUncheckedUpdateWithoutCreatedByInput>
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutCreatedByInput, Prisma.IqcReportUncheckedCreateWithoutCreatedByInput>
+}
+
+export type IqcReportUpdateWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  data: Prisma.XOR<Prisma.IqcReportUpdateWithoutCreatedByInput, Prisma.IqcReportUncheckedUpdateWithoutCreatedByInput>
+}
+
+export type IqcReportUpdateManyWithWhereWithoutCreatedByInput = {
+  where: Prisma.IqcReportScalarWhereInput
+  data: Prisma.XOR<Prisma.IqcReportUpdateManyMutationInput, Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByInput>
+}
+
+export type IqcReportUpsertWithWhereUniqueWithoutCompletedByInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  update: Prisma.XOR<Prisma.IqcReportUpdateWithoutCompletedByInput, Prisma.IqcReportUncheckedUpdateWithoutCompletedByInput>
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutCompletedByInput, Prisma.IqcReportUncheckedCreateWithoutCompletedByInput>
+}
+
+export type IqcReportUpdateWithWhereUniqueWithoutCompletedByInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  data: Prisma.XOR<Prisma.IqcReportUpdateWithoutCompletedByInput, Prisma.IqcReportUncheckedUpdateWithoutCompletedByInput>
+}
+
+export type IqcReportUpdateManyWithWhereWithoutCompletedByInput = {
+  where: Prisma.IqcReportScalarWhereInput
+  data: Prisma.XOR<Prisma.IqcReportUpdateManyMutationInput, Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByInput>
+}
+
+export type IqcReportCreateWithoutLinkedDefectInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
   quantityAccepted?: number
   quantityRejected?: number
-  status?: $Enums.IqcStatus
-  inspectionDate?: Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
   inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
 }
 
-export type IqcReportUncheckedCreateWithoutDefectInput = {
+export type IqcReportUncheckedCreateWithoutLinkedDefectInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   supplierId: string
   inspectorId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
   events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
 }
 
-export type IqcReportCreateOrConnectWithoutDefectInput = {
+export type IqcReportCreateOrConnectWithoutLinkedDefectInput = {
   where: Prisma.IqcReportWhereUniqueInput
-  create: Prisma.XOR<Prisma.IqcReportCreateWithoutDefectInput, Prisma.IqcReportUncheckedCreateWithoutDefectInput>
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedCreateWithoutLinkedDefectInput>
 }
 
-export type IqcReportUpsertWithoutDefectInput = {
-  update: Prisma.XOR<Prisma.IqcReportUpdateWithoutDefectInput, Prisma.IqcReportUncheckedUpdateWithoutDefectInput>
-  create: Prisma.XOR<Prisma.IqcReportCreateWithoutDefectInput, Prisma.IqcReportUncheckedCreateWithoutDefectInput>
+export type IqcReportUpsertWithoutLinkedDefectInput = {
+  update: Prisma.XOR<Prisma.IqcReportUpdateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedUpdateWithoutLinkedDefectInput>
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedCreateWithoutLinkedDefectInput>
   where?: Prisma.IqcReportWhereInput
 }
 
-export type IqcReportUpdateToOneWithWhereWithoutDefectInput = {
+export type IqcReportUpdateToOneWithWhereWithoutLinkedDefectInput = {
   where?: Prisma.IqcReportWhereInput
-  data: Prisma.XOR<Prisma.IqcReportUpdateWithoutDefectInput, Prisma.IqcReportUncheckedUpdateWithoutDefectInput>
+  data: Prisma.XOR<Prisma.IqcReportUpdateWithoutLinkedDefectInput, Prisma.IqcReportUncheckedUpdateWithoutLinkedDefectInput>
 }
 
-export type IqcReportUpdateWithoutDefectInput = {
+export type IqcReportUpdateWithoutLinkedDefectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
   inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
 }
 
-export type IqcReportUncheckedUpdateWithoutDefectInput = {
+export type IqcReportUncheckedUpdateWithoutLinkedDefectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
+  events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
+}
+
+export type IqcReportCreateWithoutChecklistItemsInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
+  inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  events?: Prisma.IqcEventCreateNestedManyWithoutReportInput
+}
+
+export type IqcReportUncheckedCreateWithoutChecklistItemsInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  oemId: string
+  supplierId: string
+  inspectorId?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
+}
+
+export type IqcReportCreateOrConnectWithoutChecklistItemsInput = {
+  where: Prisma.IqcReportWhereUniqueInput
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutChecklistItemsInput, Prisma.IqcReportUncheckedCreateWithoutChecklistItemsInput>
+}
+
+export type IqcReportUpsertWithoutChecklistItemsInput = {
+  update: Prisma.XOR<Prisma.IqcReportUpdateWithoutChecklistItemsInput, Prisma.IqcReportUncheckedUpdateWithoutChecklistItemsInput>
+  create: Prisma.XOR<Prisma.IqcReportCreateWithoutChecklistItemsInput, Prisma.IqcReportUncheckedCreateWithoutChecklistItemsInput>
+  where?: Prisma.IqcReportWhereInput
+}
+
+export type IqcReportUpdateToOneWithWhereWithoutChecklistItemsInput = {
+  where?: Prisma.IqcReportWhereInput
+  data: Prisma.XOR<Prisma.IqcReportUpdateWithoutChecklistItemsInput, Prisma.IqcReportUncheckedUpdateWithoutChecklistItemsInput>
+}
+
+export type IqcReportUpdateWithoutChecklistItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
+  inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
+}
+
+export type IqcReportUncheckedUpdateWithoutChecklistItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
@@ -1209,46 +2127,74 @@ export type IqcReportUncheckedUpdateWithoutDefectInput = {
 
 export type IqcReportCreateWithoutEventsInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  completedAt?: Date | string | null
   quantityAccepted?: number
   quantityRejected?: number
-  status?: $Enums.IqcStatus
-  inspectionDate?: Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
   supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
   inspector?: Prisma.UserCreateNestedOneWithoutIqcInspectionsInput
-  defect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutIqcReportInput
+  createdBy: Prisma.UserCreateNestedOneWithoutIqcCreatedReportsInput
+  completedBy?: Prisma.UserCreateNestedOneWithoutIqcCompletedReportsInput
+  checklistItems?: Prisma.IqcChecklistItemCreateNestedManyWithoutIqcInspectionInput
 }
 
 export type IqcReportUncheckedCreateWithoutEventsInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   supplierId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
 }
 
 export type IqcReportCreateOrConnectWithoutEventsInput = {
@@ -1269,302 +2215,772 @@ export type IqcReportUpdateToOneWithWhereWithoutEventsInput = {
 
 export type IqcReportUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
   inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
-  defect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
 }
 
 export type IqcReportUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
 }
 
 export type IqcReportCreateManyOemInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   supplierId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type IqcReportCreateManySupplierInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   inspectorId?: string | null
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
-  completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type IqcReportUpdateWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
   inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
-  defect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateManyWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type IqcReportUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
   inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
-  defect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateManyWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type IqcReportCreateManyInspectorInput = {
   id?: string
-  lotNumber: string
+  inspectionNumber: string
   partNumber: string
   partName?: string | null
-  quantity?: number
-  quantityAccepted?: number
-  quantityRejected?: number
-  status?: $Enums.IqcStatus
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
   oemId: string
   supplierId: string
-  defectId?: string | null
   inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type IqcReportCreateManyCreatedByInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  oemId: string
+  supplierId: string
+  inspectorId?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
   completedAt?: Date | string | null
+  completedById?: string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type IqcReportCreateManyCompletedByInput = {
+  id?: string
+  inspectionNumber: string
+  partNumber: string
+  partName?: string | null
+  purchaseOrder?: string | null
+  deliveryNote?: string | null
+  lotNumber?: string | null
+  batchNumber?: string | null
+  quantityReceived?: number
+  inspectionQuantity?: number
+  vehicleModel?: string | null
+  projectName?: string | null
+  oemId: string
+  supplierId: string
+  inspectorId?: string | null
+  inspectionDate?: Date | string | null
+  inspectionType?: $Enums.IqcInspectionType
+  samplingPlan?: string | null
+  status?: $Enums.IqcStatus
+  result?: $Enums.IqcResult | null
+  notes?: string | null
+  linkedDefectId?: string | null
+  createdById: string
+  completedAt?: Date | string | null
+  quantityAccepted?: number
+  quantityRejected?: number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type IqcReportUpdateWithoutInspectorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
   quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
-  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
-  defect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateWithoutInspectorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
   events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
 }
 
 export type IqcReportUncheckedUpdateManyWithoutInspectorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lotNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
-  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
-  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type IqcReportUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
+  inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  completedBy?: Prisma.UserUpdateOneWithoutIqcCompletedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
+  events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
+}
+
+export type IqcReportUncheckedUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
+  events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
+}
+
+export type IqcReportUncheckedUpdateManyWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type IqcReportUpdateWithoutCompletedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
+  inspector?: Prisma.UserUpdateOneWithoutIqcInspectionsNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutIqcReportNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutIqcCreatedReportsNestedInput
+  checklistItems?: Prisma.IqcChecklistItemUpdateManyWithoutIqcInspectionNestedInput
+  events?: Prisma.IqcEventUpdateManyWithoutReportNestedInput
+}
+
+export type IqcReportUncheckedUpdateWithoutCompletedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
+  events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
+}
+
+export type IqcReportUncheckedUpdateManyWithoutCompletedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purchaseOrder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lotNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantityReceived?: Prisma.IntFieldUpdateOperationsInput | number
+  inspectionQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  inspectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inspectionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inspectionType?: Prisma.EnumIqcInspectionTypeFieldUpdateOperationsInput | $Enums.IqcInspectionType
+  samplingPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumIqcStatusFieldUpdateOperationsInput | $Enums.IqcStatus
+  result?: Prisma.NullableEnumIqcResultFieldUpdateOperationsInput | $Enums.IqcResult | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  quantityAccepted?: Prisma.IntFieldUpdateOperationsInput | number
+  quantityRejected?: Prisma.IntFieldUpdateOperationsInput | number
+  measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1575,10 +2991,12 @@ export type IqcReportUncheckedUpdateManyWithoutInspectorInput = {
  */
 
 export type IqcReportCountOutputType = {
+  checklistItems: number
   events: number
 }
 
 export type IqcReportCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  checklistItems?: boolean | IqcReportCountOutputTypeCountChecklistItemsArgs
   events?: boolean | IqcReportCountOutputTypeCountEventsArgs
 }
 
@@ -1595,6 +3013,13 @@ export type IqcReportCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * IqcReportCountOutputType without action
  */
+export type IqcReportCountOutputTypeCountChecklistItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IqcChecklistItemWhereInput
+}
+
+/**
+ * IqcReportCountOutputType without action
+ */
 export type IqcReportCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.IqcEventWhereInput
 }
@@ -1602,112 +3027,174 @@ export type IqcReportCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Type
 
 export type IqcReportSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  lotNumber?: boolean
+  inspectionNumber?: boolean
   partNumber?: boolean
   partName?: boolean
-  quantity?: boolean
-  quantityAccepted?: boolean
-  quantityRejected?: boolean
-  status?: boolean
+  purchaseOrder?: boolean
+  deliveryNote?: boolean
+  lotNumber?: boolean
+  batchNumber?: boolean
+  quantityReceived?: boolean
+  inspectionQuantity?: boolean
+  vehicleModel?: boolean
+  projectName?: boolean
   oemId?: boolean
   supplierId?: boolean
   inspectorId?: boolean
-  defectId?: boolean
   inspectionDate?: boolean
+  inspectionType?: boolean
+  samplingPlan?: boolean
+  status?: boolean
+  result?: boolean
+  notes?: boolean
+  linkedDefectId?: boolean
+  createdById?: boolean
+  completedAt?: boolean
+  completedById?: boolean
+  quantityAccepted?: boolean
+  quantityRejected?: boolean
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
-  completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   inspector?: boolean | Prisma.IqcReport$inspectorArgs<ExtArgs>
-  defect?: boolean | Prisma.IqcReport$defectArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.IqcReport$linkedDefectArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  completedBy?: boolean | Prisma.IqcReport$completedByArgs<ExtArgs>
+  checklistItems?: boolean | Prisma.IqcReport$checklistItemsArgs<ExtArgs>
   events?: boolean | Prisma.IqcReport$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.IqcReportCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["iqcReport"]>
 
 export type IqcReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  lotNumber?: boolean
+  inspectionNumber?: boolean
   partNumber?: boolean
   partName?: boolean
-  quantity?: boolean
-  quantityAccepted?: boolean
-  quantityRejected?: boolean
-  status?: boolean
+  purchaseOrder?: boolean
+  deliveryNote?: boolean
+  lotNumber?: boolean
+  batchNumber?: boolean
+  quantityReceived?: boolean
+  inspectionQuantity?: boolean
+  vehicleModel?: boolean
+  projectName?: boolean
   oemId?: boolean
   supplierId?: boolean
   inspectorId?: boolean
-  defectId?: boolean
   inspectionDate?: boolean
+  inspectionType?: boolean
+  samplingPlan?: boolean
+  status?: boolean
+  result?: boolean
+  notes?: boolean
+  linkedDefectId?: boolean
+  createdById?: boolean
+  completedAt?: boolean
+  completedById?: boolean
+  quantityAccepted?: boolean
+  quantityRejected?: boolean
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
-  completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   inspector?: boolean | Prisma.IqcReport$inspectorArgs<ExtArgs>
-  defect?: boolean | Prisma.IqcReport$defectArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.IqcReport$linkedDefectArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  completedBy?: boolean | Prisma.IqcReport$completedByArgs<ExtArgs>
 }, ExtArgs["result"]["iqcReport"]>
 
 export type IqcReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  lotNumber?: boolean
+  inspectionNumber?: boolean
   partNumber?: boolean
   partName?: boolean
-  quantity?: boolean
-  quantityAccepted?: boolean
-  quantityRejected?: boolean
-  status?: boolean
+  purchaseOrder?: boolean
+  deliveryNote?: boolean
+  lotNumber?: boolean
+  batchNumber?: boolean
+  quantityReceived?: boolean
+  inspectionQuantity?: boolean
+  vehicleModel?: boolean
+  projectName?: boolean
   oemId?: boolean
   supplierId?: boolean
   inspectorId?: boolean
-  defectId?: boolean
   inspectionDate?: boolean
+  inspectionType?: boolean
+  samplingPlan?: boolean
+  status?: boolean
+  result?: boolean
+  notes?: boolean
+  linkedDefectId?: boolean
+  createdById?: boolean
+  completedAt?: boolean
+  completedById?: boolean
+  quantityAccepted?: boolean
+  quantityRejected?: boolean
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
-  completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   inspector?: boolean | Prisma.IqcReport$inspectorArgs<ExtArgs>
-  defect?: boolean | Prisma.IqcReport$defectArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.IqcReport$linkedDefectArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  completedBy?: boolean | Prisma.IqcReport$completedByArgs<ExtArgs>
 }, ExtArgs["result"]["iqcReport"]>
 
 export type IqcReportSelectScalar = {
   id?: boolean
-  lotNumber?: boolean
+  inspectionNumber?: boolean
   partNumber?: boolean
   partName?: boolean
-  quantity?: boolean
-  quantityAccepted?: boolean
-  quantityRejected?: boolean
-  status?: boolean
+  purchaseOrder?: boolean
+  deliveryNote?: boolean
+  lotNumber?: boolean
+  batchNumber?: boolean
+  quantityReceived?: boolean
+  inspectionQuantity?: boolean
+  vehicleModel?: boolean
+  projectName?: boolean
   oemId?: boolean
   supplierId?: boolean
   inspectorId?: boolean
-  defectId?: boolean
   inspectionDate?: boolean
+  inspectionType?: boolean
+  samplingPlan?: boolean
+  status?: boolean
+  result?: boolean
+  notes?: boolean
+  linkedDefectId?: boolean
+  createdById?: boolean
+  completedAt?: boolean
+  completedById?: boolean
+  quantityAccepted?: boolean
+  quantityRejected?: boolean
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
-  completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type IqcReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lotNumber" | "partNumber" | "partName" | "quantity" | "quantityAccepted" | "quantityRejected" | "status" | "oemId" | "supplierId" | "inspectorId" | "defectId" | "inspectionDate" | "measurements" | "nonconformities" | "dispositionNotes" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["iqcReport"]>
+export type IqcReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "inspectionNumber" | "partNumber" | "partName" | "purchaseOrder" | "deliveryNote" | "lotNumber" | "batchNumber" | "quantityReceived" | "inspectionQuantity" | "vehicleModel" | "projectName" | "oemId" | "supplierId" | "inspectorId" | "inspectionDate" | "inspectionType" | "samplingPlan" | "status" | "result" | "notes" | "linkedDefectId" | "createdById" | "completedAt" | "completedById" | "quantityAccepted" | "quantityRejected" | "measurements" | "nonconformities" | "dispositionNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["iqcReport"]>
 export type IqcReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   inspector?: boolean | Prisma.IqcReport$inspectorArgs<ExtArgs>
-  defect?: boolean | Prisma.IqcReport$defectArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.IqcReport$linkedDefectArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  completedBy?: boolean | Prisma.IqcReport$completedByArgs<ExtArgs>
+  checklistItems?: boolean | Prisma.IqcReport$checklistItemsArgs<ExtArgs>
   events?: boolean | Prisma.IqcReport$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.IqcReportCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1715,13 +3202,17 @@ export type IqcReportIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   inspector?: boolean | Prisma.IqcReport$inspectorArgs<ExtArgs>
-  defect?: boolean | Prisma.IqcReport$defectArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.IqcReport$linkedDefectArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  completedBy?: boolean | Prisma.IqcReport$completedByArgs<ExtArgs>
 }
 export type IqcReportIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   inspector?: boolean | Prisma.IqcReport$inspectorArgs<ExtArgs>
-  defect?: boolean | Prisma.IqcReport$defectArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.IqcReport$linkedDefectArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  completedBy?: boolean | Prisma.IqcReport$completedByArgs<ExtArgs>
 }
 
 export type $IqcReportPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1730,27 +3221,43 @@ export type $IqcReportPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     oem: Prisma.$CompanyPayload<ExtArgs>
     supplier: Prisma.$CompanyPayload<ExtArgs>
     inspector: Prisma.$UserPayload<ExtArgs> | null
-    defect: Prisma.$DefectPayload<ExtArgs> | null
+    linkedDefect: Prisma.$DefectPayload<ExtArgs> | null
+    createdBy: Prisma.$UserPayload<ExtArgs>
+    completedBy: Prisma.$UserPayload<ExtArgs> | null
+    checklistItems: Prisma.$IqcChecklistItemPayload<ExtArgs>[]
     events: Prisma.$IqcEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    lotNumber: string
+    inspectionNumber: string
     partNumber: string
     partName: string | null
-    quantity: number
-    quantityAccepted: number
-    quantityRejected: number
-    status: $Enums.IqcStatus
+    purchaseOrder: string | null
+    deliveryNote: string | null
+    lotNumber: string | null
+    batchNumber: string | null
+    quantityReceived: number
+    inspectionQuantity: number
+    vehicleModel: string | null
+    projectName: string | null
     oemId: string
     supplierId: string
     inspectorId: string | null
-    defectId: string | null
     inspectionDate: Date | null
+    inspectionType: $Enums.IqcInspectionType
+    samplingPlan: string | null
+    status: $Enums.IqcStatus
+    result: $Enums.IqcResult | null
+    notes: string | null
+    linkedDefectId: string | null
+    createdById: string
+    completedAt: Date | null
+    completedById: string | null
+    quantityAccepted: number
+    quantityRejected: number
     measurements: runtime.JsonValue | null
     nonconformities: runtime.JsonValue | null
     dispositionNotes: string | null
-    completedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["iqcReport"]>
@@ -2150,7 +3657,10 @@ export interface Prisma__IqcReportClient<T, Null = never, ExtArgs extends runtim
   oem<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   supplier<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   inspector<T extends Prisma.IqcReport$inspectorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IqcReport$inspectorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  defect<T extends Prisma.IqcReport$defectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IqcReport$defectArgs<ExtArgs>>): Prisma.Prisma__DefectClient<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  linkedDefect<T extends Prisma.IqcReport$linkedDefectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IqcReport$linkedDefectArgs<ExtArgs>>): Prisma.Prisma__DefectClient<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  completedBy<T extends Prisma.IqcReport$completedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IqcReport$completedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  checklistItems<T extends Prisma.IqcReport$checklistItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IqcReport$checklistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.IqcReport$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IqcReport$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IqcEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2182,22 +3692,35 @@ export interface Prisma__IqcReportClient<T, Null = never, ExtArgs extends runtim
  */
 export interface IqcReportFieldRefs {
   readonly id: Prisma.FieldRef<"IqcReport", 'String'>
-  readonly lotNumber: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly inspectionNumber: Prisma.FieldRef<"IqcReport", 'String'>
   readonly partNumber: Prisma.FieldRef<"IqcReport", 'String'>
   readonly partName: Prisma.FieldRef<"IqcReport", 'String'>
-  readonly quantity: Prisma.FieldRef<"IqcReport", 'Int'>
-  readonly quantityAccepted: Prisma.FieldRef<"IqcReport", 'Int'>
-  readonly quantityRejected: Prisma.FieldRef<"IqcReport", 'Int'>
-  readonly status: Prisma.FieldRef<"IqcReport", 'IqcStatus'>
+  readonly purchaseOrder: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly deliveryNote: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly lotNumber: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly batchNumber: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly quantityReceived: Prisma.FieldRef<"IqcReport", 'Int'>
+  readonly inspectionQuantity: Prisma.FieldRef<"IqcReport", 'Int'>
+  readonly vehicleModel: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly projectName: Prisma.FieldRef<"IqcReport", 'String'>
   readonly oemId: Prisma.FieldRef<"IqcReport", 'String'>
   readonly supplierId: Prisma.FieldRef<"IqcReport", 'String'>
   readonly inspectorId: Prisma.FieldRef<"IqcReport", 'String'>
-  readonly defectId: Prisma.FieldRef<"IqcReport", 'String'>
   readonly inspectionDate: Prisma.FieldRef<"IqcReport", 'DateTime'>
+  readonly inspectionType: Prisma.FieldRef<"IqcReport", 'IqcInspectionType'>
+  readonly samplingPlan: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly status: Prisma.FieldRef<"IqcReport", 'IqcStatus'>
+  readonly result: Prisma.FieldRef<"IqcReport", 'IqcResult'>
+  readonly notes: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly linkedDefectId: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly createdById: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly completedAt: Prisma.FieldRef<"IqcReport", 'DateTime'>
+  readonly completedById: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly quantityAccepted: Prisma.FieldRef<"IqcReport", 'Int'>
+  readonly quantityRejected: Prisma.FieldRef<"IqcReport", 'Int'>
   readonly measurements: Prisma.FieldRef<"IqcReport", 'Json'>
   readonly nonconformities: Prisma.FieldRef<"IqcReport", 'Json'>
   readonly dispositionNotes: Prisma.FieldRef<"IqcReport", 'String'>
-  readonly completedAt: Prisma.FieldRef<"IqcReport", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"IqcReport", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"IqcReport", 'DateTime'>
 }
@@ -2620,9 +4143,9 @@ export type IqcReport$inspectorArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * IqcReport.defect
+ * IqcReport.linkedDefect
  */
-export type IqcReport$defectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type IqcReport$linkedDefectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Defect
    */
@@ -2636,6 +4159,49 @@ export type IqcReport$defectArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.DefectInclude<ExtArgs> | null
   where?: Prisma.DefectWhereInput
+}
+
+/**
+ * IqcReport.completedBy
+ */
+export type IqcReport$completedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * IqcReport.checklistItems
+ */
+export type IqcReport$checklistItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IqcChecklistItem
+   */
+  select?: Prisma.IqcChecklistItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IqcChecklistItem
+   */
+  omit?: Prisma.IqcChecklistItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IqcChecklistItemInclude<ExtArgs> | null
+  where?: Prisma.IqcChecklistItemWhereInput
+  orderBy?: Prisma.IqcChecklistItemOrderByWithRelationInput | Prisma.IqcChecklistItemOrderByWithRelationInput[]
+  cursor?: Prisma.IqcChecklistItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IqcChecklistItemScalarFieldEnum | Prisma.IqcChecklistItemScalarFieldEnum[]
 }
 
 /**

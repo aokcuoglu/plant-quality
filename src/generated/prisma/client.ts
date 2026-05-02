@@ -117,6 +117,11 @@ export type PpapEvent = Prisma.PpapEventModel
  */
 export type IqcReport = Prisma.IqcReportModel
 /**
+ * Model IqcChecklistItem
+ * 
+ */
+export type IqcChecklistItem = Prisma.IqcChecklistItemModel
+/**
  * Model IqcEvent
  * 
  */

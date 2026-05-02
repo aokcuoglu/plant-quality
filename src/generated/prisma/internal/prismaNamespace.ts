@@ -399,6 +399,7 @@ export const ModelName = {
   PpapReviewComment: 'PpapReviewComment',
   PpapEvent: 'PpapEvent',
   IqcReport: 'IqcReport',
+  IqcChecklistItem: 'IqcChecklistItem',
   IqcEvent: 'IqcEvent',
   Fmea: 'Fmea',
   FmeaEvent: 'FmeaEvent',
@@ -428,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1539,6 +1540,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.IqcReportCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.IqcReportCountAggregateOutputType> | number
+        }
+      }
+    }
+    IqcChecklistItem: {
+      payload: Prisma.$IqcChecklistItemPayload<ExtArgs>
+      fields: Prisma.IqcChecklistItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IqcChecklistItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IqcChecklistItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>
+        }
+        findFirst: {
+          args: Prisma.IqcChecklistItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IqcChecklistItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>
+        }
+        findMany: {
+          args: Prisma.IqcChecklistItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>[]
+        }
+        create: {
+          args: Prisma.IqcChecklistItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>
+        }
+        createMany: {
+          args: Prisma.IqcChecklistItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IqcChecklistItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>[]
+        }
+        delete: {
+          args: Prisma.IqcChecklistItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>
+        }
+        update: {
+          args: Prisma.IqcChecklistItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.IqcChecklistItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IqcChecklistItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IqcChecklistItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.IqcChecklistItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IqcChecklistItemPayload>
+        }
+        aggregate: {
+          args: Prisma.IqcChecklistItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIqcChecklistItem>
+        }
+        groupBy: {
+          args: Prisma.IqcChecklistItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IqcChecklistItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IqcChecklistItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IqcChecklistItemCountAggregateOutputType> | number
         }
       }
     }
@@ -2873,27 +2948,57 @@ export type PpapEventScalarFieldEnum = (typeof PpapEventScalarFieldEnum)[keyof t
 
 export const IqcReportScalarFieldEnum = {
   id: 'id',
-  lotNumber: 'lotNumber',
+  inspectionNumber: 'inspectionNumber',
   partNumber: 'partNumber',
   partName: 'partName',
-  quantity: 'quantity',
-  quantityAccepted: 'quantityAccepted',
-  quantityRejected: 'quantityRejected',
-  status: 'status',
+  purchaseOrder: 'purchaseOrder',
+  deliveryNote: 'deliveryNote',
+  lotNumber: 'lotNumber',
+  batchNumber: 'batchNumber',
+  quantityReceived: 'quantityReceived',
+  inspectionQuantity: 'inspectionQuantity',
+  vehicleModel: 'vehicleModel',
+  projectName: 'projectName',
   oemId: 'oemId',
   supplierId: 'supplierId',
   inspectorId: 'inspectorId',
-  defectId: 'defectId',
   inspectionDate: 'inspectionDate',
+  inspectionType: 'inspectionType',
+  samplingPlan: 'samplingPlan',
+  status: 'status',
+  result: 'result',
+  notes: 'notes',
+  linkedDefectId: 'linkedDefectId',
+  createdById: 'createdById',
+  completedAt: 'completedAt',
+  completedById: 'completedById',
+  quantityAccepted: 'quantityAccepted',
+  quantityRejected: 'quantityRejected',
   measurements: 'measurements',
   nonconformities: 'nonconformities',
   dispositionNotes: 'dispositionNotes',
-  completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type IqcReportScalarFieldEnum = (typeof IqcReportScalarFieldEnum)[keyof typeof IqcReportScalarFieldEnum]
+
+
+export const IqcChecklistItemScalarFieldEnum = {
+  id: 'id',
+  iqcInspectionId: 'iqcInspectionId',
+  itemName: 'itemName',
+  requirement: 'requirement',
+  result: 'result',
+  measuredValue: 'measuredValue',
+  comment: 'comment',
+  evidenceFileName: 'evidenceFileName',
+  evidenceStorageKey: 'evidenceStorageKey',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IqcChecklistItemScalarFieldEnum = (typeof IqcChecklistItemScalarFieldEnum)[keyof typeof IqcChecklistItemScalarFieldEnum]
 
 
 export const IqcEventScalarFieldEnum = {
@@ -3456,6 +3561,20 @@ export type ListEnumPpapDocumentStatusFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'IqcInspectionType'
+ */
+export type EnumIqcInspectionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcInspectionType'>
+    
+
+
+/**
+ * Reference to a field of type 'IqcInspectionType[]'
+ */
+export type ListEnumIqcInspectionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcInspectionType[]'>
+    
+
+
+/**
  * Reference to a field of type 'IqcStatus'
  */
 export type EnumIqcStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcStatus'>
@@ -3466,6 +3585,34 @@ export type EnumIqcStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'IqcStatus[]'
  */
 export type ListEnumIqcStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'IqcResult'
+ */
+export type EnumIqcResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcResult'>
+    
+
+
+/**
+ * Reference to a field of type 'IqcResult[]'
+ */
+export type ListEnumIqcResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcResult[]'>
+    
+
+
+/**
+ * Reference to a field of type 'IqcChecklistResult'
+ */
+export type EnumIqcChecklistResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcChecklistResult'>
+    
+
+
+/**
+ * Reference to a field of type 'IqcChecklistResult[]'
+ */
+export type ListEnumIqcChecklistResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IqcChecklistResult[]'>
     
 
 
@@ -3754,6 +3901,7 @@ export type GlobalOmitConfig = {
   ppapReviewComment?: Prisma.PpapReviewCommentOmit
   ppapEvent?: Prisma.PpapEventOmit
   iqcReport?: Prisma.IqcReportOmit
+  iqcChecklistItem?: Prisma.IqcChecklistItemOmit
   iqcEvent?: Prisma.IqcEventOmit
   fmea?: Prisma.FmeaOmit
   fmeaEvent?: Prisma.FmeaEventOmit

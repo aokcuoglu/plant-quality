@@ -152,7 +152,7 @@ export default async function SupplierDashboardPage() {
       where: { supplierId: session.user.companyId },
     }),
     prisma.iqcReport.count({
-      where: { supplierId: session.user.companyId, status: "FAILED" },
+      where: { supplierId: session.user.companyId, result: { in: ["REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"] } },
     }),
     prisma.fmea.count({
       where: { supplierId: session.user.companyId, status: { in: ["DRAFT", "IN_REVIEW"] } },

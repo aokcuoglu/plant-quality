@@ -135,10 +135,10 @@ export default async function OemDashboardPage() {
       where: { oemId: session.user.companyId, status: { in: ["DRAFT", "SUBMITTED", "UNDER_REVIEW"] } },
     }),
     prisma.iqcReport.count({
-      where: { oemId: session.user.companyId, status: { in: ["PASSED", "FAILED"] } },
+      where: { oemId: session.user.companyId, status: "COMPLETED" },
     }),
     prisma.iqcReport.count({
-      where: { oemId: session.user.companyId, status: "PASSED" },
+      where: { oemId: session.user.companyId, status: "COMPLETED", result: "ACCEPTED" },
     }),
     prisma.fmea.count({
       where: { oemId: session.user.companyId, status: { in: ["DRAFT", "IN_REVIEW"] } },

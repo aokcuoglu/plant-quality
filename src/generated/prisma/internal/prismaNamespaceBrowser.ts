@@ -66,6 +66,7 @@ export const ModelName = {
   PpapReviewComment: 'PpapReviewComment',
   PpapEvent: 'PpapEvent',
   IqcReport: 'IqcReport',
+  IqcChecklistItem: 'IqcChecklistItem',
   IqcEvent: 'IqcEvent',
   Fmea: 'Fmea',
   FmeaEvent: 'FmeaEvent',
@@ -354,27 +355,57 @@ export type PpapEventScalarFieldEnum = (typeof PpapEventScalarFieldEnum)[keyof t
 
 export const IqcReportScalarFieldEnum = {
   id: 'id',
-  lotNumber: 'lotNumber',
+  inspectionNumber: 'inspectionNumber',
   partNumber: 'partNumber',
   partName: 'partName',
-  quantity: 'quantity',
-  quantityAccepted: 'quantityAccepted',
-  quantityRejected: 'quantityRejected',
-  status: 'status',
+  purchaseOrder: 'purchaseOrder',
+  deliveryNote: 'deliveryNote',
+  lotNumber: 'lotNumber',
+  batchNumber: 'batchNumber',
+  quantityReceived: 'quantityReceived',
+  inspectionQuantity: 'inspectionQuantity',
+  vehicleModel: 'vehicleModel',
+  projectName: 'projectName',
   oemId: 'oemId',
   supplierId: 'supplierId',
   inspectorId: 'inspectorId',
-  defectId: 'defectId',
   inspectionDate: 'inspectionDate',
+  inspectionType: 'inspectionType',
+  samplingPlan: 'samplingPlan',
+  status: 'status',
+  result: 'result',
+  notes: 'notes',
+  linkedDefectId: 'linkedDefectId',
+  createdById: 'createdById',
+  completedAt: 'completedAt',
+  completedById: 'completedById',
+  quantityAccepted: 'quantityAccepted',
+  quantityRejected: 'quantityRejected',
   measurements: 'measurements',
   nonconformities: 'nonconformities',
   dispositionNotes: 'dispositionNotes',
-  completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type IqcReportScalarFieldEnum = (typeof IqcReportScalarFieldEnum)[keyof typeof IqcReportScalarFieldEnum]
+
+
+export const IqcChecklistItemScalarFieldEnum = {
+  id: 'id',
+  iqcInspectionId: 'iqcInspectionId',
+  itemName: 'itemName',
+  requirement: 'requirement',
+  result: 'result',
+  measuredValue: 'measuredValue',
+  comment: 'comment',
+  evidenceFileName: 'evidenceFileName',
+  evidenceStorageKey: 'evidenceStorageKey',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IqcChecklistItemScalarFieldEnum = (typeof IqcChecklistItemScalarFieldEnum)[keyof typeof IqcChecklistItemScalarFieldEnum]
 
 
 export const IqcEventScalarFieldEnum = {

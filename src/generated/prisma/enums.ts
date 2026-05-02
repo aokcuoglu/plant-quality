@@ -47,6 +47,8 @@ export const NotificationType = {
   PPAP_APPROVED: 'PPAP_APPROVED',
   PPAP_REJECTED: 'PPAP_REJECTED',
   IQC_FAILED: 'IQC_FAILED',
+  IQC_COMPLETED_FOR_SUPPLIER: 'IQC_COMPLETED_FOR_SUPPLIER',
+  IQC_RESULT_SET: 'IQC_RESULT_SET',
   FMEA_HIGH_RPN: 'FMEA_HIGH_RPN',
   FIELD_DEFECT_CREATED: 'FIELD_DEFECT_CREATED',
   FIELD_DEFECT_ASSIGNED: 'FIELD_DEFECT_ASSIGNED',
@@ -138,6 +140,9 @@ export const DefectEventType = {
   IQC_CREATED: 'IQC_CREATED',
   IQC_COMPLETED: 'IQC_COMPLETED',
   IQC_FAILED: 'IQC_FAILED',
+  IQC_CHECKLIST_UPDATED: 'IQC_CHECKLIST_UPDATED',
+  IQC_CANCELLED: 'IQC_CANCELLED',
+  IQC_RESULT_SET: 'IQC_RESULT_SET',
   FMEA_CREATED: 'FMEA_CREATED',
   FMEA_UPDATED: 'FMEA_UPDATED',
   FMEA_APPROVED: 'FMEA_APPROVED',
@@ -273,14 +278,47 @@ export type PpapSubmissionRequirement = (typeof PpapSubmissionRequirement)[keyof
 
 
 export const IqcStatus = {
-  PENDING: 'PENDING',
+  DRAFT: 'DRAFT',
+  PLANNED: 'PLANNED',
   IN_PROGRESS: 'IN_PROGRESS',
-  PASSED: 'PASSED',
-  FAILED: 'FAILED',
-  CONDITIONALLY_ACCEPTED: 'CONDITIONALLY_ACCEPTED'
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
 } as const
 
 export type IqcStatus = (typeof IqcStatus)[keyof typeof IqcStatus]
+
+
+export const IqcResult = {
+  ACCEPTED: 'ACCEPTED',
+  CONDITIONAL_ACCEPTED: 'CONDITIONAL_ACCEPTED',
+  REJECTED: 'REJECTED',
+  ON_HOLD: 'ON_HOLD',
+  REWORK_REQUIRED: 'REWORK_REQUIRED',
+  SORTING_REQUIRED: 'SORTING_REQUIRED'
+} as const
+
+export type IqcResult = (typeof IqcResult)[keyof typeof IqcResult]
+
+
+export const IqcInspectionType = {
+  RECEIVING_INSPECTION: 'RECEIVING_INSPECTION',
+  FIRST_ARTICLE_INSPECTION: 'FIRST_ARTICLE_INSPECTION',
+  CONTAINMENT_INSPECTION: 'CONTAINMENT_INSPECTION',
+  RE_INSPECTION: 'RE_INSPECTION',
+  DOCK_AUDIT: 'DOCK_AUDIT'
+} as const
+
+export type IqcInspectionType = (typeof IqcInspectionType)[keyof typeof IqcInspectionType]
+
+
+export const IqcChecklistResult = {
+  PENDING: 'PENDING',
+  OK: 'OK',
+  NOK: 'NOK',
+  NA: 'NA'
+} as const
+
+export type IqcChecklistResult = (typeof IqcChecklistResult)[keyof typeof IqcChecklistResult]
 
 
 export const FmeaStatus = {

@@ -447,6 +447,8 @@ export async function addPpapReviewComment(ppapId: string, requirement: PpapSubm
 
   revalidatePath(`/quality/oem/ppap/${ppapId}`)
   revalidatePath("/quality/oem/ppap")
+  revalidatePath(`/quality/supplier/ppap/${ppapId}`)
+  revalidatePath("/quality/supplier/ppap")
 
   return { success: true }
 }

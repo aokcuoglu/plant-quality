@@ -1,3 +1,87 @@
+# PlantQuality v2.2.2 — Release Notes
+
+## PPAP Minor Cleanup + Supplier Comment Refresh
+
+**Release Date:** 2026-05-02  
+**Version:** 2.2.2
+
+---
+
+## Summary
+
+PlantQuality v2.2.2 is a minor cleanup patch on top of v2.2.1. It fixes a revalidation gap where OEM review comments did not immediately appear on the supplier PPAP detail page, and confirms that no PPAP dead code exists. No new product features are introduced.
+
+---
+
+## Supplier Comment Refresh Fix
+
+### OEM Review Comment Revalidation Gap
+
+- **`addPpapReviewComment`** (OEM server action): Added missing `revalidatePath` calls for `/quality/supplier/ppap/${ppapId}` and `/quality/supplier/ppap`. Previously, when an OEM reviewer added a review comment, only OEM pages were revalidated — supplier pages required a manual browser refresh to see the new comment. Now supplier users see updated review comments immediately after OEM action.
+
+### Supplier Comment Refresh (Already Working)
+
+- Confirmed: `uploadPpapDocument` and `submitPpapPackage` already revalidate both OEM and supplier paths correctly. Supplier comments on document uploads appear on the OEM detail page without manual refresh. No fix needed.
+
+### PPAP Action Revalidation Audit (Complete)
+
+| Action | OEM Detail | OEM List | Supplier Detail | Supplier List |
+|--------|-----------|----------|-----------------|---------------|
+| `createPpapRequest` | ✅ | ✅ | ✅ | ✅ |
+| `uploadPpapDocument` | ✅ | ✅ | ✅ | ✅ |
+| `submitPpapPackage` | ✅ | ✅ | ✅ | ✅ |
+| `reviewPpapDocument` | ✅ | ✅ | ✅ | ✅ |
+| `addPpapReviewComment` | ✅ | ✅ | ✅ **NEW** | ✅ **NEW** |
+| `approvePpap` | ✅ | ✅ | ✅ | ✅ |
+| `rejectPpap` | ✅ | ✅ | ✅ | ✅ |
+| `requestPpapRevision` | ✅ | ✅ | ✅ | ✅ |
+| `cancelPpap` | ✅ | ✅ | ✅ | ✅ |
+
+---
+
+## Dead Code Audit
+
+A full audit of all PPAP files found **no dead code, unused exports, or orphaned components**. All PPAP functions, constants (`PPAP_REQUIREMENTS`, `PPAP_LEVELS`, `PPAP_REASONS`, `PPAP_STATUS_LABELS`, `PPAP_DOCUMENT_STATUS_LABELS`), helpers (`getDefaultRequirements`, `getPpapStatusColor`, `getDocumentStatusColor`, `isPpapOverdue`, `generateRequestNumber`, `canManagePpap`), and client components are actively referenced in the PPAP workflow. No cleanup needed.
+
+---
+
+## Access & Security Verification
+
+Confirmed unchanged and correct:
+
+- Supplier can only update comments/documents for PPAP requests assigned to their company (`supplierId` scoping)
+- Supplier cannot add OEM review comments (`canManagePpap(session, "OEM")` gate)
+- Supplier cannot access other suppliers' PPAP data (query-level `supplierId` filter)
+- OEM can view supplier comments for own company PPAP (`oemId` scoping)
+- Client-provided `companyId`/`supplierId` is never trusted — server actions derive from session
+- PPAP plan gating enforced on both OEM and supplier detail pages
+
+---
+
+## No Changes
+
+- No new product features
+- No APQP implementation
+- No AI PPAP review
+- No PDF export
+- No e-signature
+- No ERP integration
+- No landing page changes
+- No database schema changes
+- No plan gating logic changes
+- No billing/payment changes
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.2.2 |
+| `src/app/(dashboard)/quality/oem/ppap/actions/review.ts` | Added supplier path revalidation to `addPpapReviewComment` |
+
+---
+
 # PlantQuality v2.2.1 — Release Notes
 
 ## PPAP Upload & Review Bugfix Patch

@@ -1,12 +1,15 @@
 import { notFound, redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import { normalizePlan } from "@/lib/billing"
+import { normalizePlan, canUseFeature } from "@/lib/billing"
 import { DefectDetailView, type ReviewSection } from "@/components/defects/DefectDetailView"
 import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
 import { Ai8dReviewPanel } from "@/components/defects/Ai8dReviewPanel"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { validateEightDCompleteness, type EightDCompletenessResult } from "@/lib/ai/validate-8d-completeness"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForDefect } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 import type { EightDSection } from "@/generated/prisma/client"
 
 const D_STEPS = ["d1_team", "d2_problem", "d3_containment", "d4_rootCause", "d5_actions", "d6_actions", "d7_impacts", "d7_preventive", "d8_recognition"] as const
@@ -146,6 +149,23 @@ export default async function OemDefectDetailPage({
       })
     : null
 
+  const canUseLinkage = canUseFeature(plan, "OEM", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForDefect(id, { companyId: session.user.companyId, companyType: "OEM", role: session.user.role })
+    : []
+  const defectManualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "DEFECT", sourceId: id },
+            { targetType: "DEFECT", targetId: id },
+          ],
+        },
+      })
+    : []
+
   const aiReviewData = latestAiReview
     ? {
         id: latestAiReview.id,
@@ -228,6 +248,26 @@ export default async function OemDefectDetailPage({
         latestReview={aiReviewData}
         deterministicCompleteness={deterministicCompleteness}
       />
+
+      {canUseLinkage ? (
+        <RelatedQualityRecordsPanel
+          groupedRecords={relatedRecords}
+          sourceType="DEFECT"
+          sourceId={id}
+          canLink={canManage}
+          manualLinks={defectManualLinks.map((l) => ({
+            id: l.id,
+            sourceType: l.sourceType,
+            sourceId: l.sourceId,
+            targetType: l.targetType,
+            targetId: l.targetId,
+            linkType: l.linkType,
+            reason: l.reason,
+          }))}
+        />
+      ) : (
+        <UpgradeLinkageBanner />
+      )}
     </div>
   )
 }

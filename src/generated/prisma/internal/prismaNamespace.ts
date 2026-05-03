@@ -413,7 +413,8 @@ export const ModelName = {
   AiSuggestion: 'AiSuggestion',
   Ai8dReview: 'Ai8dReview',
   UsageCounter: 'UsageCounter',
-  UpgradeRequest: 'UpgradeRequest'
+  UpgradeRequest: 'UpgradeRequest',
+  QualityRecordLink: 'QualityRecordLink'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -429,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2653,6 +2654,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    QualityRecordLink: {
+      payload: Prisma.$QualityRecordLinkPayload<ExtArgs>
+      fields: Prisma.QualityRecordLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.QualityRecordLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.QualityRecordLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.QualityRecordLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.QualityRecordLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>
+        }
+        findMany: {
+          args: Prisma.QualityRecordLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>[]
+        }
+        create: {
+          args: Prisma.QualityRecordLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>
+        }
+        createMany: {
+          args: Prisma.QualityRecordLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.QualityRecordLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.QualityRecordLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>
+        }
+        update: {
+          args: Prisma.QualityRecordLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.QualityRecordLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.QualityRecordLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.QualityRecordLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.QualityRecordLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QualityRecordLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.QualityRecordLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQualityRecordLink>
+        }
+        groupBy: {
+          args: Prisma.QualityRecordLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QualityRecordLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.QualityRecordLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QualityRecordLinkCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3262,6 +3337,23 @@ export const UpgradeRequestScalarFieldEnum = {
 export type UpgradeRequestScalarFieldEnum = (typeof UpgradeRequestScalarFieldEnum)[keyof typeof UpgradeRequestScalarFieldEnum]
 
 
+export const QualityRecordLinkScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  linkType: 'linkType',
+  reason: 'reason',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QualityRecordLinkScalarFieldEnum = (typeof QualityRecordLinkScalarFieldEnum)[keyof typeof QualityRecordLinkScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3784,6 +3876,34 @@ export type EnumUpgradeRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputT
 export type ListEnumUpgradeRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UpgradeRequestStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'QualityRecordType'
+ */
+export type EnumQualityRecordTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QualityRecordType'>
+    
+
+
+/**
+ * Reference to a field of type 'QualityRecordType[]'
+ */
+export type ListEnumQualityRecordTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QualityRecordType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'QualityLinkType'
+ */
+export type EnumQualityLinkTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QualityLinkType'>
+    
+
+
+/**
+ * Reference to a field of type 'QualityLinkType[]'
+ */
+export type ListEnumQualityLinkTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QualityLinkType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3924,6 +4044,7 @@ export type GlobalOmitConfig = {
   ai8dReview?: Prisma.Ai8dReviewOmit
   usageCounter?: Prisma.UsageCounterOmit
   upgradeRequest?: Prisma.UpgradeRequestOmit
+  qualityRecordLink?: Prisma.QualityRecordLinkOmit
 }
 
 /* Types for Logging */

@@ -2,13 +2,16 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
-import { requireFeature } from "@/lib/billing"
+import { requireFeature, normalizePlan, canUseFeature } from "@/lib/billing"
 import { getIqcStatusColor, getIqcResultColor, IQC_STATUS_LABELS, IQC_RESULT_LABELS, IQC_INSPECTION_TYPE_LABELS, isNegativeResult, canManageIqc } from "@/lib/iqc"
 import { LinkIcon } from "lucide-react"
 import { IqcChecklistEditor } from "./checklist-editor"
 import { CompleteInspectionDialog } from "./complete-dialog"
 import { CancelInspectionButton } from "./cancel-button"
 import { CreateDefectFromIqcButton } from "./create-defect-button"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForIqc } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function OemIqcDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -48,6 +51,24 @@ export default async function OemIqcDetailPage({ params }: { params: Promise<{ i
   const canCancel = ["PLANNED", "IN_PROGRESS"].includes(report.status) && canManageIqc(session)
   const canCreateDefect = report.result && isNegativeResult(report.result) && !report.linkedDefectId && canManageIqc(session)
   const isEditable = canComplete
+
+  const plan = normalizePlan(session.user.plan)
+  const canUseLinkage = canUseFeature(plan, "OEM", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForIqc(id, { companyId: session.user.companyId, companyType: "OEM", role: session.user.role })
+    : []
+  const manualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "IQC", sourceId: id },
+            { targetType: "IQC", targetId: id },
+          ],
+        },
+      })
+    : []
 
   return (
     <div className="space-y-6">
@@ -137,6 +158,26 @@ export default async function OemIqcDetailPage({ params }: { params: Promise<{ i
                 {report.linkedDefect.partNumber} — {report.linkedDefect.description.length > 80 ? report.linkedDefect.description.slice(0, 80) + "..." : report.linkedDefect.description}
               </Link>
             </div>
+          )}
+
+          {canUseLinkage ? (
+            <RelatedQualityRecordsPanel
+              groupedRecords={relatedRecords}
+              sourceType="IQC"
+              sourceId={id}
+              canLink={canManageIqc(session)}
+              manualLinks={manualLinks.map((l) => ({
+                id: l.id,
+                sourceType: l.sourceType,
+                sourceId: l.sourceId,
+                targetType: l.targetType,
+                targetId: l.targetId,
+                linkType: l.linkType,
+                reason: l.reason,
+              }))}
+            />
+          ) : (
+            <UpgradeLinkageBanner />
           )}
         </div>
 

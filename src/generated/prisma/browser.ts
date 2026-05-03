@@ -167,3 +167,8 @@ export type UsageCounter = Prisma.UsageCounterModel
  * 
  */
 export type UpgradeRequest = Prisma.UpgradeRequestModel
+/**
+ * Model QualityRecordLink
+ * 
+ */
+export type QualityRecordLink = Prisma.QualityRecordLinkModel

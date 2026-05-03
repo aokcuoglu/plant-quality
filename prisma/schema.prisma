@@ -84,6 +84,28 @@ enum UpgradeRequestStatus {
   CLOSED
 }
 
+enum QualityRecordType {
+  FIELD_DEFECT
+  DEFECT
+  EIGHT_D
+  PPAP
+  IQC
+  FMEA
+}
+
+enum QualityLinkType {
+  SAME_PART
+  SAME_SUPPLIER
+  SAME_FAILURE_MODE
+  SAME_VEHICLE
+  IQC_TO_DEFECT
+  FIELD_TO_8D
+  PPAP_REFERENCE
+  FMEA_COVERAGE
+  MANUAL
+  RELATED_HISTORY
+}
+
 enum DefectEventType {
   CREATED
   EIGHT_D_STARTED
@@ -341,6 +363,7 @@ model Company {
   ai8dReviews        Ai8dReview[]
   usageCounters      UsageCounter[]
   upgradeRequests    UpgradeRequest[]
+  qualityRecordLinks QualityRecordLink[]
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -404,6 +427,7 @@ model User {
   createdAi8dReviews      Ai8dReview[] @relation("Ai8dReviewCreatedBy")
   reviewedAi8dReviews     Ai8dReview[] @relation("Ai8dReviewReviewedBy")
   rejectedAi8dReviews     Ai8dReview[] @relation("Ai8dReviewRejectedBy")
+  createdQualityLinks     QualityRecordLink[]
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -1092,4 +1116,27 @@ model UpgradeRequest {
   @@index([requestedById])
   @@index([requestedPlan])
   @@map("upgrade_requests")
+}
+
+model QualityRecordLink {
+  id         String           @id @default(uuid())
+  companyId  String           @map("company_id")
+  company    Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  sourceType QualityRecordType @map("source_type")
+  sourceId   String           @map("source_id")
+  targetType QualityRecordType @map("target_type")
+  targetId   String           @map("target_id")
+  linkType   QualityLinkType  @map("link_type")
+  reason     String?
+  createdById String          @map("created_by_id")
+  createdBy  User              @relation(fields: [createdById], references: [id])
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+
+  @@unique([sourceType, sourceId, targetType, targetId, linkType])
+  @@index([companyId, sourceType, sourceId])
+  @@index([companyId, targetType, targetId])
+  @@index([companyId, linkType])
+  @@index([companyId, createdAt])
+  @@map("quality_record_links")
 }

@@ -1,3 +1,159 @@
+# PlantQuality v2.5.0 — Release Notes
+
+## Quality Linkage Layer
+
+**Release Date:** 2026-05-03  
+**Version:** 2.5.0
+
+---
+
+## Summary
+
+PlantQuality v2.5.0 introduces the **Quality Linkage Layer**, connecting PPAP, IQC, FMEA, Field Defects, Defects and 8D records through shared supplier, part, vehicle/project, failure mode and problem context. This transforms PlantQuality from a set of isolated quality modules into a connected quality intelligence platform.
+
+Every detail page for Field Defects, IQC, FMEA, PPAP, and Defect/8D now shows a **Related Quality Records** panel that surfaces deterministically matched records across modules, helping quality engineers answer critical questions like:
+
+- Does this Field Defect have a related PPAP record?
+- Does this part/supplier have previous IQC rejection history?
+- Is this failure mode already covered in FMEA?
+- Is there an existing Defect or 8D for this same part/supplier/failure mode?
+- Is this a repeated issue across Field / IQC / 8D?
+
+---
+
+## New Features
+
+### Quality Linkage Service
+
+- Central deterministic matching service at `src/lib/quality-linkage/find-related.ts`
+- `findRelatedForFieldDefect()` — finds related PPAP, IQC, FMEA, Defect/8D records for a Field Defect
+- `findRelatedForIqc()` — finds related PPAP, FMEA, Field Defect, Defect records for an IQC inspection
+- `findRelatedForFmea()` — finds related Field Defect, IQC, PPAP, Defect records for an FMEA
+- `findRelatedForPpap()` — finds related IQC, FMEA, Field Defect, Defect records for a PPAP
+- `findRelatedForDefect()` — finds related Field Defect, PPAP, IQC, FMEA, other Defect records for a Defect/8D
+
+### Matching Rules
+
+All matching is deterministic, explainable, and tenant-scoped:
+
+- **Exact part match** — same `partNumber` (case-insensitive)
+- **Same supplier** — same `supplierId`
+- **Same vehicle/project** — same `vehicleModel` (case-insensitive)
+- **Same failure mode** — category/subcategory/keyword overlap
+- **FMEA coverage** — FMEA exists for the same part/supplier
+- **Direct links** — existing FK relationships (e.g., Field Defect → linked 8D, IQC → linked Defect, PPAP → linked Defect)
+- **Manual links** — user-created links via QualityRecordLink table
+- Confidence levels: `direct`, `exact`, `strong`, `moderate`
+
+### QualityRecordLink Table
+
+New Prisma model for manual cross-record linking:
+
+- `id`, `companyId`, `sourceType`, `sourceId`, `targetType`, `targetId`, `linkType`, `reason`, `createdById`, timestamps
+- Unique constraint on `(sourceType, sourceId, targetType, targetId, linkType)`
+- Indexes on `companyId + sourceType + sourceId`, `companyId + targetType + targetId`, `companyId + linkType`, `companyId + createdAt`
+- Source/target types: `FIELD_DEFECT`, `DEFECT`, `EIGHT_D`, `PPAP`, `IQC`, `FMEA`
+- Link types: `SAME_PART`, `SAME_SUPPLIER`, `SAME_FAILURE_MODE`, `SAME_VEHICLE`, `IQC_TO_DEFECT`, `FIELD_TO_8D`, `PPAP_REFERENCE`, `FMEA_COVERAGE`, `MANUAL`, `RELATED_HISTORY`
+
+### Related Quality Records Panel
+
+New reusable component `RelatedQualityRecordsPanel` at `src/components/quality-linkage/related-records-panel.tsx`:
+
+- Card-based UI following shadcn/ui design system
+- Grouped by record type (Field Defects, Defects/8D, PPAP, IQC, FMEA)
+- Badge-coded match reasons (Same Part, Same Supplier, etc.)
+- Confidence badges (Direct, Exact, Strong, Moderate)
+- Status badges with record-type-specific colors
+- Click-through links to related record detail pages
+- Manual link/unlink support for OEM Admin/QE users
+- Empty state: "No related quality records found."
+- Upgrade banner for Free plan users
+
+### Plan Gating
+
+- New `QUALITY_LINKAGE` feature gate added to billing system
+- **Pro/Enterprise**: Full deterministic linkage enabled
+- **Free**: Shows upgrade banner with link to plan settings
+- Supplier users see related records relevant to their supplier scope
+- OEM Admin/QE can create manual links; supplier users cannot
+
+### Field Defect Detail — Related Records
+
+- Shows related PPAP, IQC, FMEA, Defect/8D records
+- Direct link to linked 8D if exists
+- OEM pages support manual link creation
+- Supplier pages show read-only related records
+
+### IQC Detail — Related Records
+
+- Shows related PPAP (same supplier + part)
+- Shows related FMEA (same part/supplier)
+- Shows related Field Defects and Defects (same supplier + part)
+- Direct link to linked Defect if exists
+- OEM pages support manual link creation
+
+### FMEA Detail — Related Records
+
+- Shows related Field Defects (same part/supplier/category)
+- Shows related IQC inspections (same part/supplier)
+- Shows related PPAP (same supplier + part)
+- Shows related Defects/8D (same part/supplier)
+- OEM pages support manual link creation
+
+### PPAP Detail — Related Records
+
+- Shows related IQC inspections (same supplier + part)
+- Shows related FMEA (same supplier + part)
+- Shows related Field Defects (same supplier + part)
+- Shows related Defects/8D (same supplier + part)
+- OEM pages support manual link creation
+
+### Defect/8D Detail — Related Records
+
+- Shows related Field Defect, PPAP, IQC, FMEA records
+- Direct links for existing FK relationships (linked Field Defect, linked IQC, linked PPAP, linked FMEA)
+- OEM pages support manual link creation
+
+### Security & Access
+
+- All queries are scoped to `companyId` (tenant) — no cross-tenant data leaks
+- Supplier users only see records assigned/relevant to their supplier company
+- No client-provided `companyId` trust — all IDs verified server-side
+- Manual links cannot be created cross-tenant
+- `href` links only returned when user has access to the record
+- Feature gate does not break supplier assigned workflow
+- Direct URL access remains protected by existing detail page auth
+
+### Server Action Refresh Consistency
+
+- `createManualQualityLink` revalidates source and target detail pages
+- `removeManualQualityLink` revalidates source and target detail pages
+- List pages revalidated on link changes
+
+---
+
+## Database Changes
+
+- Added `QualityRecordLink` model with enums `QualityRecordType` and `QualityLinkType`
+- Migration: `20260503090000_add_quality_record_links_v250`
+
+---
+
+## Deferred
+
+The following are explicitly **not** in scope for v2.5.0:
+
+- AI linkage suggestions / semantic matching
+- Supplier scorecard
+- Full graph visualization
+- ERP/MRP/PLM integration
+- Advanced fuzzy matching
+- Control Plan workflow
+- PDF/Excel export of related records
+- External webhook/event streaming
+
+---
+
 # PlantQuality v2.4.1 — Release Notes
 
 ## FMEA RPN/Review Bugfix Patch

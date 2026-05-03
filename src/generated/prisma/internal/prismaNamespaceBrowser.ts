@@ -80,7 +80,8 @@ export const ModelName = {
   AiSuggestion: 'AiSuggestion',
   Ai8dReview: 'Ai8dReview',
   UsageCounter: 'UsageCounter',
-  UpgradeRequest: 'UpgradeRequest'
+  UpgradeRequest: 'UpgradeRequest',
+  QualityRecordLink: 'QualityRecordLink'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -667,6 +668,23 @@ export const UpgradeRequestScalarFieldEnum = {
 } as const
 
 export type UpgradeRequestScalarFieldEnum = (typeof UpgradeRequestScalarFieldEnum)[keyof typeof UpgradeRequestScalarFieldEnum]
+
+
+export const QualityRecordLinkScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  linkType: 'linkType',
+  reason: 'reason',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QualityRecordLinkScalarFieldEnum = (typeof QualityRecordLinkScalarFieldEnum)[keyof typeof QualityRecordLinkScalarFieldEnum]
 
 
 export const SortOrder = {

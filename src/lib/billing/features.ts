@@ -26,6 +26,7 @@ export type FeatureKey =
   | "ADVANCED_AUDIT_LOG"
   | "EMAIL_NOTIFICATIONS"
   | "SUPPLIER_SCORECARD"
+  | "QUALITY_LINKAGE"
 
 export interface FeatureGate {
   key: FeatureKey
@@ -203,6 +204,13 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Comprehensive supplier scoring",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+  },
+  QUALITY_LINKAGE: {
+    key: "QUALITY_LINKAGE",
+    label: "Quality Linkage",
+    description: "Cross-module related records and quality linkage",
+    minPlan: "PRO",
+    supplierAccess: true,
   },
 }
 

@@ -113,6 +113,34 @@ export const UpgradeRequestStatus = {
 export type UpgradeRequestStatus = (typeof UpgradeRequestStatus)[keyof typeof UpgradeRequestStatus]
 
 
+export const QualityRecordType = {
+  FIELD_DEFECT: 'FIELD_DEFECT',
+  DEFECT: 'DEFECT',
+  EIGHT_D: 'EIGHT_D',
+  PPAP: 'PPAP',
+  IQC: 'IQC',
+  FMEA: 'FMEA'
+} as const
+
+export type QualityRecordType = (typeof QualityRecordType)[keyof typeof QualityRecordType]
+
+
+export const QualityLinkType = {
+  SAME_PART: 'SAME_PART',
+  SAME_SUPPLIER: 'SAME_SUPPLIER',
+  SAME_FAILURE_MODE: 'SAME_FAILURE_MODE',
+  SAME_VEHICLE: 'SAME_VEHICLE',
+  IQC_TO_DEFECT: 'IQC_TO_DEFECT',
+  FIELD_TO_8D: 'FIELD_TO_8D',
+  PPAP_REFERENCE: 'PPAP_REFERENCE',
+  FMEA_COVERAGE: 'FMEA_COVERAGE',
+  MANUAL: 'MANUAL',
+  RELATED_HISTORY: 'RELATED_HISTORY'
+} as const
+
+export type QualityLinkType = (typeof QualityLinkType)[keyof typeof QualityLinkType]
+
+
 export const DefectEventType = {
   CREATED: 'CREATED',
   EIGHT_D_STARTED: 'EIGHT_D_STARTED',

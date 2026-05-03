@@ -807,6 +807,40 @@ export type EnumUpgradeRequestStatusWithAggregatesFilter<$PrismaModel = never> =
   _max?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
 }
 
+export type EnumQualityRecordTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityRecordType | Prisma.EnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityRecordTypeFilter<$PrismaModel> | $Enums.QualityRecordType
+}
+
+export type EnumQualityLinkTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityLinkType | Prisma.EnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel> | $Enums.QualityLinkType
+}
+
+export type EnumQualityRecordTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityRecordType | Prisma.EnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityRecordTypeWithAggregatesFilter<$PrismaModel> | $Enums.QualityRecordType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQualityRecordTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQualityRecordTypeFilter<$PrismaModel>
+}
+
+export type EnumQualityLinkTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityLinkType | Prisma.EnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityLinkTypeWithAggregatesFilter<$PrismaModel> | $Enums.QualityLinkType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1546,6 +1580,40 @@ export type NestedEnumUpgradeRequestStatusWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumUpgradeRequestStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumQualityRecordTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityRecordType | Prisma.EnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityRecordTypeFilter<$PrismaModel> | $Enums.QualityRecordType
+}
+
+export type NestedEnumQualityLinkTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityLinkType | Prisma.EnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel> | $Enums.QualityLinkType
+}
+
+export type NestedEnumQualityRecordTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityRecordType | Prisma.EnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityRecordType[] | Prisma.ListEnumQualityRecordTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityRecordTypeWithAggregatesFilter<$PrismaModel> | $Enums.QualityRecordType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQualityRecordTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQualityRecordTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumQualityLinkTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QualityLinkType | Prisma.EnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QualityLinkType[] | Prisma.ListEnumQualityLinkTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQualityLinkTypeWithAggregatesFilter<$PrismaModel> | $Enums.QualityLinkType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
 }
 
 

@@ -3,9 +3,13 @@ import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
 import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS, isPpapOverdue } from "@/lib/ppap"
+import { normalizePlan, canUseFeature } from "@/lib/billing"
 import { PpapDetailActions } from "./PpapDetailActions"
 import { PpapDocumentReview } from "./PpapDocumentReview"
 import { PpapReviewCommentForm } from "./PpapReviewCommentForm"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForPpap } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function OemPpapDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -43,6 +47,24 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
   const totalRequired = requiredKeys.length
   const approvedDocs = ppap.evidences.filter((e) => e.status === "APPROVED").length
   const notApprovedDocs = ppap.evidences.filter((e) => e.status !== "APPROVED").length
+
+  const plan = normalizePlan(session.user.plan)
+  const canUseLinkage = canUseFeature(plan, "OEM", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForPpap(id, { companyId: session.user.companyId, companyType: "OEM", role: session.user.role })
+    : []
+  const manualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "PPAP", sourceId: id },
+            { targetType: "PPAP", targetId: id },
+          ],
+        },
+      })
+    : []
 
   const reasonMap: Record<string, string> = {
     NEW_PART: "New Part",
@@ -209,6 +231,26 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
                 ))}
               </div>
             </div>
+          )}
+
+          {canUseLinkage ? (
+            <RelatedQualityRecordsPanel
+              groupedRecords={relatedRecords}
+              sourceType="PPAP"
+              sourceId={id}
+              canLink={["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)}
+              manualLinks={manualLinks.map((l) => ({
+                id: l.id,
+                sourceType: l.sourceType,
+                sourceId: l.sourceId,
+                targetType: l.targetType,
+                targetId: l.targetId,
+                linkType: l.linkType,
+                reason: l.reason,
+              }))}
+            />
+          ) : (
+            <UpgradeLinkageBanner />
           )}
         </div>
 

@@ -12,6 +12,10 @@ import { SupplierCommentSection } from "./supplier-comment-section"
 import { DetailRow } from "@/components/DetailRow"
 import { formatDueDate } from "@/lib/sla"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
+import { normalizePlan, canUseFeature } from "@/lib/billing"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForFieldDefect } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function SupplierFieldDetailPage({
   params,
@@ -39,6 +43,24 @@ export default async function SupplierFieldDetailPage({
   if (!fd) notFound()
 
   const canComment = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
+
+  const plan = normalizePlan(session.user.plan)
+  const canUseLinkage = canUseFeature(plan, "SUPPLIER", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForFieldDefect(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
+    : []
+  const manualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "FIELD_DEFECT", sourceId: id },
+            { targetType: "FIELD_DEFECT", targetId: id },
+          ],
+        },
+      })
+    : []
 
   const slaStatus = getFieldDefectSlaStatus(fd)
 
@@ -141,6 +163,26 @@ export default async function SupplierFieldDetailPage({
           )}
 
           <SupplierCommentSection fieldDefectId={id} comments={fd.comments} canComment={canComment} />
+
+          {canUseLinkage ? (
+            <RelatedQualityRecordsPanel
+              groupedRecords={relatedRecords}
+              sourceType="FIELD_DEFECT"
+              sourceId={id}
+              canLink={false}
+              manualLinks={manualLinks.map((l) => ({
+                id: l.id,
+                sourceType: l.sourceType,
+                sourceId: l.sourceId,
+                targetType: l.targetType,
+                targetId: l.targetId,
+                linkType: l.linkType,
+                reason: l.reason,
+              }))}
+            />
+          ) : (
+            <UpgradeLinkageBanner />
+          )}
         </div>
 
         <div className="space-y-6">

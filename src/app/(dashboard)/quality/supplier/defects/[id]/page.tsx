@@ -3,6 +3,10 @@ import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { DefectDetailView, type ReviewSection } from "@/components/defects/DefectDetailView"
 import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
+import { normalizePlan, canUseFeature } from "@/lib/billing"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForDefect } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 import type { EightDSection } from "@/generated/prisma/client"
 
 const D_STEPS = ["d1_team", "d2_problem", "d3_containment", "d4_rootCause", "d5_actions", "d6_actions", "d7_impacts", "d7_preventive", "d8_recognition"] as const
@@ -114,61 +118,101 @@ export default async function SupplierDefectDetailPage({
   const evidenceReady = hasRequiredSubmissionEvidence(evidenceCounts)
   const canManageEvidence = false
 
+  const plan = normalizePlan(session.user.plan)
+  const canUseLinkage = canUseFeature(plan, "SUPPLIER", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForDefect(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
+    : []
+  const defectManualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "DEFECT", sourceId: id },
+            { targetType: "DEFECT", targetId: id },
+          ],
+        },
+      })
+    : []
+
   return (
-    <DefectDetailView
-      defect={{
-        id: defect.id,
-        partNumber: defect.partNumber,
-        description: defect.description,
-        status: defect.status,
-        imageUrls: defect.imageUrls,
-        createdAt: defect.createdAt,
-        supplierName: defect.supplier.name,
-        oemName: defect.oem.name,
-        oemOwnerId: defect.oemOwnerId,
-        oemOwnerName: defect.oemOwner?.name ?? defect.oemOwner?.email ?? null,
-        supplierAssigneeId: defect.supplierAssigneeId,
-        supplierAssigneeName: defect.supplierAssignee?.name ?? defect.supplierAssignee?.email ?? null,
-        supplierResponseDueAt: defect.supplierResponseDueAt,
-        eightDSubmissionDueAt: defect.eightDSubmissionDueAt,
-        oemReviewDueAt: defect.oemReviewDueAt,
-        revisionDueAt: defect.revisionDueAt,
-        currentActionOwner: defect.currentActionOwner,
-        oemUsers: defect.oem.users,
-        supplierUsers: defect.supplier.users,
-        canEditSla: false,
-        canEditSupplierAssignee: session.user.role === "ADMIN",
-        canSelfAssign: session.user.role === "QUALITY_ENGINEER" && !defect.supplierAssigneeId,
-        evidenceReady,
-        canUploadEvidence: canManageEvidence,
-        evidences: defect.evidences.map((evidence) => ({
-          id: evidence.id,
-          section: evidence.section,
-          fileName: evidence.fileName,
-          mimeType: evidence.mimeType,
-          sizeBytes: evidence.sizeBytes,
-          createdAt: evidence.createdAt,
-          uploaderName: evidence.uploadedBy.name ?? evidence.uploadedBy.email,
-          canRemove: false,
-          downloadUrl: `/api/defects/evidence/${evidence.id}`,
-        })),
-        eightDSubmitted: !!report,
-        eightDReport: report
-          ? {
-              id: report.id,
-              submittedAt: report.submittedAt,
-              reviewSections,
-            }
-          : null,
-        events: defect.events.map((e) => ({
-          id: e.id,
-          type: e.type,
-          actor: e.actor ? { name: e.actor.name } : null,
-          metadata: e.metadata,
-          createdAt: e.createdAt,
-        })),
-      }}
-      companyType="SUPPLIER"
-    />
+    <div className="space-y-6">
+      <DefectDetailView
+        defect={{
+          id: defect.id,
+          partNumber: defect.partNumber,
+          description: defect.description,
+          status: defect.status,
+          imageUrls: defect.imageUrls,
+          createdAt: defect.createdAt,
+          supplierName: defect.supplier.name,
+          oemName: defect.oem.name,
+          oemOwnerId: defect.oemOwnerId,
+          oemOwnerName: defect.oemOwner?.name ?? defect.oemOwner?.email ?? null,
+          supplierAssigneeId: defect.supplierAssigneeId,
+          supplierAssigneeName: defect.supplierAssignee?.name ?? defect.supplierAssignee?.email ?? null,
+          supplierResponseDueAt: defect.supplierResponseDueAt,
+          eightDSubmissionDueAt: defect.eightDSubmissionDueAt,
+          oemReviewDueAt: defect.oemReviewDueAt,
+          revisionDueAt: defect.revisionDueAt,
+          currentActionOwner: defect.currentActionOwner,
+          oemUsers: defect.oem.users,
+          supplierUsers: defect.supplier.users,
+          canEditSla: false,
+          canEditSupplierAssignee: session.user.role === "ADMIN",
+          canSelfAssign: session.user.role === "QUALITY_ENGINEER" && !defect.supplierAssigneeId,
+          evidenceReady,
+          canUploadEvidence: canManageEvidence,
+          evidences: defect.evidences.map((evidence) => ({
+            id: evidence.id,
+            section: evidence.section,
+            fileName: evidence.fileName,
+            mimeType: evidence.mimeType,
+            sizeBytes: evidence.sizeBytes,
+            createdAt: evidence.createdAt,
+            uploaderName: evidence.uploadedBy.name ?? evidence.uploadedBy.email,
+            canRemove: false,
+            downloadUrl: `/api/defects/evidence/${evidence.id}`,
+          })),
+          eightDSubmitted: !!report,
+          eightDReport: report
+            ? {
+                id: report.id,
+                submittedAt: report.submittedAt,
+                reviewSections,
+              }
+            : null,
+          events: defect.events.map((e) => ({
+            id: e.id,
+            type: e.type,
+            actor: e.actor ? { name: e.actor.name } : null,
+            metadata: e.metadata,
+            createdAt: e.createdAt,
+          })),
+        }}
+        companyType="SUPPLIER"
+      />
+
+      {canUseLinkage ? (
+        <RelatedQualityRecordsPanel
+          groupedRecords={relatedRecords}
+          sourceType="DEFECT"
+          sourceId={id}
+          canLink={false}
+          manualLinks={defectManualLinks.map((l) => ({
+            id: l.id,
+            sourceType: l.sourceType,
+            sourceId: l.sourceId,
+            targetType: l.targetType,
+            targetId: l.targetId,
+            linkType: l.linkType,
+            reason: l.reason,
+          }))}
+        />
+      ) : (
+        <UpgradeLinkageBanner />
+      )}
+    </div>
   )
 }

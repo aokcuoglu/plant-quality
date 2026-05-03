@@ -17,11 +17,14 @@ import { EscalateButton } from "./escalate-button"
 import { SlaUpdateForm } from "./sla-update-form"
 import { AiInsightPanel } from "@/components/field/AiInsightPanel"
 import { SimilarIssuesPanel } from "@/components/field/SimilarIssuesPanel"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
 import { DetailRow } from "@/components/DetailRow"
 import { formatDueDate } from "@/lib/sla"
 import { getFieldDefectSlaStatus, getFieldDefectActiveDueDate } from "@/lib/sla-field-defect"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { findSimilarIssues } from "@/lib/ai/similar-issues"
+import { findRelatedForFieldDefect } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function OemFieldDetailPage({
   params,
@@ -123,6 +126,24 @@ export default async function OemFieldDetailPage({
 
   const slaStatus = getFieldDefectSlaStatus(fd)
   const activeDueDate = getFieldDefectActiveDueDate(fd)
+
+  const canUseLinkage = canUseFeature(plan, "OEM", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForFieldDefect(id, { companyId: session.user.companyId, companyType: "OEM", role: session.user.role })
+    : []
+
+  const manualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "FIELD_DEFECT", sourceId: id },
+            { targetType: "FIELD_DEFECT", targetId: id },
+          ],
+        },
+      })
+    : []
 
   function formatDate(d: Date | null) {
     if (!d) return "—"
@@ -444,6 +465,26 @@ export default async function OemFieldDetailPage({
             canManage={canEdit}
             canUseSimilar={canUseSimilar}
           />
+
+          {canUseLinkage ? (
+            <RelatedQualityRecordsPanel
+              groupedRecords={relatedRecords}
+              sourceType="FIELD_DEFECT"
+              sourceId={id}
+              canLink={canEdit}
+              manualLinks={manualLinks.map((l) => ({
+                id: l.id,
+                sourceType: l.sourceType,
+                sourceId: l.sourceId,
+                targetType: l.targetType,
+                targetId: l.targetId,
+                linkType: l.linkType,
+                reason: l.reason,
+              }))}
+            />
+          ) : (
+            <UpgradeLinkageBanner />
+          )}
         </div>
       </div>
 

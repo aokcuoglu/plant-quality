@@ -2,9 +2,12 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
-import { requireFeature } from "@/lib/billing"
+import { requireFeature, normalizePlan, canUseFeature } from "@/lib/billing"
 import { getIqcStatusColor, getIqcResultColor, IQC_STATUS_LABELS, IQC_RESULT_LABELS, IQC_INSPECTION_TYPE_LABELS, getIqcChecklistResultColor, getIqcChecklistResultIcon } from "@/lib/iqc"
 import { LinkIcon } from "lucide-react"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForIqc } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function SupplierIqcDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -35,6 +38,24 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
     na: report.checklistItems.filter((c) => c.result === "NA").length,
     pending: report.checklistItems.filter((c) => c.result === "PENDING").length,
   }
+
+  const plan = normalizePlan(session.user.plan)
+  const canUseLinkage = canUseFeature(plan, "SUPPLIER", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForIqc(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
+    : []
+  const manualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "IQC", sourceId: id },
+            { targetType: "IQC", targetId: id },
+          ],
+        },
+      })
+    : []
 
   return (
     <div className="space-y-6">
@@ -151,6 +172,26 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
                 {report.linkedDefect.partNumber} — Defect raised from this inspection
               </Link>
             </div>
+          )}
+
+          {canUseLinkage ? (
+            <RelatedQualityRecordsPanel
+              groupedRecords={relatedRecords}
+              sourceType="IQC"
+              sourceId={id}
+              canLink={false}
+              manualLinks={manualLinks.map((l) => ({
+                id: l.id,
+                sourceType: l.sourceType,
+                sourceId: l.sourceId,
+                targetType: l.targetType,
+                targetId: l.targetId,
+                linkType: l.linkType,
+                reason: l.reason,
+              }))}
+            />
+          ) : (
+            <UpgradeLinkageBanner />
           )}
         </div>
 

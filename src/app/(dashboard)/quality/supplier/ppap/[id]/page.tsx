@@ -3,9 +3,12 @@ import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
 import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS, isPpapOverdue } from "@/lib/ppap"
-import { requireFeature } from "@/lib/billing"
+import { requireFeature, normalizePlan, canUseFeature } from "@/lib/billing"
 import { SupplierPpapActions } from "./SupplierPpapActions"
 import { SupplierDocumentUpload } from "./SupplierDocumentUpload"
+import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
+import { findRelatedForPpap } from "@/lib/quality-linkage"
+import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function SupplierPpapDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -32,6 +35,24 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
   const canUpload = ["REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"].includes(ppap.status)
   const canSubmit = ["REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"].includes(ppap.status)
   const allUploaded = ppap.evidences.length > 0 && ppap.evidences.every((e) => e.status !== "MISSING")
+
+  const plan = normalizePlan(session.user.plan)
+  const canUseLinkage = canUseFeature(plan, "SUPPLIER", "QUALITY_LINKAGE")
+  clearSupplierNameCache()
+  const relatedRecords = canUseLinkage
+    ? await findRelatedForPpap(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
+    : []
+  const manualLinks = canUseLinkage
+    ? await prisma.qualityRecordLink.findMany({
+        where: {
+          companyId: session.user.companyId,
+          OR: [
+            { sourceType: "PPAP", sourceId: id },
+            { targetType: "PPAP", targetId: id },
+          ],
+        },
+      })
+    : []
 
   const reasonMap: Record<string, string> = {
     NEW_PART: "New Part",
@@ -167,6 +188,26 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
                   ))}
               </div>
             </div>
+          )}
+
+          {canUseLinkage ? (
+            <RelatedQualityRecordsPanel
+              groupedRecords={relatedRecords}
+              sourceType="PPAP"
+              sourceId={id}
+              canLink={false}
+              manualLinks={manualLinks.map((l) => ({
+                id: l.id,
+                sourceType: l.sourceType,
+                sourceId: l.sourceId,
+                targetType: l.targetType,
+                targetId: l.targetId,
+                linkType: l.linkType,
+                reason: l.reason,
+              }))}
+            />
+          ) : (
+            <UpgradeLinkageBanner />
           )}
         </div>
 

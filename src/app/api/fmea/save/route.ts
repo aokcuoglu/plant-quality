@@ -3,11 +3,12 @@ import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { requireFeature } from "@/lib/billing"
 import { calcRpn, calcRevisedRpn, validateSod, type FmeaRow } from "@/lib/fmea/types"
+import type { FmeaStatus } from "@/generated/prisma/client"
 import type { Prisma } from "@/generated/prisma/client"
 
 export async function POST(req: NextRequest) {
   const session = await auth()
-  if (!session) {
+  if (!session?.user?.companyId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
@@ -27,26 +28,29 @@ export async function POST(req: NextRequest) {
   }
 
   const fmea = await prisma.fmea.findFirst({
-    where: { id: fmeaId },
+    where: {
+      id: fmeaId,
+      ...(session.user.companyType === "OEM"
+        ? { oemId: session.user.companyId }
+        : { supplierId: session.user.companyId }),
+    },
   })
 
   if (!fmea) {
     return NextResponse.json({ error: "FMEA not found" }, { status: 404 })
   }
 
-  if (session.user.companyType === "SUPPLIER" && fmea.supplierId !== session.user.companyId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
-  }
-  if (session.user.companyType === "OEM" && fmea.oemId !== session.user.companyId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
-  }
-
-  const editableStatuses = ["DRAFT", "REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"]
-  if (!editableStatuses.includes(fmea.status)) {
+  const editableStatuses: FmeaStatus[] = session.user.companyType === "OEM"
+    ? ["DRAFT", "REQUESTED"]
+    : ["REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"]
+  if (!editableStatuses.includes(fmea.status as FmeaStatus)) {
     return NextResponse.json({ error: "FMEA is not in an editable status" }, { status: 400 })
   }
 
   for (const row of rows as FmeaRow[]) {
+    if (!row.failureMode?.trim()) {
+      return NextResponse.json({ error: `Row "${row.id}" is missing a failure mode` }, { status: 400 })
+    }
     for (const [field, value] of [["severity", row.severity], ["occurrence", row.occurrence], ["detection", row.detection]] as const) {
       const v = validateSod(value)
       if (!v.valid) {
@@ -81,10 +85,17 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  await prisma.fmea.update({
-    where: { id: fmeaId },
-    data: { rows: rows as Prisma.InputJsonValue },
-  })
+  if (session.user.companyType === "SUPPLIER" && fmea.status === "REQUESTED") {
+    await prisma.fmea.update({
+      where: { id: fmeaId },
+      data: { status: "SUPPLIER_IN_PROGRESS", rows: rows as unknown as Prisma.InputJsonValue },
+    })
+  } else {
+    await prisma.fmea.update({
+      where: { id: fmeaId },
+      data: { rows: rows as unknown as Prisma.InputJsonValue },
+    })
+  }
 
   await prisma.fmeaEvent.create({
     data: {

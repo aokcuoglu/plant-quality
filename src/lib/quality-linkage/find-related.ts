@@ -10,6 +10,15 @@ interface SessionUser {
   plan?: string | null
 }
 
+type SupplierScope = { oemId: string; supplierId: string | null; isSupplier: boolean; companySupplierId: string }
+
+function getSupplierScope(session: SessionUser, oemId: string, sourceSupplierId: string | null): SupplierScope {
+  const isSupplier = session.companyType === "SUPPLIER"
+  const supplierId = sourceSupplierId
+  return { oemId, supplierId, isSupplier, companySupplierId: session.companyId }
+}
+
+
 function buildHref(recordType: QualityRecordType, id: string, companyType: string): string {
   const prefix = companyType === "SUPPLIER" ? "/quality/supplier" : "/quality/oem"
   switch (recordType) {
@@ -78,16 +87,6 @@ function dedupRecords(records: RelatedQualityRecord[]): RelatedQualityRecord[] {
   return [...seen.values()]
 }
 
-function _extractKeywords(text: string | null | undefined): string[] {
-  if (!text) return []
-  const stopWords = new Set(["the", "and", "for", "this", "that", "with", "from", "are", "was", "were", "been", "have", "has", "had", "not", "but", "our", "all", "can", "will", "just", "should", "now", "over", "also", "some", "into", "than", "then", "only", "more", "very", "when", "what", "which", "their", "there", "about", "would", "could", "other", "being", "after", "before", "between", "through", "during", "without"])
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s]/g, " ")
-    .split(/\s+/)
-    .filter(w => w.length >= 4 && !stopWords.has(w))
-}
-
 export async function findRelatedForFieldDefect(
   fieldDefectId: string,
   session: SessionUser,
@@ -106,13 +105,13 @@ export async function findRelatedForFieldDefect(
 
   const oemId = isSupplier ? fd.oemId : companyId
   const supplierId = fd.supplierId
+  const scope = getSupplierScope(session, oemId, supplierId)
   const records: RelatedQualityRecord[] = []
 
   if (fd.linkedDefectId) {
-    const defect = await prisma.defect.findFirst({
-      where: { id: fd.linkedDefectId, oemId },
-      include: { eightDReport: true },
-    })
+    const where: Record<string, unknown> = { id: fd.linkedDefectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const defect = await prisma.defect.findFirst({ where, include: { eightDReport: true } })
     if (defect) {
       records.push({
         recordType: "DEFECT",
@@ -131,12 +130,10 @@ export async function findRelatedForFieldDefect(
   }
 
   if (supplierId) {
+    const ppapWhere: Record<string, unknown> = { oemId, supplierId }
+    if (scope.isSupplier) ppapWhere.supplierId = scope.companySupplierId
     const ppapRecords = await prisma.ppapSubmission.findMany({
-      where: {
-        oemId,
-        supplierId,
-        ...(isSupplier ? { supplierId: companyId } : {}),
-      },
+      where: ppapWhere,
       orderBy: { createdAt: "desc" },
       take: 10,
     })
@@ -166,12 +163,10 @@ export async function findRelatedForFieldDefect(
       })
     }
 
+    const iqcWhere: Record<string, unknown> = { oemId, supplierId }
+    if (scope.isSupplier) iqcWhere.supplierId = scope.companySupplierId
     const iqcRecords = await prisma.iqcReport.findMany({
-      where: {
-        oemId,
-        supplierId,
-        ...(isSupplier ? { supplierId: companyId } : {}),
-      },
+      where: iqcWhere,
       orderBy: { createdAt: "desc" },
       take: 10,
     })
@@ -202,47 +197,46 @@ export async function findRelatedForFieldDefect(
     }
   }
 
-  const fmeaConditions: Array<{ oemId: string; partNumber?: { equals: string; mode: "insensitive" }; supplierId?: string }> = [{ oemId }]
-  if (fd.partNumber) {
-    fmeaConditions[0].partNumber = { equals: fd.partNumber, mode: "insensitive" as const }
-  }
-  if (supplierId) {
-    fmeaConditions[0].supplierId = supplierId
-  }
-  if (fd.partNumber || supplierId) {
-    const fmeaRecords = await prisma.fmea.findMany({
-      where: fmeaConditions[0],
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const f of fmeaRecords) {
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (fd.partNumber && f.partNumber && fd.partNumber.toLowerCase() === f.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
-      if (supplierId && f.supplierId === supplierId) {
-        reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
-      }
-      if (fd.category || fd.subcategory) {
-        reasons.push("FMEA_COVERAGE")
-      }
-      if (reasons.length > 0) {
-        records.push({
-          recordType: "FMEA",
-          id: f.id,
-          title: `${f.fmeaNumber} — ${f.title}`,
-          status: f.status,
-          statusLabel: statusLabel("FMEA", f.status),
-          supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
-          partNumber: f.partNumber,
-          createdAt: f.createdAt,
-          matchReasons: reasons,
-          href: buildHref("FMEA", f.id, companyType),
-          confidence,
-        })
+  {
+    const fmeaWhere: Record<string, unknown> = { oemId }
+    if (fd.partNumber) fmeaWhere.partNumber = { equals: fd.partNumber, mode: "insensitive" as const }
+    if (supplierId) fmeaWhere.supplierId = supplierId
+    if (scope.isSupplier) fmeaWhere.supplierId = scope.companySupplierId
+    if (fd.partNumber || supplierId) {
+      const fmeaRecords = await prisma.fmea.findMany({
+        where: fmeaWhere,
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      })
+      for (const f of fmeaRecords) {
+        const reasons: QualityLinkType[] = []
+        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+        if (fd.partNumber && f.partNumber && fd.partNumber.toLowerCase() === f.partNumber.toLowerCase()) {
+          reasons.push("SAME_PART")
+          confidence = "exact"
+        }
+        if (supplierId && f.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          if (confidence !== "exact") confidence = "strong"
+        }
+        if (fd.category || fd.subcategory) {
+          reasons.push("FMEA_COVERAGE")
+        }
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "FMEA",
+            id: f.id,
+            title: `${f.fmeaNumber} — ${f.title}`,
+            status: f.status,
+            statusLabel: statusLabel("FMEA", f.status),
+            supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
+            partNumber: f.partNumber,
+            createdAt: f.createdAt,
+            matchReasons: reasons,
+            href: buildHref("FMEA", f.id, companyType),
+            confidence,
+          })
+        }
       }
     }
   }
@@ -252,45 +246,50 @@ export async function findRelatedForFieldDefect(
     if (fd.partNumber) {
       defectOrConditions.push({ partNumber: { equals: fd.partNumber, mode: "insensitive" as const } })
     }
-    if (supplierId) {
+    if (scope.isSupplier) {
+      defectOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
       defectOrConditions.push({ supplierId })
     }
-    const defects = await prisma.defect.findMany({
-      where: {
-        oemId,
-        OR: defectOrConditions,
-        ...(fd.linkedDefectId ? { id: { not: fd.linkedDefectId } } : {}),
-      },
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const d of defects) {
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (fd.partNumber && d.partNumber && fd.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
-      if (supplierId && d.supplierId === supplierId) {
-        reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
-      }
-      if (fd.category && d.description.toLowerCase().includes(fd.category.toLowerCase())) {
-        reasons.push("SAME_FAILURE_MODE")
-      }
-      records.push({
-        recordType: "DEFECT",
-        id: d.id,
-        title: d.description,
-        status: d.status,
-        statusLabel: statusLabel("DEFECT", d.status),
-        supplier: (await getSupplierName(d.supplierId)) ?? null,
-        partNumber: d.partNumber ?? null,
-        createdAt: d.createdAt,
-        matchReasons: reasons,
-        href: buildHref("DEFECT", d.id, companyType),
-        confidence,
+    if (defectOrConditions.length > 0) {
+      const defects = await prisma.defect.findMany({
+        where: {
+          oemId,
+          ...(scope.isSupplier ? { supplierId: scope.companySupplierId } : {}),
+          OR: defectOrConditions,
+          ...(fd.linkedDefectId ? { id: { not: fd.linkedDefectId } } : {}),
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10,
       })
+      for (const d of defects) {
+        const reasons: QualityLinkType[] = []
+        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+        if (fd.partNumber && d.partNumber && fd.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+          reasons.push("SAME_PART")
+          confidence = "exact"
+        }
+        if (supplierId && d.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          if (confidence !== "exact") confidence = "strong"
+        }
+        if (fd.category && d.description.toLowerCase().includes(fd.category.toLowerCase())) {
+          reasons.push("SAME_FAILURE_MODE")
+        }
+        records.push({
+          recordType: "DEFECT",
+          id: d.id,
+          title: d.description,
+          status: d.status,
+          statusLabel: statusLabel("DEFECT", d.status),
+          supplier: (await getSupplierName(d.supplierId)) ?? null,
+          partNumber: d.partNumber ?? null,
+          createdAt: d.createdAt,
+          matchReasons: reasons,
+          href: buildHref("DEFECT", d.id, companyType),
+          confidence,
+        })
+      }
     }
   }
 
@@ -307,7 +306,7 @@ export async function findRelatedForFieldDefect(
     const isSource = link.sourceType === "FIELD_DEFECT" && link.sourceId === fieldDefectId
     const targetRecordType = isSource ? link.targetType : link.sourceType
     const targetRecordId = isSource ? link.targetId : link.sourceId
-    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType)
+    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
       records.push({
         ...resolved,
@@ -337,12 +336,13 @@ export async function findRelatedForIqc(
 
   const oemId = iqc.oemId
   const supplierId = iqc.supplierId
+  const scope = getSupplierScope(session, oemId, supplierId)
   const records: RelatedQualityRecord[] = []
 
   if (iqc.linkedDefectId) {
-    const defect = await prisma.defect.findFirst({
-      where: { id: iqc.linkedDefectId, oemId },
-    })
+    const where: Record<string, unknown> = { id: iqc.linkedDefectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const defect = await prisma.defect.findFirst({ where })
     if (defect) {
       records.push({
         recordType: "DEFECT",
@@ -361,17 +361,18 @@ export async function findRelatedForIqc(
   }
 
   if (supplierId) {
+    const ppapWhere: Record<string, unknown> = {
+      oemId,
+      supplierId,
+      partNumber: iqc.partNumber,
+    }
+    if (scope.isSupplier) ppapWhere.supplierId = scope.companySupplierId
     const ppapRecords = await prisma.ppapSubmission.findMany({
-      where: {
-        oemId,
-        supplierId,
-        partNumber: iqc.partNumber,
-      },
+      where: ppapWhere,
       orderBy: { createdAt: "desc" },
       take: 10,
     })
     for (const p of ppapRecords) {
-      const reasons: QualityLinkType[] = ["SAME_PART", "SAME_SUPPLIER"]
       records.push({
         recordType: "PPAP",
         id: p.id,
@@ -381,121 +382,144 @@ export async function findRelatedForIqc(
         supplier: (await getSupplierName(p.supplierId)) ?? null,
         partNumber: p.partNumber,
         createdAt: p.createdAt,
-        matchReasons: reasons,
+        matchReasons: ["SAME_PART", "SAME_SUPPLIER"],
         href: buildHref("PPAP", p.id, companyType),
         confidence: "exact",
       })
     }
   }
 
-  const fmeaRecords = await prisma.fmea.findMany({
-    where: {
+  {
+    const fmeaWhere: Record<string, unknown> = {
       oemId,
-      partNumber: { equals: iqc.partNumber, mode: "insensitive" },
-      ...(supplierId ? { supplierId } : {}),
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const f of fmeaRecords) {
-    const reasons: QualityLinkType[] = ["SAME_PART"]
-    if (supplierId && f.supplierId === supplierId) reasons.push("SAME_SUPPLIER")
-    reasons.push("FMEA_COVERAGE")
-    records.push({
-      recordType: "FMEA",
-      id: f.id,
-      title: `${f.fmeaNumber} — ${f.title}`,
-      status: f.status,
-      statusLabel: statusLabel("FMEA", f.status),
-      supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
-      partNumber: f.partNumber,
-      createdAt: f.createdAt,
-      matchReasons: reasons,
-      href: buildHref("FMEA", f.id, companyType),
-      confidence: supplierId && f.supplierId === supplierId ? "exact" : "strong",
+      partNumber: { equals: iqc.partNumber, mode: "insensitive" as const },
+    }
+    if (supplierId) fmeaWhere.supplierId = supplierId
+    if (scope.isSupplier) fmeaWhere.supplierId = scope.companySupplierId
+    const fmeaRecords = await prisma.fmea.findMany({
+      where: fmeaWhere,
+      orderBy: { createdAt: "desc" },
+      take: 10,
     })
-  }
-
-  const fieldDefects = await prisma.fieldDefect.findMany({
-    where: {
-      oemId,
-      deletedAt: null,
-      OR: [
-        ...(iqc.partNumber ? [{ partNumber: { equals: iqc.partNumber, mode: "insensitive" as const } }] : []),
-        ...(supplierId ? [{ supplierId }] : []),
-      ],
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const fd of fieldDefects) {
-    const reasons: QualityLinkType[] = []
-    let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-    if (iqc.partNumber && fd.partNumber && iqc.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
-      reasons.push("SAME_PART")
-      confidence = "exact"
-    }
-    if (supplierId && fd.supplierId === supplierId) {
-      reasons.push("SAME_SUPPLIER")
-      if (confidence !== "exact") confidence = "strong"
-    }
-    if (iqc.vehicleModel && fd.vehicleModel && iqc.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
-      reasons.push("SAME_VEHICLE")
-    }
-    if (reasons.length > 0) {
+    for (const f of fmeaRecords) {
+      const reasons: QualityLinkType[] = ["SAME_PART"]
+      if (supplierId && f.supplierId === supplierId) reasons.push("SAME_SUPPLIER")
+      reasons.push("FMEA_COVERAGE")
       records.push({
-        recordType: "FIELD_DEFECT",
-        id: fd.id,
-        title: fd.title,
-        status: fd.status,
-        statusLabel: statusLabel("FIELD_DEFECT", fd.status),
-        supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
-        partNumber: fd.partNumber ?? null,
-        createdAt: fd.createdAt,
+        recordType: "FMEA",
+        id: f.id,
+        title: `${f.fmeaNumber} — ${f.title}`,
+        status: f.status,
+        statusLabel: statusLabel("FMEA", f.status),
+        supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
+        partNumber: f.partNumber,
+        createdAt: f.createdAt,
         matchReasons: reasons,
-        href: buildHref("FIELD_DEFECT", fd.id, companyType),
-        confidence,
+        href: buildHref("FMEA", f.id, companyType),
+        confidence: supplierId && f.supplierId === supplierId ? "exact" : "strong",
       })
     }
   }
 
-  const defects = await prisma.defect.findMany({
-    where: {
-      oemId,
-      OR: [
-        { partNumber: { equals: iqc.partNumber, mode: "insensitive" } },
-        ...(supplierId ? [{ supplierId }] : []),
-      ],
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const d of defects) {
-    if (iqc.linkedDefectId && d.id === iqc.linkedDefectId) continue
-    const reasons: QualityLinkType[] = []
-    let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-    if (iqc.partNumber && d.partNumber && iqc.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
-      reasons.push("SAME_PART")
-      confidence = "exact"
+  {
+    const fdOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
+    if (iqc.partNumber) {
+      fdOrConditions.push({ partNumber: { equals: iqc.partNumber, mode: "insensitive" as const } })
     }
-    if (supplierId && d.supplierId === supplierId) {
-      reasons.push("SAME_SUPPLIER")
-      if (confidence !== "exact") confidence = "strong"
+    if (scope.isSupplier) {
+      fdOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
+      fdOrConditions.push({ supplierId })
     }
-    if (reasons.length > 0) {
-      records.push({
-        recordType: "DEFECT",
-        id: d.id,
-        title: d.description,
-        status: d.status,
-        statusLabel: statusLabel("DEFECT", d.status),
-        supplier: (await getSupplierName(d.supplierId)) ?? null,
-        partNumber: d.partNumber ?? null,
-        createdAt: d.createdAt,
-        matchReasons: reasons,
-        href: buildHref("DEFECT", d.id, companyType),
-        confidence,
-      })
+    const fdBaseWhere: Record<string, unknown> = { oemId, deletedAt: null }
+    if (scope.isSupplier) fdBaseWhere.supplierId = scope.companySupplierId
+    const fieldDefects = await prisma.fieldDefect.findMany({
+      where: {
+        ...fdBaseWhere,
+        OR: fdOrConditions,
+      },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    })
+    for (const fdef of fieldDefects) {
+      const reasons: QualityLinkType[] = []
+      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+      if (iqc.partNumber && fdef.partNumber && iqc.partNumber.toLowerCase() === fdef.partNumber.toLowerCase()) {
+        reasons.push("SAME_PART")
+        confidence = "exact"
+      }
+      if (supplierId && fdef.supplierId === supplierId) {
+        reasons.push("SAME_SUPPLIER")
+        if (confidence !== "exact") confidence = "strong"
+      }
+      if (iqc.vehicleModel && fdef.vehicleModel && iqc.vehicleModel.toLowerCase() === fdef.vehicleModel.toLowerCase()) {
+        reasons.push("SAME_VEHICLE")
+      }
+      if (reasons.length > 0) {
+        records.push({
+          recordType: "FIELD_DEFECT",
+          id: fdef.id,
+          title: fdef.title,
+          status: fdef.status,
+          statusLabel: statusLabel("FIELD_DEFECT", fdef.status),
+          supplier: fdef.supplierId ? (await getSupplierName(fdef.supplierId)) : null,
+          partNumber: fdef.partNumber ?? null,
+          createdAt: fdef.createdAt,
+          matchReasons: reasons,
+          href: buildHref("FIELD_DEFECT", fdef.id, companyType),
+          confidence,
+        })
+      }
+    }
+  }
+
+  {
+    const dOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
+    if (iqc.partNumber) {
+      dOrConditions.push({ partNumber: { equals: iqc.partNumber, mode: "insensitive" as const } })
+    }
+    if (scope.isSupplier) {
+      dOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
+      dOrConditions.push({ supplierId })
+    }
+    const dBaseWhere: Record<string, unknown> = { oemId }
+    if (scope.isSupplier) dBaseWhere.supplierId = scope.companySupplierId
+    const defects = await prisma.defect.findMany({
+      where: {
+        ...dBaseWhere,
+        OR: dOrConditions,
+      },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    })
+    for (const d of defects) {
+      if (iqc.linkedDefectId && d.id === iqc.linkedDefectId) continue
+      const reasons: QualityLinkType[] = []
+      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+      if (iqc.partNumber && d.partNumber && iqc.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+        reasons.push("SAME_PART")
+        confidence = "exact"
+      }
+      if (supplierId && d.supplierId === supplierId) {
+        reasons.push("SAME_SUPPLIER")
+        if (confidence !== "exact") confidence = "strong"
+      }
+      if (reasons.length > 0) {
+        records.push({
+          recordType: "DEFECT",
+          id: d.id,
+          title: d.description,
+          status: d.status,
+          statusLabel: statusLabel("DEFECT", d.status),
+          supplier: (await getSupplierName(d.supplierId)) ?? null,
+          partNumber: d.partNumber ?? null,
+          createdAt: d.createdAt,
+          matchReasons: reasons,
+          href: buildHref("DEFECT", d.id, companyType),
+          confidence,
+        })
+      }
     }
   }
 
@@ -512,7 +536,7 @@ export async function findRelatedForIqc(
     const isSource = link.sourceType === "IQC" && link.sourceId === iqcId
     const targetRecordType = isSource ? link.targetType : link.sourceType
     const targetRecordId = isSource ? link.targetId : link.sourceId
-    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType)
+    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
       records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
     }
@@ -538,12 +562,13 @@ export async function findRelatedForFmea(
 
   const oemId = fmea.oemId
   const supplierId = fmea.supplierId
+  const scope = getSupplierScope(session, oemId, supplierId)
   const records: RelatedQualityRecord[] = []
 
   if (fmea.defectId) {
-    const defect = await prisma.defect.findFirst({
-      where: { id: fmea.defectId, oemId },
-    })
+    const where: Record<string, unknown> = { id: fmea.defectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const defect = await prisma.defect.findFirst({ where })
     if (defect) {
       records.push({
         recordType: "DEFECT",
@@ -561,88 +586,103 @@ export async function findRelatedForFmea(
     }
   }
 
-  const fdOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
-  if (fmea.partNumber) {
-    fdOrConditions.push({ partNumber: { equals: fmea.partNumber, mode: "insensitive" as const } })
+  {
+    const fdOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
+    if (fmea.partNumber) {
+      fdOrConditions.push({ partNumber: { equals: fmea.partNumber, mode: "insensitive" as const } })
+    }
+    if (scope.isSupplier) {
+      fdOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
+      fdOrConditions.push({ supplierId })
+    }
+    if (fdOrConditions.length > 0) {
+      const fdBaseWhere: Record<string, unknown> = { oemId, deletedAt: null }
+      if (scope.isSupplier) fdBaseWhere.supplierId = scope.companySupplierId
+      const fieldDefects = await prisma.fieldDefect.findMany({
+        where: {
+          ...fdBaseWhere,
+          OR: fdOrConditions,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      })
+      for (const fd of fieldDefects) {
+        const reasons: QualityLinkType[] = []
+        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+        if (fmea.partNumber && fd.partNumber && fmea.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
+          reasons.push("SAME_PART")
+          confidence = "exact"
+        }
+        if (supplierId && fd.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          if (confidence !== "exact") confidence = "strong"
+        }
+        if (fd.category || fd.subcategory) {
+          reasons.push("FMEA_COVERAGE")
+        }
+        if (fmea.vehicleModel && fd.vehicleModel && fmea.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
+          reasons.push("SAME_VEHICLE")
+        }
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "FIELD_DEFECT",
+            id: fd.id,
+            title: fd.title,
+            status: fd.status,
+            statusLabel: statusLabel("FIELD_DEFECT", fd.status),
+            supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
+            partNumber: fd.partNumber ?? null,
+            createdAt: fd.createdAt,
+            matchReasons: reasons,
+            href: buildHref("FIELD_DEFECT", fd.id, companyType),
+            confidence,
+          })
+        }
+      }
+    }
   }
-  if (supplierId) {
-    fdOrConditions.push({ supplierId })
-  }
-  if (fdOrConditions.length > 0) {
-    const fieldDefects = await prisma.fieldDefect.findMany({
-      where: {
-        oemId,
-        deletedAt: null,
-        OR: fdOrConditions,
-      },
+
+  {
+    const iqcWhere: Record<string, unknown> = {
+      oemId,
+      partNumber: { equals: fmea.partNumber, mode: "insensitive" as const },
+    }
+    if (scope.isSupplier) {
+      iqcWhere.supplierId = scope.companySupplierId
+    } else if (supplierId) {
+      iqcWhere.supplierId = supplierId
+    }
+    const iqcRecords = await prisma.iqcReport.findMany({
+      where: iqcWhere,
       orderBy: { createdAt: "desc" },
       take: 10,
     })
-  for (const fd of fieldDefects) {
-    const reasons: QualityLinkType[] = []
-    let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-    if (fmea.partNumber && fd.partNumber && fmea.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
-      reasons.push("SAME_PART")
-      confidence = "exact"
-    }
-    if (supplierId && fd.supplierId === supplierId) {
-      reasons.push("SAME_SUPPLIER")
-      if (confidence !== "exact") confidence = "strong"
-    }
-    if (fd.category || fd.subcategory) {
+    for (const i of iqcRecords) {
+      const reasons: QualityLinkType[] = ["SAME_PART"]
+      if (supplierId && i.supplierId === supplierId) reasons.push("SAME_SUPPLIER")
       reasons.push("FMEA_COVERAGE")
-    }
-    if (fmea.vehicleModel && fd.vehicleModel && fmea.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
-      reasons.push("SAME_VEHICLE")
-    }
-    if (reasons.length > 0) {
       records.push({
-        recordType: "FIELD_DEFECT",
-        id: fd.id,
-        title: fd.title,
-        status: fd.status,
-        statusLabel: statusLabel("FIELD_DEFECT", fd.status),
-        supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
-        partNumber: fd.partNumber ?? null,
-        createdAt: fd.createdAt,
+        recordType: "IQC",
+        id: i.id,
+        title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
+        status: i.status,
+        statusLabel: statusLabel("IQC", i.status),
+        supplier: (await getSupplierName(i.supplierId)) ?? null,
+        partNumber: i.partNumber,
+        createdAt: i.createdAt,
         matchReasons: reasons,
-        href: buildHref("FIELD_DEFECT", fd.id, companyType),
-        confidence,
+        href: buildHref("IQC", i.id, companyType),
+        confidence: supplierId && i.supplierId === supplierId ? "exact" : "strong",
       })
     }
   }
-  }
-
-  const iqcRecords = await prisma.iqcReport.findMany({
-    where: {
-      oemId,
-      partNumber: { equals: fmea.partNumber, mode: "insensitive" },
-      ...(supplierId ? { supplierId } : {}),
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const i of iqcRecords) {
-    const reasons: QualityLinkType[] = ["SAME_PART"]
-    if (supplierId && i.supplierId === supplierId) reasons.push("SAME_SUPPLIER")
-    records.push({
-      recordType: "IQC",
-      id: i.id,
-      title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
-      status: i.status,
-      statusLabel: statusLabel("IQC", i.status),
-      supplier: (await getSupplierName(i.supplierId)) ?? null,
-      partNumber: i.partNumber,
-      createdAt: i.createdAt,
-      matchReasons: reasons,
-      href: buildHref("IQC", i.id, companyType),
-      confidence: supplierId && i.supplierId === supplierId ? "exact" : "strong",
-    })
-  }
 
   if (supplierId) {
+    const ppapWhere: Record<string, unknown> = { oemId, supplierId, partNumber: { equals: fmea.partNumber, mode: "insensitive" as const } }
+    if (scope.isSupplier) ppapWhere.supplierId = scope.companySupplierId
     const ppapRecords = await prisma.ppapSubmission.findMany({
-      where: { oemId, supplierId, partNumber: { equals: fmea.partNumber, mode: "insensitive" } },
+      where: ppapWhere,
       orderBy: { createdAt: "desc" },
       take: 10,
     })
@@ -663,43 +703,55 @@ export async function findRelatedForFmea(
     }
   }
 
-  const defects = await prisma.defect.findMany({
-    where: {
-      oemId,
-      OR: [
-        { partNumber: { equals: fmea.partNumber, mode: "insensitive" } },
-        ...(supplierId ? [{ supplierId }] : []),
-      ],
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const d of defects) {
-    if (fmea.defectId && d.id === fmea.defectId) continue
-    const reasons: QualityLinkType[] = []
-    let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-    if (fmea.partNumber && d.partNumber && fmea.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
-      reasons.push("SAME_PART")
-      confidence = "exact"
+  {
+    const dOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
+    if (fmea.partNumber) {
+      dOrConditions.push({ partNumber: { equals: fmea.partNumber, mode: "insensitive" as const } })
     }
-    if (supplierId && d.supplierId === supplierId) {
-      reasons.push("SAME_SUPPLIER")
-      if (confidence !== "exact") confidence = "strong"
+    if (scope.isSupplier) {
+      dOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
+      dOrConditions.push({ supplierId })
     }
-    if (reasons.length > 0) {
-      records.push({
-        recordType: "DEFECT",
-        id: d.id,
-        title: d.description,
-        status: d.status,
-        statusLabel: statusLabel("DEFECT", d.status),
-        supplier: (await getSupplierName(d.supplierId)) ?? null,
-        partNumber: d.partNumber ?? null,
-        createdAt: d.createdAt,
-        matchReasons: reasons,
-        href: buildHref("DEFECT", d.id, companyType),
-        confidence,
+    const dBaseWhere: Record<string, unknown> = { oemId }
+    if (scope.isSupplier) dBaseWhere.supplierId = scope.companySupplierId
+    if (dOrConditions.length > 0) {
+      const defects = await prisma.defect.findMany({
+        where: {
+          ...dBaseWhere,
+          OR: dOrConditions,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10,
       })
+      for (const d of defects) {
+        if (fmea.defectId && d.id === fmea.defectId) continue
+        const reasons: QualityLinkType[] = []
+        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+        if (fmea.partNumber && d.partNumber && fmea.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+          reasons.push("SAME_PART")
+          confidence = "exact"
+        }
+        if (supplierId && d.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          if (confidence !== "exact") confidence = "strong"
+        }
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "DEFECT",
+            id: d.id,
+            title: d.description,
+            status: d.status,
+            statusLabel: statusLabel("DEFECT", d.status),
+            supplier: (await getSupplierName(d.supplierId)) ?? null,
+            partNumber: d.partNumber ?? null,
+            createdAt: d.createdAt,
+            matchReasons: reasons,
+            href: buildHref("DEFECT", d.id, companyType),
+            confidence,
+          })
+        }
+      }
     }
   }
 
@@ -716,7 +768,7 @@ export async function findRelatedForFmea(
     const isSource = link.sourceType === "FMEA" && link.sourceId === fmeaId
     const targetRecordType = isSource ? link.targetType : link.sourceType
     const targetRecordId = isSource ? link.targetId : link.sourceId
-    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType)
+    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
       records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
     }
@@ -742,12 +794,13 @@ export async function findRelatedForPpap(
 
   const oemId = ppap.oemId
   const supplierId = ppap.supplierId
+  const scope = getSupplierScope(session, oemId, supplierId)
   const records: RelatedQualityRecord[] = []
 
   if (ppap.defectId) {
-    const defect = await prisma.defect.findFirst({
-      where: { id: ppap.defectId, oemId },
-    })
+    const where: Record<string, unknown> = { id: ppap.defectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const defect = await prisma.defect.findFirst({ where })
     if (defect) {
       records.push({
         recordType: "DEFECT",
@@ -765,136 +818,149 @@ export async function findRelatedForPpap(
     }
   }
 
-  const iqcRecords = await prisma.iqcReport.findMany({
-    where: {
+  {
+    const iqcWhere: Record<string, unknown> = {
       oemId,
       supplierId,
-      partNumber: { equals: ppap.partNumber, mode: "insensitive" },
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const i of iqcRecords) {
-    records.push({
-      recordType: "IQC",
-      id: i.id,
-      title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
-      status: i.status,
-      statusLabel: statusLabel("IQC", i.status),
-      supplier: (await getSupplierName(i.supplierId)) ?? null,
-      partNumber: i.partNumber,
-      createdAt: i.createdAt,
-      matchReasons: ["SAME_PART", "SAME_SUPPLIER"],
-      href: buildHref("IQC", i.id, companyType),
-      confidence: "exact",
+      partNumber: { equals: ppap.partNumber, mode: "insensitive" as const },
+    }
+    if (scope.isSupplier) iqcWhere.supplierId = scope.companySupplierId
+    const iqcRecords = await prisma.iqcReport.findMany({
+      where: iqcWhere,
+      orderBy: { createdAt: "desc" },
+      take: 10,
     })
-  }
-
-  const fmeaRecords = await prisma.fmea.findMany({
-    where: {
-      oemId,
-      partNumber: { equals: ppap.partNumber, mode: "insensitive" },
-      supplierId,
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const f of fmeaRecords) {
-    records.push({
-      recordType: "FMEA",
-      id: f.id,
-      title: `${f.fmeaNumber} — ${f.title}`,
-      status: f.status,
-      statusLabel: statusLabel("FMEA", f.status),
-      supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
-      partNumber: f.partNumber,
-      createdAt: f.createdAt,
-      matchReasons: ["SAME_PART", "SAME_SUPPLIER", "FMEA_COVERAGE"],
-      href: buildHref("FMEA", f.id, companyType),
-      confidence: "exact",
-    })
-  }
-
-  const fieldDefects = await prisma.fieldDefect.findMany({
-    where: {
-      oemId,
-      deletedAt: null,
-      OR: [
-        { partNumber: { equals: ppap.partNumber, mode: "insensitive" as const } },
-        { supplierId },
-      ],
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const fd of fieldDefects) {
-    const reasons: QualityLinkType[] = []
-    let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-    if (ppap.partNumber && fd.partNumber && ppap.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
-      reasons.push("SAME_PART")
-      confidence = "exact"
-    }
-    if (fd.supplierId === supplierId) {
-      reasons.push("SAME_SUPPLIER")
-      if (confidence !== "exact") confidence = "strong"
-    }
-    if (ppap.vehicleModel && fd.vehicleModel && ppap.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
-      reasons.push("SAME_VEHICLE")
-    }
-    if (reasons.length > 0) {
+    for (const i of iqcRecords) {
       records.push({
-        recordType: "FIELD_DEFECT",
-        id: fd.id,
-        title: fd.title,
-        status: fd.status,
-        statusLabel: statusLabel("FIELD_DEFECT", fd.status),
-        supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
-        partNumber: fd.partNumber ?? null,
-        createdAt: fd.createdAt,
-        matchReasons: reasons,
-        href: buildHref("FIELD_DEFECT", fd.id, companyType),
-        confidence,
+        recordType: "IQC",
+        id: i.id,
+        title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
+        status: i.status,
+        statusLabel: statusLabel("IQC", i.status),
+        supplier: (await getSupplierName(i.supplierId)) ?? null,
+        partNumber: i.partNumber,
+        createdAt: i.createdAt,
+        matchReasons: ["SAME_PART", "SAME_SUPPLIER"],
+        href: buildHref("IQC", i.id, companyType),
+        confidence: "exact",
       })
     }
   }
 
-  const defects = await prisma.defect.findMany({
-    where: {
+  {
+    const fmeaWhere: Record<string, unknown> = {
       oemId,
-      OR: [
-        { partNumber: { equals: ppap.partNumber, mode: "insensitive" } },
-        { supplierId },
-      ],
-    },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-  })
-  for (const d of defects) {
-    if (ppap.defectId && d.id === ppap.defectId) continue
-    const reasons: QualityLinkType[] = []
-    let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-    if (ppap.partNumber && d.partNumber && ppap.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
-      reasons.push("SAME_PART")
-      confidence = "exact"
+      partNumber: { equals: ppap.partNumber, mode: "insensitive" as const },
+      supplierId,
     }
-    if (d.supplierId === supplierId) {
-      reasons.push("SAME_SUPPLIER")
-      if (confidence !== "exact") confidence = "strong"
-    }
-    if (reasons.length > 0) {
+    if (scope.isSupplier) fmeaWhere.supplierId = scope.companySupplierId
+    const fmeaRecords = await prisma.fmea.findMany({
+      where: fmeaWhere,
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    })
+    for (const f of fmeaRecords) {
       records.push({
-        recordType: "DEFECT",
-        id: d.id,
-        title: d.description,
-        status: d.status,
-        statusLabel: statusLabel("DEFECT", d.status),
-        supplier: (await getSupplierName(d.supplierId)) ?? null,
-        partNumber: d.partNumber ?? null,
-        createdAt: d.createdAt,
-        matchReasons: reasons,
-        href: buildHref("DEFECT", d.id, companyType),
-        confidence,
+        recordType: "FMEA",
+        id: f.id,
+        title: `${f.fmeaNumber} — ${f.title}`,
+        status: f.status,
+        statusLabel: statusLabel("FMEA", f.status),
+        supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
+        partNumber: f.partNumber,
+        createdAt: f.createdAt,
+        matchReasons: ["SAME_PART", "SAME_SUPPLIER", "FMEA_COVERAGE"],
+        href: buildHref("FMEA", f.id, companyType),
+        confidence: "exact",
       })
+    }
+  }
+
+  {
+    const fieldDefects = await prisma.fieldDefect.findMany({
+      where: {
+        oemId,
+        deletedAt: null,
+        supplierId: scope.isSupplier ? scope.companySupplierId : supplierId,
+        OR: [
+          { partNumber: { equals: ppap.partNumber, mode: "insensitive" as const } },
+        ],
+      },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    })
+    for (const fd of fieldDefects) {
+      const reasons: QualityLinkType[] = []
+      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+      if (ppap.partNumber && fd.partNumber && ppap.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
+        reasons.push("SAME_PART")
+        confidence = "exact"
+      }
+      if (fd.supplierId === supplierId) {
+        reasons.push("SAME_SUPPLIER")
+        if (confidence !== "exact") confidence = "strong"
+      }
+      if (ppap.vehicleModel && fd.vehicleModel && ppap.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
+        reasons.push("SAME_VEHICLE")
+      }
+      if (reasons.length > 0) {
+        records.push({
+          recordType: "FIELD_DEFECT",
+          id: fd.id,
+          title: fd.title,
+          status: fd.status,
+          statusLabel: statusLabel("FIELD_DEFECT", fd.status),
+          supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
+          partNumber: fd.partNumber ?? null,
+          createdAt: fd.createdAt,
+          matchReasons: reasons,
+          href: buildHref("FIELD_DEFECT", fd.id, companyType),
+          confidence,
+        })
+      }
+    }
+  }
+
+  {
+    const defects = await prisma.defect.findMany({
+      where: {
+        oemId,
+        ...(scope.isSupplier ? { supplierId: scope.companySupplierId } : {}),
+        OR: [
+          { partNumber: { equals: ppap.partNumber, mode: "insensitive" } },
+          ...(supplierId && !scope.isSupplier ? [{ supplierId }] : []),
+        ],
+      },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    })
+    for (const d of defects) {
+      if (ppap.defectId && d.id === ppap.defectId) continue
+      const reasons: QualityLinkType[] = []
+      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+      if (ppap.partNumber && d.partNumber && ppap.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+        reasons.push("SAME_PART")
+        confidence = "exact"
+      }
+      if (d.supplierId === supplierId) {
+        reasons.push("SAME_SUPPLIER")
+        if (confidence !== "exact") confidence = "strong"
+      }
+      if (reasons.length > 0) {
+        records.push({
+          recordType: "DEFECT",
+          id: d.id,
+          title: d.description,
+          status: d.status,
+          statusLabel: statusLabel("DEFECT", d.status),
+          supplier: (await getSupplierName(d.supplierId)) ?? null,
+          partNumber: d.partNumber ?? null,
+          createdAt: d.createdAt,
+          matchReasons: reasons,
+          href: buildHref("DEFECT", d.id, companyType),
+          confidence,
+        })
+      }
     }
   }
 
@@ -911,7 +977,7 @@ export async function findRelatedForPpap(
     const isSource = link.sourceType === "PPAP" && link.sourceId === ppapId
     const targetRecordType = isSource ? link.targetType : link.sourceType
     const targetRecordId = isSource ? link.targetId : link.sourceId
-    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType)
+    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
       records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
     }
@@ -937,10 +1003,16 @@ export async function findRelatedForDefect(
 
   const oemId = defect.oemId
   const supplierId = defect.supplierId
+  const scope = getSupplierScope(session, oemId, supplierId)
   const records: RelatedQualityRecord[] = []
 
   const linkedFd = await prisma.fieldDefect.findFirst({
-    where: { linkedDefectId: defectId, oemId, deletedAt: null },
+    where: {
+      linkedDefectId: defectId,
+      oemId,
+      deletedAt: null,
+      ...(scope.isSupplier ? { supplierId: scope.companySupplierId } : {}),
+    },
     select: { id: true, title: true, status: true, supplierId: true, partNumber: true, createdAt: true },
   })
   if (linkedFd) {
@@ -959,109 +1031,126 @@ export async function findRelatedForDefect(
     })
   }
 
-  const linkedIqc = await prisma.iqcReport.findFirst({
-    where: { linkedDefectId: defectId, oemId },
-    select: { id: true, inspectionNumber: true, partName: true, partNumber: true, status: true, supplierId: true, createdAt: true },
-  })
-  if (linkedIqc) {
-    records.push({
-      recordType: "IQC",
-      id: linkedIqc.id,
-      title: `${linkedIqc.inspectionNumber} — ${linkedIqc.partName || linkedIqc.partNumber}`,
-      status: linkedIqc.status as string,
-      statusLabel: statusLabel("IQC", linkedIqc.status as string),
-      supplier: (await getSupplierName(linkedIqc.supplierId)) ?? null,
-      partNumber: linkedIqc.partNumber,
-      createdAt: linkedIqc.createdAt,
-      matchReasons: ["IQC_TO_DEFECT"] as QualityLinkType[],
-      href: buildHref("IQC", linkedIqc.id, companyType),
-      confidence: "direct",
+  {
+    const where: Record<string, unknown> = { linkedDefectId: defectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const linkedIqc = await prisma.iqcReport.findFirst({
+      where,
+      select: { id: true, inspectionNumber: true, partName: true, partNumber: true, status: true, supplierId: true, createdAt: true },
     })
+    if (linkedIqc) {
+      records.push({
+        recordType: "IQC",
+        id: linkedIqc.id,
+        title: `${linkedIqc.inspectionNumber} — ${linkedIqc.partName || linkedIqc.partNumber}`,
+        status: linkedIqc.status as string,
+        statusLabel: statusLabel("IQC", linkedIqc.status as string),
+        supplier: (await getSupplierName(linkedIqc.supplierId)) ?? null,
+        partNumber: linkedIqc.partNumber,
+        createdAt: linkedIqc.createdAt,
+        matchReasons: ["IQC_TO_DEFECT"] as QualityLinkType[],
+        href: buildHref("IQC", linkedIqc.id, companyType),
+        confidence: "direct",
+      })
+    }
   }
 
-  const linkedPpap = await prisma.ppapSubmission.findFirst({
-    where: { defectId: defectId, oemId },
-    select: { id: true, requestNumber: true, partName: true, partNumber: true, status: true, supplierId: true, createdAt: true },
-  })
-  if (linkedPpap) {
-    records.push({
-      recordType: "PPAP",
-      id: linkedPpap.id,
-      title: `${linkedPpap.requestNumber} — ${linkedPpap.partName || linkedPpap.partNumber}`,
-      status: linkedPpap.status as string,
-      statusLabel: statusLabel("PPAP", linkedPpap.status as string),
-      supplier: (await getSupplierName(linkedPpap.supplierId)) ?? null,
-      partNumber: linkedPpap.partNumber,
-      createdAt: linkedPpap.createdAt,
-      matchReasons: ["PPAP_REFERENCE"] as QualityLinkType[],
-      href: buildHref("PPAP", linkedPpap.id, companyType),
-      confidence: "direct",
+  {
+    const where: Record<string, unknown> = { defectId: defectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const linkedPpap = await prisma.ppapSubmission.findFirst({
+      where,
+      select: { id: true, requestNumber: true, partName: true, partNumber: true, status: true, supplierId: true, createdAt: true },
     })
+    if (linkedPpap) {
+      records.push({
+        recordType: "PPAP",
+        id: linkedPpap.id,
+        title: `${linkedPpap.requestNumber} — ${linkedPpap.partName || linkedPpap.partNumber}`,
+        status: linkedPpap.status as string,
+        statusLabel: statusLabel("PPAP", linkedPpap.status as string),
+        supplier: (await getSupplierName(linkedPpap.supplierId)) ?? null,
+        partNumber: linkedPpap.partNumber,
+        createdAt: linkedPpap.createdAt,
+        matchReasons: ["PPAP_REFERENCE"] as QualityLinkType[],
+        href: buildHref("PPAP", linkedPpap.id, companyType),
+        confidence: "direct",
+      })
+    }
   }
 
-  const linkedFmea = await prisma.fmea.findFirst({
-    where: { defectId: defectId, oemId },
-    select: { id: true, fmeaNumber: true, title: true, status: true, supplierId: true, partNumber: true, createdAt: true },
-  })
-  if (linkedFmea) {
-    records.push({
-      recordType: "FMEA",
-      id: linkedFmea.id,
-      title: `${linkedFmea.fmeaNumber} — ${linkedFmea.title}`,
-      status: linkedFmea.status as string,
-      statusLabel: statusLabel("FMEA", linkedFmea.status as string),
-      supplier: linkedFmea.supplierId ? (await getSupplierName(linkedFmea.supplierId)) : null,
-      partNumber: linkedFmea.partNumber,
-      createdAt: linkedFmea.createdAt,
-      matchReasons: ["FMEA_COVERAGE"] as QualityLinkType[],
-      href: buildHref("FMEA", linkedFmea.id, companyType),
-      confidence: "direct",
+  {
+    const where: Record<string, unknown> = { defectId: defectId, oemId }
+    if (scope.isSupplier) where.supplierId = scope.companySupplierId
+    const linkedFmea = await prisma.fmea.findFirst({
+      where,
+      select: { id: true, fmeaNumber: true, title: true, status: true, supplierId: true, partNumber: true, createdAt: true },
     })
+    if (linkedFmea) {
+      records.push({
+        recordType: "FMEA",
+        id: linkedFmea.id,
+        title: `${linkedFmea.fmeaNumber} — ${linkedFmea.title}`,
+        status: linkedFmea.status as string,
+        statusLabel: statusLabel("FMEA", linkedFmea.status as string),
+        supplier: linkedFmea.supplierId ? (await getSupplierName(linkedFmea.supplierId)) : null,
+        partNumber: linkedFmea.partNumber,
+        createdAt: linkedFmea.createdAt,
+        matchReasons: ["FMEA_COVERAGE"] as QualityLinkType[],
+        href: buildHref("FMEA", linkedFmea.id, companyType),
+        confidence: "direct",
+      })
+    }
   }
 
-  const fdOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
-  if (defect.partNumber) {
-    fdOrConditions.push({ partNumber: { equals: defect.partNumber, mode: "insensitive" as const } })
-  }
-  if (supplierId) {
-    fdOrConditions.push({ supplierId })
-  }
-  if (fdOrConditions.length > 0) {
-    const fieldDefects = await prisma.fieldDefect.findMany({
-      where: {
-        oemId,
-        deletedAt: null,
-        ...(linkedFd ? { id: { not: linkedFd.id } } : {}),
-        OR: fdOrConditions,
-      },
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const fd of fieldDefects) {
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (defect.partNumber && fd.partNumber && defect.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
-      if (supplierId && fd.supplierId === supplierId) {
-        reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
-      }
-      if (reasons.length > 0) {
-        records.push({
-          recordType: "FIELD_DEFECT",
-          id: fd.id,
-          title: fd.title,
-          status: fd.status as string,
-          statusLabel: statusLabel("FIELD_DEFECT", fd.status as string),
-          supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
-          partNumber: fd.partNumber ?? null,
-          createdAt: fd.createdAt,
-          matchReasons: reasons,
-          href: buildHref("FIELD_DEFECT", fd.id, companyType),
-          confidence,
-        })
+  {
+    const fdOrConditions: Array<{ partNumber: { equals: string; mode: "insensitive" } } | { supplierId: string }> = []
+    if (defect.partNumber) {
+      fdOrConditions.push({ partNumber: { equals: defect.partNumber, mode: "insensitive" as const } })
+    }
+    if (scope.isSupplier) {
+      fdOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
+      fdOrConditions.push({ supplierId })
+    }
+    if (fdOrConditions.length > 0) {
+      const fdBaseWhere: Record<string, unknown> = { oemId, deletedAt: null }
+      if (scope.isSupplier) fdBaseWhere.supplierId = scope.companySupplierId
+      if (linkedFd) fdBaseWhere.id = { not: linkedFd.id }
+      const fieldDefects = await prisma.fieldDefect.findMany({
+        where: {
+          ...fdBaseWhere,
+          OR: fdOrConditions,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      })
+      for (const fd of fieldDefects) {
+        const reasons: QualityLinkType[] = []
+        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
+        if (defect.partNumber && fd.partNumber && defect.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
+          reasons.push("SAME_PART")
+          confidence = "exact"
+        }
+        if (supplierId && fd.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          if (confidence !== "exact") confidence = "strong"
+        }
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "FIELD_DEFECT",
+            id: fd.id,
+            title: fd.title,
+            status: fd.status as string,
+            statusLabel: statusLabel("FIELD_DEFECT", fd.status as string),
+            supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
+            partNumber: fd.partNumber ?? null,
+            createdAt: fd.createdAt,
+            matchReasons: reasons,
+            href: buildHref("FIELD_DEFECT", fd.id, companyType),
+            confidence,
+          })
+        }
       }
     }
   }
@@ -1071,13 +1160,16 @@ export async function findRelatedForDefect(
     if (defect.partNumber) {
       dOrConditions.push({ partNumber: { equals: defect.partNumber, mode: "insensitive" as const } })
     }
-    if (supplierId) {
+    if (scope.isSupplier) {
+      dOrConditions.push({ supplierId: scope.companySupplierId })
+    } else if (supplierId) {
       dOrConditions.push({ supplierId })
     }
+    const dBaseWhere: Record<string, unknown> = { oemId, id: { not: defectId } }
+    if (scope.isSupplier) dBaseWhere.supplierId = scope.companySupplierId
     const otherDefects = await prisma.defect.findMany({
       where: {
-        oemId,
-        id: { not: defectId },
+        ...dBaseWhere,
         OR: dOrConditions,
       },
       orderBy: { createdAt: "desc" },
@@ -1125,7 +1217,7 @@ export async function findRelatedForDefect(
     const isSource = link.sourceType === "DEFECT" && link.sourceId === defectId
     const targetRecordType = isSource ? link.targetType : link.sourceType
     const targetRecordId = isSource ? link.targetId : link.sourceId
-    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType)
+    const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
       records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
     }
@@ -1153,11 +1245,13 @@ async function resolveRecord(
   recordId: string,
   oemId: string,
   companyType: string,
+  scope: SupplierScope,
 ): Promise<Omit<RelatedQualityRecord, "matchReasons" | "confidence"> | null> {
+  const supplierFilter = scope.isSupplier ? { supplierId: scope.companySupplierId } : {}
   switch (recordType) {
     case "FIELD_DEFECT": {
       const fd = await prisma.fieldDefect.findFirst({
-        where: { id: recordId, oemId, deletedAt: null },
+        where: { id: recordId, oemId, deletedAt: null, ...supplierFilter },
       })
       if (!fd) return null
       return {
@@ -1175,7 +1269,7 @@ async function resolveRecord(
     case "DEFECT":
     case "EIGHT_D": {
       const d = await prisma.defect.findFirst({
-        where: { id: recordId, oemId },
+        where: { id: recordId, oemId, ...supplierFilter },
       })
       if (!d) return null
       return {
@@ -1192,7 +1286,7 @@ async function resolveRecord(
     }
     case "PPAP": {
       const p = await prisma.ppapSubmission.findFirst({
-        where: { id: recordId, oemId },
+        where: { id: recordId, oemId, ...supplierFilter },
       })
       if (!p) return null
       return {
@@ -1209,7 +1303,7 @@ async function resolveRecord(
     }
     case "IQC": {
       const i = await prisma.iqcReport.findFirst({
-        where: { id: recordId, oemId },
+        where: { id: recordId, oemId, ...supplierFilter },
       })
       if (!i) return null
       return {
@@ -1226,7 +1320,7 @@ async function resolveRecord(
     }
     case "FMEA": {
       const f = await prisma.fmea.findFirst({
-        where: { id: recordId, oemId },
+        where: { id: recordId, oemId, ...supplierFilter },
       })
       if (!f) return null
       return {

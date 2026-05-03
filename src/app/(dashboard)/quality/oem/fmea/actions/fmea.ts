@@ -138,13 +138,29 @@ export async function saveFmeaRows(fmeaId: string, rows: FmeaRow[]) {
   }
 
   for (const row of rows) {
+    if (!row.failureMode?.trim()) return { success: false, error: `Row "${row.id}" is missing a failure mode` }
     for (const [field, value] of [["severity", row.severity], ["occurrence", row.occurrence], ["detection", row.detection]] as const) {
       const v = validateSod(value)
       if (!v.valid) return { success: false, error: `Invalid ${field}: ${v.error}` }
     }
+    if (row.revisedSeverity != null) {
+      const v = validateSod(row.revisedSeverity)
+      if (!v.valid) return { success: false, error: `Invalid revisedSeverity: ${v.error}` }
+    }
+    if (row.revisedOccurrence != null) {
+      const v = validateSod(row.revisedOccurrence)
+      if (!v.valid) return { success: false, error: `Invalid revisedOccurrence: ${v.error}` }
+    }
+    if (row.revisedDetection != null) {
+      const v = validateSod(row.revisedDetection)
+      if (!v.valid) return { success: false, error: `Invalid revisedDetection: ${v.error}` }
+    }
     row.rpn = calcRpn(row.severity, row.occurrence, row.detection)
     const revisedRpn = calcRevisedRpn(row.revisedSeverity, row.revisedOccurrence, row.revisedDetection)
     if (revisedRpn != null) row.revisedRpn = revisedRpn
+    else if (row.revisedSeverity != null || row.revisedOccurrence != null || row.revisedDetection != null) {
+      row.revisedRpn = undefined
+    }
   }
 
   if (session.user.companyType === "SUPPLIER" && fmea.status === "REQUESTED") {
@@ -172,6 +188,8 @@ export async function saveFmeaRows(fmeaId: string, rows: FmeaRow[]) {
   revalidatePath("/quality/oem/fmea")
   revalidatePath(`/quality/supplier/fmea/${fmeaId}`)
   revalidatePath("/quality/supplier/fmea")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true }
 }
@@ -202,6 +220,18 @@ export async function approveFmea(fmeaId: string) {
     for (const [field, value] of [["severity", row.severity], ["occurrence", row.occurrence], ["detection", row.detection]] as const) {
       const v = validateSod(value)
       if (!v.valid) return { success: false, error: `Invalid ${field} in row "${row.failureMode || row.id}": ${v.error}` }
+    }
+    if (row.revisedSeverity != null) {
+      const v = validateSod(row.revisedSeverity)
+      if (!v.valid) return { success: false, error: `Invalid revisedSeverity in row "${row.failureMode || row.id}": ${v.error}` }
+    }
+    if (row.revisedOccurrence != null) {
+      const v = validateSod(row.revisedOccurrence)
+      if (!v.valid) return { success: false, error: `Invalid revisedOccurrence in row "${row.failureMode || row.id}": ${v.error}` }
+    }
+    if (row.revisedDetection != null) {
+      const v = validateSod(row.revisedDetection)
+      if (!v.valid) return { success: false, error: `Invalid revisedDetection in row "${row.failureMode || row.id}": ${v.error}` }
     }
   }
 
@@ -489,7 +519,11 @@ export async function updateFmeaOemComment(fmeaId: string, rowId: string, oemCom
   })
 
   revalidatePath(`/quality/oem/fmea/${fmeaId}`)
+  revalidatePath("/quality/oem/fmea")
   revalidatePath(`/quality/supplier/fmea/${fmeaId}`)
+  revalidatePath("/quality/supplier/fmea")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true }
 }

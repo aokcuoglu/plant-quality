@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { saveFmeaRows } from "@/app/(dashboard)/quality/supplier/fmea/actions/fmea"
+import { saveFmeaRows } from "@/app/(dashboard)/quality/oem/fmea/actions/fmea"
 import { createEmptyRow, type FmeaRow } from "@/lib/fmea/types"
 import { cn } from "@/lib/utils"
 
@@ -14,7 +15,14 @@ interface FmeaRowEditorProps {
   canEdit: boolean
 }
 
+function clampSod(value: number): number {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return 5
+  return Math.min(10, Math.max(1, Math.round(n)))
+}
+
 export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRowEditorProps) {
+  const router = useRouter()
   const [rows, setRows] = useState<FmeaRow[]>(initialRows)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -25,18 +33,23 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
         if (r.id !== id) return r
         const updated = { ...r, [field]: value }
         if (["severity", "occurrence", "detection"].includes(field)) {
-          const s = field === "severity" ? Number(value) : updated.severity
-          const o = field === "occurrence" ? Number(value) : updated.occurrence
-          const d = field === "detection" ? Number(value) : updated.detection
+          const s = field === "severity" ? clampSod(Number(value)) : updated.severity
+          const o = field === "occurrence" ? clampSod(Number(value)) : updated.occurrence
+          const d = field === "detection" ? clampSod(Number(value)) : updated.detection
           updated.rpn = s * o * d
         }
-        if (
-          ["revisedSeverity", "revisedOccurrence", "revisedDetection"].includes(field) &&
-          updated.revisedSeverity != null &&
-          updated.revisedOccurrence != null &&
-          updated.revisedDetection != null
-        ) {
-          updated.revisedRpn = updated.revisedSeverity * updated.revisedOccurrence * updated.revisedDetection
+        if (["revisedSeverity", "revisedOccurrence", "revisedDetection"].includes(field)) {
+          const rs = field === "revisedSeverity" ? (value === "" ? undefined : clampSod(Number(value))) : updated.revisedSeverity
+          const ro = field === "revisedOccurrence" ? (value === "" ? undefined : clampSod(Number(value))) : updated.revisedOccurrence
+          const rd = field === "revisedDetection" ? (value === "" ? undefined : clampSod(Number(value))) : updated.revisedDetection
+          updated.revisedSeverity = rs
+          updated.revisedOccurrence = ro
+          updated.revisedDetection = rd
+          if (rs != null && ro != null && rd != null) {
+            updated.revisedRpn = rs * ro * rd
+          } else {
+            updated.revisedRpn = undefined
+          }
         }
         return updated
       }),
@@ -47,10 +60,6 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
     setRows(prev => [...prev, createEmptyRow(fmeaType)])
   }
 
-  const removeRow = (id: string) => {
-    setRows(prev => prev.filter(r => r.id !== id))
-  }
-
   const handleSave = async () => {
     setSaving(true)
     setError(null)
@@ -58,9 +67,32 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
       const result = await saveFmeaRows(fmeaId, rows)
       if (!result.success) {
         setError(result.error ?? "Save failed")
+      } else {
+        router.refresh()
       }
     } catch {
       setError("Save failed")
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleRemoveRow = async (id: string) => {
+    const updatedRows = rows.filter(r => r.id !== id)
+    setRows(updatedRows)
+    setSaving(true)
+    setError(null)
+    try {
+      const result = await saveFmeaRows(fmeaId, updatedRows)
+      if (!result.success) {
+        setError(result.error ?? "Failed to remove row")
+        setRows(rows)
+      } else {
+        router.refresh()
+      }
+    } catch {
+      setError("Failed to remove row")
+      setRows(rows)
     } finally {
       setSaving(false)
     }
@@ -106,7 +138,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
           </thead>
           <tbody className="divide-y divide-border">
             {rows.map(row => (
-              <tr key={row.id} className={cn("hover:bg-muted/30", row.rpn >= 200 ? "bg-red-500/5" : row.rpn >= 100 ? "bg-amber-500/5" : "")}>
+              <tr key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-red-500/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-amber-500/5" : "")}>
                 {fmeaType === "PROCESS" && (
                   <td className="px-2 py-1.5">
                     {canEdit ? (
@@ -131,49 +163,49 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                   )}
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  {canEdit ? (
-                    <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.severity} onChange={e => updateRow(row.id, "severity", Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))} />
-                  ) : (
-                    <span className="text-foreground">{row.severity}</span>
-                  )}
-                </td>
-                <td className="px-2 py-1.5">
-                  {canEdit ? (
-                    <Input className="h-7 text-xs" value={row.failureCause ?? ""} onChange={e => updateRow(row.id, "failureCause", e.target.value)} />
-                  ) : (
-                    <span className="text-muted-foreground">{row.failureCause || "—"}</span>
-                  )}
-                </td>
-                <td className="px-2 py-1.5 text-center">
-                  {canEdit ? (
-                    <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.occurrence} onChange={e => updateRow(row.id, "occurrence", Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))} />
-                  ) : (
-                    <span className="text-foreground">{row.occurrence}</span>
-                  )}
-                </td>
-                <td className="px-2 py-1.5">
-                  {canEdit ? (
-                    <Input className="h-7 text-xs" value={row.preventionControl ?? ""} onChange={e => updateRow(row.id, "preventionControl", e.target.value)} />
-                  ) : (
-                    <span className="text-muted-foreground">{row.preventionControl || "—"}</span>
-                  )}
-                </td>
-                <td className="px-2 py-1.5">
-                  {canEdit ? (
-                    <Input className="h-7 text-xs" value={row.detectionControl ?? ""} onChange={e => updateRow(row.id, "detectionControl", e.target.value)} />
-                  ) : (
-                    <span className="text-muted-foreground">{row.detectionControl || "—"}</span>
-                  )}
-                </td>
-                <td className="px-2 py-1.5 text-center">
-                  {canEdit ? (
-                    <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.detection} onChange={e => updateRow(row.id, "detection", Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))} />
-                  ) : (
-                    <span className="text-foreground">{row.detection}</span>
-                  )}
-                </td>
-                <td className={cn("px-2 py-1.5 text-center font-bold", row.rpn >= 200 ? "text-red-400" : row.rpn >= 100 ? "text-amber-400" : "text-emerald-400")}>
-                  {row.rpn}
+                    {canEdit ? (
+                      <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.severity} onChange={e => updateRow(row.id, "severity", e.target.value)} />
+                    ) : (
+                      <span className="text-foreground">{row.severity}</span>
+                    )}
+                  </td>
+                  <td className="px-2 py-1.5">
+                    {canEdit ? (
+                      <Input className="h-7 text-xs" value={row.failureCause ?? ""} onChange={e => updateRow(row.id, "failureCause", e.target.value)} />
+                    ) : (
+                      <span className="text-muted-foreground">{row.failureCause || "—"}</span>
+                    )}
+                  </td>
+                  <td className="px-2 py-1.5 text-center">
+                    {canEdit ? (
+                      <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.occurrence} onChange={e => updateRow(row.id, "occurrence", e.target.value)} />
+                    ) : (
+                      <span className="text-foreground">{row.occurrence}</span>
+                    )}
+                  </td>
+                  <td className="px-2 py-1.5">
+                    {canEdit ? (
+                      <Input className="h-7 text-xs" value={row.preventionControl ?? ""} onChange={e => updateRow(row.id, "preventionControl", e.target.value)} />
+                    ) : (
+                      <span className="text-muted-foreground">{row.preventionControl || "—"}</span>
+                    )}
+                  </td>
+                  <td className="px-2 py-1.5">
+                    {canEdit ? (
+                      <Input className="h-7 text-xs" value={row.detectionControl ?? ""} onChange={e => updateRow(row.id, "detectionControl", e.target.value)} />
+                    ) : (
+                      <span className="text-muted-foreground">{row.detectionControl || "—"}</span>
+                    )}
+                  </td>
+                  <td className="px-2 py-1.5 text-center">
+                    {canEdit ? (
+                      <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.detection} onChange={e => updateRow(row.id, "detection", e.target.value)} />
+                    ) : (
+                      <span className="text-foreground">{row.detection}</span>
+                    )}
+                  </td>
+                <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-red-400" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-amber-400" : "text-emerald-400")}>
+                  {Number.isFinite(row.rpn) ? row.rpn : "—"}
                 </td>
                 <td className="px-2 py-1.5">
                   {canEdit ? (
@@ -196,13 +228,13 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                     </select>
                   ) : (
                     <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-semibold", row.actionStatus === "COMPLETED" ? "bg-emerald-500/10 text-emerald-400" : row.actionStatus === "IN_PROGRESS" ? "bg-amber-500/10 text-amber-400" : row.actionStatus === "CANCELLED" ? "bg-muted text-muted-foreground" : "bg-muted text-muted-foreground")}>
-                      {row.actionStatus?.replace("_", " ") ?? "OPEN"}
+                      {row.actionStatus?.replaceAll("_", " ") ?? "OPEN"}
                     </span>
                   )}
                 </td>
                 {canEdit && (
                   <td className="px-1 py-1.5">
-                    <button onClick={() => removeRow(row.id)} className="text-muted-foreground hover:text-destructive transition-colors">
+                    <button onClick={() => handleRemoveRow(row.id)} disabled={saving} className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50">
                       &times;
                     </button>
                   </td>

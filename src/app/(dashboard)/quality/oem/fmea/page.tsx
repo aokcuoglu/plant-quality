@@ -76,7 +76,7 @@ export default async function OemFmeaPage() {
                       <td className="px-4 py-3 text-muted-foreground">{f.supplier?.name ?? "—"}</td>
                       <td className="px-4 py-3">
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getFmeaStatusColor(f.status as FmeaStatus)}`}>
-                          {FMEA_STATUS_LABELS[f.status as FmeaStatus] ?? f.status.replace("_", " ")}
+                          {FMEA_STATUS_LABELS[f.status as FmeaStatus] ?? f.status.replaceAll("_", " ")}
                         </span>
                       </td>
                       <td className={`px-4 py-3 font-semibold ${getRpnColor(maxRpn)}`}>{maxRpn || "—"}</td>

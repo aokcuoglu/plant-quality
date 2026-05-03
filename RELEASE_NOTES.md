@@ -1,3 +1,180 @@
+# PlantQuality v2.4.1 — Release Notes
+
+## FMEA RPN/Review Bugfix Patch
+
+**Release Date:** 2026-05-03  
+**Version:** 2.4.1
+
+---
+
+## Summary
+
+PlantQuality v2.4.1 is a stabilization patch for the FMEA Workflow MVP (v2.4.0). It fixes RPN and revised RPN display/validation, adds the supplier row editor for editable statuses, hardens the submit/review workflow, adds `requireFeature` gates to supplier FMEA pages, improves server action refresh consistency, and polishes OEM and supplier detail views. No new major product features are introduced.
+
+---
+
+## RPN and Revised RPN Fixes
+
+### Client-Side RPN Safety
+
+- **`FmeaRowEditor.tsx`**: Replaced inline `Math.min(10, Math.max(1, parseInt(...)))` with a `clampSod()` helper that guarantees `1–10` integer clamping and handles `NaN`/`Infinity`/non-finite values gracefully. Previously, empty inputs could briefly produce `NaN` RPN values.
+- **`FmeaRowEditor.tsx`**: RPN display now uses `Number.isFinite(row.rpn)` check — if RPN is `NaN` or `Infinity`, displays `—` instead of `NaN`. Row background highlighting also guards against `NaN`.
+
+### Revised RPN
+
+- **OEM detail read-only table**: Added columns for `R-Sev`, `R-Occ`, `R-Det`, and `R-RPN` with color-coded thresholds (red ≥200, amber ≥100, emerald <100, or `—` for null).
+- **Supplier detail read-only table**: Same revised RPN columns added.
+- **Supplier row editor**: Added `R-Sev`, `R-Occ`, `R-Det`, `R-RPN`, `Supplier Comment`, and `OEM Comment` (read-only) columns.
+
+### Revised SOD Validation
+
+- **`saveFmeaRows` (OEM)**: Added server-side validation for `revisedSeverity`, `revisedOccurrence`, `revisedDetection` — partial or invalid revised values are rejected.
+- **`saveFmeaRows` (Supplier)**: Same validation added.
+- **`approveFmea` (OEM)**: Added validation for revised S/O/D values — approval now rejects FMEAs with invalid revised values.
+- **Partial revised values**: Server now explicitly clears `revisedRpn` when not all three revised values are present (previously it left `revisedRpn` unchanged, which could show stale values).
+
+### Client Revised RPN Calculation
+
+- **`FmeaRowEditor.tsx`**: When a revised S/O/D field is cleared (empty string), `revisedSeverity`/`revisedOccurrence`/`revisedDetection` are set to `undefined` instead of `0`. `revisedRpn` is recalculated only when all three are present; otherwise set to `undefined`.
+- **`SupplierFmeaRowEditor.tsx`**: Same behavior.
+
+---
+
+## FMEA Row Editor UX Fixes
+
+### Row Save Refresh
+
+- **`FmeaRowEditor.tsx`**: Added `router.refresh()` call after successful `saveFmeaRows`. Previously, the row table displayed stale data after save because the server action only revalidated server-side cache but the client didn't trigger a refetch.
+
+### Row Deletion Persistence
+
+- **`FmeaRowEditor.tsx`**: Row deletion now persists immediately via `saveFmeaRows` with the updated row list. Previously, `removeRow` only updated local state — the row would reappear on page refresh. The new `handleRemoveRow` function optimistically removes from local state, persists the deletion, and rolls back on error.
+
+### Supplier Row Editor
+
+- **New file `SupplierFmeaRowEditor.tsx`**: Supplier users with ADMIN or QUALITY_ENGINEER role can now edit FMEA rows inline when the FMEA status is editable (REQUESTED, SUPPLIER_IN_PROGRESS, REVISION_REQUIRED). The editor includes Add Row, Save, and Remove Row actions, with `router.refresh()` after success. OEM Comment column is read-only.
+- **`supplier/fmea/[id]/page.tsx`**: Uses `canSupplierEdit()` to show the editor when editable, and read-only table otherwise.
+
+### Status Label Fix
+
+- All `.replace("_", " ")` calls changed to `.replaceAll("_", " ")` across FMEA pages. Previously, `SUPPLIER_IN_PROGRESS` displayed as `SUPPLIER IN_PROGRESS` instead of the correct `In Progress` label (the `FMEA_STATUS_LABELS` map is always used, but the fallback `.replace` only replaced the first underscore).
+
+---
+
+## FMEA Submit/Review Workflow Hardening
+
+### Row Validation on Submit and Approve
+
+- **`saveFmeaRows` (OEM and Supplier)**: Added `failureMode` validation — each row must have a non-empty `failureMode`. This prevents submitting FMEAs with blank rows.
+- **`approveFmea`**: Already validated rows ≥ 1 and valid SOD. Now also validates revised S/O/D values if present.
+
+### Cancel Button Role Gate
+
+- **`FmeaDetailActions.tsx`**: Added `canCancel` prop. The Cancel FMEA button is now only visible for OEM ADMIN and QUALITY_ENGINEER users. Previously, any OEM user could see the cancel button.
+
+### Supplier Submit Visibility
+
+- **`supplier/fmea/[id]/page.tsx`**: Submit button and row editor are only visible for ADMIN/QUALITY_ENGINEER supplier users.
+
+---
+
+## Supplier FMEA Access/Isolation Hardening
+
+### Feature Gate on Supplier FMEA Pages
+
+- **`supplier/fmea/page.tsx`**: Added `requireFeature(session, "FMEA")` check. Redirects to `/quality/supplier` if FMEA feature is not available. Suppliers with `supplierAccess: true` will pass this gate regardless of plan.
+- **`supplier/fmea/[id]/page.tsx`**: Same feature gate added.
+
+### Tenant Isolation
+
+- **Confirmed**: Supplier FMEA pages already use `findFirst({ where: { id, supplierId: session.user.companyId } })` — no cross-tenant access possible.
+- **Confirmed**: Supplier list page queries `where: { supplierId: session.user.companyId }` — only visible to assigned supplier.
+
+---
+
+## Server Action Refresh Consistency
+
+All FMEA server actions now revalidate canonical paths for both OEM and supplier views, including dashboard paths:
+
+| Action | Revalidated Paths |
+|--------|-------------------|
+| `createFmea` | `/quality/oem/fmea`, `/quality/oem`, `/quality/supplier/fmea` (if supplier), `/quality/supplier` (if supplier) |
+| `saveFmeaRows` (OEM) | `/quality/oem/fmea/[id]`, `/quality/oem/fmea`, `/quality/supplier/fmea/[id]`, `/quality/supplier/fmea` |
+| `saveFmeaRows` (Supplier) | `/quality/oem/fmea/[id]`, `/quality/oem/fmea`, `/quality/supplier/fmea/[id]`, `/quality/supplier/fmea` |
+| `approveFmea` | Both detail + list + dashboards |
+| `rejectFmea` | Both detail + list + dashboards |
+| `requestFmeaRevision` | Both detail + list + dashboards |
+| `cancelFmea` | Both detail + list + dashboards |
+| `submitFmeaForReview` | Both detail + list + dashboards |
+| `updateFmeaOemComment` | Both detail + list + dashboards (added) |
+| `updateFmeaSupplierComment` | Both detail + list + dashboards (added) |
+
+### Client-Side Refresh
+
+- **`FmeaRowEditor.tsx`**: Calls `router.refresh()` after successful save.
+- **`FmeaRowEditor.tsx`**: Calls `router.refresh()` after successful row deletion.
+- **`FmeaDetailActions.tsx`**: Already calls `router.refresh()` on success for all actions.
+- **`SupplierFmeaActions.tsx`**: Already calls `router.refresh()` on success.
+- **`SupplierFmeaRowEditor.tsx`**: Calls `router.refresh()` after successful save and row deletion.
+
+---
+
+## OEM FMEA UX Polish
+
+### Long Text Truncation
+
+- **OEM detail read-only table**: Failure Mode and Effect columns now have `max-w-[200px] truncate` class.
+- **OEM detail read-only table**: OEM Comment column has `max-w-[150px] truncate`.
+- **Supplier detail read-only table**: Same truncation for Failure Mode, Effect, Supplier Comment, and OEM Comment columns.
+
+### OEM Comment Column on OEM Detail Read-Only
+
+- **OEM detail read-only table**: Added OEM Comment column showing `row.oemComment || "—"`.
+
+### Loading Skeletons
+
+- **OEM FMEA list `loading.tsx`**: Already exists with appropriate skeleton.
+- **OEM FMEA detail `loading.tsx`**: Already exists with appropriate skeleton.
+- **Supplier FMEA list `loading.tsx`**: Already exists.
+
+---
+
+## No Changes
+
+- No new major product features
+- No AI FMEA suggestions
+- No AIAG-VDA Action Priority
+- No Control Plan workflow
+- No PDF/Excel export
+- No e-signature
+- No ERP integration
+- No landing page changes
+- No database schema changes
+- No seed data changes
+- No billing/plan gating logic changes (only added `requireFeature` to supplier pages)
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.4.1 |
+| `src/app/(dashboard)/quality/oem/fmea/[id]/FmeaRowEditor.tsx` | Import `useRouter`; import OEM `saveFmeaRows`; add `clampSod()` helper; NaN-safe RPN display; persistent row deletion; `router.refresh()` after save/delete; revised RPN clearing on partial values; `replaceAll` for status labels |
+| `src/app/(dashboard)/quality/oem/fmea/[id]/FmeaDetailActions.tsx` | Added `canCancel` prop; cancel button gated on role |
+| `src/app/(dashboard)/quality/oem/fmea/[id]/page.tsx` | Added revised S/O/D and R-RPN columns to read-only table; added OEM Comment column; `replaceAll` fix for status labels; text truncation; pass `canCancel` to actions |
+| `src/app/(dashboard)/quality/oem/fmea/actions/fmea.ts` | Added revised SOD validation to `saveFmeaRows` and `approveFmea`; added `failureMode` validation; added `revisedRpn` clearing for partial revised values; added revalidate paths to `updateFmeaOemComment` |
+| `src/app/(dashboard)/quality/oem/fmea/page.tsx` | `replaceAll` fix for status labels |
+| `src/app/(dashboard)/quality/supplier/fmea/page.tsx` | Added `requireFeature` gate; `replaceAll` fix for status labels |
+| `src/app/(dashboard)/quality/supplier/fmea/[id]/page.tsx` | Added `requireFeature` gate; added `canSupplierEdit`; added revised S/O/D and R-RPN columns; added OEM Comment column; text truncation; uses `SupplierFmeaRowEditor` for editable statuses |
+| `src/app/(dashboard)/quality/supplier/fmea/[id]/SupplierFmeaRowEditor.tsx` | New file: supplier row editor with Add/Save/Remove, revised SOD fields, supplier vs OEM comment columns |
+| `src/app/(dashboard)/quality/supplier/fmea/[id]/SupplierFmeaActions.tsx` | No changes (already working correctly) |
+| `src/app/(dashboard)/quality/supplier/fmea/actions/fmea.ts` | Added revised SOD validation to `saveFmeaRows`; added `failureMode` validation; added `revisedRpn` clearing for partial revised values; added revalidate paths to `updateFmeaSupplierComment` |
+| `src/lib/fmea/types.ts` | No changes (already correct) |
+| `src/lib/fmea/index.ts` | No changes (already correct) |
+
+---
+
 # PlantQuality v2.4.0 — Release Notes
 
 ## FMEA Workflow MVP

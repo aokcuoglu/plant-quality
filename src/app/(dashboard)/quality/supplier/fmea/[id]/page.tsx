@@ -2,9 +2,11 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
-import { canSubmit, getFmeaStatusColor, getActionStatusColor, isFmeaOverdue, FMEA_STATUS_LABELS, FMEA_TYPE_LABELS } from "@/lib/fmea"
+import { canSubmit, canSupplierEdit, getFmeaStatusColor, getActionStatusColor, isFmeaOverdue, FMEA_STATUS_LABELS, FMEA_TYPE_LABELS } from "@/lib/fmea"
 import { getOpenActionCount, getCompletedActionCount, getMaxRpn, type FmeaRow } from "@/lib/fmea/types"
 import { SupplierFmeaActions } from "./SupplierFmeaActions"
+import { SupplierFmeaRowEditor } from "./SupplierFmeaRowEditor"
+import { requireFeature } from "@/lib/billing"
 import type { FmeaStatus, FmeaActionStatus } from "@/generated/prisma/client"
 
 export default async function SupplierFmeaDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -12,6 +14,9 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "SUPPLIER") redirect("/quality/oem")
+
+  const fmeaGate = requireFeature(session, "FMEA")
+  if (!fmeaGate.allowed) redirect("/quality/supplier")
 
   const fmea = await prisma.fmea.findFirst({
     where: { id, supplierId: session.user.companyId },
@@ -32,6 +37,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
   const openActions = getOpenActionCount(rows)
   const completedActions = getCompletedActionCount(rows)
   const canSubmitFmea = canSubmit(fmea.status as FmeaStatus)
+  const canEditRows = canSupplierEdit(fmea.status as FmeaStatus)
   const overdue = isFmeaOverdue(fmea.dueDate, fmea.status as FmeaStatus)
   const isSupplierAdminOrQe = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
 
@@ -51,7 +57,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
           </p>
         </div>
         <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${getFmeaStatusColor(fmea.status as FmeaStatus)}`}>
-          {FMEA_STATUS_LABELS[fmea.status as FmeaStatus] ?? fmea.status.replace("_", " ")}
+          {FMEA_STATUS_LABELS[fmea.status as FmeaStatus] ?? fmea.status.replaceAll("_", " ")}
         </span>
       </div>
 
@@ -92,6 +98,12 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
             </dl>
           </div>
 
+          {isSupplierAdminOrQe && canEditRows ? (
+            <div>
+              <h2 className="text-sm font-medium text-foreground mb-2">Risk Matrix ({rows.length} rows) — Editable</h2>
+              <SupplierFmeaRowEditor fmeaId={fmea.id} initialRows={rows} fmeaType={fmea.fmeaType} />
+            </div>
+          ) : (
           <div className="overflow-x-auto rounded-lg border bg-card">
             <table className="w-full text-xs">
               <thead>
@@ -107,15 +119,20 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
                   <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">RPN</th>
                   <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Action</th>
                   <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-20">Status</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Sev</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Occ</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Det</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">R-RPN</th>
                   <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Supplier Comment</th>
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">OEM Comment</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {rows.map((row, i) => (
-                  <tr key={i} className={row.rpn >= 200 ? "bg-red-500/5" : row.rpn >= 100 ? "bg-amber-500/5" : ""}>
+                  <tr key={row.id ?? i} className={Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-red-500/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-amber-500/5" : ""}>
                     {fmea.fmeaType === "PROCESS" && <td className="px-2 py-2 text-foreground">{row.processStep ?? "—"}</td>}
-                    <td className="px-2 py-2 text-foreground">{row.failureMode || "—"}</td>
-                    <td className="px-2 py-2 text-muted-foreground">{row.failureEffect || "—"}</td>
+                    <td className="max-w-[200px] truncate px-2 py-2 text-foreground">{row.failureMode || "—"}</td>
+                    <td className="max-w-[200px] truncate px-2 py-2 text-muted-foreground">{row.failureEffect || "—"}</td>
                     <td className="px-2 py-2 text-center text-foreground">{row.severity}</td>
                     <td className="px-2 py-2 text-muted-foreground">{row.failureCause || "—"}</td>
                     <td className="px-2 py-2 text-center text-foreground">{row.occurrence}</td>
@@ -125,15 +142,20 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
                     <td className="px-2 py-2 text-muted-foreground">{row.recommendedAction || "—"}</td>
                     <td className="px-2 py-2">
                           <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${getActionStatusColor((row.actionStatus ?? "OPEN") as FmeaActionStatus)}`}>
-                        {(row.actionStatus ?? "OPEN").replace("_", " ")}
+                        {(row.actionStatus ?? "OPEN").replaceAll("_", " ")}
                       </span>
                     </td>
-                    <td className="px-2 py-2 text-muted-foreground">{row.supplierComment || "—"}</td>
+                    <td className="px-2 py-2 text-center text-foreground">{row.revisedSeverity ?? "—"}</td>
+                    <td className="px-2 py-2 text-center text-foreground">{row.revisedOccurrence ?? "—"}</td>
+                    <td className="px-2 py-2 text-center text-foreground">{row.revisedDetection ?? "—"}</td>
+                    <td className={`px-2 py-2 text-center font-semibold ${(row.revisedRpn ?? 0) >= 200 ? "text-red-400" : (row.revisedRpn ?? 0) >= 100 ? "text-amber-400" : row.revisedRpn != null ? "text-emerald-400" : ""}`}>{row.revisedRpn ?? "—"}</td>
+                    <td className="max-w-[150px] truncate px-2 py-2 text-muted-foreground">{row.supplierComment || "—"}</td>
+                    <td className="max-w-[150px] truncate px-2 py-2 text-muted-foreground">{row.oemComment || "—"}</td>
                   </tr>
                 ))}
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={fmea.fmeaType === "PROCESS" ? 12 : 11} className="px-4 py-8 text-center text-sm text-muted-foreground">
+                    <td colSpan={fmea.fmeaType === "PROCESS" ? 17 : 16} className="px-4 py-8 text-center text-sm text-muted-foreground">
                       No rows added yet
                     </td>
                   </tr>
@@ -141,6 +163,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
               </tbody>
             </table>
           </div>
+          )}
 
           {fmea.notes && (
             <div className="rounded-lg border bg-card p-4 space-y-2">
@@ -154,7 +177,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
           {isSupplierAdminOrQe && canSubmitFmea && (
             <div className="rounded-lg border bg-card p-4 space-y-3">
               <h2 className="text-sm font-medium text-foreground">Actions</h2>
-              <SupplierFmeaActions fmeaId={fmea.id} status={fmea.status as FmeaStatus} />
+              <SupplierFmeaActions fmeaId={fmea.id} status={fmea.status as FmeaStatus} rows={rows} />
             </div>
           )}
 

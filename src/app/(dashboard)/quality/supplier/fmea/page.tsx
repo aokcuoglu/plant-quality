@@ -5,12 +5,16 @@ import { ShieldAlertIcon } from "lucide-react"
 import Link from "next/link"
 import { getFmeaStatusColor, getRpnColor, isFmeaOverdue, FMEA_STATUS_LABELS, FMEA_TYPE_LABELS } from "@/lib/fmea"
 import { getMaxRpn, type FmeaRow } from "@/lib/fmea/types"
+import { requireFeature } from "@/lib/billing"
 import type { FmeaStatus } from "@/generated/prisma/client"
 
 export default async function SupplierFmeaPage() {
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "SUPPLIER") redirect("/quality/oem")
+
+  const fmeaGate = requireFeature(session, "FMEA")
+  if (!fmeaGate.allowed) redirect("/quality/supplier")
 
   const fmeas = await prisma.fmea.findMany({
     where: { supplierId: session.user.companyId },
@@ -63,7 +67,7 @@ export default async function SupplierFmeaPage() {
                       <td className="px-4 py-3 text-muted-foreground">{f.oem.name}</td>
                       <td className="px-4 py-3">
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getFmeaStatusColor(f.status as FmeaStatus)}`}>
-                          {FMEA_STATUS_LABELS[f.status as FmeaStatus] ?? f.status.replace("_", " ")}
+                          {FMEA_STATUS_LABELS[f.status as FmeaStatus] ?? f.status.replaceAll("_", " ")}
                         </span>
                       </td>
                       <td className={`px-4 py-3 font-semibold ${getRpnColor(maxRpn)}`}>{maxRpn || "—"}</td>

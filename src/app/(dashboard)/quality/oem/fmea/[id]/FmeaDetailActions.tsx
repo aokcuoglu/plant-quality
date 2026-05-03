@@ -11,9 +11,10 @@ interface FmeaDetailActionsProps {
   fmeaId: string
   status: FmeaStatus
   canReview: boolean
+  canCancel: boolean
 }
 
-export function FmeaDetailActions({ fmeaId, status, canReview }: FmeaDetailActionsProps) {
+export function FmeaDetailActions({ fmeaId, status, canReview, canCancel }: FmeaDetailActionsProps) {
   const router = useRouter()
   const [rejecting, setRejecting] = useState(false)
   const [rejectReason, setRejectReason] = useState("")
@@ -105,7 +106,7 @@ export function FmeaDetailActions({ fmeaId, status, canReview }: FmeaDetailActio
         </div>
       )}
 
-      {cancellableStatuses.includes(status) && (
+      {canCancel && cancellableStatuses.includes(status) && (
         <div className="pt-2 border-t border-border">
           <Button variant="outline" onClick={handleCancel} disabled={cancelling} className="text-muted-foreground">
             {cancelling ? "Cancelling..." : "Cancel FMEA"}

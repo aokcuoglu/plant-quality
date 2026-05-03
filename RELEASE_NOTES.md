@@ -42,7 +42,7 @@ All matching is deterministic, explainable, and tenant-scoped:
 - **Same failure mode** — category/subcategory/keyword overlap
 - **FMEA coverage** — FMEA exists for the same part/supplier
 - **Direct links** — existing FK relationships (e.g., Field Defect → linked 8D, IQC → linked Defect, PPAP → linked Defect)
-- **Manual links** — user-created links via QualityRecordLink table
+- **Manual links** — user-created links via QualityRecordLink table (backend prepared; UI deferred)
 - Confidence levels: `direct`, `exact`, `strong`, `moderate`
 
 ### QualityRecordLink Table
@@ -65,7 +65,7 @@ New reusable component `RelatedQualityRecordsPanel` at `src/components/quality-l
 - Confidence badges (Direct, Exact, Strong, Moderate)
 - Status badges with record-type-specific colors
 - Click-through links to related record detail pages
-- Manual link/unlink support for OEM Admin/QE users
+- Manual link/unlink backend prepared (UI controls deferred to a follow-up patch)
 - Empty state: "No related quality records found."
 - Upgrade banner for Free plan users
 
@@ -75,13 +75,13 @@ New reusable component `RelatedQualityRecordsPanel` at `src/components/quality-l
 - **Pro/Enterprise**: Full deterministic linkage enabled
 - **Free**: Shows upgrade banner with link to plan settings
 - Supplier users see related records relevant to their supplier scope
-- OEM Admin/QE can create manual links; supplier users cannot
+- OEM Admin/QE can create manual links via server actions; UI controls deferred to a follow-up patch; supplier users cannot
 
 ### Field Defect Detail — Related Records
 
 - Shows related PPAP, IQC, FMEA, Defect/8D records
 - Direct link to linked 8D if exists
-- OEM pages support manual link creation
+- OEM pages: manual link creation backend prepared (UI deferred)
 - Supplier pages show read-only related records
 
 ### IQC Detail — Related Records
@@ -90,7 +90,7 @@ New reusable component `RelatedQualityRecordsPanel` at `src/components/quality-l
 - Shows related FMEA (same part/supplier)
 - Shows related Field Defects and Defects (same supplier + part)
 - Direct link to linked Defect if exists
-- OEM pages support manual link creation
+- OEM pages: manual link creation backend prepared (UI deferred)
 
 ### FMEA Detail — Related Records
 
@@ -98,7 +98,7 @@ New reusable component `RelatedQualityRecordsPanel` at `src/components/quality-l
 - Shows related IQC inspections (same part/supplier)
 - Shows related PPAP (same supplier + part)
 - Shows related Defects/8D (same part/supplier)
-- OEM pages support manual link creation
+- OEM pages: manual link creation backend prepared (UI deferred)
 
 ### PPAP Detail — Related Records
 
@@ -106,17 +106,18 @@ New reusable component `RelatedQualityRecordsPanel` at `src/components/quality-l
 - Shows related FMEA (same supplier + part)
 - Shows related Field Defects (same supplier + part)
 - Shows related Defects/8D (same supplier + part)
-- OEM pages support manual link creation
+- OEM pages: manual link creation backend prepared (UI deferred)
 
 ### Defect/8D Detail — Related Records
 
 - Shows related Field Defect, PPAP, IQC, FMEA records
 - Direct links for existing FK relationships (linked Field Defect, linked IQC, linked PPAP, linked FMEA)
-- OEM pages support manual link creation
+- OEM pages: manual link creation backend prepared (UI deferred)
 
 ### Security & Access
 
 - All queries are scoped to `companyId` (tenant) — no cross-tenant data leaks
+- Cross-supplier isolation enforced — supplier users never see other suppliers' records within the same OEM tenant
 - Supplier users only see records assigned/relevant to their supplier company
 - No client-provided `companyId` trust — all IDs verified server-side
 - Manual links cannot be created cross-tenant

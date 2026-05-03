@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { requireFeature } from "@/lib/billing"
+import { calcRpn, calcRevisedRpn, type FmeaRow } from "@/lib/fmea/types"
 import type { Prisma } from "@/generated/prisma/client"
 
 export async function POST(req: NextRequest) {
@@ -26,14 +27,11 @@ export async function POST(req: NextRequest) {
   }
 
   const fmea = await prisma.fmea.findFirst({
-    where: {
-      id: fmeaId,
-      status: { in: ["DRAFT", "IN_REVIEW"] },
-    },
+    where: { id: fmeaId },
   })
 
   if (!fmea) {
-    return NextResponse.json({ error: "FMEA not found or not editable" }, { status: 404 })
+    return NextResponse.json({ error: "FMEA not found" }, { status: 404 })
   }
 
   if (session.user.companyType === "SUPPLIER" && fmea.supplierId !== session.user.companyId) {
@@ -41,6 +39,17 @@ export async function POST(req: NextRequest) {
   }
   if (session.user.companyType === "OEM" && fmea.oemId !== session.user.companyId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
+  }
+
+  const editableStatuses = ["DRAFT", "REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"]
+  if (!editableStatuses.includes(fmea.status)) {
+    return NextResponse.json({ error: "FMEA is not in an editable status" }, { status: 400 })
+  }
+
+  for (const row of rows as FmeaRow[]) {
+    row.rpn = calcRpn(row.severity, row.occurrence, row.detection)
+    const revisedRpn = calcRevisedRpn(row.revisedSeverity, row.revisedOccurrence, row.revisedDetection)
+    if (revisedRpn != null) row.revisedRpn = revisedRpn
   }
 
   await prisma.fmea.update({

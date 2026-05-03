@@ -39,6 +39,8 @@ enum NotificationType {
   IQC_COMPLETED_FOR_SUPPLIER
   IQC_RESULT_SET
   FMEA_HIGH_RPN
+  FMEA_REVIEW_REQUESTED
+  FMEA_STATUS_CHANGED
   FIELD_DEFECT_CREATED
   FIELD_DEFECT_ASSIGNED
   FIELD_DEFECT_CONVERTED_TO_8D
@@ -116,7 +118,11 @@ enum DefectEventType {
   IQC_RESULT_SET
   FMEA_CREATED
   FMEA_UPDATED
+  FMEA_SUBMITTED
   FMEA_APPROVED
+  FMEA_REJECTED
+  FMEA_REVISION_REQUESTED
+  FMEA_CANCELLED
   FIELD_DEFECT_CREATED
   FIELD_DEFECT_STATUS_CHANGED
   FIELD_DEFECT_SUPPLIER_ASSIGNED
@@ -255,14 +261,27 @@ enum IqcChecklistResult {
 
 enum FmeaStatus {
   DRAFT
-  IN_REVIEW
+  REQUESTED
+  SUPPLIER_IN_PROGRESS
+  SUBMITTED
+  UNDER_REVIEW
+  REVISION_REQUIRED
   APPROVED
-  REVISED
+  REJECTED
+  ARCHIVED
+  CANCELLED
 }
 
 enum FmeaType {
   DESIGN
   PROCESS
+}
+
+enum FmeaActionStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 enum FieldDefectSource {
@@ -365,6 +384,8 @@ model User {
   iqcEventActors IqcEvent[] @relation("IqcEventActor")
   fmeaResponsible Fmea[] @relation("FmeaResponsible")
   fmeaApprovedBy Fmea[] @relation("FmeaApprovedBy")
+  fmeaReviewedBy Fmea[] @relation("FmeaReviewedBy")
+  fmeaCreatedBy Fmea[] @relation("FmeaCreatedBy")
   fmeaEventActors FmeaEvent[] @relation("FmeaEventActor")
   createdFieldDefects     FieldDefect[] @relation("FieldDefectCreatedBy")
   updatedFieldDefects     FieldDefect[] @relation("FieldDefectUpdatedBy")
@@ -745,34 +766,46 @@ model IqcEvent {
 
 model Fmea {
   id                String     @id @default(uuid())
+  fmeaNumber        String     @unique @map("fmea_number")
   title             String
   fmeaType          FmeaType   @default(PROCESS) @map("fmea_type")
   status            FmeaStatus @default(DRAFT)
   partNumber        String     @map("part_number")
   partName          String?    @map("part_name")
-  processStep       String?    @map("process_step")
+  processName       String?    @map("process_name")
+  projectName       String?    @map("project_name")
+  vehicleModel      String?    @map("vehicle_model")
+  revision          String?    @map("revision")
   oemId             String     @map("oem_id")
   oem               Company    @relation("OemFmeas", fields: [oemId], references: [id])
-  supplierId        String     @map("supplier_id")
-  supplier          Company    @relation("SupplierFmeas", fields: [supplierId], references: [id])
+  supplierId        String?    @map("supplier_id")
+  supplier          Company?   @relation("SupplierFmeas", fields: [supplierId], references: [id])
   responsibleId     String?    @map("responsible_id")
   responsible       User?      @relation("FmeaResponsible", fields: [responsibleId], references: [id])
+  dueDate           DateTime?  @map("due_date")
   defectId          String?    @unique @map("defect_id")
   defect            Defect?    @relation(fields: [defectId], references: [id])
   rows              Json?      @map("rows")
   submittedAt       DateTime?  @map("submitted_at")
   reviewedAt        DateTime?  @map("reviewed_at")
+  reviewedById      String?    @map("reviewed_by_id")
+  reviewedBy        User?      @relation("FmeaReviewedBy", fields: [reviewedById], references: [id])
   approvedAt        DateTime?  @map("approved_at")
   approvedById      String?    @map("approved_by_id")
   approvedBy        User?      @relation("FmeaApprovedBy", fields: [approvedById], references: [id])
+  rejectionReason   String?    @map("rejection_reason")
   revisionNo        Int        @default(0) @map("revision_no")
   notes             String?    @map("notes")
+  createdById       String     @map("created_by_id")
+  createdBy         User       @relation("FmeaCreatedBy", fields: [createdById], references: [id])
   events            FmeaEvent[]
   createdAt         DateTime   @default(now()) @map("created_at")
   updatedAt         DateTime   @updatedAt @map("updated_at")
 
   @@index([oemId, status])
+  @@index([oemId, supplierId])
   @@index([supplierId, status])
+  @@index([oemId, createdAt])
   @@index([defectId])
   @@map("fmeas")
 }

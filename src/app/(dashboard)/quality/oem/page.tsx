@@ -141,7 +141,7 @@ export default async function OemDashboardPage() {
       where: { oemId: session.user.companyId, status: "COMPLETED", result: "ACCEPTED" },
     }),
     prisma.fmea.count({
-      where: { oemId: session.user.companyId, status: { in: ["DRAFT", "IN_REVIEW"] } },
+      where: { oemId: session.user.companyId, status: { in: ["DRAFT", "REQUESTED", "SUPPLIER_IN_PROGRESS", "UNDER_REVIEW", "REVISION_REQUIRED"] } },
     }),
   ])
   const iqcPassRate = iqcTotal > 0 ? `${Math.round((iqcPassed / iqcTotal) * 100)}%` : "—"

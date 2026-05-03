@@ -666,10 +666,12 @@ export type CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutFmeaAsOemInput, Prisma.CompanyUpdateWithoutFmeaAsOemInput>, Prisma.CompanyUncheckedUpdateWithoutFmeaAsOemInput>
 }
 
-export type CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput = {
+export type CompanyUpdateOneWithoutFmeaAsSupNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutFmeaAsSupInput, Prisma.CompanyUncheckedCreateWithoutFmeaAsSupInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutFmeaAsSupInput
   upsert?: Prisma.CompanyUpsertWithoutFmeaAsSupInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutFmeaAsSupInput, Prisma.CompanyUpdateWithoutFmeaAsSupInput>, Prisma.CompanyUncheckedUpdateWithoutFmeaAsSupInput>
 }

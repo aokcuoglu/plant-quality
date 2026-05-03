@@ -1,3 +1,251 @@
+# PlantQuality v2.4.0 — Release Notes
+
+## FMEA Workflow MVP
+
+**Release Date:** 2026-05-03  
+**Version:** 2.4.0
+
+---
+
+## Summary
+
+PlantQuality v2.4.0 introduces the FMEA (Failure Mode and Effects Analysis) Workflow MVP, transforming the existing placeholder FMEA module into a fully functional OEM-to-Supplier risk analysis workflow. OEM users can create PFMEA/DFMEA requests with rich row management and deterministic RPN calculation. Suppliers can edit FMEA rows and submit for review. OEM can approve, reject, or request revision. Plan gating restricts FMEA to PRO and Enterprise OEM users while supplier participants have read/write access regardless of plan.
+
+---
+
+## Data Model
+
+### Updated Enums
+
+- **`FmeaStatus`**: Replaced `IN_REVIEW` and `REVISED` with `REQUESTED`, `SUPPLIER_IN_PROGRESS`, `SUBMITTED`, `UNDER_REVIEW`, `REVISION_REQUIRED`, `REJECTED`, `ARCHIVED`, `CANCELLED` (retained `DRAFT` and `APPROVED`)
+- **`FmeaActionStatus`**: New enum — `OPEN`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`
+- **`DefectEventType`**: Added `FMEA_SUBMITTED`, `FMEA_REJECTED`, `FMEA_REVISION_REQUESTED`, `FMEA_CANCELLED`
+- **`NotificationType`**: Added `FMEA_REVIEW_REQUESTED`, `FMEA_STATUS_CHANGED`
+
+### Updated Model: `Fmea`
+
+- **New fields**: `fmeaNumber` (unique), `processName`, `projectName`, `vehicleModel`, `revision`, `dueDate`, `reviewedById`, `rejectionReason`, `createdById`
+- **Changed fields**: `supplierId` now nullable (OEM-only FMEAs), `processStep` replaced by `processName` (column name change)
+- **New indexes**: `[oemId, supplierId]`, `[oemId, createdAt]`
+- **New relations**: `reviewedBy → User (FmeaReviewedBy)`, `createdBy → User (FmeaCreatedBy)`
+
+### FMEA Row Structure (JSONB)
+
+Each row in the `rows` JSONB array now includes:
+- `id`, `processStep`, `functionName`, `failureMode`, `failureEffect`, `severity`, `failureCause`, `occurrence`, `preventionControl`, `detectionControl`, `detection`, `rpn`, `recommendedAction`, `actionOwner`, `targetDate`, `actionStatus`, `revisedSeverity`, `revisedOccurrence`, `revisedDetection`, `revisedRpn`, `supplierComment`, `oemComment`
+
+Legacy fields (`potentialFailureMode`, `currentControl`, etc.) are mapped to new names for backward compatibility.
+
+---
+
+## OEM FMEA Create Flow
+
+### FMEA Creation (`/quality/oem/fmea/new`)
+
+- New OEM page for creating FMEA requests
+- Fields: FMEA type (PFMEA/DFMEA), supplier (optional), title, part number, part name, process name, project name, vehicle model, revision, due date, notes
+- Auto-generates `fmeaNumber` with format `FMEA-{timestamp}-{random}`
+- Status set to `REQUESTED` if supplier assigned, `DRAFT` if OEM-only
+- Creates `FMEA_CREATED` event
+- Sends `FMEA_REVIEW_REQUESTED` notification to supplier users if assigned
+- Feature-gated: requires PRO or Enterprise for OEM users
+
+---
+
+## OEM FMEA List & Detail
+
+### OEM FMEA List (`/quality/oem/fmea`)
+
+- Enhanced table showing: FMEA number, title, type, part number, supplier, status, max RPN, due date, created date
+- Color-coded status badges using semantic design tokens
+- Overdue indicator on past-due FMEAs
+- "New FMEA" button linking to creation page
+- Feature-gated: redirects FREE OEM users to dashboard
+
+### OEM FMEA Detail (`/quality/oem/fmea/[id]`)
+
+- Full detail view: all header fields, summary stats (max RPN, open actions, completed actions)
+- Editable row table (when status allows: DRAFT, REQUESTED)
+- Read-only row table (when status: SUBMITTED, UNDER_REVIEW, APPROVED, etc.)
+- Row editing: severity/occurrence/detection (1-10), action status dropdown, OEM comments
+- RPN auto-calculated and color-coded: red ≥200, amber ≥100, emerald <100
+- Review actions (for SUBMITTED/UNDER_REVIEW statuses): Approve, Reject (with reason), Request Revision (with reason)
+- Cancel action (for DRAFT/REQUESTED/SUPPLIER_IN_PROGRESS statuses)
+- Activity timeline showing all FMEA events
+- Notes section
+- Tenant isolation: `fmea.oemId === session.user.companyId`
+
+---
+
+## Supplier FMEA Flow
+
+### Supplier FMEA List (`/quality/supplier/fmea`)
+
+- Shows only FMEAs assigned to the supplier's company
+- Columns: number, title, type, part, OEM, status, max RPN, due date
+- Color-coded status badges and overdue indicators
+- No FMEA creation from supplier route — suppliers can only work on OEM-assigned FMEAs
+
+### Supplier FMEA Detail (`/quality/supplier/fmea/[id]`)
+
+- Read-only detail view with summary stats
+- Read-only row table showing all FMEA row data
+- Submit for Review action (when status is REQUESTED, SUPPLIER_IN_PROGRESS, or REVISION_REQUIRED)
+- Tenant isolation: `fmea.supplierId === session.user.companyId`
+
+### Supplier Restrictions
+
+- Cannot create FMEA requests
+- Cannot approve, reject, or request revision (OEM-only)
+- Cannot access OEM FMEA pages
+- Cannot access Plan & Usage
+- Supplier access does NOT require a paid plan (participant access via `supplierAccess: true`)
+
+---
+
+## FMEA Workflow Statuses
+
+| Status | Description |
+|--------|-------------|
+| DRAFT | OEM-only FMEA, not yet assigned to supplier |
+| REQUESTED | Assigned to supplier, awaiting supplier action |
+| SUPPLIER_IN_PROGRESS | Supplier is editing FMEA rows |
+| SUBMITTED | Supplier submitted for OEM review |
+| UNDER_REVIEW | OEM is reviewing |
+| REVISION_REQUIRED | OEM requested changes, supplier can edit again |
+| APPROVED | OEM approved |
+| REJECTED | OEM rejected with reason |
+| ARCHIVED | FMEA archived |
+| CANCELLED | FMEA cancelled by OEM |
+
+| Action Status | Description |
+|---------------|-------------|
+| OPEN | Recommended action not yet started |
+| IN_PROGRESS | Action in progress |
+| COMPLETED | Action completed |
+| CANCELLED | Action cancelled |
+
+---
+
+## RPN Calculation
+
+- **RPN = Severity × Occurrence × Detection** (all integers 1–10)
+- **Revised RPN = Revised Severity × Revised Occurrence × Revised Detection** (calculated when all three revised values exist)
+- Server-side calculation is the source of truth — client provides S/O/D values, server calculates and persists RPN
+- Client-side RPN preview is for display only
+- Invalid S/O/D values (outside 1–10 range) return validation errors from server actions
+
+---
+
+## Server Actions
+
+| Action | Who | Description | Revalidated Paths |
+|--------|-----|-------------|-------------------|
+| `createFmea` | OEM (ADMIN/QE) | Create FMEA request with FormData | `/quality/oem/fmea`, `/quality/oem`, `/quality/supplier/fmea` (if supplier), `/quality/supplier` (if supplier) |
+| `saveFmeaRows` | OEM/Supplier (ADMIN/QE) | Save row JSONB data with RPN calculation | `/quality/oem/fmea/[id]`, `/quality/oem/fmea`, `/quality/supplier/fmea/[id]`, `/quality/supplier/fmea` |
+| `approveFmea` | OEM (ADMIN/QE) | Approve submitted FMEA | Both OEM and supplier detail + list + dashboards |
+| `rejectFmea` | OEM (ADMIN/QE) | Reject with reason | Both OEM and supplier detail + list + dashboards |
+| `requestFmeaRevision` | OEM (ADMIN/QE) | Request revision with reason | Both OEM and supplier detail + list + dashboards |
+| `cancelFmea` | OEM (ADMIN/QE) | Cancel DRAFT/REQUESTED/SUPPLIER_IN_PROGRESS | Both OEM and supplier detail + list + dashboards |
+| `updateFmeaOemComment` | OEM (ADMIN/QE) | Add O-specific comment to row | `/quality/oem/fmea/[id]`, `/quality/supplier/fmea/[id]` |
+| `submitFmeaForReview` | Supplier (ADMIN/QE) | Submit FMEA for OEM review | Both OEM and supplier detail + list + dashboards |
+| `updateFmeaSupplierComment` | Supplier (ADMIN/QE) | Add supplier comment to row | `/quality/supplier/fmea/[id]`, `/quality/oem/fmea/[id]` |
+
+### Security
+
+- All OEM actions verify `session.user.companyType === "OEM"` and `["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)`
+- All supplier actions verify `session.user.companyType === "SUPPLIER"` and appropriate role
+- All OEM actions invoke `requireFeature(session, "FMEA")` for plan gating
+- All queries are scoped to `companyId` — no cross-tenant data access
+- Status transition validation prevents invalid state changes
+- FMEA cannot be approved with zero rows or invalid S/O/D values
+- `companyId`/`supplierId` never trusted from client input — always derived from session
+
+---
+
+## Plan Gating
+
+- **Free OEM**: FMEA locked — sidebar shows lock icon, `/quality/oem/fmea` redirects to dashboard
+- **Pro OEM**: FMEA enabled — full creation, review, approval
+- **Enterprise OEM**: FMEA enabled — full creation, review, approval
+- **Supplier users**: Can view and edit assigned FMEA records regardless of plan (participant access)
+- Backend enforcement via `requireFeature(session, "FMEA")`
+- Frontend gating via `isFeatureGatedNav` for OEM sidebar
+
+---
+
+## Notification Types
+
+| Type | Trigger |
+|------|---------|
+| `FMEA_REVIEW_REQUESTED` | New FMEA assigned to supplier, or FMEA submitted for review |
+| `FMEA_STATUS_CHANGED` | FMEA approved, rejected, revision requested |
+| `FMEA_HIGH_RPN` | FMEA approved with any row RPN ≥ 200 |
+| `INFO` | FMEA cancelled (supplier notification) |
+
+---
+
+## Seed Data
+
+Updated FMEA seed records:
+
+- **fmea-001** (SUPPLIER_IN_PROGRESS, PRO OEM): Cylinder Head Casting PFMEA — 3 rows (low:63, medium:160, high:180 RPN), with supplier and OEM comments
+- **fmea-002** (APPROVED, PRO OEM): Steering Knuckle DFMEA — 1 row with revised RPN (40→20), project and vehicle model fields
+- **fmea-003** (REQUESTED, ENTERPRISE OEM): Battery Tray Stamping PFMEA — empty rows, with notes and due date
+
+5 FMEA events added for creation, submission, and approval milestones.
+
+---
+
+## Migration
+
+- **Migration**: `20260503080000_add_fmea_workflow_v240`
+- Extends `FmeaStatus` enum with 7 new values
+- Creates `FmeaActionStatus` enum
+- Adds `DefectEventType` values: `FMEA_SUBMITTED`, `FMEA_REJECTED`, `FMEA_REVISION_REQUESTED`, `FMEA_CANCELLED`
+- Adds `NotificationType` values: `FMEA_REVIEW_REQUESTED`, `FMEA_STATUS_CHANGED`
+- Adds columns to `fmeas` table: `fmea_number`, `process_name`, `project_name`, `vehicle_model`, `revision`, `due_date`, `reviewed_by_id`, `rejection_reason`, `created_by_id`
+- Makes `supplier_id` nullable on `fmeas`
+- Drops `process_step` column from `fmeas`
+- Backfills `fmea_number` from record ID
+- Migrates existing statuses: `IN_REVIEW` → `UNDER_REVIEW`, `REVISED` → `REVISION_REQUIRED`
+- Adds indexes on `[oem_id, supplier_id]`, `[oem_id, created_at]`
+- Adds foreign keys for `reviewed_by_id` and `created_by_id`
+
+---
+
+## Known Limitations
+
+- No AI FMEA suggestions (deferred to future release)
+- No AIAG-VDA Action Priority engine
+- No Control Plan workflow
+- No PDF/Excel export
+- No e-signature
+- No ERP integration
+- No supplier scorecard changes
+- No advanced revision comparison
+- No field defect auto-linking to FMEA (deferred to Quality Linkage Layer)
+- OEM row editing limited to DRAFT and REQUESTED statuses (inline editor for SUBMITTED/UNDER_REVIEW status is read-only)
+- Supplier FMEA row editing uses same save pattern (no per-row inline editing on supplier detail yet)
+
+---
+
+## Deferred
+
+| Feature | Target |
+|---------|--------|
+| AI FMEA suggestions | Future release |
+| AIAG-VDA Action Priority | Future release |
+| Control Plan workflow | Future release |
+| PDF/Excel export | Future release |
+| E-signature | Future release |
+| ERP integration | Future release |
+| Supplier scorecard | Enterprise release |
+| Advanced revision comparison | Future release |
+| Quality Linkage Layer | Future release |
+
+---
+
 # PlantQuality v2.3.1 — Release Notes
 
 ## IQC Checklist & Defect Link Stabilization

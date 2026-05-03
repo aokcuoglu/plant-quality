@@ -2,7 +2,10 @@ import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
-import { FmeaEditor } from "@/components/defects/FmeaEditor"
+import { canSubmit, getFmeaStatusColor, getActionStatusColor, isFmeaOverdue, FMEA_STATUS_LABELS, FMEA_TYPE_LABELS } from "@/lib/fmea"
+import { getOpenActionCount, getCompletedActionCount, getMaxRpn, type FmeaRow } from "@/lib/fmea/types"
+import { SupplierFmeaActions } from "./SupplierFmeaActions"
+import type { FmeaStatus, FmeaActionStatus } from "@/generated/prisma/client"
 
 export default async function SupplierFmeaDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -16,43 +19,53 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
       oem: { select: { name: true } },
       responsible: { select: { name: true } },
       approvedBy: { select: { name: true } },
+      reviewedBy: { select: { name: true } },
+      createdBy: { select: { name: true } },
       events: { include: { actor: { select: { name: true } } }, orderBy: { createdAt: "desc" } },
     },
   })
 
   if (!fmea) notFound()
 
-  const rows = (fmea.rows as Array<Record<string, unknown>>) ?? []
-  const canEdit = fmea.status === "DRAFT" || fmea.status === "IN_REVIEW"
-  const maxRpn = rows.length > 0 ? Math.max(...rows.map((r) => Number(r.rpn) || 0)) : 0
+  const rows = (fmea.rows as FmeaRow[] | null) ?? []
+  const maxRpn = getMaxRpn(rows)
+  const openActions = getOpenActionCount(rows)
+  const completedActions = getCompletedActionCount(rows)
+  const canSubmitFmea = canSubmit(fmea.status as FmeaStatus)
+  const overdue = isFmeaOverdue(fmea.dueDate, fmea.status as FmeaStatus)
+  const isSupplierAdminOrQe = ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Link href="/quality/supplier/fmea" className="hover:text-foreground">FMEA</Link>
         <span>/</span>
-        <span className="text-foreground">{fmea.title}</span>
+        <span className="text-foreground">{fmea.fmeaNumber}</span>
       </div>
 
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold tracking-tight text-foreground">{fmea.title}</h1>
-          <p className="text-sm text-muted-foreground">{fmea.fmeaType === "DESIGN" ? "DFMEA" : "PFMEA"} — {fmea.partNumber} — Rev {fmea.revisionNo}</p>
+          <p className="text-sm text-muted-foreground">
+            {FMEA_TYPE_LABELS[fmea.fmeaType]} — {fmea.partNumber} — Rev {fmea.revision ?? "A"}
+          </p>
         </div>
-        <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${fmea.status === "APPROVED" ? "bg-emerald-500/10 text-emerald-400" : fmea.status === "DRAFT" ? "bg-muted text-muted-foreground" : "bg-amber-500/10 text-amber-400"}`}>
-          {fmea.status.replace("_", " ")}
+        <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${getFmeaStatusColor(fmea.status as FmeaStatus)}`}>
+          {FMEA_STATUS_LABELS[fmea.status as FmeaStatus] ?? fmea.status.replace("_", " ")}
         </span>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-4">
           <div className="rounded-lg border bg-card p-4 space-y-3">
             <h2 className="text-sm font-medium text-foreground">Summary</h2>
             <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
               <dt className="text-muted-foreground">Type</dt>
-              <dd className="text-foreground">{fmea.fmeaType === "DESIGN" ? "Design FMEA" : "Process FMEA"}</dd>
+              <dd className="text-foreground">{fmea.fmeaType === "DESIGN" ? "Design FMEA (DFMEA)" : "Process FMEA (PFMEA)"}</dd>
               <dt className="text-muted-foreground">Part Number</dt>
               <dd className="text-foreground">{fmea.partNumber}</dd>
+              {fmea.partName && <><dt className="text-muted-foreground">Part Name</dt><dd className="text-foreground">{fmea.partName}</dd></>}
+              {fmea.processName && <><dt className="text-muted-foreground">Process</dt><dd className="text-foreground">{fmea.processName}</dd></>}
               <dt className="text-muted-foreground">OEM</dt>
               <dd className="text-foreground">{fmea.oem.name}</dd>
               <dt className="text-muted-foreground">Responsible</dt>
@@ -60,42 +73,96 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
               <dt className="text-muted-foreground">Total Rows</dt>
               <dd className="text-foreground">{rows.length}</dd>
               <dt className="text-muted-foreground">Max RPN</dt>
-              <dd className={`font-semibold ${maxRpn >= 200 ? "text-red-400" : maxRpn >= 100 ? "text-amber-400" : "text-emerald-400"}`}>{maxRpn}</dd>
+              <dd className={`font-semibold ${maxRpn >= 200 ? "text-red-400" : maxRpn >= 100 ? "text-amber-400" : "text-emerald-400"}`}>{maxRpn || "—"}</dd>
+              <dt className="text-muted-foreground">Open Actions</dt>
+              <dd className="text-foreground">{openActions}</dd>
+              <dt className="text-muted-foreground">Completed Actions</dt>
+              <dd className="text-foreground">{completedActions}</dd>
+              <dt className="text-muted-foreground">Due Date</dt>
+              <dd className={overdue ? "text-red-400" : "text-foreground"}>
+                {fmea.dueDate ? fmea.dueDate.toLocaleDateString() : "—"}
+                {overdue && " (Overdue)"}
+              </dd>
               <dt className="text-muted-foreground">Created</dt>
               <dd className="text-foreground">{fmea.createdAt.toLocaleDateString()}</dd>
+              {fmea.submittedAt && <><dt className="text-muted-foreground">Submitted</dt><dd className="text-foreground">{fmea.submittedAt.toLocaleDateString()}</dd></>}
+              {fmea.reviewedAt && <><dt className="text-muted-foreground">Reviewed</dt><dd className="text-foreground">{fmea.reviewedAt.toLocaleDateString()}</dd></>}
+              {fmea.approvedAt && <><dt className="text-muted-foreground">Approved</dt><dd className="text-foreground">{fmea.approvedAt.toLocaleDateString()}</dd></>}
+              {fmea.rejectionReason && <><dt className="text-muted-foreground">Rejection Reason</dt><dd className="text-red-400">{fmea.rejectionReason}</dd></>}
             </dl>
           </div>
 
-          <FmeaEditor
-            fmeaId={fmea.id}
-            initialRows={rows.map((r) => ({
-              id: String(r.id ?? ""),
-              processStep: r.processStep ? String(r.processStep) : undefined,
-              potentialFailureMode: String(r.potentialFailureMode ?? ""),
-              potentialEffect: String(r.potentialEffect ?? ""),
-              severity: Number(r.severity) || 5,
-              potentialCause: String(r.potentialCause ?? ""),
-              occurrence: Number(r.occurrence) || 3,
-              currentControl: String(r.currentControl ?? ""),
-              detection: Number(r.detection) || 5,
-              rpn: Number(r.rpn) || 0,
-              recommendedAction: String(r.recommendedAction ?? ""),
-            }))}
-            fmeaType={fmea.fmeaType}
-            canEdit={canEdit}
-            plan={session.user.plan}
-            partNumber={fmea.partNumber}
-            partName={fmea.partName}
-            processStep={fmea.processStep}
-          />
+          <div className="overflow-x-auto rounded-lg border bg-card">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-border bg-muted/50">
+                  {fmea.fmeaType === "PROCESS" && <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Step</th>}
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Failure Mode</th>
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Effect</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Sev</th>
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Cause</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Occ</th>
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Ctrl</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Det</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">RPN</th>
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Action</th>
+                  <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-20">Status</th>
+                  <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Supplier Comment</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {rows.map((row, i) => (
+                  <tr key={i} className={row.rpn >= 200 ? "bg-red-500/5" : row.rpn >= 100 ? "bg-amber-500/5" : ""}>
+                    {fmea.fmeaType === "PROCESS" && <td className="px-2 py-2 text-foreground">{row.processStep ?? "—"}</td>}
+                    <td className="px-2 py-2 text-foreground">{row.failureMode || "—"}</td>
+                    <td className="px-2 py-2 text-muted-foreground">{row.failureEffect || "—"}</td>
+                    <td className="px-2 py-2 text-center text-foreground">{row.severity}</td>
+                    <td className="px-2 py-2 text-muted-foreground">{row.failureCause || "—"}</td>
+                    <td className="px-2 py-2 text-center text-foreground">{row.occurrence}</td>
+                    <td className="px-2 py-2 text-muted-foreground">{(row.preventionControl ?? row.currentControl) || "—"}</td>
+                    <td className="px-2 py-2 text-center text-foreground">{row.detection}</td>
+                    <td className={`px-2 py-2 text-center font-semibold ${row.rpn >= 200 ? "text-red-400" : row.rpn >= 100 ? "text-amber-400" : "text-emerald-400"}`}>{row.rpn}</td>
+                    <td className="px-2 py-2 text-muted-foreground">{row.recommendedAction || "—"}</td>
+                    <td className="px-2 py-2">
+                          <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${getActionStatusColor((row.actionStatus ?? "OPEN") as FmeaActionStatus)}`}>
+                        {(row.actionStatus ?? "OPEN").replace("_", " ")}
+                      </span>
+                    </td>
+                    <td className="px-2 py-2 text-muted-foreground">{row.supplierComment || "—"}</td>
+                  </tr>
+                ))}
+                {rows.length === 0 && (
+                  <tr>
+                    <td colSpan={fmea.fmeaType === "PROCESS" ? 12 : 11} className="px-4 py-8 text-center text-sm text-muted-foreground">
+                      No rows added yet
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {fmea.notes && (
+            <div className="rounded-lg border bg-card p-4 space-y-2">
+              <h2 className="text-sm font-medium text-foreground">Notes</h2>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{fmea.notes}</p>
+            </div>
+          )}
         </div>
 
-        <div>
+        <div className="space-y-4">
+          {isSupplierAdminOrQe && canSubmitFmea && (
+            <div className="rounded-lg border bg-card p-4 space-y-3">
+              <h2 className="text-sm font-medium text-foreground">Actions</h2>
+              <SupplierFmeaActions fmeaId={fmea.id} status={fmea.status as FmeaStatus} />
+            </div>
+          )}
+
           {fmea.events.length > 0 && (
             <div className="rounded-lg border bg-card p-4 space-y-3">
               <h2 className="text-sm font-medium text-foreground">Activity</h2>
               <div className="space-y-2">
-                {fmea.events.slice(0, 10).map((e) => (
+                {fmea.events.slice(0, 20).map(e => (
                   <div key={e.id} className="flex items-center gap-2 text-xs">
                     <span className="text-muted-foreground">{e.createdAt.toLocaleDateString()}</span>
                     <span className="text-foreground">{e.type.replace(/_/g, " ").toLowerCase()}</span>
@@ -103,13 +170,6 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {fmea.notes && (
-            <div className="mt-4 rounded-lg border bg-card p-4 space-y-2">
-              <h2 className="text-sm font-medium text-foreground">Notes</h2>
-              <p className="text-sm text-muted-foreground">{fmea.notes}</p>
             </div>
           )}
         </div>

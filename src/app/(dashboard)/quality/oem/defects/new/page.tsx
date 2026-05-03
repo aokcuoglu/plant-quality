@@ -16,7 +16,7 @@ export default async function NewDefectPage() {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") redirect("/login")
 
-  const suppliers: Supplier[] = await getSuppliers()
+  const suppliers = await getSuppliers()
 
   return (
     <div className="mx-auto max-w-lg space-y-6">

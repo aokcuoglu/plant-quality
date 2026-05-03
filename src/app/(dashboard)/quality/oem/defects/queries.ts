@@ -132,11 +132,11 @@ export async function getSuppliers() {
     distinct: ["supplierId"],
   })
 
-  const supplierIds = new Set([
+  const supplierIds = new Set<string>([
     ...linkedSupplierIds.map((d) => d.supplierId),
     ...fieldDefectSupplierIds.map((d) => d.supplierId!).filter(Boolean),
     ...ppapSupplierIds.map((d) => d.supplierId),
-    ...fmeaSupplierIds.map((d) => d.supplierId),
+    ...fmeaSupplierIds.map((d) => d.supplierId).filter((s): s is string => s !== null),
     ...iqcSupplierIds.map((d) => d.supplierId),
   ])
 

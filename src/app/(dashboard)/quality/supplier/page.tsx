@@ -155,7 +155,7 @@ export default async function SupplierDashboardPage() {
       where: { supplierId: session.user.companyId, result: { in: ["REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"] } },
     }),
     prisma.fmea.count({
-      where: { supplierId: session.user.companyId, status: { in: ["DRAFT", "IN_REVIEW"] } },
+      where: { supplierId: session.user.companyId, status: { in: ["REQUESTED", "SUPPLIER_IN_PROGRESS", "REVISION_REQUIRED"] } },
     }),
   ])
 

@@ -20,6 +20,7 @@ import {
   SparklesIcon,
   EyeIcon,
   LightbulbIcon,
+  BanIcon,
 } from "lucide-react"
 
 type IconComponent = typeof PlusIcon
@@ -65,7 +66,11 @@ export const EVENT_META: Record<DefectEventType, EventMeta> = {
   IQC_RESULT_SET: { label: "Result Set", description: "IQC inspection result set", icon: ClipboardCheckIcon, iconColor: "text-amber-500" },
   FMEA_CREATED: { label: "FMEA Created", description: "FMEA analysis created", icon: ShieldAlertIcon, iconColor: "text-amber-500" },
   FMEA_UPDATED: { label: "FMEA Updated", description: "FMEA analysis updated", icon: SaveIcon, iconColor: "text-muted-foreground" },
+  FMEA_SUBMITTED: { label: "FMEA Submitted", description: "FMEA submitted for review", icon: SendIcon, iconColor: "text-blue-500" },
   FMEA_APPROVED: { label: "FMEA Approved", description: "FMEA analysis approved", icon: CheckIcon, iconColor: "text-green-600" },
+  FMEA_REJECTED: { label: "FMEA Rejected", description: "FMEA analysis rejected", icon: XCircleIcon, iconColor: "text-red-500" },
+  FMEA_REVISION_REQUESTED: { label: "FMEA Revision Requested", description: "FMEA revision requested by OEM", icon: RotateCcwIcon, iconColor: "text-amber-500" },
+  FMEA_CANCELLED: { label: "FMEA Cancelled", description: "FMEA analysis cancelled", icon: BanIcon, iconColor: "text-muted-foreground" },
   FIELD_DEFECT_CREATED: { label: "Field Defect Created", description: "Field defect report created", icon: PlusIcon, iconColor: "text-blue-500" },
   FIELD_DEFECT_STATUS_CHANGED: { label: "Status Changed", description: "Field defect status updated", icon: SaveIcon, iconColor: "text-muted-foreground" },
   FIELD_DEFECT_SUPPLIER_ASSIGNED: { label: "Supplier Assigned", description: "Supplier assigned to field defect", icon: UserIcon, iconColor: "text-blue-500" },

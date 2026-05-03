@@ -36,67 +36,91 @@ export type FmeaSumAggregateOutputType = {
 
 export type FmeaMinAggregateOutputType = {
   id: string | null
+  fmeaNumber: string | null
   title: string | null
   fmeaType: $Enums.FmeaType | null
   status: $Enums.FmeaStatus | null
   partNumber: string | null
   partName: string | null
-  processStep: string | null
+  processName: string | null
+  projectName: string | null
+  vehicleModel: string | null
+  revision: string | null
   oemId: string | null
   supplierId: string | null
   responsibleId: string | null
+  dueDate: Date | null
   defectId: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
+  reviewedById: string | null
   approvedAt: Date | null
   approvedById: string | null
+  rejectionReason: string | null
   revisionNo: number | null
   notes: string | null
+  createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type FmeaMaxAggregateOutputType = {
   id: string | null
+  fmeaNumber: string | null
   title: string | null
   fmeaType: $Enums.FmeaType | null
   status: $Enums.FmeaStatus | null
   partNumber: string | null
   partName: string | null
-  processStep: string | null
+  processName: string | null
+  projectName: string | null
+  vehicleModel: string | null
+  revision: string | null
   oemId: string | null
   supplierId: string | null
   responsibleId: string | null
+  dueDate: Date | null
   defectId: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
+  reviewedById: string | null
   approvedAt: Date | null
   approvedById: string | null
+  rejectionReason: string | null
   revisionNo: number | null
   notes: string | null
+  createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type FmeaCountAggregateOutputType = {
   id: number
+  fmeaNumber: number
   title: number
   fmeaType: number
   status: number
   partNumber: number
   partName: number
-  processStep: number
+  processName: number
+  projectName: number
+  vehicleModel: number
+  revision: number
   oemId: number
   supplierId: number
   responsibleId: number
+  dueDate: number
   defectId: number
   rows: number
   submittedAt: number
   reviewedAt: number
+  reviewedById: number
   approvedAt: number
   approvedById: number
+  rejectionReason: number
   revisionNo: number
   notes: number
+  createdById: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -113,67 +137,91 @@ export type FmeaSumAggregateInputType = {
 
 export type FmeaMinAggregateInputType = {
   id?: true
+  fmeaNumber?: true
   title?: true
   fmeaType?: true
   status?: true
   partNumber?: true
   partName?: true
-  processStep?: true
+  processName?: true
+  projectName?: true
+  vehicleModel?: true
+  revision?: true
   oemId?: true
   supplierId?: true
   responsibleId?: true
+  dueDate?: true
   defectId?: true
   submittedAt?: true
   reviewedAt?: true
+  reviewedById?: true
   approvedAt?: true
   approvedById?: true
+  rejectionReason?: true
   revisionNo?: true
   notes?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type FmeaMaxAggregateInputType = {
   id?: true
+  fmeaNumber?: true
   title?: true
   fmeaType?: true
   status?: true
   partNumber?: true
   partName?: true
-  processStep?: true
+  processName?: true
+  projectName?: true
+  vehicleModel?: true
+  revision?: true
   oemId?: true
   supplierId?: true
   responsibleId?: true
+  dueDate?: true
   defectId?: true
   submittedAt?: true
   reviewedAt?: true
+  reviewedById?: true
   approvedAt?: true
   approvedById?: true
+  rejectionReason?: true
   revisionNo?: true
   notes?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type FmeaCountAggregateInputType = {
   id?: true
+  fmeaNumber?: true
   title?: true
   fmeaType?: true
   status?: true
   partNumber?: true
   partName?: true
-  processStep?: true
+  processName?: true
+  projectName?: true
+  vehicleModel?: true
+  revision?: true
   oemId?: true
   supplierId?: true
   responsibleId?: true
+  dueDate?: true
   defectId?: true
   rows?: true
   submittedAt?: true
   reviewedAt?: true
+  reviewedById?: true
   approvedAt?: true
   approvedById?: true
+  rejectionReason?: true
   revisionNo?: true
   notes?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -267,23 +315,31 @@ export type FmeaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type FmeaGroupByOutputType = {
   id: string
+  fmeaNumber: string
   title: string
   fmeaType: $Enums.FmeaType
   status: $Enums.FmeaStatus
   partNumber: string
   partName: string | null
-  processStep: string | null
+  processName: string | null
+  projectName: string | null
+  vehicleModel: string | null
+  revision: string | null
   oemId: string
-  supplierId: string
+  supplierId: string | null
   responsibleId: string | null
+  dueDate: Date | null
   defectId: string | null
   rows: runtime.JsonValue | null
   submittedAt: Date | null
   reviewedAt: Date | null
+  reviewedById: string | null
   approvedAt: Date | null
   approvedById: string | null
+  rejectionReason: string | null
   revisionNo: number
   notes: string | null
+  createdById: string
   createdAt: Date
   updatedAt: Date
   _count: FmeaCountAggregateOutputType | null
@@ -313,64 +369,85 @@ export type FmeaWhereInput = {
   OR?: Prisma.FmeaWhereInput[]
   NOT?: Prisma.FmeaWhereInput | Prisma.FmeaWhereInput[]
   id?: Prisma.StringFilter<"Fmea"> | string
+  fmeaNumber?: Prisma.StringFilter<"Fmea"> | string
   title?: Prisma.StringFilter<"Fmea"> | string
   fmeaType?: Prisma.EnumFmeaTypeFilter<"Fmea"> | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFilter<"Fmea"> | $Enums.FmeaStatus
   partNumber?: Prisma.StringFilter<"Fmea"> | string
   partName?: Prisma.StringNullableFilter<"Fmea"> | string | null
-  processStep?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  processName?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  projectName?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  vehicleModel?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  revision?: Prisma.StringNullableFilter<"Fmea"> | string | null
   oemId?: Prisma.StringFilter<"Fmea"> | string
-  supplierId?: Prisma.StringFilter<"Fmea"> | string
+  supplierId?: Prisma.StringNullableFilter<"Fmea"> | string | null
   responsibleId?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   defectId?: Prisma.StringNullableFilter<"Fmea"> | string | null
   rows?: Prisma.JsonNullableFilter<"Fmea">
   submittedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
+  reviewedById?: Prisma.StringNullableFilter<"Fmea"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntFilter<"Fmea"> | number
   notes?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  createdById?: Prisma.StringFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
-  supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  supplier?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   responsible?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   defect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   events?: Prisma.FmeaEventListRelationFilter
 }
 
 export type FmeaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  fmeaNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fmeaType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrderInput | Prisma.SortOrder
-  processStep?: Prisma.SortOrderInput | Prisma.SortOrder
+  processName?: Prisma.SortOrderInput | Prisma.SortOrder
+  projectName?: Prisma.SortOrderInput | Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrderInput | Prisma.SortOrder
+  revision?: Prisma.SortOrderInput | Prisma.SortOrder
   oemId?: Prisma.SortOrder
-  supplierId?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   responsibleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   defectId?: Prisma.SortOrderInput | Prisma.SortOrder
   rows?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   oem?: Prisma.CompanyOrderByWithRelationInput
   supplier?: Prisma.CompanyOrderByWithRelationInput
   responsible?: Prisma.UserOrderByWithRelationInput
   defect?: Prisma.DefectOrderByWithRelationInput
+  reviewedBy?: Prisma.UserOrderByWithRelationInput
   approvedBy?: Prisma.UserOrderByWithRelationInput
+  createdBy?: Prisma.UserOrderByWithRelationInput
   events?: Prisma.FmeaEventOrderByRelationAggregateInput
 }
 
 export type FmeaWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  fmeaNumber?: string
   defectId?: string
   AND?: Prisma.FmeaWhereInput | Prisma.FmeaWhereInput[]
   OR?: Prisma.FmeaWhereInput[]
@@ -380,46 +457,63 @@ export type FmeaWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumFmeaStatusFilter<"Fmea"> | $Enums.FmeaStatus
   partNumber?: Prisma.StringFilter<"Fmea"> | string
   partName?: Prisma.StringNullableFilter<"Fmea"> | string | null
-  processStep?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  processName?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  projectName?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  vehicleModel?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  revision?: Prisma.StringNullableFilter<"Fmea"> | string | null
   oemId?: Prisma.StringFilter<"Fmea"> | string
-  supplierId?: Prisma.StringFilter<"Fmea"> | string
+  supplierId?: Prisma.StringNullableFilter<"Fmea"> | string | null
   responsibleId?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   rows?: Prisma.JsonNullableFilter<"Fmea">
   submittedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
+  reviewedById?: Prisma.StringNullableFilter<"Fmea"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntFilter<"Fmea"> | number
   notes?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  createdById?: Prisma.StringFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
-  supplier?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  supplier?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
   responsible?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   defect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   events?: Prisma.FmeaEventListRelationFilter
-}, "id" | "defectId">
+}, "id" | "fmeaNumber" | "defectId">
 
 export type FmeaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  fmeaNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fmeaType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrderInput | Prisma.SortOrder
-  processStep?: Prisma.SortOrderInput | Prisma.SortOrder
+  processName?: Prisma.SortOrderInput | Prisma.SortOrder
+  projectName?: Prisma.SortOrderInput | Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrderInput | Prisma.SortOrder
+  revision?: Prisma.SortOrderInput | Prisma.SortOrder
   oemId?: Prisma.SortOrder
-  supplierId?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   responsibleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   defectId?: Prisma.SortOrderInput | Prisma.SortOrder
   rows?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.FmeaCountOrderByAggregateInput
@@ -434,70 +528,94 @@ export type FmeaScalarWhereWithAggregatesInput = {
   OR?: Prisma.FmeaScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FmeaScalarWhereWithAggregatesInput | Prisma.FmeaScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
+  fmeaNumber?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
   title?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
   fmeaType?: Prisma.EnumFmeaTypeWithAggregatesFilter<"Fmea"> | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusWithAggregatesFilter<"Fmea"> | $Enums.FmeaStatus
   partNumber?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
   partName?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
-  processStep?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  processName?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  projectName?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  vehicleModel?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  revision?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
   oemId?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
-  supplierId?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
+  supplierId?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
   responsibleId?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  dueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Fmea"> | Date | string | null
   defectId?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
   rows?: Prisma.JsonNullableWithAggregatesFilter<"Fmea">
   submittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Fmea"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Fmea"> | Date | string | null
+  reviewedById?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Fmea"> | Date | string | null
   approvedById?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntWithAggregatesFilter<"Fmea"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  createdById?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Fmea"> | Date | string
 }
 
 export type FmeaCreateInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
-  supplier: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
   responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
   defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
   events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
 }
 
 export type FmeaUncheckedCreateInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -505,47 +623,63 @@ export type FmeaUncheckedCreateInput = {
 
 export type FmeaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
-  supplier?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
   responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
   defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
   events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
 }
 
 export type FmeaUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -553,39 +687,53 @@ export type FmeaUncheckedUpdateInput = {
 
 export type FmeaCreateManyInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type FmeaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -594,23 +742,31 @@ export type FmeaUpdateManyMutationInput = {
 
 export type FmeaUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -632,23 +788,31 @@ export type FmeaNullableScalarRelationFilter = {
 
 export type FmeaCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  fmeaNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fmeaType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
-  processStep?: Prisma.SortOrder
+  processName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   responsibleId?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   defectId?: Prisma.SortOrder
   rows?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -659,44 +823,60 @@ export type FmeaAvgOrderByAggregateInput = {
 
 export type FmeaMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  fmeaNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fmeaType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
-  processStep?: Prisma.SortOrder
+  processName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   responsibleId?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   defectId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type FmeaMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  fmeaNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   fmeaType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   partNumber?: Prisma.SortOrder
   partName?: Prisma.SortOrder
-  processStep?: Prisma.SortOrder
+  processName?: Prisma.SortOrder
+  projectName?: Prisma.SortOrder
+  vehicleModel?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   oemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   responsibleId?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   defectId?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   approvedById?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -808,6 +988,20 @@ export type FmeaCreateNestedManyWithoutApprovedByInput = {
   connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
 }
 
+export type FmeaCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutReviewedByInput, Prisma.FmeaUncheckedCreateWithoutReviewedByInput> | Prisma.FmeaCreateWithoutReviewedByInput[] | Prisma.FmeaUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutReviewedByInput | Prisma.FmeaCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.FmeaCreateManyReviewedByInputEnvelope
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+}
+
+export type FmeaCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutCreatedByInput, Prisma.FmeaUncheckedCreateWithoutCreatedByInput> | Prisma.FmeaCreateWithoutCreatedByInput[] | Prisma.FmeaUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutCreatedByInput | Prisma.FmeaCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.FmeaCreateManyCreatedByInputEnvelope
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+}
+
 export type FmeaUncheckedCreateNestedManyWithoutResponsibleInput = {
   create?: Prisma.XOR<Prisma.FmeaCreateWithoutResponsibleInput, Prisma.FmeaUncheckedCreateWithoutResponsibleInput> | Prisma.FmeaCreateWithoutResponsibleInput[] | Prisma.FmeaUncheckedCreateWithoutResponsibleInput[]
   connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutResponsibleInput | Prisma.FmeaCreateOrConnectWithoutResponsibleInput[]
@@ -819,6 +1013,20 @@ export type FmeaUncheckedCreateNestedManyWithoutApprovedByInput = {
   create?: Prisma.XOR<Prisma.FmeaCreateWithoutApprovedByInput, Prisma.FmeaUncheckedCreateWithoutApprovedByInput> | Prisma.FmeaCreateWithoutApprovedByInput[] | Prisma.FmeaUncheckedCreateWithoutApprovedByInput[]
   connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutApprovedByInput | Prisma.FmeaCreateOrConnectWithoutApprovedByInput[]
   createMany?: Prisma.FmeaCreateManyApprovedByInputEnvelope
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+}
+
+export type FmeaUncheckedCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutReviewedByInput, Prisma.FmeaUncheckedCreateWithoutReviewedByInput> | Prisma.FmeaCreateWithoutReviewedByInput[] | Prisma.FmeaUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutReviewedByInput | Prisma.FmeaCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.FmeaCreateManyReviewedByInputEnvelope
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+}
+
+export type FmeaUncheckedCreateNestedManyWithoutCreatedByInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutCreatedByInput, Prisma.FmeaUncheckedCreateWithoutCreatedByInput> | Prisma.FmeaCreateWithoutCreatedByInput[] | Prisma.FmeaUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutCreatedByInput | Prisma.FmeaCreateOrConnectWithoutCreatedByInput[]
+  createMany?: Prisma.FmeaCreateManyCreatedByInputEnvelope
   connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
 }
 
@@ -850,6 +1058,34 @@ export type FmeaUpdateManyWithoutApprovedByNestedInput = {
   deleteMany?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
 }
 
+export type FmeaUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutReviewedByInput, Prisma.FmeaUncheckedCreateWithoutReviewedByInput> | Prisma.FmeaCreateWithoutReviewedByInput[] | Prisma.FmeaUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutReviewedByInput | Prisma.FmeaCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.FmeaUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.FmeaUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.FmeaCreateManyReviewedByInputEnvelope
+  set?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  disconnect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  delete?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  update?: Prisma.FmeaUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.FmeaUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.FmeaUpdateManyWithWhereWithoutReviewedByInput | Prisma.FmeaUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
+}
+
+export type FmeaUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutCreatedByInput, Prisma.FmeaUncheckedCreateWithoutCreatedByInput> | Prisma.FmeaCreateWithoutCreatedByInput[] | Prisma.FmeaUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutCreatedByInput | Prisma.FmeaCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.FmeaUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.FmeaUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.FmeaCreateManyCreatedByInputEnvelope
+  set?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  disconnect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  delete?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  update?: Prisma.FmeaUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.FmeaUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.FmeaUpdateManyWithWhereWithoutCreatedByInput | Prisma.FmeaUpdateManyWithWhereWithoutCreatedByInput[]
+  deleteMany?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
+}
+
 export type FmeaUncheckedUpdateManyWithoutResponsibleNestedInput = {
   create?: Prisma.XOR<Prisma.FmeaCreateWithoutResponsibleInput, Prisma.FmeaUncheckedCreateWithoutResponsibleInput> | Prisma.FmeaCreateWithoutResponsibleInput[] | Prisma.FmeaUncheckedCreateWithoutResponsibleInput[]
   connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutResponsibleInput | Prisma.FmeaCreateOrConnectWithoutResponsibleInput[]
@@ -875,6 +1111,34 @@ export type FmeaUncheckedUpdateManyWithoutApprovedByNestedInput = {
   connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
   update?: Prisma.FmeaUpdateWithWhereUniqueWithoutApprovedByInput | Prisma.FmeaUpdateWithWhereUniqueWithoutApprovedByInput[]
   updateMany?: Prisma.FmeaUpdateManyWithWhereWithoutApprovedByInput | Prisma.FmeaUpdateManyWithWhereWithoutApprovedByInput[]
+  deleteMany?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
+}
+
+export type FmeaUncheckedUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutReviewedByInput, Prisma.FmeaUncheckedCreateWithoutReviewedByInput> | Prisma.FmeaCreateWithoutReviewedByInput[] | Prisma.FmeaUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutReviewedByInput | Prisma.FmeaCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.FmeaUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.FmeaUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.FmeaCreateManyReviewedByInputEnvelope
+  set?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  disconnect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  delete?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  update?: Prisma.FmeaUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.FmeaUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.FmeaUpdateManyWithWhereWithoutReviewedByInput | Prisma.FmeaUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
+}
+
+export type FmeaUncheckedUpdateManyWithoutCreatedByNestedInput = {
+  create?: Prisma.XOR<Prisma.FmeaCreateWithoutCreatedByInput, Prisma.FmeaUncheckedCreateWithoutCreatedByInput> | Prisma.FmeaCreateWithoutCreatedByInput[] | Prisma.FmeaUncheckedCreateWithoutCreatedByInput[]
+  connectOrCreate?: Prisma.FmeaCreateOrConnectWithoutCreatedByInput | Prisma.FmeaCreateOrConnectWithoutCreatedByInput[]
+  upsert?: Prisma.FmeaUpsertWithWhereUniqueWithoutCreatedByInput | Prisma.FmeaUpsertWithWhereUniqueWithoutCreatedByInput[]
+  createMany?: Prisma.FmeaCreateManyCreatedByInputEnvelope
+  set?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  disconnect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  delete?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  connect?: Prisma.FmeaWhereUniqueInput | Prisma.FmeaWhereUniqueInput[]
+  update?: Prisma.FmeaUpdateWithWhereUniqueWithoutCreatedByInput | Prisma.FmeaUpdateWithWhereUniqueWithoutCreatedByInput[]
+  updateMany?: Prisma.FmeaUpdateManyWithWhereWithoutCreatedByInput | Prisma.FmeaUpdateManyWithWhereWithoutCreatedByInput[]
   deleteMany?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
 }
 
@@ -934,45 +1198,61 @@ export type FmeaUpdateOneRequiredWithoutEventsNestedInput = {
 
 export type FmeaCreateWithoutOemInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  supplier: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
   responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
   defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
   events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
 }
 
 export type FmeaUncheckedCreateWithoutOemInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
-  supplierId: string
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -990,16 +1270,22 @@ export type FmeaCreateManyOemInputEnvelope = {
 
 export type FmeaCreateWithoutSupplierInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
@@ -1007,28 +1293,38 @@ export type FmeaCreateWithoutSupplierInput = {
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
   responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
   defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
   events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
 }
 
 export type FmeaUncheckedCreateWithoutSupplierInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -1065,23 +1361,31 @@ export type FmeaScalarWhereInput = {
   OR?: Prisma.FmeaScalarWhereInput[]
   NOT?: Prisma.FmeaScalarWhereInput | Prisma.FmeaScalarWhereInput[]
   id?: Prisma.StringFilter<"Fmea"> | string
+  fmeaNumber?: Prisma.StringFilter<"Fmea"> | string
   title?: Prisma.StringFilter<"Fmea"> | string
   fmeaType?: Prisma.EnumFmeaTypeFilter<"Fmea"> | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFilter<"Fmea"> | $Enums.FmeaStatus
   partNumber?: Prisma.StringFilter<"Fmea"> | string
   partName?: Prisma.StringNullableFilter<"Fmea"> | string | null
-  processStep?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  processName?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  projectName?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  vehicleModel?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  revision?: Prisma.StringNullableFilter<"Fmea"> | string | null
   oemId?: Prisma.StringFilter<"Fmea"> | string
-  supplierId?: Prisma.StringFilter<"Fmea"> | string
+  supplierId?: Prisma.StringNullableFilter<"Fmea"> | string | null
   responsibleId?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   defectId?: Prisma.StringNullableFilter<"Fmea"> | string | null
   rows?: Prisma.JsonNullableFilter<"Fmea">
   submittedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
+  reviewedById?: Prisma.StringNullableFilter<"Fmea"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Fmea"> | Date | string | null
   approvedById?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntFilter<"Fmea"> | number
   notes?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  createdById?: Prisma.StringFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
 }
@@ -1104,45 +1408,61 @@ export type FmeaUpdateManyWithWhereWithoutSupplierInput = {
 
 export type FmeaCreateWithoutResponsibleInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
-  supplier: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
   defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
   events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
 }
 
 export type FmeaUncheckedCreateWithoutResponsibleInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -1160,45 +1480,61 @@ export type FmeaCreateManyResponsibleInputEnvelope = {
 
 export type FmeaCreateWithoutApprovedByInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
-  supplier: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
   responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
   defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
   events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
 }
 
 export type FmeaUncheckedCreateWithoutApprovedByInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -1211,6 +1547,150 @@ export type FmeaCreateOrConnectWithoutApprovedByInput = {
 
 export type FmeaCreateManyApprovedByInputEnvelope = {
   data: Prisma.FmeaCreateManyApprovedByInput | Prisma.FmeaCreateManyApprovedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type FmeaCreateWithoutReviewedByInput = {
+  id?: string
+  fmeaNumber: string
+  title: string
+  fmeaType?: $Enums.FmeaType
+  status?: $Enums.FmeaStatus
+  partNumber: string
+  partName?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNo?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
+  defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
+  events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
+}
+
+export type FmeaUncheckedCreateWithoutReviewedByInput = {
+  id?: string
+  fmeaNumber: string
+  title: string
+  fmeaType?: $Enums.FmeaType
+  status?: $Enums.FmeaStatus
+  partNumber: string
+  partName?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  oemId: string
+  supplierId?: string | null
+  responsibleId?: string | null
+  dueDate?: Date | string | null
+  defectId?: string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  approvedById?: string | null
+  rejectionReason?: string | null
+  revisionNo?: number
+  notes?: string | null
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
+}
+
+export type FmeaCreateOrConnectWithoutReviewedByInput = {
+  where: Prisma.FmeaWhereUniqueInput
+  create: Prisma.XOR<Prisma.FmeaCreateWithoutReviewedByInput, Prisma.FmeaUncheckedCreateWithoutReviewedByInput>
+}
+
+export type FmeaCreateManyReviewedByInputEnvelope = {
+  data: Prisma.FmeaCreateManyReviewedByInput | Prisma.FmeaCreateManyReviewedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type FmeaCreateWithoutCreatedByInput = {
+  id?: string
+  fmeaNumber: string
+  title: string
+  fmeaType?: $Enums.FmeaType
+  status?: $Enums.FmeaStatus
+  partNumber: string
+  partName?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNo?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
+  defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
+  approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
+}
+
+export type FmeaUncheckedCreateWithoutCreatedByInput = {
+  id?: string
+  fmeaNumber: string
+  title: string
+  fmeaType?: $Enums.FmeaType
+  status?: $Enums.FmeaStatus
+  partNumber: string
+  partName?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  oemId: string
+  supplierId?: string | null
+  responsibleId?: string | null
+  dueDate?: Date | string | null
+  defectId?: string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  approvedAt?: Date | string | null
+  approvedById?: string | null
+  rejectionReason?: string | null
+  revisionNo?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
+}
+
+export type FmeaCreateOrConnectWithoutCreatedByInput = {
+  where: Prisma.FmeaWhereUniqueInput
+  create: Prisma.XOR<Prisma.FmeaCreateWithoutCreatedByInput, Prisma.FmeaUncheckedCreateWithoutCreatedByInput>
+}
+
+export type FmeaCreateManyCreatedByInputEnvelope = {
+  data: Prisma.FmeaCreateManyCreatedByInput | Prisma.FmeaCreateManyCreatedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -1246,47 +1726,95 @@ export type FmeaUpdateManyWithWhereWithoutApprovedByInput = {
   data: Prisma.XOR<Prisma.FmeaUpdateManyMutationInput, Prisma.FmeaUncheckedUpdateManyWithoutApprovedByInput>
 }
 
+export type FmeaUpsertWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.FmeaWhereUniqueInput
+  update: Prisma.XOR<Prisma.FmeaUpdateWithoutReviewedByInput, Prisma.FmeaUncheckedUpdateWithoutReviewedByInput>
+  create: Prisma.XOR<Prisma.FmeaCreateWithoutReviewedByInput, Prisma.FmeaUncheckedCreateWithoutReviewedByInput>
+}
+
+export type FmeaUpdateWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.FmeaWhereUniqueInput
+  data: Prisma.XOR<Prisma.FmeaUpdateWithoutReviewedByInput, Prisma.FmeaUncheckedUpdateWithoutReviewedByInput>
+}
+
+export type FmeaUpdateManyWithWhereWithoutReviewedByInput = {
+  where: Prisma.FmeaScalarWhereInput
+  data: Prisma.XOR<Prisma.FmeaUpdateManyMutationInput, Prisma.FmeaUncheckedUpdateManyWithoutReviewedByInput>
+}
+
+export type FmeaUpsertWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.FmeaWhereUniqueInput
+  update: Prisma.XOR<Prisma.FmeaUpdateWithoutCreatedByInput, Prisma.FmeaUncheckedUpdateWithoutCreatedByInput>
+  create: Prisma.XOR<Prisma.FmeaCreateWithoutCreatedByInput, Prisma.FmeaUncheckedCreateWithoutCreatedByInput>
+}
+
+export type FmeaUpdateWithWhereUniqueWithoutCreatedByInput = {
+  where: Prisma.FmeaWhereUniqueInput
+  data: Prisma.XOR<Prisma.FmeaUpdateWithoutCreatedByInput, Prisma.FmeaUncheckedUpdateWithoutCreatedByInput>
+}
+
+export type FmeaUpdateManyWithWhereWithoutCreatedByInput = {
+  where: Prisma.FmeaScalarWhereInput
+  data: Prisma.XOR<Prisma.FmeaUpdateManyMutationInput, Prisma.FmeaUncheckedUpdateManyWithoutCreatedByInput>
+}
+
 export type FmeaCreateWithoutDefectInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
-  supplier: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
   responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
   events?: Prisma.FmeaEventCreateNestedManyWithoutFmeaInput
 }
 
 export type FmeaUncheckedCreateWithoutDefectInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -1310,45 +1838,61 @@ export type FmeaUpdateToOneWithWhereWithoutDefectInput = {
 
 export type FmeaUpdateWithoutDefectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
-  supplier?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
   responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
   events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
 }
 
 export type FmeaUncheckedUpdateWithoutDefectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -1356,46 +1900,62 @@ export type FmeaUncheckedUpdateWithoutDefectInput = {
 
 export type FmeaCreateWithoutEventsInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  dueDate?: Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
-  supplier: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
+  supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
   responsible?: Prisma.UserCreateNestedOneWithoutFmeaResponsibleInput
   defect?: Prisma.DefectCreateNestedOneWithoutFmeaInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutFmeaReviewedByInput
   approvedBy?: Prisma.UserCreateNestedOneWithoutFmeaApprovedByInput
+  createdBy: Prisma.UserCreateNestedOneWithoutFmeaCreatedByInput
 }
 
 export type FmeaUncheckedCreateWithoutEventsInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1418,135 +1978,183 @@ export type FmeaUpdateToOneWithWhereWithoutEventsInput = {
 
 export type FmeaUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
-  supplier?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
   responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
   defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
 }
 
 export type FmeaUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FmeaCreateManyOemInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
-  supplierId: string
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type FmeaCreateManySupplierInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
   responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type FmeaUpdateWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  supplier?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
   responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
   defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
   events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
 }
 
 export type FmeaUncheckedUpdateWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -1554,38 +2162,52 @@ export type FmeaUncheckedUpdateWithoutOemInput = {
 
 export type FmeaUncheckedUpdateManyWithoutOemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FmeaUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1593,28 +2215,38 @@ export type FmeaUpdateWithoutSupplierInput = {
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
   responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
   defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
   events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
 }
 
 export type FmeaUncheckedUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -1622,64 +2254,148 @@ export type FmeaUncheckedUpdateWithoutSupplierInput = {
 
 export type FmeaUncheckedUpdateManyWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FmeaCreateManyResponsibleInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
+  reviewedById?: string | null
   approvedAt?: Date | string | null
   approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type FmeaCreateManyApprovedByInput = {
   id?: string
+  fmeaNumber: string
   title: string
   fmeaType?: $Enums.FmeaType
   status?: $Enums.FmeaStatus
   partNumber: string
   partName?: string | null
-  processStep?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
   oemId: string
-  supplierId: string
+  supplierId?: string | null
   responsibleId?: string | null
+  dueDate?: Date | string | null
+  defectId?: string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  approvedAt?: Date | string | null
+  rejectionReason?: string | null
+  revisionNo?: number
+  notes?: string | null
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FmeaCreateManyReviewedByInput = {
+  id?: string
+  fmeaNumber: string
+  title: string
+  fmeaType?: $Enums.FmeaType
+  status?: $Enums.FmeaStatus
+  partNumber: string
+  partName?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  oemId: string
+  supplierId?: string | null
+  responsibleId?: string | null
+  dueDate?: Date | string | null
   defectId?: string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string | null
   reviewedAt?: Date | string | null
   approvedAt?: Date | string | null
+  approvedById?: string | null
+  rejectionReason?: string | null
+  revisionNo?: number
+  notes?: string | null
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type FmeaCreateManyCreatedByInput = {
+  id?: string
+  fmeaNumber: string
+  title: string
+  fmeaType?: $Enums.FmeaType
+  status?: $Enums.FmeaStatus
+  partNumber: string
+  partName?: string | null
+  processName?: string | null
+  projectName?: string | null
+  vehicleModel?: string | null
+  revision?: string | null
+  oemId: string
+  supplierId?: string | null
+  responsibleId?: string | null
+  dueDate?: Date | string | null
+  defectId?: string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  approvedAt?: Date | string | null
+  approvedById?: string | null
+  rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
   createdAt?: Date | string
@@ -1688,45 +2404,61 @@ export type FmeaCreateManyApprovedByInput = {
 
 export type FmeaUpdateWithoutResponsibleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
-  supplier?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
   defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
   approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
   events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
 }
 
 export type FmeaUncheckedUpdateWithoutResponsibleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -1734,67 +2466,91 @@ export type FmeaUncheckedUpdateWithoutResponsibleInput = {
 
 export type FmeaUncheckedUpdateManyWithoutResponsibleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FmeaUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
-  supplier?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsSupNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
   responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
   defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
   events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
 }
 
 export type FmeaUncheckedUpdateWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -1802,20 +2558,212 @@ export type FmeaUncheckedUpdateWithoutApprovedByInput = {
 
 export type FmeaUncheckedUpdateManyWithoutApprovedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
   status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
   partNumber?: Prisma.StringFieldUpdateOperationsInput | string
   partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processStep?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   oemId?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FmeaUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
+  status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
+  responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
+  defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutFmeaCreatedByNestedInput
+  events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
+}
+
+export type FmeaUncheckedUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
+  status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
+}
+
+export type FmeaUncheckedUpdateManyWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
+  status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type FmeaUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
+  status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
+  responsible?: Prisma.UserUpdateOneWithoutFmeaResponsibleNestedInput
+  defect?: Prisma.DefectUpdateOneWithoutFmeaNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutFmeaReviewedByNestedInput
+  approvedBy?: Prisma.UserUpdateOneWithoutFmeaApprovedByNestedInput
+  events?: Prisma.FmeaEventUpdateManyWithoutFmeaNestedInput
+}
+
+export type FmeaUncheckedUpdateWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
+  status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
+}
+
+export type FmeaUncheckedUpdateManyWithoutCreatedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  fmeaType?: Prisma.EnumFmeaTypeFieldUpdateOperationsInput | $Enums.FmeaType
+  status?: Prisma.EnumFmeaStatusFieldUpdateOperationsInput | $Enums.FmeaStatus
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  partName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsibleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  defectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1855,167 +2803,221 @@ export type FmeaCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Ext
 
 export type FmeaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  fmeaNumber?: boolean
   title?: boolean
   fmeaType?: boolean
   status?: boolean
   partNumber?: boolean
   partName?: boolean
-  processStep?: boolean
+  processName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revision?: boolean
   oemId?: boolean
   supplierId?: boolean
   responsibleId?: boolean
+  dueDate?: boolean
   defectId?: boolean
   rows?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   approvedById?: boolean
+  rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
   responsible?: boolean | Prisma.Fmea$responsibleArgs<ExtArgs>
   defect?: boolean | Prisma.Fmea$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.Fmea$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.Fmea$approvedByArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   events?: boolean | Prisma.Fmea$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.FmeaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fmea"]>
 
 export type FmeaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  fmeaNumber?: boolean
   title?: boolean
   fmeaType?: boolean
   status?: boolean
   partNumber?: boolean
   partName?: boolean
-  processStep?: boolean
+  processName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revision?: boolean
   oemId?: boolean
   supplierId?: boolean
   responsibleId?: boolean
+  dueDate?: boolean
   defectId?: boolean
   rows?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   approvedById?: boolean
+  rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
   responsible?: boolean | Prisma.Fmea$responsibleArgs<ExtArgs>
   defect?: boolean | Prisma.Fmea$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.Fmea$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.Fmea$approvedByArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fmea"]>
 
 export type FmeaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  fmeaNumber?: boolean
   title?: boolean
   fmeaType?: boolean
   status?: boolean
   partNumber?: boolean
   partName?: boolean
-  processStep?: boolean
+  processName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revision?: boolean
   oemId?: boolean
   supplierId?: boolean
   responsibleId?: boolean
+  dueDate?: boolean
   defectId?: boolean
   rows?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   approvedById?: boolean
+  rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
   responsible?: boolean | Prisma.Fmea$responsibleArgs<ExtArgs>
   defect?: boolean | Prisma.Fmea$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.Fmea$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.Fmea$approvedByArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fmea"]>
 
 export type FmeaSelectScalar = {
   id?: boolean
+  fmeaNumber?: boolean
   title?: boolean
   fmeaType?: boolean
   status?: boolean
   partNumber?: boolean
   partName?: boolean
-  processStep?: boolean
+  processName?: boolean
+  projectName?: boolean
+  vehicleModel?: boolean
+  revision?: boolean
   oemId?: boolean
   supplierId?: boolean
   responsibleId?: boolean
+  dueDate?: boolean
   defectId?: boolean
   rows?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
+  reviewedById?: boolean
   approvedAt?: boolean
   approvedById?: boolean
+  rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FmeaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "fmeaType" | "status" | "partNumber" | "partName" | "processStep" | "oemId" | "supplierId" | "responsibleId" | "defectId" | "rows" | "submittedAt" | "reviewedAt" | "approvedAt" | "approvedById" | "revisionNo" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["fmea"]>
+export type FmeaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fmeaNumber" | "title" | "fmeaType" | "status" | "partNumber" | "partName" | "processName" | "projectName" | "vehicleModel" | "revision" | "oemId" | "supplierId" | "responsibleId" | "dueDate" | "defectId" | "rows" | "submittedAt" | "reviewedAt" | "reviewedById" | "approvedAt" | "approvedById" | "rejectionReason" | "revisionNo" | "notes" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["fmea"]>
 export type FmeaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
   responsible?: boolean | Prisma.Fmea$responsibleArgs<ExtArgs>
   defect?: boolean | Prisma.Fmea$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.Fmea$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.Fmea$approvedByArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   events?: boolean | Prisma.Fmea$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.FmeaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FmeaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
   responsible?: boolean | Prisma.Fmea$responsibleArgs<ExtArgs>
   defect?: boolean | Prisma.Fmea$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.Fmea$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.Fmea$approvedByArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type FmeaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
   responsible?: boolean | Prisma.Fmea$responsibleArgs<ExtArgs>
   defect?: boolean | Prisma.Fmea$defectArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.Fmea$reviewedByArgs<ExtArgs>
   approvedBy?: boolean | Prisma.Fmea$approvedByArgs<ExtArgs>
+  createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $FmeaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Fmea"
   objects: {
     oem: Prisma.$CompanyPayload<ExtArgs>
-    supplier: Prisma.$CompanyPayload<ExtArgs>
+    supplier: Prisma.$CompanyPayload<ExtArgs> | null
     responsible: Prisma.$UserPayload<ExtArgs> | null
     defect: Prisma.$DefectPayload<ExtArgs> | null
+    reviewedBy: Prisma.$UserPayload<ExtArgs> | null
     approvedBy: Prisma.$UserPayload<ExtArgs> | null
+    createdBy: Prisma.$UserPayload<ExtArgs>
     events: Prisma.$FmeaEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    fmeaNumber: string
     title: string
     fmeaType: $Enums.FmeaType
     status: $Enums.FmeaStatus
     partNumber: string
     partName: string | null
-    processStep: string | null
+    processName: string | null
+    projectName: string | null
+    vehicleModel: string | null
+    revision: string | null
     oemId: string
-    supplierId: string
+    supplierId: string | null
     responsibleId: string | null
+    dueDate: Date | null
     defectId: string | null
     rows: runtime.JsonValue | null
     submittedAt: Date | null
     reviewedAt: Date | null
+    reviewedById: string | null
     approvedAt: Date | null
     approvedById: string | null
+    rejectionReason: string | null
     revisionNo: number
     notes: string | null
+    createdById: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["fmea"]>
@@ -2413,10 +3415,12 @@ readonly fields: FmeaFieldRefs;
 export interface Prisma__FmeaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   oem<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  supplier<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  supplier<T extends Prisma.Fmea$supplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fmea$supplierArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   responsible<T extends Prisma.Fmea$responsibleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fmea$responsibleArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   defect<T extends Prisma.Fmea$defectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fmea$defectArgs<ExtArgs>>): Prisma.Prisma__DefectClient<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  reviewedBy<T extends Prisma.Fmea$reviewedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fmea$reviewedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approvedBy<T extends Prisma.Fmea$approvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fmea$approvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.Fmea$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Fmea$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FmeaEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2448,23 +3452,31 @@ export interface Prisma__FmeaClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface FmeaFieldRefs {
   readonly id: Prisma.FieldRef<"Fmea", 'String'>
+  readonly fmeaNumber: Prisma.FieldRef<"Fmea", 'String'>
   readonly title: Prisma.FieldRef<"Fmea", 'String'>
   readonly fmeaType: Prisma.FieldRef<"Fmea", 'FmeaType'>
   readonly status: Prisma.FieldRef<"Fmea", 'FmeaStatus'>
   readonly partNumber: Prisma.FieldRef<"Fmea", 'String'>
   readonly partName: Prisma.FieldRef<"Fmea", 'String'>
-  readonly processStep: Prisma.FieldRef<"Fmea", 'String'>
+  readonly processName: Prisma.FieldRef<"Fmea", 'String'>
+  readonly projectName: Prisma.FieldRef<"Fmea", 'String'>
+  readonly vehicleModel: Prisma.FieldRef<"Fmea", 'String'>
+  readonly revision: Prisma.FieldRef<"Fmea", 'String'>
   readonly oemId: Prisma.FieldRef<"Fmea", 'String'>
   readonly supplierId: Prisma.FieldRef<"Fmea", 'String'>
   readonly responsibleId: Prisma.FieldRef<"Fmea", 'String'>
+  readonly dueDate: Prisma.FieldRef<"Fmea", 'DateTime'>
   readonly defectId: Prisma.FieldRef<"Fmea", 'String'>
   readonly rows: Prisma.FieldRef<"Fmea", 'Json'>
   readonly submittedAt: Prisma.FieldRef<"Fmea", 'DateTime'>
   readonly reviewedAt: Prisma.FieldRef<"Fmea", 'DateTime'>
+  readonly reviewedById: Prisma.FieldRef<"Fmea", 'String'>
   readonly approvedAt: Prisma.FieldRef<"Fmea", 'DateTime'>
   readonly approvedById: Prisma.FieldRef<"Fmea", 'String'>
+  readonly rejectionReason: Prisma.FieldRef<"Fmea", 'String'>
   readonly revisionNo: Prisma.FieldRef<"Fmea", 'Int'>
   readonly notes: Prisma.FieldRef<"Fmea", 'String'>
+  readonly createdById: Prisma.FieldRef<"Fmea", 'String'>
   readonly createdAt: Prisma.FieldRef<"Fmea", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Fmea", 'DateTime'>
 }
@@ -2868,6 +3880,25 @@ export type FmeaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Fmea.supplier
+ */
+export type Fmea$supplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
  * Fmea.responsible
  */
 export type Fmea$responsibleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2903,6 +3934,25 @@ export type Fmea$defectArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   include?: Prisma.DefectInclude<ExtArgs> | null
   where?: Prisma.DefectWhereInput
+}
+
+/**
+ * Fmea.reviewedBy
+ */
+export type Fmea$reviewedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

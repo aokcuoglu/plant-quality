@@ -53,7 +53,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
   const manualLinks = canUseLinkage
     ? await prisma.qualityRecordLink.findMany({
         where: {
-          companyId: session.user.companyId,
+          companyId: fmea.oemId,
           OR: [
             { sourceType: "FMEA", sourceId: id },
             { targetType: "FMEA", targetId: id },

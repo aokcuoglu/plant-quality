@@ -1,3 +1,60 @@
+# PlantQuality v2.5.1 — Release Notes
+
+## Quality Linkage Manual Link UI + Supplier Revalidation Polish
+
+**Release Date:** 2026-05-03  
+**Version:** 2.5.1
+
+---
+
+## Summary
+
+PlantQuality v2.5.1 wires the manual link/unlink UI for OEM Admin/QE users, fixes the supplier manual-links query to use the correct OEM companyId context, and adds supplier detail revalidation paths so that manual link changes are immediately reflected on supplier pages. No AI linkage, graph visualization, or new features are introduced.
+
+---
+
+## Changes
+
+### Manual Link/Unlink UI Wired for OEM Users
+
+- OEM Admin and Quality Engineer users can now create manual links from any OEM detail page (Field Defect, IQC, FMEA, PPAP, Defect/8D)
+- The "Link Record" button and unlink action were already implemented in `RelatedQualityRecordsPanel` but the `onCreateLink` and `onRemoveLink` props were not passed from any detail page
+- All 5 OEM detail pages now pass `createManualQualityLink` and `removeManualQualityLink` server actions to the panel
+- Supplier users remain read-only (`canLink={false}`) and cannot create or remove manual links
+
+### Supplier Manual-Links Query Fix
+
+- All 5 supplier detail pages queried `qualityRecordLink` with `companyId: session.user.companyId` (the supplier's own company ID)
+- `qualityRecordLink.companyId` stores the OEM ID, so supplier queries always returned zero manual links
+- Fixed to use the record's `oemId` as the companyId, matching the OEM context of the links
+- Supplier visibility filtering remains intact — `resolveRecord()` in `find-related.ts` continues to apply supplier scope
+
+### Supplier Detail Revalidation Paths
+
+- `revalidateRelatedPaths` in `manual-links.ts` previously only revalidated OEM detail routes
+- Supplier detail routes (`/quality/supplier/field/[id]`, `/quality/supplier/defects/[id]`, `/quality/supplier/ppap/[id]`, `/quality/supplier/iqc/[id]`, `/quality/supplier/fmea/[id]`) are now included
+- Manual link changes are immediately reflected on both OEM and supplier pages
+
+### Security
+
+- Manual link/unlink remains tenant-scoped — server actions verify both source and target records belong to the session user's OEM companyId
+- Supplier users are blocked at the server action level (`companyType !== "OEM"` check)
+- Quality Linkage feature gating via `requireFeature("QUALITY_LINKAGE")` is enforced
+- No cross-tenant or cross-supplier leakage introduced
+
+---
+
+## Deferred
+
+The following remain explicitly out of scope:
+
+- AI linkage suggestions / semantic matching
+- Supplier scorecard
+- Full graph visualization
+- ERP/MRP/PLM integration
+
+---
+
 # PlantQuality v2.5.0 — Release Notes
 
 ## Quality Linkage Layer

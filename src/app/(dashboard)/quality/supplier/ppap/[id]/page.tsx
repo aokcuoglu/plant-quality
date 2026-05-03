@@ -45,7 +45,7 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
   const manualLinks = canUseLinkage
     ? await prisma.qualityRecordLink.findMany({
         where: {
-          companyId: session.user.companyId,
+          companyId: ppap.oemId,
           OR: [
             { sourceType: "PPAP", sourceId: id },
             { targetType: "PPAP", targetId: id },

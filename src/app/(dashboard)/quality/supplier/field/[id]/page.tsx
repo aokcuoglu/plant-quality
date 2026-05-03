@@ -53,7 +53,7 @@ export default async function SupplierFieldDetailPage({
   const manualLinks = canUseLinkage
     ? await prisma.qualityRecordLink.findMany({
         where: {
-          companyId: session.user.companyId,
+          companyId: fd.oemId,
           OR: [
             { sourceType: "FIELD_DEFECT", sourceId: id },
             { targetType: "FIELD_DEFECT", targetId: id },

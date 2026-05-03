@@ -8,7 +8,7 @@ import { PpapDetailActions } from "./PpapDetailActions"
 import { PpapDocumentReview } from "./PpapDocumentReview"
 import { PpapReviewCommentForm } from "./PpapReviewCommentForm"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
-import { findRelatedForPpap } from "@/lib/quality-linkage"
+import { findRelatedForPpap, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function OemPpapDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -239,6 +239,8 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
               sourceType="PPAP"
               sourceId={id}
               canLink={["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)}
+              onCreateLink={createManualQualityLink}
+              onRemoveLink={removeManualQualityLink}
               manualLinks={manualLinks.map((l) => ({
                 id: l.id,
                 sourceType: l.sourceType,

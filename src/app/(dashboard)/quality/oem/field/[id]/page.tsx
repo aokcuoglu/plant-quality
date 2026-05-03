@@ -23,7 +23,7 @@ import { formatDueDate } from "@/lib/sla"
 import { getFieldDefectSlaStatus, getFieldDefectActiveDueDate } from "@/lib/sla-field-defect"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { findSimilarIssues } from "@/lib/ai/similar-issues"
-import { findRelatedForFieldDefect } from "@/lib/quality-linkage"
+import { findRelatedForFieldDefect, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function OemFieldDetailPage({
@@ -472,6 +472,8 @@ export default async function OemFieldDetailPage({
               sourceType="FIELD_DEFECT"
               sourceId={id}
               canLink={canEdit}
+              onCreateLink={createManualQualityLink}
+              onRemoveLink={removeManualQualityLink}
               manualLinks={manualLinks.map((l) => ({
                 id: l.id,
                 sourceType: l.sourceType,

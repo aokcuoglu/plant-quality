@@ -7,7 +7,7 @@ import { getOpenActionCount, getCompletedActionCount, getMaxRpn, type FmeaRow } 
 import { FmeaRowEditor } from "./FmeaRowEditor"
 import { FmeaDetailActions } from "./FmeaDetailActions"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
-import { findRelatedForFmea } from "@/lib/quality-linkage"
+import { findRelatedForFmea, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 import { normalizePlan, canUseFeature } from "@/lib/billing"
 import type { FmeaStatus, FmeaActionStatus } from "@/generated/prisma/client"
@@ -198,6 +198,8 @@ export default async function OemFmeaDetailPage({ params }: { params: Promise<{ 
               sourceType="FMEA"
               sourceId={id}
               canLink={isOemAdminOrQe}
+              onCreateLink={createManualQualityLink}
+              onRemoveLink={removeManualQualityLink}
               manualLinks={manualLinks.map((l) => ({
                 id: l.id,
                 sourceType: l.sourceType,

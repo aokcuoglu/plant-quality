@@ -48,7 +48,7 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
   const manualLinks = canUseLinkage
     ? await prisma.qualityRecordLink.findMany({
         where: {
-          companyId: session.user.companyId,
+          companyId: report.oemId,
           OR: [
             { sourceType: "IQC", sourceId: id },
             { targetType: "IQC", targetId: id },

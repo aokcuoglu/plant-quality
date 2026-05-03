@@ -10,7 +10,7 @@ import { CompleteInspectionDialog } from "./complete-dialog"
 import { CancelInspectionButton } from "./cancel-button"
 import { CreateDefectFromIqcButton } from "./create-defect-button"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
-import { findRelatedForIqc } from "@/lib/quality-linkage"
+import { findRelatedForIqc, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 
 export default async function OemIqcDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -166,6 +166,8 @@ export default async function OemIqcDetailPage({ params }: { params: Promise<{ i
               sourceType="IQC"
               sourceId={id}
               canLink={canManageIqc(session)}
+              onCreateLink={createManualQualityLink}
+              onRemoveLink={removeManualQualityLink}
               manualLinks={manualLinks.map((l) => ({
                 id: l.id,
                 sourceType: l.sourceType,

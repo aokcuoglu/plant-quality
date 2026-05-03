@@ -8,7 +8,7 @@ import { Ai8dReviewPanel } from "@/components/defects/Ai8dReviewPanel"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { validateEightDCompleteness, type EightDCompletenessResult } from "@/lib/ai/validate-8d-completeness"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
-import { findRelatedForDefect } from "@/lib/quality-linkage"
+import { findRelatedForDefect, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
 import type { EightDSection } from "@/generated/prisma/client"
 
@@ -255,6 +255,8 @@ export default async function OemDefectDetailPage({
           sourceType="DEFECT"
           sourceId={id}
           canLink={canManage}
+          onCreateLink={createManualQualityLink}
+          onRemoveLink={removeManualQualityLink}
           manualLinks={defectManualLinks.map((l) => ({
             id: l.id,
             sourceType: l.sourceType,

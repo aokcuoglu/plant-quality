@@ -153,19 +153,24 @@ async function revalidateRelatedPaths(
     switch (type) {
       case "FIELD_DEFECT":
         paths.add(`/quality/oem/field/${id}`)
+        paths.add(`/quality/supplier/field/${id}`)
         break
       case "DEFECT":
       case "EIGHT_D":
         paths.add(`/quality/oem/defects/${id}`)
+        paths.add(`/quality/supplier/defects/${id}`)
         break
       case "PPAP":
         paths.add(`/quality/oem/ppap/${id}`)
+        paths.add(`/quality/supplier/ppap/${id}`)
         break
       case "IQC":
         paths.add(`/quality/oem/iqc/${id}`)
+        paths.add(`/quality/supplier/iqc/${id}`)
         break
       case "FMEA":
         paths.add(`/quality/oem/fmea/${id}`)
+        paths.add(`/quality/supplier/fmea/${id}`)
         break
     }
   }

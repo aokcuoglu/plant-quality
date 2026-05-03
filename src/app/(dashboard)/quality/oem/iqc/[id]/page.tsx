@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
 import { requireFeature } from "@/lib/billing"
-import { getIqcStatusColor, getIqcResultColor, IQC_STATUS_LABELS, IQC_RESULT_LABELS, IQC_INSPECTION_TYPE_LABELS, isNegativeResult } from "@/lib/iqc"
+import { getIqcStatusColor, getIqcResultColor, IQC_STATUS_LABELS, IQC_RESULT_LABELS, IQC_INSPECTION_TYPE_LABELS, isNegativeResult, canManageIqc } from "@/lib/iqc"
 import { LinkIcon } from "lucide-react"
 import { IqcChecklistEditor } from "./checklist-editor"
 import { CompleteInspectionDialog } from "./complete-dialog"
@@ -44,9 +44,9 @@ export default async function OemIqcDetailPage({ params }: { params: Promise<{ i
   }))
 
   const hasNokItems = checklistItems.some((c) => c.result === "NOK")
-  const canComplete = ["PLANNED", "IN_PROGRESS"].includes(report.status)
-  const canCancel = ["PLANNED", "IN_PROGRESS"].includes(report.status)
-  const canCreateDefect = report.result && isNegativeResult(report.result) && !report.linkedDefectId
+  const canComplete = ["PLANNED", "IN_PROGRESS"].includes(report.status) && canManageIqc(session)
+  const canCancel = ["PLANNED", "IN_PROGRESS"].includes(report.status) && canManageIqc(session)
+  const canCreateDefect = report.result && isNegativeResult(report.result) && !report.linkedDefectId && canManageIqc(session)
   const isEditable = canComplete
 
   return (

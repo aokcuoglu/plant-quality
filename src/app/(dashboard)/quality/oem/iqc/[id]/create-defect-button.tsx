@@ -18,12 +18,16 @@ export function CreateDefectFromIqcButton({ inspectionId }: { inspectionId: stri
     setError(null)
     setCreatedDefectId(null)
     startTransition(async () => {
-      const result = await createDefectFromIqc(inspectionId)
-      if (result.success && result.defectId) {
-        setCreatedDefectId(result.defectId)
-        router.refresh()
-      } else {
-        setError(result.error ?? "Failed to create defect")
+      try {
+        const result = await createDefectFromIqc(inspectionId)
+        if (result.success && result.defectId) {
+          setCreatedDefectId(result.defectId)
+          router.refresh()
+        } else {
+          setError(result.error ?? "Failed to create defect")
+        }
+      } catch {
+        setError("An unexpected error occurred")
       }
     })
   }
@@ -50,7 +54,7 @@ export function CreateDefectFromIqcButton({ inspectionId }: { inspectionId: stri
                 </Link>
               </div>
               <DialogFooter>
-                <Button type="button" variant="outline" onClick={() => { setOpen(false); setCreatedDefectId(null); }}>
+                <Button type="button" variant="outline" onClick={() => { setOpen(false); setCreatedDefectId(null); setError(null); }}>
                   Close
                 </Button>
               </DialogFooter>

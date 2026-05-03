@@ -35,18 +35,27 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
     }
     setError(null)
     startTransition(async () => {
-      const res = await completeIqcInspection(
-        inspectionId,
-        result,
-        parseInt(quantityAccepted) || 0,
-        parseInt(quantityRejected) || 0,
-        dispositionNotes.trim() || undefined
-      )
-      if (res.success) {
-        setOpen(false)
-        router.refresh()
-      } else {
-        setError(res.error ?? "Failed to complete inspection")
+      try {
+        const res = await completeIqcInspection(
+          inspectionId,
+          result,
+          parseInt(quantityAccepted) || 0,
+          parseInt(quantityRejected) || 0,
+          dispositionNotes.trim() || undefined
+        )
+        if (res.success) {
+          setOpen(false)
+          setResult("")
+          setQuantityAccepted("0")
+          setQuantityRejected("0")
+          setDispositionNotes("")
+          setError(null)
+          router.refresh()
+        } else {
+          setError(res.error ?? "Failed to complete inspection")
+        }
+      } catch {
+        setError("An unexpected error occurred")
       }
     })
   }

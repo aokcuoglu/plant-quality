@@ -15,12 +15,17 @@ export function CancelInspectionButton({ inspectionId }: { inspectionId: string 
   function handleConfirm() {
     setError(null)
     startTransition(async () => {
-      const result = await cancelIqcInspection(inspectionId)
-      if (result.success) {
-        setOpen(false)
-        router.refresh()
-      } else {
-        setError(result.error ?? "Failed to cancel inspection")
+      try {
+        const result = await cancelIqcInspection(inspectionId)
+        if (result.success) {
+          setOpen(false)
+          setError(null)
+          router.refresh()
+        } else {
+          setError(result.error ?? "Failed to cancel inspection")
+        }
+      } catch {
+        setError("An unexpected error occurred")
       }
     })
   }

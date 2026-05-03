@@ -52,18 +52,23 @@ export function IqcChecklistEditor({
   function saveEdit(itemId: string) {
     setError(null)
     startTransition(async () => {
-      const payload: { result?: ChecklistResultType; measuredValue?: string; comment?: string } = {}
-      if (editData.result) payload.result = editData.result
-      if (editData.measuredValue !== undefined) payload.measuredValue = editData.measuredValue
-      if (editData.comment !== undefined) payload.comment = editData.comment
+      try {
+        const payload: { result?: ChecklistResultType; measuredValue?: string; comment?: string } = {}
+        if (editData.result) payload.result = editData.result
+        payload.measuredValue = editData.measuredValue ?? ""
+        payload.comment = editData.comment ?? ""
 
-      const result = await updateIqcChecklistItem(itemId, payload)
-      if (result.success) {
-        setEditingItem(null)
-        setEditData({})
-        router.refresh()
-      } else {
-        setError(result.error ?? "Failed to update checklist item")
+        const result = await updateIqcChecklistItem(itemId, payload)
+        if (result.success) {
+          setEditingItem(null)
+          setEditData({})
+          setError(null)
+          router.refresh()
+        } else {
+          setError(result.error ?? "Failed to update checklist item")
+        }
+      } catch {
+        setError("An unexpected error occurred")
       }
     })
   }

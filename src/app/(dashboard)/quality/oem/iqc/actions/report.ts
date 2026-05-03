@@ -130,10 +130,15 @@ export async function updateIqcChecklistItem(
     return { success: false, error: "Cannot edit checklist items on a completed or cancelled inspection" }
   }
 
-  const updateData: { result?: IqcChecklistResult; measuredValue?: string; comment?: string } = {}
+  const validResults: IqcChecklistResult[] = ["PENDING", "OK", "NOK", "NA"]
+  if (data.result && !validResults.includes(data.result)) {
+    return { success: false, error: "Invalid result value" }
+  }
+
+  const updateData: { result?: IqcChecklistResult; measuredValue?: string | null; comment?: string | null } = {}
   if (data.result) updateData.result = data.result
-  if (data.measuredValue !== undefined) updateData.measuredValue = data.measuredValue
-  if (data.comment !== undefined) updateData.comment = data.comment
+  if (data.measuredValue !== undefined) updateData.measuredValue = data.measuredValue?.trim() || null
+  if (data.comment !== undefined) updateData.comment = data.comment?.trim() || null
 
   await prisma.iqcChecklistItem.update({
     where: { id: itemId },
@@ -166,6 +171,8 @@ export async function updateIqcChecklistItem(
   return { success: true }
 }
 
+const VALID_IQC_RESULTS: IqcResult[] = ["ACCEPTED", "CONDITIONAL_ACCEPTED", "REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"]
+
 export async function completeIqcInspection(
   inspectionId: string,
   result: IqcResult,
@@ -180,6 +187,14 @@ export async function completeIqcInspection(
 
   const featureGate = requireFeature(session, "IQC")
   if (!featureGate.allowed) return { success: false, error: featureGate.reason ?? "IQC requires a higher plan" }
+
+  if (!VALID_IQC_RESULTS.includes(result)) {
+    return { success: false, error: "Invalid result value" }
+  }
+
+  if (quantityAccepted < 0 || quantityRejected < 0) {
+    return { success: false, error: "Quantities must be non-negative" }
+  }
 
   const inspection = await prisma.iqcReport.findFirst({
     where: { id: inspectionId, oemId: session.user.companyId, status: { in: ["PLANNED", "IN_PROGRESS"] } },

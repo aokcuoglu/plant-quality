@@ -1,3 +1,126 @@
+# PlantQuality v2.3.1 — Release Notes
+
+## IQC Checklist & Defect Link Stabilization
+
+**Release Date:** 2026-05-03  
+**Version:** 2.3.1
+
+---
+
+## Summary
+
+PlantQuality v2.3.1 is a stabilization and polish patch for the IQC Workflow MVP (v2.3.0). It fixes error handling gaps in IQC client components, adds server-side input validation for checklist and completion actions, hardens the role-based action visibility on the OEM detail page, and ensures state resets correctly on all mutations. No new major product features are introduced.
+
+---
+
+## IQC Checklist Edit UX Fixes
+
+### Error Handling
+
+- **`checklist-editor.tsx`**: Wrapped `updateIqcChecklistItem` server action call in try/catch. On thrown exception, an inline error message is shown instead of silently failing. Pending state resets normally.
+- **Empty value normalization**: Measured value and comment are now trimmed before send. Empty strings are normalized to `null` server-side, preventing stale empty strings from persisting in the database.
+
+### Server-Side Validation
+
+- **`updateIqcChecklistItem`**: Added enum validation for `IqcChecklistResult` — only `PENDING`, `OK`, `NOK`, `NA` are accepted. Invalid values return `{ success: false, error: "Invalid result value" }`.
+- **`updateIqcChecklistItem`**: `measuredValue` and `comment` are now trimmed and nullified if empty, ensuring consistent DB state.
+- **`completeIqcInspection`**: Added enum validation for `IqcResult` — only the six valid values are accepted.
+- **`completeIqcInspection`**: Added non-negative validation for `quantityAccepted` and `quantityRejected`.
+
+---
+
+## IQC Completion/Result UX Polish
+
+### Error Handling
+
+- **`complete-dialog.tsx`**: Wrapped `completeIqcInspection` server action call in try/catch. On thrown exception, an inline error message is shown. Pending state resets normally.
+- **State reset**: After successful completion, the dialog resets `result`, `quantityAccepted`, `quantityRejected`, and `dispositionNotes` state, preventing stale values if reopened.
+
+### Cancel Inspection
+
+- **`cancel-button.tsx`**: Wrapped `cancelIqcInspection` server action call in try/catch. On thrown exception, an inline error message is shown. Error state resets on success.
+
+---
+
+## Create Defect from IQC Polish
+
+### Error Handling
+
+- **`create-defect-button.tsx`**: Wrapped `createDefectFromIqc` server action call in try/catch. On thrown exception, an inline error message is shown. Pending state resets normally.
+- **State reset**: Close button now also resets `error` state alongside `createdDefectId`, preventing a stale error from persisting if the dialog is reopened.
+
+---
+
+## Role-Based Action Visibility
+
+### OEM IQC Detail Page
+
+- **`page.tsx`**: `canComplete`, `canCancel`, and `canCreateDefect` now also check `canManageIqc(session)`. Previously, any OEM user (including VIEWER role) could see and attempt Complete Inspection, Cancel, and Create Defect buttons, which would then fail server-side. Now these actions are only visible to ADMIN and QUALITY_ENGINEER roles.
+
+---
+
+## Server Action Refresh Consistency
+
+All five IQC server actions already revalidate the correct canonical paths. Client components all use `router.refresh()` inside `startTransition`. No changes needed.
+
+Verified actions and revalidated paths:
+
+| Action | Revalidated Paths |
+|--------|-------------------|
+| `createIqcInspection` | `/quality/oem/iqc`, `/quality/supplier/iqc`, `/quality/oem`, `/quality/supplier` |
+| `updateIqcChecklistItem` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc`, `/quality/oem`, `/quality/supplier` |
+| `completeIqcInspection` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc`, `/quality/oem`, `/quality/supplier` |
+| `cancelIqcInspection` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc`, `/quality/oem`, `/quality/supplier` |
+| `createDefectFromIqc` | `/quality/oem/iqc/[id]`, `/quality/oem/iqc`, `/quality/oem/defects`, `/quality/supplier/defects`, `/quality/supplier/iqc/[id]`, `/quality/supplier/iqc`, `/quality/oem`, `/quality/supplier` |
+
+---
+
+## Access & Security Verification
+
+Confirmed unchanged and correct:
+
+- Supplier can only view IQC records scoped to `supplierId: session.user.companyId` — no cross-tenant access
+- Supplier cannot create, edit, complete, or cancel IQC inspections
+- OEM IQC pages gated by `requireFeature(session, "IQC")` — Free OEM cannot access IQC pages
+- All OEM mutations verify `companyType === "OEM"`, `canManageIqc(session)`, and `requireFeature(session, "IQC")`
+- Client-provided `companyId` and `supplierId` are never trusted — all derived from session
+- IQC detail page scoping uses `findFirst({ where: { id, oemId } })` for OEM and `findFirst({ where: { id, supplierId } })` for supplier
+- Supplier access to IQC is plan-independent (participant access via `supplierAccess: true`)
+- Plan & Usage page inaccessible to supplier users
+
+---
+
+## No Changes
+
+- No new major product features
+- No AQL engine
+- No barcode/RFID
+- No AI IQC review
+- No PDF/Excel export
+- No ERP integration
+- No app redesign
+- No landing page changes
+- No database schema changes
+- No plan gating logic changes
+
+---
+
+## Files Changed
+
+| File | Change |
+|------|--------|
+| `package.json` | Version → 2.3.1 |
+| `package-lock.json` | Lockfile metadata update for 2.3.1 |
+| `src/app/(dashboard)/quality/oem/iqc/actions/report.ts` | Added result enum validation to `updateIqcChecklistItem` and `completeIqcInspection`; added quantity validation to `completeIqcInspection`; added null normalization for measuredValue/comment |
+| `src/app/(dashboard)/quality/oem/iqc/[id]/checklist-editor.tsx` | Added try/catch error handling; normalized empty measuredValue/comment on save |
+| `src/app/(dashboard)/quality/oem/iqc/[id]/complete-dialog.tsx` | Added try/catch error handling; reset dialog state after successful completion |
+| `src/app/(dashboard)/quality/oem/iqc/[id]/cancel-button.tsx` | Added try/catch error handling; reset error state on success |
+| `src/app/(dashboard)/quality/oem/iqc/[id]/create-defect-button.tsx` | Added try/catch error handling; reset error state on dialog close |
+| `src/app/(dashboard)/quality/oem/iqc/[id]/page.tsx` | Added `canManageIqc(session)` check to `canComplete`, `canCancel`, `canCreateDefect` |
+| `src/app/(dashboard)/quality/oem/iqc/new/form.tsx` | Removed `finally { setSaving(false) }` to avoid brief button flash on successful navigation; error flow explicitly sets `setSaving(false)` |
+
+---
+
 # PlantQuality v2.3.0 — Release Notes
 
 ## IQC Workflow MVP

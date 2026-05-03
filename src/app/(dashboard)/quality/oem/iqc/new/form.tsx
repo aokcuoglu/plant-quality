@@ -28,10 +28,10 @@ export function IqcCreateForm({
         router.refresh()
       } else {
         setError(result.error ?? "Failed to create IQC inspection")
+        setSaving(false)
       }
     } catch {
       setError("An unexpected error occurred")
-    } finally {
       setSaving(false)
     }
   }

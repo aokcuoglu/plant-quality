@@ -4,7 +4,9 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createFmea } from "../actions/fmea"
 
 interface Supplier {
@@ -17,7 +19,7 @@ export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [fmeaType, setFmeaType] = useState<"PROCESS" | "DESIGN">("PROCESS")
-  const [supplierId, setSupplierId] = useState("")
+  const [supplierId, setSupplierId] = useState("_none_")
   const [title, setTitle] = useState("")
   const [partNumber, setPartNumber] = useState("")
   const [partName, setPartName] = useState("")
@@ -35,7 +37,7 @@ export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
 
     const formData = new FormData()
     formData.set("fmeaType", fmeaType)
-    formData.set("supplierId", supplierId)
+    formData.set("supplierId", supplierId === "_none_" ? "" : supplierId)
     formData.set("title", title)
     formData.set("partNumber", partNumber)
     formData.set("partName", partName)
@@ -71,77 +73,79 @@ export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">FMEA Type *</label>
-            <select
-              value={fmeaType}
-              onChange={e => setFmeaType(e.target.value as "PROCESS" | "DESIGN")}
-              className="h-10 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground"
-            >
-              <option value="PROCESS">PFMEA (Process)</option>
-              <option value="DESIGN">DFMEA (Design)</option>
-            </select>
+            <Label>FMEA Type *</Label>
+            <Select value={fmeaType} onValueChange={(v) => setFmeaType((v ?? "PROCESS") as "PROCESS" | "DESIGN")}>
+              <SelectTrigger className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="PROCESS">PFMEA (Process)</SelectItem>
+                <SelectItem value="DESIGN">DFMEA (Design)</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Supplier</label>
-            <select
-              value={supplierId}
-              onChange={e => setSupplierId(e.target.value)}
-              className="h-10 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground"
-            >
-              <option value="">No supplier (OEM only)</option>
-              {suppliers.map(s => (
-                <option key={s.id} value={s.id}>{s.name}</option>
-              ))}
-            </select>
+            <Label>Supplier</Label>
+            <Select value={supplierId} onValueChange={(v) => setSupplierId(v ?? "_none_")}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="No supplier (OEM only)" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="_none_">No supplier (OEM only)</SelectItem>
+                {suppliers.map(s => (
+                  <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <p className="text-xs text-muted-foreground">Leave blank for OEM-only FMEA</p>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Title *</label>
+            <Label>Title *</Label>
             <Input value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Cylinder Head Casting Process FMEA" required />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Part Number *</label>
+            <Label>Part Number *</Label>
             <Input value={partNumber} onChange={e => setPartNumber(e.target.value)} placeholder="e.g. AX-7420-B" required />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Part Name</label>
+            <Label>Part Name</Label>
             <Input value={partName} onChange={e => setPartName(e.target.value)} placeholder="e.g. Cylinder Head Casting" />
           </div>
 
           {fmeaType === "PROCESS" && (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Process Name</label>
+              <Label>Process Name</Label>
               <Input value={processName} onChange={e => setProcessName(e.target.value)} placeholder="e.g. Gravity Die Casting" />
             </div>
           )}
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Project Name</label>
+            <Label>Project Name</Label>
             <Input value={projectName} onChange={e => setProjectName(e.target.value)} placeholder="e.g. Engine Block Platform" />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Vehicle Model</label>
+            <Label>Vehicle Model</Label>
             <Input value={vehicleModel} onChange={e => setVehicleModel(e.target.value)} placeholder="e.g. Model S 2026" />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Revision</label>
+            <Label>Revision</Label>
             <Input value={revision} onChange={e => setRevision(e.target.value)} placeholder="e.g. A" />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Due Date</label>
+            <Label>Due Date</Label>
             <Input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Notes</label>
+          <Label>Notes</Label>
           <Textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Optional notes or context for this FMEA" rows={3} />
         </div>
       </div>

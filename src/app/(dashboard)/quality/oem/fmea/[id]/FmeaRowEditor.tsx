@@ -4,6 +4,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { SodSelect } from "@/components/fmea/SodSelect"
+import { ActionStatusSelect } from "@/components/fmea/ActionStatusSelect"
 import { saveFmeaRows } from "@/app/(dashboard)/quality/oem/fmea/actions/fmea"
 import { createEmptyRow, type FmeaRow } from "@/lib/fmea/types"
 import { cn } from "@/lib/utils"
@@ -164,7 +166,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                 </td>
                 <td className="px-2 py-1.5 text-center">
                     {canEdit ? (
-                      <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.severity} onChange={e => updateRow(row.id, "severity", e.target.value)} />
+                      <SodSelect value={row.severity} onChange={v => updateRow(row.id, "severity", v)} label="Severity" />
                     ) : (
                       <span className="text-foreground">{row.severity}</span>
                     )}
@@ -178,7 +180,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                   </td>
                   <td className="px-2 py-1.5 text-center">
                     {canEdit ? (
-                      <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.occurrence} onChange={e => updateRow(row.id, "occurrence", e.target.value)} />
+                      <SodSelect value={row.occurrence} onChange={v => updateRow(row.id, "occurrence", v)} label="Occurrence" />
                     ) : (
                       <span className="text-foreground">{row.occurrence}</span>
                     )}
@@ -199,7 +201,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                   </td>
                   <td className="px-2 py-1.5 text-center">
                     {canEdit ? (
-                      <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.detection} onChange={e => updateRow(row.id, "detection", e.target.value)} />
+                      <SodSelect value={row.detection} onChange={v => updateRow(row.id, "detection", v)} label="Detection" />
                     ) : (
                       <span className="text-foreground">{row.detection}</span>
                     )}
@@ -216,16 +218,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                 </td>
                 <td className="px-2 py-1.5">
                   {canEdit ? (
-                    <select
-                      className="h-7 rounded border border-border bg-background px-1 text-xs text-foreground"
-                      value={row.actionStatus}
-                      onChange={e => updateRow(row.id, "actionStatus", e.target.value)}
-                    >
-                      <option value="OPEN">Open</option>
-                      <option value="IN_PROGRESS">In Progress</option>
-                      <option value="COMPLETED">Completed</option>
-                      <option value="CANCELLED">Cancelled</option>
-                    </select>
+                    <ActionStatusSelect value={row.actionStatus} onChange={v => updateRow(row.id, "actionStatus", v)} />
                   ) : (
                     <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-semibold", row.actionStatus === "COMPLETED" ? "bg-emerald-500/10 text-emerald-400" : row.actionStatus === "IN_PROGRESS" ? "bg-amber-500/10 text-amber-400" : row.actionStatus === "CANCELLED" ? "bg-muted text-muted-foreground" : "bg-muted text-muted-foreground")}>
                       {row.actionStatus?.replaceAll("_", " ") ?? "OPEN"}

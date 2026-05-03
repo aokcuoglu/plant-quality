@@ -9,7 +9,7 @@
 
 ## Summary
 
-PlantQuality v2.4.1 is a stabilization patch for the FMEA Workflow MVP (v2.4.0). It fixes RPN and revised RPN display/validation, adds the supplier row editor for editable statuses, hardens the submit/review workflow, adds `requireFeature` gates to supplier FMEA pages, improves server action refresh consistency, and polishes OEM and supplier detail views. No new major product features are introduced.
+PlantQuality v2.4.1 is a stabilization patch for the FMEA Workflow MVP (v2.4.0). It fixes RPN and revised RPN display/validation, adds the supplier row editor for editable statuses, hardens the submit/review workflow, adds `requireFeature` gates to supplier FMEA pages, improves server action refresh consistency, polishes OEM and supplier detail views, replaces raw HTML form controls with shadcn/ui-style components, and improves S/O/D number input UX. No new major product features are introduced.
 
 ---
 
@@ -155,21 +155,69 @@ All FMEA server actions now revalidate canonical paths for both OEM and supplier
 
 ---
 
+## S/O/D Input Improvement
+
+### Select Dropdowns for Severity, Occurrence, Detection
+
+- **New component `SodSelect`** (`src/components/fmea/SodSelect.tsx`): Compact native `<select>` dropdown for S/O/D values 1–10, styled with design system tokens (`border-border`, `bg-background`, `text-foreground`, `focus-visible:border-ring`). Shows human-readable labels: "1 — Very Low" through "10 — Very High".
+- **New component `SodSelectNullable`**: Same as `SodSelect` but supports undefined/empty values for revised S/O/D fields. Displays "—" for empty values.
+- **`FmeaRowEditor.tsx`**: Replaced `<Input type="number">` for severity, occurrence, and detection with `SodSelect`. Eliminates ugly native browser number spinners and prevents invalid non-integer input.
+- **`SupplierFmeaRowEditor.tsx`**: Same `SodSelect` replacement for S/O/D. Replaced revised S/O/D `<Input type="number">` with `SodSelectNullable`.
+
+### Action Status Dropdown
+
+- **New component `ActionStatusSelect`** (`src/components/fmea/ActionStatusSelect.tsx`): Replaces raw `<select>` in both row editors with a design-system-styled dropdown for Open/In Progress/Completed/Cancelled. Uses `border-border`, `bg-background`, `text-foreground`, `focus-visible` ring tokens.
+
+---
+
+## FMEA Create Form shadcn/ui Consistency
+
+### Replaced Raw HTML Controls
+
+- **`FmeaCreateForm`** (`oem/fmea/new/form.tsx`): Replaced raw `<select>` and `<label>` with shadcn `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, and `Label` components.
+- **FMEA Type selector**: Now uses `Select`/`SelectTrigger`/`SelectContent`/`SelectItem` with proper focus ring and animation.
+- **Supplier selector**: Now uses `Select`/`SelectTrigger`/`SelectContent`/`SelectItem` with `_none_` sentinel for "No supplier" option (maps to empty string in FormData).
+- **All `<label>` elements**: Replaced with shadcn `Label` component for consistent font weight and spacing.
+- **Due Date input**: Uses `<Input type="date">` with shadcn styling (already consistent; no heavy calendar dependency introduced).
+
+---
+
+## Process Step Visibility
+
+### Root Cause
+
+The `processStep` field is conditionally rendered only when `fmeaType === "PROCESS"`. This is by design — DFMEA rows do not have a Process Step column. Seed data confirms:
+- **PFMEA** (fmea-001): All 3 rows include `processStep` values ("Mold preparation", "Pouring", "Heat treatment")
+- **DFMEA** (fmea-002): Row has no `processStep` field (correct — design FMEAs don't have process steps)
+- **fmea-003**: Empty rows array
+
+No bug was found. The conditional rendering (`{fmeaType === "PROCESS" && ...}`) correctly shows/hides the Process Step column in all editors and read-only tables.
+
+### Fix
+
+- No code change needed for Process Step visibility — it already works correctly.
+- Verified all 7 FMEA views (OEM list, OEM detail, OEM editor, OEM create, supplier list, supplier detail, supplier editor) correctly handle the Process Step conditional.
+
+---
+
 ## Files Changed
 
 | File | Change |
 |------|--------|
 | `package.json` | Version → 2.4.1 |
-| `src/app/(dashboard)/quality/oem/fmea/[id]/FmeaRowEditor.tsx` | Import `useRouter`; import OEM `saveFmeaRows`; add `clampSod()` helper; NaN-safe RPN display; persistent row deletion; `router.refresh()` after save/delete; revised RPN clearing on partial values; `replaceAll` for status labels |
+| `src/app/(dashboard)/quality/oem/fmea/[id]/FmeaRowEditor.tsx` | Import `useRouter`; import OEM `saveFmeaRows`; add `clampSod()` helper; NaN-safe RPN display; persistent row deletion; `router.refresh()` after save/delete; revised RPN clearing on partial values; `replaceAll` for status labels; replace S/O/D `<Input type="number">` with `SodSelect` dropdown; replace raw `<select>` with `ActionStatusSelect` |
 | `src/app/(dashboard)/quality/oem/fmea/[id]/FmeaDetailActions.tsx` | Added `canCancel` prop; cancel button gated on role |
 | `src/app/(dashboard)/quality/oem/fmea/[id]/page.tsx` | Added revised S/O/D and R-RPN columns to read-only table; added OEM Comment column; `replaceAll` fix for status labels; text truncation; pass `canCancel` to actions |
-| `src/app/(dashboard)/quality/oem/fmea/actions/fmea.ts` | Added revised SOD validation to `saveFmeaRows` and `approveFmea`; added `failureMode` validation; added `revisedRpn` clearing for partial revised values; added revalidate paths to `updateFmeaOemComment` |
+| `src/app/(dashboard)/quality/oem/fmea/new/form.tsx` | Replaced raw `<select>` and `<label>` with shadcn `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, and `Label` components; supplier empty value handling |
+| `src/app/(dashboard)/quality/oem/fmea/actions/fmea.ts` | Added revised SOD validation to `saveFmeaRows` and `approveFmea`; added `failureMode` validation; added `revisedRpn` clearing for partial revised values; added revalidate paths to `updateFmeaOemComment` and `saveFmeaRows` |
 | `src/app/(dashboard)/quality/oem/fmea/page.tsx` | `replaceAll` fix for status labels |
 | `src/app/(dashboard)/quality/supplier/fmea/page.tsx` | Added `requireFeature` gate; `replaceAll` fix for status labels |
-| `src/app/(dashboard)/quality/supplier/fmea/[id]/page.tsx` | Added `requireFeature` gate; added `canSupplierEdit`; added revised S/O/D and R-RPN columns; added OEM Comment column; text truncation; uses `SupplierFmeaRowEditor` for editable statuses |
-| `src/app/(dashboard)/quality/supplier/fmea/[id]/SupplierFmeaRowEditor.tsx` | New file: supplier row editor with Add/Save/Remove, revised SOD fields, supplier vs OEM comment columns |
-| `src/app/(dashboard)/quality/supplier/fmea/[id]/SupplierFmeaActions.tsx` | No changes (already working correctly) |
-| `src/app/(dashboard)/quality/supplier/fmea/actions/fmea.ts` | Added revised SOD validation to `saveFmeaRows`; added `failureMode` validation; added `revisedRpn` clearing for partial revised values; added revalidate paths to `updateFmeaSupplierComment` |
+| `src/app/(dashboard)/quality/supplier/fmea/[id]/page.tsx` | Added `requireFeature` gate; added `canSupplierEdit`; added revised S/O/D and R-RPN columns; added OEM Comment column; text truncation; uses `SupplierFmeaRowEditor` for editable statuses; pass `rows` to `SupplierFmeaActions` |
+| `src/app/(dashboard)/quality/supplier/fmea/[id]/SupplierFmeaRowEditor.tsx` | New file: supplier row editor with Add/Save/Remove, revised SOD fields, supplier vs OEM comment columns; replace S/O/D inputs with `SodSelect`; replace revised S/O/D inputs with `SodSelectNullable`; replace raw `<select>` with `ActionStatusSelect`; persistent row deletion with rollback |
+| `src/app/(dashboard)/quality/supplier/fmea/[id]/SupplierFmeaActions.tsx` | Added `rows` prop; Submit button disabled when no valid rows; helper text for empty/invalid rows |
+| `src/app/(dashboard)/quality/supplier/fmea/actions/fmea.ts` | Added revised SOD validation to `saveFmeaRows`; added `failureMode` validation; added `revisedRpn` clearing for partial revised values; added revalidate paths to `updateFmeaSupplierComment` and `saveFmeaRows` |
+| `src/components/fmea/SodSelect.tsx` | New file: shared `SodSelect` and `SodSelectNullable` components — native `<select>` styled with design system tokens, showing "1 — Very Low" through "10 — Very High" labels |
+| `src/components/fmea/ActionStatusSelect.tsx` | New file: shared `ActionStatusSelect` component — native `<select>` styled with design system tokens for Open/In Progress/Completed/Cancelled |
 | `src/lib/fmea/types.ts` | No changes (already correct) |
 | `src/lib/fmea/index.ts` | No changes (already correct) |
 

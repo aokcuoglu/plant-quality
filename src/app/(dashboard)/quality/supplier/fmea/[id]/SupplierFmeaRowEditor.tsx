@@ -4,6 +4,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { SodSelect, SodSelectNullable } from "@/components/fmea/SodSelect"
+import { ActionStatusSelect } from "@/components/fmea/ActionStatusSelect"
 import { saveFmeaRows } from "@/app/(dashboard)/quality/supplier/fmea/actions/fmea"
 import { createEmptyRow, type FmeaRow } from "@/lib/fmea/types"
 import { cn } from "@/lib/utils"
@@ -152,13 +154,13 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
                   <Input className="h-7 text-xs" value={row.failureEffect} onChange={e => updateRow(row.id, "failureEffect", e.target.value)} />
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.severity} onChange={e => updateRow(row.id, "severity", e.target.value)} />
+                  <SodSelect value={row.severity} onChange={v => updateRow(row.id, "severity", v)} label="Severity" />
                 </td>
                 <td className="px-2 py-1.5">
                   <Input className="h-7 text-xs" value={row.failureCause ?? ""} onChange={e => updateRow(row.id, "failureCause", e.target.value)} />
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.occurrence} onChange={e => updateRow(row.id, "occurrence", e.target.value)} />
+                  <SodSelect value={row.occurrence} onChange={v => updateRow(row.id, "occurrence", v)} label="Occurrence" />
                 </td>
                 <td className="px-2 py-1.5">
                   <Input className="h-7 text-xs" value={row.preventionControl ?? ""} onChange={e => updateRow(row.id, "preventionControl", e.target.value)} />
@@ -167,7 +169,7 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
                   <Input className="h-7 text-xs" value={row.detectionControl ?? ""} onChange={e => updateRow(row.id, "detectionControl", e.target.value)} />
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.detection} onChange={e => updateRow(row.id, "detection", e.target.value)} />
+                  <SodSelect value={row.detection} onChange={v => updateRow(row.id, "detection", v)} label="Detection" />
                 </td>
                 <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-red-400" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-amber-400" : "text-emerald-400")}>
                   {Number.isFinite(row.rpn) ? row.rpn : "—"}
@@ -176,25 +178,16 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
                   <Input className="h-7 text-xs" value={row.recommendedAction ?? ""} onChange={e => updateRow(row.id, "recommendedAction", e.target.value)} />
                 </td>
                 <td className="px-2 py-1.5">
-                  <select
-                    className="h-7 rounded border border-border bg-background px-1 text-xs text-foreground"
-                    value={row.actionStatus}
-                    onChange={e => updateRow(row.id, "actionStatus", e.target.value)}
-                  >
-                    <option value="OPEN">Open</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="COMPLETED">Completed</option>
-                    <option value="CANCELLED">Cancelled</option>
-                  </select>
+                  <ActionStatusSelect value={row.actionStatus} onChange={v => updateRow(row.id, "actionStatus", v)} />
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.revisedSeverity ?? ""} onChange={e => updateRow(row.id, "revisedSeverity", e.target.value)} placeholder="—" />
+                  <SodSelectNullable value={row.revisedSeverity} onChange={v => updateRow(row.id, "revisedSeverity", v ?? "")} label="Revised Severity" />
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.revisedOccurrence ?? ""} onChange={e => updateRow(row.id, "revisedOccurrence", e.target.value)} placeholder="—" />
+                  <SodSelectNullable value={row.revisedOccurrence} onChange={v => updateRow(row.id, "revisedOccurrence", v ?? "")} label="Revised Occurrence" />
                 </td>
                 <td className="px-2 py-1.5 text-center">
-                  <Input type="number" min={1} max={10} className="h-7 w-12 text-xs text-center" value={row.revisedDetection ?? ""} onChange={e => updateRow(row.id, "revisedDetection", e.target.value)} placeholder="—" />
+                  <SodSelectNullable value={row.revisedDetection} onChange={v => updateRow(row.id, "revisedDetection", v ?? "")} label="Revised Detection" />
                 </td>
                 <td className={cn("px-2 py-1.5 text-center font-bold", (row.revisedRpn ?? 0) >= 200 ? "text-red-400" : (row.revisedRpn ?? 0) >= 100 ? "text-amber-400" : row.revisedRpn != null ? "text-emerald-400" : "")}>
                   {row.revisedRpn ?? "—"}

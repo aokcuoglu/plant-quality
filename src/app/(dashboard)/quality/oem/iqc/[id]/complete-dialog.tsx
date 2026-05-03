@@ -23,7 +23,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
-  const [result, setResult] = useState<IqcResult | "">(hasNokItems ? "" : "ACCEPTED")
+  const [result, setResult] = useState<IqcResult | "">("")
   const [quantityAccepted, setQuantityAccepted] = useState("0")
   const [quantityRejected, setQuantityRejected] = useState("0")
   const [dispositionNotes, setDispositionNotes] = useState("")
@@ -51,6 +51,8 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
     })
   }
 
+  const acceptedDisabled = hasNokItems
+
   return (
     <>
       <Button type="button" onClick={() => setOpen(true)} className="w-full bg-emerald-500/10 text-emerald-400 border border-emerald-400/30 hover:bg-emerald-500/20">
@@ -72,23 +74,44 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
 
           {hasNokItems && (
             <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-400">
-              This inspection has NOK checklist items. You must select a non-accepted result.
+              This inspection has NOK checklist items. Accepted is unavailable while checklist contains NOK items.
             </div>
           )}
 
           <div className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Result <span className="text-red-400">*</span></label>
-              <select
-                value={result}
-                onChange={(e) => setResult(e.target.value as IqcResult | "")}
-                className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <option value="">Select result...</option>
-                {RESULT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
-                ))}
-              </select>
+              <div className="space-y-1">
+                {RESULT_OPTIONS.map((opt) => {
+                  const isDisabled = opt.value === "ACCEPTED" && acceptedDisabled
+                  return (
+                    <label
+                      key={opt.value}
+                      className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm cursor-pointer transition-colors ${
+                        isDisabled
+                          ? "border-border bg-muted/50 opacity-50 cursor-not-allowed"
+                          : result === opt.value
+                            ? "border-emerald-400/50 bg-emerald-500/10 text-foreground"
+                            : "border-border bg-background text-foreground hover:bg-muted/50"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="iqc-result"
+                        value={opt.value}
+                        checked={result === opt.value}
+                        onChange={() => !isDisabled && setResult(opt.value)}
+                        disabled={isDisabled}
+                        className="accent-emerald-500"
+                      />
+                      <span className={isDisabled ? "line-through" : ""}>{opt.label}</span>
+                    </label>
+                  )
+                })}
+              </div>
+              {acceptedDisabled && (
+                <p className="text-xs text-muted-foreground">Accepted is unavailable while checklist contains NOK items.</p>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">

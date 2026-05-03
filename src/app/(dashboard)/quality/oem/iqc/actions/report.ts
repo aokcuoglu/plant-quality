@@ -102,6 +102,8 @@ export async function createIqcInspection(formData: FormData) {
 
   revalidatePath("/quality/oem/iqc")
   revalidatePath("/quality/supplier/iqc")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true, inspectionId: inspection.id, inspectionNumber }
 }
@@ -158,6 +160,8 @@ export async function updateIqcChecklistItem(
   revalidatePath("/quality/oem/iqc")
   revalidatePath(`/quality/supplier/iqc/${item.iqcInspection.id}`)
   revalidatePath("/quality/supplier/iqc")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true }
 }
@@ -235,6 +239,8 @@ export async function completeIqcInspection(
   revalidatePath("/quality/oem/iqc")
   revalidatePath(`/quality/supplier/iqc/${inspectionId}`)
   revalidatePath("/quality/supplier/iqc")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true }
 }
@@ -285,6 +291,8 @@ export async function cancelIqcInspection(inspectionId: string) {
   revalidatePath("/quality/oem/iqc")
   revalidatePath(`/quality/supplier/iqc/${inspectionId}`)
   revalidatePath("/quality/supplier/iqc")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true }
 }
@@ -366,6 +374,8 @@ export async function createDefectFromIqc(inspectionId: string) {
   revalidatePath("/quality/supplier/defects")
   revalidatePath(`/quality/supplier/iqc/${inspectionId}`)
   revalidatePath("/quality/supplier/iqc")
+  revalidatePath("/quality/oem")
+  revalidatePath("/quality/supplier")
 
   return { success: true, defectId: defect.id }
 }

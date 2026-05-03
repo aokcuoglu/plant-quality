@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { requireFeature } from "@/lib/billing"
-import { calcRpn, calcRevisedRpn, type FmeaRow } from "@/lib/fmea/types"
+import { calcRpn, calcRevisedRpn, validateSod, type FmeaRow } from "@/lib/fmea/types"
 import type { Prisma } from "@/generated/prisma/client"
 
 export async function POST(req: NextRequest) {
@@ -47,9 +47,38 @@ export async function POST(req: NextRequest) {
   }
 
   for (const row of rows as FmeaRow[]) {
+    for (const [field, value] of [["severity", row.severity], ["occurrence", row.occurrence], ["detection", row.detection]] as const) {
+      const v = validateSod(value)
+      if (!v.valid) {
+        return NextResponse.json({ error: `Invalid ${field} in row "${row.failureMode || row.id}": ${v.error}` }, { status: 400 })
+      }
+    }
+
+    if (row.revisedSeverity != null) {
+      const v = validateSod(row.revisedSeverity)
+      if (!v.valid) {
+        return NextResponse.json({ error: `Invalid revisedSeverity in row "${row.failureMode || row.id}": ${v.error}` }, { status: 400 })
+      }
+    }
+    if (row.revisedOccurrence != null) {
+      const v = validateSod(row.revisedOccurrence)
+      if (!v.valid) {
+        return NextResponse.json({ error: `Invalid revisedOccurrence in row "${row.failureMode || row.id}": ${v.error}` }, { status: 400 })
+      }
+    }
+    if (row.revisedDetection != null) {
+      const v = validateSod(row.revisedDetection)
+      if (!v.valid) {
+        return NextResponse.json({ error: `Invalid revisedDetection in row "${row.failureMode || row.id}": ${v.error}` }, { status: 400 })
+      }
+    }
+
     row.rpn = calcRpn(row.severity, row.occurrence, row.detection)
     const revisedRpn = calcRevisedRpn(row.revisedSeverity, row.revisedOccurrence, row.revisedDetection)
     if (revisedRpn != null) row.revisedRpn = revisedRpn
+    else if (row.revisedSeverity != null || row.revisedOccurrence != null || row.revisedDetection != null) {
+      row.revisedRpn = undefined
+    }
   }
 
   await prisma.fmea.update({

@@ -1,3 +1,104 @@
+# PlantQuality v2.5.3 — Release Notes
+
+## Quality Linkage Demo Data + QA Patch
+
+**Release Date:** 2026-05-04  
+**Version:** 2.5.3
+
+---
+
+## Summary
+
+PlantQuality v2.5.3 adds deterministic linkage demo/QA seed data, fixes a critical bug where IQC rejection badges never appeared, and provides comprehensive QA documentation for testing the Quality Linkage Layer across PPAP, IQC, FMEA, Field Defects, and Defect/8D records.
+
+No AI linkage, graph visualization, supplier scorecard, or ERP integration is introduced.
+
+---
+
+## Bug Fixes
+
+### IQC Rejection Badge Never Appeared (Critical)
+
+- **Problem:** `isIqcRejectedOrOnHold()` in `find-related.ts` was called with `i.status` (IqcStatus enum, e.g., "COMPLETED") instead of `i.result` (IqcResult enum, e.g., "REJECTED"). Since IqcStatus values like "COMPLETED", "IN_PROGRESS", "PLANNED" never match "REJECTED" or "ON_HOLD", the `IQC_REJECTION` badge never appeared for any IQC record.
+- **Fix:** Changed all 3 occurrences in `find-related.ts` from `i.status` to `i.result`, so IQC records with `result: "REJECTED"`, `"ON_HOLD"`, `"REWORK_REQUIRED"`, or `"SORTING_REQUIRED"` correctly trigger the IQC rejection bonus and badge.
+- **Impact:** Scenario D (IQC rejection history) now works correctly. IQC records with rejection results properly show "IQC rejection history" badge when related by same part and supplier.
+
+---
+
+## Demo Seed Data
+
+### Scenario A — Strong Linkage
+
+Added field defect `fd-linkage-a` (partNumber AX-7420-B, supplier Precision Parts, category "Casting porosity") that shares the same part and supplier with existing PPAP, IQC, FMEA, and Defect records. This creates a complete cross-module linkage chain:
+
+- Field Defect → PPAP (Same part number, Same supplier + part)
+- Field Defect → IQC (Same part number, Same supplier + part, IQC rejection history)
+- Field Defect → FMEA (Same part number, Same supplier + part, FMEA coverage)
+- Field Defect → Defect (Same part number, Same supplier + part)
+
+### Scenario B — Supplier Isolation
+
+Added SteelForged (Supplier B) records for the same part number `AX-7420-B` under OEM Pro to test tenant isolation:
+
+- PPAP: `ppap-isolation-b` (SteelForged, AX-7420-B)
+- IQC: `iqc-isolation-b` (SteelForged, AX-7420-B, COMPLETED/ACCEPTED)
+- FMEA: `fmea-isolation-b` (SteelForged, AX-7420-B, 1 row)
+- Defect: `defect-isolation-b` (SteelForged, AX-7420-B)
+
+Supplier A never sees Supplier B records. Supplier B never sees Supplier A records. OEM sees both.
+
+### Scenario C — FMEA Coverage
+
+Field defect fd-linkage-a has `category: "Casting porosity"` which overlaps with FMEA fmea-001 row `failureEffect: "Surface porosity defect on casting"`, enabling the FMEA_COVERAGE badge to appear.
+
+### Scenario D — IQC Rejection History
+
+Already partially present (iqc-001 REJECTED for AX-7420-B). Now functional after the `i.result` vs `i.status` bug fix.
+
+### Scenario E — Weak False-Positive
+
+Added field defect `fd-weak-e` (partNumber WM-3300-A, same supplier Precision Parts) to verify that same-supplier-only records with different parts are filtered out (score 15, below threshold 50).
+
+### Scenario F — Manual Link
+
+Already present: `qlink-manual-001` links fd-001 → defect-001 with MANUAL link type.
+
+---
+
+## QA Documentation
+
+Added `docs/qa/v2.5.3-quality-linkage-qa.md` with:
+
+- Test personas and credentials (LOCAL/DEV only)
+- 6 demo scenarios (A–F) with expected pages, records, and badges
+- Supplier A vs Supplier B isolation checks
+- Manual link/unlink test steps
+- Regression checklist for all workflows
+- Docker validation checklist
+- Bug fix documentation for IQC rejection badge
+
+---
+
+## Security
+
+- Supplier isolation preserved and verified across all 5 find-related functions
+- Manual link creation/removal remains OEM-only
+- No cross-tenant or cross-supplier data leakage introduced
+- Supplier users cannot create or remove manual links
+
+---
+
+## Deferred
+
+The following remain explicitly out of scope:
+
+- AI linkage suggestions / semantic matching
+- Supplier scorecard
+- Full graph visualization
+- ERP/MRP/PLM integration
+
+---
+
 # PlantQuality v2.5.2 — Release Notes
 
 ## Quality Linkage False Positive Reduction + UX Polish

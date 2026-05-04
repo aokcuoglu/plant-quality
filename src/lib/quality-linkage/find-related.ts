@@ -308,7 +308,7 @@ export async function findRelatedForFieldDefect(
         reasons.push("SAME_VEHICLE")
         score += partMatch ? MATCH_SCORES.SAME_VEHICLE_WITH_PART : MATCH_SCORES.SAME_VEHICLE
       }
-      if (isIqcRejectedOrOnHold(i.status)) {
+      if (isIqcRejectedOrOnHold(i.result)) {
         if (partMatch) {
           reasons.push("IQC_REJECTION")
           score += MATCH_SCORES.IQC_REJECTION_BONUS
@@ -889,7 +889,7 @@ export async function findRelatedForFmea(
           reasons.push("SAME_SUPPLIER")
           score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
         }
-        if (isIqcRejectedOrOnHold(i.status)) {
+        if (isIqcRejectedOrOnHold(i.result)) {
           reasons.push("IQC_REJECTION")
           score += MATCH_SCORES.IQC_REJECTION_BONUS
         }
@@ -1086,7 +1086,7 @@ export async function findRelatedForPpap(
     for (const i of iqcRecords) {
       const reasons: QualityLinkType[] = ["SAME_PART", "SAME_SUPPLIER"]
       let score = MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART
-      if (isIqcRejectedOrOnHold(i.status)) {
+      if (isIqcRejectedOrOnHold(i.result)) {
         reasons.push("IQC_REJECTION")
         score += MATCH_SCORES.IQC_REJECTION_BONUS
       }

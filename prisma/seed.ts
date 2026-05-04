@@ -1075,6 +1075,185 @@ async function main() {
     });
   }
 
+  // ── v2.5.3 Linkage Demo Data ────────────────────────────────────────
+
+  // Scenario A: Strong linkage — same supplier + same part across all record types
+  const linkageFd = {
+    id: "fd-linkage-a",
+    title: "Cylinder head porosity after field service",
+    description: "Customer reports oil seepage from cylinder head sealing surface after 8000 km. Porosity pits observed on machined face, consistent with casting defects found during IQC.",
+    source: "FIELD" as const,
+    status: "SUPPLIER_ASSIGNED" as const,
+    severity: "MAJOR" as const,
+    safetyImpact: false,
+    vehicleDown: false,
+    repeatIssue: true,
+    vin: "WVWZZZ3CZWE445566",
+    vehicleModel: "Model S 2025",
+    mileage: 8000,
+    failureDate: new Date("2026-04-28"),
+    reportDate: new Date("2026-04-29"),
+    location: "Berlin Service Center",
+    partNumber: "AX-7420-B",
+    partName: "Cylinder Head Casting",
+    category: "Casting porosity",
+    subcategory: "Surface defect",
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany.id,
+    supplierNameSnapshot: "Precision Parts Inc.",
+    createdById: "oem-quality",
+  };
+
+  await prisma.fieldDefect.upsert({
+    where: { id: linkageFd.id },
+    update: { title: linkageFd.title, description: linkageFd.description, source: linkageFd.source, status: linkageFd.status, severity: linkageFd.severity, safetyImpact: linkageFd.safetyImpact, vehicleDown: linkageFd.vehicleDown, repeatIssue: linkageFd.repeatIssue, vin: linkageFd.vin, vehicleModel: linkageFd.vehicleModel, mileage: linkageFd.mileage, failureDate: linkageFd.failureDate, reportDate: linkageFd.reportDate, location: linkageFd.location, partNumber: linkageFd.partNumber, partName: linkageFd.partName, category: linkageFd.category, subcategory: linkageFd.subcategory, oemId: linkageFd.oemId, supplierId: linkageFd.supplierId, supplierNameSnapshot: linkageFd.supplierNameSnapshot, createdById: linkageFd.createdById },
+    create: linkageFd,
+  });
+
+  // Scenario B: Supplier isolation — both suppliers have records for same part number
+  // SteelForged (Supplier B) gets records for AX-7420-B to prove isolation
+  const isolationPpap = {
+    id: "ppap-isolation-b",
+    requestNumber: "PPAP-SF-7420",
+    partNumber: "AX-7420-B",
+    partName: "Cylinder Head Casting (SteelForged Alt)",
+    revision: "A",
+    level: "LEVEL_3" as const,
+    reasonForSubmission: "SUPPLIER_CHANGE" as const,
+    status: "SUBMITTED" as const,
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany2.id,
+    oemOwnerId: "oem-quality",
+    supplierAssigneeId: "steelforged-engineer",
+    submittedAt: new Date("2026-04-20"),
+    projectName: null,
+    vehicleModel: null,
+    revisionLevel: null,
+    drawingNumber: null,
+  };
+
+  await prisma.ppapSubmission.upsert({
+    where: { id: isolationPpap.id },
+    update: { requestNumber: isolationPpap.requestNumber, partNumber: isolationPpap.partNumber, partName: isolationPpap.partName, level: isolationPpap.level, reasonForSubmission: isolationPpap.reasonForSubmission, status: isolationPpap.status, oemId: isolationPpap.oemId, supplierId: isolationPpap.supplierId, oemOwnerId: isolationPpap.oemOwnerId, supplierAssigneeId: isolationPpap.supplierAssigneeId, submittedAt: isolationPpap.submittedAt },
+    create: isolationPpap as Parameters<typeof prisma.ppapSubmission.create>[0]["data"],
+  });
+
+  const isolationIqc = {
+    id: "iqc-isolation-b",
+    inspectionNumber: "IQC-SF-7420-001",
+    partNumber: "AX-7420-B",
+    partName: "Cylinder Head Casting (SteelForged Alt)",
+    lotNumber: "LOT-SF-0099",
+    quantityReceived: 25,
+    inspectionQuantity: 5,
+    status: "COMPLETED" as const,
+    result: "ACCEPTED" as const,
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany2.id,
+    inspectorId: "oem-quality",
+    inspectionDate: new Date("2026-04-22"),
+    inspectionType: "FIRST_ARTICLE_INSPECTION" as const,
+    createdById: "oem-quality",
+    completedById: "oem-quality",
+    quantityAccepted: 25,
+    quantityRejected: 0,
+    completedAt: new Date("2026-04-23"),
+  };
+
+  await prisma.iqcEvent.deleteMany({ where: { reportId: "iqc-isolation-b" } }).catch(() => {});
+  await prisma.iqcChecklistItem.deleteMany({ where: { iqcInspectionId: "iqc-isolation-b" } }).catch(() => {});
+  await prisma.iqcReport.deleteMany({ where: { id: "iqc-isolation-b" } }).catch(() => {});
+  await prisma.iqcReport.create({ data: isolationIqc });
+
+  const isolationFmea = {
+    id: "fmea-isolation-b",
+    fmeaNumber: "FMEA-SF-7420",
+    title: "Cylinder Head Casting Process FMEA (SteelForged)",
+    fmeaType: "PROCESS" as const,
+    status: "DRAFT" as const,
+    partNumber: "AX-7420-B",
+    partName: "Cylinder Head Casting (SteelForged Alt)",
+    processName: "Casting — Investment Casting",
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany2.id,
+    responsibleId: "steelforged-engineer",
+    createdById: "oem-quality",
+    dueDate: new Date("2026-07-01"),
+    rows: [
+      {
+        id: "row_iso_1",
+        processStep: "Shell building",
+        failureMode: "Shell crack during dewax",
+        failureEffect: "Dimensional distortion on casting",
+        severity: 7,
+        failureCause: "Thermal shock on ceramic shell",
+        occurrence: 3,
+        preventionControl: "Controlled dewax cycle",
+        detectionControl: "Visual inspection post-dewax",
+        detection: 4,
+        rpn: 84,
+        recommendedAction: "Add dewax cycle monitoring",
+        actionOwner: "steelforged-engineer",
+        actionStatus: "OPEN",
+        targetDate: "2026-06-15",
+      },
+    ],
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await prisma.fmea.upsert({
+    where: { id: isolationFmea.id },
+    update: {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    create: isolationFmea as any,
+  });
+
+  const isolationDefect = {
+    id: "defect-isolation-b",
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany2.id,
+    partNumber: "AX-7420-B",
+    description: "Dimensional non-conformance on SteelForged cylinder head. Bolt hole pattern offset by 0.2mm from drawing specification.",
+    status: "OPEN" as const,
+    oemOwnerId: "oem-quality",
+    supplierResponseDueAt: new Date("2026-05-20"),
+  };
+
+  await prisma.defect.upsert({
+    where: { id: isolationDefect.id },
+    update: { oemId: isolationDefect.oemId, supplierId: isolationDefect.supplierId, partNumber: isolationDefect.partNumber, description: isolationDefect.description, status: isolationDefect.status, oemOwnerId: isolationDefect.oemOwnerId ?? null, supplierResponseDueAt: isolationDefect.supplierResponseDueAt ?? null },
+    create: isolationDefect,
+  });
+
+  // Scenario E: Weak false-positive — same supplier, different part, unrelated issue
+  // defect-002 (BR-1122-C, Precision Parts) already serves this purpose.
+  // Add a field defect for an unrelated part from the same supplier to test SAME_SUPPLIER_ONLY filtering
+  const weakFd = {
+    id: "fd-weak-e",
+    title: "Wiper motor intermittent failure",
+    description: "Intermittent wiper motor operation during cold starts below -10C. Motor stalls and recovers after 5 minutes of operation.",
+    source: "SERVICE" as const,
+    status: "OPEN" as const,
+    severity: "MINOR" as const,
+    safetyImpact: false,
+    vehicleDown: false,
+    repeatIssue: false,
+    vehicleModel: "Model S 2025",
+    partNumber: "WM-3300-A",
+    partName: "Wiper Motor Assembly",
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany.id,
+    supplierNameSnapshot: "Precision Parts Inc.",
+    createdById: "oem-quality",
+    reportDate: new Date("2026-04-30"),
+  };
+
+  await prisma.fieldDefect.upsert({
+    where: { id: weakFd.id },
+    update: { title: weakFd.title, description: weakFd.description, source: weakFd.source, status: weakFd.status, severity: weakFd.severity, safetyImpact: weakFd.safetyImpact, vehicleDown: weakFd.vehicleDown, repeatIssue: weakFd.repeatIssue, vehicleModel: weakFd.vehicleModel, partNumber: weakFd.partNumber, partName: weakFd.partName, oemId: weakFd.oemId, supplierId: weakFd.supplierId, supplierNameSnapshot: weakFd.supplierNameSnapshot },
+    create: weakFd,
+  });
+
   // ── Quality Record Links (v2.5.2 demo data) ──────────────────────────
 
   const qualityRecordLinks = [
@@ -1112,9 +1291,9 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.5.2 Seed completed successfully!");
+  console.log("v2.5.3 Seed completed successfully!");
   console.log("");
-  console.log("=== Test Accounts (Dev Credentials) ===");
+  console.log("=== Test Accounts (Dev Credentials — LOCAL/DEV ONLY) ===");
   console.log("");
   console.log("FREE OEM:");
   console.log("  admin-free@oem.com    — TestFree OEM Corp (FREE plan, OEM Admin)");
@@ -1128,13 +1307,23 @@ async function main() {
   console.log("ENTERPRISE OEM:");
   console.log("  admin-enterprise@oem.com — Enterprise Motors Group (ENTERPRISE plan, OEM Admin)");
   console.log("");
-  console.log("SUPPLIER:");
+  console.log("SUPPLIER A (Precision Parts):");
   console.log("  admin@supplier.com    — Precision Parts Inc. (FREE, Supplier Admin)");
   console.log("  engineer@supplier.com — Precision Parts Inc. (FREE, Supplier QE)");
+  console.log("");
+  console.log("SUPPLIER B (SteelForged):");
   console.log("  admin@steelforged.com — SteelForged Co. (FREE, Supplier Admin)");
   console.log("  engineer@steelforged.com — SteelForged Co. (FREE, Supplier QE)");
   console.log("");
-  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${allPpapEvidences.length} PPAP documents, ${iqcReports.length} IQC reports, ${iqcChecklistItems.length} IQC checklist items, ${iqcEvents.length} IQC events, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${ppapEvents.length} PPAP events, ${usageCounters.length} usage counters, ${qualityRecordLinks.length} quality record links.`);
+  console.log("=== Quality Linkage Demo Scenarios ===");
+  console.log("");
+  console.log("Scenario A (Strong linkage): View fd-linkage-a — same supplier + part as PPAP/IQC/FMEA/Defect");
+  console.log("Scenario B (Supplier isolation): AX-7420-B exists for both suppliers — verify A never sees B records");
+  console.log("Scenario C (FMEA coverage): fmea-001 row has 'Surface porosity' — fd-linkage-a category 'Casting porosity' matches");
+  console.log("Scenario D (IQC rejection): iqc-001 REJECTED for AX-7420-B — should show IQC_REJECTION badge");
+  console.log("Scenario E (Weak false-positive): fd-weak-e (WM-3300-A) shares supplier but different part — should NOT appear");
+  console.log("Scenario F (Manual link): qlink-manual-001 links fd-001 → defect-001");
+  console.log("");
 }
 
 main()

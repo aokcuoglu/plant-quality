@@ -50,17 +50,6 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
   const relatedRecords = canUseLinkage
     ? await findRelatedForFmea(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
     : []
-  const manualLinks = canUseLinkage
-    ? await prisma.qualityRecordLink.findMany({
-        where: {
-          companyId: fmea.oemId,
-          OR: [
-            { sourceType: "FMEA", sourceId: id },
-            { targetType: "FMEA", targetId: id },
-          ],
-        },
-      })
-    : []
 
   return (
     <div className="space-y-6">
@@ -199,15 +188,6 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
               sourceType="FMEA"
               sourceId={id}
               canLink={false}
-              manualLinks={manualLinks.map((l) => ({
-                id: l.id,
-                sourceType: l.sourceType,
-                sourceId: l.sourceId,
-                targetType: l.targetType,
-                targetId: l.targetId,
-                linkType: l.linkType,
-                reason: l.reason,
-              }))}
             />
           ) : (
             <UpgradeLinkageBanner />

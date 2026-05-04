@@ -45,17 +45,6 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
   const relatedRecords = canUseLinkage
     ? await findRelatedForIqc(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
     : []
-  const manualLinks = canUseLinkage
-    ? await prisma.qualityRecordLink.findMany({
-        where: {
-          companyId: report.oemId,
-          OR: [
-            { sourceType: "IQC", sourceId: id },
-            { targetType: "IQC", targetId: id },
-          ],
-        },
-      })
-    : []
 
   return (
     <div className="space-y-6">
@@ -180,15 +169,6 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
               sourceType="IQC"
               sourceId={id}
               canLink={false}
-              manualLinks={manualLinks.map((l) => ({
-                id: l.id,
-                sourceType: l.sourceType,
-                sourceId: l.sourceId,
-                targetType: l.targetType,
-                targetId: l.targetId,
-                linkType: l.linkType,
-                reason: l.reason,
-              }))}
             />
           ) : (
             <UpgradeLinkageBanner />

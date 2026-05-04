@@ -429,7 +429,7 @@ export async function findRelatedForFieldDefect(
         }
         if (fd.category && d.description && fd.category.toLowerCase() !== d.description.toLowerCase()) {
           const tokScore = keywordOverlapScore(fd.category, d.description)
-          if (tokScore > 0) {
+          if (tokScore >= MATCH_SCORES.TITLE_KEYWORD_STRONG) {
             reasons.push("SAME_FAILURE_MODE")
             score += MATCH_SCORES.SAME_FAILURE_MODE_EXACT
           }
@@ -582,8 +582,13 @@ export async function findRelatedForIqc(
           reasons.push("SAME_SUPPLIER")
           score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
         }
-        reasons.push("FMEA_COVERAGE")
-        score += MATCH_SCORES.FMEA_FAILURE_MODE_MATCH
+        if (f.title && iqc.partName) {
+          const fmeaOverlap = keywordOverlapScore(iqc.partName, f.title)
+          if (fmeaOverlap >= MATCH_SCORES.TITLE_KEYWORD_STRONG) {
+            reasons.push("FMEA_COVERAGE")
+            score += MATCH_SCORES.FMEA_FAILURE_MODE_MATCH
+          }
+        }
         records.push({
           recordType: "FMEA",
           id: f.id,
@@ -1115,6 +1120,15 @@ export async function findRelatedForPpap(
       take: 10,
     })
     for (const f of fmeaRecords) {
+      const reasons: QualityLinkType[] = ["SAME_PART", "SAME_SUPPLIER"]
+      let score = MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+      if (f.title && ppap.partName) {
+        const fmeaOverlap = keywordOverlapScore(ppap.partName, f.title)
+        if (fmeaOverlap >= MATCH_SCORES.TITLE_KEYWORD_STRONG) {
+          reasons.push("FMEA_COVERAGE")
+          score += MATCH_SCORES.FMEA_FAILURE_MODE_MATCH
+        }
+      }
       records.push({
         recordType: "FMEA",
         id: f.id,
@@ -1124,10 +1138,10 @@ export async function findRelatedForPpap(
         supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
         partNumber: f.partNumber,
         createdAt: f.createdAt,
-        matchReasons: ["SAME_PART", "SAME_SUPPLIER", "FMEA_COVERAGE"],
+        matchReasons: reasons,
         href: buildHref("FMEA", f.id, companyType),
-        score: MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART + MATCH_SCORES.FMEA_FAILURE_MODE_MATCH,
-        confidence: "strong",
+        score,
+        confidence: computeConfidence(score),
       })
     }
   }

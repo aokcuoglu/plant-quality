@@ -124,17 +124,6 @@ export default async function SupplierDefectDetailPage({
   const relatedRecords = canUseLinkage
     ? await findRelatedForDefect(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
     : []
-  const defectManualLinks = canUseLinkage
-    ? await prisma.qualityRecordLink.findMany({
-        where: {
-          companyId: defect.oemId,
-          OR: [
-            { sourceType: "DEFECT", sourceId: id },
-            { targetType: "DEFECT", targetId: id },
-          ],
-        },
-      })
-    : []
 
   return (
     <div className="space-y-6">
@@ -200,15 +189,6 @@ export default async function SupplierDefectDetailPage({
           sourceType="DEFECT"
           sourceId={id}
           canLink={false}
-          manualLinks={defectManualLinks.map((l) => ({
-            id: l.id,
-            sourceType: l.sourceType,
-            sourceId: l.sourceId,
-            targetType: l.targetType,
-            targetId: l.targetId,
-            linkType: l.linkType,
-            reason: l.reason,
-          }))}
         />
       ) : (
         <UpgradeLinkageBanner />

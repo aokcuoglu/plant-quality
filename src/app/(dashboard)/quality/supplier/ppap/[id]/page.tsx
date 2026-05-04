@@ -42,17 +42,6 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
   const relatedRecords = canUseLinkage
     ? await findRelatedForPpap(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
     : []
-  const manualLinks = canUseLinkage
-    ? await prisma.qualityRecordLink.findMany({
-        where: {
-          companyId: ppap.oemId,
-          OR: [
-            { sourceType: "PPAP", sourceId: id },
-            { targetType: "PPAP", targetId: id },
-          ],
-        },
-      })
-    : []
 
   const reasonMap: Record<string, string> = {
     NEW_PART: "New Part",
@@ -196,15 +185,6 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
               sourceType="PPAP"
               sourceId={id}
               canLink={false}
-              manualLinks={manualLinks.map((l) => ({
-                id: l.id,
-                sourceType: l.sourceType,
-                sourceId: l.sourceId,
-                targetType: l.targetType,
-                targetId: l.targetId,
-                linkType: l.linkType,
-                reason: l.reason,
-              }))}
             />
           ) : (
             <UpgradeLinkageBanner />

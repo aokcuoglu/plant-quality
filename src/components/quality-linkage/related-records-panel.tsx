@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import {
   AlertTriangle,
   Bug,
@@ -94,6 +94,19 @@ export function RelatedQualityRecordsPanel({
   onRemoveLink,
   manualLinks,
 }: RelatedQualityRecordsPanelProps) {
+  const [unlinkingLinkId, setUnlinkingLinkId] = useState<string | null>(null)
+  const [unlinkError, setUnlinkError] = useState<string | null>(null)
+  const manualLinkIds = useMemo(() => {
+    if (!manualLinks || manualLinks.length === 0) return new Set<string>()
+    const ids = new Set<string>()
+    for (const link of manualLinks) {
+      const isSource = link.sourceType === sourceType && link.sourceId === sourceId
+      const targetId = isSource ? link.targetId : link.sourceId
+      ids.add(targetId)
+    }
+    return ids
+  }, [manualLinks, sourceType, sourceId])
+
   const totalRecords = groupedRecords.reduce((s, g) => s + g.records.length, 0)
   const hasManualLinks = manualLinks && manualLinks.length > 0
 
@@ -147,6 +160,9 @@ export function RelatedQualityRecordsPanel({
                 {manualLinks!.length}
               </Badge>
             </h4>
+            {unlinkError && (
+              <p className="text-xs text-destructive">{unlinkError}</p>
+            )}
             <div className="space-y-1">
               {manualLinks!.map((link) => {
                 const isSource = link.sourceType === sourceType && link.sourceId === sourceId
@@ -174,16 +190,29 @@ export function RelatedQualityRecordsPanel({
                       )}
                     </div>
                     {canLink && onRemoveLink && (
-                      <form action={async () => { await onRemoveLink(link.id) }}>
-                        <Button
-                          type="submit"
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
-                        >
-                          <Unlink className="h-3 w-3" />
-                        </Button>
-                      </form>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        disabled={unlinkingLinkId === link.id}
+                        className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                        onClick={async () => {
+                          setUnlinkingLinkId(link.id)
+                          setUnlinkError(null)
+                          try {
+                            const result = await onRemoveLink(link.id)
+                            if (result?.error) {
+                              setUnlinkError(result.error)
+                            }
+                          } catch {
+                            setUnlinkError("Failed to remove link")
+                          } finally {
+                            setUnlinkingLinkId(null)
+                          }
+                        }}
+                      >
+                        <Unlink className="h-3 w-3" />
+                      </Button>
                     )}
                   </div>
                 )
@@ -192,18 +221,21 @@ export function RelatedQualityRecordsPanel({
           </>
         )}
 
-        {!loading && !error && groupedRecords.map((group, gi) => (
+        {!loading && !error && groupedRecords.map((group, gi) => {
+          const dedupedRecords = group.records.filter(r => !manualLinkIds.has(r.id))
+          if (dedupedRecords.length === 0) return null
+          return (
           <div key={group.recordType}>
             {(gi > 0 || hasManualLinks) && <Separator className="my-3" />}
             <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
               {RECORD_TYPE_ICONS[group.recordType]}
               {group.label}
               <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                {group.records.length}
+                {dedupedRecords.length}
               </Badge>
             </h4>
             <div className="space-y-2">
-              {group.records.map((record) => (
+              {dedupedRecords.map((record) => (
                 <Link
                   key={record.id}
                   href={record.href}
@@ -250,7 +282,8 @@ export function RelatedQualityRecordsPanel({
               ))}
             </div>
           </div>
-        ))}
+          )
+        })}
       </CardContent>
     </Card>
   )

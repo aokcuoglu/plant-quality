@@ -50,17 +50,6 @@ export default async function SupplierFieldDetailPage({
   const relatedRecords = canUseLinkage
     ? await findRelatedForFieldDefect(id, { companyId: session.user.companyId, companyType: "SUPPLIER", role: session.user.role })
     : []
-  const manualLinks = canUseLinkage
-    ? await prisma.qualityRecordLink.findMany({
-        where: {
-          companyId: fd.oemId,
-          OR: [
-            { sourceType: "FIELD_DEFECT", sourceId: id },
-            { targetType: "FIELD_DEFECT", targetId: id },
-          ],
-        },
-      })
-    : []
 
   const slaStatus = getFieldDefectSlaStatus(fd)
 
@@ -170,15 +159,6 @@ export default async function SupplierFieldDetailPage({
               sourceType="FIELD_DEFECT"
               sourceId={id}
               canLink={false}
-              manualLinks={manualLinks.map((l) => ({
-                id: l.id,
-                sourceType: l.sourceType,
-                sourceId: l.sourceId,
-                targetType: l.targetType,
-                targetId: l.targetId,
-                linkType: l.linkType,
-                reason: l.reason,
-              }))}
             />
           ) : (
             <UpgradeLinkageBanner />

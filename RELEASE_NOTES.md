@@ -11,11 +11,23 @@
 
 PlantQuality v2.5.2 significantly improves the Quality Linkage layer by reducing false positives in deterministic matching, adding numeric confidence scoring, and polishing the Related Quality Records panel. Same-supplier-only matches (which were too broad) are now clearly labeled and scored below the display threshold by default. Exact part-number matches are weighted strongly. Manual and direct links always appear first. Reason badges are more descriptive, and the panel is clearer and more compact.
 
+This patch release also fixes a critical cross-supplier manual link visibility leak and deduplicates manual links in the panel.
+
 No AI linkage, graph visualization, supplier scorecard, or ERP integration is introduced.
 
 ---
 
-## Changes
+## Security Fixes
+
+### Cross-Supplier Manual Link Visibility Leak (Critical)
+
+- **Problem:** Supplier detail pages queried `qualityRecordLink` directly and passed raw link metadata to `RelatedQualityRecordsPanel`. This bypassed the supplier-scoped `resolveRecord()` filtering in `find-related.ts`, potentially exposing target record type, truncated ID, and reason from links pointing to records belonging to other suppliers.
+- **Fix:** Removed the `manualLinks` prop from all 5 supplier detail pages. Supplier users now see manual links only through `find-related.ts` grouped records, where `resolveRecord()` applies supplier-scope filtering. Raw `QualityRecordLink` rows are never exposed to the supplier UI.
+- **Impact:** Supplier users cannot see any metadata from manual links targeting records outside their scope. OEM users retain full manual link create/remove/read functionality.
+
+---
+
+## Bug Fixes
 
 ### Deterministic Match Scoring
 
@@ -97,6 +109,13 @@ No AI linkage, graph visualization, supplier scorecard, or ERP integration is in
 - Added 2 quality record link seed records for demo:
   - Manual link between field defect fd-001 and defect-001
   - Same-part link between IQC iqc-001 and defect-001
+
+### Bug Fixes
+
+- **Manual link duplication:** Manual links appeared in both the "Manual Links" section and the grouped deterministic records. The panel now dedupes grouped records against manual links by target type+ID, so each manual link appears once.
+- **FMEA_COVERAGE false positives:** `FMEA_COVERAGE` badge was unconditionally added to all FMEA results in IQC and PPAP related records, even without keyword overlap. Now `FMEA_COVERAGE` only appears when `keywordOverlapScore >= TITLE_KEYWORD_STRONG` between the source context and FMEA title. Same part + same supplier is shown without `FMEA_COVERAGE` unless there is meaningful failure mode overlap.
+- **SAME_FAILURE_MODE threshold inconsistency:** In `findRelatedForFieldDefect`, `SAME_FAILURE_MODE` was triggered on any `keywordOverlapScore > 0` (including weak 2-token overlap). Aligned to require `>= TITLE_KEYWORD_STRONG` (3+ overlapping tokens), matching the threshold used in `findRelatedForDefect`.
+- **Unlink error swallowing:** The manual link "Unlink" button silently swallowed server action errors. The panel now inspects the `onRemoveLink` result and displays inline error feedback. A loading state is shown while the unlink request is in flight.
 
 ### Security
 

@@ -104,6 +104,8 @@ enum QualityLinkType {
   FMEA_COVERAGE
   MANUAL
   RELATED_HISTORY
+  IQC_REJECTION
+  SAME_SUPPLIER_ONLY
 }
 
 enum DefectEventType {

@@ -1075,9 +1075,44 @@ async function main() {
     });
   }
 
+  // ── Quality Record Links (v2.5.2 demo data) ──────────────────────────
+
+  const qualityRecordLinks = [
+    {
+      id: "qlink-manual-001",
+      companyId: oemProCompany.id,
+      sourceType: "FIELD_DEFECT" as const,
+      sourceId: "fd-001",
+      targetType: "DEFECT" as const,
+      targetId: "defect-001",
+      linkType: "MANUAL" as const,
+      reason: "Same supplier brake part defect — manual cross-reference",
+      createdById: "oem-quality",
+    },
+    {
+      id: "qlink-part-001",
+      companyId: oemProCompany.id,
+      sourceType: "IQC" as const,
+      sourceId: "iqc-001",
+      targetType: "DEFECT" as const,
+      targetId: "defect-001",
+      linkType: "SAME_PART" as const,
+      reason: "IQC rejection and defect share part AX-7420-B",
+      createdById: "oem-quality",
+    },
+  ];
+
+  for (const link of qualityRecordLinks) {
+    await prisma.qualityRecordLink.upsert({
+      where: { id: link.id },
+      update: {},
+      create: link,
+    });
+  }
+
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.3.0 Seed completed successfully!");
+  console.log("v2.5.2 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials) ===");
   console.log("");
@@ -1099,7 +1134,7 @@ async function main() {
   console.log("  admin@steelforged.com — SteelForged Co. (FREE, Supplier Admin)");
   console.log("  engineer@steelforged.com — SteelForged Co. (FREE, Supplier QE)");
   console.log("");
-  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${allPpapEvidences.length} PPAP documents, ${iqcReports.length} IQC reports, ${iqcChecklistItems.length} IQC checklist items, ${iqcEvents.length} IQC events, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${ppapEvents.length} PPAP events, ${usageCounters.length} usage counters.`);
+  console.log(`Seeded: ${defects.length + freeDefects.length + enterpriseDefects.length} defects, ${ppapSubmissions.length} PPAPs, ${allPpapEvidences.length} PPAP documents, ${iqcReports.length} IQC reports, ${iqcChecklistItems.length} IQC checklist items, ${iqcEvents.length} IQC events, ${fmeas.length} FMEAs, ${fieldDefects.length + freeFieldDefects.length + enterpriseFieldDefects.length} field defects, ${eightDReports.length} 8D reports, ${ppapEvents.length} PPAP events, ${usageCounters.length} usage counters, ${qualityRecordLinks.length} quality record links.`);
 }
 
 main()

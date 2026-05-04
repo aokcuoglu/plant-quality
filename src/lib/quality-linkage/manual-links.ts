@@ -43,7 +43,7 @@ export async function createManualQualityLink(input: CreateManualLinkInput) {
     return { error: "Cannot link a record to itself" }
   }
 
-  const validLinkTypes: QualityLinkType[] = ["MANUAL", "SAME_PART", "SAME_SUPPLIER", "SAME_FAILURE_MODE", "SAME_VEHICLE", "PPAP_REFERENCE", "FMEA_COVERAGE", "RELATED_HISTORY"]
+  const validLinkTypes: QualityLinkType[] = ["MANUAL", "SAME_PART", "SAME_SUPPLIER", "SAME_FAILURE_MODE", "SAME_VEHICLE", "PPAP_REFERENCE", "FMEA_COVERAGE", "RELATED_HISTORY", "IQC_REJECTION", "SAME_SUPPLIER_ONLY"]
   if (!validLinkTypes.includes(input.linkType)) {
     return { error: "Invalid link type for manual creation" }
   }

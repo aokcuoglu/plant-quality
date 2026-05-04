@@ -135,7 +135,9 @@ export const QualityLinkType = {
   PPAP_REFERENCE: 'PPAP_REFERENCE',
   FMEA_COVERAGE: 'FMEA_COVERAGE',
   MANUAL: 'MANUAL',
-  RELATED_HISTORY: 'RELATED_HISTORY'
+  RELATED_HISTORY: 'RELATED_HISTORY',
+  IQC_REJECTION: 'IQC_REJECTION',
+  SAME_SUPPLIER_ONLY: 'SAME_SUPPLIER_ONLY'
 } as const
 
 export type QualityLinkType = (typeof QualityLinkType)[keyof typeof QualityLinkType]

@@ -1,3 +1,127 @@
+# PlantQuality v2.5.2 — Release Notes
+
+## Quality Linkage False Positive Reduction + UX Polish
+
+**Release Date:** 2026-05-04  
+**Version:** 2.5.2
+
+---
+
+## Summary
+
+PlantQuality v2.5.2 significantly improves the Quality Linkage layer by reducing false positives in deterministic matching, adding numeric confidence scoring, and polishing the Related Quality Records panel. Same-supplier-only matches (which were too broad) are now clearly labeled and scored below the display threshold by default. Exact part-number matches are weighted strongly. Manual and direct links always appear first. Reason badges are more descriptive, and the panel is clearer and more compact.
+
+No AI linkage, graph visualization, supplier scorecard, or ERP integration is introduced.
+
+---
+
+## Changes
+
+### Deterministic Match Scoring
+
+- Added a numeric scoring system for deterministic matches:
+  - Manual link: 100
+  - Direct 8D/IQC/PPAP/FMEA link: 95
+  - Exact part number match: 60
+  - Same supplier with part match: +15
+  - Same supplier only: 15 (below threshold)
+  - Same failure mode (keyword overlap): 25–30
+  - Same vehicle/project: 10 (supporting signal only)
+  - IQC rejection/on-hold for same part: +20
+  - PPAP approved for same part: +15
+  - FMEA failure mode coverage: +25
+- Minimum display threshold: score >= 50 for automatic matches
+- Manual and direct links always bypass the threshold
+- "Same supplier only" matches (score 15) are filtered out by default
+
+### False Positive Reduction
+
+- Empty/null values no longer contribute to matching (e.g., null partNumber, empty category)
+- Same supplier alone is no longer sufficient to display as a strong match — it must be combined with at least one other meaningful signal (same part, same failure mode, etc.)
+- `SAME_SUPPLIER_ONLY` is now a distinct reason badge when supplier is the only signal
+- FMEA coverage badge only appears when there is actual keyword overlap between the source category/failure mode and the FMEA title (not just because a FMEA exists)
+- Field defect → Defect keyword matching uses token overlap with stop-word filtering and minimum token length of 4 characters
+- Vehicle/project matching is only shown as a supporting reason, never as primary
+- IQC rejection history is specifically tagged with `IQC_REJECTION` badge for rejected/on-hold IQC records matching the same part
+
+### Result Ranking and Grouping
+
+- Results are now sorted by score (descending) within each group
+- Group order: Field Defects → Defects/8D → PPAP → IQC → FMEA
+- Per-group limit of 5 records
+- Total maximum of 20 related records across all groups
+- Manual links always shown first, before deterministic groups
+
+### Reason Badge Clarity
+
+- Updated badge labels to be more descriptive:
+  - "Same Part" → "Same part number"
+  - "Same Supplier" → "Same supplier + part"
+  - "Same Failure Mode" → "Same failure mode"
+  - "Same Vehicle/Project" → "Same vehicle/project"
+  - "PPAP Reference" → "PPAP same part"
+  - "FMEA Coverage" → "FMEA coverage"
+  - "IQC → Defect" → "IQC → Defect" (unchanged)
+  - "Field → 8D" → "Direct 8D link"
+  - "Manual Link" → "Manual link"
+  - "Related History" → "Related history"
+- New badge types:
+  - `IQC_REJECTION` — "IQC rejection history" (red accent)
+  - `SAME_SUPPLIER_ONLY` — "Same supplier only" (muted)
+
+### Confidence Labels
+
+- Added numeric confidence labels with tooltip showing score:
+  - Direct (100) — dark badge
+  - Strong (70–99) — emerald badge
+  - Moderate (50–69) — amber badge
+  - Low (<50) — muted badge (filtered by default)
+
+### Related Panel UX Polish
+
+- Manual links section moved above deterministic matches for visibility
+- Manual links highlighted with emerald border/background
+- Manual link badge reads "Manual" instead of raw link type
+- Empty state now includes helpful hint text
+- Score shown in confidence badge tooltip
+- Per-group count badges unchanged
+- Part number shown before supplier name for better scannability
+
+### Database
+
+- Added `IQC_REJECTION` and `SAME_SUPPLIER_ONLY` to `QualityLinkType` enum
+- Migration: `20260504080000_add_link_type_enums_v252`
+
+### Seed Data
+
+- Added 2 quality record link seed records for demo:
+  - Manual link between field defect fd-001 and defect-001
+  - Same-part link between IQC iqc-001 and defect-001
+
+### Security
+
+- Supplier isolation preserved — all queries remain scoped by oemId + supplierId
+- Manual link creation/removal remains OEM-only
+- Feature gating for Quality Linkage (PRO+) preserved
+- No cross-tenant or cross-supplier data leakage introduced
+
+### PPAP Detail Pages
+
+- PPAP field defect and defect queries now require partNumber match in the base condition, eliminating loose same-supplier-only results that previously appeared in PPAP related records
+
+---
+
+## Deferred
+
+The following remain explicitly out of scope:
+
+- AI linkage suggestions / semantic matching
+- Supplier scorecard
+- Full graph visualization
+- ERP/MRP/PLM integration
+
+---
+
 # PlantQuality v2.5.1 — Release Notes
 
 ## Quality Linkage Manual Link UI + Supplier Revalidation Polish

@@ -1,7 +1,15 @@
 import { prisma } from "@/lib/prisma"
 import type { QualityRecordType, QualityLinkType } from "@/generated/prisma/client"
-import type { RelatedQualityRecord, GroupedRelatedRecords } from "./types"
-import { QUALITY_RECORD_TYPE_LABELS } from "./types"
+import type { GroupedRelatedRecords, Confidence } from "./types"
+import {
+  QUALITY_RECORD_TYPE_LABELS,
+  SCORE_MANUAL,
+  SCORE_DIRECT,
+  SCORE_THRESHOLD,
+  DEFAULT_GROUP_LIMIT,
+  MAX_TOTAL_RESULTS,
+  confidenceFromScore,
+} from "./types"
 
 interface SessionUser {
   companyId: string
@@ -17,7 +25,6 @@ function getSupplierScope(session: SessionUser, oemId: string, sourceSupplierId:
   const supplierId = sourceSupplierId
   return { oemId, supplierId, isSupplier, companySupplierId: session.companyId }
 }
-
 
 function buildHref(recordType: QualityRecordType, id: string, companyType: string): string {
   const prefix = companyType === "SUPPLIER" ? "/quality/supplier" : "/quality/oem"
@@ -41,36 +48,118 @@ function statusLabel(recordType: QualityRecordType, status: string | null): stri
   return status.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
 }
 
-function groupRecords(records: RelatedQualityRecord[]): GroupedRelatedRecords[] {
-  const groups = new Map<QualityRecordType, RelatedQualityRecord[]>()
-  for (const r of records) {
+const MATCH_SCORES = {
+  MANUAL: SCORE_MANUAL,
+  DIRECT_LINK: SCORE_DIRECT,
+  SAME_PART_EXACT: 60,
+  SAME_SUPPLIER_WITH_PART: 15,
+  SAME_SUPPLIER_ONLY: 15,
+  SAME_FAILURE_MODE_EXACT: 30,
+  SAME_CATEGORY_SUBCATEGORY: 15,
+  SAME_VEHICLE: 10,
+  SAME_VEHICLE_WITH_PART: 5,
+  TITLE_KEYWORD_STRONG: 25,
+  TITLE_KEYWORD_WEAK: 10,
+  IQC_REJECTION_BONUS: 20,
+  IQC_ON_HOLD_BONUS: 10,
+  PPAP_APPROVED_SAME_PART: 15,
+  FMEA_FAILURE_MODE_MATCH: 25,
+} as const
+
+const MIN_KEYWORD_LENGTH = 4
+const STOP_WORDS = new Set([
+  "the", "and", "for", "was", "with", "this", "that", "from", "into", "has",
+  "have", "been", "are", "not", "but", "had", "they", "their", "were", "will",
+  "would", "could", "should", "which", "when", "what", "your", "its", "our",
+  "all", "may", "also", "any", "can", "did", "does", "get", "how", "just",
+  "more", "must", "new", "now", "one", "only", "our", "out", "over", "see",
+  "some", "such", "than", "them", "then", "very", "way", "who", "why",
+])
+
+function tokenize(text: string | null | undefined): string[] {
+  if (!text) return []
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(t => t.length >= MIN_KEYWORD_LENGTH && !STOP_WORDS.has(t))
+}
+
+function keywordOverlapScore(a: string | null | undefined, b: string | null | undefined): number {
+  const tokensA = tokenize(a)
+  const tokensB = tokenize(b)
+  if (tokensA.length === 0 || tokensB.length === 0) return 0
+  const setA = new Set(tokensA)
+  const setB = new Set(tokensB)
+  let overlap = 0
+  for (const t of setA) {
+    if (setB.has(t)) overlap++
+  }
+  if (overlap === 0) return 0
+  if (overlap >= 3) return MATCH_SCORES.TITLE_KEYWORD_STRONG
+  if (overlap >= 2) return MATCH_SCORES.TITLE_KEYWORD_WEAK
+  return 0
+}
+
+interface ScoredMatch {
+  recordType: QualityRecordType
+  id: string
+  title: string
+  status: string
+  statusLabel: string
+  supplier: string | null
+  partNumber: string | null
+  createdAt: Date
+  matchReasons: QualityLinkType[]
+  href: string
+  score: number
+  confidence: Confidence
+}
+
+function computeConfidence(score: number): Confidence {
+  return confidenceFromScore(score)
+}
+
+function filterAndSort(records: ScoredMatch[]): ScoredMatch[] {
+  const filtered = records.filter(r => r.score >= SCORE_THRESHOLD || r.confidence === "direct")
+  filtered.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  })
+  return filtered
+}
+
+function groupRecords(records: ScoredMatch[]): GroupedRelatedRecords[] {
+  const filtered = filterAndSort(records)
+  const groups = new Map<QualityRecordType, ScoredMatch[]>()
+  for (const r of filtered) {
     const existing = groups.get(r.recordType) ?? []
     existing.push(r)
     groups.set(r.recordType, existing)
   }
   const typeOrder: QualityRecordType[] = ["FIELD_DEFECT", "DEFECT", "EIGHT_D", "PPAP", "IQC", "FMEA"]
+  let totalAllocated = 0
   const result: GroupedRelatedRecords[] = []
   for (const t of typeOrder) {
+    if (totalAllocated >= MAX_TOTAL_RESULTS) break
     const recs = groups.get(t)
     if (recs && recs.length > 0) {
-      recs.sort((a, b) => {
-        const confidenceOrder = ["direct", "exact", "strong", "moderate"]
-        const ci = confidenceOrder.indexOf(a.confidence) - confidenceOrder.indexOf(b.confidence)
-        if (ci !== 0) return ci
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      })
+      const remaining = MAX_TOTAL_RESULTS - totalAllocated
+      const limit = Math.min(DEFAULT_GROUP_LIMIT, remaining)
+      const sliced = recs.slice(0, limit)
+      totalAllocated += sliced.length
       result.push({
         recordType: t,
         label: QUALITY_RECORD_TYPE_LABELS[t],
-        records: recs,
+        records: sliced.map(({ score, ...rest }) => ({ ...rest, score })),
       })
     }
   }
   return result
 }
 
-function dedupRecords(records: RelatedQualityRecord[]): RelatedQualityRecord[] {
-  const seen = new Map<string, RelatedQualityRecord>()
+function dedupRecords(records: ScoredMatch[]): ScoredMatch[] {
+  const seen = new Map<string, ScoredMatch>()
   for (const r of records) {
     const key = `${r.recordType}:${r.id}`
     const existing = seen.get(key)
@@ -79,12 +168,22 @@ function dedupRecords(records: RelatedQualityRecord[]): RelatedQualityRecord[] {
     } else {
       const mergedReasons = new Set([...existing.matchReasons, ...r.matchReasons])
       existing.matchReasons = [...mergedReasons]
-      const confidenceOrder = ["direct", "exact", "strong", "moderate"] as const
-      const ci = confidenceOrder.indexOf(r.confidence) - confidenceOrder.indexOf(existing.confidence)
-      if (ci < 0) existing.confidence = r.confidence
+      existing.score = Math.max(existing.score, r.score)
+      existing.confidence = computeConfidence(existing.score)
     }
   }
   return [...seen.values()]
+}
+
+function isIqcRejectedOrOnHold(status: string | null): boolean {
+  if (!status) return false
+  const s = status.toUpperCase()
+  return s === "REJECTED" || s === "ON_HOLD" || s === "FAILED" || s.includes("REJECT") || s.includes("HOLD")
+}
+
+function isPpapApproved(status: string | null): boolean {
+  if (!status) return false
+  return status.toUpperCase() === "APPROVED"
 }
 
 export async function findRelatedForFieldDefect(
@@ -106,7 +205,7 @@ export async function findRelatedForFieldDefect(
   const oemId = isSupplier ? fd.oemId : companyId
   const supplierId = fd.supplierId
   const scope = getSupplierScope(session, oemId, supplierId)
-  const records: RelatedQualityRecord[] = []
+  const records: ScoredMatch[] = []
 
   if (fd.linkedDefectId) {
     const where: Record<string, unknown> = { id: fd.linkedDefectId, oemId }
@@ -124,6 +223,7 @@ export async function findRelatedForFieldDefect(
         createdAt: defect.createdAt,
         matchReasons: ["FIELD_TO_8D"] as QualityLinkType[],
         href: buildHref("DEFECT", defect.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
@@ -135,32 +235,49 @@ export async function findRelatedForFieldDefect(
     const ppapRecords = await prisma.ppapSubmission.findMany({
       where: ppapWhere,
       orderBy: { createdAt: "desc" },
-      take: 10,
+      take: 20,
     })
     for (const p of ppapRecords) {
       const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      reasons.push("SAME_SUPPLIER")
-      if (fd.partNumber && p.partNumber && fd.partNumber.toLowerCase() === p.partNumber.toLowerCase()) {
+      let score = 0
+      const partMatch = fd.partNumber && p.partNumber && fd.partNumber.toLowerCase() === p.partNumber.toLowerCase()
+      if (partMatch) {
         reasons.push("SAME_PART")
-        confidence = "exact"
+        score += MATCH_SCORES.SAME_PART_EXACT
+      }
+      if (supplierId && p.supplierId === supplierId) {
+        if (partMatch) {
+          reasons.push("SAME_SUPPLIER")
+          score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+        } else {
+          reasons.push("SAME_SUPPLIER_ONLY")
+          score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+        }
       }
       if (fd.vehicleModel && p.vehicleModel && fd.vehicleModel.toLowerCase() === p.vehicleModel.toLowerCase()) {
         reasons.push("SAME_VEHICLE")
+        score += partMatch ? MATCH_SCORES.SAME_VEHICLE_WITH_PART : MATCH_SCORES.SAME_VEHICLE
       }
-      records.push({
-        recordType: "PPAP",
-        id: p.id,
-        title: `${p.requestNumber} — ${p.partName || p.partNumber}`,
-        status: p.status,
-        statusLabel: statusLabel("PPAP", p.status),
-        supplier: (await getSupplierName(p.supplierId)) ?? null,
-        partNumber: p.partNumber,
-        createdAt: p.createdAt,
-        matchReasons: reasons,
-        href: buildHref("PPAP", p.id, companyType),
-        confidence,
-      })
+      if (isPpapApproved(p.status) && partMatch) {
+        reasons.push("PPAP_REFERENCE")
+        score += MATCH_SCORES.PPAP_APPROVED_SAME_PART
+      }
+      if (reasons.length > 0) {
+        records.push({
+          recordType: "PPAP",
+          id: p.id,
+          title: `${p.requestNumber} — ${p.partName || p.partNumber}`,
+          status: p.status,
+          statusLabel: statusLabel("PPAP", p.status),
+          supplier: (await getSupplierName(p.supplierId)) ?? null,
+          partNumber: p.partNumber,
+          createdAt: p.createdAt,
+          matchReasons: reasons,
+          href: buildHref("PPAP", p.id, companyType),
+          score,
+          confidence: computeConfidence(score),
+        })
+      }
     }
 
     const iqcWhere: Record<string, unknown> = { oemId, supplierId }
@@ -168,32 +285,51 @@ export async function findRelatedForFieldDefect(
     const iqcRecords = await prisma.iqcReport.findMany({
       where: iqcWhere,
       orderBy: { createdAt: "desc" },
-      take: 10,
+      take: 20,
     })
     for (const i of iqcRecords) {
       const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      reasons.push("SAME_SUPPLIER")
-      if (fd.partNumber && i.partNumber && fd.partNumber.toLowerCase() === i.partNumber.toLowerCase()) {
+      let score = 0
+      const partMatch = fd.partNumber && i.partNumber && fd.partNumber.toLowerCase() === i.partNumber.toLowerCase()
+      if (partMatch) {
         reasons.push("SAME_PART")
-        confidence = "exact"
+        score += MATCH_SCORES.SAME_PART_EXACT
+      }
+      if (supplierId && i.supplierId === supplierId) {
+        if (partMatch) {
+          reasons.push("SAME_SUPPLIER")
+          score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+        } else {
+          reasons.push("SAME_SUPPLIER_ONLY")
+          score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+        }
       }
       if (fd.vehicleModel && i.vehicleModel && fd.vehicleModel.toLowerCase() === i.vehicleModel.toLowerCase()) {
         reasons.push("SAME_VEHICLE")
+        score += partMatch ? MATCH_SCORES.SAME_VEHICLE_WITH_PART : MATCH_SCORES.SAME_VEHICLE
       }
-      records.push({
-        recordType: "IQC",
-        id: i.id,
-        title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
-        status: i.status,
-        statusLabel: statusLabel("IQC", i.status),
-        supplier: (await getSupplierName(i.supplierId)) ?? null,
-        partNumber: i.partNumber,
-        createdAt: i.createdAt,
-        matchReasons: reasons,
-        href: buildHref("IQC", i.id, companyType),
-        confidence,
-      })
+      if (isIqcRejectedOrOnHold(i.status)) {
+        if (partMatch) {
+          reasons.push("IQC_REJECTION")
+          score += MATCH_SCORES.IQC_REJECTION_BONUS
+        }
+      }
+      if (reasons.length > 0) {
+        records.push({
+          recordType: "IQC",
+          id: i.id,
+          title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
+          status: i.status,
+          statusLabel: statusLabel("IQC", i.status),
+          supplier: (await getSupplierName(i.supplierId)) ?? null,
+          partNumber: i.partNumber,
+          createdAt: i.createdAt,
+          matchReasons: reasons,
+          href: buildHref("IQC", i.id, companyType),
+          score,
+          confidence: computeConfidence(score),
+        })
+      }
     }
   }
 
@@ -202,25 +338,36 @@ export async function findRelatedForFieldDefect(
     if (fd.partNumber) fmeaWhere.partNumber = { equals: fd.partNumber, mode: "insensitive" as const }
     if (supplierId) fmeaWhere.supplierId = supplierId
     if (scope.isSupplier) fmeaWhere.supplierId = scope.companySupplierId
-    if (fd.partNumber || supplierId) {
+
+    if (fd.partNumber || (supplierId && fd.category)) {
       const fmeaRecords = await prisma.fmea.findMany({
         where: fmeaWhere,
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 20,
       })
       for (const f of fmeaRecords) {
         const reasons: QualityLinkType[] = []
-        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-        if (fd.partNumber && f.partNumber && fd.partNumber.toLowerCase() === f.partNumber.toLowerCase()) {
+        let score = 0
+        const partMatch = fd.partNumber && f.partNumber && fd.partNumber.toLowerCase() === f.partNumber.toLowerCase()
+        if (partMatch) {
           reasons.push("SAME_PART")
-          confidence = "exact"
+          score += MATCH_SCORES.SAME_PART_EXACT
         }
         if (supplierId && f.supplierId === supplierId) {
-          reasons.push("SAME_SUPPLIER")
-          if (confidence !== "exact") confidence = "strong"
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
         }
-        if (fd.category || fd.subcategory) {
-          reasons.push("FMEA_COVERAGE")
+        if (fd.category && f.title) {
+          const titleScore = keywordOverlapScore(fd.category, f.title)
+          if (titleScore > 0) {
+            reasons.push("FMEA_COVERAGE")
+            score += MATCH_SCORES.FMEA_FAILURE_MODE_MATCH
+          }
         }
         if (reasons.length > 0) {
           records.push({
@@ -234,7 +381,8 @@ export async function findRelatedForFieldDefect(
             createdAt: f.createdAt,
             matchReasons: reasons,
             href: buildHref("FMEA", f.id, companyType),
-            confidence,
+            score,
+            confidence: computeConfidence(score),
           })
         }
       }
@@ -260,35 +408,48 @@ export async function findRelatedForFieldDefect(
           ...(fd.linkedDefectId ? { id: { not: fd.linkedDefectId } } : {}),
         },
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 20,
       })
       for (const d of defects) {
         const reasons: QualityLinkType[] = []
-        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-        if (fd.partNumber && d.partNumber && fd.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+        let score = 0
+        const partMatch = fd.partNumber && d.partNumber && fd.partNumber.toLowerCase() === d.partNumber.toLowerCase()
+        if (partMatch) {
           reasons.push("SAME_PART")
-          confidence = "exact"
+          score += MATCH_SCORES.SAME_PART_EXACT
         }
         if (supplierId && d.supplierId === supplierId) {
-          reasons.push("SAME_SUPPLIER")
-          if (confidence !== "exact") confidence = "strong"
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
         }
-        if (fd.category && d.description.toLowerCase().includes(fd.category.toLowerCase())) {
-          reasons.push("SAME_FAILURE_MODE")
+        if (fd.category && d.description && fd.category.toLowerCase() !== d.description.toLowerCase()) {
+          const tokScore = keywordOverlapScore(fd.category, d.description)
+          if (tokScore > 0) {
+            reasons.push("SAME_FAILURE_MODE")
+            score += MATCH_SCORES.SAME_FAILURE_MODE_EXACT
+          }
         }
-        records.push({
-          recordType: "DEFECT",
-          id: d.id,
-          title: d.description,
-          status: d.status,
-          statusLabel: statusLabel("DEFECT", d.status),
-          supplier: (await getSupplierName(d.supplierId)) ?? null,
-          partNumber: d.partNumber ?? null,
-          createdAt: d.createdAt,
-          matchReasons: reasons,
-          href: buildHref("DEFECT", d.id, companyType),
-          confidence,
-        })
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "DEFECT",
+            id: d.id,
+            title: d.description,
+            status: d.status,
+            statusLabel: statusLabel("DEFECT", d.status),
+            supplier: (await getSupplierName(d.supplierId)) ?? null,
+            partNumber: d.partNumber ?? null,
+            createdAt: d.createdAt,
+            matchReasons: reasons,
+            href: buildHref("DEFECT", d.id, companyType),
+            score,
+            confidence: computeConfidence(score),
+          })
+        }
       }
     }
   }
@@ -310,7 +471,8 @@ export async function findRelatedForFieldDefect(
     if (resolved) {
       records.push({
         ...resolved,
-        matchReasons: ["MANUAL"],
+        matchReasons: [link.linkType === "MANUAL" ? "MANUAL" as QualityLinkType : link.linkType],
+        score: SCORE_MANUAL,
         confidence: "direct",
       })
     }
@@ -337,7 +499,7 @@ export async function findRelatedForIqc(
   const oemId = iqc.oemId
   const supplierId = iqc.supplierId
   const scope = getSupplierScope(session, oemId, supplierId)
-  const records: RelatedQualityRecord[] = []
+  const records: ScoredMatch[] = []
 
   if (iqc.linkedDefectId) {
     const where: Record<string, unknown> = { id: iqc.linkedDefectId, oemId }
@@ -355,16 +517,17 @@ export async function findRelatedForIqc(
         createdAt: defect.createdAt,
         matchReasons: ["IQC_TO_DEFECT"] as QualityLinkType[],
         href: buildHref("DEFECT", defect.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
   }
 
-  if (supplierId) {
+  if (supplierId && iqc.partNumber) {
     const ppapWhere: Record<string, unknown> = {
       oemId,
       supplierId,
-      partNumber: iqc.partNumber,
+      partNumber: { equals: iqc.partNumber, mode: "insensitive" as const },
     }
     if (scope.isSupplier) ppapWhere.supplierId = scope.companySupplierId
     const ppapRecords = await prisma.ppapSubmission.findMany({
@@ -373,6 +536,12 @@ export async function findRelatedForIqc(
       take: 10,
     })
     for (const p of ppapRecords) {
+      const reasons: QualityLinkType[] = ["SAME_PART", "SAME_SUPPLIER"]
+      let score = MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+      if (isPpapApproved(p.status)) {
+        reasons.push("PPAP_REFERENCE")
+        score += MATCH_SCORES.PPAP_APPROVED_SAME_PART
+      }
       records.push({
         recordType: "PPAP",
         id: p.id,
@@ -382,42 +551,54 @@ export async function findRelatedForIqc(
         supplier: (await getSupplierName(p.supplierId)) ?? null,
         partNumber: p.partNumber,
         createdAt: p.createdAt,
-        matchReasons: ["SAME_PART", "SAME_SUPPLIER"],
+        matchReasons: reasons,
         href: buildHref("PPAP", p.id, companyType),
-        confidence: "exact",
+        score,
+        confidence: computeConfidence(score),
       })
     }
   }
 
   {
-    const fmeaWhere: Record<string, unknown> = {
-      oemId,
-      partNumber: { equals: iqc.partNumber, mode: "insensitive" as const },
-    }
-    if (supplierId) fmeaWhere.supplierId = supplierId
-    if (scope.isSupplier) fmeaWhere.supplierId = scope.companySupplierId
-    const fmeaRecords = await prisma.fmea.findMany({
-      where: fmeaWhere,
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const f of fmeaRecords) {
-      const reasons: QualityLinkType[] = ["SAME_PART"]
-      if (supplierId && f.supplierId === supplierId) reasons.push("SAME_SUPPLIER")
-      reasons.push("FMEA_COVERAGE")
-      records.push({
-        recordType: "FMEA",
-        id: f.id,
-        title: `${f.fmeaNumber} — ${f.title}`,
-        status: f.status,
-        statusLabel: statusLabel("FMEA", f.status),
-        supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
-        partNumber: f.partNumber,
-        createdAt: f.createdAt,
-        matchReasons: reasons,
-        href: buildHref("FMEA", f.id, companyType),
-        confidence: supplierId && f.supplierId === supplierId ? "exact" : "strong",
+    if (iqc.partNumber) {
+      const fmeaWhere: Record<string, unknown> = {
+        oemId,
+        partNumber: { equals: iqc.partNumber, mode: "insensitive" as const },
+      }
+      if (scope.isSupplier) {
+        fmeaWhere.supplierId = scope.companySupplierId
+      } else if (supplierId) {
+        fmeaWhere.supplierId = supplierId
+      }
+      const fmeaRecords = await prisma.fmea.findMany({
+        where: fmeaWhere,
+        orderBy: { createdAt: "desc" },
+        take: 10,
       })
+      for (const f of fmeaRecords) {
+        const reasons: QualityLinkType[] = ["SAME_PART"]
+        let score = MATCH_SCORES.SAME_PART_EXACT
+        if (supplierId && f.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+        }
+        reasons.push("FMEA_COVERAGE")
+        score += MATCH_SCORES.FMEA_FAILURE_MODE_MATCH
+        records.push({
+          recordType: "FMEA",
+          id: f.id,
+          title: `${f.fmeaNumber} — ${f.title}`,
+          status: f.status,
+          statusLabel: statusLabel("FMEA", f.status),
+          supplier: f.supplierId ? (await getSupplierName(f.supplierId)) : null,
+          partNumber: f.partNumber,
+          createdAt: f.createdAt,
+          matchReasons: reasons,
+          href: buildHref("FMEA", f.id, companyType),
+          score,
+          confidence: computeConfidence(score),
+        })
+      }
     }
   }
 
@@ -431,44 +612,54 @@ export async function findRelatedForIqc(
     } else if (supplierId) {
       fdOrConditions.push({ supplierId })
     }
-    const fdBaseWhere: Record<string, unknown> = { oemId, deletedAt: null }
-    if (scope.isSupplier) fdBaseWhere.supplierId = scope.companySupplierId
-    const fieldDefects = await prisma.fieldDefect.findMany({
-      where: {
-        ...fdBaseWhere,
-        OR: fdOrConditions,
-      },
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const fdef of fieldDefects) {
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (iqc.partNumber && fdef.partNumber && iqc.partNumber.toLowerCase() === fdef.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
-      if (supplierId && fdef.supplierId === supplierId) {
-        reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
-      }
-      if (iqc.vehicleModel && fdef.vehicleModel && iqc.vehicleModel.toLowerCase() === fdef.vehicleModel.toLowerCase()) {
-        reasons.push("SAME_VEHICLE")
-      }
-      if (reasons.length > 0) {
-        records.push({
-          recordType: "FIELD_DEFECT",
-          id: fdef.id,
-          title: fdef.title,
-          status: fdef.status,
-          statusLabel: statusLabel("FIELD_DEFECT", fdef.status),
-          supplier: fdef.supplierId ? (await getSupplierName(fdef.supplierId)) : null,
-          partNumber: fdef.partNumber ?? null,
-          createdAt: fdef.createdAt,
-          matchReasons: reasons,
-          href: buildHref("FIELD_DEFECT", fdef.id, companyType),
-          confidence,
-        })
+    if (fdOrConditions.length > 0) {
+      const fdBaseWhere: Record<string, unknown> = { oemId, deletedAt: null }
+      if (scope.isSupplier) fdBaseWhere.supplierId = scope.companySupplierId
+      const fieldDefects = await prisma.fieldDefect.findMany({
+        where: {
+          ...fdBaseWhere,
+          OR: fdOrConditions,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      })
+      for (const fdef of fieldDefects) {
+        const reasons: QualityLinkType[] = []
+        let score = 0
+        const partMatch = iqc.partNumber && fdef.partNumber && iqc.partNumber.toLowerCase() === fdef.partNumber.toLowerCase()
+        if (partMatch) {
+          reasons.push("SAME_PART")
+          score += MATCH_SCORES.SAME_PART_EXACT
+        }
+        if (supplierId && fdef.supplierId === supplierId) {
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
+        }
+        if (iqc.vehicleModel && fdef.vehicleModel && iqc.vehicleModel.toLowerCase() === fdef.vehicleModel.toLowerCase()) {
+          reasons.push("SAME_VEHICLE")
+          score += (partMatch ? MATCH_SCORES.SAME_VEHICLE_WITH_PART : MATCH_SCORES.SAME_VEHICLE)
+        }
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "FIELD_DEFECT",
+            id: fdef.id,
+            title: fdef.title,
+            status: fdef.status,
+            statusLabel: statusLabel("FIELD_DEFECT", fdef.status),
+            supplier: fdef.supplierId ? (await getSupplierName(fdef.supplierId)) : null,
+            partNumber: fdef.partNumber ?? null,
+            createdAt: fdef.createdAt,
+            matchReasons: reasons,
+            href: buildHref("FIELD_DEFECT", fdef.id, companyType),
+            score,
+            confidence: computeConfidence(score),
+          })
+        }
       }
     }
   }
@@ -483,42 +674,51 @@ export async function findRelatedForIqc(
     } else if (supplierId) {
       dOrConditions.push({ supplierId })
     }
-    const dBaseWhere: Record<string, unknown> = { oemId }
-    if (scope.isSupplier) dBaseWhere.supplierId = scope.companySupplierId
-    const defects = await prisma.defect.findMany({
-      where: {
-        ...dBaseWhere,
-        OR: dOrConditions,
-      },
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const d of defects) {
-      if (iqc.linkedDefectId && d.id === iqc.linkedDefectId) continue
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (iqc.partNumber && d.partNumber && iqc.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
-      if (supplierId && d.supplierId === supplierId) {
-        reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
-      }
-      if (reasons.length > 0) {
-        records.push({
-          recordType: "DEFECT",
-          id: d.id,
-          title: d.description,
-          status: d.status,
-          statusLabel: statusLabel("DEFECT", d.status),
-          supplier: (await getSupplierName(d.supplierId)) ?? null,
-          partNumber: d.partNumber ?? null,
-          createdAt: d.createdAt,
-          matchReasons: reasons,
-          href: buildHref("DEFECT", d.id, companyType),
-          confidence,
-        })
+    if (dOrConditions.length > 0) {
+      const dBaseWhere: Record<string, unknown> = { oemId }
+      if (scope.isSupplier) dBaseWhere.supplierId = scope.companySupplierId
+      const defects = await prisma.defect.findMany({
+        where: {
+          ...dBaseWhere,
+          OR: dOrConditions,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      })
+      for (const d of defects) {
+        if (iqc.linkedDefectId && d.id === iqc.linkedDefectId) continue
+        const reasons: QualityLinkType[] = []
+        let score = 0
+        const partMatch = iqc.partNumber && d.partNumber && iqc.partNumber.toLowerCase() === d.partNumber.toLowerCase()
+        if (partMatch) {
+          reasons.push("SAME_PART")
+          score += MATCH_SCORES.SAME_PART_EXACT
+        }
+        if (supplierId && d.supplierId === supplierId) {
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
+        }
+        if (reasons.length > 0) {
+          records.push({
+            recordType: "DEFECT",
+            id: d.id,
+            title: d.description,
+            status: d.status,
+            statusLabel: statusLabel("DEFECT", d.status),
+            supplier: (await getSupplierName(d.supplierId)) ?? null,
+            partNumber: d.partNumber ?? null,
+            createdAt: d.createdAt,
+            matchReasons: reasons,
+            href: buildHref("DEFECT", d.id, companyType),
+            score,
+            confidence: computeConfidence(score),
+          })
+        }
       }
     }
   }
@@ -538,7 +738,12 @@ export async function findRelatedForIqc(
     const targetRecordId = isSource ? link.targetId : link.sourceId
     const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
-      records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
+      records.push({
+        ...resolved,
+        matchReasons: [link.linkType === "MANUAL" ? "MANUAL" as QualityLinkType : link.linkType],
+        score: SCORE_MANUAL,
+        confidence: "direct",
+      })
     }
   }
 
@@ -563,7 +768,7 @@ export async function findRelatedForFmea(
   const oemId = fmea.oemId
   const supplierId = fmea.supplierId
   const scope = getSupplierScope(session, oemId, supplierId)
-  const records: RelatedQualityRecord[] = []
+  const records: ScoredMatch[] = []
 
   if (fmea.defectId) {
     const where: Record<string, unknown> = { id: fmea.defectId, oemId }
@@ -581,6 +786,7 @@ export async function findRelatedForFmea(
         createdAt: defect.createdAt,
         matchReasons: ["PPAP_REFERENCE"] as QualityLinkType[],
         href: buildHref("DEFECT", defect.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
@@ -605,24 +811,35 @@ export async function findRelatedForFmea(
           OR: fdOrConditions,
         },
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 20,
       })
       for (const fd of fieldDefects) {
         const reasons: QualityLinkType[] = []
-        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-        if (fmea.partNumber && fd.partNumber && fmea.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
+        let score = 0
+        const partMatch = fmea.partNumber && fd.partNumber && fmea.partNumber.toLowerCase() === fd.partNumber.toLowerCase()
+        if (partMatch) {
           reasons.push("SAME_PART")
-          confidence = "exact"
+          score += MATCH_SCORES.SAME_PART_EXACT
         }
         if (supplierId && fd.supplierId === supplierId) {
-          reasons.push("SAME_SUPPLIER")
-          if (confidence !== "exact") confidence = "strong"
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
         }
-        if (fd.category || fd.subcategory) {
-          reasons.push("FMEA_COVERAGE")
+        if (fd.category && fmea.title) {
+          const tokScore = keywordOverlapScore(fd.category, fmea.title)
+          if (tokScore > 0) {
+            reasons.push("FMEA_COVERAGE")
+            score += MATCH_SCORES.FMEA_FAILURE_MODE_MATCH
+          }
         }
         if (fmea.vehicleModel && fd.vehicleModel && fmea.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
           reasons.push("SAME_VEHICLE")
+          score += (partMatch ? MATCH_SCORES.SAME_VEHICLE_WITH_PART : MATCH_SCORES.SAME_VEHICLE)
         }
         if (reasons.length > 0) {
           records.push({
@@ -636,7 +853,8 @@ export async function findRelatedForFmea(
             createdAt: fd.createdAt,
             matchReasons: reasons,
             href: buildHref("FIELD_DEFECT", fd.id, companyType),
-            confidence,
+            score,
+            confidence: computeConfidence(score),
           })
         }
       }
@@ -644,42 +862,56 @@ export async function findRelatedForFmea(
   }
 
   {
-    const iqcWhere: Record<string, unknown> = {
-      oemId,
-      partNumber: { equals: fmea.partNumber, mode: "insensitive" as const },
-    }
-    if (scope.isSupplier) {
-      iqcWhere.supplierId = scope.companySupplierId
-    } else if (supplierId) {
-      iqcWhere.supplierId = supplierId
-    }
-    const iqcRecords = await prisma.iqcReport.findMany({
-      where: iqcWhere,
-      orderBy: { createdAt: "desc" },
-      take: 10,
-    })
-    for (const i of iqcRecords) {
-      const reasons: QualityLinkType[] = ["SAME_PART"]
-      if (supplierId && i.supplierId === supplierId) reasons.push("SAME_SUPPLIER")
-      reasons.push("FMEA_COVERAGE")
-      records.push({
-        recordType: "IQC",
-        id: i.id,
-        title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
-        status: i.status,
-        statusLabel: statusLabel("IQC", i.status),
-        supplier: (await getSupplierName(i.supplierId)) ?? null,
-        partNumber: i.partNumber,
-        createdAt: i.createdAt,
-        matchReasons: reasons,
-        href: buildHref("IQC", i.id, companyType),
-        confidence: supplierId && i.supplierId === supplierId ? "exact" : "strong",
+    if (fmea.partNumber) {
+      const iqcWhere: Record<string, unknown> = {
+        oemId,
+        partNumber: { equals: fmea.partNumber, mode: "insensitive" as const },
+      }
+      if (scope.isSupplier) {
+        iqcWhere.supplierId = scope.companySupplierId
+      } else if (supplierId) {
+        iqcWhere.supplierId = supplierId
+      }
+      const iqcRecords = await prisma.iqcReport.findMany({
+        where: iqcWhere,
+        orderBy: { createdAt: "desc" },
+        take: 10,
       })
+      for (const i of iqcRecords) {
+        const reasons: QualityLinkType[] = ["SAME_PART"]
+        let score = MATCH_SCORES.SAME_PART_EXACT
+        if (supplierId && i.supplierId === supplierId) {
+          reasons.push("SAME_SUPPLIER")
+          score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+        }
+        if (isIqcRejectedOrOnHold(i.status)) {
+          reasons.push("IQC_REJECTION")
+          score += MATCH_SCORES.IQC_REJECTION_BONUS
+        }
+        records.push({
+          recordType: "IQC",
+          id: i.id,
+          title: `${i.inspectionNumber} — ${i.partName || i.partNumber}`,
+          status: i.status,
+          statusLabel: statusLabel("IQC", i.status),
+          supplier: (await getSupplierName(i.supplierId)) ?? null,
+          partNumber: i.partNumber,
+          createdAt: i.createdAt,
+          matchReasons: reasons,
+          href: buildHref("IQC", i.id, companyType),
+          score,
+          confidence: computeConfidence(score),
+        })
+      }
     }
   }
 
-  if (supplierId) {
-    const ppapWhere: Record<string, unknown> = { oemId, supplierId, partNumber: { equals: fmea.partNumber, mode: "insensitive" as const } }
+  if (supplierId && fmea.partNumber) {
+    const ppapWhere: Record<string, unknown> = {
+      oemId,
+      supplierId,
+      partNumber: { equals: fmea.partNumber, mode: "insensitive" as const },
+    }
     if (scope.isSupplier) ppapWhere.supplierId = scope.companySupplierId
     const ppapRecords = await prisma.ppapSubmission.findMany({
       where: ppapWhere,
@@ -687,6 +919,8 @@ export async function findRelatedForFmea(
       take: 10,
     })
     for (const p of ppapRecords) {
+      const reasons: QualityLinkType[] = ["SAME_PART", "SAME_SUPPLIER", "PPAP_REFERENCE"]
+      const score = MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART + MATCH_SCORES.PPAP_APPROVED_SAME_PART
       records.push({
         recordType: "PPAP",
         id: p.id,
@@ -696,9 +930,10 @@ export async function findRelatedForFmea(
         supplier: (await getSupplierName(p.supplierId)) ?? null,
         partNumber: p.partNumber,
         createdAt: p.createdAt,
-        matchReasons: ["SAME_PART", "SAME_SUPPLIER", "PPAP_REFERENCE"],
+        matchReasons: reasons,
         href: buildHref("PPAP", p.id, companyType),
-        confidence: "exact",
+        score,
+        confidence: computeConfidence(score),
       })
     }
   }
@@ -722,19 +957,25 @@ export async function findRelatedForFmea(
           OR: dOrConditions,
         },
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 20,
       })
       for (const d of defects) {
         if (fmea.defectId && d.id === fmea.defectId) continue
         const reasons: QualityLinkType[] = []
-        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-        if (fmea.partNumber && d.partNumber && fmea.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+        let score = 0
+        const partMatch = fmea.partNumber && d.partNumber && fmea.partNumber.toLowerCase() === d.partNumber.toLowerCase()
+        if (partMatch) {
           reasons.push("SAME_PART")
-          confidence = "exact"
+          score += MATCH_SCORES.SAME_PART_EXACT
         }
         if (supplierId && d.supplierId === supplierId) {
-          reasons.push("SAME_SUPPLIER")
-          if (confidence !== "exact") confidence = "strong"
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
         }
         if (reasons.length > 0) {
           records.push({
@@ -748,7 +989,8 @@ export async function findRelatedForFmea(
             createdAt: d.createdAt,
             matchReasons: reasons,
             href: buildHref("DEFECT", d.id, companyType),
-            confidence,
+            score,
+            confidence: computeConfidence(score),
           })
         }
       }
@@ -770,7 +1012,12 @@ export async function findRelatedForFmea(
     const targetRecordId = isSource ? link.targetId : link.sourceId
     const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
-      records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
+      records.push({
+        ...resolved,
+        matchReasons: [link.linkType === "MANUAL" ? "MANUAL" as QualityLinkType : link.linkType],
+        score: SCORE_MANUAL,
+        confidence: "direct",
+      })
     }
   }
 
@@ -795,7 +1042,7 @@ export async function findRelatedForPpap(
   const oemId = ppap.oemId
   const supplierId = ppap.supplierId
   const scope = getSupplierScope(session, oemId, supplierId)
-  const records: RelatedQualityRecord[] = []
+  const records: ScoredMatch[] = []
 
   if (ppap.defectId) {
     const where: Record<string, unknown> = { id: ppap.defectId, oemId }
@@ -813,12 +1060,13 @@ export async function findRelatedForPpap(
         createdAt: defect.createdAt,
         matchReasons: ["PPAP_REFERENCE"] as QualityLinkType[],
         href: buildHref("DEFECT", defect.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
   }
 
-  {
+  if (supplierId && ppap.partNumber) {
     const iqcWhere: Record<string, unknown> = {
       oemId,
       supplierId,
@@ -831,6 +1079,12 @@ export async function findRelatedForPpap(
       take: 10,
     })
     for (const i of iqcRecords) {
+      const reasons: QualityLinkType[] = ["SAME_PART", "SAME_SUPPLIER"]
+      let score = MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+      if (isIqcRejectedOrOnHold(i.status)) {
+        reasons.push("IQC_REJECTION")
+        score += MATCH_SCORES.IQC_REJECTION_BONUS
+      }
       records.push({
         recordType: "IQC",
         id: i.id,
@@ -840,14 +1094,15 @@ export async function findRelatedForPpap(
         supplier: (await getSupplierName(i.supplierId)) ?? null,
         partNumber: i.partNumber,
         createdAt: i.createdAt,
-        matchReasons: ["SAME_PART", "SAME_SUPPLIER"],
+        matchReasons: reasons,
         href: buildHref("IQC", i.id, companyType),
-        confidence: "exact",
+        score,
+        confidence: computeConfidence(score),
       })
     }
   }
 
-  {
+  if (supplierId && ppap.partNumber) {
     const fmeaWhere: Record<string, unknown> = {
       oemId,
       partNumber: { equals: ppap.partNumber, mode: "insensitive" as const },
@@ -871,7 +1126,8 @@ export async function findRelatedForPpap(
         createdAt: f.createdAt,
         matchReasons: ["SAME_PART", "SAME_SUPPLIER", "FMEA_COVERAGE"],
         href: buildHref("FMEA", f.id, companyType),
-        confidence: "exact",
+        score: MATCH_SCORES.SAME_PART_EXACT + MATCH_SCORES.SAME_SUPPLIER_WITH_PART + MATCH_SCORES.FMEA_FAILURE_MODE_MATCH,
+        confidence: "strong",
       })
     }
   }
@@ -882,42 +1138,36 @@ export async function findRelatedForPpap(
         oemId,
         deletedAt: null,
         supplierId: scope.isSupplier ? scope.companySupplierId : supplierId,
-        OR: [
-          { partNumber: { equals: ppap.partNumber, mode: "insensitive" as const } },
-        ],
+        partNumber: { equals: ppap.partNumber, mode: "insensitive" as const },
       },
       orderBy: { createdAt: "desc" },
       take: 10,
     })
     for (const fd of fieldDefects) {
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (ppap.partNumber && fd.partNumber && ppap.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
+      const reasons: QualityLinkType[] = ["SAME_PART"]
+      let score = MATCH_SCORES.SAME_PART_EXACT
       if (fd.supplierId === supplierId) {
         reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
+        score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
       }
       if (ppap.vehicleModel && fd.vehicleModel && ppap.vehicleModel.toLowerCase() === fd.vehicleModel.toLowerCase()) {
         reasons.push("SAME_VEHICLE")
+        score += MATCH_SCORES.SAME_VEHICLE_WITH_PART
       }
-      if (reasons.length > 0) {
-        records.push({
-          recordType: "FIELD_DEFECT",
-          id: fd.id,
-          title: fd.title,
-          status: fd.status,
-          statusLabel: statusLabel("FIELD_DEFECT", fd.status),
-          supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
-          partNumber: fd.partNumber ?? null,
-          createdAt: fd.createdAt,
-          matchReasons: reasons,
-          href: buildHref("FIELD_DEFECT", fd.id, companyType),
-          confidence,
-        })
-      }
+      records.push({
+        recordType: "FIELD_DEFECT",
+        id: fd.id,
+        title: fd.title,
+        status: fd.status,
+        statusLabel: statusLabel("FIELD_DEFECT", fd.status),
+        supplier: fd.supplierId ? (await getSupplierName(fd.supplierId)) : null,
+        partNumber: fd.partNumber ?? null,
+        createdAt: fd.createdAt,
+        matchReasons: reasons,
+        href: buildHref("FIELD_DEFECT", fd.id, companyType),
+        score,
+        confidence: computeConfidence(score),
+      })
     }
   }
 
@@ -925,42 +1175,35 @@ export async function findRelatedForPpap(
     const defects = await prisma.defect.findMany({
       where: {
         oemId,
+        partNumber: { equals: ppap.partNumber, mode: "insensitive" as const },
         ...(scope.isSupplier ? { supplierId: scope.companySupplierId } : {}),
-        OR: [
-          { partNumber: { equals: ppap.partNumber, mode: "insensitive" } },
-          ...(supplierId && !scope.isSupplier ? [{ supplierId }] : []),
-        ],
+        ...(supplierId && !scope.isSupplier ? { supplierId } : {}),
+        ...(ppap.defectId ? { id: { not: ppap.defectId } } : {}),
       },
       orderBy: { createdAt: "desc" },
       take: 10,
     })
     for (const d of defects) {
-      if (ppap.defectId && d.id === ppap.defectId) continue
-      const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (ppap.partNumber && d.partNumber && ppap.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
-        reasons.push("SAME_PART")
-        confidence = "exact"
-      }
+      const reasons: QualityLinkType[] = ["SAME_PART"]
+      let score = MATCH_SCORES.SAME_PART_EXACT
       if (d.supplierId === supplierId) {
         reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
+        score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
       }
-      if (reasons.length > 0) {
-        records.push({
-          recordType: "DEFECT",
-          id: d.id,
-          title: d.description,
-          status: d.status,
-          statusLabel: statusLabel("DEFECT", d.status),
-          supplier: (await getSupplierName(d.supplierId)) ?? null,
-          partNumber: d.partNumber ?? null,
-          createdAt: d.createdAt,
-          matchReasons: reasons,
-          href: buildHref("DEFECT", d.id, companyType),
-          confidence,
-        })
-      }
+      records.push({
+        recordType: "DEFECT",
+        id: d.id,
+        title: d.description,
+        status: d.status,
+        statusLabel: statusLabel("DEFECT", d.status),
+        supplier: (await getSupplierName(d.supplierId)) ?? null,
+        partNumber: d.partNumber ?? null,
+        createdAt: d.createdAt,
+        matchReasons: reasons,
+        href: buildHref("DEFECT", d.id, companyType),
+        score,
+        confidence: computeConfidence(score),
+      })
     }
   }
 
@@ -979,7 +1222,12 @@ export async function findRelatedForPpap(
     const targetRecordId = isSource ? link.targetId : link.sourceId
     const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
-      records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
+      records.push({
+        ...resolved,
+        matchReasons: [link.linkType === "MANUAL" ? "MANUAL" as QualityLinkType : link.linkType],
+        score: SCORE_MANUAL,
+        confidence: "direct",
+      })
     }
   }
 
@@ -1004,7 +1252,7 @@ export async function findRelatedForDefect(
   const oemId = defect.oemId
   const supplierId = defect.supplierId
   const scope = getSupplierScope(session, oemId, supplierId)
-  const records: RelatedQualityRecord[] = []
+  const records: ScoredMatch[] = []
 
   const linkedFd = await prisma.fieldDefect.findFirst({
     where: {
@@ -1027,6 +1275,7 @@ export async function findRelatedForDefect(
       createdAt: linkedFd.createdAt,
       matchReasons: ["FIELD_TO_8D"] as QualityLinkType[],
       href: buildHref("FIELD_DEFECT", linkedFd.id, companyType),
+      score: SCORE_DIRECT,
       confidence: "direct",
     })
   }
@@ -1050,6 +1299,7 @@ export async function findRelatedForDefect(
         createdAt: linkedIqc.createdAt,
         matchReasons: ["IQC_TO_DEFECT"] as QualityLinkType[],
         href: buildHref("IQC", linkedIqc.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
@@ -1074,6 +1324,7 @@ export async function findRelatedForDefect(
         createdAt: linkedPpap.createdAt,
         matchReasons: ["PPAP_REFERENCE"] as QualityLinkType[],
         href: buildHref("PPAP", linkedPpap.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
@@ -1098,6 +1349,7 @@ export async function findRelatedForDefect(
         createdAt: linkedFmea.createdAt,
         matchReasons: ["FMEA_COVERAGE"] as QualityLinkType[],
         href: buildHref("FMEA", linkedFmea.id, companyType),
+        score: SCORE_DIRECT,
         confidence: "direct",
       })
     }
@@ -1123,18 +1375,24 @@ export async function findRelatedForDefect(
           OR: fdOrConditions,
         },
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 20,
       })
       for (const fd of fieldDefects) {
         const reasons: QualityLinkType[] = []
-        let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-        if (defect.partNumber && fd.partNumber && defect.partNumber.toLowerCase() === fd.partNumber.toLowerCase()) {
+        let score = 0
+        const partMatch = defect.partNumber && fd.partNumber && defect.partNumber.toLowerCase() === fd.partNumber.toLowerCase()
+        if (partMatch) {
           reasons.push("SAME_PART")
-          confidence = "exact"
+          score += MATCH_SCORES.SAME_PART_EXACT
         }
         if (supplierId && fd.supplierId === supplierId) {
-          reasons.push("SAME_SUPPLIER")
-          if (confidence !== "exact") confidence = "strong"
+          if (partMatch) {
+            reasons.push("SAME_SUPPLIER")
+            score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+          } else {
+            reasons.push("SAME_SUPPLIER_ONLY")
+            score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+          }
         }
         if (reasons.length > 0) {
           records.push({
@@ -1148,7 +1406,8 @@ export async function findRelatedForDefect(
             createdAt: fd.createdAt,
             matchReasons: reasons,
             href: buildHref("FIELD_DEFECT", fd.id, companyType),
-            confidence,
+            score,
+            confidence: computeConfidence(score),
           })
         }
       }
@@ -1173,18 +1432,31 @@ export async function findRelatedForDefect(
         OR: dOrConditions,
       },
       orderBy: { createdAt: "desc" },
-      take: 10,
+      take: 20,
     })
     for (const d of otherDefects) {
       const reasons: QualityLinkType[] = []
-      let confidence: "exact" | "strong" | "moderate" | "direct" = "moderate"
-      if (defect.partNumber && d.partNumber && defect.partNumber.toLowerCase() === d.partNumber.toLowerCase()) {
+      let score = 0
+      const partMatch = defect.partNumber && d.partNumber && defect.partNumber.toLowerCase() === d.partNumber.toLowerCase()
+      if (partMatch) {
         reasons.push("SAME_PART")
-        confidence = "exact"
+        score += MATCH_SCORES.SAME_PART_EXACT
       }
       if (supplierId && d.supplierId === supplierId) {
-        reasons.push("SAME_SUPPLIER")
-        if (confidence !== "exact") confidence = "strong"
+        if (partMatch) {
+          reasons.push("SAME_SUPPLIER")
+          score += MATCH_SCORES.SAME_SUPPLIER_WITH_PART
+        } else {
+          reasons.push("SAME_SUPPLIER_ONLY")
+          score += MATCH_SCORES.SAME_SUPPLIER_ONLY
+        }
+      }
+      if (score > 0 && defect.description && d.description) {
+        const tokScore = keywordOverlapScore(defect.description, d.description)
+        if (tokScore >= MATCH_SCORES.TITLE_KEYWORD_STRONG) {
+          reasons.push("SAME_FAILURE_MODE")
+          score += MATCH_SCORES.SAME_FAILURE_MODE_EXACT
+        }
       }
       if (reasons.length > 0) {
         records.push({
@@ -1198,7 +1470,8 @@ export async function findRelatedForDefect(
           createdAt: d.createdAt,
           matchReasons: reasons,
           href: buildHref("DEFECT", d.id, companyType),
-          confidence,
+          score,
+          confidence: computeConfidence(score),
         })
       }
     }
@@ -1219,7 +1492,12 @@ export async function findRelatedForDefect(
     const targetRecordId = isSource ? link.targetId : link.sourceId
     const resolved = await resolveRecord(targetRecordType, targetRecordId, oemId, companyType, scope)
     if (resolved) {
-      records.push({ ...resolved, matchReasons: ["MANUAL"], confidence: "direct" })
+      records.push({
+        ...resolved,
+        matchReasons: [link.linkType === "MANUAL" ? "MANUAL" as QualityLinkType : link.linkType],
+        score: SCORE_MANUAL,
+        confidence: "direct",
+      })
     }
   }
 
@@ -1246,7 +1524,7 @@ async function resolveRecord(
   oemId: string,
   companyType: string,
   scope: SupplierScope,
-): Promise<Omit<RelatedQualityRecord, "matchReasons" | "confidence"> | null> {
+): Promise<Omit<ScoredMatch, "matchReasons" | "score" | "confidence"> | null> {
   const supplierFilter = scope.isSupplier ? { supplierId: scope.companySupplierId } : {}
   switch (recordType) {
     case "FIELD_DEFECT": {

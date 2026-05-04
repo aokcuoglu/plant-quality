@@ -23,12 +23,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import type { GroupedRelatedRecords } from "@/lib/quality-linkage/types"
+import type { GroupedRelatedRecords, Confidence } from "@/lib/quality-linkage/types"
 import {
   QUALITY_RECORD_TYPE_LABELS,
   QUALITY_RECORD_TYPE_COLORS,
   QUALITY_LINK_TYPE_LABELS,
   QUALITY_LINK_TYPE_COLORS,
+  CONFIDENCE_STYLES,
 } from "@/lib/quality-linkage/types"
 import type { QualityRecordType, QualityLinkType } from "@/generated/prisma/client"
 
@@ -41,11 +42,18 @@ const RECORD_TYPE_ICONS: Record<QualityRecordType, React.ReactNode> = {
   FMEA: <ShieldAlert className="h-4 w-4" />,
 }
 
-const CONFIDENCE_LABELS: Record<string, { label: string; className: string }> = {
-  direct: { label: "Direct", className: "bg-foreground/10 text-foreground" },
-  exact: { label: "Exact", className: "bg-emerald-500/10 text-emerald-400" },
-  strong: { label: "Strong", className: "bg-amber-500/10 text-amber-500" },
-  moderate: { label: "Moderate", className: "bg-muted text-muted-foreground" },
+function ConfidenceBadge({ confidence, score }: { confidence: Confidence; score: number }) {
+  const style = CONFIDENCE_STYLES[confidence]
+  if (!style) return null
+  return (
+    <Badge
+      variant="outline"
+      className={`${style.className} text-[10px] px-1.5 py-0 border`}
+      title={`Match score: ${score}`}
+    >
+      {style.label}
+    </Badge>
+  )
 }
 
 interface RelatedQualityRecordsPanelProps {
@@ -87,6 +95,7 @@ export function RelatedQualityRecordsPanel({
   manualLinks,
 }: RelatedQualityRecordsPanelProps) {
   const totalRecords = groupedRecords.reduce((s, g) => s + g.records.length, 0)
+  const hasManualLinks = manualLinks && manualLinks.length > 0
 
   return (
     <Card>
@@ -121,99 +130,37 @@ export function RelatedQualityRecordsPanel({
         {error && (
           <p className="text-sm text-destructive">{error}</p>
         )}
-        {!loading && !error && groupedRecords.length === 0 && (
+        {!loading && !error && groupedRecords.length === 0 && !hasManualLinks && (
           <div className="text-center py-6">
             <Link2 className="h-8 w-8 mx-auto text-muted-foreground/50 mb-2" />
             <p className="text-sm text-muted-foreground">No related quality records found.</p>
+            <p className="text-xs text-muted-foreground mt-1">Records with shared parts, suppliers, or failure modes will appear here.</p>
           </div>
         )}
-        {!loading && !error && groupedRecords.map((group, gi) => (
-          <div key={group.recordType}>
-            {gi > 0 && <Separator className="my-3" />}
-            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
-              {RECORD_TYPE_ICONS[group.recordType]}
-              {group.label}
-              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                {group.records.length}
-              </Badge>
-            </h4>
-            <div className="space-y-2">
-              {group.records.map((record) => (
-                <Link
-                  key={record.id}
-                  href={record.href}
-                  className="block rounded-lg border border-border p-3 hover:bg-accent/50 transition-colors"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-foreground truncate">
-                        {record.title}
-                      </p>
-                      <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <Badge
-                          variant="outline"
-                          className={`${QUALITY_RECORD_TYPE_COLORS[record.recordType]} text-[10px] px-1.5 py-0 border`}
-                        >
-                          {record.statusLabel}
-                        </Badge>
-                        {record.supplier && (
-                          <span className="text-xs text-muted-foreground">
-                            {record.supplier}
-                          </span>
-                        )}
-                        {record.partNumber && (
-                          <span className="text-xs text-muted-foreground">
-                            {record.partNumber}
-                          </span>
-                        )}
-                        {CONFIDENCE_LABELS[record.confidence] && (
-                          <Badge
-                            variant="outline"
-                            className={`${CONFIDENCE_LABELS[record.confidence].className} text-[10px] px-1.5 py-0 border`}
-                          >
-                            {CONFIDENCE_LABELS[record.confidence].label}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-1 mt-1.5 flex-wrap">
-                        {record.matchReasons.map((reason) => (
-                          <Badge
-                            key={reason}
-                            variant="outline"
-                            className={`${QUALITY_LINK_TYPE_COLORS[reason]} text-[10px] px-1 py-0 border`}
-                          >
-                            {QUALITY_LINK_TYPE_LABELS[reason]}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
-        {!loading && !error && manualLinks && manualLinks.length > 0 && (
+
+        {hasManualLinks && !loading && !error && (
           <>
-            <Separator />
-            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+            <h4 className="text-xs font-medium uppercase tracking-wider text-foreground flex items-center gap-1.5">
               <Link2 className="h-3.5 w-3.5" />
               Manual Links
               <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                {manualLinks.length}
+                {manualLinks!.length}
               </Badge>
             </h4>
             <div className="space-y-1">
-              {manualLinks.map((link) => {
+              {manualLinks!.map((link) => {
                 const isSource = link.sourceType === sourceType && link.sourceId === sourceId
                 const displayType = isSource ? link.targetType : link.sourceType
                 const displayId = isSource ? link.targetId : link.sourceId
                 return (
                   <div
                     key={link.id}
-                    className="flex items-center justify-between gap-2 rounded border border-border p-2 text-sm"
+                    className="flex items-center justify-between gap-2 rounded border border-emerald-500/20 bg-emerald-500/5 p-2 text-sm"
                   >
                     <div className="flex items-center gap-1.5 min-w-0">
+                      <Badge variant="outline" className="bg-foreground/10 text-foreground border-foreground/20 text-[10px] px-1.5 py-0">
+                        Manual
+                      </Badge>
                       <Badge variant="outline" className={`${QUALITY_RECORD_TYPE_COLORS[displayType]} text-[10px] px-1.5 py-0 border`}>
                         {QUALITY_RECORD_TYPE_LABELS[displayType]}
                       </Badge>
@@ -244,6 +191,66 @@ export function RelatedQualityRecordsPanel({
             </div>
           </>
         )}
+
+        {!loading && !error && groupedRecords.map((group, gi) => (
+          <div key={group.recordType}>
+            {(gi > 0 || hasManualLinks) && <Separator className="my-3" />}
+            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+              {RECORD_TYPE_ICONS[group.recordType]}
+              {group.label}
+              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
+                {group.records.length}
+              </Badge>
+            </h4>
+            <div className="space-y-2">
+              {group.records.map((record) => (
+                <Link
+                  key={record.id}
+                  href={record.href}
+                  className="block rounded-lg border border-border p-3 hover:bg-accent/50 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-foreground truncate">
+                        {record.title}
+                      </p>
+                      <div className="flex items-center gap-2 mt-1 flex-wrap">
+                        <Badge
+                          variant="outline"
+                          className={`${QUALITY_RECORD_TYPE_COLORS[record.recordType]} text-[10px] px-1.5 py-0 border`}
+                        >
+                          {record.statusLabel}
+                        </Badge>
+                        <ConfidenceBadge confidence={record.confidence} score={record.score} />
+                        {record.partNumber && (
+                          <span className="text-xs text-muted-foreground font-mono">
+                            {record.partNumber}
+                          </span>
+                        )}
+                        {record.supplier && (
+                          <span className="text-xs text-muted-foreground">
+                            {record.supplier}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1 mt-1.5 flex-wrap">
+                        {record.matchReasons.map((reason) => (
+                          <Badge
+                            key={reason}
+                            variant="outline"
+                            className={`${QUALITY_LINK_TYPE_COLORS[reason]} text-[10px] px-1 py-0 border`}
+                          >
+                            {QUALITY_LINK_TYPE_LABELS[reason]}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </CardContent>
     </Card>
   )
@@ -264,13 +271,13 @@ function LinkRecordDialog({
   const [linkType, setLinkType] = useState<QualityLinkType>("MANUAL")
   const [reason, setReason] = useState("")
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!targetId.trim()) return
     setSubmitting(true)
-    setError(null)
+    setSubmitError(null)
     try {
       const result = await onCreateLink!({
         sourceType,
@@ -281,14 +288,14 @@ function LinkRecordDialog({
         reason: reason.trim() || undefined,
       })
       if (result?.error) {
-        setError(result.error)
+        setSubmitError(result.error)
       } else {
         setOpen(false)
         setTargetId("")
         setReason("")
       }
     } catch {
-      setError("Failed to create link")
+      setSubmitError("Failed to create link")
     } finally {
       setSubmitting(false)
     }
@@ -345,13 +352,14 @@ function LinkRecordDialog({
             >
               {([
                 ["MANUAL", "Manual"],
-                ["SAME_PART", "Same Part"],
-                ["SAME_SUPPLIER", "Same Supplier"],
-                ["SAME_FAILURE_MODE", "Same Failure Mode"],
-                ["SAME_VEHICLE", "Same Vehicle/Project"],
-                ["PPAP_REFERENCE", "PPAP Reference"],
-                ["FMEA_COVERAGE", "FMEA Coverage"],
-                ["RELATED_HISTORY", "Related History"],
+                ["SAME_PART", "Same part number"],
+                ["SAME_SUPPLIER", "Same supplier + part"],
+                ["SAME_FAILURE_MODE", "Same failure mode"],
+                ["SAME_VEHICLE", "Same vehicle/project"],
+                ["PPAP_REFERENCE", "PPAP same part"],
+                ["FMEA_COVERAGE", "FMEA coverage"],
+                ["RELATED_HISTORY", "Related history"],
+                ["IQC_REJECTION", "IQC rejection history"],
               ] as [QualityLinkType, string][]).map(([k, v]) => (
                 <option key={k} value={k}>{v}</option>
               ))}
@@ -368,8 +376,8 @@ function LinkRecordDialog({
               className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground"
             />
           </div>
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
+          {submitError && (
+            <p className="text-sm text-destructive">{submitError}</p>
           )}
           <div className="flex justify-end gap-2">
             <Button

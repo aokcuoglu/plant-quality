@@ -1,3 +1,132 @@
+# PlantQuality v2.6.0 — Release Notes
+
+## Quality Intelligence 2.0
+
+**Release Date:** 2026-05-05  
+**Version:** 2.6.0
+
+---
+
+## Summary
+
+PlantQuality v2.6.0 introduces Quality Intelligence 2.0 — deterministic, tenant-scoped risk analysis across PPAP, IQC, FMEA, Field Defects, Defects/8D, and Quality Linkage data. Quality teams can now identify risky supplier+part combinations, detect PPAP-approved parts with later issues, find FMEA coverage gaps, track IQC rejection patterns, and surface repeat issue clusters — all without AI or LLM scoring.
+
+---
+
+## New Features
+
+### Quality Intelligence Service
+
+- **`src/lib/quality-intelligence/`** — New module with deterministic risk signal computation
+  - `types.ts` — Risk levels, signal point values, signal interfaces
+  - `risk-score.ts` — Supplier+part risk accumulator and scorer
+  - `risk-signals.ts` — 5 signal functions + summary query, all tenant-scoped and supplier-isolated
+
+### Risk Scoring Model
+
+Deterministic, explainable scoring for supplier+part combinations:
+
+| Signal | Points |
+|--------|--------|
+| IQC rejected/on-hold/rework/sorting | +25 |
+| Field Defect | +25 |
+| Defect/8D | +25 |
+| Repeat issue across modules | +20 |
+| PPAP approved but later issues | +20 |
+| FMEA coverage gap | +20 |
+| High FMEA RPN (>=100) | +15 |
+| Open 8D or overdue action | +15 |
+| Manual quality link | +10 |
+
+Risk levels: Low (0–24), Medium (25–49), High (50–74), Critical (75+). Cap: 150.
+
+### Risk Signals
+
+1. **PPAP Approved with Issue History** — Finds APPROVED PPAPs where the same supplier+part later had IQC rejections, field defects, or defects/8D.
+2. **FMEA Coverage Gap** — Identifies field defects or defects with meaningful failure text but no matching FMEA failure mode for the same supplier+part.
+3. **IQC Rejection History** — Groups negative IQC results (REJECTED, ON_HOLD, REWORK_REQUIRED, SORTING_REQUIRED) by supplier+part.
+4. **Repeat Issue Clusters** — Groups field defects, defects/8D, and IQC issues by supplier+part where count >= 2.
+5. **Supplier + Part Risk Table** — Combines all signals into scored, ranked supplier+part combinations.
+
+### Intelligence UI Enhancements
+
+- Risk Intelligence section with 5 KPI cards (High Risk, Critical Risk, PPAP Issues, FMEA Gaps, IQC Rejections)
+- Supplier + Part Risk Table with score, level, signal count, contributing factors
+- Signal-specific panels: PPAP issue history, FMEA coverage gaps, IQC rejection history, repeat issue clusters
+- Drill-down links to related records (PPAP, IQC, FMEA, Field Defect, Defect/8D)
+- Enterprise upgrade prompt for PRO/FREE users
+
+### Plan Gating
+
+- **FREE OEM**: Intelligence page locked (requires PRO for basic, Enterprise for full)
+- **PRO OEM**: Basic field defect analytics (existing), no risk signals
+- **ENTERPRISE OEM**: Full deterministic intelligence with all risk signals
+- **Supplier users**: Cannot access OEM intelligence page; no supplier intelligence page added
+
+### Security
+
+- All intelligence queries are tenant/company scoped via `session.user.companyId`
+- Supplier users never see other suppliers' records
+- Client-provided companyId/supplierId never trusted
+- Feature gate enforced server-side (not UI-only)
+- Drill-down hrefs only provided for accessible records
+
+---
+
+## Demo Seed Data
+
+Added v2.6.0 intelligence demo scenarios:
+- IQC rejection for CS-3344-D (SteelForged) to trigger PPAP approved-with-issues signal
+- Field defect with "Electronic failure" category and no FMEA for PS-2233-B → FMEA coverage gap
+- Second IQC rejection (ON_HOLD) for AX-7420-B → stronger repeat issue pattern
+
+---
+
+## Known Limitations
+
+- Risk scoring is deterministic only; no AI/LLM summaries or predictions
+- Score is point-in-time based on current data; no historical trend tracking
+- FMEA coverage gap detection uses keyword overlap; may miss semantic matches
+- No automated notifications from intelligence alerts
+- No PDF/Excel export of risk signals
+
+---
+
+## Deferred to Future Releases
+
+- AI-powered intelligence scoring and summaries
+- Graph visualization of quality relationships
+- Full supplier scorecard module
+- ERP/MRP/PLM integration
+- PDF/Excel export
+- Custom dashboard builder
+- Automated notification alerts from intelligence signals
+
+---
+
+## Files Changed
+
+### New Files
+
+- `src/lib/quality-intelligence/types.ts`
+- `src/lib/quality-intelligence/risk-score.ts`
+- `src/lib/quality-intelligence/risk-signals.ts`
+- `src/lib/quality-intelligence/index.ts`
+- `docs/qa/v2.6.0-quality-intelligence-qa.md`
+
+### Modified Files
+
+- `src/app/(dashboard)/quality/intelligence-actions.ts` — Extended with risk signal queries and plan gating
+- `src/app/(dashboard)/quality/oem/quality-intelligence/page.tsx` — Enhanced UI with risk signals
+- `prisma/seed.ts` — Added v2.6.0 intelligence demo data
+- `package.json` — Version bump to 2.6.0
+
+### No Schema Changes
+
+No Prisma schema changes or migrations required for v2.6.0.
+
+---
+
 # PlantQuality v2.5.3 — Release Notes
 
 ## Quality Linkage Demo Data + QA Patch

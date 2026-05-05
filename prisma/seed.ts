@@ -1289,9 +1289,100 @@ async function main() {
     });
   }
 
+  // ── v2.6.0 Intelligence Demo Data ────────────────────────────────────
+
+  // Intelligence scenario 1: Approved PPAP with later IQC rejection
+  // ppap-003 is APPROVED for CS-3344-D from SteelForged — add IQC rejection
+  const intelIqcRejected = {
+    id: "iqc-intel-001",
+    inspectionNumber: "IQC-INTEL-CS001",
+    partNumber: "CS-3344-D",
+    partName: "Steering Knuckle Forging",
+    lotNumber: "LOT-INTEL-001",
+    quantityReceived: 40,
+    inspectionQuantity: 8,
+    status: "COMPLETED" as const,
+    result: "REJECTED" as const,
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany2.id,
+    inspectorId: "oem-quality",
+    inspectionDate: new Date("2026-03-10"),
+    inspectionType: "RE_INSPECTION" as const,
+    createdById: "oem-quality",
+    completedById: "oem-quality",
+    quantityAccepted: 32,
+    quantityRejected: 8,
+    dispositionNotes: "Casting crack detected on 8 units during re-inspection. Ultrasonic testing failure.",
+    completedAt: new Date("2026-03-12"),
+  };
+
+  await prisma.iqcEvent.deleteMany({ where: { reportId: "iqc-intel-001" } }).catch(() => {});
+  await prisma.iqcChecklistItem.deleteMany({ where: { iqcInspectionId: "iqc-intel-001" } }).catch(() => {});
+  await prisma.iqcReport.deleteMany({ where: { id: "iqc-intel-001" } }).catch(() => {});
+  await prisma.iqcReport.create({ data: intelIqcRejected });
+
+  // Intelligence scenario 2: FMEA coverage gap — field defect with category but no matching FMEA
+  const intelFieldDefect = {
+    id: "fd-intel-gap",
+    title: "Power steering module intermittent fault",
+    description: "Electronic power steering module intermittent failure during cold starts. Warning light illuminates for 2-3 seconds before self-recovery. Multiple field reports across vehicle fleet.",
+    source: "FIELD" as const,
+    status: "OPEN" as const,
+    severity: "MAJOR" as const,
+    safetyImpact: true,
+    vehicleDown: false,
+    repeatIssue: true,
+    vehicleModel: "Model X 2025",
+    partNumber: "PS-2233-B",
+    partName: "Electronic Power Steering Module",
+    category: "Electronic failure",
+    subcategory: "Intermittent circuit fault",
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany.id,
+    supplierNameSnapshot: "Precision Parts Inc.",
+    createdById: "oem-quality",
+    reportDate: new Date("2026-04-28"),
+  };
+
+  // Check if FMEA exists for PS-2233-B + Precision Parts — it doesn't in seed data
+  await prisma.fieldDefect.upsert({
+    where: { id: intelFieldDefect.id },
+    update: { title: intelFieldDefect.title, description: intelFieldDefect.description, source: intelFieldDefect.source, status: intelFieldDefect.status, severity: intelFieldDefect.severity, safetyImpact: intelFieldDefect.safetyImpact, vehicleDown: intelFieldDefect.vehicleDown, repeatIssue: intelFieldDefect.repeatIssue, vehicleModel: intelFieldDefect.vehicleModel, partNumber: intelFieldDefect.partNumber, partName: intelFieldDefect.partName, category: intelFieldDefect.category, subcategory: intelFieldDefect.subcategory, oemId: intelFieldDefect.oemId, supplierId: intelFieldDefect.supplierId, supplierNameSnapshot: intelFieldDefect.supplierNameSnapshot, createdById: intelFieldDefect.createdById },
+    create: intelFieldDefect,
+  });
+
+  // Intelligence scenario 3: Second IQC rejection for AX-7420-B to make repeat pattern stronger
+  const intelIqcSecond = {
+    id: "iqc-intel-002",
+    inspectionNumber: "IQC-INTEL-AX002",
+    partNumber: "AX-7420-B",
+    partName: "Cylinder Head Casting",
+    lotNumber: "LOT-INTEL-AX002",
+    quantityReceived: 60,
+    inspectionQuantity: 12,
+    status: "COMPLETED" as const,
+    result: "ON_HOLD" as const,
+    oemId: oemProCompany.id,
+    supplierId: supplierCompany.id,
+    inspectorId: "oem-quality",
+    inspectionDate: new Date("2026-04-25"),
+    inspectionType: "RE_INSPECTION" as const,
+    createdById: "oem-quality",
+    completedById: "oem-quality",
+    quantityAccepted: 55,
+    quantityRejected: 5,
+    dispositionNotes: "Surface pitting on sealing surface. Lot placed on hold pending supplier response.",
+    completedAt: new Date("2026-04-26"),
+  };
+
+  await prisma.iqcEvent.deleteMany({ where: { reportId: "iqc-intel-002" } }).catch(() => {});
+  await prisma.iqcChecklistItem.deleteMany({ where: { iqcInspectionId: "iqc-intel-002" } }).catch(() => {});
+  await prisma.iqcReport.deleteMany({ where: { id: "iqc-intel-002" } }).catch(() => {});
+  await prisma.iqcReport.create({ data: intelIqcSecond });
+
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.5.3 Seed completed successfully!");
+  console.log("v2.6.0 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials — LOCAL/DEV ONLY) ===");
   console.log("");
@@ -1323,6 +1414,13 @@ async function main() {
   console.log("Scenario D (IQC rejection): iqc-001 REJECTED for AX-7420-B — should show IQC_REJECTION badge");
   console.log("Scenario E (Weak false-positive): fd-weak-e (WM-3300-A) shares supplier but different part — should NOT appear");
   console.log("Scenario F (Manual link): qlink-manual-001 links fd-001 → defect-001");
+  console.log("");
+  console.log("=== Quality Intelligence 2.0 Demo Scenarios ===");
+  console.log("");
+  console.log("PPAP Issue: ppap-003 (APPROVED, CS-3344-D, SteelForged) + iqc-intel-001 (REJECTED) + defect-003 = PPAP approved with issues");
+  console.log("IQC Rejection: AX-7420-B + Precision Parts has 2 rejections (iqc-001 REJECTED + iqc-intel-002 ON_HOLD)");
+  console.log("FMEA Coverage Gap: fd-intel-gap (PS-2233-B, Precision Parts) — no FMEA exists for this supplier+part");
+  console.log("Repeat Issues: AX-7420-B + Precision Parts has defect-001, defect-004, fd-linkage-a, iqc-001, iqc-intel-002");
   console.log("");
 }
 

@@ -3,8 +3,26 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { requireFeature } from "@/lib/billing"
+import { normalizePlan } from "@/lib/billing/plans"
+import { isPlanAtLeast } from "@/lib/billing/plans"
+import {
+  getPpapPostApprovalIssueSignals,
+  getFmeaCoverageGapSignals,
+  getIqcRejectionSignals,
+  getRepeatIssueSignals,
+  getSupplierPartRiskSignals,
+  getQualityIntelligenceSummary,
+} from "@/lib/quality-intelligence"
+import type {
+  SupplierPartRisk,
+  PpapPostApprovalIssueSignal,
+  FmeaCoverageGapSignal,
+  IqcRejectionSignal,
+  RepeatIssueSignal,
+  QualityIntelligenceSummary,
+} from "@/lib/quality-intelligence"
 
-export async function getQualityIntelligenceSummary() {
+export async function getIntelligenceData() {
   const session = await auth()
   if (!session?.user?.companyId || session.user.companyType !== "OEM") {
     return null
@@ -16,6 +34,15 @@ export async function getQualityIntelligenceSummary() {
   }
 
   const companyId = session.user.companyId
+  const sessionUser = {
+    companyId: session.user.companyId,
+    companyType: session.user.companyType ?? "OEM",
+    role: session.user.role ?? "VIEWER",
+    plan: session.user.plan,
+  }
+
+  const plan = normalizePlan(session.user.plan)
+  const isEnterprise = isPlanAtLeast(plan, "ENTERPRISE")
 
   const [
     totalDefects,
@@ -179,6 +206,30 @@ export async function getQualityIntelligenceSummary() {
     ? Math.round((acceptedClassificationSuggestions / totalClassificationSuggestions) * 100)
     : null
 
+  let riskSignals: SupplierPartRisk[] = []
+  let ppapIssueSignals: PpapPostApprovalIssueSignal[] = []
+  let fmeaGapSignals: FmeaCoverageGapSignal[] = []
+  let iqcRejectionSignals: IqcRejectionSignal[] = []
+  let repeatIssueSignals: RepeatIssueSignal[] = []
+  let intelligenceSummary: QualityIntelligenceSummary | null = null
+
+  if (isEnterprise) {
+    const [rs, ppap, fmea, iqc, repeat, summary] = await Promise.all([
+      getSupplierPartRiskSignals(sessionUser),
+      getPpapPostApprovalIssueSignals(sessionUser),
+      getFmeaCoverageGapSignals(sessionUser),
+      getIqcRejectionSignals(sessionUser),
+      getRepeatIssueSignals(sessionUser),
+      getQualityIntelligenceSummary(sessionUser),
+    ])
+    riskSignals = rs
+    ppapIssueSignals = ppap
+    fmeaGapSignals = fmea
+    iqcRejectionSignals = iqc
+    repeatIssueSignals = repeat
+    intelligenceSummary = summary
+  }
+
   return {
     totalDefects,
     openDefects,
@@ -192,5 +243,14 @@ export async function getQualityIntelligenceSummary() {
     totalClassificationSuggestions,
     acceptedClassificationSuggestions,
     aiAcceptanceRate,
+    riskSignals,
+    ppapIssueSignals,
+    fmeaGapSignals,
+    iqcRejectionSignals,
+    repeatIssueSignals,
+    intelligenceSummary,
+    isEnterprise,
   }
 }
+
+export { getPpapPostApprovalIssueSignals, getFmeaCoverageGapSignals, getIqcRejectionSignals, getRepeatIssueSignals, getSupplierPartRiskSignals, getQualityIntelligenceSummary }

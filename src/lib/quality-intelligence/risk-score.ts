@@ -120,7 +120,8 @@ export function computeSupplierPartRisks(
   const results: SupplierPartRisk[] = []
   for (const acc of accumulators.values()) {
     const totalScore = acc.contributors.reduce((sum, c) => sum + c.points, 0)
-    const cappedScore = Math.min(totalScore, 150)
+    const safeScore = Number.isFinite(totalScore) ? totalScore : 0
+    const cappedScore = Math.min(safeScore, 150)
     results.push({
       supplierId: acc.supplierId,
       supplierName: acc.supplierName,
@@ -134,6 +135,14 @@ export function computeSupplierPartRisks(
     })
   }
 
-  results.sort((a, b) => b.riskScore - a.riskScore)
+  results.sort((a, b) => {
+    if (b.riskScore !== a.riskScore) return b.riskScore - a.riskScore
+    const aDate = a.latestActivity?.getTime() ?? 0
+    const bDate = b.latestActivity?.getTime() ?? 0
+    if (bDate !== aDate) return bDate - aDate
+    const supplierCmp = a.supplierName.localeCompare(b.supplierName)
+    if (supplierCmp !== 0) return supplierCmp
+    return a.partNumber.localeCompare(b.partNumber)
+  })
   return results
 }

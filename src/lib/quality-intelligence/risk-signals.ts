@@ -20,6 +20,7 @@ interface SessionUser {
 const NEGATIVE_IQC_RESULTS: IqcResult[] = ["REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"]
 
 function buildOemHref(prefix: string, id: string): string {
+  if (!id) return "#"
   return `${prefix}/${id}`
 }
 
@@ -28,7 +29,7 @@ export async function getPpapPostApprovalIssueSignals(session: SessionUser): Pro
   if (session.companyType !== "OEM") return []
 
   const approvedPaps = await prisma.ppapSubmission.findMany({
-    where: { oemId: companyId, status: "APPROVED" },
+    where: { oemId: companyId, status: "APPROVED", partNumber: { not: "" } },
     select: {
       id: true,
       requestNumber: true,
@@ -49,6 +50,7 @@ export async function getPpapPostApprovalIssueSignals(session: SessionUser): Pro
     const issueTypes: string[] = []
     let issueCount = 0
     let latestIssueDate: Date | null = null
+    const approvedAt = ppap.approvedAt
 
     const iqcIssues = await prisma.iqcReport.findMany({
       where: {
@@ -56,6 +58,7 @@ export async function getPpapPostApprovalIssueSignals(session: SessionUser): Pro
         supplierId: ppap.supplierId,
         partNumber: ppap.partNumber,
         result: { in: NEGATIVE_IQC_RESULTS },
+        ...(approvedAt ? { inspectionDate: { gte: approvedAt } } : {}),
       },
       select: { id: true, result: true, inspectionNumber: true, inspectionDate: true },
       orderBy: { inspectionDate: "desc" },
@@ -77,6 +80,7 @@ export async function getPpapPostApprovalIssueSignals(session: SessionUser): Pro
         supplierId: ppap.supplierId,
         partNumber: ppap.partNumber,
         deletedAt: null,
+        ...(approvedAt ? { reportDate: { gte: approvedAt } } : {}),
       },
       select: { id: true, title: true, status: true, reportDate: true },
       orderBy: { reportDate: "desc" },
@@ -97,6 +101,7 @@ export async function getPpapPostApprovalIssueSignals(session: SessionUser): Pro
         oemId: companyId,
         supplierId: ppap.supplierId,
         partNumber: ppap.partNumber,
+        ...(approvedAt ? { createdAt: { gte: approvedAt } } : {}),
       },
       select: { id: true, description: true, status: true, createdAt: true },
       orderBy: { createdAt: "desc" },
@@ -160,6 +165,8 @@ export async function getFmeaCoverageGapSignals(session: SessionUser): Promise<F
       oemId: companyId,
       deletedAt: null,
       category: { not: null },
+      supplierId: { not: null },
+      partNumber: { not: null, notIn: [""] },
     },
     select: {
       id: true,
@@ -173,7 +180,7 @@ export async function getFmeaCoverageGapSignals(session: SessionUser): Promise<F
   })
 
   const defects = await prisma.defect.findMany({
-    where: { oemId: companyId },
+    where: { oemId: companyId, partNumber: { not: "" } },
     select: {
       id: true,
       description: true,
@@ -184,7 +191,7 @@ export async function getFmeaCoverageGapSignals(session: SessionUser): Promise<F
   })
 
   const fmeas = await prisma.fmea.findMany({
-    where: { oemId: companyId },
+    where: { oemId: companyId, supplierId: { not: null }, partNumber: { not: "" } },
     select: {
       id: true,
       fmeaNumber: true,
@@ -197,7 +204,8 @@ export async function getFmeaCoverageGapSignals(session: SessionUser): Promise<F
 
   const fmeaMap = new Map<string, { id: string; fmeaNumber: string; rows: unknown[] }>()
   for (const f of fmeas) {
-    const key = `${f.supplierId ?? ""}::${f.partNumber}`
+    if (!f.supplierId || !f.partNumber) continue
+    const key = `${f.supplierId}::${f.partNumber}`
     if (!fmeaMap.has(key)) {
       fmeaMap.set(key, { id: f.id, fmeaNumber: f.fmeaNumber, rows: (f.rows as unknown[]) ?? [] })
     }
@@ -286,7 +294,7 @@ export async function getFmeaCoverageGapSignals(session: SessionUser): Promise<F
   }
 
   for (const d of defects) {
-    if (!d.partNumber) continue
+    if (!d.partNumber || !d.supplierId) continue
     const failureText = d.description
     if (!failureText || failureText.trim().length < 3) continue
 
@@ -332,6 +340,7 @@ export async function getIqcRejectionSignals(session: SessionUser): Promise<IqcR
     where: {
       oemId: companyId,
       result: { in: NEGATIVE_IQC_RESULTS },
+      partNumber: { not: "" },
     },
     select: {
       id: true,
@@ -418,7 +427,7 @@ export async function getRepeatIssueSignals(session: SessionUser): Promise<Repea
   const supplierMap = new Map<string, string>()
 
   const fieldDefects = await prisma.fieldDefect.findMany({
-    where: { oemId: companyId, deletedAt: null, partNumber: { not: null }, supplierId: { not: null } },
+    where: { oemId: companyId, deletedAt: null, partNumber: { not: null, notIn: [""] }, supplierId: { not: null } },
     select: { id: true, title: true, status: true, reportDate: true, partNumber: true, supplierId: true, supplier: { select: { id: true, name: true } } },
     orderBy: { reportDate: "desc" },
   })
@@ -438,12 +447,12 @@ export async function getRepeatIssueSignals(session: SessionUser): Promise<Repea
   }
 
   const iqcRejections = await prisma.iqcReport.findMany({
-    where: { oemId: companyId, result: { in: NEGATIVE_IQC_RESULTS } },
+    where: { oemId: companyId, result: { in: NEGATIVE_IQC_RESULTS }, partNumber: { not: "" } },
     select: { id: true, inspectionNumber: true, result: true, partNumber: true, supplierId: true, supplier: { select: { id: true, name: true } } },
   })
 
   for (const i of iqcRejections) {
-    if (i.supplier?.id) supplierMap.set(i.supplier.id, i.supplier.name)
+    if (i.supplier) supplierMap.set(i.supplier.id, i.supplier.name)
   }
 
   const groups = new Map<string, {
@@ -565,7 +574,7 @@ export async function getSupplierPartRiskSignals(session: SessionUser): Promise<
   for (const c of companies) supplierMap.set(c.id, c.name)
 
   const fieldDefects = await prisma.fieldDefect.findMany({
-    where: { oemId: companyId, deletedAt: null, supplierId: { not: null }, partNumber: { not: null } },
+    where: { oemId: companyId, deletedAt: null, supplierId: { not: null }, partNumber: { not: null, notIn: [""] } },
     select: { supplierId: true, partNumber: true, reportDate: true, supplier: { select: { id: true, name: true } } },
   })
   for (const fd of fieldDefects) {
@@ -573,7 +582,7 @@ export async function getSupplierPartRiskSignals(session: SessionUser): Promise<
   }
 
   const allDefects = await prisma.defect.findMany({
-    where: { oemId: companyId },
+    where: { oemId: companyId, partNumber: { not: "" } },
     select: { supplierId: true, partNumber: true, createdAt: true, status: true, supplier: { select: { id: true, name: true } } },
   })
   for (const d of allDefects) {
@@ -581,13 +590,13 @@ export async function getSupplierPartRiskSignals(session: SessionUser): Promise<
   }
 
   const highRpnFmeas = await prisma.fmea.findMany({
-    where: { oemId: companyId },
+    where: { oemId: companyId, supplierId: { not: null }, partNumber: { not: "" } },
     select: { id: true, partNumber: true, supplierId: true, rows: true },
   })
 
   const highRpnEntries: { supplierId: string; partNumber: string; maxRpn: number }[] = []
   for (const fmea of highRpnFmeas) {
-    if (!fmea.supplierId) continue
+    if (!fmea.supplierId || !fmea.partNumber) continue
     const rows = (fmea.rows as unknown[]) ?? []
     let maxRpn = 0
     for (const row of rows) {

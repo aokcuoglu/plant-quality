@@ -113,6 +113,7 @@ export const RISK_LEVEL_THRESHOLDS: Record<RiskLevel, { min: number; max: number
 }
 
 export function getRiskLevel(score: number): RiskLevel {
+  if (!Number.isFinite(score) || score < 0) return "low"
   if (score >= 75) return "critical"
   if (score >= 50) return "high"
   if (score >= 25) return "medium"

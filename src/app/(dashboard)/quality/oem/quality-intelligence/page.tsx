@@ -42,7 +42,7 @@ function RankingTable({
       ) : (
         <div className="divide-y">
           {items.map((item, i) => (
-            <div key={i} className="flex items-center justify-between px-4 py-2.5">
+            <div key={`${item.name}-${i}`} className="flex items-center justify-between px-4 py-2.5">
               {hrefPrefix ? (
                 <Link href={`${hrefPrefix}${encodeURIComponent(item.name)}`} className="text-sm text-foreground hover:underline truncate max-w-[calc(100%-3rem)]">
                   {item.name}
@@ -74,7 +74,7 @@ function RiskTable({ signals }: { signals: { supplierId: string; supplierName: s
       <div className="rounded-lg border bg-card p-8 text-center">
         <TrendingUpIcon className="h-8 w-8 text-muted-foreground/50 mx-auto mb-2" />
         <p className="text-sm text-muted-foreground">No supplier + part combinations with risk signals detected.</p>
-        <p className="text-xs text-muted-foreground mt-1">Risk signals appear when quality issues are detected across modules.</p>
+        <p className="text-xs text-muted-foreground mt-1">Risk signals appear when quality issues (IQC rejections, field defects, defect/8D records, FMEA gaps, etc.) are detected across modules for the same supplier + part.</p>
       </div>
     )
   }
@@ -227,7 +227,10 @@ export default async function QualityIntelligencePage() {
 
       {isEnterprise && data.intelligenceSummary && (
         <>
-          <h2 className="text-lg font-semibold text-foreground pt-2">Risk Intelligence</h2>
+          <div>
+            <h2 className="text-lg font-semibold text-foreground pt-2">Risk Intelligence</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Deterministic risk scoring based on cross-module quality signals. No AI or LLM is used — every score is explainable from its contributing factors.</p>
+          </div>
           <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             <DashboardCard
               title="High Risk"
@@ -266,7 +269,10 @@ export default async function QualityIntelligencePage() {
 
           {data.riskSignals.length > 0 && (
             <>
-              <h3 className="text-sm font-semibold text-foreground">Supplier + Part Risk Table</h3>
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Supplier + Part Risk Table</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">Sorted by risk score. Each score is the sum of contributing signal points, capped at 150.</p>
+              </div>
               <RiskTable signals={data.riskSignals} />
             </>
           )}
@@ -276,7 +282,7 @@ export default async function QualityIntelligencePage() {
               title="PPAP Approved with Issue History"
               icon={FileCheckIcon}
               count={data.ppapIssueSignals.length}
-              emptyMessage="No PPAP records with post-approval issues detected"
+              emptyMessage="No PPAP records with post-approval quality issues detected. Signals appear when IQC rejections, field defects, or defect/8D records occur after PPAP approval for the same supplier + part."
             >
               <div className="divide-y">
                 {data.ppapIssueSignals.map((s) => (
@@ -321,7 +327,7 @@ export default async function QualityIntelligencePage() {
               title="FMEA Coverage Gaps"
               icon={ShieldAlertIcon}
               count={data.fmeaGapSignals.length}
-              emptyMessage="No FMEA coverage gaps detected"
+              emptyMessage="No FMEA coverage gaps detected. All field defects and defects with meaningful failure text have matching FMEA failure modes for the same supplier + part."
             >
               <div className="divide-y">
                 {data.fmeaGapSignals.map((s) => (
@@ -364,7 +370,7 @@ export default async function QualityIntelligencePage() {
               title="IQC Rejection History"
               icon={ClipboardCheckIcon}
               count={data.iqcRejectionSignals.length}
-              emptyMessage="No IQC rejection patterns detected"
+              emptyMessage="No IQC rejection patterns detected. Signals appear when inspections result in Rejected, On Hold, Rework Required, or Sorting Required for a supplier + part."
             >
               <div className="divide-y">
                 {data.iqcRejectionSignals.map((s) => (
@@ -420,7 +426,7 @@ export default async function QualityIntelligencePage() {
               title="Repeat Issue Clusters"
               icon={TrendingUpIcon}
               count={data.repeatIssueSignals.length}
-              emptyMessage="No repeat issue clusters detected"
+              emptyMessage="No repeat issue clusters detected. Clusters appear when 2 or more quality records (field defects, defects/8D, or IQC issues) share the same supplier + part number."
             >
               <div className="divide-y">
                 {data.repeatIssueSignals.map((s) => (
@@ -485,7 +491,10 @@ export default async function QualityIntelligencePage() {
           <TrendingUpIcon className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-foreground">Risk Intelligence</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            Upgrade to Enterprise to unlock risk signals, supplier + part risk scoring, PPAP issue detection, FMEA coverage gap analysis, and repeat issue clusters.
+            Upgrade to Enterprise to unlock risk signals, supplier + part risk scoring, PPAP post-approval issue detection, FMEA coverage gap analysis, IQC rejection patterns, and repeat issue clusters.
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">
+            Risk scoring is deterministic and explainable — no AI or LLM is used. Every score breaks down into contributing factor points.
           </p>
           <Link href="/oem/settings/plan" className="mt-4 inline-block">
             <Button>

@@ -1,3 +1,122 @@
+# PlantQuality v2.6.2 — Release Notes
+
+## Quality Intelligence Risk Signal Bugfix + UX Polish
+
+**Release Date:** 2026-05-05  
+**Version:** 2.6.2
+
+---
+
+## Summary
+
+PlantQuality v2.6.2 stabilizes Quality Intelligence risk signal behavior, hardens edge cases in deterministic scoring, improves UI clarity, and fixes data safety issues before the Executive Quality Cockpit work (v2.7.0). No new product scope is introduced.
+
+---
+
+## Bug Fixes
+
+### PPAP Post-Approval Issue Date Verification (Critical)
+
+- **Problem:** PPAP approved-with-issues signal matched IQC rejections, field defects, and defects/8D by supplier+part regardless of whether the issue occurred *before* or *after* PPAP approval. This could show pre-approval issues as "post-approval" — an incorrect and potentially misleading signal.
+- **Fix:** All three issue queries in `getPpapPostApprovalIssueSignals` now add date filters (`inspectionDate >= approvedAt`, `reportDate >= approvedAt`, `createdAt >= approvedAt`) when `approvedAt` is present. Issues before PPAP approval are excluded. This makes the "post-approval" claim verifiable.
+- **Impact:** PPAP issue signals now only include issues that occurred on or after the PPAP approval date.
+
+### Empty-String Part Number Filtering (Important)
+
+- **Problem:** Several intelligence queries used `partNumber: { not: null }` which allows empty strings `""` to pass through, or had no `partNumber` filter at all. Empty part numbers could create meaningless grouping keys like `"supplierId::"` and produce misleading signals.
+- **Fix:** All intelligence queries now filter `partNumber: { not: "" }` or `{ not: null, notIn: [""] }` at the database level for nullable fields, and `{ not: "" }` for non-nullable fields. This prevents empty-string part numbers from entering signal computation.
+- **Functions affected:** `getPpapPostApprovalIssueSignals`, `getFmeaCoverageGapSignals`, `getIqcRejectionSignals`, `getRepeatIssueSignals`, `getSupplierPartRiskSignals`
+
+### FMEA Coverage Gap Supplier-Only Protection
+
+- **Problem:** Defect loop in `getFmeaCoverageGapSignals` allowed entries with `supplierId: null`, creating FMEA gap signals that would never match any FMEA map entry (which requires supplierId).
+- **Fix:** Added `!d.supplierId` guard alongside the existing `!d.partNumber` check.
+
+### buildOemHref Empty ID Guard
+
+- **Problem:** If an empty or undefined ID was passed to `buildOemHref`, it would produce a malformed route like `/quality/oem/ppap/`.
+- **Fix:** `buildOemHref` now returns `"#"` if the ID is empty or undefined.
+
+### NaN/Infinity Guard in Risk Scoring
+
+- **Problem:** `computeSupplierPartRisks` could produce `NaN` or `Infinity` total scores if contributing signal points were somehow non-finite.
+- **Fix:** Added `Number.isFinite()` check before capping. Scores that are not finite default to 0.
+
+### NaN/Infinity Guard in getRiskLevel
+
+- **Problem:** `getRiskLevel()` did not guard against `NaN`, `Infinity`, or negative values.
+- **Fix:** Now returns `"low"` for `NaN`, `Infinity`, `-Infinity`, or negative scores.
+
+---
+
+## UX Polish
+
+### Deterministic Scoring Explanation
+
+- **Risk Intelligence section** now includes helper text: "Deterministic risk scoring based on cross-module quality signals. No AI or LLM is used — every score is explainable from its contributing factors."
+- **Risk Table section** now shows: "Sorted by risk score. Each score is the sum of contributing signal points, capped at 150."
+- **Non-Enterprise upgrade prompt** now includes: "Risk scoring is deterministic and explainable — no AI or LLM is used. Every score breaks down into contributing factor points."
+
+### Improved Empty State Messages
+
+- **PPAP Issue Signal Panel**: "No PPAP records with post-approval quality issues detected. Signals appear when IQC rejections, field defects, or defect/8D records occur after PPAP approval for the same supplier + part."
+- **FMEA Coverage Gap Panel**: "No FMEA coverage gaps detected. All field defects and defects with meaningful failure text have matching FMEA failure modes for the same supplier + part."
+- **IQC Rejection Panel**: "No IQC rejection patterns detected. Signals appear when inspections result in Rejected, On Hold, Rework Required, or Sorting Required for a supplier + part."
+- **Repeat Issue Cluster Panel**: "No repeat issue clusters detected. Clusters appear when 2 or more quality records share the same supplier + part number."
+- **Risk Table Empty State**: Expanded explanation of when risk signals appear.
+
+### Ranking Table Key Fix
+
+- **RankingTable** now uses `name-index` keys instead of array index alone, fixing React key stability.
+
+---
+
+## Deterministic Sort
+
+- **Risk table** now has deterministic secondary sort: risk score descending → latest activity descending → supplier name ascending → part number ascending. Previously sorted only by risk score, producing non-deterministic order for equal scores.
+
+---
+
+## Drill-Down Link Safety
+
+- All `buildOemHref` calls produce only `/quality/oem/...` routes (OEM-only).
+- Empty ID guard prevents broken links.
+- No supplier-side routes, no external URLs.
+- The intelligence page gates `companyType !== "OEM"` → redirect.
+
+---
+
+## No New Product Scope
+
+- No new features
+- No AI/LLM intelligence
+- No graph visualization
+- No supplier scorecard module
+- No ERP integration
+- No PDF/Excel export
+- No landing page changes
+- No schema changes
+
+---
+
+## Files Changed
+
+### Modified Files
+
+- `src/lib/quality-intelligence/risk-signals.ts` — PPAP date verification, empty-string partNumber filtering, FMEA map supplier guard, IQC supplier filtering, buildOemHref safety guard
+- `src/lib/quality-intelligence/risk-score.ts` — NaN/Infinity guard, deterministic secondary sort
+- `src/lib/quality-intelligence/types.ts` — NaN/Infinity guard in `getRiskLevel`
+- `src/app/(dashboard)/quality/oem/quality-intelligence/page.tsx` — Deterministic scoring explanation, improved empty messages, RankingTable key fix, non-Enterprise CTA copy
+- `prisma/seed.ts` — Version log update to v2.6.2
+- `docs/qa/v2.6.0-quality-intelligence-qa.md` — v2.6.2 section with edge-case checks, date ordering verification, and empty state expectations
+- `package.json` — Version 2.6.2
+
+### No Schema Changes
+
+No Prisma schema changes or migrations required for v2.6.2.
+
+---
+
 # PlantQuality v2.6.1 — Release Notes
 
 ## Quality Intelligence UX Polish + Demo Data

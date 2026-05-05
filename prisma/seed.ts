@@ -1289,6 +1289,181 @@ async function main() {
     });
   }
 
+  // ── v2.6.1 Enterprise OEM Intelligence Demo Data ────────────────────
+
+  // Enterprise Scenario 1: APPROVED PPAP with later IQC rejection
+  const entPpapApproved = {
+    id: "ppap-ent-001",
+    requestNumber: "PPAP-ENT-5500",
+    partNumber: "ENG-5500-X",
+    partName: "Transmission Output Shaft Bearing Assembly",
+    revision: "B",
+    level: "LEVEL_3" as const,
+    reasonForSubmission: "NEW_PART" as const,
+    status: "APPROVED" as const,
+    oemId: oemEnterpriseCompany.id,
+    supplierId: supplierCompany.id,
+    oemOwnerId: "oem-enterprise-admin",
+    approvedById: "oem-enterprise-admin",
+    approvedAt: new Date("2026-03-15"),
+    reviewedAt: new Date("2026-03-14"),
+    submittedAt: new Date("2026-03-10"),
+    projectName: "Flagship EV Platform",
+    vehicleModel: "Flagship EV 2026",
+    requirements: {
+      DESIGN_RECORDS: true,
+      PROCESS_FLOW_DIAGRAM: true,
+      PROCESS_FMEA: true,
+      CONTROL_PLAN: true,
+      MEASUREMENT_SYSTEM_ANALYSIS: true,
+      DIMENSIONAL_RESULTS: true,
+      MATERIAL_PERFORMANCE_RESULTS: true,
+      PART_SUBMISSION_WARRANT: true,
+    },
+  };
+
+  await prisma.ppapSubmission.upsert({
+    where: { id: entPpapApproved.id },
+    update: {},
+    create: entPpapApproved as Parameters<typeof prisma.ppapSubmission.create>[0]["data"],
+  });
+
+  // Enterprise IQC rejection for ENG-5500-X + Precision Parts
+  const entIqcRejected = {
+    id: "iqc-ent-001",
+    inspectionNumber: "IQC-ENT-5500-001",
+    partNumber: "ENG-5500-X",
+    partName: "Transmission Output Shaft Bearing Assembly",
+    lotNumber: "LOT-ENT-5500-001",
+    quantityReceived: 100,
+    inspectionQuantity: 15,
+    status: "COMPLETED" as const,
+    result: "REJECTED" as const,
+    oemId: oemEnterpriseCompany.id,
+    supplierId: supplierCompany.id,
+    inspectorId: "oem-enterprise-admin",
+    inspectionDate: new Date("2026-04-05"),
+    inspectionType: "RECEIVING_INSPECTION" as const,
+    createdById: "oem-enterprise-admin",
+    completedById: "oem-enterprise-admin",
+    quantityAccepted: 88,
+    quantityRejected: 12,
+    dispositionNotes: "12 bearing assemblies failed fatigue pre-screening. Inner race surface cracking observed.",
+    completedAt: new Date("2026-04-06"),
+  };
+
+  await prisma.iqcEvent.deleteMany({ where: { reportId: "iqc-ent-001" } }).catch(() => {});
+  await prisma.iqcChecklistItem.deleteMany({ where: { iqcInspectionId: "iqc-ent-001" } }).catch(() => {});
+  await prisma.iqcReport.deleteMany({ where: { id: "iqc-ent-001" } }).catch(() => {});
+  await prisma.iqcReport.create({ data: entIqcRejected });
+
+  // Enterprise IQC ON_HOLD for ENG-7700-Y + SteelForged
+  const entIqcOnHold = {
+    id: "iqc-ent-002",
+    inspectionNumber: "IQC-ENT-7700-001",
+    partNumber: "ENG-7700-Y",
+    partName: "Front Lower Control Arm",
+    lotNumber: "LOT-ENT-7700-001",
+    quantityReceived: 50,
+    inspectionQuantity: 8,
+    status: "COMPLETED" as const,
+    result: "ON_HOLD" as const,
+    oemId: oemEnterpriseCompany.id,
+    supplierId: supplierCompany2.id,
+    inspectorId: "oem-enterprise-admin",
+    inspectionDate: new Date("2026-04-18"),
+    inspectionType: "RECEIVING_INSPECTION" as const,
+    createdById: "oem-enterprise-admin",
+    completedById: "oem-enterprise-admin",
+    quantityAccepted: 44,
+    quantityRejected: 6,
+    dispositionNotes: "Corrosion pitting observed on 6 units. Lot placed on hold pending supplier root cause.",
+    completedAt: new Date("2026-04-19"),
+  };
+
+  await prisma.iqcEvent.deleteMany({ where: { reportId: "iqc-ent-002" } }).catch(() => {});
+  await prisma.iqcChecklistItem.deleteMany({ where: { iqcInspectionId: "iqc-ent-002" } }).catch(() => {});
+  await prisma.iqcReport.deleteMany({ where: { id: "iqc-ent-002" } }).catch(() => {});
+  await prisma.iqcReport.create({ data: entIqcOnHold });
+
+  // Enterprise FMEA with high RPN for ENG-5500-X
+  const entFmea = {
+    id: "fmea-ent-001",
+    fmeaNumber: "FMEA-ENT-5500",
+    title: "Transmission Output Shaft Bearing Process FMEA",
+    fmeaType: "PROCESS" as const,
+    status: "SUPPLIER_IN_PROGRESS" as const,
+    partNumber: "ENG-5500-X",
+    partName: "Transmission Output Shaft Bearing Assembly",
+    processName: "Heat treatment — Case hardening",
+    oemId: oemEnterpriseCompany.id,
+    supplierId: supplierCompany.id,
+    responsibleId: "supplier-engineer",
+    createdById: "oem-enterprise-admin",
+    dueDate: new Date("2026-07-15"),
+    rows: [
+      {
+        id: "row_ent_1",
+        processStep: "Case hardening furnace",
+        failureMode: "Insufficient case depth causing fatigue failure",
+        failureEffect: "Bearing inner race catastrophic fracture",
+        severity: 10,
+        failureCause: "Furnace temperature deviation beyond tolerance",
+        occurrence: 4,
+        preventionControl: "Furnace temperature monitoring system",
+        detectionControl: "Case depth measurement per lot",
+        detection: 5,
+        rpn: 200,
+        recommendedAction: "Install redundant thermocouple in furnace Zone 3",
+        actionOwner: "supplier-engineer",
+        actionStatus: "OPEN",
+        targetDate: "2026-06-30",
+      },
+      {
+        id: "row_ent_2",
+        processStep: "Grinding — inner race",
+        failureMode: "Surface pitting on bearing race",
+        failureEffect: "Premature bearing noise and vibration",
+        severity: 7,
+        failureCause: "Grinding wheel dressing interval exceeded",
+        occurrence: 3,
+        preventionControl: "Scheduled grinding wheel replacement",
+        detectionControl: "Surface finish metrology",
+        detection: 4,
+        rpn: 84,
+        recommendedAction: "Reduce grinding wheel replacement interval by 50%",
+        actionOwner: "oem-enterprise-admin",
+        actionStatus: "IN_PROGRESS",
+        targetDate: "2026-07-01",
+      },
+    ],
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await prisma.fmea.upsert({
+    where: { id: entFmea.id },
+    update: {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    create: entFmea as any,
+  });
+
+  // Update Enterprise field defects with categories for FMEA coverage gap signals
+  await prisma.fieldDefect.update({
+    where: { id: "fd-ent-001" },
+    data: {
+      category: "Bearing failure",
+      subcategory: "Fatigue cracking",
+    },
+  });
+
+  await prisma.fieldDefect.update({
+    where: { id: "fd-ent-002" },
+    data: {
+      category: "Corrosion",
+      subcategory: "Pitting corrosion",
+    },
+  });
+
   // ── v2.6.0 Intelligence Demo Data ────────────────────────────────────
 
   // Intelligence scenario 1: Approved PPAP with later IQC rejection
@@ -1382,7 +1557,7 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.6.0 Seed completed successfully!");
+  console.log("v2.6.1 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials — LOCAL/DEV ONLY) ===");
   console.log("");
@@ -1421,6 +1596,14 @@ async function main() {
   console.log("IQC Rejection: AX-7420-B + Precision Parts has 2 rejections (iqc-001 REJECTED + iqc-intel-002 ON_HOLD)");
   console.log("FMEA Coverage Gap: fd-intel-gap (PS-2233-B, Precision Parts) — no FMEA exists for this supplier+part");
   console.log("Repeat Issues: AX-7420-B + Precision Parts has defect-001, defect-004, fd-linkage-a, iqc-001, iqc-intel-002");
+  console.log("");
+  console.log("=== Enterprise OEM Intelligence Scenarios ===");
+  console.log("");
+  console.log("PPAP Issue: ppap-ent-001 (APPROVED, ENG-5500-X, Precision Parts) + iqc-ent-001 (REJECTED) + fd-ent-001 + defect-ent-001 = PPAP approved with issues");
+  console.log("IQC Rejection: ENG-5500-X (REJECTED) + ENG-7700-Y (ON_HOLD)");
+  console.log("FMEA Coverage Gap: fd-ent-001 (ENG-5500-X, category: Bearing failure) — FMEA exists but failure mode not covered");
+  console.log("FMEA Coverage Gap: fd-ent-002 (ENG-7700-Y, category: Corrosion) — no FMEA exists for SteelForged ENG-7700-Y");
+  console.log("High RPN: fmea-ent-001 (ENG-5500-X, max RPN 200) — fatigue failure with severity 10");
   console.log("");
 }
 

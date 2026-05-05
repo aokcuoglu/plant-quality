@@ -1,3 +1,85 @@
+# PlantQuality v2.6.1 — Release Notes
+
+## Quality Intelligence UX Polish + Demo Data
+
+**Release Date:** 2026-05-05  
+**Version:** 2.6.1
+
+---
+
+## Summary
+
+PlantQuality v2.6.1 polishes the Quality Intelligence UX and demo data introduced in v2.6.0. No new product scope is added. This patch addresses loading UX, Enterprise demo completeness, risk scoring robustness, FMEA coverage gap clarity, and manual link query performance.
+
+---
+
+## Changes
+
+### Quality Intelligence Loading Skeleton
+
+- Added `src/app/(dashboard)/quality/oem/quality-intelligence/loading.tsx` — skeleton UI matching the Quality Intelligence page layout
+- Shows 4 dashboard card skeletons, 5 risk KPI card skeletons, risk table skeleton, and 3 signal panel skeletons
+- Uses design system tokens (`bg-muted`, `bg-muted/60`, `bg-card`, `border`)
+- Resolves the blank-flash on slow network connections when navigating to the intelligence page
+
+### Enterprise OEM Demo Data
+
+- Added APPROVED PPAP (`ppap-ent-001`) for ENG-5500-X + Precision Parts under Enterprise OEM — triggers PPAP approved-with-issues signal when combined with IQC rejection and field defects
+- Added IQC rejection (`iqc-ent-001`, REJECTED) for ENG-5500-X + Precision Parts — triggers IQC rejection signal
+- Added IQC on-hold (`iqc-ent-002`, ON_HOLD) for ENG-7700-Y + SteelForged — triggers second IQC rejection signal
+- Added FMEA (`fmea-ent-001`) for ENG-5500-X + Precision Parts with high RPN row (RPN 200, severity 10) — triggers high RPN signal
+- Updated Enterprise field defects `fd-ent-001` and `fd-ent-002` with categories ("Bearing failure" / "Corrosion") and subcategories — enables FMEA coverage gap detection
+- Enterprise OEM now shows: PPAP issues, IQC rejections, FMEA coverage gaps, high RPN FMEAs, and repeat issue clusters
+
+### maxRpn Finite Guard
+
+- `src/lib/quality-intelligence/risk-signals.ts`: Changed `typeof r.rpn === "number"` to `Number.isFinite(r.rpn)` in `getSupplierPartRiskSignals`
+- Prevents `NaN` or `Infinity` from corrupting maxRpn calculations if FMEA rows contain malformed data
+- If RPN is not finite, it is treated as 0 (same as before, but now explicitly handles `Infinity` and `-Infinity`)
+
+### FMEA Coverage Gap failureText Clarity
+
+- `src/lib/quality-intelligence/risk-signals.ts`: Added `buildFailureText()` helper that concatenates `category`, `subcategory`, and `title` (filtered for empty values, deduplicated)
+- Previous: `fd.category ?? fd.title` — fell back to title only when category was null; missed subcategory entirely; could produce "Electronic failure" for a defect that was really "Electronic failure — Intermittent circuit fault"
+- New: `"Bearing failure — Fatigue cracking"` or `"Corrosion — Pitting corrosion"` — more descriptive and deterministic
+- Uses ` — ` separator when multiple values are present; falls back to single value when only one is available
+- For defects (8D), failure text remains `d.description` (most descriptive field available)
+
+### Manual Link N+1 Query Optimization
+
+- `src/lib/quality-intelligence/risk-signals.ts`: Replaced per-link `findUnique` calls (2 per manual link × N links = 2N queries) with batched `findMany` queries by record type
+- Collects all unique source/target IDs by type, batches 5 parallel queries (one per record type), then maps results
+- Preserves tenant isolation: all queries are scoped to the existing `companyId` context
+- No functional behavior change; only query performance improvement for accounts with many manual links
+
+---
+
+## Known Limitations
+
+- Same as v2.6.0: no AI/LLM scoring, no graph visualization, no supplier scorecard, no ERP integration, no PDF/Excel export
+- Enterprise OEM demo data is minimal by design — demonstrates signals exist, not comprehensive coverage
+
+---
+
+## Files Changed
+
+### New Files
+
+- `src/app/(dashboard)/quality/oem/quality-intelligence/loading.tsx`
+
+### Modified Files
+
+- `src/lib/quality-intelligence/risk-signals.ts` — maxRpn guard, failureText builder, manual link batch optimization
+- `prisma/seed.ts` — Enterprise OEM intelligence demo data + v2.6.1 seed log
+- `docs/qa/v2.6.0-quality-intelligence-qa.md` — Updated seed grep version, added loading skeleton check
+- `package.json` — Version 2.6.1
+
+### No Schema Changes
+
+No Prisma schema changes or migrations required for v2.6.1.
+
+---
+
 # PlantQuality v2.6.0 — Release Notes
 
 ## Quality Intelligence 2.0

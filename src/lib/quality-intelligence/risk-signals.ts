@@ -220,10 +220,18 @@ export async function getFmeaCoverageGapSignals(session: SessionUser): Promise<F
     return false
   }
 
+  function buildFailureText(category: string | null, subcategory: string | null, title: string | null): string | null {
+    const parts = [category, subcategory, title].filter((v): v is string => typeof v === "string" && v.trim().length > 0)
+    const unique = [...new Set(parts)]
+    if (unique.length === 0) return null
+    const separator = unique.length > 1 ? " — " : ""
+    return unique.join(separator)
+  }
+
   const signals: FmeaCoverageGapSignal[] = []
 
   for (const fd of fieldDefects) {
-    const failureText = fd.category ?? fd.title
+    const failureText = buildFailureText(fd.category, fd.subcategory, fd.title)
     if (!failureText || failureText.trim().length < 3) continue
     if (!fd.supplierId || !fd.partNumber) continue
 
@@ -584,7 +592,7 @@ export async function getSupplierPartRiskSignals(session: SessionUser): Promise<
     let maxRpn = 0
     for (const row of rows) {
       const r = row as Record<string, unknown>
-      const rpn = typeof r.rpn === "number" ? r.rpn : 0
+      const rpn: number = Number.isFinite(r.rpn) ? (r.rpn as number) : 0
       if (rpn > maxRpn) maxRpn = rpn
     }
     if (maxRpn >= 100) {
@@ -604,65 +612,60 @@ export async function getSupplierPartRiskSignals(session: SessionUser): Promise<
     },
   })
 
-  const linkSourceDetails = await Promise.all(
-    manualLinks.map(async (link) => {
-      let sourceSupplierId: string | null = null
-      let sourcePartNumber: string | null = null
-      let targetSupplierId: string | null = null
-      let targetPartNumber: string | null = null
+  const linkSourceIds = new Map<string, { type: string; field: "source" | "target" }[]>()
+  const linkTargetIds = new Map<string, { type: string; field: "source" | "target" }[]>()
 
-      if (link.sourceType === "FIELD_DEFECT") {
-        const fd = await prisma.fieldDefect.findUnique({ where: { id: link.sourceId }, select: { supplierId: true, partNumber: true } })
-        sourceSupplierId = fd?.supplierId ?? null
-        sourcePartNumber = fd?.partNumber ?? null
-      } else if (link.sourceType === "DEFECT" || link.sourceType === "EIGHT_D") {
-        const d = await prisma.defect.findUnique({ where: { id: link.sourceId }, select: { supplierId: true, partNumber: true } })
-        sourceSupplierId = d?.supplierId ?? null
-        sourcePartNumber = d?.partNumber ?? null
-      } else if (link.sourceType === "PPAP") {
-        const p = await prisma.ppapSubmission.findUnique({ where: { id: link.sourceId }, select: { supplierId: true, partNumber: true } })
-        sourceSupplierId = p?.supplierId ?? null
-        sourcePartNumber = p?.partNumber ?? null
-      } else if (link.sourceType === "IQC") {
-        const i = await prisma.iqcReport.findUnique({ where: { id: link.sourceId }, select: { supplierId: true, partNumber: true } })
-        sourceSupplierId = i?.supplierId ?? null
-        sourcePartNumber = i?.partNumber ?? null
-      } else if (link.sourceType === "FMEA") {
-        const f = await prisma.fmea.findUnique({ where: { id: link.sourceId }, select: { supplierId: true, partNumber: true } })
-        sourceSupplierId = f?.supplierId ?? null
-        sourcePartNumber = f?.partNumber ?? null
-      }
+  for (const link of manualLinks) {
+    const sk = `${link.sourceType}::${link.sourceId}`
+    const tk = `${link.targetType}::${link.targetId}`
+    if (!linkSourceIds.has(sk)) linkSourceIds.set(sk, [])
+    linkSourceIds.get(sk)!.push({ type: link.sourceType, field: "source" })
+    if (!linkTargetIds.has(tk)) linkTargetIds.set(tk, [])
+    linkTargetIds.get(tk)!.push({ type: link.targetType, field: "target" })
+  }
 
-      if (link.targetType === "FIELD_DEFECT") {
-        const fd = await prisma.fieldDefect.findUnique({ where: { id: link.targetId }, select: { supplierId: true, partNumber: true } })
-        targetSupplierId = fd?.supplierId ?? null
-        targetPartNumber = fd?.partNumber ?? null
-      } else if (link.targetType === "DEFECT" || link.targetType === "EIGHT_D") {
-        const d = await prisma.defect.findUnique({ where: { id: link.targetId }, select: { supplierId: true, partNumber: true } })
-        targetSupplierId = d?.supplierId ?? null
-        targetPartNumber = d?.partNumber ?? null
-      } else if (link.targetType === "PPAP") {
-        const p = await prisma.ppapSubmission.findUnique({ where: { id: link.targetId }, select: { supplierId: true, partNumber: true } })
-        targetSupplierId = p?.supplierId ?? null
-        targetPartNumber = p?.partNumber ?? null
-      } else if (link.targetType === "IQC") {
-        const i = await prisma.iqcReport.findUnique({ where: { id: link.targetId }, select: { supplierId: true, partNumber: true } })
-        targetSupplierId = i?.supplierId ?? null
-        targetPartNumber = i?.partNumber ?? null
-      } else if (link.targetType === "FMEA") {
-        const f = await prisma.fmea.findUnique({ where: { id: link.targetId }, select: { supplierId: true, partNumber: true } })
-        targetSupplierId = f?.supplierId ?? null
-        targetPartNumber = f?.partNumber ?? null
-      }
+  type SupplierPart = { supplierId: string | null; partNumber: string | null }
 
-      return {
-        sourceSupplierId,
-        sourcePartNumber,
-        targetSupplierId,
-        targetPartNumber,
-      }
-    })
-  )
+  const [fieldDefectsForLinks, defectsForLinks, ppapsForLinks, iqcsForLinks, fmeasForLinks] = await Promise.all([
+    manualLinks.length > 0 ? prisma.fieldDefect.findMany({
+      where: { id: { in: [...new Set([...manualLinks.filter(l => l.sourceType === "FIELD_DEFECT" || l.targetType === "FIELD_DEFECT").map(l => l.sourceType === "FIELD_DEFECT" ? l.sourceId : l.targetId)])] } },
+      select: { id: true, supplierId: true, partNumber: true },
+    }) : [],
+    manualLinks.length > 0 ? prisma.defect.findMany({
+      where: { id: { in: [...new Set([...manualLinks.filter(l => l.sourceType === "DEFECT" || l.sourceType === "EIGHT_D" || l.targetType === "DEFECT" || l.targetType === "EIGHT_D").flatMap(l => [l.sourceId, l.targetId])])] } },
+      select: { id: true, supplierId: true, partNumber: true },
+    }) : [],
+    manualLinks.length > 0 ? prisma.ppapSubmission.findMany({
+      where: { id: { in: [...new Set([...manualLinks.filter(l => l.sourceType === "PPAP" || l.targetType === "PPAP").flatMap(l => [l.sourceId, l.targetId])])] } },
+      select: { id: true, supplierId: true, partNumber: true },
+    }) : [],
+    manualLinks.length > 0 ? prisma.iqcReport.findMany({
+      where: { id: { in: [...new Set([...manualLinks.filter(l => l.sourceType === "IQC" || l.targetType === "IQC").flatMap(l => [l.sourceId, l.targetId])])] } },
+      select: { id: true, supplierId: true, partNumber: true },
+    }) : [],
+    manualLinks.length > 0 ? prisma.fmea.findMany({
+      where: { id: { in: [...new Set([...manualLinks.filter(l => l.sourceType === "FMEA" || l.targetType === "FMEA").flatMap(l => [l.sourceId, l.targetId])])] } },
+      select: { id: true, supplierId: true, partNumber: true },
+    }) : [],
+  ])
+
+  const recordLookup = new Map<string, SupplierPart>()
+  for (const r of fieldDefectsForLinks) recordLookup.set(`FIELD_DEFECT::${r.id}`, { supplierId: r.supplierId, partNumber: r.partNumber })
+  for (const r of defectsForLinks) { recordLookup.set(`DEFECT::${r.id}`, { supplierId: r.supplierId, partNumber: r.partNumber }); recordLookup.set(`EIGHT_D::${r.id}`, { supplierId: r.supplierId, partNumber: r.partNumber }) }
+  for (const r of ppapsForLinks) recordLookup.set(`PPAP::${r.id}`, { supplierId: r.supplierId, partNumber: r.partNumber })
+  for (const r of iqcsForLinks) recordLookup.set(`IQC::${r.id}`, { supplierId: r.supplierId, partNumber: r.partNumber })
+  for (const r of fmeasForLinks) recordLookup.set(`FMEA::${r.id}`, { supplierId: r.supplierId, partNumber: r.partNumber })
+
+  const linkSourceDetails = manualLinks.map((link) => {
+    const source = recordLookup.get(`${link.sourceType}::${link.sourceId}`)
+    const target = recordLookup.get(`${link.targetType}::${link.targetId}`)
+    return {
+      sourceSupplierId: source?.supplierId ?? null,
+      sourcePartNumber: source?.partNumber ?? null,
+      targetSupplierId: target?.supplierId ?? null,
+      targetPartNumber: target?.partNumber ?? null,
+    }
+  })
 
   return computeSupplierPartRisks(
     {

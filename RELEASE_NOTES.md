@@ -1,3 +1,103 @@
+# PlantQuality v2.7.1 — Release Notes
+
+## AI 8D Review Runtime Hardening + Executive Cockpit Polish
+
+**Release Date:** 2026-05-07  
+**Version:** 2.7.1
+
+---
+
+## Summary
+
+PlantQuality v2.7.1 fixes a pre-existing AI 8D Review runtime error where malformed or unparseable review data caused a contradictory UI state, and applies small Executive Cockpit KPI/UX polish. This is a bugfix and polish patch — no new AI features, no automatic 8D approval/rejection, and no changes to AI plan gating strategy.
+
+---
+
+## Bug Fixes
+
+### AI 8D Review — Contradictory UI State (P0)
+
+**Root cause:** When an AI 8D Review record existed in the database but its `resultJson` could not be parsed by the client-side `parseReviewResult` validator (e.g., missing `overallScore`, `reviewStatus`, or `confidence` fields due to AI model response variance), the panel rendered a contradictory state: the header showed a review status badge ("Pending Review") while the body displayed "No AI review generated yet" with a Generate button that created duplicate records.
+
+**Fix:** Added a `hasMalformedReview` state detection. When a review exists but cannot be parsed, the UI now shows a clear amber warning: "Review data could not be loaded — A review was generated but its results could not be parsed. You can regenerate it below." The "Generate AI Review" button only appears when no review record exists at all.
+
+### AI 8D Review — Wrong Feature Gate on Generate Button (P0)
+
+**Root cause:** The "Generate AI Review" button was gated by `canUseRootCause` (ROOT_CAUSE_SUGGESTION feature) instead of `canUseAi8d` (AI_8D_REVIEW feature). These are separate Enterprise-gated features. A user with ROOT_CAUSE_SUGGESTION but not AI_8D_REVIEW could see the generate button but have the server action reject the request; conversely, a user with AI_8D_REVIEW but not ROOT_CAUSE_SUGGESTION could not see the button despite having permission.
+
+**Fix:** Changed the generate button guard from `canUseRootCause` to `canUseAi8d`. The Root Cause Suggestion toggle is now gated by `canUseRootCause`.
+
+### AI 8D Review — Root Cause Suggestion Stuck Pending State (P1)
+
+**Root cause:** The `handleRootCause` function was not wrapped in `startTransition` and lacked try/catch/finally error handling. If `generateRootCauseSuggestion` threw an unhandled exception (network error, serialization error), `setRootCausePending(false)` was never reached, leaving the spinner permanently visible with no recovery path.
+
+**Fix:** Wrapped the server action call in try/catch/finally. Added `setRootCauseResult(null)` reset on re-invocation. The `finally` block ensures `setRootCausePending(false)` always executes.
+
+### AI Provider — Rate Limit Handling (P1)
+
+**Root cause:** The AI provider abstraction (`aiClassify`) handled timeout and authentication errors but had no specific handling for HTTP 429 rate limit responses from the AI provider.
+
+**Fix:** Added `isRateLimitError` detection and a user-friendly message: "AI service rate limit reached. Please wait a moment and try again."
+
+### AI 8D Review — Malformed Response Type Guard (P1)
+
+**Root cause:** `reviewEightD` in `review-8d.ts` parsed the AI response with `JSON.parse(result.result)` but did not validate that the parsed value was a non-null, non-array object before accessing properties. If the AI returned a JSON array or `null`, property access would fail silently or produce incorrect defaults.
+
+**Fix:** Added type guard: `if (!raw || typeof raw !== "object" || Array.isArray(raw))` returns `{ ok: false, error: "AI returned an unexpected response format" }`.
+
+---
+
+## Polish
+
+### Executive Cockpit
+
+- **KPI subtitle clarity:** "Open Defects / 8D" subtitle changed from "Requiring attention" to "Active, not yet closed"
+- **KPI subtitle clarity:** "High Risk Combos" subtitle changed from "Supplier + part combos" to "Signal-detected combos"
+- **All Clear condition:** Now accounts for all 7 KPIs (previously only checked 4), including Repeat Issues, PPAP With Issues, and FMEA Gaps
+- **All Clear wording:** Expanded to mention all condition categories; added determinism disclaimer
+- **Determinism disclaimer:** Added "All KPIs and action items are derived from deterministic data — no AI-generated content." below KPI cards
+
+---
+
+## Permission & Gating Verification
+
+- AI 8D Review: OEM-only, ENTERPRISE-gated, supplierAccess=false — unchanged and verified
+- Root Cause Suggestion: OEM-only, ENTERPRISE-gated, supplierAccess=false — unchanged and verified
+- Executive Cockpit: OEM-only, ENTERPRISE-gated, supplierAccess=false — unchanged and verified
+- All server actions enforce companyId from session; no client-provided companyId is trusted
+- No automatic 8D approval or rejection is introduced
+- AI output remains suggestion/review only
+- Supplier users cannot see or call AI 8D Review actions
+
+---
+
+## What This Release Does NOT Include
+
+- No new AI features
+- No AI executive summaries
+- No graph/network visualization
+- No PDF/PPT export
+- No supplier scorecard module
+- No ERP integration
+- No changes to AI plan gating strategy
+- No automatic 8D approval/rejection
+- No changes to landing page
+- No broad refactoring of unrelated modules
+
+---
+
+## Technical Details
+
+- No database schema changes
+- No new dependencies introduced
+- All queries remain tenant-scoped (companyId from session)
+- Docker container validated (build + runtime)
+- Lint: 0 errors
+- TypeCheck: pass
+- Build: pass
+
+---
+
 # PlantQuality v2.7.0 — Release Notes
 
 ## Executive Quality Cockpit

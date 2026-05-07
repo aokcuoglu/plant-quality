@@ -139,6 +139,10 @@ export async function reviewEightD(input: {
   try {
     const raw = JSON.parse(result.result)
 
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+      return { ok: false, error: "AI returned an unexpected response format" }
+    }
+
     const parsed: Ai8dReviewResult = {
       overallScore: typeof raw.overallScore === "number" ? raw.overallScore : 50,
       reviewStatus: ["STRONG", "NEEDS_IMPROVEMENT", "INCOMPLETE", "RISKY"].includes(raw.reviewStatus)
@@ -168,6 +172,6 @@ export async function reviewEightD(input: {
 
     return { ok: true, review: parsed, deterministicCompleteness }
   } catch {
-    return { ok: false, error: "Failed to parse AI 8D review response" }
+    return { ok: false, error: "Failed to parse AI 8D review response. Please try again." }
   }
 }

@@ -208,6 +208,7 @@ export function Ai8dReviewPanel({
 
   const review: Ai8dReviewResult | null = parseReviewResult(latestReview?.resultJson)
   const reviewStatus = latestReview?.status ?? null
+  const hasMalformedReview = latestReview && !review
 
   function handleGenerate() {
     setError(null)
@@ -251,14 +252,20 @@ export function Ai8dReviewPanel({
   async function handleRootCause() {
     setRootCauseError(null)
     setRootCausePending(true)
-    const result = await generateRootCauseSuggestion(defectId)
-    setRootCausePending(false)
-    if (!result.success) {
-      setRootCauseError(result.error)
-      toast({ title: "Root Cause Suggestion Failed", description: result.error, type: "destructive" })
-    } else {
-      setRootCauseResult(result.suggestion)
-      setShowRootCause(true)
+    setRootCauseResult(null)
+    try {
+      const result = await generateRootCauseSuggestion(defectId)
+      if (!result.success) {
+        setRootCauseError(result.error)
+        toast({ title: "Root Cause Suggestion Failed", description: result.error, type: "destructive" })
+      } else {
+        setRootCauseResult(result.suggestion)
+        setShowRootCause(true)
+      }
+    } catch {
+      setRootCauseError("An unexpected error occurred. Please try again.")
+    } finally {
+      setRootCausePending(false)
     }
   }
 
@@ -339,10 +346,22 @@ export function Ai8dReviewPanel({
           </div>
         )}
 
-        {!review && !isPending && (
+        {hasMalformedReview && !isPending && (
+          <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-3">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangleIcon className="h-4 w-4 text-amber-500" />
+              <p className="text-sm font-medium text-foreground">Review data could not be loaded</p>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              A review was generated but its results could not be parsed. You can regenerate it below.
+            </p>
+          </div>
+        )}
+
+        {!review && !latestReview && !isPending && (
           <div className="text-center py-4">
             <p className="text-sm text-muted-foreground mb-3">No AI review generated yet.</p>
-        {canManage && canUseRootCause && (
+            {canManage && canUseAi8d && (
               <button
                 onClick={handleGenerate}
                 disabled={isPending}
@@ -356,7 +375,7 @@ export function Ai8dReviewPanel({
           </div>
         )}
 
-        {isPending && !review && (
+        {isPending && (
           <div className="flex items-center justify-center py-6">
             <RefreshCwIcon className="h-5 w-5 animate-spin text-muted-foreground" />
             <span className="ml-2 text-sm text-muted-foreground">Generating AI review...</span>
@@ -523,7 +542,7 @@ export function Ai8dReviewPanel({
               </div>
             )}
 
-            {canManage && reviewStatus !== "GENERATED" && (
+            {canManage && canUseAi8d && reviewStatus !== "GENERATED" && (
               <button
                 onClick={handleGenerate}
                 disabled={isPending}
@@ -537,6 +556,20 @@ export function Ai8dReviewPanel({
           </>
         )}
 
+        {hasMalformedReview && canManage && canUseAi8d && !isPending && (
+          <div className="border-t pt-3">
+            <button
+              onClick={handleGenerate}
+              disabled={isPending}
+              aria-label="Regenerate AI review"
+              className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <RefreshCwIcon className="h-3.5 w-3.5" />
+              Regenerate Review
+            </button>
+          </div>
+        )}
+
         {deterministicCompleteness && (
           <div className="border-t pt-3">
             <p className="text-xs font-medium text-muted-foreground mb-2">Deterministic Completeness Check</p>
@@ -544,7 +577,7 @@ export function Ai8dReviewPanel({
           </div>
         )}
 
-        {canManage && (
+        {canManage && canUseRootCause && (
           <div className="border-t pt-3">
             <button
               onClick={() => setShowRootCause(!showRootCause)}

@@ -31,6 +31,14 @@ function isAuthError(err: unknown): boolean {
   return false
 }
 
+function isRateLimitError(err: unknown): boolean {
+  if (err instanceof Error) {
+    const msg = err.message?.toLowerCase() ?? ""
+    return msg.includes("429") || msg.includes("rate limit") || msg.includes("too many requests")
+  }
+  return false
+}
+
 export async function aiClassify(
   systemPrompt: string,
   userMessage: string,
@@ -70,6 +78,9 @@ export async function aiClassify(
     }
     if (isAuthError(err)) {
       return { ok: false, error: "AI service authentication failed. Contact your administrator." }
+    }
+    if (isRateLimitError(err)) {
+      return { ok: false, error: "AI service rate limit reached. Please wait a moment and try again." }
     }
     return { ok: false, error: "AI service error. Please try again later." }
   }

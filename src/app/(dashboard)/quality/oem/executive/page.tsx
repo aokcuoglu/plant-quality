@@ -110,7 +110,7 @@ export default async function ExecutiveCockpitPage() {
           title="Open Defects / 8D"
           value={data.kpis.openDefects8d}
           icon={BugIcon}
-          subtitle="Requiring attention"
+          subtitle="Active, not yet closed"
           href="/quality/oem/defects"
         />
         <DashboardCard
@@ -124,7 +124,7 @@ export default async function ExecutiveCockpitPage() {
           title="High Risk Combos"
           value={data.kpis.highRiskSupplierParts}
           icon={GaugeIcon}
-          subtitle="Supplier + part combos"
+          subtitle="Signal-detected combos"
           href="/quality/oem/quality-intelligence"
         />
         <DashboardCard
@@ -149,6 +149,8 @@ export default async function ExecutiveCockpitPage() {
           href="/quality/oem/quality-intelligence#fmea-gaps"
         />
       </div>
+
+      <p className="text-xs text-muted-foreground">All KPIs and action items are derived from deterministic data — no AI-generated content.</p>
 
       {data.actionRequiredList.length > 0 && (
         <div className="rounded-lg border bg-card">
@@ -539,11 +541,12 @@ export default async function ExecutiveCockpitPage() {
         )}
       </div>
 
-      {data.kpis.criticalHighFieldIssues === 0 && data.kpis.openDefects8d === 0 && data.kpis.overdueActions === 0 && data.kpis.highRiskSupplierParts === 0 && (
+      {data.kpis.criticalHighFieldIssues === 0 && data.kpis.openDefects8d === 0 && data.kpis.overdueActions === 0 && data.kpis.highRiskSupplierParts === 0 && data.kpis.repeatIssues === 0 && data.kpis.ppapApprovedWithIssues === 0 && data.kpis.fmeaCoverageGaps === 0 && (
         <div className="rounded-lg border border-dashed bg-card p-12 text-center">
           <CheckCircleIcon className="h-10 w-10 text-emerald-500/50 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-foreground">All Clear</h3>
-          <p className="text-sm text-muted-foreground mt-1">No critical quality risks, overdue actions, or high-risk supplier-part combinations detected at this time. The cockpit will update as new signals emerge.</p>
+          <p className="text-sm text-muted-foreground mt-1">No critical quality risks, overdue actions, high-risk combinations, repeat issues, or coverage gaps detected at this time. The cockpit will update as new signals emerge.</p>
+          <p className="text-xs text-muted-foreground mt-2">All KPIs are derived from deterministic data — no AI-generated content.</p>
         </div>
       )}
     </div>

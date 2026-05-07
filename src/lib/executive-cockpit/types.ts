@@ -1,5 +1,6 @@
 export interface ExecutiveKpis {
-  openCriticalIssues: number
+  criticalHighFieldIssues: number
+  openDefects8d: number
   overdueActions: number
   highRiskSupplierParts: number
   repeatIssues: number

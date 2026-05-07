@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 import {
   AlertTriangleIcon,
+  BugIcon,
   ClockIcon,
   GaugeIcon,
   ShieldAlertIcon,
@@ -97,13 +98,20 @@ export default async function ExecutiveCockpitPage() {
         description="Leadership-ready quality performance, risk, and action insights"
       />
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7">
         <DashboardCard
-          title="Critical Issues"
-          value={data.kpis.openCriticalIssues}
+          title="Critical / High Field Issues"
+          value={data.kpis.criticalHighFieldIssues}
           icon={AlertTriangleIcon}
-          subtitle="Open critical severity"
+          subtitle="CRITICAL or MAJOR severity"
           href="/quality/oem/field?filter=critical"
+        />
+        <DashboardCard
+          title="Open Defects / 8D"
+          value={data.kpis.openDefects8d}
+          icon={BugIcon}
+          subtitle="Requiring attention"
+          href="/quality/oem/defects"
         />
         <DashboardCard
           title="Overdue Actions"
@@ -531,7 +539,7 @@ export default async function ExecutiveCockpitPage() {
         )}
       </div>
 
-      {data.kpis.openCriticalIssues === 0 && data.kpis.overdueActions === 0 && data.kpis.highRiskSupplierParts === 0 && (
+      {data.kpis.criticalHighFieldIssues === 0 && data.kpis.openDefects8d === 0 && data.kpis.overdueActions === 0 && data.kpis.highRiskSupplierParts === 0 && (
         <div className="rounded-lg border border-dashed bg-card p-12 text-center">
           <CheckCircleIcon className="h-10 w-10 text-emerald-500/50 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-foreground">All Clear</h3>

@@ -156,11 +156,18 @@ export async function getExecutiveCockpitData(session: {
     }
   }
 
-  const openCriticalFieldDefects = intelligenceSummary.totalCriticalFieldDefects
-  const openCriticalDefects = await prisma.defect.count({
+  const criticalHighFieldIssues = await prisma.fieldDefect.count({
+    where: {
+      oemId: companyId,
+      deletedAt: null,
+      severity: { in: ["CRITICAL", "MAJOR"] },
+      status: { in: ["OPEN", "UNDER_REVIEW", "SUPPLIER_ASSIGNED"] },
+    },
+  })
+
+  const openDefects8d = await prisma.defect.count({
     where: { oemId: companyId, status: { in: ["OPEN", "IN_PROGRESS"] } },
   })
-  const openCriticalIssues = openCriticalFieldDefects + openCriticalDefects
 
   const topRisks = riskSignals.slice(0, 20).map((r, i) => {
     const mainSignals = r.contributors.slice(0, 3).map((c) => c.signal.replace(/_/g, " ").toLowerCase())
@@ -472,7 +479,8 @@ export async function getExecutiveCockpitData(session: {
 
   return {
     kpis: {
-      openCriticalIssues,
+      criticalHighFieldIssues,
+      openDefects8d,
       overdueActions,
       highRiskSupplierParts,
       repeatIssues: intelligenceSummary.repeatIssueCount,

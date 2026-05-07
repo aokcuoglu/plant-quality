@@ -17,8 +17,9 @@ PlantQuality v2.7.0 introduces the **Executive Quality Cockpit** — a leadershi
 
 ### Executive Quality Cockpit (`/quality/oem/executive`)
 
-- **Executive KPI Cards**: Six leadership KPIs displayed at the top:
-  - Open Critical Issues (field defects + defects)
+- **Executive KPI Cards**: Seven leadership KPIs displayed at the top:
+  - Critical / High Field Issues (CRITICAL or MAJOR severity field defects only)
+  - Open Defects / 8D (open defects requiring attention — not severity-labeled)
   - Overdue Actions (SLA-overdue defects + field defects)
   - High-Risk Supplier/Part Combinations (from Quality Intelligence risk signals)
   - Repeat Issue Clusters (cross-module repeat issue count)

@@ -1,20 +1,26 @@
 import type { ScoreGrade, RiskLevel, PenaltyBreakdown } from "./types"
 
 export function computeScore(breakdown: PenaltyBreakdown): number {
-  const totalPenalty =
-    breakdown.fieldDefectHighCritical.penalty +
-    breakdown.repeatIssueCluster.penalty +
-    breakdown.iqcRejected.penalty +
-    breakdown.openOverdue8d.penalty +
-    breakdown.slaBreach.penalty +
-    breakdown.ppapApprovedWithIssues.penalty +
-    breakdown.fmeaCoverageGap.penalty +
-    breakdown.executiveRiskSignal.penalty
+  const penaltyValues = [
+    breakdown.fieldDefectHighCritical.penalty,
+    breakdown.repeatIssueCluster.penalty,
+    breakdown.iqcRejected.penalty,
+    breakdown.openOverdue8d.penalty,
+    breakdown.slaBreach.penalty,
+    breakdown.ppapApprovedWithIssues.penalty,
+    breakdown.fmeaCoverageGap.penalty,
+    breakdown.executiveRiskSignal.penalty,
+  ]
 
-  return Math.max(0, Math.min(100, 100 - totalPenalty))
+  const totalPenalty = penaltyValues.reduce((sum, p) => sum + (Number.isFinite(p) ? p : 0), 0)
+
+  const raw = 100 - totalPenalty
+  if (!Number.isFinite(raw)) return 100
+  return Math.max(0, Math.min(100, Math.round(raw)))
 }
 
 export function getGrade(score: number): ScoreGrade {
+  if (!Number.isFinite(score) || score < 0) return "E"
   if (score >= 90) return "A"
   if (score >= 75) return "B"
   if (score >= 60) return "C"
@@ -23,6 +29,7 @@ export function getGrade(score: number): ScoreGrade {
 }
 
 export function getRiskLevel(score: number): RiskLevel {
+  if (!Number.isFinite(score) || score < 0) return "critical"
   if (score >= 80) return "low"
   if (score >= 60) return "medium"
   if (score >= 40) return "high"
@@ -30,8 +37,11 @@ export function getRiskLevel(score: number): RiskLevel {
 }
 
 export function applyPenalty(count: number, perItem: number, cap: number): number {
-  if (count <= 0) return 0
-  return Math.min(count * perItem, cap)
+  if (!Number.isFinite(count) || count <= 0) return 0
+  if (!Number.isFinite(perItem) || perItem <= 0) return 0
+  const raw = count * perItem
+  if (!Number.isFinite(raw)) return 0
+  return Math.min(raw, cap)
 }
 
 export const PENALTY_CONFIG = {

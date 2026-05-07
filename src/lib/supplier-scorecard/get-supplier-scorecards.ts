@@ -243,11 +243,11 @@ export async function getSupplierScorecards(
     const riskLevel = getRiskLevel(overallScore)
 
     const keySignals: SignalDetail[] = []
-    if (fieldDefectHighCritical > 0) keySignals.push({ label: "Critical/High Field Defects", count: fieldDefectHighCritical, severity: "critical" })
+    if (fieldDefectHighCritical > 0) keySignals.push({ label: "Critical/Major Field Defects", count: fieldDefectHighCritical, severity: "critical" })
     if (repeatIssueCount > 0) keySignals.push({ label: "Repeat Issue Clusters", count: repeatIssueCount, severity: "high" })
-    if (iqcRejectedCount > 0) keySignals.push({ label: "IQC Failures", count: iqcRejectedCount, severity: iqcRejectedCount >= 3 ? "high" : "medium" })
-    if (overdue8dCount > 0) keySignals.push({ label: "Overdue 8D/SLA", count: overdue8dCount, severity: "high" })
-    if (ppapWithIssuesCount > 0) keySignals.push({ label: "PPAP with Post-Approval Issues", count: ppapWithIssuesCount, severity: "medium" })
+    if (overdue8dCount > 0) keySignals.push({ label: "Open/Overdue 8D", count: overdue8dCount, severity: "high" })
+    if (iqcRejectedCount > 0) keySignals.push({ label: "IQC Rejected/On-Hold", count: iqcRejectedCount, severity: iqcRejectedCount >= 3 ? "high" : "medium" })
+    if (ppapWithIssuesCount > 0) keySignals.push({ label: "PPAP with Issues", count: ppapWithIssuesCount, severity: "medium" })
     if (fmeaGapCount > 0) keySignals.push({ label: "FMEA Coverage Gaps", count: fmeaGapCount, severity: "medium" })
     if (escalationCount > 0) keySignals.push({ label: "Escalations", count: escalationCount, severity: "low" })
     keySignals.sort((a, b) => {
@@ -262,17 +262,18 @@ export async function getSupplierScorecards(
       ...supplierDefects.map((d) => d.createdAt),
       ...supplierIqc.map((iqc) => iqc.inspectionDate ?? iqc.createdAt),
     ].filter((d): d is Date => d !== null)
-    const latestActivityAt = allDates.length > 0 ? new Date(Math.max(...allDates.map((d) => new Date(d).getTime()))) : null
+      .map((d) => new Date(d).getTime())
+      .filter((t) => Number.isFinite(t))
+    const latestActivityAt = allDates.length > 0 ? new Date(Math.max(...allDates)) : null
 
     const drillDownLinks: { label: string; href: string }[] = []
     if (supplierFieldDefects.length > 0) drillDownLinks.push({ label: "Field Quality", href: `/quality/oem/field` })
     if (openDefects.length > 0) drillDownLinks.push({ label: "Defects / 8D", href: `/quality/oem/defects` })
     if (supplierIqc.length > 0) drillDownLinks.push({ label: "IQC", href: `/quality/oem/iqc` })
-    if (ppapWithIssuesCount > 0 || supplierIqc.some((i) => i.result && NEGATIVE_IQC_RESULTS.includes(i.result))) {
-      drillDownLinks.push({ label: "PPAP", href: `/quality/oem/ppap` })
-    }
+    if (ppapWithIssuesCount > 0) drillDownLinks.push({ label: "PPAP", href: `/quality/oem/ppap` })
     if (fmeaGapCount > 0) drillDownLinks.push({ label: "FMEA", href: `/quality/oem/fmea` })
-    drillDownLinks.push({ label: "Intelligence", href: `/quality/oem/quality-intelligence` })
+    if (overdue8dCount > 0) drillDownLinks.push({ label: "Escalations", href: `/quality/oem/escalations` })
+    drillDownLinks.push({ label: "Quality Intelligence", href: `/quality/oem/quality-intelligence` })
 
     supplierScorecards.push({
       supplierId,
@@ -297,11 +298,19 @@ export async function getSupplierScorecards(
     })
   }
 
-  supplierScorecards.sort((a, b) => a.overallScore - b.overallScore)
+  supplierScorecards.sort((a, b) => {
+    const scoreDiff = a.overallScore - b.overallScore
+    if (scoreDiff !== 0) return scoreDiff
+    const aDate = a.latestActivityAt ? new Date(a.latestActivityAt).getTime() : 0
+    const bDate = b.latestActivityAt ? new Date(b.latestActivityAt).getTime() : 0
+    const dateDiff = bDate - aDate
+    if (dateDiff !== 0) return dateDiff
+    return a.supplierName.localeCompare(b.supplierName)
+  })
 
   const highCriticalRiskCount = supplierScorecards.filter((s) => s.riskLevel === "high" || s.riskLevel === "critical").length
   const averageScore = supplierScorecards.length > 0
-    ? Math.round(supplierScorecards.reduce((sum, s) => sum + s.overallScore, 0) / supplierScorecards.length)
+    ? Math.round(supplierScorecards.reduce((sum, s) => sum + (Number.isFinite(s.overallScore) ? s.overallScore : 0), 0) / supplierScorecards.length)
     : 100
 
   const overdueActionsCount = overdueDefects.filter((d) => isDefectOverdue(d as Parameters<typeof isDefectOverdue>[0], now)).length + overdueFieldDefects.filter((fd) => getFieldDefectSlaStatus(fd, now) === "overdue").length

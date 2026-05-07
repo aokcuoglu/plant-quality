@@ -38,6 +38,7 @@ function RiskBadge({ level }: { level: string }) {
 }
 
 function PenaltyRow({ label, count, penalty, cap, perItem }: { label: string; count: number; penalty: number; cap: number; perItem?: number }) {
+  const isZero = penalty <= 0
   return (
     <div className="flex items-center justify-between py-2.5 border-b border-border last:border-0">
       <div className="flex items-center gap-2">
@@ -46,10 +47,10 @@ function PenaltyRow({ label, count, penalty, cap, perItem }: { label: string; co
       </div>
       <div className="flex items-center gap-3">
         {count > 0 && perItem && (
-          <span className="text-xs text-muted-foreground">{perItem} each, cap {cap}</span>
+          <span className="text-xs text-muted-foreground">{perItem} ea, cap {cap}</span>
         )}
-        <span className={`text-sm font-semibold tabular-nums ${penalty > 0 ? "text-destructive" : "text-muted-foreground"}`}>
-          -{penalty}
+        <span className={`text-sm font-semibold tabular-nums ${isZero ? "text-muted-foreground" : "text-destructive"}`}>
+          {isZero ? "0" : `-${penalty}`}
         </span>
       </div>
     </div>
@@ -81,7 +82,7 @@ function MetricCard({ label, value, icon: Icon, href }: { label: string; value: 
       </div>
     </div>
   )
-  if (href) {
+  if (href && value > 0) {
     return <Link href={href}>{content}</Link>
   }
   return content
@@ -111,6 +112,8 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
   }
 
   const { supplierId } = await params
+  if (!supplierId) notFound()
+
   const supplier = await getSupplierScorecardDetail(session, supplierId)
   if (!supplier) notFound()
 
@@ -138,9 +141,9 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-4">
-            <h2 className="text-sm font-semibold mb-4">Score Summary</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-4">Score Summary</h2>
             <div className="flex items-center gap-4 mb-4">
-              <div className="text-3xl font-bold tabular-nums">{safeScore}</div>
+              <div className="text-3xl font-bold tabular-nums text-foreground">{safeScore}<span className="text-sm font-normal text-muted-foreground">/100</span></div>
               <div className="flex-1">
                 <div className="h-3 rounded-full bg-muted">
                   <div className={`h-full rounded-full ${barColor}`} style={{ width: `${safeScore}%` }} />
@@ -155,43 +158,43 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
           </div>
 
           <div className="rounded-lg border bg-card p-4">
-            <h2 className="text-sm font-semibold mb-2">Penalty Breakdown</h2>
-            <p className="text-xs text-muted-foreground mb-3">Starts at 100, subtract penalties per category (each capped). Total penalty: -{totalPenalty}</p>
-            <PenaltyRow label="Critical/High Field Defects" count={bd.fieldDefectHighCritical.count} penalty={bd.fieldDefectHighCritical.penalty} cap={PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.cap} perItem={PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.perItem} />
+            <h2 className="text-sm font-semibold text-foreground mb-2">Penalty Breakdown</h2>
+            <p className="text-xs text-muted-foreground mb-3">Starts at 100. Penalties are subtracted per category, each capped. Total penalty: -{totalPenalty}</p>
+            <PenaltyRow label="Critical/Major Field Defects" count={bd.fieldDefectHighCritical.count} penalty={bd.fieldDefectHighCritical.penalty} cap={PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.cap} perItem={PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.perItem} />
             <PenaltyRow label="Repeat Issue Clusters" count={bd.repeatIssueCluster.count} penalty={bd.repeatIssueCluster.penalty} cap={PENALTY_CONFIG.REPEAT_ISSUE_CLUSTER.cap} perItem={PENALTY_CONFIG.REPEAT_ISSUE_CLUSTER.perItem} />
             <PenaltyRow label="IQC Rejected/On-Hold" count={bd.iqcRejected.count} penalty={bd.iqcRejected.penalty} cap={PENALTY_CONFIG.IQC_REJECTED.cap} perItem={PENALTY_CONFIG.IQC_REJECTED.perItem} />
             <PenaltyRow label="Open/Overdue 8D" count={bd.openOverdue8d.count} penalty={bd.openOverdue8d.penalty} cap={PENALTY_CONFIG.OPEN_OVERDUE_8D.cap} perItem={PENALTY_CONFIG.OPEN_OVERDUE_8D.perItem} />
             <PenaltyRow label="SLA Breach/Escalation" count={bd.slaBreach.count} penalty={bd.slaBreach.penalty} cap={PENALTY_CONFIG.SLA_BREACH.cap} perItem={PENALTY_CONFIG.SLA_BREACH.perItem} />
-            <PenaltyRow label="PPAP with Post-Approval Issues" count={bd.ppapApprovedWithIssues.count} penalty={bd.ppapApprovedWithIssues.penalty} cap={PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.cap} perItem={PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.perItem} />
+            <PenaltyRow label="PPAP with Issues" count={bd.ppapApprovedWithIssues.count} penalty={bd.ppapApprovedWithIssues.penalty} cap={PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.cap} perItem={PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.perItem} />
             <PenaltyRow label="FMEA Coverage Gaps" count={bd.fmeaCoverageGap.count} penalty={bd.fmeaCoverageGap.penalty} cap={PENALTY_CONFIG.FMEA_COVERAGE_GAP.cap} perItem={PENALTY_CONFIG.FMEA_COVERAGE_GAP.perItem} />
             <PenaltyRow label="Executive Risk Signals" count={bd.executiveRiskSignal.count} penalty={bd.executiveRiskSignal.penalty} cap={PENALTY_CONFIG.EXECUTIVE_RISK_SIGNAL.cap} perItem={PENALTY_CONFIG.EXECUTIVE_RISK_SIGNAL.perItem} />
-            <div className="flex items-center justify-between py-2.5 font-semibold">
+            <div className="flex items-center justify-between py-2.5 font-semibold text-foreground">
               <span>Total Penalty</span>
               <span className="tabular-nums text-destructive">-{totalPenalty}</span>
             </div>
           </div>
 
           <div className="rounded-lg border bg-card p-4">
-            <h2 className="text-sm font-semibold mb-3">Key Signals</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-3">Key Signals</h2>
             {supplier.keySignals.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {supplier.keySignals.map((signal, idx) => (
-                  <SignalBadge key={idx} signal={signal} />
+                  <SignalBadge key={`${signal.label}-${idx}`} signal={signal} />
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">No active signals detected for this supplier.</p>
+              <p className="text-sm text-muted-foreground">No active signals detected — this supplier has no current quality issues requiring attention.</p>
             )}
           </div>
         </div>
 
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-4">
-            <h2 className="text-sm font-semibold mb-3">Module Breakdown</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-3">Module Breakdown</h2>
             <div className="grid gap-2">
               <MetricCard label="Field Defects" value={supplier.fieldDefectsCount} icon={AlertTriangleIcon} href="/quality/oem/field" />
               <MetricCard label="Defects / 8D" value={supplier.defects8dCount} icon={BugIcon} href="/quality/oem/defects" />
-              <MetricCard label="Overdue 8D/SLA" value={supplier.overdue8dCount} icon={ClockIcon} href="/quality/oem/escalations" />
+              <MetricCard label="Overdue 8D / SLA" value={supplier.overdue8dCount} icon={ClockIcon} href="/quality/oem/escalations" />
               <MetricCard label="IQC Rejected" value={supplier.iqcRejectedCount} icon={ClipboardCheckIcon} href="/quality/oem/iqc" />
               <MetricCard label="PPAP with Issues" value={supplier.ppapApprovedWithIssuesCount} icon={FileCheckIcon} href="/quality/oem/ppap" />
               <MetricCard label="FMEA Gaps" value={supplier.fmeaCoverageGapCount} icon={ShieldAlertIcon} href="/quality/oem/fmea" />
@@ -201,23 +204,29 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
           </div>
 
           <div className="rounded-lg border bg-card p-4">
-            <h2 className="text-sm font-semibold mb-3">Drill-Down Links</h2>
-            <div className="space-y-1.5">
-              {supplier.drillDownLinks.map((link, idx) => (
-                <Link key={idx} href={link.href} className="flex items-center gap-2 text-sm text-foreground hover:text-emerald-500 transition-colors py-1">
-                  <ArrowLeftIcon className="h-3 w-3 rotate-180" />
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+            <h2 className="text-sm font-semibold text-foreground mb-3">Drill-Down Links</h2>
+            {supplier.drillDownLinks.length > 0 ? (
+              <div className="space-y-1.5">
+                {supplier.drillDownLinks.map((link, idx) => (
+                  <Link key={`${link.href}-${idx}`} href={link.href} className="flex items-center gap-2 text-sm text-foreground hover:text-emerald-500 transition-colors py-1">
+                    <ArrowLeftIcon className="h-3 w-3 rotate-180" />
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No drill-down links available.</p>
+            )}
           </div>
 
-          {supplier.latestActivityAt && (
-            <div className="rounded-lg border bg-card p-4">
-              <h2 className="text-sm font-semibold mb-1">Latest Activity</h2>
+          <div className="rounded-lg border bg-card p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-1">Latest Activity</h2>
+            {supplier.latestActivityAt ? (
               <p className="text-sm text-muted-foreground">{new Date(supplier.latestActivityAt).toLocaleDateString()}</p>
-            </div>
-          )}
+            ) : (
+              <p className="text-sm text-muted-foreground">No recent activity recorded.</p>
+            )}
+          </div>
         </div>
       </div>
 

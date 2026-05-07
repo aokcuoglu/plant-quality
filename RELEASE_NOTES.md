@@ -1,3 +1,129 @@
+# PlantQuality v2.8.1 — Release Notes
+
+## Supplier Scorecard Scoring Accuracy + UX Polish
+
+**Release Date:** 2026-05-07  
+**Version:** 2.8.1
+
+---
+
+## Summary
+
+PlantQuality v2.8.1 stabilizes the Supplier Quality Scorecard introduced in v2.8.0. This patch fixes scoring accuracy edge cases, hardens NaN/Infinity guards, improves sort determinism, clarifies penalty labels, polishes drill-down links, adds loading UX, and updates QA documentation. No new product scope is introduced.
+
+---
+
+## Bug Fixes
+
+### Scoring Accuracy
+
+- **NaN/Infinity guard in `applyPenalty`**: `applyPenalty` now returns 0 for non-finite count or perItem values, preventing NaN from propagating through penalty calculations.
+- **NaN/Infinity guard in `computeScore`**: Total penalty now sums each value with a `Number.isFinite` check; final score is clamped and rounded to an integer. If the result is not finite, returns 100 (perfect score, safe default).
+- **NaN/Infinity guard in `getGrade` and `getRiskLevel`**: Non-finite or negative scores now return "E" grade and "critical" risk level respectively, instead of undefined behavior.
+- **Deterministic sort**: Supplier ranking sort now has tiebreakers — secondary sort by `latestActivityAt` descending, tertiary sort by `supplierName` ascending. Previously, suppliers with equal scores had non-deterministic order.
+- **`latestActivityAt` invalid date guard**: Date parsing now filters out non-finite timestamps, preventing `Invalid Date` from being stored.
+- **`averageScore` NaN guard**: Average calculation now guards individual scores with `Number.isFinite`, preventing NaN average if a score is somehow invalid.
+
+### Penalty Labels
+
+- **"Critical/High" → "Critical/Major"**: Field defect penalty label updated to match the Prisma enum name `MAJOR` (not "HIGH"). The schema uses `MAJOR`, not `HIGH`. This avoids confusion between field defect severity and risk level terminology.
+- **IQC signal label**: Changed "IQC Failures" to "IQC Rejected/On-Hold" in key signals to match the penalty breakdown label and the actual IQC result categories counted.
+- **Overdue 8D signal ordering**: Moved "Open/Overdue 8D" signal above IQC in severity ordering, matching penalty severity hierarchy.
+- **PPAP signal label**: Shortened "PPAP with Post-Approval Issues" to "PPAP with Issues" in key signals for readability.
+
+### Drill-Down Link Safety
+
+- **PPAP link condition**: Previously showed PPAP drill-down link when any IQC had a negative result (even for unrelated suppliers). Now only shows when `ppapWithIssuesCount > 0` for the specific supplier.
+- **Escalations link**: Added drill-down link to Escalations page when `overdue8dCount > 0`.
+- **Quality Intelligence**: Renamed "Intelligence" to "Quality Intelligence" for consistency with the sidebar label and page title.
+- **Detail page Module Breakdown**: Metric cards now only link to module pages when the count is > 0, preventing navigation to modules with no relevant data.
+- **Detail page Latest Activity**: Now always shown (with "No recent activity recorded" fallback), instead of conditionally hidden.
+
+### Supplier Access Protection
+
+- Verified: Supplier users cannot access `/quality/oem/scorecard` — `getSupplierScorecards` returns `null` for non-OEM sessions, and both pages redirect non-OEM to `/login`.
+- Verified: Scorecard nav item is hidden from supplier sidebar — `SUPPLIER_SCORECARD` has `supplierAccess: false`.
+- Verified: Backend `requireFeature` check denies supplier sessions.
+- Verified: `getSupplierScorecardDetail` delegates to `getSupplierScorecards` which checks OEM/companyId gates; supplierId must match an active supplier for the OEM.
+
+---
+
+## UX Polish
+
+### Scorecard List Page
+
+- Table headers use `text-foreground` font weight for consistency.
+- Supplier name column truncated at 200px max-width with `truncate` class.
+- Score bar value uses `text-foreground` token.
+- Empty signal state shows "No signals" text.
+
+### Scorecard Detail Page
+
+- Score display shows `/100` suffix for clarity.
+- Score uses `text-foreground` token.
+- Penalty rows show `0` instead of `-0` for zero-value penalties.
+- "ea" abbreviation instead of "each" for per-item labels.
+- Section headings use `text-foreground` token.
+- Key signals empty state message: "No active signals detected — this supplier has no current quality issues requiring attention."
+- Drill-down links section: empty state fallback text added.
+- Latest Activity: always shown with "No recent activity recorded" fallback.
+
+### Loading Skeleton
+
+- Added `loading.tsx` for `/quality/oem/scorecard` route — shows KPI card skeletons and table skeleton.
+
+### Penalty Row Display
+
+- Total penalty row uses `text-foreground` for the label.
+- Penalty row per-item cap text shows "ea" abbreviation.
+- Section headings consistently styled with `text-foreground`.
+
+---
+
+## Plan Gating Verification
+
+- **FREE OEM**: Sees upgrade CTA with "Upgrade to Enterprise" button — verified unchanged.
+- **PRO OEM**: Sees upgrade CTA with "Upgrade to Enterprise" button — verified unchanged.
+- **ENTERPRISE OEM**: Full access to scorecard list and detail — verified.
+- **Supplier users**: Completely blocked (redirect to `/login`); scorecard nav hidden — verified.
+- Backend `requireFeature(session, "SUPPLIER_SCORECARD")` enforces ENTERPRISE plan — verified.
+- Upgrade CTA links to `/oem/settings/plan` — verified.
+
+---
+
+## No New Product Scope
+
+- No AI supplier scoring
+- No external supplier-facing scorecard sharing
+- No PDF/Excel export
+- No ERP integration
+- No custom KPI weighting UI
+- No landing page changes
+- No broad refactoring of unrelated modules
+
+---
+
+## Files Changed
+
+### Modified Files
+
+- `src/lib/supplier-scorecard/scoring.ts` — NaN/Infinity guards in computeScore, getGrade, getRiskLevel, applyPenalty; score rounding
+- `src/lib/supplier-scorecard/get-supplier-scorecards.ts` — Sort determinism, latestActivityAt NaN guard, averageScore NaN guard, drill-down link safety, key signal labels
+- `src/app/(dashboard)/quality/oem/scorecard/page.tsx` — UX polish, text tokens, truncation, empty states
+- `src/app/(dashboard)/quality/oem/scorecard/[supplierId]/page.tsx` — UX polish, penalty labels, text tokens, NaN safety, drill-down link safety, metric card conditional linking, always-visible activity section, empty states
+- `package.json` — Version 2.8.1
+- `prisma/seed.ts` — Version log update
+
+### New Files
+
+- `src/app/(dashboard)/quality/oem/scorecard/loading.tsx` — Loading skeleton for scorecard route
+
+### No Schema Changes
+
+No Prisma schema changes or migrations required for v2.8.1.
+
+---
+
 # PlantQuality v2.8.0 — Release Notes
 
 ## Supplier Quality Scorecard MVP

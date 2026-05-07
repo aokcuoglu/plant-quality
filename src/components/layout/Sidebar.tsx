@@ -18,6 +18,7 @@ import {
   TrendingUpIcon,
   BarChart3Icon,
   CreditCardIcon,
+  GaugeIcon,
   LockIcon,
   type LucideIcon,
 } from "lucide-react"
@@ -47,6 +48,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   TrendingUpIcon,
   BarChart3Icon,
   CreditCardIcon,
+  GaugeIcon,
 }
 
 interface SidebarLinkItem {

@@ -27,6 +27,7 @@ export type FeatureKey =
   | "EMAIL_NOTIFICATIONS"
   | "SUPPLIER_SCORECARD"
   | "QUALITY_LINKAGE"
+  | "EXECUTIVE_COCKPIT"
 
 export interface FeatureGate {
   key: FeatureKey
@@ -212,6 +213,13 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     minPlan: "PRO",
     supplierAccess: true,
   },
+  EXECUTIVE_COCKPIT: {
+    key: "EXECUTIVE_COCKPIT",
+    label: "Executive Cockpit",
+    description: "Executive quality dashboard with KPIs, risk signals, and action items",
+    minPlan: "ENTERPRISE",
+    supplierAccess: false,
+  },
 }
 
 export function getFeatureGate(key: FeatureKey): FeatureGate {
@@ -295,5 +303,6 @@ export const OEM_NAV_FEATURE_GATES: Record<string, FeatureKey> = {
   "/quality/oem/escalations": "ESCALATION",
   "/quality/oem/war-room": "WAR_ROOM",
   "/quality/oem/quality-intelligence": "QUALITY_INTELLIGENCE",
+  "/quality/oem/executive": "EXECUTIVE_COCKPIT",
   "/quality/oem/notifications": "NOTIFICATIONS",
 }

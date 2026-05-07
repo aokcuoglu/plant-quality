@@ -1,3 +1,96 @@
+# PlantQuality v2.7.0 — Release Notes
+
+## Executive Quality Cockpit
+
+**Release Date:** 2026-05-07  
+**Version:** 2.7.0
+
+---
+
+## Summary
+
+PlantQuality v2.7.0 introduces the **Executive Quality Cockpit** — a leadership-ready dashboard that translates quality data into executive insights. The cockpit provides KPI cards, risk tables, supplier attention analysis, SLA and escalation monitoring, cross-module quality signal snapshots, and deterministic action recommendations. This release is gated to Enterprise OEM users; supplier users are blocked from accessing cross-tenant data.
+
+---
+
+## New Features
+
+### Executive Quality Cockpit (`/quality/oem/executive`)
+
+- **Executive KPI Cards**: Six leadership KPIs displayed at the top:
+  - Open Critical Issues (field defects + defects)
+  - Overdue Actions (SLA-overdue defects + field defects)
+  - High-Risk Supplier/Part Combinations (from Quality Intelligence risk signals)
+  - Repeat Issue Clusters (cross-module repeat issue count)
+  - PPAP Approved With Issues (approved PPAPs with related IQC/field/8D issue history)
+  - FMEA Coverage Gaps (defects/field defects without matching FMEA failure modes)
+
+- **Top Risk Supplier/Part Table**: Ranked table of the top 20 supplier+part combinations sorted by deterministic risk score, showing risk level, main contributing signals, latest activity date, and recommended action.
+
+- **Supplier Attention Panel**: Lists suppliers requiring management attention based on signal count, highest risk level, top affected parts, and a recommended management action.
+
+- **SLA & Escalation Attention Panel**: Shows overdue items, escalated issues (Level 1–3), and items approaching SLA breach, with direct links to underlying records.
+
+- **Repeat Issue Summary**: Aggregated cross-module repeat issue clusters showing field defect, defect/8D, and IQC counts, with links to individual records.
+
+- **PPAP / IQC / Field Risk Snapshot**: Cross-module signal panel showing approved PPAPs with related issue history (IQC rejections, field defects, defect/8D records). Wording uses "Approved PPAP with related issue history" to avoid claiming strict temporal ordering unless date-verified.
+
+- **FMEA Coverage Snapshot**: Shows potential coverage gaps where field defects or defects lack corresponding FMEA failure modes. Uses "Potential coverage gap" wording — never claims FMEA failed to predict.
+
+- **Action Required List**: Deterministic, template-based leadership action items with priority (critical/high/medium), reason, suggested owner, and record links. No AI-generated text.
+
+### Plan Gating
+
+- New feature key: `EXECUTIVE_COCKPIT` (Enterprise required, supplier access denied)
+- **Free / Pro OEM**: Locked — upgrade CTA shown with "Upgrade to Enterprise" button
+- **Enterprise OEM**: Full cockpit access
+- **Supplier users**: Completely blocked (redirect to login)
+
+### Navigation
+
+- Added "Executive Cockpit" to OEM sidebar navigation with `GaugeIcon`, positioned between Intelligence and PPAP
+- Sidebar shows lock icon for non-Enterprise users; supplier users cannot see the link
+
+---
+
+## Known Limitations
+
+- Executive Cockpit does not include AI-generated executive summaries (deferred)
+- No graph/network visualization (deferred)
+- No PDF/PowerPoint export (deferred)
+- Action items are template-based, not AI-generated
+- No automated email digest to executives (deferred)
+- No custom dashboard builder (deferred)
+- No advanced benchmarking (deferred)
+- No separate full supplier scorecard module (deferred)
+
+---
+
+## Deferred to Future Releases
+
+- AI executive summaries (LLM-based)
+- Graph/network visualization of quality relationships
+- PDF/PPT export for executive presentations
+- Full supplier scorecard module
+- ERP integration
+- Automated executive email digest
+- Custom dashboard builder
+- Advanced benchmarking across organizations
+
+---
+
+## Technical Details
+
+- All queries are tenant-scoped (companyId from session)
+- Supplier users are blocked at both route and data layer
+- No client-provided companyId is trusted — server derives it from session
+- All data is deterministic — no randomness or AI
+- Feature gate enforced server-side via `requireFeature(session, "EXECUTIVE_COCKPIT")`
+- No database schema changes required
+- No new dependencies introduced
+
+---
+
 # PlantQuality v2.6.2 — Release Notes
 
 ## Quality Intelligence Risk Signal Bugfix + UX Polish

@@ -52,6 +52,7 @@ export function isFeatureGatedNav(href: string): FeatureKey | null {
     "/quality/oem/escalations": "ESCALATION",
     "/quality/oem/war-room": "WAR_ROOM",
     "/quality/oem/quality-intelligence": "QUALITY_INTELLIGENCE",
+    "/quality/oem/executive": "EXECUTIVE_COCKPIT",
   }
   return gatedNav[href] ?? null
 }

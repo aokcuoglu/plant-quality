@@ -202,7 +202,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
   SUPPLIER_SCORECARD: {
     key: "SUPPLIER_SCORECARD",
     label: "Supplier Scorecard",
-    description: "Comprehensive supplier scoring",
+    description: "Supplier quality scorecard with deterministic scoring, risk grading, and drill-down signals",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
   },
@@ -304,5 +304,6 @@ export const OEM_NAV_FEATURE_GATES: Record<string, FeatureKey> = {
   "/quality/oem/war-room": "WAR_ROOM",
   "/quality/oem/quality-intelligence": "QUALITY_INTELLIGENCE",
   "/quality/oem/executive": "EXECUTIVE_COCKPIT",
+  "/quality/oem/scorecard": "SUPPLIER_SCORECARD",
   "/quality/oem/notifications": "NOTIFICATIONS",
 }

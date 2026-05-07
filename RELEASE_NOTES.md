@@ -1,3 +1,98 @@
+# PlantQuality v2.8.0 — Release Notes
+
+## Supplier Quality Scorecard MVP
+
+**Release Date:** 2026-05-07  
+**Version:** 2.8.0
+
+---
+
+## Summary
+
+PlantQuality v2.8.0 introduces the Supplier Quality Scorecard MVP — a deterministic supplier quality scoring system that helps OEM quality teams identify, compare, and manage supplier performance using existing workflow data. The scorecard aggregates signals from Field Quality, Defects/8D, IQC, PPAP, FMEA, SLA/Escalation, and Quality Intelligence modules into a single supplier-level score, grade, and risk rating.
+
+All scores are deterministic and derived from workflow data. No AI or LLM is used in the scoring model.
+
+---
+
+## Features
+
+### Supplier Scorecard Page (`/quality/oem/scorecard`)
+
+- **Executive summary cards**: Suppliers Monitored, High/Critical Risk count, Average Score, Overdue Actions count
+- **Supplier ranking table**: Sorted by score ascending (worst first) showing supplier name, score bar, grade (A–E), risk level, top signals, recommendation, and detail link
+- **Deterministic scoring model**: Starts at 100, subtracts penalties per category with caps — fully explainable
+- **Key signal badges**: Severity-colored badges showing top issues per supplier
+
+### Supplier Detail Page (`/quality/oem/scorecard/[supplierId]`)
+
+- **Score summary**: Large score display, grade badge, risk badge, recommendation text
+- **Penalty breakdown**: Each category with count, per-item penalty, cap, and total — fully transparent
+- **Module breakdown**: Metric cards linking to Field Defects, 8D, IQC, PPAP, FMEA, Escalations, Intelligence, Repeat Issues
+- **Drill-down links**: Navigate directly to underlying module pages
+
+### Scoring Model
+
+| Category | Per-Item | Cap |
+|----------|----------|-----|
+| Critical/High Field Defects | -10 | -30 |
+| Repeat Issue Clusters | -15 | -30 |
+| IQC Rejected/On-Hold | -8 | -25 |
+| Open/Overdue 8D | -10 | -30 |
+| SLA Breach/Escalation | -10 | -25 |
+| PPAP with Post-Approval Issues | -8 | -20 |
+| FMEA Coverage Gaps | -8 | -20 |
+| Executive Risk Signals | -5 | -15 |
+
+Grades: A (90–100), B (75–89), C (60–74), D (40–59), E (0–39)  
+Risk Levels: Low (80–100), Medium (60–79), High (40–59), Critical (0–39)
+
+### Plan Gating
+
+- **FREE**: Locked — sees upgrade CTA
+- **PRO**: Locked — sees upgrade CTA
+- **ENTERPRISE**: Full access
+
+Backend enforcement via `requireFeature(session, "SUPPLIER_SCORECARD")`.
+
+### Supplier Access Protection
+
+- Supplier users cannot access `/quality/oem/scorecard` — returns null/redirect
+- Scorecard nav item hidden from supplier sidebar
+- Backend denies data for non-OEM sessions
+
+### Navigation
+
+- New "Scorecard" nav entry in OEM sidebar, gated by `SUPPLIER_SCORECARD` feature
+- Uses `AwardIcon` from lucide-react
+- Positioned after "Executive Cockpit"
+
+---
+
+## Data Service
+
+- `src/lib/supplier-scorecard/types.ts` — Type definitions
+- `src/lib/supplier-scorecard/scoring.ts` — Deterministic scoring functions (computeScore, getGrade, getRiskLevel, etc.)
+- `src/lib/supplier-scorecard/get-supplier-scorecards.ts` — Main data service, tenant-scoped, OEM-only
+- `src/lib/supplier-scorecard/index.ts` — Barrel exports
+
+All queries use `companyId` from session — no client-provided trust. Empty data returns safe neutral state (score 100, grade A, risk low).
+
+---
+
+## Deferred to Future Releases
+
+- AI supplier scoring (no LLMs used)
+- External supplier-facing scorecard sharing
+- PDF/Excel export
+- ERP integration
+- Custom KPI weighting UI
+- Cross-OEM benchmarking
+- Automated supplier emails
+- Per-part breakdown in detail page
+
+---
+
 # PlantQuality v2.7.1 — Release Notes
 
 ## AI 8D Review Runtime Hardening + Executive Cockpit Polish

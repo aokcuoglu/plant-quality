@@ -1557,7 +1557,7 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.6.2 Seed completed successfully!");
+  console.log("v2.8.0 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials — LOCAL/DEV ONLY) ===");
   console.log("");

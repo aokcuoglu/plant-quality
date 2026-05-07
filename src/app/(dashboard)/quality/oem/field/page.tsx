@@ -14,6 +14,8 @@ import { getFieldDefects } from "@/app/(dashboard)/field/actions"
 import { FIELD_DEFECT_SOURCE_LABELS } from "@/lib/field-defect"
 import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
+import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
+import { prisma } from "@/lib/prisma"
 
 const STATUS_FILTERS: { value: string; label: string }[] = [
   { value: "active", label: "Active" },
@@ -52,7 +54,7 @@ function Td({ children }: { children: React.ReactNode }) {
 export default async function OemFieldPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filter?: string; q?: string; page?: string }>
+  searchParams: Promise<{ filter?: string; q?: string; page?: string; supplierId?: string }>
 }) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") redirect("/login")
@@ -61,8 +63,20 @@ export default async function OemFieldPage({
   const filter = params.filter ?? ""
   const search = params.q ?? ""
   const page = Math.max(1, parseInt(params.page ?? "1", 10) || 1)
+  const supplierId = params.supplierId ?? ""
 
-  const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page)
+  let supplierFilterName: string | null = null
+  if (supplierId) {
+    const supplier = await prisma.company.findFirst({
+      where: { id: supplierId, type: "SUPPLIER" },
+      select: { name: true },
+    })
+    if (supplier) {
+      supplierFilterName = supplier.name
+    }
+  }
+
+  const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page, supplierId || undefined)
   const totalPages = Math.ceil(totalCount / FIELD_DEFECT_PAGE_SIZE)
 
   function buildUrl(overrides: Record<string, string | undefined>) {
@@ -73,6 +87,8 @@ export default async function OemFieldPage({
     if (f) sp.set("filter", f)
     if (q) sp.set("q", q)
     if (p !== "1") sp.set("page", p)
+    if (supplierId && !overrides.hasOwnProperty("supplierId")) sp.set("supplierId", supplierId)
+    else if (overrides.supplierId) sp.set("supplierId", overrides.supplierId)
     const qs = sp.toString()
     return qs ? `/quality/oem/field?${qs}` : "/quality/oem/field"
   }
@@ -91,6 +107,10 @@ export default async function OemFieldPage({
           </Link>
         }
       />
+
+      {supplierFilterName && (
+        <SupplierFilterBadge supplierName={supplierFilterName} clearHref="/quality/oem/field" />
+      )}
 
       <div className="flex flex-wrap items-center gap-1.5">
         {STATUS_FILTERS.map((sf) => (
@@ -183,7 +203,7 @@ export default async function OemFieldPage({
       })()}
 
       <div className="w-full max-w-sm">
-        <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter"]} />
+        <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter", "supplierId"]} />
       </div>
 
       {fieldDefects.length === 0 ? (

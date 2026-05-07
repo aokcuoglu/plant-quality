@@ -1,3 +1,114 @@
+# PlantQuality v2.8.2 — Release Notes
+
+## Supplier Scorecard Drill-Down + Filter Context Fix + Manual QA
+
+**Release Date:** 2026-05-07  
+**Version:** 2.8.2
+
+---
+
+## Summary
+
+PlantQuality v2.8.2 fixes a bug where Supplier Scorecard detail page drill-down links (Field Defects, Defects/8D, IQC, PPAP, FMEA) did not preserve supplier context when navigating to target list pages. The fix adds `?supplierId=` query parameters to all drill-down links, implements `supplierId` query filtering on all five target list pages, adds an active filter badge with clear-filter action, and provides comprehensive manual QA documentation for v2.7 Executive Cockpit and v2.8 Supplier Scorecard areas.
+
+No new product scope is introduced.
+
+---
+
+## Bug Fixes
+
+### Supplier Scorecard Drill-Down Links Missing Supplier Context (P0)
+
+- **Problem:** Clicking "Field Defects", "Defects / 8D", "IQC Rejected", "PPAP with Issues", or "FMEA Gaps" cards on the Supplier Scorecard detail page navigated to `/quality/oem/field`, `/quality/oem/defects`, etc. without any supplier context. The target list page then showed all records, not just the selected supplier's.
+- **Fix:** All MetricCard hrefs and drill-down link hrefs now include `?supplierId=<companyId>` using `encodeURIComponent`. For example, clicking "Field Defects" on the SteelForged scorecard now navigates to `/quality/oem/field?supplierId=supplier-company-2`.
+
+### Target List Pages Did Not Support Supplier Filtering (P1)
+
+- **Problem:** The Field, Defects, IQC, PPAP, and FMEA list pages did not read or filter by any `supplierId` query parameter. Even when a URL contained `?supplierId=supplier-company-2`, all records were shown.
+- **Fix:** All five target list pages now:
+  1. Read `supplierId` from `searchParams`
+  2. Resolve the supplier name from the database (validated against `type: "SUPPLIER"`)
+  3. Pass `supplierId` to the data query as an additional filter alongside `oemId`
+  4. Show an active filter badge ("Filtered by SteelForged Co.") with a clear-filter link
+  5. Preserve `supplierId` in filter tabs, search, and pagination links
+
+### Invalid supplierId Does Not Leak Cross-Tenant Data (Security)
+
+- **Problem (hypothetical):** A crafted `?supplierId=` pointing to a supplier belonging to a different OEM could theoretically show filtered results (though all queries include `oemId: session.user.companyId`).
+- **Resolution confirmed:** All five list pages already scope by `oemId: session.user.companyId`. The `supplierId` filter is added as an additional AND condition. If the supplierId does not belong to the current OEM's data set, zero records are returned. No cross-tenant data exposure is possible.
+
+---
+
+## UX Changes
+
+### Active Supplier Filter Badge
+
+New `SupplierFilterBadge` component renders on all five target list pages when a `supplierId` query parameter is present and resolves to a valid supplier:
+
+- Shows: "Filtered by {Supplier Name}" with an X icon to clear
+- Clear link navigates to the base route (e.g., `/quality/oem/field`) without query parameters
+- Badge uses emerald accent consistent with the design system (`border-emerald-500/20 bg-emerald-500/10`)
+- Not shown when supplierId is absent, empty, or does not match a valid supplier
+
+---
+
+## Route Identifier Documentation
+
+The Supplier Scorecard detail route uses the Company ID as the dynamic segment:
+
+- `/quality/oem/scorecard/supplier-company` → Precision Parts Inc. (seed ID: `supplier-company`)
+- `/quality/oem/scorecard/supplier-company-2` → SteelForged Co. (seed ID: `supplier-company-2`)
+
+These IDs are stable seed/demo identifiers. The page title always shows the human-readable supplier name. No slug migration is performed in this release.
+
+---
+
+## Manual QA Coverage
+
+- Executive Cockpit (v2.7): Access/plan gating, KPI accuracy, drill-down links, wording, empty states — all verified via code inspection
+- Supplier Scorecard (v2.8): Score/grade/risk mapping, drill-down link context, direct filtered URLs, active filter UI, supplier access denial, plan gating — all verified via code inspection
+- See: `docs/qa/v2.8.2-scorecard-drilldown-filter-qa.md`
+
+---
+
+## No New Product Scope
+
+- No AI supplier scoring
+- No external supplier-facing scorecard sharing
+- No PDF/Excel export
+- No ERP integration
+- No custom KPI weighting UI
+- No landing page changes
+- No broad refactoring of unrelated modules
+
+---
+
+## Files Changed
+
+### Modified Files
+
+- `src/lib/supplier-scorecard/get-supplier-scorecards.ts` — Drill-down links now include `?supplierId=` query param
+- `src/app/(dashboard)/quality/oem/scorecard/[supplierId]/page.tsx` — MetricCard hrefs now include `?supplierId=`
+- `src/app/(dashboard)/quality/oem/field/page.tsx` — Reads `supplierId` searchParam, passes to `getFieldDefects`, shows SupplierFilterBadge
+- `src/app/(dashboard)/field/actions.ts` — `getFieldDefects` accepts optional `supplierId` param, adds to Prisma where clause
+- `src/app/(dashboard)/quality/oem/defects/page.tsx` — Reads `supplierId` searchParam, passes to `getDefects`, shows SupplierFilterBadge
+- `src/app/(dashboard)/quality/oem/defects/queries.ts` — `getDefects` accepts optional `supplierId` param, adds to Prisma where clause
+- `src/app/(dashboard)/quality/oem/iqc/page.tsx` — Reads `supplierId` searchParam, filters IQC reports, shows SupplierFilterBadge
+- `src/app/(dashboard)/quality/oem/ppap/page.tsx` — Reads `supplierId` searchParam, filters PPAP submissions, shows SupplierFilterBadge
+- `src/app/(dashboard)/quality/oem/fmea/page.tsx` — Reads `supplierId` searchParam, filters FMEAs, shows SupplierFilterBadge
+- `package.json` — Version 2.8.2
+
+### New Files
+
+- `src/components/supplier-filter-badge.tsx` — Reusable active filter badge component
+- `docs/qa/v2.8.2-scorecard-drilldown-filter-qa.md` — QA documentation
+
+### No Schema Changes
+
+No Prisma schema changes or migrations required for v2.8.2.
+
+---
+
 # PlantQuality v2.8.1 — Release Notes
 
 ## Supplier Scorecard Scoring Accuracy + UX Polish

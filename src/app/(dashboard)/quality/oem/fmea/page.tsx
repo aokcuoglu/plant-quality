@@ -6,16 +6,39 @@ import { ShieldAlertIcon, PlusIcon } from "lucide-react"
 import Link from "next/link"
 import { getFmeaStatusColor, getRpnColor, isFmeaOverdue, FMEA_STATUS_LABELS, FMEA_TYPE_LABELS } from "@/lib/fmea"
 import type { FmeaStatus } from "@/generated/prisma/client"
+import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 
-export default async function OemFmeaPage() {
+export default async function OemFmeaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ supplierId?: string }>
+}) {
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
   const fmeaGate = requireFeature(session, "FMEA")
   if (!fmeaGate.allowed) redirect("/quality/oem")
 
+  const { supplierId } = await searchParams
+
+  let supplierFilterName: string | null = null
+  if (supplierId) {
+    const supplier = await prisma.company.findFirst({
+      where: { id: supplierId, type: "SUPPLIER" },
+      select: { name: true },
+    })
+    if (supplier) {
+      supplierFilterName = supplier.name
+    }
+  }
+
+  const whereCondition: Record<string, unknown> = { oemId: session.user.companyId }
+  if (supplierId) {
+    whereCondition.supplierId = supplierId
+  }
+
   const fmeas = await prisma.fmea.findMany({
-    where: { oemId: session.user.companyId },
+    where: whereCondition,
     orderBy: { createdAt: "desc" },
     include: {
       supplier: { select: { name: true } },
@@ -36,6 +59,10 @@ export default async function OemFmeaPage() {
           </button>
         </Link>
       </div>
+
+      {supplierFilterName && (
+        <SupplierFilterBadge supplierName={supplierFilterName} clearHref="/quality/oem/fmea" />
+      )}
 
       {fmeas.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-card p-12 text-center">

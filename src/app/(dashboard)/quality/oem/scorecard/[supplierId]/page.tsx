@@ -192,12 +192,12 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
           <div className="rounded-lg border bg-card p-4">
             <h2 className="text-sm font-semibold text-foreground mb-3">Module Breakdown</h2>
             <div className="grid gap-2">
-              <MetricCard label="Field Defects" value={supplier.fieldDefectsCount} icon={AlertTriangleIcon} href="/quality/oem/field" />
-              <MetricCard label="Defects / 8D" value={supplier.defects8dCount} icon={BugIcon} href="/quality/oem/defects" />
+              <MetricCard label="Field Defects" value={supplier.fieldDefectsCount} icon={AlertTriangleIcon} href={`/quality/oem/field?supplierId=${encodeURIComponent(supplier.supplierId)}`} />
+              <MetricCard label="Defects / 8D" value={supplier.defects8dCount} icon={BugIcon} href={`/quality/oem/defects?supplierId=${encodeURIComponent(supplier.supplierId)}`} />
               <MetricCard label="Overdue 8D / SLA" value={supplier.overdue8dCount} icon={ClockIcon} href="/quality/oem/escalations" />
-              <MetricCard label="IQC Rejected" value={supplier.iqcRejectedCount} icon={ClipboardCheckIcon} href="/quality/oem/iqc" />
-              <MetricCard label="PPAP with Issues" value={supplier.ppapApprovedWithIssuesCount} icon={FileCheckIcon} href="/quality/oem/ppap" />
-              <MetricCard label="FMEA Gaps" value={supplier.fmeaCoverageGapCount} icon={ShieldAlertIcon} href="/quality/oem/fmea" />
+              <MetricCard label="IQC Rejected" value={supplier.iqcRejectedCount} icon={ClipboardCheckIcon} href={`/quality/oem/iqc?supplierId=${encodeURIComponent(supplier.supplierId)}`} />
+              <MetricCard label="PPAP with Issues" value={supplier.ppapApprovedWithIssuesCount} icon={FileCheckIcon} href={`/quality/oem/ppap?supplierId=${encodeURIComponent(supplier.supplierId)}`} />
+              <MetricCard label="FMEA Gaps" value={supplier.fmeaCoverageGapCount} icon={ShieldAlertIcon} href={`/quality/oem/fmea?supplierId=${encodeURIComponent(supplier.supplierId)}`} />
               <MetricCard label="Escalations" value={supplier.escalationCount} icon={TrendingUpIcon} href="/quality/oem/escalations" />
               <MetricCard label="Repeat Clusters" value={supplier.repeatIssuesCount} icon={BarChart3Icon} href="/quality/oem/quality-intelligence" />
             </div>

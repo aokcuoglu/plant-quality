@@ -9,19 +9,33 @@ import { Button } from "@/components/ui/button"
 import { SearchInput } from "@/components/ui/search-input"
 import { PlusIcon } from "lucide-react"
 import { formatDueDate, getActionOwnerLabel } from "@/lib/sla"
+import { prisma } from "@/lib/prisma"
+import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 
 export default async function DefectsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filter?: string; q?: string; page?: string }>
+  searchParams: Promise<{ filter?: string; q?: string; page?: string; supplierId?: string }>
 }) {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") redirect("/login")
 
-  const { filter, q, page: pageStr } = await searchParams
+  const { filter, q, page: pageStr, supplierId } = await searchParams
   const search = q || undefined
   const page = Math.max(1, parseInt(pageStr ?? "1", 10) || 1)
-  const { defects, totalCount } = await getDefects(filter, search, page)
+
+  let supplierFilterName: string | null = null
+  if (supplierId) {
+    const supplier = await prisma.company.findFirst({
+      where: { id: supplierId, type: "SUPPLIER" },
+      select: { name: true },
+    })
+    if (supplier) {
+      supplierFilterName = supplier.name
+    }
+  }
+
+  const { defects, totalCount } = await getDefects(filter, search, page, supplierId || undefined)
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
 
   function buildUrl(params: { filter?: string; q?: string; page?: number }) {
@@ -29,6 +43,7 @@ export default async function DefectsPage({
     if (params.filter && params.filter !== "all") sp.set("filter", params.filter)
     if (params.q) sp.set("q", params.q)
     if (params.page && params.page > 1) sp.set("page", String(params.page))
+    if (supplierId) sp.set("supplierId", supplierId)
     const qs = sp.toString()
     return qs ? `/quality/oem/defects?${qs}` : "/quality/oem/defects"
   }
@@ -48,7 +63,11 @@ export default async function DefectsPage({
         }
       />
 
-      <SearchInput placeholder="Search by part number or description…" />
+      {supplierFilterName && (
+        <SupplierFilterBadge supplierName={supplierFilterName} clearHref="/quality/oem/defects" />
+      )}
+
+      <SearchInput placeholder="Search by part number or description…" preserveParams={["filter", "supplierId"]} />
 
       <div className="flex flex-wrap gap-1.5">
         {[

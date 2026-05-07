@@ -22,6 +22,7 @@ export async function getFieldDefects(
   filter?: string,
   search?: string,
   page?: number,
+  supplierId?: string,
 ): Promise<{ fieldDefects: FieldDefectRow[]; totalCount: number }> {
   const session = await auth()
   if (!session) return { fieldDefects: [], totalCount: 0 }
@@ -30,6 +31,10 @@ export async function getFieldDefects(
   const where: Record<string, unknown> = isOem
     ? { oemId: session.user.companyId, deletedAt: null }
     : { supplierId: session.user.companyId, deletedAt: null }
+
+  if (supplierId && isOem) {
+    where.supplierId = supplierId
+  }
 
   if (search) {
     where.OR = [

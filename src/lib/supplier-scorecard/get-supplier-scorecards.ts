@@ -267,11 +267,11 @@ export async function getSupplierScorecards(
     const latestActivityAt = allDates.length > 0 ? new Date(Math.max(...allDates)) : null
 
     const drillDownLinks: { label: string; href: string }[] = []
-    if (supplierFieldDefects.length > 0) drillDownLinks.push({ label: "Field Quality", href: `/quality/oem/field` })
-    if (openDefects.length > 0) drillDownLinks.push({ label: "Defects / 8D", href: `/quality/oem/defects` })
-    if (supplierIqc.length > 0) drillDownLinks.push({ label: "IQC", href: `/quality/oem/iqc` })
-    if (ppapWithIssuesCount > 0) drillDownLinks.push({ label: "PPAP", href: `/quality/oem/ppap` })
-    if (fmeaGapCount > 0) drillDownLinks.push({ label: "FMEA", href: `/quality/oem/fmea` })
+    if (supplierFieldDefects.length > 0) drillDownLinks.push({ label: "Field Quality", href: `/quality/oem/field?supplierId=${encodeURIComponent(supplierId)}` })
+    if (openDefects.length > 0) drillDownLinks.push({ label: "Defects / 8D", href: `/quality/oem/defects?supplierId=${encodeURIComponent(supplierId)}` })
+    if (supplierIqc.length > 0) drillDownLinks.push({ label: "IQC", href: `/quality/oem/iqc?supplierId=${encodeURIComponent(supplierId)}` })
+    if (ppapWithIssuesCount > 0) drillDownLinks.push({ label: "PPAP", href: `/quality/oem/ppap?supplierId=${encodeURIComponent(supplierId)}` })
+    if (fmeaGapCount > 0) drillDownLinks.push({ label: "FMEA", href: `/quality/oem/fmea?supplierId=${encodeURIComponent(supplierId)}` })
     if (overdue8dCount > 0) drillDownLinks.push({ label: "Escalations", href: `/quality/oem/escalations` })
     drillDownLinks.push({ label: "Quality Intelligence", href: `/quality/oem/quality-intelligence` })
 

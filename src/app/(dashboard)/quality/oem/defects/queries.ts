@@ -34,11 +34,15 @@ export async function getDefects(
   filter?: string,
   search?: string,
   page?: number,
+  supplierId?: string,
 ): Promise<{ defects: DefectRow[]; totalCount: number }> {
   const session = await auth()
   if (!session || session.user.companyType !== "OEM") return { defects: [], totalCount: 0 }
 
   const where: Record<string, unknown> = { oemId: session.user.companyId }
+  if (supplierId) {
+    where.supplierId = supplierId
+  }
   if (search) {
     where.OR = [
       { partNumber: { contains: search, mode: "insensitive" } },

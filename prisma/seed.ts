@@ -1605,6 +1605,148 @@ async function main() {
   console.log("FMEA Coverage Gap: fd-ent-002 (ENG-7700-Y, category: Corrosion) — no FMEA exists for SteelForged ENG-7700-Y");
   console.log("High RPN: fmea-ent-001 (ENG-5500-X, max RPN 200) — fatigue failure with severity 10");
   console.log("");
+  console.log("=== Supplier Development Action Plans (v2.9.0) ===");
+  console.log("");
+  console.log("dev-plan-001: CRITICAL, SUPPLIER_ACTION_REQUIRED — Precision Parts, bearing failure");
+  console.log("dev-plan-002: HIGH, OEM_REVIEW — SteelForged, heat treatment surface defects");
+  console.log("dev-plan-003: MEDIUM, DRAFT — Precision Parts, IQC process improvement");
+  console.log("dev-plan-004: LOW, COMPLETED — Precision Parts, dimensional accuracy (closed)");
+
+  // ── Supplier Development Action Plans (v2.9.0) ────────────────────
+
+  await prisma.supplierDevelopmentEvent.deleteMany({ where: { planId: { in: ["dev-plan-001", "dev-plan-002", "dev-plan-003", "dev-plan-004"] } } }).catch(() => {});
+  await prisma.supplierDevelopmentActionItem.deleteMany({ where: { planId: { in: ["dev-plan-001", "dev-plan-002", "dev-plan-003", "dev-plan-004"] } } }).catch(() => {});
+  await prisma.supplierDevelopmentPlan.deleteMany({ where: { id: { in: ["dev-plan-001", "dev-plan-002", "dev-plan-003", "dev-plan-004"] } } }).catch(() => {});
+
+  const devPlan1 = await prisma.supplierDevelopmentPlan.create({
+    data: {
+      id: "dev-plan-001",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany.id,
+      title: "Quality Improvement — AX-7420-B Bearing Failure",
+      description: "Comprehensive improvement plan for bearing failure defects on AX-7420-B. Triggered by high-risk scorecard findings and multiple IQC rejections.",
+      sourceType: "SCORECARD",
+      sourceId: supplierCompany.id,
+      priority: "CRITICAL",
+      status: "SUPPLIER_ACTION_REQUIRED",
+      dueDate: new Date("2026-06-30"),
+      ownerId: "oem-enterprise-admin",
+      createdById: "oem-enterprise-admin",
+    },
+  });
+
+  await prisma.supplierDevelopmentActionItem.createMany({
+    data: [
+      { id: "dev-action-001", planId: devPlan1.id, title: "Root cause analysis of bearing failure", description: "Conduct 5-why analysis and identify root cause of bearing failure on AX-7420-B", ownerType: "SUPPLIER", ownerId: "supplier-admin", status: "IN_PROGRESS", dueDate: new Date("2026-05-30") },
+      { id: "dev-action-002", planId: devPlan1.id, title: "Process audit of bearing manufacturing line", description: "Full process audit including incoming material inspection", ownerType: "OEM", ownerId: "oem-enterprise-admin", status: "OPEN", dueDate: new Date("2026-06-15") },
+      { id: "dev-action-003", planId: devPlan1.id, title: "Implement corrective actions", description: "Based on RCA findings, implement corrective and preventive actions", ownerType: "SUPPLIER", ownerId: "supplier-engineer", status: "OPEN", dueDate: new Date("2026-06-25") },
+      { id: "dev-action-004", planId: devPlan1.id, title: "Verify effectiveness of corrective actions", description: "OEM verification that corrective actions are effective", ownerType: "OEM", ownerId: "oem-enterprise-admin", status: "OPEN", dueDate: new Date("2026-06-30") },
+    ],
+  });
+
+  await prisma.supplierDevelopmentEvent.createMany({
+    data: [
+      { id: "dev-event-001", planId: devPlan1.id, actorId: "oem-enterprise-admin", type: "PLAN_CREATED", message: "Plan created as draft", metadata: { priority: "CRITICAL", sourceType: "SCORECARD" }, createdAt: new Date("2026-05-01T10:00:00Z") },
+      { id: "dev-event-002", planId: devPlan1.id, actorId: "oem-enterprise-admin", type: "PLAN_OPENED", message: "Plan opened", createdAt: new Date("2026-05-02T09:00:00Z") },
+      { id: "dev-event-003", planId: devPlan1.id, actorId: "oem-enterprise-admin", type: "PLAN_SENT_TO_SUPPLIER", message: "Plan sent to supplier for action", createdAt: new Date("2026-05-03T08:00:00Z") },
+      { id: "dev-event-004", planId: devPlan1.id, actorId: "oem-enterprise-admin", type: "ACTION_ITEM_ADDED", message: "Action item added: Root cause analysis of bearing failure", metadata: { actionItemId: "dev-action-001" }, createdAt: new Date("2026-05-02T10:00:00Z") },
+    ],
+  });
+
+  const devPlan2 = await prisma.supplierDevelopmentPlan.create({
+    data: {
+      id: "dev-plan-002",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany2.id,
+      title: "Surface Defects — CS-3344-D Heat Treatment Process",
+      description: "Address surface defect patterns found in PPAP and IQC for heat treatment process on CS-3344-D.",
+      sourceType: "PPAP",
+      sourceId: "ppap-ent-001",
+      priority: "HIGH",
+      status: "OEM_REVIEW",
+      dueDate: new Date("2026-07-15"),
+      ownerId: "oem-enterprise-admin",
+      createdById: "oem-enterprise-admin",
+    },
+  });
+
+  await prisma.supplierDevelopmentActionItem.createMany({
+    data: [
+      { id: "dev-action-005", planId: devPlan2.id, title: "Update heat treatment SOP", description: "Revise standard operating procedure for heat treatment process", ownerType: "SUPPLIER", ownerId: "steelforged-admin", status: "SUBMITTED", dueDate: new Date("2026-06-15"), supplierResponse: "SOP revision draft submitted. Updated temperature monitoring procedures and added additional quality checkpoints." },
+      { id: "dev-action-006", planId: devPlan2.id, title: "Install additional quality checkpoint", description: "Add in-process inspection after heat treatment", ownerType: "SUPPLIER", ownerId: "steelforged-engineer", status: "IN_PROGRESS", dueDate: new Date("2026-06-30") },
+    ],
+  });
+
+  await prisma.supplierDevelopmentEvent.createMany({
+    data: [
+      { id: "dev-event-005", planId: devPlan2.id, actorId: "oem-enterprise-admin", type: "PLAN_CREATED", message: "Plan created and opened", createdAt: new Date("2026-04-20T10:00:00Z") },
+      { id: "dev-event-006", planId: devPlan2.id, actorId: "oem-enterprise-admin", type: "PLAN_SENT_TO_SUPPLIER", message: "Plan sent to supplier for action", createdAt: new Date("2026-04-21T09:00:00Z") },
+      { id: "dev-event-007", planId: devPlan2.id, actorId: "steelforged-admin", type: "ACTION_ITEM_STATUS_CHANGED", message: "Supplier updated action item: Submit SOP revision to IN_PROGRESS", metadata: { actionItemId: "dev-action-005" }, createdAt: new Date("2026-05-01T09:00:00Z") },
+      { id: "dev-event-008", planId: devPlan2.id, actorId: "steelforged-admin", type: "PLAN_SUBMITTED_FOR_REVIEW", message: "Supplier submitted plan for OEM review", createdAt: new Date("2026-05-10T14:00:00Z") },
+    ],
+  });
+
+  const devPlan3 = await prisma.supplierDevelopmentPlan.create({
+    data: {
+      id: "dev-plan-003",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany.id,
+      title: "IQC Process Improvement — Incoming Inspection Enhancement",
+      description: "Enhance incoming quality control processes based on recurring IQC failures.",
+      sourceType: "IQC",
+      priority: "MEDIUM",
+      status: "DRAFT",
+      dueDate: new Date("2026-08-01"),
+      ownerId: "oem-enterprise-admin",
+      createdById: "oem-enterprise-admin",
+    },
+  });
+
+  await prisma.supplierDevelopmentActionItem.createMany({
+    data: [
+      { id: "dev-action-007", planId: devPlan3.id, title: "Review and update incoming inspection procedures", ownerType: "OEM", ownerId: "oem-enterprise-admin", status: "OPEN" },
+    ],
+  });
+
+  await prisma.supplierDevelopmentEvent.createMany({
+    data: [
+      { id: "dev-event-009", planId: devPlan3.id, actorId: "oem-enterprise-admin", type: "PLAN_CREATED", message: "Plan created as draft", createdAt: new Date("2026-05-05T11:00:00Z") },
+    ],
+  });
+
+  const devPlan4 = await prisma.supplierDevelopmentPlan.create({
+    data: {
+      id: "dev-plan-004",
+      oemId: oemEnterpriseCompany.id,
+      supplierId: supplierCompany.id,
+      title: "Completed Improvement — PS-2233-B Dimensional Accuracy",
+      description: "Successfully completed improvement plan for dimensional accuracy issues on PS-2233-B.",
+      sourceType: "MANUAL",
+      priority: "LOW",
+      status: "COMPLETED",
+      dueDate: new Date("2026-04-15"),
+      completedAt: new Date("2026-04-14"),
+      completedById: "oem-enterprise-admin",
+      ownerId: "oem-enterprise-admin",
+      createdById: "oem-enterprise-admin",
+    },
+  });
+
+  await prisma.supplierDevelopmentActionItem.createMany({
+    data: [
+      { id: "dev-action-008", planId: devPlan4.id, title: "Update dimensional measurement process", ownerType: "SUPPLIER", ownerId: "supplier-admin", status: "COMPLETED", completedAt: new Date("2026-04-01") },
+      { id: "dev-action-009", planId: devPlan4.id, title: "Verify measurement correlation", ownerType: "OEM", ownerId: "oem-enterprise-admin", status: "ACCEPTED", completedAt: new Date("2026-04-10") },
+    ],
+  });
+
+  await prisma.supplierDevelopmentEvent.createMany({
+    data: [
+      { id: "dev-event-010", planId: devPlan4.id, actorId: "oem-enterprise-admin", type: "PLAN_CREATED", message: "Plan created and opened", createdAt: new Date("2026-03-01T10:00:00Z") },
+      { id: "dev-event-011", planId: devPlan4.id, actorId: "oem-enterprise-admin", type: "PLAN_SENT_TO_SUPPLIER", message: "Plan sent to supplier", createdAt: new Date("2026-03-02T09:00:00Z") },
+      { id: "dev-event-012", planId: devPlan4.id, actorId: "oem-enterprise-admin", type: "PLAN_COMPLETED", message: "Plan completed — all actions verified effective", createdAt: new Date("2026-04-14T16:00:00Z") },
+    ],
+  });
+  console.log("");
 }
 
 main()

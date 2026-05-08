@@ -81,7 +81,10 @@ export const ModelName = {
   Ai8dReview: 'Ai8dReview',
   UsageCounter: 'UsageCounter',
   UpgradeRequest: 'UpgradeRequest',
-  QualityRecordLink: 'QualityRecordLink'
+  QualityRecordLink: 'QualityRecordLink',
+  SupplierDevelopmentPlan: 'SupplierDevelopmentPlan',
+  SupplierDevelopmentActionItem: 'SupplierDevelopmentActionItem',
+  SupplierDevelopmentEvent: 'SupplierDevelopmentEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -685,6 +688,60 @@ export const QualityRecordLinkScalarFieldEnum = {
 } as const
 
 export type QualityRecordLinkScalarFieldEnum = (typeof QualityRecordLinkScalarFieldEnum)[keyof typeof QualityRecordLinkScalarFieldEnum]
+
+
+export const SupplierDevelopmentPlanScalarFieldEnum = {
+  id: 'id',
+  oemId: 'oemId',
+  supplierId: 'supplierId',
+  title: 'title',
+  description: 'description',
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  priority: 'priority',
+  status: 'status',
+  dueDate: 'dueDate',
+  ownerId: 'ownerId',
+  createdById: 'createdById',
+  completedAt: 'completedAt',
+  completedById: 'completedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierDevelopmentPlanScalarFieldEnum = (typeof SupplierDevelopmentPlanScalarFieldEnum)[keyof typeof SupplierDevelopmentPlanScalarFieldEnum]
+
+
+export const SupplierDevelopmentActionItemScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  title: 'title',
+  description: 'description',
+  ownerType: 'ownerType',
+  ownerId: 'ownerId',
+  status: 'status',
+  dueDate: 'dueDate',
+  supplierResponse: 'supplierResponse',
+  oemComment: 'oemComment',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierDevelopmentActionItemScalarFieldEnum = (typeof SupplierDevelopmentActionItemScalarFieldEnum)[keyof typeof SupplierDevelopmentActionItemScalarFieldEnum]
+
+
+export const SupplierDevelopmentEventScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  actorId: 'actorId',
+  type: 'type',
+  message: 'message',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type SupplierDevelopmentEventScalarFieldEnum = (typeof SupplierDevelopmentEventScalarFieldEnum)[keyof typeof SupplierDevelopmentEventScalarFieldEnum]
 
 
 export const SortOrder = {

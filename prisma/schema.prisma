@@ -50,6 +50,11 @@ enum NotificationType {
   EIGHT_D_OVERDUE
   EIGHT_D_ESCALATED
   COMMENT_ADDED
+  DEV_PLAN_CREATED
+  DEV_PLAN_ACTION_REQUIRED
+  DEV_PLAN_REVISION_REQUESTED
+  DEV_PLAN_COMPLETED
+  DEV_PLAN_CANCELLED
 }
 
 enum ReviewCommentStatus {
@@ -106,6 +111,64 @@ enum QualityLinkType {
   RELATED_HISTORY
   IQC_REJECTION
   SAME_SUPPLIER_ONLY
+}
+
+enum DevPlanSourceType {
+  SCORECARD
+  FIELD_DEFECT
+  DEFECT_8D
+  IQC
+  PPAP
+  FMEA
+  EXECUTIVE_COCKPIT
+  MANUAL
+}
+
+enum DevPlanPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum DevPlanStatus {
+  DRAFT
+  OPEN
+  SUPPLIER_ACTION_REQUIRED
+  OEM_REVIEW
+  REVISION_REQUIRED
+  COMPLETED
+  CANCELLED
+}
+
+enum DevActionOwnerType {
+  OEM
+  SUPPLIER
+}
+
+enum DevActionStatus {
+  OPEN
+  IN_PROGRESS
+  SUBMITTED
+  ACCEPTED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum DevPlanEventType {
+  PLAN_CREATED
+  PLAN_OPENED
+  PLAN_SENT_TO_SUPPLIER
+  PLAN_SUBMITTED_FOR_REVIEW
+  PLAN_REVISION_REQUESTED
+  PLAN_COMPLETED
+  PLAN_CANCELLED
+  ACTION_ITEM_ADDED
+  ACTION_ITEM_UPDATED
+  ACTION_ITEM_STATUS_CHANGED
+  ACTION_ITEM_RESPONSE_ADDED
+  COMMENT_ADDED
 }
 
 enum DefectEventType {
@@ -366,6 +429,8 @@ model Company {
   usageCounters      UsageCounter[]
   upgradeRequests    UpgradeRequest[]
   qualityRecordLinks QualityRecordLink[]
+  devPlansAsOem      SupplierDevelopmentPlan[] @relation("DevPlansAsOem")
+  devPlansAsSupplier SupplierDevelopmentPlan[] @relation("DevPlansAsSupplier")
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -430,6 +495,11 @@ model User {
   reviewedAi8dReviews     Ai8dReview[] @relation("Ai8dReviewReviewedBy")
   rejectedAi8dReviews     Ai8dReview[] @relation("Ai8dReviewRejectedBy")
   createdQualityLinks     QualityRecordLink[]
+  ownedDevPlans           SupplierDevelopmentPlan[] @relation("DevPlanOwner")
+  createdDevPlans         SupplierDevelopmentPlan[] @relation("DevPlanCreatedBy")
+  completedDevPlans       SupplierDevelopmentPlan[] @relation("DevPlanCompletedBy")
+  ownedDevActionItems     SupplierDevelopmentActionItem[] @relation("DevActionItemOwner")
+  devPlanEvents           SupplierDevelopmentEvent[] @relation("DevPlanEventActor")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -1141,4 +1211,73 @@ model QualityRecordLink {
   @@index([companyId, linkType])
   @@index([companyId, createdAt])
   @@map("quality_record_links")
+}
+
+model SupplierDevelopmentPlan {
+  id              String           @id @default(uuid())
+  oemId           String           @map("oem_id")
+  oem             Company          @relation("DevPlansAsOem", fields: [oemId], references: [id])
+  supplierId      String           @map("supplier_id")
+  supplier        Company          @relation("DevPlansAsSupplier", fields: [supplierId], references: [id])
+  title           String
+  description     String?
+  sourceType      DevPlanSourceType? @map("source_type")
+  sourceId        String?          @map("source_id")
+  priority        DevPlanPriority  @default(MEDIUM)
+  status          DevPlanStatus    @default(DRAFT)
+  dueDate         DateTime?        @map("due_date")
+  ownerId         String?          @map("owner_id")
+  owner           User?            @relation("DevPlanOwner", fields: [ownerId], references: [id])
+  createdById     String           @map("created_by_id")
+  createdBy       User             @relation("DevPlanCreatedBy", fields: [createdById], references: [id])
+  completedAt     DateTime?        @map("completed_at")
+  completedById   String?          @map("completed_by_id")
+  completedBy     User?            @relation("DevPlanCompletedBy", fields: [completedById], references: [id])
+  actionItems     SupplierDevelopmentActionItem[]
+  events          SupplierDevelopmentEvent[]
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  @@index([oemId, supplierId])
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([oemId, priority])
+  @@index([oemId, dueDate])
+  @@map("supplier_development_plans")
+}
+
+model SupplierDevelopmentActionItem {
+  id               String            @id @default(uuid())
+  planId           String            @map("plan_id")
+  plan             SupplierDevelopmentPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title            String
+  description      String?
+  ownerType        DevActionOwnerType @default(OEM) @map("owner_type")
+  ownerId          String?           @map("owner_id")
+  owner            User?             @relation("DevActionItemOwner", fields: [ownerId], references: [id])
+  status           DevActionStatus   @default(OPEN)
+  dueDate          DateTime?         @map("due_date")
+  supplierResponse String?           @map("supplier_response")
+  oemComment       String?           @map("oem_comment")
+  completedAt      DateTime?         @map("completed_at")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+
+  @@index([planId, status])
+  @@map("supplier_development_action_items")
+}
+
+model SupplierDevelopmentEvent {
+  id        String            @id @default(uuid())
+  planId    String            @map("plan_id")
+  plan      SupplierDevelopmentPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  actorId   String?           @map("actor_id")
+  actor     User?             @relation("DevPlanEventActor", fields: [actorId], references: [id])
+  type      DevPlanEventType
+  message   String
+  metadata  Json?
+  createdAt DateTime          @default(now()) @map("created_at")
+
+  @@index([planId, createdAt])
+  @@map("supplier_development_events")
 }

@@ -172,3 +172,18 @@ export type UpgradeRequest = Prisma.UpgradeRequestModel
  * 
  */
 export type QualityRecordLink = Prisma.QualityRecordLinkModel
+/**
+ * Model SupplierDevelopmentPlan
+ * 
+ */
+export type SupplierDevelopmentPlan = Prisma.SupplierDevelopmentPlanModel
+/**
+ * Model SupplierDevelopmentActionItem
+ * 
+ */
+export type SupplierDevelopmentActionItem = Prisma.SupplierDevelopmentActionItemModel
+/**
+ * Model SupplierDevelopmentEvent
+ * 
+ */
+export type SupplierDevelopmentEvent = Prisma.SupplierDevelopmentEventModel

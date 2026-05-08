@@ -1,0 +1,101 @@
+import { auth } from "@/lib/auth"
+import { redirect } from "next/navigation"
+import Link from "next/link"
+import {
+  TargetIcon,
+  ArrowRightIcon,
+} from "lucide-react"
+import { PageHeader } from "@/components/layout/PageHeader"
+import { getSupplierDevPlans, STATUS_CONFIG, PRIORITY_CONFIG, isDevPlanOverdue } from "@/lib/supplier-development"
+
+export default async function SupplierDevelopmentPage() {
+  const session = await auth()
+  if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") redirect("/login")
+
+  const plans = await getSupplierDevPlans(session)
+
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Development Plans" description="Supplier development action plans assigned to your company" />
+
+      {plans.length === 0 ? (
+        <div className="rounded-lg border border-dashed bg-card p-8 text-center">
+          <TargetIcon className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
+          <h3 className="text-sm font-semibold text-foreground">No development plans assigned</h3>
+          <p className="text-sm text-muted-foreground mt-1">No supplier development action plans have been assigned to your company yet.</p>
+        </div>
+      ) : (
+        <div className="rounded-lg border bg-card">
+          <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-foreground">Assigned Plans</h2>
+            <span className="inline-flex items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+              {plans.length} plan{plans.length !== 1 ? "s" : ""}
+            </span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <th className="px-4 py-3 text-left">Title</th>
+                  <th className="px-4 py-3 text-center">Priority</th>
+                  <th className="px-4 py-3 text-center">Status</th>
+                  <th className="px-4 py-3 text-left">Due Date</th>
+                  <th className="px-4 py-3 text-center">Actions</th>
+                  <th className="px-4 py-3 text-right">View</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {plans.map((plan) => {
+                  const overdue = isDevPlanOverdue(plan)
+                  const needsAction = plan.status === "SUPPLIER_ACTION_REQUIRED" || plan.status === "REVISION_REQUIRED"
+                  return (
+                    <tr key={plan.id} className="group hover:bg-muted/50">
+                      <td className="px-4 py-3">
+                        <div className="font-medium text-foreground truncate max-w-[200px]">{plan.title}</div>
+                        {needsAction && (
+                          <span className="text-xs text-amber-600 font-semibold mt-0.5 block">Action required</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${PRIORITY_CONFIG[plan.priority].className}`}>
+                          {PRIORITY_CONFIG[plan.priority].label}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${STATUS_CONFIG[plan.status].className}`}>
+                          {STATUS_CONFIG[plan.status].label}
+                        </span>
+                        {overdue && (
+                          <span className="ml-1 inline-flex items-center rounded-md border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-red-600 uppercase">Overdue</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        {plan.dueDate ? (
+                          <span className={`text-sm ${overdue ? "text-red-600 font-semibold" : "text-muted-foreground"}`}>
+                            {new Date(plan.dueDate).toLocaleDateString()}
+                          </span>
+                        ) : (
+                          <span className="text-sm text-muted-foreground">No date</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className="text-sm text-foreground">
+                          {plan.completedActionItemCount}/{plan.actionItemCount}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <Link href={`/quality/supplier/development/${plan.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+                          View <ArrowRightIcon className="h-3 w-3" />
+                        </Link>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

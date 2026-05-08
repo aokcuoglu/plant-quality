@@ -232,6 +232,8 @@ export type CompanyWhereInput = {
   usageCounters?: Prisma.UsageCounterListRelationFilter
   upgradeRequests?: Prisma.UpgradeRequestListRelationFilter
   qualityRecordLinks?: Prisma.QualityRecordLinkListRelationFilter
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -262,6 +264,8 @@ export type CompanyOrderByWithRelationInput = {
   usageCounters?: Prisma.UsageCounterOrderByRelationAggregateInput
   upgradeRequests?: Prisma.UpgradeRequestOrderByRelationAggregateInput
   qualityRecordLinks?: Prisma.QualityRecordLinkOrderByRelationAggregateInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanOrderByRelationAggregateInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -295,6 +299,8 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   usageCounters?: Prisma.UsageCounterListRelationFilter
   upgradeRequests?: Prisma.UpgradeRequestListRelationFilter
   qualityRecordLinks?: Prisma.QualityRecordLinkListRelationFilter
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -355,6 +361,8 @@ export type CompanyCreateInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -385,6 +393,8 @@ export type CompanyUncheckedCreateInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUpdateInput = {
@@ -415,6 +425,8 @@ export type CompanyUpdateInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -445,6 +457,8 @@ export type CompanyUncheckedUpdateInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -813,6 +827,34 @@ export type CompanyUpdateOneRequiredWithoutQualityRecordLinksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutQualityRecordLinksInput, Prisma.CompanyUpdateWithoutQualityRecordLinksInput>, Prisma.CompanyUncheckedUpdateWithoutQualityRecordLinksInput>
 }
 
+export type CompanyCreateNestedOneWithoutDevPlansAsOemInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsOemInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsOemInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDevPlansAsOemInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyCreateNestedOneWithoutDevPlansAsSupplierInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsSupplierInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsSupplierInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDevPlansAsSupplierInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutDevPlansAsOemNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsOemInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsOemInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDevPlansAsOemInput
+  upsert?: Prisma.CompanyUpsertWithoutDevPlansAsOemInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutDevPlansAsOemInput, Prisma.CompanyUpdateWithoutDevPlansAsOemInput>, Prisma.CompanyUncheckedUpdateWithoutDevPlansAsOemInput>
+}
+
+export type CompanyUpdateOneRequiredWithoutDevPlansAsSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsSupplierInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsSupplierInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDevPlansAsSupplierInput
+  upsert?: Prisma.CompanyUpsertWithoutDevPlansAsSupplierInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutDevPlansAsSupplierInput, Prisma.CompanyUpdateWithoutDevPlansAsSupplierInput>, Prisma.CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput>
+}
+
 export type CompanyCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -840,6 +882,8 @@ export type CompanyCreateWithoutUsersInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutUsersInput = {
@@ -869,6 +913,8 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutUsersInput = {
@@ -914,6 +960,8 @@ export type CompanyUpdateWithoutUsersInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsersInput = {
@@ -943,6 +991,8 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutDefectsAsOemInput = {
@@ -972,6 +1022,8 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
@@ -1001,6 +1053,8 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsOemInput = {
@@ -1035,6 +1089,8 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
@@ -1064,6 +1120,8 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsSupInput = {
@@ -1109,6 +1167,8 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
@@ -1138,6 +1198,8 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutDefectsAsSupInput = {
@@ -1178,6 +1240,8 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
@@ -1207,6 +1271,8 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutPpapAsOemInput = {
@@ -1236,6 +1302,8 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
@@ -1265,6 +1333,8 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsOemInput = {
@@ -1299,6 +1369,8 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
@@ -1328,6 +1400,8 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsSupInput = {
@@ -1373,6 +1447,8 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
@@ -1402,6 +1478,8 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutPpapAsSupInput = {
@@ -1442,6 +1520,8 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
@@ -1471,6 +1551,8 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutIqcAsOemInput = {
@@ -1500,6 +1582,8 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
@@ -1529,6 +1613,8 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsOemInput = {
@@ -1563,6 +1649,8 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
@@ -1592,6 +1680,8 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsSupInput = {
@@ -1637,6 +1727,8 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
@@ -1666,6 +1758,8 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutIqcAsSupInput = {
@@ -1706,6 +1800,8 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
@@ -1735,6 +1831,8 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutFmeaAsOemInput = {
@@ -1764,6 +1862,8 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
@@ -1793,6 +1893,8 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsOemInput = {
@@ -1827,6 +1929,8 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
@@ -1856,6 +1960,8 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsSupInput = {
@@ -1901,6 +2007,8 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
@@ -1930,6 +2038,8 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutFmeaAsSupInput = {
@@ -1970,6 +2080,8 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
@@ -1999,6 +2111,8 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutFieldDefectsAsSupInput = {
@@ -2028,6 +2142,8 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
@@ -2057,6 +2173,8 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsSupInput = {
@@ -2091,6 +2209,8 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
@@ -2120,6 +2240,8 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsOemInput = {
@@ -2165,6 +2287,8 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
@@ -2194,6 +2318,8 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUpsertWithoutFieldDefectsAsOemInput = {
@@ -2234,6 +2360,8 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
@@ -2263,6 +2391,8 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutNotificationsInput = {
@@ -2292,6 +2422,8 @@ export type CompanyCreateWithoutNotificationsInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutNotificationsInput = {
@@ -2321,6 +2453,8 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutNotificationsInput = {
@@ -2366,6 +2500,8 @@ export type CompanyUpdateWithoutNotificationsInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutNotificationsInput = {
@@ -2395,6 +2531,8 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutEscalationHistoryInput = {
@@ -2424,6 +2562,8 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
@@ -2453,6 +2593,8 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutEscalationHistoryInput = {
@@ -2498,6 +2640,8 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
@@ -2527,6 +2671,8 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutAiSuggestionsInput = {
@@ -2556,6 +2702,8 @@ export type CompanyCreateWithoutAiSuggestionsInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
@@ -2585,6 +2733,8 @@ export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutAiSuggestionsInput = {
@@ -2630,6 +2780,8 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
@@ -2659,6 +2811,8 @@ export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutAi8dReviewsInput = {
@@ -2688,6 +2842,8 @@ export type CompanyCreateWithoutAi8dReviewsInput = {
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
@@ -2717,6 +2873,8 @@ export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutAi8dReviewsInput = {
@@ -2762,6 +2920,8 @@ export type CompanyUpdateWithoutAi8dReviewsInput = {
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
@@ -2791,6 +2951,8 @@ export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutUsageCountersInput = {
@@ -2820,6 +2982,8 @@ export type CompanyCreateWithoutUsageCountersInput = {
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutUsageCountersInput = {
@@ -2849,6 +3013,8 @@ export type CompanyUncheckedCreateWithoutUsageCountersInput = {
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutUsageCountersInput = {
@@ -2894,6 +3060,8 @@ export type CompanyUpdateWithoutUsageCountersInput = {
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
@@ -2923,6 +3091,8 @@ export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutUpgradeRequestsInput = {
@@ -2952,6 +3122,8 @@ export type CompanyCreateWithoutUpgradeRequestsInput = {
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutUpgradeRequestsInput = {
@@ -2981,6 +3153,8 @@ export type CompanyUncheckedCreateWithoutUpgradeRequestsInput = {
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutUpgradeRequestsInput = {
@@ -3026,6 +3200,8 @@ export type CompanyUpdateWithoutUpgradeRequestsInput = {
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUpgradeRequestsInput = {
@@ -3055,6 +3231,8 @@ export type CompanyUncheckedUpdateWithoutUpgradeRequestsInput = {
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyCreateWithoutQualityRecordLinksInput = {
@@ -3084,6 +3262,8 @@ export type CompanyCreateWithoutQualityRecordLinksInput = {
   ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
   usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyUncheckedCreateWithoutQualityRecordLinksInput = {
@@ -3113,6 +3293,8 @@ export type CompanyUncheckedCreateWithoutQualityRecordLinksInput = {
   ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
   usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type CompanyCreateOrConnectWithoutQualityRecordLinksInput = {
@@ -3158,6 +3340,8 @@ export type CompanyUpdateWithoutQualityRecordLinksInput = {
   ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
   usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQualityRecordLinksInput = {
@@ -3187,6 +3371,288 @@ export type CompanyUncheckedUpdateWithoutQualityRecordLinksInput = {
   ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
   usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
   upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+}
+
+export type CompanyCreateWithoutDevPlansAsOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+}
+
+export type CompanyUncheckedCreateWithoutDevPlansAsOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+}
+
+export type CompanyCreateOrConnectWithoutDevPlansAsOemInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsOemInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsOemInput>
+}
+
+export type CompanyCreateWithoutDevPlansAsSupplierInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+}
+
+export type CompanyUncheckedCreateWithoutDevPlansAsSupplierInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+}
+
+export type CompanyCreateOrConnectWithoutDevPlansAsSupplierInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsSupplierInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsSupplierInput>
+}
+
+export type CompanyUpsertWithoutDevPlansAsOemInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutDevPlansAsOemInput, Prisma.CompanyUncheckedUpdateWithoutDevPlansAsOemInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsOemInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsOemInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutDevPlansAsOemInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutDevPlansAsOemInput, Prisma.CompanyUncheckedUpdateWithoutDevPlansAsOemInput>
+}
+
+export type CompanyUpdateWithoutDevPlansAsOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutDevPlansAsOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+}
+
+export type CompanyUpsertWithoutDevPlansAsSupplierInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutDevPlansAsSupplierInput, Prisma.CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutDevPlansAsSupplierInput, Prisma.CompanyUncheckedCreateWithoutDevPlansAsSupplierInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutDevPlansAsSupplierInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutDevPlansAsSupplierInput, Prisma.CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput>
+}
+
+export type CompanyUpdateWithoutDevPlansAsSupplierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
 }
 
 
@@ -3213,6 +3679,8 @@ export type CompanyCountOutputType = {
   usageCounters: number
   upgradeRequests: number
   qualityRecordLinks: number
+  devPlansAsOem: number
+  devPlansAsSupplier: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3234,6 +3702,8 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   usageCounters?: boolean | CompanyCountOutputTypeCountUsageCountersArgs
   upgradeRequests?: boolean | CompanyCountOutputTypeCountUpgradeRequestsArgs
   qualityRecordLinks?: boolean | CompanyCountOutputTypeCountQualityRecordLinksArgs
+  devPlansAsOem?: boolean | CompanyCountOutputTypeCountDevPlansAsOemArgs
+  devPlansAsSupplier?: boolean | CompanyCountOutputTypeCountDevPlansAsSupplierArgs
 }
 
 /**
@@ -3372,6 +3842,20 @@ export type CompanyCountOutputTypeCountQualityRecordLinksArgs<ExtArgs extends ru
   where?: Prisma.QualityRecordLinkWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountDevPlansAsOemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountDevPlansAsSupplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3401,6 +3885,8 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   usageCounters?: boolean | Prisma.Company$usageCountersArgs<ExtArgs>
   upgradeRequests?: boolean | Prisma.Company$upgradeRequestsArgs<ExtArgs>
   qualityRecordLinks?: boolean | Prisma.Company$qualityRecordLinksArgs<ExtArgs>
+  devPlansAsOem?: boolean | Prisma.Company$devPlansAsOemArgs<ExtArgs>
+  devPlansAsSupplier?: boolean | Prisma.Company$devPlansAsSupplierArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -3460,6 +3946,8 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   usageCounters?: boolean | Prisma.Company$usageCountersArgs<ExtArgs>
   upgradeRequests?: boolean | Prisma.Company$upgradeRequestsArgs<ExtArgs>
   qualityRecordLinks?: boolean | Prisma.Company$qualityRecordLinksArgs<ExtArgs>
+  devPlansAsOem?: boolean | Prisma.Company$devPlansAsOemArgs<ExtArgs>
+  devPlansAsSupplier?: boolean | Prisma.Company$devPlansAsSupplierArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3486,6 +3974,8 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     usageCounters: Prisma.$UsageCounterPayload<ExtArgs>[]
     upgradeRequests: Prisma.$UpgradeRequestPayload<ExtArgs>[]
     qualityRecordLinks: Prisma.$QualityRecordLinkPayload<ExtArgs>[]
+    devPlansAsOem: Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>[]
+    devPlansAsSupplier: Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3909,6 +4399,8 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   usageCounters<T extends Prisma.Company$usageCountersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$usageCountersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsageCounterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   upgradeRequests<T extends Prisma.Company$upgradeRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$upgradeRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpgradeRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   qualityRecordLinks<T extends Prisma.Company$qualityRecordLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$qualityRecordLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QualityRecordLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  devPlansAsOem<T extends Prisma.Company$devPlansAsOemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$devPlansAsOemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  devPlansAsSupplier<T extends Prisma.Company$devPlansAsSupplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$devPlansAsSupplierArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4769,6 +5261,54 @@ export type Company$qualityRecordLinksArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.QualityRecordLinkScalarFieldEnum | Prisma.QualityRecordLinkScalarFieldEnum[]
+}
+
+/**
+ * Company.devPlansAsOem
+ */
+export type Company$devPlansAsOemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentPlan
+   */
+  select?: Prisma.SupplierDevelopmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentPlan
+   */
+  omit?: Prisma.SupplierDevelopmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentPlanInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+  orderBy?: Prisma.SupplierDevelopmentPlanOrderByWithRelationInput | Prisma.SupplierDevelopmentPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentPlanScalarFieldEnum | Prisma.SupplierDevelopmentPlanScalarFieldEnum[]
+}
+
+/**
+ * Company.devPlansAsSupplier
+ */
+export type Company$devPlansAsSupplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentPlan
+   */
+  select?: Prisma.SupplierDevelopmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentPlan
+   */
+  omit?: Prisma.SupplierDevelopmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentPlanInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+  orderBy?: Prisma.SupplierDevelopmentPlanOrderByWithRelationInput | Prisma.SupplierDevelopmentPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentPlanScalarFieldEnum | Prisma.SupplierDevelopmentPlanScalarFieldEnum[]
 }
 
 /**

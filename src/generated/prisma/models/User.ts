@@ -264,6 +264,11 @@ export type UserWhereInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
   rejectedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
   createdQualityLinks?: Prisma.QualityRecordLinkListRelationFilter
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemListRelationFilter
+  devPlanEvents?: Prisma.SupplierDevelopmentEventListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -326,6 +331,11 @@ export type UserOrderByWithRelationInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewOrderByRelationAggregateInput
   createdQualityLinks?: Prisma.QualityRecordLinkOrderByRelationAggregateInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanOrderByRelationAggregateInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanOrderByRelationAggregateInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanOrderByRelationAggregateInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemOrderByRelationAggregateInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -391,6 +401,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
   rejectedAi8dReviews?: Prisma.Ai8dReviewListRelationFilter
   createdQualityLinks?: Prisma.QualityRecordLinkListRelationFilter
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanListRelationFilter
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemListRelationFilter
+  devPlanEvents?: Prisma.SupplierDevelopmentEventListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -482,6 +497,11 @@ export type UserCreateInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -543,6 +563,11 @@ export type UserUncheckedCreateInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserUpdateInput = {
@@ -604,6 +629,11 @@ export type UserUpdateInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -665,6 +695,11 @@ export type UserUncheckedUpdateInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1558,6 +1593,84 @@ export type UserUpdateOneRequiredWithoutCreatedQualityLinksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedQualityLinksInput, Prisma.UserUpdateWithoutCreatedQualityLinksInput>, Prisma.UserUncheckedUpdateWithoutCreatedQualityLinksInput>
 }
 
+export type UserCreateNestedOneWithoutOwnedDevPlansInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevPlansInput, Prisma.UserUncheckedCreateWithoutOwnedDevPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDevPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCreatedDevPlansInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedDevPlansInput, Prisma.UserUncheckedCreateWithoutCreatedDevPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedDevPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCompletedDevPlansInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedDevPlansInput, Prisma.UserUncheckedCreateWithoutCompletedDevPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedDevPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutOwnedDevPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevPlansInput, Prisma.UserUncheckedCreateWithoutOwnedDevPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDevPlansInput
+  upsert?: Prisma.UserUpsertWithoutOwnedDevPlansInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedDevPlansInput, Prisma.UserUpdateWithoutOwnedDevPlansInput>, Prisma.UserUncheckedUpdateWithoutOwnedDevPlansInput>
+}
+
+export type UserUpdateOneRequiredWithoutCreatedDevPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedDevPlansInput, Prisma.UserUncheckedCreateWithoutCreatedDevPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedDevPlansInput
+  upsert?: Prisma.UserUpsertWithoutCreatedDevPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedDevPlansInput, Prisma.UserUpdateWithoutCreatedDevPlansInput>, Prisma.UserUncheckedUpdateWithoutCreatedDevPlansInput>
+}
+
+export type UserUpdateOneWithoutCompletedDevPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCompletedDevPlansInput, Prisma.UserUncheckedCreateWithoutCompletedDevPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompletedDevPlansInput
+  upsert?: Prisma.UserUpsertWithoutCompletedDevPlansInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompletedDevPlansInput, Prisma.UserUpdateWithoutCompletedDevPlansInput>, Prisma.UserUncheckedUpdateWithoutCompletedDevPlansInput>
+}
+
+export type UserCreateNestedOneWithoutOwnedDevActionItemsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevActionItemsInput, Prisma.UserUncheckedCreateWithoutOwnedDevActionItemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDevActionItemsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutOwnedDevActionItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevActionItemsInput, Prisma.UserUncheckedCreateWithoutOwnedDevActionItemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedDevActionItemsInput
+  upsert?: Prisma.UserUpsertWithoutOwnedDevActionItemsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedDevActionItemsInput, Prisma.UserUpdateWithoutOwnedDevActionItemsInput>, Prisma.UserUncheckedUpdateWithoutOwnedDevActionItemsInput>
+}
+
+export type UserCreateNestedOneWithoutDevPlanEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDevPlanEventsInput, Prisma.UserUncheckedCreateWithoutDevPlanEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDevPlanEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDevPlanEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDevPlanEventsInput, Prisma.UserUncheckedCreateWithoutDevPlanEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDevPlanEventsInput
+  upsert?: Prisma.UserUpsertWithoutDevPlanEventsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDevPlanEventsInput, Prisma.UserUpdateWithoutDevPlanEventsInput>, Prisma.UserUncheckedUpdateWithoutDevPlanEventsInput>
+}
+
 export type UserCreateWithoutCompanyInput = {
   id?: string
   email: string
@@ -1616,6 +1729,11 @@ export type UserCreateWithoutCompanyInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutCompanyInput = {
@@ -1676,6 +1794,11 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutCompanyInput = {
@@ -1777,6 +1900,11 @@ export type UserCreateWithoutAccountsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1837,6 +1965,11 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1913,6 +2046,11 @@ export type UserUpdateWithoutAccountsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1973,6 +2111,11 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2033,6 +2176,11 @@ export type UserCreateWithoutSessionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2093,6 +2241,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2169,6 +2322,11 @@ export type UserUpdateWithoutSessionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2229,6 +2387,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutOwnedDefectsInput = {
@@ -2289,6 +2452,11 @@ export type UserCreateWithoutOwnedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDefectsInput = {
@@ -2349,6 +2517,11 @@ export type UserUncheckedCreateWithoutOwnedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDefectsInput = {
@@ -2414,6 +2587,11 @@ export type UserCreateWithoutAssignedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedDefectsInput = {
@@ -2474,6 +2652,11 @@ export type UserUncheckedCreateWithoutAssignedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedDefectsInput = {
@@ -2539,6 +2722,11 @@ export type UserCreateWithoutEscalatedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
@@ -2599,6 +2787,11 @@ export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedDefectsInput = {
@@ -2675,6 +2868,11 @@ export type UserUpdateWithoutOwnedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
@@ -2735,6 +2933,11 @@ export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutAssignedDefectsInput = {
@@ -2806,6 +3009,11 @@ export type UserUpdateWithoutAssignedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
@@ -2866,6 +3074,11 @@ export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutEscalatedDefectsInput = {
@@ -2937,6 +3150,11 @@ export type UserUpdateWithoutEscalatedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
@@ -2997,6 +3215,11 @@ export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutApprovedReportsInput = {
@@ -3057,6 +3280,11 @@ export type UserCreateWithoutApprovedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutApprovedReportsInput = {
@@ -3117,6 +3345,11 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutApprovedReportsInput = {
@@ -3182,6 +3415,11 @@ export type UserCreateWithoutRejectedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRejectedReportsInput = {
@@ -3242,6 +3480,11 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRejectedReportsInput = {
@@ -3318,6 +3561,11 @@ export type UserUpdateWithoutApprovedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedReportsInput = {
@@ -3378,6 +3626,11 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutRejectedReportsInput = {
@@ -3449,6 +3702,11 @@ export type UserUpdateWithoutRejectedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedReportsInput = {
@@ -3509,6 +3767,11 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutResolvedReviewCommentsInput = {
@@ -3569,6 +3832,11 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
@@ -3629,6 +3897,11 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutResolvedReviewCommentsInput = {
@@ -3694,6 +3967,11 @@ export type UserCreateWithoutReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReviewCommentsInput = {
@@ -3754,6 +4032,11 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReviewCommentsInput = {
@@ -3830,6 +4113,11 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
@@ -3890,6 +4178,11 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutReviewCommentsInput = {
@@ -3961,6 +4254,11 @@ export type UserUpdateWithoutReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewCommentsInput = {
@@ -4021,6 +4319,11 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutDefectEventsInput = {
@@ -4081,6 +4384,11 @@ export type UserCreateWithoutDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutDefectEventsInput = {
@@ -4141,6 +4449,11 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutDefectEventsInput = {
@@ -4217,6 +4530,11 @@ export type UserUpdateWithoutDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDefectEventsInput = {
@@ -4277,6 +4595,11 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutUploadedEvidenceInput = {
@@ -4337,6 +4660,11 @@ export type UserCreateWithoutUploadedEvidenceInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
@@ -4397,6 +4725,11 @@ export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutUploadedEvidenceInput = {
@@ -4473,6 +4806,11 @@ export type UserUpdateWithoutUploadedEvidenceInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
@@ -4533,6 +4871,11 @@ export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutOwnedPpapsInput = {
@@ -4593,6 +4936,11 @@ export type UserCreateWithoutOwnedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPpapsInput = {
@@ -4653,6 +5001,11 @@ export type UserUncheckedCreateWithoutOwnedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPpapsInput = {
@@ -4718,6 +5071,11 @@ export type UserCreateWithoutAssignedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedPpapsInput = {
@@ -4778,6 +5136,11 @@ export type UserUncheckedCreateWithoutAssignedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedPpapsInput = {
@@ -4843,6 +5206,11 @@ export type UserCreateWithoutReviewedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReviewedPpapsInput = {
@@ -4903,6 +5271,11 @@ export type UserUncheckedCreateWithoutReviewedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReviewedPpapsInput = {
@@ -4968,6 +5341,11 @@ export type UserCreateWithoutApprovedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPpapsInput = {
@@ -5028,6 +5406,11 @@ export type UserUncheckedCreateWithoutApprovedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPpapsInput = {
@@ -5093,6 +5476,11 @@ export type UserCreateWithoutRejectedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRejectedPpapsInput = {
@@ -5153,6 +5541,11 @@ export type UserUncheckedCreateWithoutRejectedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRejectedPpapsInput = {
@@ -5229,6 +5622,11 @@ export type UserUpdateWithoutOwnedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
@@ -5289,6 +5687,11 @@ export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutAssignedPpapsInput = {
@@ -5360,6 +5763,11 @@ export type UserUpdateWithoutAssignedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
@@ -5420,6 +5828,11 @@ export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutReviewedPpapsInput = {
@@ -5491,6 +5904,11 @@ export type UserUpdateWithoutReviewedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedPpapsInput = {
@@ -5551,6 +5969,11 @@ export type UserUncheckedUpdateWithoutReviewedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutApprovedPpapsInput = {
@@ -5622,6 +6045,11 @@ export type UserUpdateWithoutApprovedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
@@ -5682,6 +6110,11 @@ export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutRejectedPpapsInput = {
@@ -5753,6 +6186,11 @@ export type UserUpdateWithoutRejectedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
@@ -5813,6 +6251,11 @@ export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPpapEvidenceUploadsInput = {
@@ -5873,6 +6316,11 @@ export type UserCreateWithoutPpapEvidenceUploadsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
@@ -5933,6 +6381,11 @@ export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPpapEvidenceUploadsInput = {
@@ -5998,6 +6451,11 @@ export type UserCreateWithoutPpapEvidenceReviewedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPpapEvidenceReviewedInput = {
@@ -6058,6 +6516,11 @@ export type UserUncheckedCreateWithoutPpapEvidenceReviewedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPpapEvidenceReviewedInput = {
@@ -6134,6 +6597,11 @@ export type UserUpdateWithoutPpapEvidenceUploadsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
@@ -6194,6 +6662,11 @@ export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutPpapEvidenceReviewedInput = {
@@ -6265,6 +6738,11 @@ export type UserUpdateWithoutPpapEvidenceReviewedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEvidenceReviewedInput = {
@@ -6325,6 +6803,11 @@ export type UserUncheckedUpdateWithoutPpapEvidenceReviewedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPpapCommentResolvedInput = {
@@ -6385,6 +6868,11 @@ export type UserCreateWithoutPpapCommentResolvedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
@@ -6445,6 +6933,11 @@ export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentResolvedInput = {
@@ -6510,6 +7003,11 @@ export type UserCreateWithoutPpapCommentAuthoredInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
@@ -6570,6 +7068,11 @@ export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentAuthoredInput = {
@@ -6646,6 +7149,11 @@ export type UserUpdateWithoutPpapCommentResolvedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
@@ -6706,6 +7214,11 @@ export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutPpapCommentAuthoredInput = {
@@ -6777,6 +7290,11 @@ export type UserUpdateWithoutPpapCommentAuthoredInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
@@ -6837,6 +7355,11 @@ export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPpapEventActorsInput = {
@@ -6897,6 +7420,11 @@ export type UserCreateWithoutPpapEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPpapEventActorsInput = {
@@ -6957,6 +7485,11 @@ export type UserUncheckedCreateWithoutPpapEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPpapEventActorsInput = {
@@ -7033,6 +7566,11 @@ export type UserUpdateWithoutPpapEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
@@ -7093,6 +7631,11 @@ export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutIqcInspectionsInput = {
@@ -7153,6 +7696,11 @@ export type UserCreateWithoutIqcInspectionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutIqcInspectionsInput = {
@@ -7213,6 +7761,11 @@ export type UserUncheckedCreateWithoutIqcInspectionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutIqcInspectionsInput = {
@@ -7278,6 +7831,11 @@ export type UserCreateWithoutIqcCreatedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutIqcCreatedReportsInput = {
@@ -7338,6 +7896,11 @@ export type UserUncheckedCreateWithoutIqcCreatedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutIqcCreatedReportsInput = {
@@ -7403,6 +7966,11 @@ export type UserCreateWithoutIqcCompletedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutIqcCompletedReportsInput = {
@@ -7463,6 +8031,11 @@ export type UserUncheckedCreateWithoutIqcCompletedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutIqcCompletedReportsInput = {
@@ -7539,6 +8112,11 @@ export type UserUpdateWithoutIqcInspectionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
@@ -7599,6 +8177,11 @@ export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutIqcCreatedReportsInput = {
@@ -7670,6 +8253,11 @@ export type UserUpdateWithoutIqcCreatedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcCreatedReportsInput = {
@@ -7730,6 +8318,11 @@ export type UserUncheckedUpdateWithoutIqcCreatedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutIqcCompletedReportsInput = {
@@ -7801,6 +8394,11 @@ export type UserUpdateWithoutIqcCompletedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcCompletedReportsInput = {
@@ -7861,6 +8459,11 @@ export type UserUncheckedUpdateWithoutIqcCompletedReportsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutIqcEventActorsInput = {
@@ -7921,6 +8524,11 @@ export type UserCreateWithoutIqcEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutIqcEventActorsInput = {
@@ -7981,6 +8589,11 @@ export type UserUncheckedCreateWithoutIqcEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutIqcEventActorsInput = {
@@ -8057,6 +8670,11 @@ export type UserUpdateWithoutIqcEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
@@ -8117,6 +8735,11 @@ export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFmeaResponsibleInput = {
@@ -8177,6 +8800,11 @@ export type UserCreateWithoutFmeaResponsibleInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
@@ -8237,6 +8865,11 @@ export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFmeaResponsibleInput = {
@@ -8302,6 +8935,11 @@ export type UserCreateWithoutFmeaReviewedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFmeaReviewedByInput = {
@@ -8362,6 +9000,11 @@ export type UserUncheckedCreateWithoutFmeaReviewedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFmeaReviewedByInput = {
@@ -8427,6 +9070,11 @@ export type UserCreateWithoutFmeaApprovedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
@@ -8487,6 +9135,11 @@ export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFmeaApprovedByInput = {
@@ -8552,6 +9205,11 @@ export type UserCreateWithoutFmeaCreatedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFmeaCreatedByInput = {
@@ -8612,6 +9270,11 @@ export type UserUncheckedCreateWithoutFmeaCreatedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFmeaCreatedByInput = {
@@ -8688,6 +9351,11 @@ export type UserUpdateWithoutFmeaResponsibleInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
@@ -8748,6 +9416,11 @@ export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutFmeaReviewedByInput = {
@@ -8819,6 +9492,11 @@ export type UserUpdateWithoutFmeaReviewedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaReviewedByInput = {
@@ -8879,6 +9557,11 @@ export type UserUncheckedUpdateWithoutFmeaReviewedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutFmeaApprovedByInput = {
@@ -8950,6 +9633,11 @@ export type UserUpdateWithoutFmeaApprovedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
@@ -9010,6 +9698,11 @@ export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutFmeaCreatedByInput = {
@@ -9081,6 +9774,11 @@ export type UserUpdateWithoutFmeaCreatedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaCreatedByInput = {
@@ -9141,6 +9839,11 @@ export type UserUncheckedUpdateWithoutFmeaCreatedByInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFmeaEventActorsInput = {
@@ -9201,6 +9904,11 @@ export type UserCreateWithoutFmeaEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
@@ -9261,6 +9969,11 @@ export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFmeaEventActorsInput = {
@@ -9337,6 +10050,11 @@ export type UserUpdateWithoutFmeaEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
@@ -9397,6 +10115,11 @@ export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAiCategoryAppliedByForInput = {
@@ -9457,6 +10180,11 @@ export type UserCreateWithoutAiCategoryAppliedByForInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
@@ -9517,6 +10245,11 @@ export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAiCategoryAppliedByForInput = {
@@ -9582,6 +10315,11 @@ export type UserCreateWithoutCreatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
@@ -9642,6 +10380,11 @@ export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedFieldDefectsInput = {
@@ -9707,6 +10450,11 @@ export type UserCreateWithoutUpdatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
@@ -9767,6 +10515,11 @@ export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedFieldDefectsInput = {
@@ -9832,6 +10585,11 @@ export type UserCreateWithoutConvertedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
@@ -9892,6 +10650,11 @@ export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutConvertedFieldDefectsInput = {
@@ -9957,6 +10720,11 @@ export type UserCreateWithoutEscalatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
@@ -10017,6 +10785,11 @@ export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedFieldDefectsInput = {
@@ -10093,6 +10866,11 @@ export type UserUpdateWithoutAiCategoryAppliedByForInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
@@ -10153,6 +10931,11 @@ export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutCreatedFieldDefectsInput = {
@@ -10224,6 +11007,11 @@ export type UserUpdateWithoutCreatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
@@ -10284,6 +11072,11 @@ export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutUpdatedFieldDefectsInput = {
@@ -10355,6 +11148,11 @@ export type UserUpdateWithoutUpdatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
@@ -10415,6 +11213,11 @@ export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutConvertedFieldDefectsInput = {
@@ -10486,6 +11289,11 @@ export type UserUpdateWithoutConvertedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
@@ -10546,6 +11354,11 @@ export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutEscalatedFieldDefectsInput = {
@@ -10617,6 +11430,11 @@ export type UserUpdateWithoutEscalatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
@@ -10677,6 +11495,11 @@ export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFieldDefectAttachmentsInput = {
@@ -10737,6 +11560,11 @@ export type UserCreateWithoutFieldDefectAttachmentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
@@ -10797,6 +11625,11 @@ export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectAttachmentsInput = {
@@ -10873,6 +11706,11 @@ export type UserUpdateWithoutFieldDefectAttachmentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
@@ -10933,6 +11771,11 @@ export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFieldDefectCommentsInput = {
@@ -10993,6 +11836,11 @@ export type UserCreateWithoutFieldDefectCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
@@ -11053,6 +11901,11 @@ export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectCommentsInput = {
@@ -11129,6 +11982,11 @@ export type UserUpdateWithoutFieldDefectCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
@@ -11189,6 +12047,11 @@ export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFieldDefectEventsInput = {
@@ -11249,6 +12112,11 @@ export type UserCreateWithoutFieldDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
@@ -11309,6 +12177,11 @@ export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectEventsInput = {
@@ -11385,6 +12258,11 @@ export type UserUpdateWithoutFieldDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
@@ -11445,6 +12323,11 @@ export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -11505,6 +12388,11 @@ export type UserCreateWithoutNotificationsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -11565,6 +12453,11 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -11641,6 +12534,11 @@ export type UserUpdateWithoutNotificationsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -11701,6 +12599,11 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutEscalationHistoriesInput = {
@@ -11761,6 +12664,11 @@ export type UserCreateWithoutEscalationHistoriesInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
@@ -11821,6 +12729,11 @@ export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutEscalationHistoriesInput = {
@@ -11897,6 +12810,11 @@ export type UserUpdateWithoutEscalationHistoriesInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
@@ -11957,6 +12875,11 @@ export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutCreatedAiSuggestionsInput = {
@@ -12017,6 +12940,11 @@ export type UserCreateWithoutCreatedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
@@ -12077,6 +13005,11 @@ export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAiSuggestionsInput = {
@@ -12142,6 +13075,11 @@ export type UserCreateWithoutAcceptedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
@@ -12202,6 +13140,11 @@ export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedAiSuggestionsInput = {
@@ -12267,6 +13210,11 @@ export type UserCreateWithoutRejectedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
@@ -12327,6 +13275,11 @@ export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRejectedAiSuggestionsInput = {
@@ -12403,6 +13356,11 @@ export type UserUpdateWithoutCreatedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
@@ -12463,6 +13421,11 @@ export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutAcceptedAiSuggestionsInput = {
@@ -12534,6 +13497,11 @@ export type UserUpdateWithoutAcceptedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
@@ -12594,6 +13562,11 @@ export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutRejectedAiSuggestionsInput = {
@@ -12665,6 +13638,11 @@ export type UserUpdateWithoutRejectedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
@@ -12725,6 +13703,11 @@ export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutCreatedAi8dReviewsInput = {
@@ -12785,6 +13768,11 @@ export type UserCreateWithoutCreatedAi8dReviewsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAi8dReviewsInput = {
@@ -12845,6 +13833,11 @@ export type UserUncheckedCreateWithoutCreatedAi8dReviewsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAi8dReviewsInput = {
@@ -12910,6 +13903,11 @@ export type UserCreateWithoutReviewedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReviewedAi8dReviewsInput = {
@@ -12970,6 +13968,11 @@ export type UserUncheckedCreateWithoutReviewedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReviewedAi8dReviewsInput = {
@@ -13035,6 +14038,11 @@ export type UserCreateWithoutRejectedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRejectedAi8dReviewsInput = {
@@ -13095,6 +14103,11 @@ export type UserUncheckedCreateWithoutRejectedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRejectedAi8dReviewsInput = {
@@ -13171,6 +14184,11 @@ export type UserUpdateWithoutCreatedAi8dReviewsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAi8dReviewsInput = {
@@ -13231,6 +14249,11 @@ export type UserUncheckedUpdateWithoutCreatedAi8dReviewsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutReviewedAi8dReviewsInput = {
@@ -13302,6 +14325,11 @@ export type UserUpdateWithoutReviewedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedAi8dReviewsInput = {
@@ -13362,6 +14390,11 @@ export type UserUncheckedUpdateWithoutReviewedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutRejectedAi8dReviewsInput = {
@@ -13433,6 +14466,11 @@ export type UserUpdateWithoutRejectedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedAi8dReviewsInput = {
@@ -13493,6 +14531,11 @@ export type UserUncheckedUpdateWithoutRejectedAi8dReviewsInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutCreatedUpgradeRequestsInput = {
@@ -13553,6 +14596,11 @@ export type UserCreateWithoutCreatedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedUpgradeRequestsInput = {
@@ -13613,6 +14661,11 @@ export type UserUncheckedCreateWithoutCreatedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedUpgradeRequestsInput = {
@@ -13678,6 +14731,11 @@ export type UserCreateWithoutResolvedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutResolvedUpgradeRequestsInput = {
@@ -13738,6 +14796,11 @@ export type UserUncheckedCreateWithoutResolvedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutResolvedUpgradeRequestsInput = {
@@ -13814,6 +14877,11 @@ export type UserUpdateWithoutCreatedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedUpgradeRequestsInput = {
@@ -13874,6 +14942,11 @@ export type UserUncheckedUpdateWithoutCreatedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutResolvedUpgradeRequestsInput = {
@@ -13945,6 +15018,11 @@ export type UserUpdateWithoutResolvedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedUpgradeRequestsInput = {
@@ -14005,6 +15083,11 @@ export type UserUncheckedUpdateWithoutResolvedUpgradeRequestsInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutCreatedQualityLinksInput = {
@@ -14065,6 +15148,11 @@ export type UserCreateWithoutCreatedQualityLinksInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedQualityLinksInput = {
@@ -14125,6 +15213,11 @@ export type UserUncheckedCreateWithoutCreatedQualityLinksInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedQualityLinksInput = {
@@ -14201,6 +15294,11 @@ export type UserUpdateWithoutCreatedQualityLinksInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedQualityLinksInput = {
@@ -14261,6 +15359,1391 @@ export type UserUncheckedUpdateWithoutCreatedQualityLinksInput = {
   createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutOwnedDevPlansInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutOwnedDevPlansInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutOwnedDevPlansInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevPlansInput, Prisma.UserUncheckedCreateWithoutOwnedDevPlansInput>
+}
+
+export type UserCreateWithoutCreatedDevPlansInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutCreatedDevPlansInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutCreatedDevPlansInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedDevPlansInput, Prisma.UserUncheckedCreateWithoutCreatedDevPlansInput>
+}
+
+export type UserCreateWithoutCompletedDevPlansInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutCompletedDevPlansInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutCompletedDevPlansInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompletedDevPlansInput, Prisma.UserUncheckedCreateWithoutCompletedDevPlansInput>
+}
+
+export type UserUpsertWithoutOwnedDevPlansInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDevPlansInput, Prisma.UserUncheckedUpdateWithoutOwnedDevPlansInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevPlansInput, Prisma.UserUncheckedCreateWithoutOwnedDevPlansInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOwnedDevPlansInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDevPlansInput, Prisma.UserUncheckedUpdateWithoutOwnedDevPlansInput>
+}
+
+export type UserUpdateWithoutOwnedDevPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOwnedDevPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserUpsertWithoutCreatedDevPlansInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedDevPlansInput, Prisma.UserUncheckedUpdateWithoutCreatedDevPlansInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedDevPlansInput, Prisma.UserUncheckedCreateWithoutCreatedDevPlansInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedDevPlansInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedDevPlansInput, Prisma.UserUncheckedUpdateWithoutCreatedDevPlansInput>
+}
+
+export type UserUpdateWithoutCreatedDevPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedDevPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserUpsertWithoutCompletedDevPlansInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCompletedDevPlansInput, Prisma.UserUncheckedUpdateWithoutCompletedDevPlansInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCompletedDevPlansInput, Prisma.UserUncheckedCreateWithoutCompletedDevPlansInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCompletedDevPlansInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCompletedDevPlansInput, Prisma.UserUncheckedUpdateWithoutCompletedDevPlansInput>
+}
+
+export type UserUpdateWithoutCompletedDevPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCompletedDevPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutOwnedDevActionItemsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutOwnedDevActionItemsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutOwnedDevActionItemsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevActionItemsInput, Prisma.UserUncheckedCreateWithoutOwnedDevActionItemsInput>
+}
+
+export type UserUpsertWithoutOwnedDevActionItemsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDevActionItemsInput, Prisma.UserUncheckedUpdateWithoutOwnedDevActionItemsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedDevActionItemsInput, Prisma.UserUncheckedCreateWithoutOwnedDevActionItemsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOwnedDevActionItemsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedDevActionItemsInput, Prisma.UserUncheckedUpdateWithoutOwnedDevActionItemsInput>
+}
+
+export type UserUpdateWithoutOwnedDevActionItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOwnedDevActionItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutDevPlanEventsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutDevPlanEventsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutDevPlanEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDevPlanEventsInput, Prisma.UserUncheckedCreateWithoutDevPlanEventsInput>
+}
+
+export type UserUpsertWithoutDevPlanEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDevPlanEventsInput, Prisma.UserUncheckedUpdateWithoutDevPlanEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDevPlanEventsInput, Prisma.UserUncheckedCreateWithoutDevPlanEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDevPlanEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDevPlanEventsInput, Prisma.UserUncheckedUpdateWithoutDevPlanEventsInput>
+}
+
+export type UserUpdateWithoutDevPlanEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDevPlanEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateManyCompanyInput = {
@@ -14332,6 +16815,11 @@ export type UserUpdateWithoutCompanyInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -14392,6 +16880,11 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
   rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
   createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -14460,6 +16953,11 @@ export type UserCountOutputType = {
   reviewedAi8dReviews: number
   rejectedAi8dReviews: number
   createdQualityLinks: number
+  ownedDevPlans: number
+  createdDevPlans: number
+  completedDevPlans: number
+  ownedDevActionItems: number
+  devPlanEvents: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -14512,6 +17010,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reviewedAi8dReviews?: boolean | UserCountOutputTypeCountReviewedAi8dReviewsArgs
   rejectedAi8dReviews?: boolean | UserCountOutputTypeCountRejectedAi8dReviewsArgs
   createdQualityLinks?: boolean | UserCountOutputTypeCountCreatedQualityLinksArgs
+  ownedDevPlans?: boolean | UserCountOutputTypeCountOwnedDevPlansArgs
+  createdDevPlans?: boolean | UserCountOutputTypeCountCreatedDevPlansArgs
+  completedDevPlans?: boolean | UserCountOutputTypeCountCompletedDevPlansArgs
+  ownedDevActionItems?: boolean | UserCountOutputTypeCountOwnedDevActionItemsArgs
+  devPlanEvents?: boolean | UserCountOutputTypeCountDevPlanEventsArgs
 }
 
 /**
@@ -14867,6 +17370,41 @@ export type UserCountOutputTypeCountCreatedQualityLinksArgs<ExtArgs extends runt
   where?: Prisma.QualityRecordLinkWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOwnedDevPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedDevPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCompletedDevPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOwnedDevActionItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentActionItemWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDevPlanEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierDevelopmentEventWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -14928,6 +17466,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewedAi8dReviews?: boolean | Prisma.User$reviewedAi8dReviewsArgs<ExtArgs>
   rejectedAi8dReviews?: boolean | Prisma.User$rejectedAi8dReviewsArgs<ExtArgs>
   createdQualityLinks?: boolean | Prisma.User$createdQualityLinksArgs<ExtArgs>
+  ownedDevPlans?: boolean | Prisma.User$ownedDevPlansArgs<ExtArgs>
+  createdDevPlans?: boolean | Prisma.User$createdDevPlansArgs<ExtArgs>
+  completedDevPlans?: boolean | Prisma.User$completedDevPlansArgs<ExtArgs>
+  ownedDevActionItems?: boolean | Prisma.User$ownedDevActionItemsArgs<ExtArgs>
+  devPlanEvents?: boolean | Prisma.User$devPlanEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -15021,6 +17564,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewedAi8dReviews?: boolean | Prisma.User$reviewedAi8dReviewsArgs<ExtArgs>
   rejectedAi8dReviews?: boolean | Prisma.User$rejectedAi8dReviewsArgs<ExtArgs>
   createdQualityLinks?: boolean | Prisma.User$createdQualityLinksArgs<ExtArgs>
+  ownedDevPlans?: boolean | Prisma.User$ownedDevPlansArgs<ExtArgs>
+  createdDevPlans?: boolean | Prisma.User$createdDevPlansArgs<ExtArgs>
+  completedDevPlans?: boolean | Prisma.User$completedDevPlansArgs<ExtArgs>
+  ownedDevActionItems?: boolean | Prisma.User$ownedDevActionItemsArgs<ExtArgs>
+  devPlanEvents?: boolean | Prisma.User$devPlanEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -15083,6 +17631,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewedAi8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
     rejectedAi8dReviews: Prisma.$Ai8dReviewPayload<ExtArgs>[]
     createdQualityLinks: Prisma.$QualityRecordLinkPayload<ExtArgs>[]
+    ownedDevPlans: Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>[]
+    createdDevPlans: Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>[]
+    completedDevPlans: Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>[]
+    ownedDevActionItems: Prisma.$SupplierDevelopmentActionItemPayload<ExtArgs>[]
+    devPlanEvents: Prisma.$SupplierDevelopmentEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -15538,6 +18091,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewedAi8dReviews<T extends Prisma.User$reviewedAi8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedAi8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rejectedAi8dReviews<T extends Prisma.User$rejectedAi8dReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rejectedAi8dReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Ai8dReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdQualityLinks<T extends Prisma.User$createdQualityLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdQualityLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QualityRecordLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedDevPlans<T extends Prisma.User$ownedDevPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDevPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdDevPlans<T extends Prisma.User$createdDevPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdDevPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  completedDevPlans<T extends Prisma.User$completedDevPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$completedDevPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedDevActionItems<T extends Prisma.User$ownedDevActionItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedDevActionItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentActionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  devPlanEvents<T extends Prisma.User$devPlanEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$devPlanEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierDevelopmentEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17169,6 +19727,126 @@ export type User$createdQualityLinksArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.QualityRecordLinkScalarFieldEnum | Prisma.QualityRecordLinkScalarFieldEnum[]
+}
+
+/**
+ * User.ownedDevPlans
+ */
+export type User$ownedDevPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentPlan
+   */
+  select?: Prisma.SupplierDevelopmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentPlan
+   */
+  omit?: Prisma.SupplierDevelopmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentPlanInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+  orderBy?: Prisma.SupplierDevelopmentPlanOrderByWithRelationInput | Prisma.SupplierDevelopmentPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentPlanScalarFieldEnum | Prisma.SupplierDevelopmentPlanScalarFieldEnum[]
+}
+
+/**
+ * User.createdDevPlans
+ */
+export type User$createdDevPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentPlan
+   */
+  select?: Prisma.SupplierDevelopmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentPlan
+   */
+  omit?: Prisma.SupplierDevelopmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentPlanInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+  orderBy?: Prisma.SupplierDevelopmentPlanOrderByWithRelationInput | Prisma.SupplierDevelopmentPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentPlanScalarFieldEnum | Prisma.SupplierDevelopmentPlanScalarFieldEnum[]
+}
+
+/**
+ * User.completedDevPlans
+ */
+export type User$completedDevPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentPlan
+   */
+  select?: Prisma.SupplierDevelopmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentPlan
+   */
+  omit?: Prisma.SupplierDevelopmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentPlanInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentPlanWhereInput
+  orderBy?: Prisma.SupplierDevelopmentPlanOrderByWithRelationInput | Prisma.SupplierDevelopmentPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentPlanScalarFieldEnum | Prisma.SupplierDevelopmentPlanScalarFieldEnum[]
+}
+
+/**
+ * User.ownedDevActionItems
+ */
+export type User$ownedDevActionItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentActionItem
+   */
+  select?: Prisma.SupplierDevelopmentActionItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentActionItem
+   */
+  omit?: Prisma.SupplierDevelopmentActionItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentActionItemInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentActionItemWhereInput
+  orderBy?: Prisma.SupplierDevelopmentActionItemOrderByWithRelationInput | Prisma.SupplierDevelopmentActionItemOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentActionItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentActionItemScalarFieldEnum | Prisma.SupplierDevelopmentActionItemScalarFieldEnum[]
+}
+
+/**
+ * User.devPlanEvents
+ */
+export type User$devPlanEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierDevelopmentEvent
+   */
+  select?: Prisma.SupplierDevelopmentEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierDevelopmentEvent
+   */
+  omit?: Prisma.SupplierDevelopmentEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierDevelopmentEventInclude<ExtArgs> | null
+  where?: Prisma.SupplierDevelopmentEventWhereInput
+  orderBy?: Prisma.SupplierDevelopmentEventOrderByWithRelationInput | Prisma.SupplierDevelopmentEventOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierDevelopmentEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierDevelopmentEventScalarFieldEnum | Prisma.SupplierDevelopmentEventScalarFieldEnum[]
 }
 
 /**

@@ -1,3 +1,109 @@
+# PlantQuality v2.9.0 — Release Notes
+
+## Supplier Development Action Plan MVP
+
+**Release Date:** 2026-05-08  
+**Version:** 2.9.0
+
+---
+
+## Summary
+
+PlantQuality v2.9.0 introduces Supplier Development Action Plans — a workflow for OEM teams to create, track, review, and close improvement actions for suppliers based on scorecard and risk findings. This release builds on v2.8.x Supplier Scorecard to close the loop from risk identification to supplier improvement tracking.
+
+---
+
+## New Features
+
+### Supplier Development Action Plans (OEM)
+
+- **Plan list page** (`/quality/oem/supplier-development`) — view all development plans with status, priority, overdue indicators, action item progress, and source type
+- **Plan creation** (`/quality/oem/supplier-development/new`) — create plans with title, description, supplier, priority, due date, source type, initial action items, and owner assignment
+- **Plan detail page** (`/quality/oem/supplier-development/[id]`) — view plan overview, action items, activity timeline, quick stats, and status workflow actions
+- **Action item management** — add, update, and manage action items with OEM/Supplier ownership, status transitions, due dates, supplier responses, and OEM comments
+- **Status workflow** — DRAFT → OPEN → SUPPLIER_ACTION_REQUIRED → OEM_REVIEW → COMPLETED / CANCELLED, with REVISION_REQUIRED loop
+- **Activity timeline** — full event log for plan lifecycle events, action item changes, and comments
+- **Comment system** — add comments on plan detail page
+- **Overdue indicators** — visual badges for overdue plans and action items
+
+### Supplier Development (Supplier View)
+
+- **Assigned plan list** (`/quality/supplier/development`) — suppliers see only plans assigned to their company
+- **Plan detail page** (`/quality/supplier/development/[id]`) — view plan overview, supplier-owned action items, activity timeline, and submit for OEM review
+- **Action item responses** — suppliers can update owned action items, add responses, and submit for review
+- **Access protection** — suppliers cannot access plans from other suppliers, cannot create/cancel/complete plans, cannot edit OEM-owned items
+
+### Scorecard CTA Integration
+
+- **"Create Development Plan" link** on Supplier Scorecard detail page — pre-fills supplier and source type context
+
+### Plan Gating
+
+- **Feature gate:** `SUPPLIER_DEVELOPMENT` (Enterprise plan required for OEM creation/management)
+- **Supplier access:** Suppliers can view and respond to assigned plans regardless of plan tier
+
+### Data Model
+
+- `SupplierDevelopmentPlan` — plan entity with OEM/supplier scoping, priority, status, source tracking
+- `SupplierDevelopmentActionItem` — individual action items with OEM/Supplier ownership, status tracking, responses
+- `SupplierDevelopmentEvent` — audit trail with actor tracking and metadata
+- New enums: `DevPlanSourceType`, `DevPlanPriority`, `DevPlanStatus`, `DevActionOwnerType`, `DevActionStatus`, `DevPlanEventType`
+- New notification types: `DEV_PLAN_CREATED`, `DEV_PLAN_ACTION_REQUIRED`, `DEV_PLAN_REVISION_REQUESTED`, `DEV_PLAN_COMPLETED`, `DEV_PLAN_CANCELLED`
+
+### Seed Data
+
+- 4 demo development plans across statuses (CRITICAL/SUPPLIER_ACTION_REQUIRED, HIGH/OEM_REVIEW, MEDIUM/DRAFT, LOW/COMPLETED)
+- 9 action items with various statuses and ownership
+- 12+ event log entries
+
+---
+
+## Security
+
+- All OEM queries scoped to `oemId: companyId`
+- All supplier queries scoped to `supplierId: companyId`
+- Suppliers cannot access or mutate plans from other suppliers
+- Suppliers cannot create, cancel, or complete final plans
+- Suppliers cannot edit OEM-owned action items
+- Feature gate enforced server-side in all actions and pages
+- Direct URL access protected by auth and company-type checks
+
+---
+
+## Database Changes
+
+- New tables: `supplier_development_plans`, `supplier_development_action_items`, `supplier_development_events`
+- Indexes: `oemId+supplierId`, `oemId+status`, `supplierId+status`, `oemId+priority`, `oemId+dueDate`, `planId+status`
+- New `NotificationType` enum values added
+
+---
+
+## Known Limitations
+
+- No AI-generated action plans (deferred)
+- No PDF/Excel export (deferred)
+- No ERP integration (deferred)
+- No automated supplier email digests (deferred)
+- No advanced effectiveness analytics (deferred)
+- No custom KPI weighting (deferred)
+- No external supplier sharing beyond existing portal (deferred)
+- No full CAPA module replacement (deferred)
+
+---
+
+## Deferred to Future Releases
+
+- AI action planning
+- PDF/Excel export
+- ERP integration
+- Automated supplier email digests
+- Advanced effectiveness analytics
+- Custom KPI weighting
+- External supplier sharing beyond portal
+- Full CAPA module replacement
+
+---
+
 # PlantQuality v2.8.2 — Release Notes
 
 ## Supplier Scorecard Drill-Down + Filter Context Fix + Manual QA

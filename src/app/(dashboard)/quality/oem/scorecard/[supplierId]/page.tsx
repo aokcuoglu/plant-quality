@@ -12,6 +12,7 @@ import {
   ClockIcon,
   AlertTriangleIcon,
   BarChart3Icon,
+  TargetIcon,
 } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { Button } from "@/components/ui/button"
@@ -220,12 +221,21 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
           </div>
 
           <div className="rounded-lg border bg-card p-4">
-            <h2 className="text-sm font-semibold text-foreground mb-1">Latest Activity</h2>
+            <h2 className="text-sm font-semibold text-foreground mb-3">Latest Activity</h2>
             {supplier.latestActivityAt ? (
               <p className="text-sm text-muted-foreground">{new Date(supplier.latestActivityAt).toLocaleDateString()}</p>
             ) : (
               <p className="text-sm text-muted-foreground">No recent activity recorded.</p>
             )}
+          </div>
+
+          <div className="rounded-lg border bg-card p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Development Plan</h2>
+            <p className="text-sm text-muted-foreground mb-3">Create a supplier development action plan to address quality issues.</p>
+            <Link href={`/quality/oem/supplier-development/new?supplierId=${encodeURIComponent(supplier.supplierId)}&sourceType=SCORECARD`} className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+              <TargetIcon className="h-4 w-4" />
+              Create Development Plan
+            </Link>
           </div>
         </div>
       </div>

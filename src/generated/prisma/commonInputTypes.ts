@@ -841,6 +841,108 @@ export type EnumQualityLinkTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
 }
 
+export type EnumDevPlanSourceTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanSourceType | Prisma.EnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel> | $Enums.DevPlanSourceType | null
+}
+
+export type EnumDevPlanPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanPriority | Prisma.EnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanPriorityFilter<$PrismaModel> | $Enums.DevPlanPriority
+}
+
+export type EnumDevPlanStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanStatus | Prisma.EnumDevPlanStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanStatusFilter<$PrismaModel> | $Enums.DevPlanStatus
+}
+
+export type EnumDevPlanSourceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanSourceType | Prisma.EnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDevPlanSourceTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanSourceType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel>
+}
+
+export type EnumDevPlanPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanPriority | Prisma.EnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanPriorityWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanPriorityFilter<$PrismaModel>
+}
+
+export type EnumDevPlanStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanStatus | Prisma.EnumDevPlanStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanStatusWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanStatusFilter<$PrismaModel>
+}
+
+export type EnumDevActionOwnerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionOwnerType | Prisma.EnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionOwnerTypeFilter<$PrismaModel> | $Enums.DevActionOwnerType
+}
+
+export type EnumDevActionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionStatus | Prisma.EnumDevActionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionStatusFilter<$PrismaModel> | $Enums.DevActionStatus
+}
+
+export type EnumDevActionOwnerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionOwnerType | Prisma.EnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionOwnerTypeWithAggregatesFilter<$PrismaModel> | $Enums.DevActionOwnerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevActionOwnerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevActionOwnerTypeFilter<$PrismaModel>
+}
+
+export type EnumDevActionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionStatus | Prisma.EnumDevActionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DevActionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevActionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevActionStatusFilter<$PrismaModel>
+}
+
+export type EnumDevPlanEventTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanEventType | Prisma.EnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel> | $Enums.DevPlanEventType
+}
+
+export type EnumDevPlanEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanEventType | Prisma.EnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanEventType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1614,6 +1716,108 @@ export type NestedEnumQualityLinkTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumQualityLinkTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanSourceType | Prisma.EnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel> | $Enums.DevPlanSourceType | null
+}
+
+export type NestedEnumDevPlanPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanPriority | Prisma.EnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanPriorityFilter<$PrismaModel> | $Enums.DevPlanPriority
+}
+
+export type NestedEnumDevPlanStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanStatus | Prisma.EnumDevPlanStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanStatusFilter<$PrismaModel> | $Enums.DevPlanStatus
+}
+
+export type NestedEnumDevPlanSourceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanSourceType | Prisma.EnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DevPlanSourceType[] | Prisma.ListEnumDevPlanSourceTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDevPlanSourceTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanSourceType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanSourceTypeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumDevPlanPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanPriority | Prisma.EnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanPriority[] | Prisma.ListEnumDevPlanPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanPriorityWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanPriorityFilter<$PrismaModel>
+}
+
+export type NestedEnumDevPlanStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanStatus | Prisma.EnumDevPlanStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanStatus[] | Prisma.ListEnumDevPlanStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanStatusWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDevActionOwnerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionOwnerType | Prisma.EnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionOwnerTypeFilter<$PrismaModel> | $Enums.DevActionOwnerType
+}
+
+export type NestedEnumDevActionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionStatus | Prisma.EnumDevActionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionStatusFilter<$PrismaModel> | $Enums.DevActionStatus
+}
+
+export type NestedEnumDevActionOwnerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionOwnerType | Prisma.EnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionOwnerType[] | Prisma.ListEnumDevActionOwnerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionOwnerTypeWithAggregatesFilter<$PrismaModel> | $Enums.DevActionOwnerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevActionOwnerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevActionOwnerTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumDevActionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevActionStatus | Prisma.EnumDevActionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevActionStatus[] | Prisma.ListEnumDevActionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevActionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DevActionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevActionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevActionStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDevPlanEventTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanEventType | Prisma.EnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel> | $Enums.DevPlanEventType
+}
+
+export type NestedEnumDevPlanEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DevPlanEventType | Prisma.EnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DevPlanEventType[] | Prisma.ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDevPlanEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.DevPlanEventType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
 }
 
 

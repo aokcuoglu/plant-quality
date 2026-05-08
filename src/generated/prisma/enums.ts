@@ -60,7 +60,12 @@ export const NotificationType = {
   FIELD_DEFECT_STATUS_CHANGED: 'FIELD_DEFECT_STATUS_CHANGED',
   EIGHT_D_OVERDUE: 'EIGHT_D_OVERDUE',
   EIGHT_D_ESCALATED: 'EIGHT_D_ESCALATED',
-  COMMENT_ADDED: 'COMMENT_ADDED'
+  COMMENT_ADDED: 'COMMENT_ADDED',
+  DEV_PLAN_CREATED: 'DEV_PLAN_CREATED',
+  DEV_PLAN_ACTION_REQUIRED: 'DEV_PLAN_ACTION_REQUIRED',
+  DEV_PLAN_REVISION_REQUESTED: 'DEV_PLAN_REVISION_REQUESTED',
+  DEV_PLAN_COMPLETED: 'DEV_PLAN_COMPLETED',
+  DEV_PLAN_CANCELLED: 'DEV_PLAN_CANCELLED'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -141,6 +146,82 @@ export const QualityLinkType = {
 } as const
 
 export type QualityLinkType = (typeof QualityLinkType)[keyof typeof QualityLinkType]
+
+
+export const DevPlanSourceType = {
+  SCORECARD: 'SCORECARD',
+  FIELD_DEFECT: 'FIELD_DEFECT',
+  DEFECT_8D: 'DEFECT_8D',
+  IQC: 'IQC',
+  PPAP: 'PPAP',
+  FMEA: 'FMEA',
+  EXECUTIVE_COCKPIT: 'EXECUTIVE_COCKPIT',
+  MANUAL: 'MANUAL'
+} as const
+
+export type DevPlanSourceType = (typeof DevPlanSourceType)[keyof typeof DevPlanSourceType]
+
+
+export const DevPlanPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type DevPlanPriority = (typeof DevPlanPriority)[keyof typeof DevPlanPriority]
+
+
+export const DevPlanStatus = {
+  DRAFT: 'DRAFT',
+  OPEN: 'OPEN',
+  SUPPLIER_ACTION_REQUIRED: 'SUPPLIER_ACTION_REQUIRED',
+  OEM_REVIEW: 'OEM_REVIEW',
+  REVISION_REQUIRED: 'REVISION_REQUIRED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type DevPlanStatus = (typeof DevPlanStatus)[keyof typeof DevPlanStatus]
+
+
+export const DevActionOwnerType = {
+  OEM: 'OEM',
+  SUPPLIER: 'SUPPLIER'
+} as const
+
+export type DevActionOwnerType = (typeof DevActionOwnerType)[keyof typeof DevActionOwnerType]
+
+
+export const DevActionStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  SUBMITTED: 'SUBMITTED',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type DevActionStatus = (typeof DevActionStatus)[keyof typeof DevActionStatus]
+
+
+export const DevPlanEventType = {
+  PLAN_CREATED: 'PLAN_CREATED',
+  PLAN_OPENED: 'PLAN_OPENED',
+  PLAN_SENT_TO_SUPPLIER: 'PLAN_SENT_TO_SUPPLIER',
+  PLAN_SUBMITTED_FOR_REVIEW: 'PLAN_SUBMITTED_FOR_REVIEW',
+  PLAN_REVISION_REQUESTED: 'PLAN_REVISION_REQUESTED',
+  PLAN_COMPLETED: 'PLAN_COMPLETED',
+  PLAN_CANCELLED: 'PLAN_CANCELLED',
+  ACTION_ITEM_ADDED: 'ACTION_ITEM_ADDED',
+  ACTION_ITEM_UPDATED: 'ACTION_ITEM_UPDATED',
+  ACTION_ITEM_STATUS_CHANGED: 'ACTION_ITEM_STATUS_CHANGED',
+  ACTION_ITEM_RESPONSE_ADDED: 'ACTION_ITEM_RESPONSE_ADDED',
+  COMMENT_ADDED: 'COMMENT_ADDED'
+} as const
+
+export type DevPlanEventType = (typeof DevPlanEventType)[keyof typeof DevPlanEventType]
 
 
 export const DefectEventType = {

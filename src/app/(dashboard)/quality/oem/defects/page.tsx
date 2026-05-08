@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { SearchInput } from "@/components/ui/search-input"
 import { PlusIcon } from "lucide-react"
 import { formatDueDate, getActionOwnerLabel } from "@/lib/sla"
-import { prisma } from "@/lib/prisma"
+import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 
 export default async function DefectsPage({
@@ -26,13 +26,7 @@ export default async function DefectsPage({
 
   let supplierFilterName: string | null = null
   if (supplierId) {
-    const supplier = await prisma.company.findFirst({
-      where: { id: supplierId, type: "SUPPLIER" },
-      select: { name: true },
-    })
-    if (supplier) {
-      supplierFilterName = supplier.name
-    }
+    supplierFilterName = await getOemSupplierName(session.user.companyId, supplierId)
   }
 
   const { defects, totalCount } = await getDefects(filter, search, page, supplierId || undefined)

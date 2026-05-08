@@ -7,6 +7,7 @@ import Link from "next/link"
 import { getFmeaStatusColor, getRpnColor, isFmeaOverdue, FMEA_STATUS_LABELS, FMEA_TYPE_LABELS } from "@/lib/fmea"
 import type { FmeaStatus } from "@/generated/prisma/client"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
+import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 
 export default async function OemFmeaPage({
   searchParams,
@@ -23,13 +24,7 @@ export default async function OemFmeaPage({
 
   let supplierFilterName: string | null = null
   if (supplierId) {
-    const supplier = await prisma.company.findFirst({
-      where: { id: supplierId, type: "SUPPLIER" },
-      select: { name: true },
-    })
-    if (supplier) {
-      supplierFilterName = supplier.name
-    }
+    supplierFilterName = await getOemSupplierName(session.user.companyId, supplierId)
   }
 
   const whereCondition: Record<string, unknown> = { oemId: session.user.companyId }

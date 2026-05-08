@@ -7,6 +7,7 @@ import { ClipboardCheckIcon, PlusIcon } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
+import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 
 export default async function OemIqcPage({
   searchParams,
@@ -23,13 +24,7 @@ export default async function OemIqcPage({
 
   let supplierFilterName: string | null = null
   if (supplierId) {
-    const supplier = await prisma.company.findFirst({
-      where: { id: supplierId, type: "SUPPLIER" },
-      select: { name: true },
-    })
-    if (supplier) {
-      supplierFilterName = supplier.name
-    }
+    supplierFilterName = await getOemSupplierName(session.user.companyId, supplierId)
   }
 
   const whereCondition: Record<string, unknown> = { oemId: session.user.companyId }

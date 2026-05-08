@@ -15,7 +15,7 @@ import { FIELD_DEFECT_SOURCE_LABELS } from "@/lib/field-defect"
 import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
-import { prisma } from "@/lib/prisma"
+import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 
 const STATUS_FILTERS: { value: string; label: string }[] = [
   { value: "active", label: "Active" },
@@ -67,13 +67,7 @@ export default async function OemFieldPage({
 
   let supplierFilterName: string | null = null
   if (supplierId) {
-    const supplier = await prisma.company.findFirst({
-      where: { id: supplierId, type: "SUPPLIER" },
-      select: { name: true },
-    })
-    if (supplier) {
-      supplierFilterName = supplier.name
-    }
+    supplierFilterName = await getOemSupplierName(session.user.companyId, supplierId)
   }
 
   const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page, supplierId || undefined)

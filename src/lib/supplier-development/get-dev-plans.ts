@@ -253,7 +253,7 @@ export async function getSupplierDevPlanDetail(
   } | null,
   planId: string
 ): Promise<DevPlanDetail | null> {
-  if (!session?.user?.companyId) return null
+  if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") return null
 
   const plan = await prisma.supplierDevelopmentPlan.findFirst({
     where: {
@@ -333,7 +333,17 @@ export async function getSuppliersForOem(session: { user?: { companyId?: string 
   if (!session?.user?.companyId || session.user.companyType !== "OEM") return []
 
   const suppliers = await prisma.company.findMany({
-    where: { type: "SUPPLIER" },
+    where: {
+      type: "SUPPLIER",
+      OR: [
+        { defectsAsSup: { some: { oemId: session.user.companyId } } },
+        { ppapAsSup: { some: { oemId: session.user.companyId } } },
+        { iqcAsSup: { some: { oemId: session.user.companyId } } },
+        { fmeaAsSup: { some: { oemId: session.user.companyId } } },
+        { fieldDefectsAsSup: { some: { oemId: session.user.companyId } } },
+        { devPlansAsSupplier: { some: { oemId: session.user.companyId } } },
+      ],
+    },
     select: { id: true, name: true },
     orderBy: { name: "asc" },
   })

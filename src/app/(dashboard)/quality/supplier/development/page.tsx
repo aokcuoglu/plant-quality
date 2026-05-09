@@ -66,12 +66,12 @@ export default async function SupplierDevelopmentPage() {
                           {STATUS_CONFIG[plan.status].label}
                         </span>
                         {overdue && (
-                          <span className="ml-1 inline-flex items-center rounded-md border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-red-600 uppercase">Overdue</span>
+                          <span className="ml-1 inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] font-semibold text-destructive uppercase">Overdue</span>
                         )}
                       </td>
                       <td className="px-4 py-3">
                         {plan.dueDate ? (
-                          <span className={`text-sm ${overdue ? "text-red-600 font-semibold" : "text-muted-foreground"}`}>
+                          <span className={`text-sm ${overdue ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
                             {new Date(plan.dueDate).toLocaleDateString()}
                           </span>
                         ) : (

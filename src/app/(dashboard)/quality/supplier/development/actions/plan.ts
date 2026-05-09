@@ -2,13 +2,27 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
+import { requireFeature } from "@/lib/billing"
 import type { DevActionStatus } from "@/generated/prisma/client"
 import { revalidatePath } from "next/cache"
+
+const SUPPLIER_ALLOWED_TRANSITIONS: Record<DevActionStatus, DevActionStatus[]> = {
+  OPEN: ["IN_PROGRESS"],
+  IN_PROGRESS: ["SUBMITTED"],
+  SUBMITTED: [],
+  ACCEPTED: [],
+  REJECTED: ["IN_PROGRESS"],
+  COMPLETED: [],
+  CANCELLED: [],
+}
 
 export async function updateSupplierActionItem(formData: FormData) {
   const session = await auth()
   if (!session?.user?.companyId) return { success: false as const, error: "Not authenticated" }
   if (session.user.companyType !== "SUPPLIER") return { success: false as const, error: "Only suppliers can update their action items" }
+
+  const featureGate = requireFeature(session, "SUPPLIER_DEVELOPMENT")
+  if (!featureGate.allowed) return { success: false as const, error: featureGate.reason ?? "Requires higher plan" }
 
   const itemId = formData.get("itemId") as string
   const planId = formData.get("planId") as string
@@ -31,35 +45,31 @@ export async function updateSupplierActionItem(formData: FormData) {
     return { success: false as const, error: "Cannot update items on completed or cancelled plan" }
   }
 
-  const updateData: Record<string, unknown> = {}
   if (status) {
-    const allowedStatuses: DevActionStatus[] = ["IN_PROGRESS", "SUBMITTED"]
-    if (!allowedStatuses.includes(status as DevActionStatus) && status !== "COMPLETED") {
-      return { success: false as const, error: "Invalid status transition" }
+    const allowed = (SUPPLIER_ALLOWED_TRANSITIONS[item.status] ?? [])
+    if (!allowed.includes(status)) {
+      return { success: false as const, error: `Invalid status transition from ${item.status} to ${status}` }
     }
-    updateData.status = status
-    if (status === "COMPLETED") updateData.completedAt = new Date()
-  }
-  if (supplierResponse !== null) updateData.supplierResponse = supplierResponse
+    await prisma.supplierDevelopmentActionItem.update({
+      where: { id: itemId },
+      data: { status, supplierResponse: supplierResponse ?? undefined },
+    })
 
-  await prisma.supplierDevelopmentActionItem.update({
-    where: { id: itemId },
-    data: updateData,
-  })
-
-  if (status) {
     await prisma.supplierDevelopmentEvent.create({
       data: {
         planId,
         actorId: session.user.id,
         type: "ACTION_ITEM_STATUS_CHANGED",
         message: `Supplier updated action item "${item.title}" to ${status}`,
-        metadata: { actionItemId: itemId, toStatus: status },
+        metadata: { actionItemId: itemId, fromStatus: item.status, toStatus: status },
       },
     })
-  }
+  } else if (supplierResponse !== null) {
+    await prisma.supplierDevelopmentActionItem.update({
+      where: { id: itemId },
+      data: { supplierResponse },
+    })
 
-  if (supplierResponse) {
     await prisma.supplierDevelopmentEvent.create({
       data: {
         planId,
@@ -83,6 +93,9 @@ export async function submitPlanForReview(formData: FormData) {
   const session = await auth()
   if (!session?.user?.companyId) return { success: false as const, error: "Not authenticated" }
   if (session.user.companyType !== "SUPPLIER") return { success: false as const, error: "Only suppliers can submit for review" }
+
+  const featureGate = requireFeature(session, "SUPPLIER_DEVELOPMENT")
+  if (!featureGate.allowed) return { success: false as const, error: featureGate.reason ?? "Requires higher plan" }
 
   const planId = formData.get("planId") as string
   if (!planId) return { success: false as const, error: "Plan ID required" }

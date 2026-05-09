@@ -45,7 +45,7 @@ export function SupplierActionItemCard({ item, planId, isReadOnly, canSubmit }: 
       </div>
       {item.description && <p className="text-xs text-muted-foreground mb-2">{item.description}</p>}
       <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
-        <span>Due: {item.dueDate ? (isOverdue ? <span className="text-red-600 font-semibold">{new Date(item.dueDate).toLocaleDateString()}</span> : new Date(item.dueDate).toLocaleDateString()) : "None"}</span>
+        <span>Due: {item.dueDate ? (isOverdue ? <span className="text-destructive font-semibold">{new Date(item.dueDate).toLocaleDateString()}</span> : new Date(item.dueDate).toLocaleDateString()) : "None"}</span>
         {item.oemComment && (
           <span>OEM comment: {item.oemComment}</span>
         )}

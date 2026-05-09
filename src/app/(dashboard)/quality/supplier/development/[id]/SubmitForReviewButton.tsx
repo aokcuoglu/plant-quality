@@ -22,7 +22,7 @@ export function SubmitForReviewButton({ planId }: { planId: string }) {
       <button
         onClick={handleSubmit}
         disabled={isSubmitting}
-        className="w-full rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors"
+        className="w-full rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 disabled:opacity-50 transition-colors"
       >
         {isSubmitting ? "Submitting..." : "Submit for OEM Review"}
       </button>

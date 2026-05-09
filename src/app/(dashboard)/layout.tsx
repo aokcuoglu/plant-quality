@@ -53,7 +53,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
         { href: "/quality/supplier/defects", label: "Defects", icon: "BugIcon" as const },
         { href: "/quality/supplier/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
-        { href: "/quality/supplier/development", label: "Development Plans", icon: "TargetIcon" as const },
+        { href: "/quality/supplier/development", label: "Development Plans", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
         { href: "/quality/supplier/ppap", label: "PPAP", icon: "FileTextIcon" as const },
         { href: "/quality/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const },
         { href: "/quality/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const },

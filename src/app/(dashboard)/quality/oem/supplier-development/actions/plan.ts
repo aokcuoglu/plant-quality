@@ -12,6 +12,26 @@ function canManage(session: { user: { companyType: string; role: string } } | nu
   return ["ADMIN", "QUALITY_ENGINEER"].includes(session.user.role)
 }
 
+const VALID_PLAN_TRANSITIONS: Record<DevPlanStatus, DevPlanStatus[]> = {
+  DRAFT: ["OPEN", "CANCELLED"],
+  OPEN: ["SUPPLIER_ACTION_REQUIRED", "CANCELLED"],
+  SUPPLIER_ACTION_REQUIRED: ["OEM_REVIEW", "REVISION_REQUIRED", "CANCELLED"],
+  OEM_REVIEW: ["COMPLETED", "REVISION_REQUIRED", "CANCELLED"],
+  REVISION_REQUIRED: ["SUPPLIER_ACTION_REQUIRED", "CANCELLED"],
+  COMPLETED: [],
+  CANCELLED: [],
+}
+
+const OEM_ALLOWED_ACTION_TRANSITIONS: Record<DevActionStatus, DevActionStatus[]> = {
+  OPEN: ["IN_PROGRESS", "CANCELLED"],
+  IN_PROGRESS: ["COMPLETED", "CANCELLED"],
+  SUBMITTED: ["ACCEPTED", "REJECTED", "CANCELLED"],
+  ACCEPTED: [],
+  REJECTED: ["CANCELLED"],
+  COMPLETED: [],
+  CANCELLED: [],
+}
+
 export async function createDevPlan(formData: FormData) {
   const session = await auth()
   if (!session?.user?.companyId) return { success: false as const, error: "Not authenticated" }
@@ -32,6 +52,10 @@ export async function createDevPlan(formData: FormData) {
 
   if (!title || !supplierId) {
     return { success: false as const, error: "Title and supplier are required" }
+  }
+
+  if (status !== "DRAFT" && status !== "OPEN") {
+    return { success: false as const, error: "Initial status must be DRAFT or OPEN" }
   }
 
   const supplier = await prisma.company.findFirst({
@@ -141,6 +165,11 @@ export async function updateDevPlanStatus(formData: FormData) {
 
   if (plan.status === "COMPLETED" || plan.status === "CANCELLED") {
     return { success: false as const, error: "Cannot update completed or cancelled plan" }
+  }
+
+  const allowedTransitions = VALID_PLAN_TRANSITIONS[plan.status as DevPlanStatus] ?? []
+  if (!allowedTransitions.includes(newStatus)) {
+    return { success: false as const, error: `Cannot transition plan from ${plan.status} to ${newStatus}` }
   }
 
   const eventTypeMap: Record<string, DevPlanEventType> = {
@@ -299,6 +328,13 @@ export async function updateActionItem(formData: FormData) {
     where: { id: itemId, planId },
   })
   if (!item) return { success: false as const, error: "Action item not found" }
+
+  if (status) {
+    const allowed = OEM_ALLOWED_ACTION_TRANSITIONS[item.status as DevActionStatus] ?? []
+    if (!allowed.includes(status)) {
+      return { success: false as const, error: `Cannot transition action item from ${item.status} to ${status}` }
+    }
+  }
 
   const updateData: Record<string, unknown> = {}
   if (title) updateData.title = title

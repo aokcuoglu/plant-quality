@@ -48,9 +48,9 @@ export function DevPlanActions({ planId, status }: { planId: string; status: Dev
             onClick={() => handleStatusChange(btn.status)}
             className={`w-full rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               btn.variant === "default"
-                ? "bg-emerald-500 text-white hover:bg-emerald-600"
+                ? "bg-emerald-500 text-primary-foreground hover:bg-emerald-600"
                 : btn.variant === "destructive"
-                ? "bg-destructive text-white hover:bg-destructive/90"
+                ? "bg-destructive text-primary-foreground hover:bg-destructive/90"
                 : "border border-border bg-background text-foreground hover:bg-muted"
             }`}
           >

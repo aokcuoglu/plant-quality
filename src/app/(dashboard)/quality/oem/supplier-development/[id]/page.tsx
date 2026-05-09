@@ -76,12 +76,12 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
                   {STATUS_CONFIG[plan.status].label}
                 </span>
                 {overdue && (
-                  <span className="ml-1 inline-flex items-center rounded-md border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-red-600 uppercase">Overdue</span>
+                  <span className="ml-1 inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] font-semibold text-destructive uppercase">Overdue</span>
                 )}
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Due Date</p>
-                <p className={`text-sm ${overdue ? "text-red-600 font-semibold" : "text-foreground"}`}>
+                <p className={`text-sm ${overdue ? "text-destructive font-semibold" : "text-foreground"}`}>
                   {plan.dueDate ? new Date(plan.dueDate).toLocaleDateString() : "No date set"}
                 </p>
               </div>
@@ -116,7 +116,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <span>{completedItems.length}/{plan.actionItems.length} completed</span>
                 {overdueItems.length > 0 && (
-                  <span className="text-red-600 font-semibold">{overdueItems.length} overdue</span>
+                  <span className="text-destructive font-semibold">{overdueItems.length} overdue</span>
                 )}
               </div>
             </div>
@@ -143,7 +143,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
                           {item.description && <p className="text-xs text-muted-foreground mt-1">{item.description}</p>}
                           <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground">
                             <span>Owner: {item.ownerName ?? "Unassigned"}</span>
-                            <span>Due: {item.dueDate ? (itemOverdue ? <span className="text-red-600 font-semibold">{new Date(item.dueDate).toLocaleDateString()}</span> : new Date(item.dueDate).toLocaleDateString()) : "None"}</span>
+                            <span>Due: {item.dueDate ? (itemOverdue ? <span className="text-destructive font-semibold">{new Date(item.dueDate).toLocaleDateString()}</span> : new Date(item.dueDate).toLocaleDateString()) : "None"}</span>
                           </div>
                           {item.supplierResponse && (
                             <div className="mt-2 rounded-md bg-amber-500/5 border border-amber-500/10 p-2">

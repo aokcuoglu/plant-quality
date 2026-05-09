@@ -82,7 +82,7 @@ export function AddActionItemForm({ planId }: { planId: string }) {
         />
       </div>
       <div className="flex gap-2">
-        <button type="submit" disabled={isSubmitting} className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50">
+        <button type="submit" disabled={isSubmitting} className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-emerald-600 disabled:opacity-50">
           {isSubmitting ? "Adding..." : "Add"}
         </button>
         <button type="button" onClick={() => setIsOpen(false)} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">

@@ -23,7 +23,7 @@ export function OemActionItemActions({ itemId, planId, status, ownerType }: { it
     }
   }
 
-  const canAccept = ownerType === "SUPPLIER" && (status === "SUBMITTED" || status === "IN_PROGRESS")
+  const canAccept = ownerType === "SUPPLIER" && status === "SUBMITTED"
   const canMarkComplete = status === "IN_PROGRESS" || status === "OPEN"
   const canReject = ownerType === "SUPPLIER" && status === "SUBMITTED"
 
@@ -49,7 +49,7 @@ export function OemActionItemActions({ itemId, planId, status, ownerType }: { it
           Reject
         </button>
       )}
-      {status !== "CANCELLED" && (
+      {status !== "CANCELLED" && status !== "COMPLETED" && status !== "ACCEPTED" && (
         <button onClick={() => handleStatusUpdate("CANCELLED")} disabled={isSubmitting !== null} className="text-xs text-muted-foreground hover:text-destructive transition-colors px-1.5 py-0.5 disabled:opacity-50">
           Cancel
         </button>

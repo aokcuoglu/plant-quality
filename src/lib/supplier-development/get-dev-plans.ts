@@ -199,6 +199,9 @@ export async function getSupplierDevPlans(
 ): Promise<DevPlanListItem[]> {
   if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") return []
 
+  const featureGate = requireFeature(session, "SUPPLIER_DEVELOPMENT")
+  if (!featureGate.allowed) return []
+
   const supplierId = session.user.companyId
 
   const plans = await prisma.supplierDevelopmentPlan.findMany({
@@ -251,6 +254,9 @@ export async function getSupplierDevPlanDetail(
   planId: string
 ): Promise<DevPlanDetail | null> {
   if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") return null
+
+  const featureGate = requireFeature(session, "SUPPLIER_DEVELOPMENT")
+  if (!featureGate.allowed) return null
 
   const plan = await prisma.supplierDevelopmentPlan.findFirst({
     where: {

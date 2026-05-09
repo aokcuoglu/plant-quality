@@ -70,6 +70,23 @@ export async function createDevPlan(formData: FormData) {
   })
   if (!supplier) return { success: false as const, error: "Invalid supplier" }
 
+  const isAssociated = await prisma.company.findFirst({
+    where: {
+      id: supplierId,
+      type: "SUPPLIER",
+      OR: [
+        { defectsAsSup: { some: { oemId: session.user.companyId } } },
+        { ppapAsSup: { some: { oemId: session.user.companyId } } },
+        { iqcAsSup: { some: { oemId: session.user.companyId } } },
+        { fmeaAsSup: { some: { oemId: session.user.companyId } } },
+        { fieldDefectsAsSup: { some: { oemId: session.user.companyId } } },
+        { devPlansAsSupplier: { some: { oemId: session.user.companyId } } },
+      ],
+    },
+    select: { id: true },
+  })
+  if (!isAssociated) return { success: false as const, error: "Supplier is not associated with your company" }
+
   const dueDate = dueDateStr ? new Date(dueDateStr) : null
 
   const plan = await prisma.supplierDevelopmentPlan.create({
@@ -373,7 +390,7 @@ export async function updateActionItem(formData: FormData) {
 
   const updateData: Record<string, unknown> = {}
   if (title) updateData.title = title
-  if (description !== undefined) updateData.description = description || null
+  if (formData.has("description")) updateData.description = description || null
   if (status) {
     updateData.status = status
     if (status === "COMPLETED" || status === "ACCEPTED") {
@@ -382,8 +399,8 @@ export async function updateActionItem(formData: FormData) {
       updateData.completedAt = null
     }
   }
-  if (oemComment !== null) updateData.oemComment = oemComment
-  if (dueDateStr !== undefined) updateData.dueDate = dueDateStr ? new Date(dueDateStr) : null
+  if (formData.has("oemComment") && oemComment !== null) updateData.oemComment = oemComment
+  if (formData.has("dueDate")) updateData.dueDate = dueDateStr ? new Date(dueDateStr) : null
 
   await prisma.supplierDevelopmentActionItem.update({
     where: { id: itemId },

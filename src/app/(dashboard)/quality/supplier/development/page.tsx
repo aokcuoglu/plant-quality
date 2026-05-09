@@ -7,10 +7,14 @@ import {
 } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { getSupplierDevPlans, STATUS_CONFIG, PRIORITY_CONFIG, isDevPlanOverdue } from "@/lib/supplier-development"
+import { requireFeature } from "@/lib/billing"
 
 export default async function SupplierDevelopmentPage() {
   const session = await auth()
   if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") redirect("/login")
+
+  const featureGate = requireFeature(session, "SUPPLIER_DEVELOPMENT")
+  if (!featureGate.allowed) redirect("/quality/supplier")
 
   const plans = await getSupplierDevPlans(session)
 

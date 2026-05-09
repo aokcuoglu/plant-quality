@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowLeftIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { getSupplierDevPlanDetail, PRIORITY_CONFIG, STATUS_CONFIG, isDevPlanOverdue } from "@/lib/supplier-development"
+import { requireFeature } from "@/lib/billing"
 import { SupplierActionItemCard } from "./SupplierActionItemCard"
 import { DevPlanTimeline } from "@/app/(dashboard)/quality/oem/supplier-development/[id]/DevPlanTimeline"
 import { SubmitForReviewButton } from "./SubmitForReviewButton"
@@ -11,6 +12,9 @@ import { SubmitForReviewButton } from "./SubmitForReviewButton"
 export default async function SupplierDevPlanDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
   if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") redirect("/login")
+
+  const featureGate = requireFeature(session, "SUPPLIER_DEVELOPMENT")
+  if (!featureGate.allowed) redirect("/quality/supplier")
 
   const { id } = await params
   const plan = await getSupplierDevPlanDetail(session, id)

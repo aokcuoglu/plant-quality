@@ -17,4 +17,5 @@ export {
   ACTION_STATUS_CONFIG,
   SOURCE_TYPE_CONFIG,
   isDevPlanOverdue,
+  isActionItemOverdue,
 } from "./types"

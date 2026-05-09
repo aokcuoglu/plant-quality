@@ -3,7 +3,7 @@ import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeftIcon } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
-import { getSupplierDevPlanDetail, PRIORITY_CONFIG, STATUS_CONFIG } from "@/lib/supplier-development"
+import { getSupplierDevPlanDetail, PRIORITY_CONFIG, STATUS_CONFIG, isDevPlanOverdue } from "@/lib/supplier-development"
 import { SupplierActionItemCard } from "./SupplierActionItemCard"
 import { DevPlanTimeline } from "@/app/(dashboard)/quality/oem/supplier-development/[id]/DevPlanTimeline"
 import { SubmitForReviewButton } from "./SubmitForReviewButton"
@@ -17,7 +17,9 @@ export default async function SupplierDevPlanDetailPage({ params }: { params: Pr
   if (!plan) notFound()
 
   const canSubmit = plan.status === "SUPPLIER_ACTION_REQUIRED" || plan.status === "REVISION_REQUIRED"
+  const canActOnItems = plan.status === "SUPPLIER_ACTION_REQUIRED" || plan.status === "REVISION_REQUIRED"
   const isReadOnly = plan.status === "COMPLETED" || plan.status === "CANCELLED"
+  const overdue = isDevPlanOverdue(plan)
 
   return (
     <div className="space-y-6">
@@ -45,13 +47,20 @@ export default async function SupplierDevPlanDetailPage({ params }: { params: Pr
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Status</p>
-                <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${STATUS_CONFIG[plan.status].className}`}>
-                  {STATUS_CONFIG[plan.status].label}
-                </span>
+                <p>
+                  <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${STATUS_CONFIG[plan.status].className}`}>
+                    {STATUS_CONFIG[plan.status].label}
+                  </span>
+                  {overdue && (
+                    <span className="ml-1 inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] font-semibold text-destructive uppercase">Overdue</span>
+                  )}
+                </p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Due Date</p>
-                <p className="text-sm text-foreground">{plan.dueDate ? new Date(plan.dueDate).toLocaleDateString() : "No date set"}</p>
+                <p className={`text-sm ${overdue ? "text-destructive font-semibold" : "text-foreground"}`}>
+                  {plan.dueDate ? new Date(plan.dueDate).toLocaleDateString() : "No date set"}
+                </p>
               </div>
             </div>
             {plan.description && (
@@ -69,7 +78,7 @@ export default async function SupplierDevPlanDetailPage({ params }: { params: Pr
             ) : (
               <div className="space-y-2">
                 {plan.actionItems.map((item) => (
-                  <SupplierActionItemCard key={item.id} item={item} planId={plan.id} isReadOnly={isReadOnly} canSubmit={canSubmit} />
+                  <SupplierActionItemCard key={item.id} item={item} planId={plan.id} isReadOnly={isReadOnly} canActOnItems={canActOnItems} canSubmit={canSubmit} />
                 ))}
               </div>
             )}

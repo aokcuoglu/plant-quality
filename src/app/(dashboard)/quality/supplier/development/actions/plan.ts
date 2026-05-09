@@ -45,6 +45,14 @@ export async function updateSupplierActionItem(formData: FormData) {
     return { success: false as const, error: "Cannot update items on completed or cancelled plan" }
   }
 
+  if (plan.status !== "SUPPLIER_ACTION_REQUIRED" && plan.status !== "REVISION_REQUIRED") {
+    return { success: false as const, error: "Plan is not in a state that allows supplier action" }
+  }
+
+  if (item.status === "COMPLETED" || item.status === "CANCELLED" || item.status === "ACCEPTED") {
+    return { success: false as const, error: "Cannot update a completed, cancelled, or accepted action item" }
+  }
+
   if (status) {
     const allowed = (SUPPLIER_ALLOWED_TRANSITIONS[item.status] ?? [])
     if (!allowed.includes(status)) {

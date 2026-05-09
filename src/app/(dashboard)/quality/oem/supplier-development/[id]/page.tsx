@@ -11,7 +11,7 @@ import {
 import { PageHeader } from "@/components/layout/PageHeader"
 import { Button } from "@/components/ui/button"
 import { requireFeature } from "@/lib/billing"
-import { getOemDevPlanDetail, PRIORITY_CONFIG, STATUS_CONFIG, ACTION_STATUS_CONFIG, SOURCE_TYPE_CONFIG, isDevPlanOverdue } from "@/lib/supplier-development"
+import { getOemDevPlanDetail, PRIORITY_CONFIG, STATUS_CONFIG, ACTION_STATUS_CONFIG, SOURCE_TYPE_CONFIG, isDevPlanOverdue, isActionItemOverdue } from "@/lib/supplier-development"
 import { DevPlanActions } from "./DevPlanActions"
 import { DevPlanTimeline } from "./DevPlanTimeline"
 import { AddActionItemForm } from "./AddActionItemForm"
@@ -44,7 +44,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
   const overdue = isDevPlanOverdue(plan)
   const isReadOnly = plan.status === "COMPLETED" || plan.status === "CANCELLED"
   const completedItems = plan.actionItems.filter((a) => a.status === "COMPLETED" || a.status === "ACCEPTED" || a.status === "CANCELLED")
-  const overdueItems = plan.actionItems.filter((a) => a.dueDate && new Date(a.dueDate) < new Date() && a.status !== "COMPLETED" && a.status !== "ACCEPTED" && a.status !== "CANCELLED")
+  const overdueItems = plan.actionItems.filter((a) => isActionItemOverdue(a))
 
   return (
     <div className="space-y-6">
@@ -126,7 +126,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
             ) : (
               <div className="space-y-2">
                 {plan.actionItems.map((item) => {
-                  const itemOverdue = item.dueDate && new Date(item.dueDate) < new Date() && item.status !== "COMPLETED" && item.status !== "ACCEPTED" && item.status !== "CANCELLED"
+                  const itemOverdue = isActionItemOverdue(item)
                   return (
                     <div key={item.id} className="rounded-md border border-border p-3">
                       <div className="flex items-start justify-between gap-2">

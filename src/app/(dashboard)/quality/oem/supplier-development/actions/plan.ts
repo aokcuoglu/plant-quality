@@ -32,6 +32,13 @@ const OEM_ALLOWED_ACTION_TRANSITIONS: Record<DevActionStatus, DevActionStatus[]>
   CANCELLED: [],
 }
 
+function revalidateDevPlanPages(planId: string) {
+  revalidatePath("/quality/oem/supplier-development")
+  revalidatePath(`/quality/oem/supplier-development/${planId}`)
+  revalidatePath("/quality/supplier/development")
+  revalidatePath(`/quality/supplier/development/${planId}`)
+}
+
 export async function createDevPlan(formData: FormData) {
   const session = await auth()
   if (!session?.user?.companyId) return { success: false as const, error: "Not authenticated" }
@@ -142,6 +149,7 @@ export async function createDevPlan(formData: FormData) {
 
   revalidatePath("/quality/oem/supplier-development")
   revalidatePath(`/quality/oem/supplier-development/${plan.id}`)
+  revalidatePath("/quality/supplier/development")
 
   return { success: true as const, id: plan.id }
 }
@@ -184,7 +192,7 @@ export async function updateDevPlanStatus(formData: FormData) {
   const statusMessages: Record<string, string> = {
     OPEN: "Plan opened",
     SUPPLIER_ACTION_REQUIRED: "Plan sent to supplier for action",
-    OEM_REVIEW: "Plan submitted for OEM review",
+    OEM_REVIEW: "Plan moved to OEM review",
     REVISION_REQUIRED: "Revision requested",
     COMPLETED: "Plan completed",
     CANCELLED: "Plan cancelled",
@@ -240,9 +248,33 @@ export async function updateDevPlanStatus(formData: FormData) {
     }
   }
 
-  revalidatePath("/quality/oem/supplier-development")
-  revalidatePath(`/quality/oem/supplier-development/${planId}`)
-  revalidatePath("/quality/supplier/development")
+  if (newStatus === "COMPLETED" || newStatus === "CANCELLED") {
+    const supplierUsers = await prisma.user.findMany({
+      where: { companyId: plan.supplierId },
+      select: { id: true },
+    })
+    const notifType = newStatus === "COMPLETED" ? "DEV_PLAN_COMPLETED" as const : "DEV_PLAN_CANCELLED" as const
+    const notifMsg = newStatus === "COMPLETED"
+      ? `Development plan "${plan.title}" has been completed.`
+      : `Development plan "${plan.title}" has been cancelled.`
+
+    if (supplierUsers.length > 0) {
+      await prisma.notification.createMany({
+        data: supplierUsers.map((u) => ({
+          userId: u.id,
+          companyId: plan.supplierId,
+          type: notifType,
+          title: newStatus === "COMPLETED" ? "Plan Completed" : "Plan Cancelled",
+          message: notifMsg,
+          entityType: "DEV_PLAN",
+          entityId: planId,
+          link: `/quality/supplier/development/${planId}`,
+        })),
+      })
+    }
+  }
+
+  revalidateDevPlanPages(planId)
 
   return { success: true as const }
 }
@@ -295,8 +327,7 @@ export async function addActionItem(formData: FormData) {
     },
   })
 
-  revalidatePath("/quality/oem/supplier-development")
-  revalidatePath(`/quality/oem/supplier-development/${planId}`)
+  revalidateDevPlanPages(planId)
 
   return { success: true as const, id: item.id }
 }
@@ -323,6 +354,10 @@ export async function updateActionItem(formData: FormData) {
     where: { id: planId, oemId: session.user.companyId },
   })
   if (!plan) return { success: false as const, error: "Plan not found" }
+
+  if (plan.status === "COMPLETED" || plan.status === "CANCELLED") {
+    return { success: false as const, error: "Cannot update items on completed or cancelled plan" }
+  }
 
   const item = await prisma.supplierDevelopmentActionItem.findFirst({
     where: { id: itemId, planId },
@@ -367,8 +402,7 @@ export async function updateActionItem(formData: FormData) {
     })
   }
 
-  revalidatePath("/quality/oem/supplier-development")
-  revalidatePath(`/quality/oem/supplier-development/${planId}`)
+  revalidateDevPlanPages(planId)
 
   return { success: true as const }
 }
@@ -400,7 +434,7 @@ export async function addDevPlanComment(formData: FormData) {
     },
   })
 
-  revalidatePath(`/quality/oem/supplier-development/${planId}`)
+  revalidateDevPlanPages(planId)
 
   return { success: true as const }
 }

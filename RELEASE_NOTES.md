@@ -1,3 +1,64 @@
+# PlantQuality v2.9.1 — Release Notes
+
+## Supplier Development Workflow Polish
+
+**Release Date:** 2026-05-09  
+**Version:** 2.9.1
+
+---
+
+## Summary
+
+PlantQuality v2.9.1 is a bugfix and polish patch for the Supplier Development Action Plan feature introduced in v2.9.0. It fixes revalidation consistency, action item access control, supplier response UX, overdue calculation, scorecard CTA gating, and client-side error handling. No new product scope is introduced.
+
+---
+
+## Bug Fixes
+
+### Revalidation & Refresh
+
+- **OEM mutations now revalidate all affected pages** — `updateDevPlanStatus`, `addActionItem`, `updateActionItem`, and `addDevPlanComment` now revalidate both OEM and supplier list and detail pages via a shared `revalidateDevPlanPages()` helper. Previously, supplier pages were not revalidated, causing stale data.
+- **`createDevPlan` with OPEN status now revalidates supplier list** — Newly created plans now appear for suppliers without manual browser refresh.
+- **All client components use `router.refresh()` instead of `window.location.reload()`** — DevPlanActions, OemActionItemActions, AddActionItemForm, AddCommentForm, SupplierActionItemCard, and SubmitForReviewButton now use Next.js `router.refresh()` for smoother page updates without full reload.
+
+### Access Control & Security
+
+- **`updateActionItem` (OEM) now rejects updates on COMPLETED/CANCELLED plans** — Previously only `addActionItem` had this guard. Both mutation actions now block on terminal plan statuses.
+- **`updateSupplierActionItem` now validates plan status** — Suppliers can only update items when plan status is SUPPLIER_ACTION_REQUIRED or REVISION_REQUIRED. Terminal-status action items (COMPLETED, ACCEPTED, CANCELLED) are also blocked.
+- **`getSupplierUsers` now validates OEM-supplier relationship** — Previously returned users for any supplier ID without checking the requesting OEM's association. Now filters by the same relationship criteria as `getSuppliersForOem`.
+- **Scorecard CTA now gated by SUPPLIER_DEVELOPMENT feature** — The "Create Development Plan" link on the scorecard detail page is now visible only to ENTERPRISE OEM users. FREE/PRO users see an upgrade message instead.
+
+### Supplier Response UX
+
+- **Supplier action item forms now properly show/hide based on plan status** — Fixed the `canActOnItems` / `canSubmit` distinction. Suppliers can interact with items when the plan is in action-required states. Previously submitted responses are visible in read-only mode for non-action-required but non-terminal statuses.
+- **Overdue badge added to supplier detail page** — Supplier plan detail now shows overdue badge and red due date styling, matching the OEM view.
+- **Inline error display on supplier actions** — SupplierActionItemCard and SubmitForReviewButton now display errors on failure instead of silently failing.
+- **Button loading/disabled states** — All mutation buttons show loading state and are disabled during submission.
+
+### Due Date & Overdue
+
+- **Date comparison fix** — `isDevPlanOverdue()` and new `isActionItemOverdue()` now compare dates as start-of-day instead of timestamp comparison. Plans/items due today are no longer incorrectly marked overdue.
+- **Consistent overdue logic** — Both OEM and supplier pages, list and detail views, all use the same `isActionItemOverdue()` helper, replacing 5+ inline overdue calculations.
+
+### Notifications
+
+- **OEM COMPLETED/CANCELLED status changes now notify supplier users** — Previously, only SUPPLIER_ACTION_REQUIRED and REVISION_REQUIRED transitions sent notifications. COMPLETED and CANCELLED transitions now also notify supplier users.
+
+### UI Polish
+
+- **Error state on AddActionItemForm** — Shows inline error toast when action item creation fails.
+- **Error state on AddCommentForm** — Shows inline error when comment submission fails.
+- **Error state on DevPlanActions** — Shows error when status transition fails instead of silently re-enabling buttons.
+- **Cancel button resets form state on AddActionItemForm** — Closing the form now clears input fields.
+
+---
+
+## No New Scope
+
+This patch introduces no new features, modules, or product scope changes. All changes are bug fixes and UX polish within the existing Supplier Development Action Plan feature.
+
+---
+
 # PlantQuality v2.9.0 — Release Notes
 
 ## Supplier Development Action Plan MVP

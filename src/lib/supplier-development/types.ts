@@ -142,5 +142,15 @@ export const SOURCE_TYPE_CONFIG: Record<DevPlanSourceType, { label: string }> = 
 export function isDevPlanOverdue(plan: { dueDate: Date | null; status: DevPlanStatus }): boolean {
   if (!plan.dueDate) return false
   if (plan.status === "COMPLETED" || plan.status === "CANCELLED") return false
-  return new Date(plan.dueDate) < new Date()
+  const due = new Date(plan.dueDate)
+  const today = new Date()
+  return due < new Date(today.getFullYear(), today.getMonth(), today.getDate())
+}
+
+export function isActionItemOverdue(item: { dueDate: Date | null; status: string }): boolean {
+  if (!item.dueDate) return false
+  if (item.status === "COMPLETED" || item.status === "ACCEPTED" || item.status === "CANCELLED") return false
+  const due = new Date(item.dueDate)
+  const today = new Date()
+  return due < new Date(today.getFullYear(), today.getMonth(), today.getDate())
 }

@@ -1,15 +1,25 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { updateDevPlanStatus } from "@/app/(dashboard)/quality/oem/supplier-development/actions/plan"
 import type { DevPlanStatus } from "@/lib/supplier-development/client"
 
 export function DevPlanActions({ planId, status }: { planId: string; status: DevPlanStatus }) {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState<string | null>(null)
+
   const handleStatusChange = async (newStatus: DevPlanStatus) => {
+    setIsSubmitting(newStatus)
     const formData = new FormData()
     formData.set("planId", planId)
     formData.set("status", newStatus)
-    await updateDevPlanStatus(formData)
-    window.location.reload()
+    const result = await updateDevPlanStatus(formData)
+    if (result.success) {
+      router.refresh()
+    } else {
+      setIsSubmitting(null)
+    }
   }
 
   const buttons: Array<{ label: string; status: DevPlanStatus; variant: "default" | "outline" | "destructive" }> = []
@@ -46,7 +56,8 @@ export function DevPlanActions({ planId, status }: { planId: string; status: Dev
           <button
             key={btn.status}
             onClick={() => handleStatusChange(btn.status)}
-            className={`w-full rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+            disabled={isSubmitting !== null}
+            className={`w-full rounded-md px-3 py-2 text-sm font-medium transition-colors disabled:opacity-50 ${
               btn.variant === "default"
                 ? "bg-emerald-500 text-primary-foreground hover:bg-emerald-600"
                 : btn.variant === "destructive"
@@ -54,7 +65,7 @@ export function DevPlanActions({ planId, status }: { planId: string; status: Dev
                 : "border border-border bg-background text-foreground hover:bg-muted"
             }`}
           >
-            {btn.label}
+            {isSubmitting === btn.status ? "Processing..." : btn.label}
           </button>
         ))}
       </div>

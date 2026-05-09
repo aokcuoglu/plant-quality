@@ -4,19 +4,23 @@ import { addActionItem } from "@/app/(dashboard)/quality/oem/supplier-developmen
 import type { DevActionOwnerType } from "@/lib/supplier-development/client"
 import { PlusCircleIcon } from "lucide-react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function AddActionItemForm({ planId }: { planId: string }) {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [ownerType, setOwnerType] = useState<DevActionOwnerType>("OEM")
   const [dueDate, setDueDate] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!title.trim()) return
     setIsSubmitting(true)
+    setError(null)
 
     const formData = new FormData()
     formData.set("planId", planId)
@@ -25,13 +29,13 @@ export function AddActionItemForm({ planId }: { planId: string }) {
     formData.set("ownerType", ownerType)
     formData.set("dueDate", dueDate)
 
-    await addActionItem(formData)
-    setTitle("")
-    setDescription("")
-    setDueDate("")
-    setIsOpen(false)
-    setIsSubmitting(false)
-    window.location.reload()
+    const result = await addActionItem(formData)
+    if (result.success) {
+      router.refresh()
+    } else {
+      setError(result.error ?? "Failed to add action item")
+      setIsSubmitting(false)
+    }
   }
 
   if (!isOpen) {
@@ -48,6 +52,11 @@ export function AddActionItemForm({ planId }: { planId: string }) {
 
   return (
     <form onSubmit={handleSubmit} className="mt-3 rounded-md border border-dashed border-border p-3 space-y-3">
+      {error && (
+        <div className="rounded-md bg-destructive/10 border border-destructive/20 px-3 py-2 text-xs text-destructive">
+          {error}
+        </div>
+      )}
       <div className="grid gap-3 sm:grid-cols-2">
         <input
           type="text"
@@ -85,7 +94,7 @@ export function AddActionItemForm({ planId }: { planId: string }) {
         <button type="submit" disabled={isSubmitting} className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-emerald-600 disabled:opacity-50">
           {isSubmitting ? "Adding..." : "Add"}
         </button>
-        <button type="button" onClick={() => setIsOpen(false)} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">
+        <button type="button" onClick={() => { setIsOpen(false); setTitle(""); setDescription(""); setDueDate(""); setError(null) }} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">
           Cancel
         </button>
       </div>

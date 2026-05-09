@@ -6,6 +6,7 @@ import type {
   DevPlanListItem,
   DevPlanDetail,
 } from "./types"
+import { isActionItemOverdue } from "./types"
 
 export async function getOemDevPlans(
   session: {
@@ -71,9 +72,7 @@ export async function getOemDevPlans(
   const planItems: DevPlanListItem[] = plans.map((plan) => {
     const actionItems = plan.actionItems
     const completedItems = actionItems.filter((a) => a.status === "COMPLETED" || a.status === "ACCEPTED" || a.status === "CANCELLED")
-    const overdueItems = actionItems.filter(
-      (a) => a.dueDate && new Date(a.dueDate) < new Date() && a.status !== "COMPLETED" && a.status !== "ACCEPTED" && a.status !== "CANCELLED"
-    )
+    const overdueItems = actionItems.filter((a) => isActionItemOverdue(a))
 
     return {
       id: plan.id,
@@ -217,9 +216,7 @@ export async function getSupplierDevPlans(
   return plans.map((plan) => {
     const actionItems = plan.actionItems
     const completedItems = actionItems.filter((a) => a.status === "COMPLETED" || a.status === "ACCEPTED" || a.status === "CANCELLED")
-    const overdueItems = actionItems.filter(
-      (a) => a.dueDate && new Date(a.dueDate) < new Date() && a.status !== "COMPLETED" && a.status !== "ACCEPTED" && a.status !== "CANCELLED"
-    )
+    const overdueItems = actionItems.filter((a) => isActionItemOverdue(a))
 
     return {
       id: plan.id,
@@ -361,7 +358,26 @@ export async function getOemUsers(session: { user?: { companyId?: string | null;
   })
 }
 
-export async function getSupplierUsers(supplierId: string): Promise<{ id: string; name: string | null }[]> {
+export async function getSupplierUsers(session: { user?: { companyId?: string | null; companyType?: string | null } } | null, supplierId: string): Promise<{ id: string; name: string | null }[]> {
+  if (!session?.user?.companyId || session.user.companyType !== "OEM") return []
+
+  const isAssociated = await prisma.company.findFirst({
+    where: {
+      id: supplierId,
+      type: "SUPPLIER",
+      OR: [
+        { defectsAsSup: { some: { oemId: session.user.companyId } } },
+        { ppapAsSup: { some: { oemId: session.user.companyId } } },
+        { iqcAsSup: { some: { oemId: session.user.companyId } } },
+        { fmeaAsSup: { some: { oemId: session.user.companyId } } },
+        { fieldDefectsAsSup: { some: { oemId: session.user.companyId } } },
+        { devPlansAsSupplier: { some: { oemId: session.user.companyId } } },
+      ],
+    },
+    select: { id: true },
+  })
+  if (!isAssociated) return []
+
   return prisma.user.findMany({
     where: { companyId: supplierId },
     select: { id: true, name: true },

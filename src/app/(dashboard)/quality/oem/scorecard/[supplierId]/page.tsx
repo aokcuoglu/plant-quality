@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { Button } from "@/components/ui/button"
-import { requireFeature } from "@/lib/billing"
+import { requireFeature, normalizePlan, canUseFeature } from "@/lib/billing"
 import { getSupplierScorecardDetail } from "@/lib/supplier-scorecard"
 import { GRADE_CONFIG, RISK_LEVEL_CONFIG, PENALTY_CONFIG } from "@/lib/supplier-scorecard/scoring"
 
@@ -232,10 +232,14 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
           <div className="rounded-lg border bg-card p-4">
             <h2 className="text-sm font-semibold text-foreground mb-3">Development Plan</h2>
             <p className="text-sm text-muted-foreground mb-3">Create a supplier development action plan to address quality issues.</p>
-            <Link href={`/quality/oem/supplier-development/new?supplierId=${encodeURIComponent(supplier.supplierId)}&sourceType=SCORECARD`} className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
-              <TargetIcon className="h-4 w-4" />
-              Create Development Plan
-            </Link>
+            {canUseFeature(normalizePlan(session.user.plan), session.user.companyType, "SUPPLIER_DEVELOPMENT") ? (
+              <Link href={`/quality/oem/supplier-development/new?supplierId=${encodeURIComponent(supplier.supplierId)}&sourceType=SCORECARD`} className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+                <TargetIcon className="h-4 w-4" />
+                Create Development Plan
+              </Link>
+            ) : (
+              <p className="text-xs text-muted-foreground">Upgrade to Enterprise to create development plans.</p>
+            )}
           </div>
         </div>
       </div>

@@ -12,12 +12,14 @@ import {
   FileCheckIcon,
   ClipboardCheckIcon,
   TrendingUpIcon,
+  BarChart3Icon,
 } from "lucide-react"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { DashboardCard } from "@/components/layout/DashboardCard"
 import { Button } from "@/components/ui/button"
 import { getIntelligenceData } from "@/app/(dashboard)/quality/intelligence-actions"
 import { RISK_LEVEL_CONFIG } from "@/lib/quality-intelligence"
+import { requireFeature } from "@/lib/billing"
 
 function RankingTable({
   title,
@@ -164,9 +166,32 @@ function SignalPanel({
 
 export default async function QualityIntelligencePage() {
   const session = await auth()
-  if (!session || session.user.companyType !== "OEM") redirect("/login")
+  if (!session?.user?.companyId || session.user.companyType !== "OEM") redirect("/login")
+
+  const featureGate = requireFeature(session, "QUALITY_INTELLIGENCE")
+  if (!featureGate.allowed) {
+    return (
+      <div className="space-y-6">
+        <PageHeader title="Quality Intelligence" description="Risk signals, supplier analysis, and cross-module quality insights" />
+        <div className="rounded-lg border border-dashed bg-card p-8 text-center">
+          <BarChart3Icon className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
+          <h3 className="text-lg font-semibold text-foreground">Quality Intelligence</h3>
+          <p className="text-sm text-muted-foreground mt-1">
+            Upgrade to Pro to unlock Quality Intelligence analytics, risk signals, and cross-module insights.
+          </p>
+          <Link href="/oem/settings/plan" className="mt-4 inline-block">
+            <Button>
+              <BarChart3Icon className="mr-1.5 h-4 w-4" />
+              Upgrade to Pro
+            </Button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   const data = await getIntelligenceData()
+
   if (!data) redirect("/login")
 
   const { isEnterprise } = data

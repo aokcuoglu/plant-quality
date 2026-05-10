@@ -1,3 +1,152 @@
+# PlantQuality v2.9.2 — Release Notes
+
+## Final Manual QA + Demo Polish
+
+**Release Date:** 2026-05-10  
+**Version:** 2.9.2
+
+---
+
+## Summary
+
+PlantQuality v2.9.2 is a final QA and demo polish patch preparing the product for v3.0.0 commercial readiness. It fixes navigation, access control, and UI issues discovered during end-to-end manual QA; adds missing demo data for complete realistic demo scenarios; polishes empty states; and hardens role/plan gating. No major new features are introduced.
+
+---
+
+## Bug Fixes
+
+### Quality Intelligence — Missing Upgrade CTA for FREE OEM Users
+
+- **Problem:** The Quality Intelligence page relied on `getIntelligenceData()` returning `null` for unauthorized users, which triggered `redirect("/login")`. FREE OEM users saw a confusing login redirect instead of an upgrade prompt.
+- **Fix:** Added explicit `requireFeature(session, "QUALITY_INTELLIGENCE")` check at the page level with a Proper upgrade CTA (matching the pattern used by Executive Cockpit, Scorecard, and Supplier Development pages). FREE OEM users now see "Upgrade to Pro" instead of a login redirect.
+- Added `session?.user?.companyId` to the guard clause for consistency with other OEM pages.
+
+### Sidebar — Full Page Reloads on Navigation
+
+- **Problem:** `<SidebarLink>` used raw `<a>` tags, causing full page reloads on every sidebar navigation click.
+- **Fix:** Replaced `<a>` with Next.js `<Link>` for client-side transitions, matching standard Next.js routing patterns.
+
+### Upgrade Flow — Inconsistent Upgrade Experience in 8D Wizard
+
+- **Problem:** `UpgradeModal` used a `mailto:sales@plantx.com` link, directing users to email instead of using the in-app `UpgradeRequestDialog`. This was inconsistent with every other upgrade CTA in the app.
+- **Fix:** Replaced the `mailto:` button with the existing `UpgradeRequestDialog` component, which submits an in-app upgrade request. Users on the 8D wizard now get the same upgrade experience as everywhere else.
+
+### Quality Linkage — Inconsistent Plan Upgrade Link
+
+- **Problem:** The Quality Linkage panel's upgrade link pointed to `/quality/oem/settings/plan` instead of the canonical `/oem/settings/plan`. While it worked via redirect, it was inconsistent with 7 other upgrade links.
+- **Fix:** Changed to `/oem/settings/plan`.
+
+### OEM Defects/Field Pages — Missing `companyId` in Session Guard
+
+- **Problem:** Both pages used `if (!session || session.user.companyType !== "OEM")` without checking `session?.user?.companyId`. Other OEM pages consistently check both.
+- **Fix:** Updated to `if (!session?.user?.companyId || session.user.companyType !== "OEM")` for consistency.
+
+### Chart Components — Turkish Language Strings in Empty States
+
+- **Problem:** `StatusDonut`, `SupplierBar`, and `TrendArea` chart components displayed "Yeterli veri birikmedi" (Turkish) instead of "Not enough data" (English) in their empty-state fallbacks. `CustomerBar` correctly used English.
+- **Fix:** Replaced Turkish strings with "Not enough data" in all three components.
+
+### Navigation — Sidebar Label Mismatch
+
+- **Problem:** Sidebar label "Development Plans" did not match the page title "Supplier Development", potentially confusing users.
+- **Fix:** Updated sidebar label to "Supplier Development".
+
+---
+
+## Demo Data Polish
+
+### New Enterprise QE User
+
+- Added `oem-enterprise-qe` (qe-enterprise@oem.com) — QUALITY_ENGINEER role at Enterprise Motors Group. Previously, Enterprise only had an admin user, making role-based testing impossible.
+
+### IQC Checklist Items (5 Reports)
+
+- Added 6–9 checklist items each for `iqc-isolation-b` (ACCEPTED), `iqc-ent-001` (REJECTED with NOK items), `iqc-ent-002` (ON_HOLD with NOK items), `iqc-intel-001` (REJECTED with ultrasonic failure), and `iqc-intel-002` (ON_HOLD with surface pitting). Previously, these 5 IQC reports showed empty checklists on their detail pages.
+
+### IQC Events (5 Reports)
+
+- Added CREATED + COMPLETED/FAILED events for `iqc-isolation-b`, `iqc-ent-001`, `iqc-ent-002`, `iqc-intel-001`, and `iqc-intel-002`. Previously, these IQC reports had empty event timelines.
+
+### PPAP Evidence (2 Submissions)
+
+- `ppap-isolation-b`: Added 6 evidence records (3 UPLOADED, 3 MISSING) with document names and file sizes.
+- `ppap-ent-001`: Added 8 APPROVED evidence records with reviewer info and timestamps. Previously, both PPAPs showed empty evidence tables.
+
+### PPAP Events (2 Submissions)
+
+- `ppap-isolation-b`: Added PPAP_CREATED + PPAP_SUBMITTED events.
+- `ppap-ent-001`: Added PPAP_CREATED + PPAP_SUBMITTED + PPAP_APPROVED events. Previously, both PPAPs had empty event timelines.
+
+### FMEA Events (2 Records)
+
+- `fmea-isolation-b`: Added FMEA_CREATED event.
+- `fmea-ent-001`: Added FMEA_CREATED + FMEA_SUBMITTED events. Previously, both FMEAs had empty event timelines.
+
+### Defect Events (All Seeded Defects)
+
+- Added lifecycle events for all 9 seeded defects: CREATED events, status change events (EIGHT_D_STARTED, APPROVED), and escalation events where applicable. Previously, all defect detail pages showed empty event timelines.
+
+### Notifications (11 Notifications)
+
+- Added 11 notifications across PRO OEM (5), ENTERPRISE OEM (4), and SUPPLIER A (2) users, covering NEW_DEFECT, IQC_FAILED, PPAP_SUBMITTED, FIELD_DEFECT_CREATED, PPAP_APPROVED, SLA_DUE_SOON, FMEA_STATUS_CHANGED, DEV_PLAN_ACTION_REQUIRED, and FIELD_DEFECT_ASSIGNED types. Previously, the notification bell was always empty in demo.
+
+---
+
+## Cross-Module Drill-Down Verification
+
+- All drill-down links verified as internal, access-safe, and supplier-context-preserving.
+- Quality Intelligence `cat:` and `subcat:` filter params in RankingTable links navigate to the field page but are not parsed by the field quality filter system (informational — links work, filters just don't apply).
+- Escalations and Quality Intelligence do not support `?supplierId=` filtering (acceptable — these modules don't have per-supplier views).
+
+---
+
+## Security/Supplier Isolation Verification
+
+- All OEM pages restrict supplier users via `companyType !== "OEM"` checks.
+- All supplier pages restrict OEM users via `companyType !== "SUPPLIER"` checks.
+- All Prisma queries scoped by `companyId` from session.
+- No client-provided `companyId` is trusted.
+- Direct URL access protected at the page level.
+- No Next.js middleware for route-level defense (optional future improvement).
+
+---
+
+## No New Product Scope
+
+This patch introduces no new features, modules, or product scope changes. All changes are QA fixes, demo data additions, and polish.
+
+---
+
+## No Schema Changes
+
+No Prisma schema changes or migrations required for v2.9.2. All new demo data uses existing models.
+
+---
+
+## Files Changed
+
+### Modified Files
+
+- `package.json` — Version 2.9.2
+- `prisma/seed.ts` — Enterprise QE user, IQC checklist items (5 reports), IQC events (10), PPAP evidence (14 items), PPAP events (5), FMEA events (3), defect events (12), notifications (11)
+- `src/app/(dashboard)/layout.tsx` — Nav label "Development Plans" → "Supplier Development"
+- `src/app/(dashboard)/quality/oem/defects/page.tsx` — Added companyId to guard clause
+- `src/app/(dashboard)/quality/oem/field/page.tsx` — Added companyId to guard clause
+- `src/app/(dashboard)/quality/oem/quality-intelligence/page.tsx` — Added requireFeature check with upgrade CTA, companyId guard, BarChart3Icon import, requireFeature import
+- `src/components/layout/Sidebar.tsx` — Changed `<a>` to `<Link>`, added Link import
+- `src/components/defects/UpgradeModal.tsx` — Replaced mailto: with in-app UpgradeRequestDialog
+- `src/components/quality-linkage/related-records-panel.tsx` — Fixed upgrade link to canonical route
+- `src/components/dashboard/StatusDonut.tsx` — Turkish → English empty state text
+- `src/components/dashboard/TrendArea.tsx` — Turkish → English empty state text
+- `src/components/dashboard/SupplierBar.tsx` — Turkish → English empty state text
+
+### New Files
+
+- `docs/qa/v2.9.2-plantquality-final-manual-qa.md` — QA documentation
+- `docs/roadmap/plantquality-v3-commercial-readiness.md` — v3.0.0 readiness notes
+
+---
+
 # PlantQuality v2.9.1 — Release Notes
 
 ## Supplier Development Workflow Polish

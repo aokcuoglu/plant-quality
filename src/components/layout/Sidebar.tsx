@@ -25,6 +25,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 import {
   Tooltip,
@@ -241,7 +242,7 @@ function SidebarLink({
   const Icon = ICON_MAP[item.icon]
 
   const link = (
-      <a
+      <Link
       href={item.href}
       className={cn(
         "group flex items-center rounded-lg text-sm font-medium border-l-0 transition-all hover:text-sidebar-accent-foreground hover:bg-sidebar-accent",
@@ -260,7 +261,7 @@ function SidebarLink({
       >
         {item.label}
       </span>
-    </a>
+    </Link>
   )
 
   if (isCollapsed) {

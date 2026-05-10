@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/quality/oem/quality-intelligence", label: "Intelligence", icon: "BarChart3Icon" as const, gate: "QUALITY_INTELLIGENCE" },
         { href: "/quality/oem/executive", label: "Executive Cockpit", icon: "GaugeIcon" as const, gate: "EXECUTIVE_COCKPIT" },
         { href: "/quality/oem/scorecard", label: "Scorecard", icon: "AwardIcon" as const, gate: "SUPPLIER_SCORECARD" },
-        { href: "/quality/oem/supplier-development", label: "Development Plans", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
+        { href: "/quality/oem/supplier-development", label: "Supplier Development", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
         { href: "/quality/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const, gate: "PPAP" },
         { href: "/quality/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
         { href: "/quality/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },

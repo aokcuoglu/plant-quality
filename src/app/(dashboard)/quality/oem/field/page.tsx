@@ -57,7 +57,7 @@ export default async function OemFieldPage({
   searchParams: Promise<{ filter?: string; q?: string; page?: string; supplierId?: string }>
 }) {
   const session = await auth()
-  if (!session || session.user.companyType !== "OEM") redirect("/login")
+  if (!session?.user?.companyId || session.user.companyType !== "OEM") redirect("/login")
 
   const params = await searchParams
   const filter = params.filter ?? ""

@@ -18,7 +18,7 @@ export default async function DefectsPage({
   searchParams: Promise<{ filter?: string; q?: string; page?: string; supplierId?: string }>
 }) {
   const session = await auth()
-  if (!session || session.user.companyType !== "OEM") redirect("/login")
+  if (!session?.user?.companyId || session.user.companyType !== "OEM") redirect("/login")
 
   const { filter, q, page: pageStr, supplierId } = await searchParams
   const search = q || undefined

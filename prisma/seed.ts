@@ -100,6 +100,13 @@ async function main() {
       companyId: oemEnterpriseCompany.id,
     },
     {
+      id: "oem-enterprise-qe",
+      email: "qe-enterprise@oem.com",
+      name: "Enterprise QE Engineer",
+      role: "QUALITY_ENGINEER" as const,
+      companyId: oemEnterpriseCompany.id,
+    },
+    {
       id: "oem-admin",
       email: "admin@oem.com",
       name: "OEM Admin",
@@ -1555,9 +1562,178 @@ async function main() {
   await prisma.iqcReport.deleteMany({ where: { id: "iqc-intel-002" } }).catch(() => {});
   await prisma.iqcReport.create({ data: intelIqcSecond });
 
+  // ── v2.9.2 Demo Data Polish ────────────────────────────────────────
+
+  // Clean up existing v2.9.2 data before re-seeding
+  await prisma.notification.deleteMany({ where: { id: { in: ["notif-001", "notif-002", "notif-003", "notif-004", "notif-005", "notif-006", "notif-007", "notif-008", "notif-009", "notif-010", "notif-011"] } } }).catch(() => {});
+  await prisma.defectEvent.deleteMany({ where: { id: { in: ["de-001-1", "de-002-1", "de-002-2", "de-003-1", "de-004-1", "de-004-2", "de-free1-1", "de-free2-1", "de-free2-2", "de-ent1-1", "de-ent2-1", "de-ent2-2", "de-isob-1"] } } }).catch(() => {});
+  await prisma.fmeaEvent.deleteMany({ where: { id: { in: ["fmea-evt-isob-1", "fmea-evt-ent1-1", "fmea-evt-ent1-2"] } } }).catch(() => {});
+  await prisma.ppapEvent.deleteMany({ where: { id: { in: ["ppevt-isob-1", "ppevt-isob-2", "ppevt-ent1-1", "ppevt-ent1-2", "ppevt-ent1-3"] } } }).catch(() => {});
+  await prisma.ppapEvidence.deleteMany({ where: { id: { in: ["ppe-isob-01", "ppe-isob-02", "ppe-isob-03", "ppe-isob-04", "ppe-isob-05", "ppe-isob-06", "ppe-ent1-01", "ppe-ent1-02", "ppe-ent1-03", "ppe-ent1-04", "ppe-ent1-05", "ppe-ent1-06", "ppe-ent1-07", "ppe-ent1-08"] } } }).catch(() => {});
+  await prisma.iqcEvent.deleteMany({ where: { id: { in: ["iqc-evt-isob-c", "iqc-evt-isob-d", "iqc-evt-ent1-c", "iqc-evt-ent1-f", "iqc-evt-ent2-c", "iqc-evt-ent2-d", "iqc-evt-int1-c", "iqc-evt-int1-f", "iqc-evt-int2-c", "iqc-evt-int2-d"] } } }).catch(() => {});
+  await prisma.iqcChecklistItem.deleteMany({ where: { id: { in: ["iqc-cli-isob-01", "iqc-cli-isob-02", "iqc-cli-isob-03", "iqc-cli-isob-04", "iqc-cli-isob-05", "iqc-cli-isob-06", "iqc-cli-ent1-01", "iqc-cli-ent1-02", "iqc-cli-ent1-03", "iqc-cli-ent1-04", "iqc-cli-ent1-05", "iqc-cli-ent1-06", "iqc-cli-ent1-07", "iqc-cli-ent1-08", "iqc-cli-ent1-09", "iqc-cli-ent2-01", "iqc-cli-ent2-02", "iqc-cli-ent2-03", "iqc-cli-ent2-04", "iqc-cli-ent2-05", "iqc-cli-ent2-06", "iqc-cli-intel1-01", "iqc-cli-intel1-02", "iqc-cli-intel1-03", "iqc-cli-intel1-04", "iqc-cli-intel1-05", "iqc-cli-intel2-01", "iqc-cli-intel2-02", "iqc-cli-intel2-03", "iqc-cli-intel2-04", "iqc-cli-intel2-05"] } } }).catch(() => {});
+
+  // Enterprise QE user (added above in users array)
+
+  // IQC Checklist Items for v2.6.1/v2.8.2/v2.9.0 IQC reports that had none
+  await prisma.iqcChecklistItem.createMany({
+    data: [
+      // iqc-isolation-b (COMPLETED/ACCEPTED) — all OK
+      { id: "iqc-cli-isob-01", iqcInspectionId: "iqc-isolation-b", itemName: "Packaging Condition", requirement: "No visible damage on packaging", result: "OK" as const },
+      { id: "iqc-cli-isob-02", iqcInspectionId: "iqc-isolation-b", itemName: "Label / Traceability Check", requirement: "Labels match PO and part number", result: "OK" as const },
+      { id: "iqc-cli-isob-03", iqcInspectionId: "iqc-isolation-b", itemName: "Visual Inspection", requirement: "No visible defects or surface irregularities", result: "OK" as const },
+      { id: "iqc-cli-isob-04", iqcInspectionId: "iqc-isolation-b", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances", result: "OK" as const },
+      { id: "iqc-cli-isob-05", iqcInspectionId: "iqc-isolation-b", itemName: "Material Certificate Check", requirement: "Material certification matches specification", result: "OK" as const },
+      { id: "iqc-cli-isob-06", iqcInspectionId: "iqc-isolation-b", itemName: "Quantity Check", requirement: "Received quantity matches PO", result: "OK" as const },
+
+      // iqc-ent-001 (COMPLETED/REJECTED) — some NOK
+      { id: "iqc-cli-ent1-01", iqcInspectionId: "iqc-ent-001", itemName: "Packaging Condition", requirement: "No visible damage on packaging", result: "OK" as const },
+      { id: "iqc-cli-ent1-02", iqcInspectionId: "iqc-ent-001", itemName: "Label / Traceability Check", requirement: "Labels match PO and part number", result: "OK" as const },
+      { id: "iqc-cli-ent1-03", iqcInspectionId: "iqc-ent-001", itemName: "Visual Inspection", requirement: "No visible defects or surface irregularities", result: "NOK" as const, comment: "Surface cracking observed on 12 units" },
+      { id: "iqc-cli-ent1-04", iqcInspectionId: "iqc-ent-001", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances", result: "OK" as const },
+      { id: "iqc-cli-ent1-05", iqcInspectionId: "iqc-ent-001", itemName: "Functional Check", requirement: "Part functions as intended per specification", result: "NOK" as const, comment: "Fatigue pre-screening failure on 12 of 15 samples" },
+      { id: "iqc-cli-ent1-06", iqcInspectionId: "iqc-ent-001", itemName: "Material Certificate Check", requirement: "Material certification matches specification", result: "OK" as const },
+      { id: "iqc-cli-ent1-07", iqcInspectionId: "iqc-ent-001", itemName: "Special Characteristic Check", requirement: "Safety critical characteristics verified", result: "NOK" as const, comment: "Inner race surface cracking exceeds limit" },
+      { id: "iqc-cli-ent1-08", iqcInspectionId: "iqc-ent-001", itemName: "Quantity Check", requirement: "Received quantity matches PO", result: "OK" as const },
+      { id: "iqc-cli-ent1-09", iqcInspectionId: "iqc-ent-001", itemName: "Damage Check", requirement: "No shipping damage or impact marks", result: "OK" as const },
+
+      // iqc-ent-002 (COMPLETED/ON_HOLD) — some NOK
+      { id: "iqc-cli-ent2-01", iqcInspectionId: "iqc-ent-002", itemName: "Packaging Condition", requirement: "No visible damage on packaging", result: "OK" as const },
+      { id: "iqc-cli-ent2-02", iqcInspectionId: "iqc-ent-002", itemName: "Visual Inspection", requirement: "No visible defects or surface irregularities", result: "NOK" as const, comment: "Corrosion pitting on 6 units" },
+      { id: "iqc-cli-ent2-03", iqcInspectionId: "iqc-ent-002", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances", result: "OK" as const },
+      { id: "iqc-cli-ent2-04", iqcInspectionId: "iqc-ent-002", itemName: "Material Certificate Check", requirement: "Material certification matches specification", result: "NA" as const },
+      { id: "iqc-cli-ent2-05", iqcInspectionId: "iqc-ent-002", itemName: "Quantity Check", requirement: "Received quantity matches PO", result: "OK" as const },
+      { id: "iqc-cli-ent2-06", iqcInspectionId: "iqc-ent-002", itemName: "Special Characteristic Check", requirement: "Safety critical characteristics verified", result: "NOK" as const, comment: "Corrosion pitting on control arm ball joint surface" },
+
+      // iqc-intel-001 (COMPLETED/REJECTED) — ultrasonic failure
+      { id: "iqc-cli-intel1-01", iqcInspectionId: "iqc-intel-001", itemName: "Ultrasonic Testing", requirement: "No internal cracks detected via ultrasonic testing", result: "NOK" as const, comment: "Casting crack detected on 8 units during ultrasonic testing" },
+      { id: "iqc-cli-intel1-02", iqcInspectionId: "iqc-intel-001", itemName: "Visual Inspection", requirement: "No visible surface defects", result: "OK" as const },
+      { id: "iqc-cli-intel1-03", iqcInspectionId: "iqc-intel-001", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances", result: "OK" as const },
+      { id: "iqc-cli-intel1-04", iqcInspectionId: "iqc-intel-001", itemName: "Material Certificate Check", requirement: "Material certification matches specification", result: "OK" as const },
+      { id: "iqc-cli-intel1-05", iqcInspectionId: "iqc-intel-001", itemName: "Quantity Check", requirement: "Received quantity matches PO", result: "OK" as const },
+
+      // iqc-intel-002 (COMPLETED/ON_HOLD) — surface pitting
+      { id: "iqc-cli-intel2-01", iqcInspectionId: "iqc-intel-002", itemName: "Visual Inspection", requirement: "No visible surface defects or pitting", result: "NOK" as const, comment: "Surface pitting on sealing surface of 5 units" },
+      { id: "iqc-cli-intel2-02", iqcInspectionId: "iqc-intel-002", itemName: "Dimensional Check", requirement: "Critical dimensions within specified tolerances", result: "OK" as const },
+      { id: "iqc-cli-intel2-03", iqcInspectionId: "iqc-intel-002", itemName: "Material Certificate Check", requirement: "Material certification matches specification", result: "OK" as const },
+      { id: "iqc-cli-intel2-04", iqcInspectionId: "iqc-intel-002", itemName: "Quantity Check", requirement: "Received quantity matches PO", result: "OK" as const },
+      { id: "iqc-cli-intel2-05", iqcInspectionId: "iqc-intel-002", itemName: "Special Characteristic Check", requirement: "Safety critical characteristics verified", result: "PENDING" as const },
+    ],
+  });
+
+  // IQC Events for IQC reports that had none
+  await prisma.iqcEvent.createMany({
+    data: [
+      { id: "iqc-evt-isob-c", reportId: "iqc-isolation-b", type: "IQC_CREATED" as const, actorId: "oem-quality", createdAt: new Date("2026-04-22T09:00:00Z") },
+      { id: "iqc-evt-isob-d", reportId: "iqc-isolation-b", type: "IQC_COMPLETED" as const, actorId: "oem-quality", createdAt: new Date("2026-04-23T14:00:00Z") },
+      { id: "iqc-evt-ent1-c", reportId: "iqc-ent-001", type: "IQC_CREATED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-04-05T08:00:00Z") },
+      { id: "iqc-evt-ent1-f", reportId: "iqc-ent-001", type: "IQC_FAILED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-04-06T16:00:00Z") },
+      { id: "iqc-evt-ent2-c", reportId: "iqc-ent-002", type: "IQC_CREATED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-04-18T09:00:00Z") },
+      { id: "iqc-evt-ent2-d", reportId: "iqc-ent-002", type: "IQC_COMPLETED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-04-19T11:00:00Z") },
+      { id: "iqc-evt-int1-c", reportId: "iqc-intel-001", type: "IQC_CREATED" as const, actorId: "oem-quality", createdAt: new Date("2026-03-10T08:00:00Z") },
+      { id: "iqc-evt-int1-f", reportId: "iqc-intel-001", type: "IQC_FAILED" as const, actorId: "oem-quality", createdAt: new Date("2026-03-12T14:00:00Z") },
+      { id: "iqc-evt-int2-c", reportId: "iqc-intel-002", type: "IQC_CREATED" as const, actorId: "oem-quality", createdAt: new Date("2026-04-25T08:00:00Z") },
+      { id: "iqc-evt-int2-d", reportId: "iqc-intel-002", type: "IQC_COMPLETED" as const, actorId: "oem-quality", createdAt: new Date("2026-04-26T15:00:00Z") },
+    ],
+  });
+
+  // PPAP Evidence for ppap-isolation-b (SUBMITTED) and ppap-ent-001 (APPROVED)
+  await prisma.ppapEvidence.createMany({
+    data: [
+      // ppap-isolation-b (SUBMITTED) — mixed status
+      { id: "ppe-isob-01", ppapId: "ppap-isolation-b", requirement: "DESIGN_RECORDS" as const, status: "UPLOADED" as const, companyId: oemProCompany.id, uploadedById: "steelforged-engineer", fileName: "design_records_sf.pdf", mimeType: "application/pdf", sizeBytes: 245000 },
+      { id: "ppe-isob-02", ppapId: "ppap-isolation-b", requirement: "PROCESS_FMEA" as const, status: "UPLOADED" as const, companyId: oemProCompany.id, uploadedById: "steelforged-engineer", fileName: "pfmea_sf.pdf", mimeType: "application/pdf", sizeBytes: 189000 },
+      { id: "ppe-isob-03", ppapId: "ppap-isolation-b", requirement: "CONTROL_PLAN" as const, status: "UPLOADED" as const, companyId: oemProCompany.id, uploadedById: "steelforged-engineer", fileName: "control_plan_sf.pdf", mimeType: "application/pdf", sizeBytes: 156000 },
+      { id: "ppe-isob-04", ppapId: "ppap-isolation-b", requirement: "DIMENSIONAL_RESULTS" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+      { id: "ppe-isob-05", ppapId: "ppap-isolation-b", requirement: "MATERIAL_PERFORMANCE_RESULTS" as const, status: "MISSING" as const, companyId: oemProCompany.id },
+      { id: "ppe-isob-06", ppapId: "ppap-isolation-b", requirement: "PART_SUBMISSION_WARRANT" as const, status: "UPLOADED" as const, companyId: oemProCompany.id, uploadedById: "steelforged-admin", fileName: "psw_sf.pdf", mimeType: "application/pdf", sizeBytes: 98000 },
+
+      // ppap-ent-001 (APPROVED) — all evidence APPROVED
+      { id: "ppe-ent1-01", ppapId: "ppap-ent-001", requirement: "DESIGN_RECORDS" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-13"), fileName: "design_records_ent.pdf", mimeType: "application/pdf", sizeBytes: 312000 },
+      { id: "ppe-ent1-02", ppapId: "ppap-ent-001", requirement: "PROCESS_FLOW_DIAGRAM" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-13"), fileName: "process_flow_ent.pdf", mimeType: "application/pdf", sizeBytes: 145000 },
+      { id: "ppe-ent1-03", ppapId: "ppap-ent-001", requirement: "PROCESS_FMEA" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-13"), fileName: "pfmea_ent.pdf", mimeType: "application/pdf", sizeBytes: 267000 },
+      { id: "ppe-ent1-04", ppapId: "ppap-ent-001", requirement: "CONTROL_PLAN" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-13"), fileName: "control_plan_ent.pdf", mimeType: "application/pdf", sizeBytes: 178000 },
+      { id: "ppe-ent1-05", ppapId: "ppap-ent-001", requirement: "MEASUREMENT_SYSTEM_ANALYSIS" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-14"), fileName: "msa_ent.pdf", mimeType: "application/pdf", sizeBytes: 134000 },
+      { id: "ppe-ent1-06", ppapId: "ppap-ent-001", requirement: "DIMENSIONAL_RESULTS" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-14"), fileName: "dim_results_ent.pdf", mimeType: "application/pdf", sizeBytes: 289000 },
+      { id: "ppe-ent1-07", ppapId: "ppap-ent-001", requirement: "MATERIAL_PERFORMANCE_RESULTS" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-engineer", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-14"), fileName: "material_results_ent.pdf", mimeType: "application/pdf", sizeBytes: 201000 },
+      { id: "ppe-ent1-08", ppapId: "ppap-ent-001", requirement: "PART_SUBMISSION_WARRANT" as const, status: "APPROVED" as const, companyId: oemEnterpriseCompany.id, uploadedById: "supplier-admin", reviewedById: "oem-enterprise-admin", reviewedAt: new Date("2026-03-15"), fileName: "psw_ent.pdf", mimeType: "application/pdf", sizeBytes: 87000 },
+    ],
+  });
+
+  // PPAP Events for ppap-isolation-b and ppap-ent-001
+  await prisma.ppapEvent.createMany({
+    data: [
+      { id: "ppevt-isob-1", ppapId: "ppap-isolation-b", type: "PPAP_CREATED" as const, actorId: "oem-quality", createdAt: new Date("2026-04-18T10:00:00Z") },
+      { id: "ppevt-isob-2", ppapId: "ppap-isolation-b", type: "PPAP_SUBMITTED" as const, actorId: "steelforged-engineer", createdAt: new Date("2026-04-20T14:00:00Z") },
+
+      { id: "ppevt-ent1-1", ppapId: "ppap-ent-001", type: "PPAP_CREATED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-03-08T09:00:00Z") },
+      { id: "ppevt-ent1-2", ppapId: "ppap-ent-001", type: "PPAP_SUBMITTED" as const, actorId: "supplier-engineer", createdAt: new Date("2026-03-10T11:00:00Z") },
+      { id: "ppevt-ent1-3", ppapId: "ppap-ent-001", type: "PPAP_APPROVED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-03-15T16:00:00Z") },
+    ],
+  });
+
+  // FMEA Events for fmea-isolation-b and fmea-ent-001
+  await prisma.fmeaEvent.createMany({
+    data: [
+      { id: "fmea-evt-isob-1", fmeaId: "fmea-isolation-b", type: "FMEA_CREATED" as const, actorId: "oem-quality", createdAt: new Date("2026-04-20T10:00:00Z") },
+      { id: "fmea-evt-ent1-1", fmeaId: "fmea-ent-001", type: "FMEA_CREATED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-04-10T09:00:00Z") },
+      { id: "fmea-evt-ent1-2", fmeaId: "fmea-ent-001", type: "FMEA_SUBMITTED" as const, actorId: "oem-enterprise-admin", createdAt: new Date("2026-04-15T14:00:00Z") },
+    ],
+  });
+
+  // Defect Events for all seeded defects
+  await prisma.defectEvent.createMany({
+    data: [
+      // defect-001 (OPEN)
+      { id: "de-001-1", defectId: "defect-001", type: "CREATED" as const, actorId: "oem-quality", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-01T09:00:00Z") },
+      // defect-002 (IN_PROGRESS)
+      { id: "de-002-1", defectId: "defect-002", type: "CREATED" as const, actorId: "oem-quality", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-05T10:00:00Z") },
+      { id: "de-002-2", defectId: "defect-002", type: "EIGHT_D_STARTED" as const, actorId: "oem-quality", metadata: { status: "IN_PROGRESS" }, createdAt: new Date("2026-04-08T14:00:00Z") },
+      // defect-003 (OPEN, LEVEL_1 escalation)
+      { id: "de-003-1", defectId: "defect-003", type: "CREATED" as const, actorId: "oem-quality", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-12T08:00:00Z") },
+      // defect-004 (RESOLVED)
+      { id: "de-004-1", defectId: "defect-004", type: "CREATED" as const, actorId: "oem-quality", metadata: { status: "OPEN" }, createdAt: new Date("2026-03-15T09:00:00Z") },
+      { id: "de-004-2", defectId: "defect-004", type: "APPROVED" as const, actorId: "oem-admin", metadata: { status: "RESOLVED" }, createdAt: new Date("2026-04-01T16:00:00Z") },
+      // defect-free-001 (OPEN)
+      { id: "de-free1-1", defectId: "defect-free-001", type: "CREATED" as const, actorId: "oem-free-admin", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-20T10:00:00Z") },
+      // defect-free-002 (IN_PROGRESS)
+      { id: "de-free2-1", defectId: "defect-free-002", type: "CREATED" as const, actorId: "oem-free-admin", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-22T08:00:00Z") },
+      { id: "de-free2-2", defectId: "defect-free-002", type: "EIGHT_D_STARTED" as const, actorId: "oem-free-admin", metadata: { status: "IN_PROGRESS" }, createdAt: new Date("2026-04-24T14:00:00Z") },
+      // defect-ent-001 (OPEN, LEVEL_2 escalation)
+      { id: "de-ent1-1", defectId: "defect-ent-001", type: "CREATED" as const, actorId: "oem-enterprise-admin", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-02T08:00:00Z") },
+      // defect-ent-002 (IN_PROGRESS)
+      { id: "de-ent2-1", defectId: "defect-ent-002", type: "CREATED" as const, actorId: "oem-enterprise-admin", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-10T09:00:00Z") },
+      { id: "de-ent2-2", defectId: "defect-ent-002", type: "EIGHT_D_STARTED" as const, actorId: "oem-enterprise-admin", metadata: { status: "IN_PROGRESS" }, createdAt: new Date("2026-04-12T11:00:00Z") },
+      // defect-isolation-b (OPEN)
+      { id: "de-isob-1", defectId: "defect-isolation-b", type: "CREATED" as const, actorId: "oem-quality", metadata: { status: "OPEN" }, createdAt: new Date("2026-04-25T10:00:00Z") },
+    ],
+  });
+
+  // Notifications for demo realism
+  await prisma.notification.createMany({
+    data: [
+      // PRO OEM notifications
+      { id: "notif-001", userId: "oem-pro-admin", companyId: oemProCompany.id, type: "NEW_DEFECT" as const, title: "New Defect Reported", message: "Surface porosity on cylinder head AX-7420-B reported by Precision Parts.", entityType: "DEFECT", entityId: "defect-001", link: "/quality/oem/defects/defect-001", isRead: false, createdAt: new Date("2026-05-01T09:00:00Z") },
+      { id: "notif-002", userId: "oem-pro-admin", companyId: oemProCompany.id, type: "IQC_FAILED" as const, title: "IQC Rejected", message: "IQC-2026-0001 for AX-7420-B has been rejected. 5 units failed inspection.", entityType: "IQC", entityId: "iqc-001", link: "/quality/oem/iqc/iqc-001", isRead: false, createdAt: new Date("2026-05-01T10:30:00Z") },
+      { id: "notif-003", userId: "oem-pro-qe", companyId: oemProCompany.id, type: "PPAP_SUBMITTED" as const, title: "PPAP Submitted", message: "SteelForged has submitted PPAP-SF-7420 for AX-7420-B Cylinder Head Casting.", entityType: "PPAP", entityId: "ppap-isolation-b", link: "/quality/oem/ppap/ppap-isolation-b", isRead: false, createdAt: new Date("2026-04-20T14:00:00Z") },
+      { id: "notif-004", userId: "oem-quality", companyId: oemProCompany.id, type: "FIELD_DEFECT_CREATED" as const, title: "Field Defect Reported", message: "Critical field defect: Intermittent power steering failure on BR-1122-C.", entityType: "FIELD_DEFECT", entityId: "fd-002", link: "/quality/oem/field/fd-002", isRead: true, createdAt: new Date("2026-04-28T11:00:00Z") },
+      { id: "notif-005", userId: "oem-quality", companyId: oemProCompany.id, type: "PPAP_APPROVED" as const, title: "PPAP Approved", message: "PPAP-QJ8R5N for CS-3344-D (SteelForged) has been approved.", entityType: "PPAP", entityId: "ppap-003", link: "/quality/oem/ppap/ppap-003", isRead: true, createdAt: new Date("2026-04-15T16:00:00Z") },
+
+      // ENTERPRISE OEM notifications
+      { id: "notif-006", userId: "oem-enterprise-admin", companyId: oemEnterpriseCompany.id, type: "NEW_DEFECT" as const, title: "Critical Defect Reported", message: "Catastrophic bearing failure on ENG-5500-X. Level 2 escalation triggered.", entityType: "DEFECT", entityId: "defect-ent-001", link: "/quality/oem/defects/defect-ent-001", isRead: false, createdAt: new Date("2026-05-02T08:00:00Z") },
+      { id: "notif-007", userId: "oem-enterprise-admin", companyId: oemEnterpriseCompany.id, type: "SLA_DUE_SOON" as const, title: "SLA Due Soon", message: "Development plan 'Quality Improvement — AX-7420-B Bearing Failure' is due in 30 days.", entityType: "DEV_PLAN", entityId: "dev-plan-001", link: "/quality/oem/supplier-development/dev-plan-001", isRead: false, createdAt: new Date("2026-05-08T09:00:00Z") },
+      { id: "notif-008", userId: "oem-enterprise-qe", companyId: oemEnterpriseCompany.id, type: "IQC_FAILED" as const, title: "IQC Rejected", message: "IQC-ENT-5500-001 for ENG-5500-X has been rejected. 12 units failed.", entityType: "IQC", entityId: "iqc-ent-001", link: "/quality/oem/iqc/iqc-ent-001", isRead: false, createdAt: new Date("2026-04-06T16:00:00Z") },
+      { id: "notif-009", userId: "oem-enterprise-qe", companyId: oemEnterpriseCompany.id, type: "FMEA_STATUS_CHANGED" as const, title: "FMEA Status Update", message: "FMEA-ENT-5500 for ENG-5500-X has been submitted for review.", entityType: "FMEA", entityId: "fmea-ent-001", link: "/quality/oem/fmea/fmea-ent-001", isRead: true, createdAt: new Date("2026-04-15T14:00:00Z") },
+
+      // SUPPLIER A notifications
+      { id: "notif-010", userId: "supplier-admin", companyId: supplierCompany.id, type: "DEV_PLAN_ACTION_REQUIRED" as const, title: "Action Required", message: "Development plan 'Quality Improvement — AX-7420-B Bearing Failure' requires your action.", entityType: "DEV_PLAN", entityId: "dev-plan-001", link: "/quality/supplier/development/dev-plan-001", isRead: false, createdAt: new Date("2026-05-03T10:00:00Z") },
+      { id: "notif-011", userId: "supplier-engineer", companyId: supplierCompany.id, type: "FIELD_DEFECT_ASSIGNED" as const, title: "Field Defect Assigned", message: "Brake pedal vibration on AX-7420-B has been assigned to Precision Parts.", entityType: "FIELD_DEFECT", entityId: "fd-001", link: "/quality/supplier/field/fd-001", isRead: false, createdAt: new Date("2026-04-28T11:00:00Z") },
+    ],
+  });
+
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.8.1 Seed completed successfully!");
+  console.log("v2.9.2 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials — LOCAL/DEV ONLY) ===");
   console.log("");
@@ -1572,6 +1748,7 @@ async function main() {
   console.log("");
   console.log("ENTERPRISE OEM:");
   console.log("  admin-enterprise@oem.com — Enterprise Motors Group (ENTERPRISE plan, OEM Admin)");
+  console.log("  qe-enterprise@oem.com — Enterprise Motors Group (ENTERPRISE plan, OEM QE)");
   console.log("");
   console.log("SUPPLIER A (Precision Parts):");
   console.log("  admin@supplier.com    — Precision Parts Inc. (FREE, Supplier Admin)");

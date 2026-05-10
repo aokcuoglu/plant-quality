@@ -23,7 +23,7 @@ export function TrendArea({ data }: { data: RawItem[] }) {
   if (chartData.length === 0) {
     return (
       <div className="flex h-[250px] items-center justify-center text-sm text-muted-foreground">
-        Yeterli veri birikmedi
+        Not enough data
       </div>
     )
   }

@@ -7,8 +7,8 @@ while ! nc -z "${POSTGRES_HOST:-db}" "${POSTGRES_PORT:-5432}"; do
 done
 echo "PostgreSQL is ready"
 
-echo "Running Prisma migrations deploy..."
-npx prisma migrate deploy
+echo "Pushing Prisma schema to database..."
+npx prisma db push --accept-data-loss
 
 echo "Generating Prisma client..."
 npx prisma generate

@@ -4,6 +4,18 @@ import type { NextRequest } from "next/server"
 
 const PUBLIC_PATHS = new Set(["/", "/login", "/verify-request"])
 
+const PROTECTED_API_PREFIXES = [
+  "/api/defects",
+  "/api/field",
+  "/api/fmea",
+  "/api/ppap",
+  "/api/ai",
+  "/api/upload",
+  "/api/image",
+  "/api/users",
+  "/api/session",
+]
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const session = await auth()
@@ -16,7 +28,23 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(redirectUrl)
   }
 
-  if (!session && !PUBLIC_PATHS.has(pathname) && !pathname.startsWith("/api")) {
+  if (pathname.startsWith("/api/")) {
+    if (pathname.startsWith("/api/auth") || pathname.startsWith("/api/cron")) {
+      return NextResponse.next()
+    }
+
+    const isProtectedApi = PROTECTED_API_PREFIXES.some(
+      (prefix) => pathname === prefix || pathname.startsWith(prefix + "/"),
+    )
+
+    if (isProtectedApi && !session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    return NextResponse.next()
+  }
+
+  if (!session && !PUBLIC_PATHS.has(pathname) && !pathname.startsWith("/_next")) {
     const loginUrl = request.nextUrl.clone()
     loginUrl.pathname = "/login"
     loginUrl.searchParams.set("redirect", pathname)
@@ -27,5 +55,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 }

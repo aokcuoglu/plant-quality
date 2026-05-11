@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
 import { PPAP_STATUS_LABELS, getPpapStatusColor, PPAP_REQUIREMENTS, isPpapOverdue } from "@/lib/ppap"
-import { normalizePlan, canUseFeature } from "@/lib/billing"
+import { normalizePlan, canUseFeature, requireFeature } from "@/lib/billing"
 import { PpapDetailActions } from "./PpapDetailActions"
 import { PpapDocumentReview } from "./PpapDocumentReview"
 import { PpapReviewCommentForm } from "./PpapReviewCommentForm"
@@ -16,6 +16,9 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
+
+  const ppapGate = requireFeature(session, "PPAP")
+  if (!ppapGate.allowed) redirect("/quality/oem/ppap")
 
   const ppap = await prisma.ppapSubmission.findUnique({
     where: { id },

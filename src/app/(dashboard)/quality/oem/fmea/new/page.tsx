@@ -13,7 +13,17 @@ export default async function NewFmeaPage() {
   if (!featureGate.allowed) redirect("/quality/oem")
 
   const suppliers = await prisma.company.findMany({
-    where: { type: "SUPPLIER" },
+    where: {
+      type: "SUPPLIER",
+      OR: [
+        { defectsAsSup: { some: { oemId: session.user.companyId } } },
+        { ppapAsSup: { some: { oemId: session.user.companyId } } },
+        { iqcAsSup: { some: { oemId: session.user.companyId } } },
+        { fmeaAsSup: { some: { oemId: session.user.companyId } } },
+        { fieldDefectsAsSup: { some: { oemId: session.user.companyId } } },
+        { devPlansAsSupplier: { some: { oemId: session.user.companyId } } },
+      ],
+    },
     select: { id: true, name: true },
     orderBy: { name: "asc" },
   })

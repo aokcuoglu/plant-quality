@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { requireFeature } from "@/lib/billing"
+import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import { revalidatePath } from "next/cache"
 import { getDefaultRequirements, PPAP_REQUIREMENTS } from "@/lib/ppap"
 import type { PpapLevel, PpapReasonForSubmission, PpapSubmissionRequirement } from "@/generated/prisma/client"
@@ -52,6 +53,9 @@ export async function createPpapRequest(formData: FormData) {
     include: { users: { select: { id: true } } },
   })
   if (!supplier) return { success: false, error: "Invalid supplier" }
+
+  const isAssociated = await assertSupplierBelongsToOem(supplierId, session.user.companyId)
+  if (!isAssociated) return { success: false, error: "Supplier is not associated with your company" }
 
   let requirements: Record<string, boolean>
   if (requirementsStr) {

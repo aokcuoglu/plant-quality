@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { requireFeature } from "@/lib/billing"
+import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import { revalidatePath } from "next/cache"
 import { canManageIqc, generateIqcInspectionNumber, IQC_DEFAULT_CHECKLIST, isNegativeResult, IQC_INSPECTION_TYPE_LABELS } from "@/lib/iqc"
 import type { IqcResult, IqcInspectionType, IqcChecklistResult, IqcStatus } from "@/generated/prisma/client"
@@ -42,6 +43,9 @@ export async function createIqcInspection(formData: FormData) {
     include: { users: { select: { id: true } } },
   })
   if (!supplier) return { success: false, error: "Invalid supplier" }
+
+  const isAssociated = await assertSupplierBelongsToOem(supplierId, session.user.companyId)
+  if (!isAssociated) return { success: false, error: "Supplier is not associated with your company" }
 
   const inspectionNumber = generateIqcInspectionNumber()
 

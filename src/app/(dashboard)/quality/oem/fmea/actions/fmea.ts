@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { requireFeature } from "@/lib/billing"
+import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import { revalidatePath } from "next/cache"
 import { generateFmeaNumber } from "@/lib/fmea"
 import { calcRpn, calcRevisedRpn, validateSod, getMaxRpn, type FmeaRow } from "@/lib/fmea/types"
@@ -45,6 +46,9 @@ export async function createFmea(formData: FormData) {
       where: { id: supplierId, type: "SUPPLIER" },
     })
     if (!supplier) return { success: false, error: "Invalid supplier" }
+
+    const isAssociated = await assertSupplierBelongsToOem(supplierId, session.user.companyId)
+    if (!isAssociated) return { success: false, error: "Supplier is not associated with your company" }
   }
 
   const fmeaNumber = generateFmeaNumber()

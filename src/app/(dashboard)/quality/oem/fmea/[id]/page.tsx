@@ -9,7 +9,7 @@ import { FmeaDetailActions } from "./FmeaDetailActions"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
 import { findRelatedForFmea, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
-import { normalizePlan, canUseFeature } from "@/lib/billing"
+import { normalizePlan, canUseFeature, requireFeature } from "@/lib/billing"
 import type { FmeaStatus, FmeaActionStatus } from "@/generated/prisma/client"
 
 export default async function OemFmeaDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -17,6 +17,9 @@ export default async function OemFmeaDetailPage({ params }: { params: Promise<{ 
   const session = await auth()
   if (!session?.user?.companyId) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
+
+  const fmeaGate = requireFeature(session, "FMEA")
+  if (!fmeaGate.allowed) redirect("/quality/oem/fmea")
 
   const fmea = await prisma.fmea.findUnique({
     where: { id },

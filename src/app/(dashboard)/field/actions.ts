@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { requireFeature, canConsumeUsage, consumeUsage } from "@/lib/billing"
+import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import type { DefectEventType, FieldDefectSeverity, FieldDefectSource, FieldDefectStatus, Prisma } from "@/generated/prisma/client"
 import { isValidStatusTransition, validateVin } from "@/lib/field-defect"
 import { canOemManage } from "@/lib/field-defect-server"
@@ -254,6 +255,8 @@ export async function createFieldDefect(formData: FormData): Promise<{ success: 
       include: { users: { select: { id: true } } },
     })
     if (!supplier) return { success: false, error: "Invalid supplier" }
+    const isAssociated = await assertSupplierBelongsToOem(supplierId, session.user.companyId)
+    if (!isAssociated) return { success: false, error: "Supplier is not associated with your company" }
     supplierName = supplier.name
     supplierUsers = supplier.users
   }
@@ -432,6 +435,10 @@ export async function assignSupplier(id: string, supplierId: string | null) {
     })
     if (!supplier) {
       return { success: false as const, error: "Invalid supplier" }
+    }
+    const isAssociated = await assertSupplierBelongsToOem(supplierId, session.user.companyId)
+    if (!isAssociated) {
+      return { success: false as const, error: "Supplier is not associated with your company" }
     }
     supplierName = supplier.name
   }

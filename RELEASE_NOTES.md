@@ -1,3 +1,94 @@
+# PlantQuality v2.9.3 — Release Notes
+
+## Commercial Readiness Security Blocker Fixes
+
+**Release Date:** 2026-05-11  
+**Version:** 2.9.3
+
+---
+
+## Summary
+
+PlantQuality v2.9.3 is a security-hardening and commercial-readiness patch that eliminates all critical and high-priority blockers identified before v3.0.0 release. No new product features are introduced. All changes are focused on authentication, authorization, tenant isolation, feature-gating enforcement, and access control.
+
+---
+
+## Critical Fixes
+
+### #1 Authenticated Image Access
+
+- **Problem:** `/api/image` route served any S3 object by key without authentication, allowing unauthenticated access to uploaded evidence, images, and files.
+- **Fix:** Added session check and tenant-scoped authorization. All image requests now require authentication and verify the parent record belongs to the requesting user's company (OEM or supplier). Cache-Control changed from `public` to `private`.
+
+### #2-#5 Backend Feature Gates on Detail Pages
+
+- **Problem:** PPAP detail page (`/quality/oem/ppap/[id]`) and FMEA detail page (`/quality/oem/fmea/[id]`) had no backend `requireFeature` gate, allowing Free-tier OEM users to access Pro/Enterprise data via direct URL.
+- **Fix:** Added `requireFeature("PPAP")` and `requireFeature("FMEA")` checks to both detail pages. Unauthorized users are now redirected.
+
+### #6 Free-Tier AI Access
+
+- **Status:** Verified — all AI routes (`/api/ai/*`, field AI actions, defect AI review actions) already enforce `requireFeature`, `companyType`, and `role` checks. No changes needed.
+
+### #7-#8 Cross-Tenant Supplier Assignment
+
+- **Problem:** PPAP, IQC, FMEA, and Field Defect creation/assignment actions only validated that `supplierId` referenced a `type: "SUPPLIER"` company, without verifying the supplier had an existing relationship with the requesting OEM. This allowed cross-tenant supplier assignment.
+- **Fix:** Created `assertSupplierBelongsToOem()` shared helper in `src/lib/supplier-access.ts` that verifies OEM-supplier relationship across all modules (defects, PPAP, IQC, FMEA, field defects, development plans). Applied to all creation and assignment actions.
+- **Fix:** FMEA new page (`/quality/oem/fmea/new`) now only shows OEM-associated suppliers instead of all system suppliers.
+
+### #9 Unscoped Cron Queries
+
+- **Status:** Verified — SLA reminders cron already checks `CRON_SECRET` header and scopes all notification creation by `companyId` derived from each record's `oemId`/`supplierId`. No cross-tenant data exposure.
+
+---
+
+## High-Priority Fixes
+
+### #10 Middleware Protection Gaps
+
+- **Problem:** No Next.js middleware existed to enforce authentication on dashboard and API routes, relying entirely on per-page/per-route `auth()` calls.
+- **Fix:** Updated `src/proxy.ts` (Next.js 16 proxy) with defense-in-depth session check. Unauthenticated requests to protected API routes return 401; page requests redirect to login.
+
+### #11 Sidebar Gate Mismatch
+
+- **Fix:** Added `gate` property to supplier sidebar PPAP, IQC, and FMEA nav items for consistency. Supplier users with `supplierAccess: true` continue to see these as available.
+
+### #12 Redirect/Canonical Route Access
+
+- **Status:** Verified — `/quality/oem/settings/plan` redirect to `/oem/settings/plan` is safe. Destination page enforces OEM Admin auth. No open redirect.
+
+### #13 Direct URL and Server Action Invocation
+
+- **Fix:** Regression pass confirmed all module detail pages, server actions, and API routes properly reject unauthorized direct URL access and Server Action invocation.
+
+---
+
+## Files Changed
+
+- `src/app/api/image/route.ts` — Auth + tenant scoping
+- `src/app/(dashboard)/quality/oem/ppap/[id]/page.tsx` — PPAP feature gate
+- `src/app/(dashboard)/quality/oem/fmea/[id]/page.tsx` — FMEA feature gate
+- `src/app/(dashboard)/quality/oem/fmea/new/page.tsx` — OEM-scoped supplier list
+- `src/app/(dashboard)/quality/oem/ppap/actions/review.ts` — assertSupplierBelongsToOem
+- `src/app/(dashboard)/quality/oem/iqc/actions/report.ts` — assertSupplierBelongsToOem
+- `src/app/(dashboard)/quality/oem/fmea/actions/fmea.ts` — assertSupplierBelongsToOem
+- `src/app/(dashboard)/field/actions.ts` — assertSupplierBelongsToOem (create + assign)
+- `src/lib/supplier-access.ts` — New shared helper
+- `src/proxy.ts` — Defense-in-depth auth enforcement (Next.js 16 proxy)
+- `src/app/(dashboard)/layout.tsx` — Supplier sidebar gates
+- `src/app/api/upload/route.ts` — companyId requirement
+- `package.json` — Version 2.9.3
+
+---
+
+## Docker Validation
+
+Rebuild and restart required:
+```bash
+docker-compose up -d --build app
+```
+
+---
+
 # PlantQuality v2.9.2 — Release Notes
 
 ## Final Manual QA + Demo Polish

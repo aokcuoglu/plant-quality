@@ -1733,7 +1733,7 @@ async function main() {
 
   // ── Summary ────────────────────────────────────────────────────────
 
-  console.log("v2.9.2 Seed completed successfully!");
+  console.log("v3.0.0 Seed completed successfully!");
   console.log("");
   console.log("=== Test Accounts (Dev Credentials — LOCAL/DEV ONLY) ===");
   console.log("");

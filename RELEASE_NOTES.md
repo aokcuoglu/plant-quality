@@ -1,3 +1,122 @@
+# PlantX v3.0.0 — PlantQuality Commercial Readiness
+
+**Release Date:** 2026-05-12  
+**Version:** 3.0.0
+
+---
+
+## Summary
+
+PlantX v3.0.0 — PlantQuality Commercial Readiness is the first platform release marking PlantQuality as ready for commercial demo, early customer presentation, and production deployment assessment. This is not a feature expansion release. It consolidates all security hardening from v2.9.3, adds commercial-readiness documentation, demo scripts, and packaging definitions, and validates the complete Docker lifecycle.
+
+PlantQuality is the main module in this release. No other PlantX modules are included.
+
+---
+
+## End-to-End PlantQuality Capability
+
+PlantQuality provides OEM-focused quality management across the following modules:
+
+| Module | Plan | Description |
+|--------|------|-------------|
+| Defects / 8D | FREE | Core defect reporting and structured 8D problem-solving |
+| Field Quality | FREE | Field defect tracking with severity and supplier assignment |
+| Supplier Portal | FREE | Supplier views for assigned 8D, PPAP, IQC, FMEA, development |
+| Notifications | FREE | In-app notification center |
+| PPAP | PRO | Part Production Approval Process tracking and review |
+| IQC | PRO | Incoming quality control inspections and checklists |
+| FMEA | PRO | Failure mode and effects analysis with AI-assisted suggestions |
+| Escalation | PRO | Overdue and escalated items management |
+| War Room | PRO | Cross-functional quality collaboration view |
+| Similar Issues | PRO | AI-powered similar defect detection |
+| AI Classification | PRO | AI-powered defect categorization |
+| Category Intelligence | PRO | Category-level quality signal analysis |
+| Quality Intelligence | PRO | Cross-module risk signals, repeat issues, coverage gaps |
+| Quality Linkage | PRO | Cross-record linking across defects, IQC, PPAP, FMEA |
+| AI 8D Review | ENTERPRISE | AI-generated 8D report review and scoring |
+| Root Cause Suggestion | ENTERPRISE | AI-powered root-cause hypothesis generation |
+| Executive Cockpit | ENTERPRISE | Leadership KPI dashboard, risk tables, action items |
+| Supplier Scorecard | ENTERPRISE | Deterministic supplier quality scoring and ranking |
+| Supplier Development | ENTERPRISE | Action plans, status tracking, supplier collaboration |
+
+---
+
+## Security Hardening (Inherited from v2.9.3)
+
+All v2.9.3 security fixes are included and verified:
+
+- **Authenticated image access** — All `/api/image` requests require session + tenant-scoped parent record authorization
+- **Backend feature gates** — PPAP and FMEA detail pages now enforce `requireFeature` (previously only list pages were gated)
+- **Free-tier AI access blocked** — AI routes require PRO (Classification, Similar Issues) or ENTERPRISE (8D Review, Root Cause)
+- **Cross-tenant supplier assignment** — `assertSupplierBelongsToOem` enforced across all creation/assignment actions (PPAP, IQC, FMEA, Field Defects, Development Plans)
+- **Cron scoping** — SLA reminders cron requires `CRON_SECRET` header; notifications are companyId-scoped
+- **Middleware protection** — `proxy.ts` enforces session on all dashboard and protected API routes
+- **Sidebar/nav alignment** — All nav items have `gate` properties synced with backend
+- **Direct URL and Server Action protection** — Unauthorized access returns redirect or error at both page and action level
+
+---
+
+## Commercial Readiness Documentation
+
+### New Documents
+
+| Document | Purpose |
+|----------|---------|
+| `docs/commercial/plantquality-commercial-readiness-v3.0.0.md` | Product positioning, target users, demo story, personas, known limitations |
+| `docs/commercial/plantquality-packaging-v3.0.0.md` | Feature-to-tier mapping, plan limits, supplier access rules, upgrade flow |
+| `docs/demo/plantquality-v3-demo-script.md` | 15–20 minute demo flow with personas, click paths, expectations, fallbacks |
+| `docs/release/plantx-v3.0.0-readiness-checklist.md` | Security, feature gate, tenant isolation, Docker, environment, and go/no-go checklists |
+
+---
+
+## Packaging
+
+PlantQuality is offered in three tiers:
+
+- **Free** — Core defects, field quality, 8D, supplier portal
+- **Pro** — PPAP, IQC, FMEA, Intelligence, AI Classification, Similar Issues, Quality Linkage
+- **Enterprise** — Executive Cockpit, Supplier Scorecard, Supplier Development, AI 8D Review, Root Cause Suggestion
+
+AI features are never on the Free tier. Executive Cockpit, Scorecard, and Development are Enterprise-only. Full details in `docs/commercial/plantquality-packaging-v3.0.0.md`.
+
+---
+
+## Docker Validation
+
+This release has been validated via Docker Compose lifecycle:
+
+```bash
+docker-compose down --remove-orphans
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+App must be reachable at `http://localhost:3000` with no fatal runtime errors.
+
+---
+
+## No Schema Changes
+
+v3.0.0 introduces no database schema changes. All migrations and seed data are unchanged from v2.9.3.
+
+---
+
+## Deferred After v3.0.0
+
+- **PlantLogistic** module begins in v3.1.0
+- PDF/Excel export for 8D, PPAP, IQC, FMEA reports
+- ERP/MRP/PLM integration
+- AI executive summaries (LLM-based)
+- Advanced analytics and effectiveness tracking
+- API access, webhooks, SSO/SAML
+- Multi-plant support
+- Comprehensive audit logging
+- Rate limiting on API routes
+- Automated supplier email digests
+- Mobile-responsive dashboard views
+
+---
+
 # PlantQuality v2.9.3 — Release Notes
 
 ## Commercial Readiness Security Blocker Fixes

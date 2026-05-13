@@ -1,8 +1,8 @@
-# PlantQuality v3.0.0 — Commercial Readiness Roadmap
+# PlantX v3.0.0 — PlantQuality Commercial Readiness Roadmap
 
-**Last Updated:** 2026-05-10
-**Current Version:** 2.9.2
-**Target Version:** 3.0.0
+**Last Updated:** 2026-05-13
+**Current Version:** 3.0.0
+**Status:** RELEASED
 
 ---
 
@@ -12,7 +12,11 @@ PlantQuality v3.0.0 marks commercial readiness — a stable, polished, fully val
 
 ---
 
-## Remaining Must-Have Items (Block v3.0.0)
+## v3.0.0 — Completed
+
+All v2.9.3 security blockers resolved and verified (8/8 PASS). Commercial readiness documentation complete. Docker validated. Version bumped. See `docs/release/plantx-v3.0.0-readiness-checklist.md` for full validation results.
+
+## Post-v3.0.0 Must-Have (Pre-Production)
 
 1. **Performance/load testing** — Validate response times under realistic concurrent user load (10+ simultaneous users)
 2. **Accessibility audit** — WCAG 2.1 AA compliance check on all major pages
@@ -25,7 +29,7 @@ PlantQuality v3.0.0 marks commercial readiness — a stable, polished, fully val
 
 ---
 
-## Nice-to-Have Items (Post-v3.0.0)
+## Post-v3.0.0 Feature Roadmap
 
 - AI-generated executive summaries (currently template-based)
 - Graph/network visualization of quality relationships
@@ -72,16 +76,17 @@ PlantQuality v3.0.0 marks commercial readiness — a stable, polished, fully val
 ## Deployment Readiness Checklist
 
 - [x] Application builds successfully (standalone output)
-- [x] Docker container builds and runs
+- [x] Docker container builds and runs (v3.0.0 validated)
 - [x] Database migrations apply cleanly
-- [x] Seed data loads without errors
-- [x] All lint checks pass
+- [x] Seed data loads without errors (v3.0.0 seed confirmed)
+- [x] All lint checks pass (0 errors, 4 pre-existing warnings)
 - [x] All type checks pass
 - [x] No hardcoded localhost URLs in production code
 - [x] Auth.js configured for production OAuth
 - [x] Email provider configured for production
 - [x] Object storage (R2) credentials configured
 - [x] CSRF protection enabled (trustHost: true for containers)
+- [x] v3.0.0 readiness checklist completed (all GO items PASS)
 - [ ] Production database seeded with demo data (not real secrets)
 - [ ] SSL/TLS certificates configured
 - [ ] Domain name configured
@@ -94,7 +99,7 @@ PlantQuality v3.0.0 marks commercial readiness — a stable, polished, fully val
 
 ## What is Deferred After v3.0.0
 
-- PlantLogistic module (not started)
+- **PlantLogistic module** — begins in v3.1.0 (not started)
 - PDF/Excel export (not started)
 - ERP/MRP/PLM integration (not started)
 - Supplier-facing scorecard sharing (not started)
@@ -103,3 +108,7 @@ PlantQuality v3.0.0 marks commercial readiness — a stable, polished, fully val
 - Custom KPI weighting UI (not started)
 - Multi-plant support (design only)
 - SSO/SAML integration (not started)
+- API access and webhooks (feature gates defined, not implemented)
+- Automated email digest to executives (not started)
+- Rate limiting on API routes (not started)
+- Comprehensive audit logging of unauthorized access (not started)

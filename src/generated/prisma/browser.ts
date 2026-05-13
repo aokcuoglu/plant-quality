@@ -187,3 +187,13 @@ export type SupplierDevelopmentActionItem = Prisma.SupplierDevelopmentActionItem
  * 
  */
 export type SupplierDevelopmentEvent = Prisma.SupplierDevelopmentEventModel
+/**
+ * Model PlantLogisticOrder
+ * 
+ */
+export type PlantLogisticOrder = Prisma.PlantLogisticOrderModel
+/**
+ * Model PlantLogisticOrderEvent
+ * 
+ */
+export type PlantLogisticOrderEvent = Prisma.PlantLogisticOrderEventModel

@@ -171,6 +171,67 @@ enum DevPlanEventType {
   COMMENT_ADDED
 }
 
+enum LogisticOrderCustomerType {
+  CUSTOMER
+  DEALER
+  DISTRIBUTOR
+  INTERNAL
+}
+
+enum LogisticOrderVehicleType {
+  BUS
+  MIDIBUS
+  TRUCK
+  LIGHT_TRUCK
+  OTHER
+}
+
+enum LogisticOrderPowertrain {
+  DIESEL
+  CNG
+  ELECTRIC
+  HYBRID
+  OTHER
+}
+
+enum LogisticOrderPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum LogisticOrderStatus {
+  DRAFT
+  SUBMITTED
+  COMMERCIAL_REVIEW
+  APPROVED
+  REJECTED
+  WAITING_PRODUCTION_PLAN
+  PLANNED
+  IN_PRODUCTION
+  QUALITY_HOLD
+  READY_FOR_DISPATCH
+  DISPATCHED
+  DELIVERED
+  CLOSED
+  CANCELLED
+}
+
+enum LogisticOrderEventType {
+  ORDER_CREATED
+  ORDER_UPDATED
+  STATUS_CHANGED
+  PLANNING_UPDATED
+  VIN_ASSIGNED
+  CHASSIS_ASSIGNED
+  COMMENT_ADDED
+  ORDER_CANCELLED
+  ORDER_APPROVED
+  ORDER_REJECTED
+  ORDER_CLOSED
+}
+
 enum DefectEventType {
   CREATED
   EIGHT_D_STARTED
@@ -431,6 +492,8 @@ model Company {
   qualityRecordLinks QualityRecordLink[]
   devPlansAsOem      SupplierDevelopmentPlan[] @relation("DevPlansAsOem")
   devPlansAsSupplier SupplierDevelopmentPlan[] @relation("DevPlansAsSupplier")
+  logisticOrders     PlantLogisticOrder[]      @relation("LogisticOrdersOem")
+  logisticOrderEvents PlantLogisticOrderEvent[] @relation("LogisticOrderEventsOem")
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -500,6 +563,9 @@ model User {
   completedDevPlans       SupplierDevelopmentPlan[] @relation("DevPlanCompletedBy")
   ownedDevActionItems     SupplierDevelopmentActionItem[] @relation("DevActionItemOwner")
   devPlanEvents           SupplierDevelopmentEvent[] @relation("DevPlanEventActor")
+  createdLogisticOrders   PlantLogisticOrder[]        @relation("LogisticOrderCreatedBy")
+  updatedLogisticOrders   PlantLogisticOrder[]        @relation("LogisticOrderUpdatedBy")
+  logisticOrderEvents     PlantLogisticOrderEvent[]   @relation("LogisticOrderEventActor")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -1280,4 +1346,73 @@ model SupplierDevelopmentEvent {
 
   @@index([planId, createdAt])
   @@map("supplier_development_events")
+}
+
+model PlantLogisticOrder {
+  id                    String                   @id @default(uuid())
+  companyId             String                   @map("company_id")
+  company               Company                  @relation("LogisticOrdersOem", fields: [companyId], references: [id])
+  orderNumber           String                   @unique @map("order_number")
+  requestNumber         String?                  @map("request_number")
+  customerName          String                   @map("customer_name")
+  customerType          LogisticOrderCustomerType @default(CUSTOMER) @map("customer_type")
+  dealerName            String?                  @map("dealer_name")
+  distributorName        String?                  @map("distributor_name")
+  country               String?
+  market                String?
+  vehicleModel          String                   @map("vehicle_model")
+  vehicleVariant        String?                  @map("vehicle_variant")
+  vehicleType           LogisticOrderVehicleType @default(BUS) @map("vehicle_type")
+  powertrain            LogisticOrderPowertrain? @default(DIESEL)
+  quantity              Int                      @default(1)
+  priority              LogisticOrderPriority    @default(NORMAL)
+  status                LogisticOrderStatus       @default(DRAFT)
+  requestedDeliveryDate DateTime?                @map("requested_delivery_date")
+  plannedProductionDate DateTime?                @map("planned_production_date")
+  plannedProductionWeek String?                  @map("planned_production_week")
+  plannedDeliveryDate   DateTime?                @map("planned_delivery_date")
+  vin                   String?
+  chassisNumber         String?                  @map("chassis_number")
+  productionOrderNo     String?                  @map("production_order_no")
+  salesOrderNo          String?                  @map("sales_order_no")
+  notes                 String?
+  createdById           String                   @map("created_by_id")
+  createdBy             User                     @relation("LogisticOrderCreatedBy", fields: [createdById], references: [id])
+  updatedById           String?                  @map("updated_by_id")
+  updatedBy             User?                    @relation("LogisticOrderUpdatedBy", fields: [updatedById], references: [id])
+  approvedAt            DateTime?                @map("approved_at")
+  rejectedAt            DateTime?                @map("rejected_at")
+  deliveredAt           DateTime?                @map("delivered_at")
+  closedAt              DateTime?                @map("closed_at")
+  events                PlantLogisticOrderEvent[]
+  createdAt             DateTime                 @default(now()) @map("created_at")
+  updatedAt             DateTime                 @updatedAt @map("updated_at")
+
+  @@index([companyId, status])
+  @@index([companyId, createdAt])
+  @@index([companyId, plannedDeliveryDate])
+  @@index([companyId, orderNumber])
+  @@index([companyId, customerName])
+  @@index([companyId, vin])
+  @@index([companyId, chassisNumber])
+  @@map("plant_logistic_orders")
+}
+
+model PlantLogisticOrderEvent {
+  id        String                @id @default(uuid())
+  orderId   String                @map("order_id")
+  order     PlantLogisticOrder    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  companyId String                @map("company_id")
+  company   Company               @relation("LogisticOrderEventsOem", fields: [companyId], references: [id])
+  actorId   String?               @map("actor_id")
+  actor     User?                 @relation("LogisticOrderEventActor", fields: [actorId], references: [id])
+  eventType LogisticOrderEventType
+  fromStatus    LogisticOrderStatus?  @map("from_status")
+  toStatus      LogisticOrderStatus?  @map("to_status")
+  message    String?
+  createdAt  DateTime              @default(now()) @map("created_at")
+
+  @@index([orderId, createdAt])
+  @@index([companyId, createdAt])
+  @@map("plant_logistic_order_events")
 }

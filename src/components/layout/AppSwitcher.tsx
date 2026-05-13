@@ -3,7 +3,7 @@
 import Link from "next/link"
 import {
   ShieldCheck,
-  Warehouse,
+  TruckIcon,
   FileText,
   Leaf,
   ClipboardCheck,
@@ -34,10 +34,18 @@ const apps = [
     href: "/quality/oem",
   },
   {
+    id: "logistic",
+    name: "PlantLogistic",
+    description: "Vehicle Order & Delivery Control Tower",
+    icon: TruckIcon,
+    active: true,
+    href: "/logistic",
+  },
+  {
     id: "dock",
     name: "PlantDock",
     description: "Warehouse Gate & Logistics",
-    icon: Warehouse,
+    icon: TruckIcon,
     active: false,
   },
   {

@@ -15,6 +15,7 @@ interface NavItem {
   label: string
   icon: string
   gate?: FeatureKey
+  section?: string
 }
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -48,6 +49,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const, gate: "ESCALATION" },
         { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const, gate: "WAR_ROOM" },
         { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const, gate: "NOTIFICATIONS" },
+        { href: "/logistic", label: "PlantLogistic", icon: "TruckIcon" as const, gate: "PLANT_LOGISTIC" },
       ]
     : [
         { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },

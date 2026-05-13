@@ -84,7 +84,9 @@ export const ModelName = {
   QualityRecordLink: 'QualityRecordLink',
   SupplierDevelopmentPlan: 'SupplierDevelopmentPlan',
   SupplierDevelopmentActionItem: 'SupplierDevelopmentActionItem',
-  SupplierDevelopmentEvent: 'SupplierDevelopmentEvent'
+  SupplierDevelopmentEvent: 'SupplierDevelopmentEvent',
+  PlantLogisticOrder: 'PlantLogisticOrder',
+  PlantLogisticOrderEvent: 'PlantLogisticOrderEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -742,6 +744,61 @@ export const SupplierDevelopmentEventScalarFieldEnum = {
 } as const
 
 export type SupplierDevelopmentEventScalarFieldEnum = (typeof SupplierDevelopmentEventScalarFieldEnum)[keyof typeof SupplierDevelopmentEventScalarFieldEnum]
+
+
+export const PlantLogisticOrderScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  orderNumber: 'orderNumber',
+  requestNumber: 'requestNumber',
+  customerName: 'customerName',
+  customerType: 'customerType',
+  dealerName: 'dealerName',
+  distributorName: 'distributorName',
+  country: 'country',
+  market: 'market',
+  vehicleModel: 'vehicleModel',
+  vehicleVariant: 'vehicleVariant',
+  vehicleType: 'vehicleType',
+  powertrain: 'powertrain',
+  quantity: 'quantity',
+  priority: 'priority',
+  status: 'status',
+  requestedDeliveryDate: 'requestedDeliveryDate',
+  plannedProductionDate: 'plannedProductionDate',
+  plannedProductionWeek: 'plannedProductionWeek',
+  plannedDeliveryDate: 'plannedDeliveryDate',
+  vin: 'vin',
+  chassisNumber: 'chassisNumber',
+  productionOrderNo: 'productionOrderNo',
+  salesOrderNo: 'salesOrderNo',
+  notes: 'notes',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  deliveredAt: 'deliveredAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticOrderScalarFieldEnum = (typeof PlantLogisticOrderScalarFieldEnum)[keyof typeof PlantLogisticOrderScalarFieldEnum]
+
+
+export const PlantLogisticOrderEventScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  companyId: 'companyId',
+  actorId: 'actorId',
+  eventType: 'eventType',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type PlantLogisticOrderEventScalarFieldEnum = (typeof PlantLogisticOrderEventScalarFieldEnum)[keyof typeof PlantLogisticOrderEventScalarFieldEnum]
 
 
 export const SortOrder = {

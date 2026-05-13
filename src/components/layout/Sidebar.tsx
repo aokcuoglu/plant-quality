@@ -21,6 +21,7 @@ import {
   GaugeIcon,
   AwardIcon,
   TargetIcon,
+  TruckIcon,
   LockIcon,
   type LucideIcon,
 } from "lucide-react"
@@ -54,6 +55,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   GaugeIcon,
   AwardIcon,
   TargetIcon,
+  TruckIcon,
 }
 
 interface SidebarLinkItem {

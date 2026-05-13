@@ -224,6 +224,85 @@ export const DevPlanEventType = {
 export type DevPlanEventType = (typeof DevPlanEventType)[keyof typeof DevPlanEventType]
 
 
+export const LogisticOrderCustomerType = {
+  CUSTOMER: 'CUSTOMER',
+  DEALER: 'DEALER',
+  DISTRIBUTOR: 'DISTRIBUTOR',
+  INTERNAL: 'INTERNAL'
+} as const
+
+export type LogisticOrderCustomerType = (typeof LogisticOrderCustomerType)[keyof typeof LogisticOrderCustomerType]
+
+
+export const LogisticOrderVehicleType = {
+  BUS: 'BUS',
+  MIDIBUS: 'MIDIBUS',
+  TRUCK: 'TRUCK',
+  LIGHT_TRUCK: 'LIGHT_TRUCK',
+  OTHER: 'OTHER'
+} as const
+
+export type LogisticOrderVehicleType = (typeof LogisticOrderVehicleType)[keyof typeof LogisticOrderVehicleType]
+
+
+export const LogisticOrderPowertrain = {
+  DIESEL: 'DIESEL',
+  CNG: 'CNG',
+  ELECTRIC: 'ELECTRIC',
+  HYBRID: 'HYBRID',
+  OTHER: 'OTHER'
+} as const
+
+export type LogisticOrderPowertrain = (typeof LogisticOrderPowertrain)[keyof typeof LogisticOrderPowertrain]
+
+
+export const LogisticOrderPriority = {
+  LOW: 'LOW',
+  NORMAL: 'NORMAL',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type LogisticOrderPriority = (typeof LogisticOrderPriority)[keyof typeof LogisticOrderPriority]
+
+
+export const LogisticOrderStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  COMMERCIAL_REVIEW: 'COMMERCIAL_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  WAITING_PRODUCTION_PLAN: 'WAITING_PRODUCTION_PLAN',
+  PLANNED: 'PLANNED',
+  IN_PRODUCTION: 'IN_PRODUCTION',
+  QUALITY_HOLD: 'QUALITY_HOLD',
+  READY_FOR_DISPATCH: 'READY_FOR_DISPATCH',
+  DISPATCHED: 'DISPATCHED',
+  DELIVERED: 'DELIVERED',
+  CLOSED: 'CLOSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type LogisticOrderStatus = (typeof LogisticOrderStatus)[keyof typeof LogisticOrderStatus]
+
+
+export const LogisticOrderEventType = {
+  ORDER_CREATED: 'ORDER_CREATED',
+  ORDER_UPDATED: 'ORDER_UPDATED',
+  STATUS_CHANGED: 'STATUS_CHANGED',
+  PLANNING_UPDATED: 'PLANNING_UPDATED',
+  VIN_ASSIGNED: 'VIN_ASSIGNED',
+  CHASSIS_ASSIGNED: 'CHASSIS_ASSIGNED',
+  COMMENT_ADDED: 'COMMENT_ADDED',
+  ORDER_CANCELLED: 'ORDER_CANCELLED',
+  ORDER_APPROVED: 'ORDER_APPROVED',
+  ORDER_REJECTED: 'ORDER_REJECTED',
+  ORDER_CLOSED: 'ORDER_CLOSED'
+} as const
+
+export type LogisticOrderEventType = (typeof LogisticOrderEventType)[keyof typeof LogisticOrderEventType]
+
+
 export const DefectEventType = {
   CREATED: 'CREATED',
   EIGHT_D_STARTED: 'EIGHT_D_STARTED',

@@ -417,7 +417,9 @@ export const ModelName = {
   QualityRecordLink: 'QualityRecordLink',
   SupplierDevelopmentPlan: 'SupplierDevelopmentPlan',
   SupplierDevelopmentActionItem: 'SupplierDevelopmentActionItem',
-  SupplierDevelopmentEvent: 'SupplierDevelopmentEvent'
+  SupplierDevelopmentEvent: 'SupplierDevelopmentEvent',
+  PlantLogisticOrder: 'PlantLogisticOrder',
+  PlantLogisticOrderEvent: 'PlantLogisticOrderEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -433,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink" | "supplierDevelopmentPlan" | "supplierDevelopmentActionItem" | "supplierDevelopmentEvent"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink" | "supplierDevelopmentPlan" | "supplierDevelopmentActionItem" | "supplierDevelopmentEvent" | "plantLogisticOrder" | "plantLogisticOrderEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2953,6 +2955,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PlantLogisticOrder: {
+      payload: Prisma.$PlantLogisticOrderPayload<ExtArgs>
+      fields: Prisma.PlantLogisticOrderFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlantLogisticOrderFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlantLogisticOrderFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>
+        }
+        findFirst: {
+          args: Prisma.PlantLogisticOrderFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlantLogisticOrderFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>
+        }
+        findMany: {
+          args: Prisma.PlantLogisticOrderFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>[]
+        }
+        create: {
+          args: Prisma.PlantLogisticOrderCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>
+        }
+        createMany: {
+          args: Prisma.PlantLogisticOrderCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlantLogisticOrderCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>[]
+        }
+        delete: {
+          args: Prisma.PlantLogisticOrderDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>
+        }
+        update: {
+          args: Prisma.PlantLogisticOrderUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlantLogisticOrderDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlantLogisticOrderUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlantLogisticOrderUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlantLogisticOrderUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderPayload>
+        }
+        aggregate: {
+          args: Prisma.PlantLogisticOrderAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlantLogisticOrder>
+        }
+        groupBy: {
+          args: Prisma.PlantLogisticOrderGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlantLogisticOrderGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlantLogisticOrderCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlantLogisticOrderCountAggregateOutputType> | number
+        }
+      }
+    }
+    PlantLogisticOrderEvent: {
+      payload: Prisma.$PlantLogisticOrderEventPayload<ExtArgs>
+      fields: Prisma.PlantLogisticOrderEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlantLogisticOrderEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlantLogisticOrderEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>
+        }
+        findFirst: {
+          args: Prisma.PlantLogisticOrderEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlantLogisticOrderEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>
+        }
+        findMany: {
+          args: Prisma.PlantLogisticOrderEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>[]
+        }
+        create: {
+          args: Prisma.PlantLogisticOrderEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>
+        }
+        createMany: {
+          args: Prisma.PlantLogisticOrderEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlantLogisticOrderEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>[]
+        }
+        delete: {
+          args: Prisma.PlantLogisticOrderEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>
+        }
+        update: {
+          args: Prisma.PlantLogisticOrderEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlantLogisticOrderEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlantLogisticOrderEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlantLogisticOrderEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlantLogisticOrderEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticOrderEventPayload>
+        }
+        aggregate: {
+          args: Prisma.PlantLogisticOrderEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlantLogisticOrderEvent>
+        }
+        groupBy: {
+          args: Prisma.PlantLogisticOrderEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlantLogisticOrderEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlantLogisticOrderEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlantLogisticOrderEventCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3633,6 +3783,61 @@ export const SupplierDevelopmentEventScalarFieldEnum = {
 export type SupplierDevelopmentEventScalarFieldEnum = (typeof SupplierDevelopmentEventScalarFieldEnum)[keyof typeof SupplierDevelopmentEventScalarFieldEnum]
 
 
+export const PlantLogisticOrderScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  orderNumber: 'orderNumber',
+  requestNumber: 'requestNumber',
+  customerName: 'customerName',
+  customerType: 'customerType',
+  dealerName: 'dealerName',
+  distributorName: 'distributorName',
+  country: 'country',
+  market: 'market',
+  vehicleModel: 'vehicleModel',
+  vehicleVariant: 'vehicleVariant',
+  vehicleType: 'vehicleType',
+  powertrain: 'powertrain',
+  quantity: 'quantity',
+  priority: 'priority',
+  status: 'status',
+  requestedDeliveryDate: 'requestedDeliveryDate',
+  plannedProductionDate: 'plannedProductionDate',
+  plannedProductionWeek: 'plannedProductionWeek',
+  plannedDeliveryDate: 'plannedDeliveryDate',
+  vin: 'vin',
+  chassisNumber: 'chassisNumber',
+  productionOrderNo: 'productionOrderNo',
+  salesOrderNo: 'salesOrderNo',
+  notes: 'notes',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  deliveredAt: 'deliveredAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticOrderScalarFieldEnum = (typeof PlantLogisticOrderScalarFieldEnum)[keyof typeof PlantLogisticOrderScalarFieldEnum]
+
+
+export const PlantLogisticOrderEventScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  companyId: 'companyId',
+  actorId: 'actorId',
+  eventType: 'eventType',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type PlantLogisticOrderEventScalarFieldEnum = (typeof PlantLogisticOrderEventScalarFieldEnum)[keyof typeof PlantLogisticOrderEventScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4267,6 +4472,90 @@ export type EnumDevPlanEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumDevPlanEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DevPlanEventType[]'>
     
 
+
+/**
+ * Reference to a field of type 'LogisticOrderCustomerType'
+ */
+export type EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderCustomerType'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderCustomerType[]'
+ */
+export type ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderCustomerType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderVehicleType'
+ */
+export type EnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderVehicleType'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderVehicleType[]'
+ */
+export type ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderVehicleType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderPowertrain'
+ */
+export type EnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderPowertrain'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderPowertrain[]'
+ */
+export type ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderPowertrain[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderPriority'
+ */
+export type EnumLogisticOrderPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderPriority'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderPriority[]'
+ */
+export type ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderPriority[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderStatus'
+ */
+export type EnumLogisticOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderStatus[]'
+ */
+export type ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderEventType'
+ */
+export type EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderEventType'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticOrderEventType[]'
+ */
+export type ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderEventType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4411,6 +4700,8 @@ export type GlobalOmitConfig = {
   supplierDevelopmentPlan?: Prisma.SupplierDevelopmentPlanOmit
   supplierDevelopmentActionItem?: Prisma.SupplierDevelopmentActionItemOmit
   supplierDevelopmentEvent?: Prisma.SupplierDevelopmentEventOmit
+  plantLogisticOrder?: Prisma.PlantLogisticOrderOmit
+  plantLogisticOrderEvent?: Prisma.PlantLogisticOrderEventOmit
 }
 
 /* Types for Logging */

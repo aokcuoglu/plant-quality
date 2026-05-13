@@ -943,6 +943,125 @@ export type EnumDevPlanEventTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
 }
 
+export type EnumLogisticOrderCustomerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderCustomerType | Prisma.EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel> | $Enums.LogisticOrderCustomerType
+}
+
+export type EnumLogisticOrderVehicleTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderVehicleType | Prisma.EnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel> | $Enums.LogisticOrderVehicleType
+}
+
+export type EnumLogisticOrderPowertrainNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPowertrain | Prisma.EnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel> | $Enums.LogisticOrderPowertrain | null
+}
+
+export type EnumLogisticOrderPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPriority | Prisma.EnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderPriorityFilter<$PrismaModel> | $Enums.LogisticOrderPriority
+}
+
+export type EnumLogisticOrderStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel> | $Enums.LogisticOrderStatus
+}
+
+export type EnumLogisticOrderCustomerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderCustomerType | Prisma.EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderCustomerTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderCustomerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel>
+}
+
+export type EnumLogisticOrderVehicleTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderVehicleType | Prisma.EnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderVehicleTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderVehicleType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel>
+}
+
+export type EnumLogisticOrderPowertrainNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPowertrain | Prisma.EnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderPowertrainNullableWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderPowertrain | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel>
+}
+
+export type EnumLogisticOrderPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPriority | Prisma.EnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderPriorityWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderPriorityFilter<$PrismaModel>
+}
+
+export type EnumLogisticOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderStatusWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
+}
+
+export type EnumLogisticOrderEventTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderEventType | Prisma.EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderEventTypeFilter<$PrismaModel> | $Enums.LogisticOrderEventType
+}
+
+export type EnumLogisticOrderStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel> | $Enums.LogisticOrderStatus | null
+}
+
+export type EnumLogisticOrderEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderEventType | Prisma.EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderEventType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderEventTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderEventTypeFilter<$PrismaModel>
+}
+
+export type EnumLogisticOrderStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1818,6 +1937,125 @@ export type NestedEnumDevPlanEventTypeWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDevPlanEventTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderCustomerType | Prisma.EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel> | $Enums.LogisticOrderCustomerType
+}
+
+export type NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderVehicleType | Prisma.EnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel> | $Enums.LogisticOrderVehicleType
+}
+
+export type NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPowertrain | Prisma.EnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel> | $Enums.LogisticOrderPowertrain | null
+}
+
+export type NestedEnumLogisticOrderPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPriority | Prisma.EnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderPriorityFilter<$PrismaModel> | $Enums.LogisticOrderPriority
+}
+
+export type NestedEnumLogisticOrderStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel> | $Enums.LogisticOrderStatus
+}
+
+export type NestedEnumLogisticOrderCustomerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderCustomerType | Prisma.EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderCustomerTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderCustomerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderCustomerTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderVehicleTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderVehicleType | Prisma.EnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderVehicleType[] | Prisma.ListEnumLogisticOrderVehicleTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderVehicleTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderVehicleType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderVehicleTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderPowertrainNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPowertrain | Prisma.EnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderPowertrain[] | Prisma.ListEnumLogisticOrderPowertrainFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderPowertrainNullableWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderPowertrain | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderPowertrainNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderPriority | Prisma.EnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderPriority[] | Prisma.ListEnumLogisticOrderPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderPriorityWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderPriorityFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderStatusWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderEventTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderEventType | Prisma.EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderEventTypeFilter<$PrismaModel> | $Enums.LogisticOrderEventType
+}
+
+export type NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel> | $Enums.LogisticOrderStatus | null
+}
+
+export type NestedEnumLogisticOrderEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderEventType | Prisma.EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticOrderEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderEventType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderEventTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderEventTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticOrderStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticOrderStatus | Prisma.EnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LogisticOrderStatus[] | Prisma.ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLogisticOrderStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.LogisticOrderStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
 }
 
 

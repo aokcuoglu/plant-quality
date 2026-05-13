@@ -1,3 +1,124 @@
+# PlantX v3.1.0 — PlantLogistic Order Tracking MVP
+
+**Release Date:** 2026-05-13  
+**Version:** 3.1.0
+
+---
+
+## Summary
+
+PlantX v3.1.0 introduces PlantLogistic, the second PlantX module, as a Vehicle Order & Delivery Control Tower MVP. PlantLogistic enables OEMs producing buses, midibuses, trucks, and light trucks to track vehicle requests/orders from customer/dealer/distributor demand through production planning, VIN/chassis assignment, status tracking, and delivery target visibility.
+
+This release adds the PlantLogistic module alongside the existing PlantQuality module without any regression to PlantQuality functionality.
+
+---
+
+## New Module: PlantLogistic
+
+PlantLogistic provides the following capabilities for OEM ENTERPRISE users:
+
+| Feature | Description |
+|---------|-------------|
+| Vehicle Order Dashboard | Summary cards (active orders, in production, ready for dispatch, quality hold, delivery risk) and recent orders table |
+| Order List | Filterable list with status, search, vehicle model, customer, priority, VIN columns |
+| Order Create | Full form with customer type, name, vehicle configuration, dates, notes |
+| Order Detail | Overview, customer info, vehicle config, planning/delivery, VIN/chassis, status workflow, activity timeline |
+| Status Workflow | 14 statuses with validated transitions (DRAFT → SUBMITTED → COMMERCIAL_REVIEW → APPROVED → WAITING_PRODUCTION_PLAN → PLANNED → IN_PRODUCTION → QUALITY_HOLD → READY_FOR_DISPATCH → DISPATCHED → DELIVERED → CLOSED, plus CANCELLED) |
+| VIN/Chassis Assignment | Inline editing of VIN and chassis number with event logging |
+| Planning Fields | Production date, production week, delivery date, production order number |
+| Activity Timeline | Chronological event log with status changes, comments, planning updates, VIN assignments |
+| Delivery Risk | Visual badge for orders past planned delivery date |
+| Feature Gate | ENTERPRISE-only, supplier access denied |
+| Tenant Isolation | All queries scoped to session user's companyId |
+
+---
+
+## Data Model
+
+### New Enums
+
+- `LogisticOrderCustomerType`: CUSTOMER, DEALER, DISTRIBUTOR, INTERNAL
+- `LogisticOrderVehicleType`: BUS, MIDIBUS, TRUCK, LIGHT_TRUCK, OTHER
+- `LogisticOrderPowertrain`: DIESEL, CNG, ELECTRIC, HYBRID, OTHER
+- `LogisticOrderPriority`: LOW, NORMAL, HIGH, URGENT
+- `LogisticOrderStatus`: DRAFT, SUBMITTED, COMMERCIAL_REVIEW, APPROVED, REJECTED, WAITING_PRODUCTION_PLAN, PLANNED, IN_PRODUCTION, QUALITY_HOLD, READY_FOR_DISPATCH, DISPATCHED, DELIVERED, CLOSED, CANCELLED
+- `LogisticOrderEventType`: ORDER_CREATED, ORDER_UPDATED, STATUS_CHANGED, PLANNING_UPDATED, VIN_ASSIGNED, CHASSIS_ASSIGNED, COMMENT_ADDED, ORDER_CANCELLED, ORDER_APPROVED, ORDER_REJECTED, ORDER_CLOSED
+
+### New Models
+
+- `PlantLogisticOrder`: Vehicle order with all fields scoped to `companyId`
+- `PlantLogisticOrderEvent`: Activity timeline events with actor, from/to status, message
+
+### Indexes
+
+- `companyId + status`, `companyId + createdAt`, `companyId + plannedDeliveryDate`, `companyId + orderNumber`, `companyId + customerName`, `companyId + vin`, `companyId + chassisNumber`
+
+---
+
+## Feature Gate
+
+A new feature key `PLANT_LOGISTIC` has been added:
+
+- **Plan:** ENTERPRISE
+- **Supplier access:** Denied
+- **OEM FREE / PRO:** Locked with upgrade prompt
+
+---
+
+## Navigation Changes
+
+- AppSwitcher: PlantLogistic is now marked as active/live with link to `/logistic`
+- OEM sidebar: PlantLogistic nav item added with `PLANT_LOGISTIC` feature gate
+- Supplier sidebar: No PlantLogistic entry
+
+---
+
+## Demo Data
+
+- 10 PlantLogistic orders seeded for Enterprise OEM with diverse statuses, vehicle types, and customer types
+- 12 timeline events covering status changes, planning updates, VIN assignments, and comments
+- Includes delayed order, quality hold order, and VIN/chassis-assigned order
+
+---
+
+## Routes
+
+| Route | Description |
+|-------|-------------|
+| `/logistic` | PlantLogistic dashboard (summary cards + recent orders) |
+| `/logistic/orders` | Order list with filters and search |
+| `/logistic/orders/new` | Create new vehicle order |
+| `/logistic/orders/[id]` | Order detail with status workflow, planning, VIN, timeline |
+
+---
+
+## Security
+
+- All PlantLogistic pages require authenticated OEM user
+- All server actions validate `companyType === "OEM"` and `PLANT_LOGISTIC` feature gate
+- All database queries scoped to `session.user.companyId`
+- Client-provided companyId never trusted
+- Direct URL access denied for unauthorized users
+- Supplier users cannot access any PlantLogistic routes or actions
+- FREE/PRO OEM users are redirected with locked nav items
+
+---
+
+## Deferred
+
+- Production milestone tracking by station/gate (v3.2.0)
+- Yard/stock tracking (v3.3.0)
+- Dispatch/carrier/shipment management (v3.3.0+)
+- Dealer/distributor external portal (v3.4.0)
+- PlantLogistic ↔ PlantQuality integration (v3.6.0)
+- ERP integration
+- PDF/Excel export
+- AI order prediction
+- Advanced SLA/delay intelligence (v3.5.0)
+- Payment/billing changes
+
+---
+
 # PlantX v3.0.0 — PlantQuality Commercial Readiness
 
 **Release Date:** 2026-05-12  

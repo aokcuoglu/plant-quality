@@ -29,6 +29,7 @@ export type FeatureKey =
   | "QUALITY_LINKAGE"
   | "EXECUTIVE_COCKPIT"
   | "SUPPLIER_DEVELOPMENT"
+  | "PLANT_LOGISTIC"
 
 export interface FeatureGate {
   key: FeatureKey
@@ -228,6 +229,13 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     minPlan: "ENTERPRISE",
     supplierAccess: true,
   },
+  PLANT_LOGISTIC: {
+    key: "PLANT_LOGISTIC",
+    label: "PlantLogistic",
+    description: "Vehicle order tracking, production planning, and delivery control tower",
+    minPlan: "ENTERPRISE",
+    supplierAccess: false,
+  },
 }
 
 export function getFeatureGate(key: FeatureKey): FeatureGate {
@@ -315,4 +323,6 @@ export const OEM_NAV_FEATURE_GATES: Record<string, FeatureKey> = {
   "/quality/oem/scorecard": "SUPPLIER_SCORECARD",
   "/quality/oem/supplier-development": "SUPPLIER_DEVELOPMENT",
   "/quality/oem/notifications": "NOTIFICATIONS",
+  "/logistic": "PLANT_LOGISTIC",
+  "/logistic/orders": "PLANT_LOGISTIC",
 }

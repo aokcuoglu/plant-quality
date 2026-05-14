@@ -24,6 +24,12 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
+type PlantXModule = "quality" | "logistic" | null
+
+interface AppSwitcherProps {
+  currentModule?: PlantXModule
+}
+
 const apps = [
   {
     id: "quality",
@@ -32,6 +38,7 @@ const apps = [
     icon: ShieldCheck,
     active: true,
     href: "/quality/oem",
+    module: "quality" as const,
   },
   {
     id: "logistic",
@@ -40,6 +47,7 @@ const apps = [
     icon: TruckIcon,
     active: true,
     href: "/logistic",
+    module: "logistic" as const,
   },
   {
     id: "dock",
@@ -47,6 +55,7 @@ const apps = [
     description: "Warehouse Gate & Logistics",
     icon: TruckIcon,
     active: false,
+    module: null as never,
   },
   {
     id: "quote",
@@ -54,6 +63,7 @@ const apps = [
     description: "RFQ & Supplier Bidding",
     icon: FileText,
     active: false,
+    module: null as never,
   },
   {
     id: "trace",
@@ -61,6 +71,7 @@ const apps = [
     description: "Traceability & Carbon Footprint",
     icon: Leaf,
     active: false,
+    module: null as never,
   },
   {
     id: "audit",
@@ -68,6 +79,7 @@ const apps = [
     description: "Digital Auditing (LPA, VDA)",
     icon: ClipboardCheck,
     active: false,
+    module: null as never,
   },
   {
     id: "asset",
@@ -75,6 +87,7 @@ const apps = [
     description: "Machinery Maintenance & OEE",
     icon: Settings,
     active: false,
+    module: null as never,
   },
   {
     id: "flow",
@@ -82,6 +95,7 @@ const apps = [
     description: "Internal Material Flow & RFID",
     icon: MoveRight,
     active: false,
+    module: null as never,
   },
   {
     id: "staff",
@@ -89,10 +103,11 @@ const apps = [
     description: "Skill Matrix & HSE Compliance",
     icon: Users,
     active: false,
+    module: null as never,
   },
 ]
 
-export function AppSwitcher() {
+export function AppSwitcher({ currentModule }: AppSwitcherProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -113,22 +128,26 @@ export function AppSwitcher() {
           <DropdownMenuSeparator className="bg-sidebar-border" />
           {apps.map((app) => {
             const Icon = app.icon
+            const isActiveModule = currentModule && app.module === currentModule
             return (
               <DropdownMenuItem
                 key={app.id}
                 disabled={!app.active}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-2 py-2.5",
-                  app.active && "cursor-pointer hover:bg-sidebar-accent focus:bg-sidebar-accent"
+                  app.active && "cursor-pointer hover:bg-sidebar-accent focus:bg-sidebar-accent",
+                  isActiveModule && "bg-sidebar-accent/50"
                 )}
                 render={app.active && app.href ? <Link href={app.href} /> : undefined}
               >
                 <div
                   className={cn(
                     "flex size-8 shrink-0 items-center justify-center rounded-lg",
-                    app.active
-                      ? "bg-emerald-500/10 text-emerald-500"
-                      : "bg-muted text-muted-foreground"
+                    isActiveModule
+                      ? "bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/30"
+                      : app.active
+                        ? "bg-emerald-500/10 text-emerald-500"
+                        : "bg-muted text-muted-foreground"
                   )}
                 >
                   <Icon className="size-4" />
@@ -138,12 +157,16 @@ export function AppSwitcher() {
                     <span
                       className={cn(
                         "text-sm font-medium",
-                        app.active ? "text-sidebar-foreground" : "text-muted-foreground"
+                        isActiveModule ? "text-foreground" : app.active ? "text-sidebar-foreground" : "text-muted-foreground"
                       )}
                     >
                       {app.name}
                     </span>
-                    {app.active ? (
+                    {isActiveModule ? (
+                      <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">
+                        Active
+                      </Badge>
+                    ) : app.active ? (
                       <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">
                         Live
                       </Badge>
@@ -159,7 +182,7 @@ export function AppSwitcher() {
                   <p
                     className={cn(
                       "truncate text-xs",
-                      app.active ? "text-muted-foreground" : "text-muted-foreground/50"
+                      isActiveModule ? "text-foreground/70" : app.active ? "text-muted-foreground" : "text-muted-foreground/50"
                     )}
                   >
                     {app.description}

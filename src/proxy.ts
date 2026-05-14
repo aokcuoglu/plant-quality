@@ -14,6 +14,7 @@ const PROTECTED_API_PREFIXES = [
   "/api/image",
   "/api/users",
   "/api/session",
+  "/api/logistic",
 ]
 
 export async function proxy(request: NextRequest) {
@@ -28,6 +29,22 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(redirectUrl)
   }
 
+  if (pathname.startsWith("/logistic")) {
+    if (!session) {
+      const loginUrl = request.nextUrl.clone()
+      loginUrl.pathname = "/login"
+      loginUrl.searchParams.set("redirect", pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+    if (session.user.companyType !== "OEM") {
+      const dest = "/quality/supplier"
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = dest
+      redirectUrl.search = ""
+      return NextResponse.redirect(redirectUrl)
+    }
+  }
+
   if (pathname.startsWith("/api/")) {
     if (pathname.startsWith("/api/auth") || pathname.startsWith("/api/cron")) {
       return NextResponse.next()
@@ -39,6 +56,12 @@ export async function proxy(request: NextRequest) {
 
     if (isProtectedApi && !session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    if (pathname.startsWith("/api/logistic")) {
+      if (!session || session.user.companyType !== "OEM") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      }
     }
 
     return NextResponse.next()

@@ -23,6 +23,8 @@ import {
   TargetIcon,
   TruckIcon,
   LockIcon,
+  PackageCheckIcon,
+  ClipboardList,
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
@@ -56,6 +58,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
   AwardIcon,
   TargetIcon,
   TruckIcon,
+  PackageCheckIcon,
+  ClipboardList,
 }
 
 interface SidebarLinkItem {
@@ -68,6 +72,8 @@ interface SidebarLinkItem {
 interface SidebarProps {
   navItems: SidebarLinkItem[]
   planNavItem?: SidebarLinkItem
+  moduleName?: string
+  moduleIcon?: LucideIcon
   user: {
     email: string
     companyName: string
@@ -79,7 +85,7 @@ interface SidebarProps {
 
 const noop = () => () => {}
 
-export function Sidebar({ navItems, planNavItem, user }: SidebarProps) {
+export function Sidebar({ navItems, planNavItem, moduleName = "Quality", moduleIcon: ModuleIcon = Factory, user }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const isClient = useSyncExternalStore(noop, () => true, () => false)
 
@@ -118,7 +124,7 @@ export function Sidebar({ navItems, planNavItem, user }: SidebarProps) {
             )}
           >
             <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
-              <Factory className="size-4" strokeWidth={2.5} />
+              <ModuleIcon className="size-4" strokeWidth={2.5} />
             </div>
             <span
               className={cn(
@@ -132,7 +138,7 @@ export function Sidebar({ navItems, planNavItem, user }: SidebarProps) {
                 Plant
               </span>
               <span className="font-light ml-0.5 text-sidebar-foreground/70">
-                Quality
+                {moduleName}
               </span>
             </span>
           </div>

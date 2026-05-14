@@ -1,9 +1,13 @@
 "use client"
 
+import { usePathname } from "next/navigation"
 import {
   Building2Icon,
   ChevronRight,
+  Factory,
+  TruckIcon,
 } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 import { NotificationBell } from "@/components/notifications/NotificationBell"
 import { AppSwitcher } from "@/components/layout/AppSwitcher"
 import { Sidebar } from "@/components/layout/Sidebar"
@@ -18,8 +22,51 @@ interface NavItem {
   section?: string
 }
 
+interface ModuleConfig {
+  name: string
+  suffix: string
+  icon: LucideIcon
+  navItems: NavItem[]
+  defaultHref: string
+}
+
+const QUALITY_OEM_NAV: NavItem[] = [
+  { href: "/quality/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
+  { href: "/quality/oem/defects", label: "Defects", icon: "BugIcon" as const, gate: "DEFECTS" },
+  { href: "/quality/oem/field", label: "Field Quality", icon: "ClipboardListIcon" as const, gate: "FIELD_QUALITY" },
+  { href: "/quality/oem/quality-intelligence", label: "Intelligence", icon: "BarChart3Icon" as const, gate: "QUALITY_INTELLIGENCE" },
+  { href: "/quality/oem/executive", label: "Executive Cockpit", icon: "GaugeIcon" as const, gate: "EXECUTIVE_COCKPIT" },
+  { href: "/quality/oem/scorecard", label: "Scorecard", icon: "AwardIcon" as const, gate: "SUPPLIER_SCORECARD" },
+  { href: "/quality/oem/supplier-development", label: "Supplier Development", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
+  { href: "/quality/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const, gate: "PPAP" },
+  { href: "/quality/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
+  { href: "/quality/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },
+  { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const, gate: "ESCALATION" },
+  { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const, gate: "WAR_ROOM" },
+  { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const, gate: "NOTIFICATIONS" },
+]
+
+const QUALITY_SUPPLIER_NAV: NavItem[] = [
+  { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
+  { href: "/quality/supplier/defects", label: "Defects", icon: "BugIcon" as const },
+  { href: "/quality/supplier/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
+  { href: "/quality/supplier/development", label: "Development Plans", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
+  { href: "/quality/supplier/ppap", label: "PPAP", icon: "FileTextIcon" as const, gate: "PPAP" },
+  { href: "/quality/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
+  { href: "/quality/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },
+  { href: "/quality/supplier/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const },
+  { href: "/quality/supplier/notifications", label: "Notifications", icon: "BellIcon" as const },
+]
+
+const LOGISTIC_NAV: NavItem[] = [
+  { href: "/logistic", label: "Overview", icon: "LayoutDashboardIcon" as const, gate: "PLANT_LOGISTIC" },
+  { href: "/logistic/orders", label: "Vehicle Orders", icon: "TruckIcon" as const, gate: "PLANT_LOGISTIC" },
+  { href: "/logistic/orders/new", label: "New Order", icon: "PlusCircleIcon" as const, gate: "PLANT_LOGISTIC" },
+]
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { session, loading } = useSession()
+  const pathname = usePathname()
 
   if (loading) {
     return (
@@ -33,41 +80,36 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const isOem = session.user.companyType === "OEM"
   const isOemAdmin = isOem && session.user.role === "ADMIN"
+  const isLogisticRoute = isOem && pathname.startsWith("/logistic")
 
-  const navItems: NavItem[] = isOem
-    ? [
-        { href: "/quality/oem", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
-        { href: "/quality/oem/defects", label: "Defects", icon: "BugIcon" as const, gate: "DEFECTS" },
-        { href: "/quality/oem/field", label: "Field Quality", icon: "ClipboardListIcon" as const, gate: "FIELD_QUALITY" },
-        { href: "/quality/oem/quality-intelligence", label: "Intelligence", icon: "BarChart3Icon" as const, gate: "QUALITY_INTELLIGENCE" },
-        { href: "/quality/oem/executive", label: "Executive Cockpit", icon: "GaugeIcon" as const, gate: "EXECUTIVE_COCKPIT" },
-        { href: "/quality/oem/scorecard", label: "Scorecard", icon: "AwardIcon" as const, gate: "SUPPLIER_SCORECARD" },
-        { href: "/quality/oem/supplier-development", label: "Supplier Development", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
-        { href: "/quality/oem/ppap", label: "PPAP", icon: "FileTextIcon" as const, gate: "PPAP" },
-        { href: "/quality/oem/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
-        { href: "/quality/oem/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },
-        { href: "/quality/oem/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const, gate: "ESCALATION" },
-        { href: "/quality/oem/war-room", label: "War Room", icon: "TrendingUpIcon" as const, gate: "WAR_ROOM" },
-        { href: "/quality/oem/notifications", label: "Notifications", icon: "BellIcon" as const, gate: "NOTIFICATIONS" },
-        { href: "/logistic", label: "PlantLogistic", icon: "TruckIcon" as const, gate: "PLANT_LOGISTIC" },
-      ]
-    : [
-        { href: "/quality/supplier", label: "Dashboard", icon: "LayoutDashboardIcon" as const },
-        { href: "/quality/supplier/defects", label: "Defects", icon: "BugIcon" as const },
-        { href: "/quality/supplier/field", label: "Field Quality", icon: "ClipboardListIcon" as const },
-        { href: "/quality/supplier/development", label: "Development Plans", icon: "TargetIcon" as const, gate: "SUPPLIER_DEVELOPMENT" },
-        { href: "/quality/supplier/ppap", label: "PPAP", icon: "FileTextIcon" as const, gate: "PPAP" },
-        { href: "/quality/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
-        { href: "/quality/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },
-        { href: "/quality/supplier/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const },
-        { href: "/quality/supplier/notifications", label: "Notifications", icon: "BellIcon" as const },
-      ]
+  const moduleConfig: ModuleConfig = isLogisticRoute
+    ? {
+        name: "Logistic",
+        suffix: "Logistic",
+        icon: TruckIcon,
+        navItems: LOGISTIC_NAV,
+        defaultHref: "/logistic",
+      }
+    : {
+        name: "Quality",
+        suffix: "Quality",
+        icon: Factory,
+        navItems: isOem ? QUALITY_OEM_NAV : QUALITY_SUPPLIER_NAV,
+        defaultHref: isOem ? "/quality/oem" : "/quality/supplier",
+      }
+
+  const plantXModule: "quality" | "logistic" | null = isLogisticRoute ? "logistic" : "quality"
+
+  const navItems = moduleConfig.navItems
+  const planNavItem = isOemAdmin ? { href: "/oem/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined
 
   return (
     <div className="flex h-screen">
       <Sidebar
         navItems={navItems}
-        planNavItem={isOemAdmin ? { href: "/oem/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined}
+        planNavItem={planNavItem}
+        moduleName={moduleConfig.suffix}
+        moduleIcon={moduleConfig.icon}
         user={{
           email: session.user.email ?? "",
           companyName: session.user.companyName ?? "",
@@ -80,7 +122,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-sidebar px-6">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="hidden text-muted-foreground sm:inline">PlantQuality</span>
+            <span className="hidden text-muted-foreground sm:inline">Plant{moduleConfig.name}</span>
             <ChevronRight className="hidden size-3 text-muted-foreground/50 sm:block" />
             <span className="flex items-center gap-1.5 font-medium text-foreground">
               <Building2Icon className="size-3.5 text-muted-foreground" />
@@ -88,7 +130,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           </div>
           <div className="flex items-center gap-1.5">
-            <AppSwitcher />
+            <AppSwitcher currentModule={plantXModule} />
             <NotificationBell />
           </div>
         </header>

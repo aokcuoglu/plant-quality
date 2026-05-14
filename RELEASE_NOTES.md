@@ -67,9 +67,14 @@ A new feature key `PLANT_LOGISTIC` has been added:
 
 ## Navigation Changes
 
-- AppSwitcher: PlantLogistic is now marked as active/live with link to `/logistic`
-- OEM sidebar: PlantLogistic nav item added with `PLANT_LOGISTIC` feature gate
-- Supplier sidebar: No PlantLogistic entry
+- **Module Separation:** PlantLogistic is no longer a submenu item inside the PlantQuality sidebar. Each PlantX module now has its own independent navigation shell.
+- **PlantQuality Sidebar:** Contains only PlantQuality-related nav items (defects, field quality, PPAP, IQC, etc.). No cross-module links.
+- **PlantLogistic Sidebar:** Independent sidebar with its own nav items (Overview, Vehicle Orders, New Order). Uses `TruckIcon` as module icon with "PlantLogistic" branding.
+- **Module-Aware Layout:** The dashboard layout detects the current module from the URL pathname and renders the appropriate sidebar, header breadcrumb, and module icon.
+- **AppSwitcher Context Awareness:** The AppSwitcher dropdown now highlights the currently active module with an "Active" badge (instead of "Live") and a visual ring indicator.
+- **Header Breadcrumb:** Shows "PlantQuality" or "PlantLogistic" dynamically based on the active module.
+- **Supplier Isolation:** Supplier users never see the PlantLogistic sidebar or nav items, even via direct URL (blocked at proxy, page, and layout levels).
+- **Feature Gate:** PlantLogistic nav items still gated by `PLANT_LOGISTIC` feature key — OEM FREE/PRO see locked items.
 
 ---
 
@@ -101,6 +106,8 @@ A new feature key `PLANT_LOGISTIC` has been added:
 - Direct URL access denied for unauthorized users
 - Supplier users cannot access any PlantLogistic routes or actions
 - FREE/PRO OEM users are redirected with locked nav items
+- **Proxy-level enforcement:** `/logistic` routes blocked for non-OEM users at middleware level; `/api/logistic` API routes return 403 for non-OEM sessions
+- **Layout-level guard:** Dashboard layout never renders PlantLogistic sidebar for supplier users (falls back to PlantQuality shell)
 
 ---
 

@@ -325,4 +325,5 @@ export const OEM_NAV_FEATURE_GATES: Record<string, FeatureKey> = {
   "/quality/oem/notifications": "NOTIFICATIONS",
   "/logistic": "PLANT_LOGISTIC",
   "/logistic/orders": "PLANT_LOGISTIC",
+  "/logistic/orders/new": "PLANT_LOGISTIC",
 }

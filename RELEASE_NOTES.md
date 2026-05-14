@@ -71,10 +71,12 @@ A new feature key `PLANT_LOGISTIC` has been added:
 - **PlantQuality Sidebar:** Contains only PlantQuality-related nav items (defects, field quality, PPAP, IQC, etc.). No cross-module links.
 - **PlantLogistic Sidebar:** Independent sidebar with its own nav items (Overview, Vehicle Orders, New Order). Uses `TruckIcon` as module icon with "PlantLogistic" branding.
 - **Module-Aware Layout:** The dashboard layout detects the current module from the URL pathname and renders the appropriate sidebar, header breadcrumb, and module icon.
-- **AppSwitcher Context Awareness:** The AppSwitcher dropdown now highlights the currently active module with an "Active" badge (instead of "Live") and a visual ring indicator.
+- **AppSwitcher Access Control:** AppSwitcher now respects feature gates and company type — PlantLogistic is only shown as "Live" to ENTERPRISE OEM users. Supplier users do not see PlantLogistic at all. Free/Pro OEM see it as locked/disabled with a lock icon.
 - **Header Breadcrumb:** Shows "PlantQuality" or "PlantLogistic" dynamically based on the active module.
 - **Supplier Isolation:** Supplier users never see the PlantLogistic sidebar or nav items, even via direct URL (blocked at proxy, page, and layout levels).
 - **Feature Gate:** PlantLogistic nav items still gated by `PLANT_LOGISTIC` feature key — OEM FREE/PRO see locked items.
+- **Fixed:** PlantLogistic order list page (`/logistic/orders`) runtime crash caused by `onChange` event handler in Server Component — replaced with explicit "Apply filters" submit button.
+- **Fixed:** Feature gate navigation maps now include `/logistic/orders/new` in `OEM_NAV_FEATURE_GATES`, `isFeatureGatedNav`, and `isEnterpriseOnlyNav`.
 
 ---
 

@@ -11,6 +11,7 @@ import {
   MoveRight,
   Users,
   Grid3X3,
+  LockIcon,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -23,91 +24,118 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { checkFeatureAccess, type FeatureKey } from "@/lib/billing/features"
+import type { PlanKey } from "@/lib/billing/plans"
 
 type PlantXModule = "quality" | "logistic" | null
 
-interface AppSwitcherProps {
-  currentModule?: PlantXModule
+interface AppModule {
+  id: string
+  name: string
+  description: string
+  icon: React.ComponentType<{ className?: string }>
+  featureGate?: FeatureKey
+  href?: string
+  module: PlantXModule
+  supplierVisible: boolean
 }
 
-const apps = [
+const apps: AppModule[] = [
   {
     id: "quality",
     name: "PlantQuality",
     description: "AI-Powered 8D & Quality Mgmt",
     icon: ShieldCheck,
-    active: true,
+    featureGate: undefined,
     href: "/quality/oem",
-    module: "quality" as const,
+    module: "quality",
+    supplierVisible: true,
   },
   {
     id: "logistic",
     name: "PlantLogistic",
     description: "Vehicle Order & Delivery Control Tower",
     icon: TruckIcon,
-    active: true,
+    featureGate: "PLANT_LOGISTIC",
     href: "/logistic",
-    module: "logistic" as const,
+    module: "logistic",
+    supplierVisible: false,
   },
   {
     id: "dock",
     name: "PlantDock",
     description: "Warehouse Gate & Logistics",
     icon: TruckIcon,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
   {
     id: "quote",
     name: "PlantQuote",
     description: "RFQ & Supplier Bidding",
     icon: FileText,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
   {
     id: "trace",
     name: "PlantTrace / PlantGreen",
     description: "Traceability & Carbon Footprint",
     icon: Leaf,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
   {
     id: "audit",
     name: "PlantAudit",
     description: "Digital Auditing (LPA, VDA)",
     icon: ClipboardCheck,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
   {
     id: "asset",
     name: "PlantAsset",
     description: "Machinery Maintenance & OEE",
     icon: Settings,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
   {
     id: "flow",
     name: "PlantFlow",
     description: "Internal Material Flow & RFID",
     icon: MoveRight,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
   {
     id: "staff",
     name: "PlantStaff",
     description: "Skill Matrix & HSE Compliance",
     icon: Users,
-    active: false,
-    module: null as never,
+    featureGate: undefined,
+    module: null,
+    supplierVisible: false,
   },
 ]
 
-export function AppSwitcher({ currentModule }: AppSwitcherProps) {
+interface AppSwitcherProps {
+  currentModule?: PlantXModule
+  userPlan?: string
+  userCompanyType?: string
+}
+
+export function AppSwitcher({ currentModule, userPlan = "FREE", userCompanyType = "OEM" }: AppSwitcherProps) {
+  const normalizedPlan = (userPlan ?? "FREE").toUpperCase() as PlanKey
+  const companyType = userCompanyType ?? "OEM"
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -128,24 +156,55 @@ export function AppSwitcher({ currentModule }: AppSwitcherProps) {
           <DropdownMenuSeparator className="bg-sidebar-border" />
           {apps.map((app) => {
             const Icon = app.icon
-            const isActiveModule = currentModule && app.module === currentModule
+            const isActiveModule = currentModule !== null && currentModule !== undefined && app.module !== null && app.module === currentModule
+
+            if (app.featureGate) {
+              const access = checkFeatureAccess(normalizedPlan, companyType, app.featureGate)
+              const isVisible = app.supplierVisible || companyType !== "SUPPLIER"
+              if (!isVisible) {
+                return null
+              }
+              if (!access.allowed) {
+                return (
+                  <DropdownMenuItem
+                    key={app.id}
+                    disabled
+                    className="flex items-center gap-3 rounded-lg px-2 py-2.5 opacity-50"
+                  >
+                    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                      <Icon className="size-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-muted-foreground">{app.name}</span>
+                        <LockIcon className="size-3 text-muted-foreground" />
+                      </div>
+                      <p className="truncate text-xs text-muted-foreground/50">{app.description}</p>
+                    </div>
+                  </DropdownMenuItem>
+                )
+              }
+            }
+
+            const isLive = !app.featureGate ? false : true
+
             return (
               <DropdownMenuItem
                 key={app.id}
-                disabled={!app.active}
+                disabled={!app.featureGate && !isLive && app.module === null}
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-2 py-2.5",
-                  app.active && "cursor-pointer hover:bg-sidebar-accent focus:bg-sidebar-accent",
+                  app.featureGate && "cursor-pointer hover:bg-sidebar-accent focus:bg-sidebar-accent",
                   isActiveModule && "bg-sidebar-accent/50"
                 )}
-                render={app.active && app.href ? <Link href={app.href} /> : undefined}
+                render={app.featureGate && app.href ? <Link href={app.href} /> : undefined}
               >
                 <div
                   className={cn(
                     "flex size-8 shrink-0 items-center justify-center rounded-lg",
                     isActiveModule
                       ? "bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/30"
-                      : app.active
+                      : app.featureGate
                         ? "bg-emerald-500/10 text-emerald-500"
                         : "bg-muted text-muted-foreground"
                   )}
@@ -157,7 +216,7 @@ export function AppSwitcher({ currentModule }: AppSwitcherProps) {
                     <span
                       className={cn(
                         "text-sm font-medium",
-                        isActiveModule ? "text-foreground" : app.active ? "text-sidebar-foreground" : "text-muted-foreground"
+                        isActiveModule ? "text-foreground" : app.featureGate ? "text-sidebar-foreground" : "text-muted-foreground"
                       )}
                     >
                       {app.name}
@@ -166,7 +225,7 @@ export function AppSwitcher({ currentModule }: AppSwitcherProps) {
                       <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">
                         Active
                       </Badge>
-                    ) : app.active ? (
+                    ) : app.featureGate ? (
                       <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">
                         Live
                       </Badge>
@@ -182,7 +241,7 @@ export function AppSwitcher({ currentModule }: AppSwitcherProps) {
                   <p
                     className={cn(
                       "truncate text-xs",
-                      isActiveModule ? "text-foreground/70" : app.active ? "text-muted-foreground" : "text-muted-foreground/50"
+                      isActiveModule ? "text-foreground/70" : app.featureGate ? "text-muted-foreground" : "text-muted-foreground/50"
                     )}
                   >
                     {app.description}

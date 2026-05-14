@@ -65,24 +65,18 @@ export default async function LogisticOrdersPage({
         </Link>
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <form className="flex items-center gap-2">
-          <select
-            name="status"
-            className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
-            defaultValue={statusFilter}
-            onChange={(e) => {
-              const form = e.currentTarget.closest("form")
-              if (form) form.submit()
-            }}
-          >
-            <option value="">All statuses</option>
-            {statusOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-        </form>
-        <form className="flex-1 sm:max-w-xs">
+      <form className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <select
+          name="status"
+          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
+          defaultValue={statusFilter}
+        >
+          <option value="">All statuses</option>
+          {statusOptions.map((opt) => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+        <div className="flex flex-1 items-center gap-2 sm:max-w-xs">
           <input
             type="text"
             name="search"
@@ -90,8 +84,14 @@ export default async function LogisticOrdersPage({
             defaultValue={searchFilter}
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
           />
-        </form>
-      </div>
+        </div>
+        <button
+          type="submit"
+          className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+        >
+          Apply filters
+        </button>
+      </form>
 
       {orders.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border bg-card py-16 text-muted-foreground">

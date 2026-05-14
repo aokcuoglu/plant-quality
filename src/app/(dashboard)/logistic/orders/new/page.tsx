@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { requireFeature } from "@/lib/billing/guards"
+import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { createLogisticOrder } from "../../actions"
 import { CUSTOMER_TYPE_OPTIONS, VEHICLE_TYPE_OPTIONS, POWERTRAIN_OPTIONS, PRIORITY_OPTIONS } from "@/lib/logistic/types"
 import Link from "next/link"
@@ -12,6 +12,8 @@ export default async function NewLogisticOrderPage() {
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 

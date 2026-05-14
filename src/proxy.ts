@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { checkModuleAccess } from "@/lib/billing/features"
 
 const PUBLIC_PATHS = new Set(["/", "/login", "/verify-request"])
 
@@ -43,6 +44,14 @@ export async function proxy(request: NextRequest) {
       redirectUrl.search = ""
       return NextResponse.redirect(redirectUrl)
     }
+    const companyId = session.user.companyId ?? ""
+    const hasModule = checkModuleAccess("PLANT_LOGISTIC_MODULE", companyId, session.user.companyType ?? "OEM")
+    if (!hasModule) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = "/quality/oem"
+      redirectUrl.search = ""
+      return NextResponse.redirect(redirectUrl)
+    }
   }
 
   if (pathname.startsWith("/api/")) {
@@ -61,6 +70,11 @@ export async function proxy(request: NextRequest) {
     if (pathname.startsWith("/api/logistic")) {
       if (!session || session.user.companyType !== "OEM") {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      }
+      const companyId = session.user.companyId ?? ""
+      const hasModule = checkModuleAccess("PLANT_LOGISTIC_MODULE", companyId, session.user.companyType ?? "OEM")
+      if (!hasModule) {
+        return NextResponse.json({ error: "Module not included in subscription" }, { status: 403 })
       }
     }
 

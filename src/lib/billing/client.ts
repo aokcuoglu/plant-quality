@@ -1,2 +1,2 @@
 export { normalizePlan, getPlanLabel, getPlanBadgeClasses, getPlanLimits, formatLimit, isPlanAtLeast, type PlanKey, type PlanLimit } from "./plans"
-export { canUseFeature, checkFeatureAccess, getFeatureGate, getAllFeatures, type FeatureKey, type FeatureGate, type FeatureAccessResult, OEM_NAV_FEATURE_GATES } from "./features"
+export { canUseFeature, checkFeatureAccess, getFeatureGate, getAllFeatures, checkModuleAccess, isModuleEntitled, MODULE_ENTITLEMENTS, MODULE_ORDER, type FeatureKey, type FeatureGate, type FeatureAccessResult, type ModuleKey, type ModuleEntitlement, OEM_NAV_FEATURE_GATES } from "./features"

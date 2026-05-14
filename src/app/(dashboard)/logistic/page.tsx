@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
-import { requireFeature } from "@/lib/billing/guards"
+import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { labelForPriority } from "@/lib/logistic/types"
 import Link from "next/link"
 import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck } from "lucide-react"
@@ -14,6 +14,8 @@ export default async function LogisticDashboardPage() {
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 

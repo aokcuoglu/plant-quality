@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import { requireFeature } from "@/lib/billing/guards"
+import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import type {
@@ -20,6 +20,8 @@ export async function createLogisticOrder(formData: FormData) {
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 
@@ -118,6 +120,8 @@ export async function updateLogisticOrder(orderId: string, formData: FormData) {
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 
@@ -174,6 +178,8 @@ export async function updateLogisticOrderPlanning(orderId: string, formData: For
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 
@@ -220,6 +226,8 @@ export async function assignVinChassis(orderId: string, formData: FormData) {
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 
@@ -272,6 +280,8 @@ export async function changeLogisticOrderStatus(orderId: string, newStatus: Logi
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 
@@ -326,6 +336,8 @@ export async function addLogisticOrderComment(orderId: string, message: string) 
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 

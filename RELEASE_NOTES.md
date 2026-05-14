@@ -1,3 +1,99 @@
+# PlantX v3.1.1 — Module Entitlements + PlantLogistic Strategy Patch
+
+**Release Date:** 2026-05-14  
+**Version:** 3.1.1
+
+---
+
+## Summary
+
+PlantX v3.1.1 introduces a two-layer access model: **Product/Module Entitlement** × **Plan Tier**. Previously, PlantLogistic was gated solely by the ENTERPRISE plan tier. This was incorrect — PlantQuality and PlantLogistic are independently purchasable modules. A company should be able to buy PlantLogistic without being Enterprise, and Free-tier companies should be able to see PlantQuality without seeing PlantLogistic at all.
+
+This patch decouples module visibility from plan tier, adds the `ModuleKey` / `ModuleEntitlement` system, updates the AppSwitcher, landing page, route guards, and server actions to enforce module-level access, and adds comprehensive commercial and roadmap documentation.
+
+---
+
+## Module Entitlement Strategy
+
+### Two-Layer Access Model
+
+| Layer | Purpose | Examples |
+|-------|---------|----------|
+| **Module Entitlement** | Which products you own | `PLANT_QUALITY_MODULE`, `PLANT_LOGISTIC_MODULE` |
+| **Plan Tier** | Feature depth within a module | FREE, PRO, ENTERPRISE |
+
+- Module entitlement is independent of plan tier.
+- A company with PlantQuality PRO + PlantLogistic FREE can access both modules.
+- A company with PlantLogistic ENTERPRISE only can access only PlantLogistic.
+- PlantX Suite customers get all modules at ENTERPRISE tier.
+- Supplier users always get PlantQuality module (limited to supplier portal features) but never get PlantLogistic.
+
+### Implementation
+
+- `ModuleKey` type and `MODULE_ENTITLEMENTS` config added to `features.ts`
+- `PLANT_LOGISTIC` feature gate `minPlan` changed from `ENTERPRISE` to `FREE` (module entitlement, not plan restriction)
+- `checkModuleAccess()` and `isModuleEntitled()` functions added
+- `requireModule()` server guard added
+- Demo entitlements: `DEMO_MODULE_ENTITLEMENTS` maps company IDs to module keys
+- `FeatureGate` type extended with `module?: ModuleKey` field
+
+---
+
+## Changes
+
+### Billing / Feature System
+
+- **`src/lib/billing/features.ts`**: Added `ModuleKey`, `ModuleEntitlement`, `MODULE_ENTITLEMENTS`, `MODULE_ORDER`, `isModuleEntitled()`, `checkModuleAccess()`, `DEMO_MODULE_ENTITLEMENTS`. Changed `PLANT_LOGISTIC` minPlan from `ENTERPRISE` to `FREE`. Added `module` field to all `FeatureGate` entries.
+- **`src/lib/billing/guards.ts`**: Added `requireModule()`, `checkModuleAccess`, `isModuleEntitled` exports. `requireFeature()` now passes `companyId` for module access checks. Removed logistic routes from `isEnterpriseOnlyNav()`.
+- **`src/lib/billing/index.ts`** and **`client.ts`**: Added new exports for module entitlement types and functions.
+
+### AppSwitcher & Navigation
+
+- **`src/components/layout/AppSwitcher.tsx`**: Module visibility now uses `checkModuleAccess()` instead of `checkFeatureAccess()`. Added `userCompanyId` prop. Modules without entitlement show locked state with module name.
+- **`src/app/(dashboard)/layout.tsx`**: Passes `userCompanyId` to `AppSwitcher`.
+
+### Route Protection
+
+- **`src/proxy.ts`**: `/logistic` routes now check `PLANT_LOGISTIC_MODULE` entitlement via `checkModuleAccess()`. `/api/logistic` returns 403 if module not entitled.
+- **All PlantLogistic page components**: Added `requireModule(session, "PLANT_LOGISTIC_MODULE")` before `requireFeature(session, "PLANT_LOGISTIC")`.
+- **`src/app/(dashboard)/logistic/actions.ts`**: All 6 server actions now enforce module entitlement before plan-tier check.
+
+### Landing Page
+
+- **`src/app/page.tsx`**: Added `PlantLogistic` as second "Live" product in ecosystem section (9 modules total now). PlantLogistic gets blue accent and `/login?redirect=/logistic` href. Updated "Active Modules" section. Ecosystem description updated to "Nine specialized modules".
+
+### Documentation
+
+- **`docs/commercial/plantx-product-entitlements-v3.1.1.md`**: New comprehensive entitlement strategy document.
+- **`docs/roadmap/plantlogistic-roadmap.md`**: Updated with v3.1.1 patch details and expanded future vision.
+- **`docs/qa/v3.1.1-module-entitlements-and-plantlogistic-strategy-qa.md`**: New QA checklist.
+
+---
+
+## Seed Data / Demo
+
+Module entitlements are config-based in v3.1.1:
+
+| Company | Module Entitlements |
+|---------|---------------------|
+| TestFree OEM Corp (FREE) | PLANT_QUALITY_MODULE only |
+| PlantX Automotive (PRO) | PLANT_QUALITY_MODULE + PLANT_LOGISTIC_MODULE |
+| Enterprise Motors Group (ENTERPRISE) | PLANT_QUALITY_MODULE + PLANT_LOGISTIC_MODULE |
+| Precision Parts Inc. (SUPPLIER) | PLANT_QUALITY_MODULE only |
+| SteelForged Co. (SUPPLIER) | PLANT_QUALITY_MODULE only |
+
+---
+
+## No Regressions
+
+- All PlantQuality features remain fully functional.
+- Supplier portal access unchanged.
+- Plan-tier feature gating (FREE/PRO/ENTERPRISE) within PlantQuality unchanged.
+- 8D, PPAP, IQC, FMEA, Scorecard, War Room, Escalation, Intelligence all work as before.
+- AI feature gates (PRO for classification, ENTERPRISE for 8D review) unchanged.
+
+---
+
 # PlantX v3.1.0 — PlantLogistic Order Tracking MVP
 
 **Release Date:** 2026-05-13  

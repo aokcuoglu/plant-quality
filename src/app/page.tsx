@@ -27,6 +27,7 @@ import {
   ShieldCheck,
   Sparkles,
   TrendingUp,
+  TruckIcon,
   Users,
   Warehouse,
   Zap,
@@ -73,13 +74,23 @@ const products: Product[] = [
     accent: "bg-emerald-500/10 text-emerald-400",
   },
   {
+    id: "logistic",
+    name: "PlantLogistic",
+    tagline: "Vehicle Order & Delivery Control Tower",
+    icon: TruckIcon,
+    status: "live",
+    href: "/login?redirect=/logistic",
+    color: "from-blue-400 to-blue-600",
+    accent: "bg-blue-500/10 text-blue-400",
+  },
+  {
     id: "dock",
     name: "PlantDock",
     tagline: "Warehouse Gate & Logistics",
     icon: Warehouse,
     status: "upcoming",
-    color: "from-blue-400 to-blue-600",
-    accent: "bg-blue-500/10 text-blue-400",
+    color: "from-indigo-400 to-indigo-600",
+    accent: "bg-indigo-500/10 text-indigo-400",
   },
   {
     id: "quote",
@@ -496,7 +507,7 @@ export default function LandingPage() {
               eyebrow="Modular Architecture"
               title="The PlantX"
               highlight="Ecosystem"
-              description="Eight specialized modules built on a single data layer. Start with one, expand as you grow."
+              description="Nine specialized modules built on a single data layer. Start with one, expand as you grow."
             />
 
             <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -518,12 +529,15 @@ export default function LandingPage() {
                       isLive
                         ? "border-emerald-500/30 shadow-lg shadow-emerald-500/5 hover:border-emerald-400/50 hover:shadow-emerald-500/10"
                         : "border-border hover:border-border",
-                      product.id === "quality" && "sm:col-span-2 lg:col-span-2"
+                      (product.id === "quality" || product.id === "logistic") && "sm:col-span-2 lg:col-span-2"
                     )}
                   >
                     {/* ambient glow for hero card */}
                     {product.id === "quality" && (
                       <div className="pointer-events-none absolute -top-24 -right-24 size-[320px] rounded-full bg-emerald-500/8 blur-[80px]" />
+                    )}
+                    {product.id === "logistic" && (
+                      <div className="pointer-events-none absolute -top-24 -right-24 size-[320px] rounded-full bg-blue-500/8 blur-[80px]" />
                     )}
 
                     <div className="mb-4 flex items-start justify-between">
@@ -684,8 +698,8 @@ export default function LandingPage() {
                 <div className="mt-4 space-y-3">
                   {[
                     { label: "PlantQuality", pct: 100, color: "bg-emerald-500" },
-                    { label: "PlantDock", pct: 80, color: "bg-blue-500" },
-                    { label: "PlantTrace", pct: 45, color: "bg-teal-500" },
+                    { label: "PlantLogistic", pct: 90, color: "bg-blue-500" },
+                    { label: "PlantDock", pct: 80, color: "bg-indigo-500" },
                   ].map((m) => (
                     <div key={m.label}>
                       <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">

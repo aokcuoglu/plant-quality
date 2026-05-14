@@ -1,6 +1,8 @@
 import type { PlanKey } from "./plans"
 import { isPlanAtLeast, isSupplierPlan } from "./plans"
 
+export type ModuleKey = "PLANT_QUALITY_MODULE" | "PLANT_LOGISTIC_MODULE"
+
 export type FeatureKey =
   | "DEFECTS"
   | "FIELD_QUALITY"
@@ -31,12 +33,48 @@ export type FeatureKey =
   | "SUPPLIER_DEVELOPMENT"
   | "PLANT_LOGISTIC"
 
+export type ModuleEntitlement = {
+  key: ModuleKey
+  label: string
+  description: string
+  supplierAccess: boolean
+  featureGate?: FeatureKey
+}
+
+export const MODULE_ENTITLEMENTS: Record<ModuleKey, ModuleEntitlement> = {
+  PLANT_QUALITY_MODULE: {
+    key: "PLANT_QUALITY_MODULE",
+    label: "PlantQuality",
+    description: "AI-Powered 8D & Quality Management",
+    supplierAccess: true,
+  },
+  PLANT_LOGISTIC_MODULE: {
+    key: "PLANT_LOGISTIC_MODULE",
+    label: "PlantLogistic",
+    description: "Vehicle Order & Delivery Control Tower",
+    supplierAccess: false,
+    featureGate: "PLANT_LOGISTIC",
+  },
+}
+
+export const MODULE_ORDER: ModuleKey[] = [
+  "PLANT_QUALITY_MODULE",
+  "PLANT_LOGISTIC_MODULE",
+]
+
+export function isModuleEntitled(moduleKey: ModuleKey, companyType: string): boolean {
+  const entitlement = MODULE_ENTITLEMENTS[moduleKey]
+  if (!entitlement) return false
+  return entitlement.supplierAccess || companyType !== "SUPPLIER"
+}
+
 export interface FeatureGate {
   key: FeatureKey
   label: string
   description: string
   minPlan: PlanKey
   supplierAccess: boolean
+  module?: ModuleKey
 }
 
 export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
@@ -46,6 +84,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Defect creation and management",
     minPlan: "FREE",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   FIELD_QUALITY: {
     key: "FIELD_QUALITY",
@@ -53,6 +92,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Field defect tracking and management",
     minPlan: "FREE",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   EIGHT_D: {
     key: "EIGHT_D",
@@ -60,6 +100,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "8D problem-solving workflow",
     minPlan: "FREE",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   SUPPLIER_PORTAL: {
     key: "SUPPLIER_PORTAL",
@@ -67,6 +108,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Supplier collaboration and assigned records",
     minPlan: "FREE",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   PPAP: {
     key: "PPAP",
@@ -74,6 +116,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Production Part Approval Process",
     minPlan: "PRO",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   IQC: {
     key: "IQC",
@@ -81,6 +124,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Incoming Quality Control",
     minPlan: "PRO",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   FMEA: {
     key: "FMEA",
@@ -88,6 +132,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Failure Mode and Effects Analysis",
     minPlan: "PRO",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   SLA: {
     key: "SLA",
@@ -95,6 +140,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Service Level Agreement tracking and alerts",
     minPlan: "PRO",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   ESCALATION: {
     key: "ESCALATION",
@@ -102,6 +148,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Escalation workflows",
     minPlan: "PRO",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   WAR_ROOM: {
     key: "WAR_ROOM",
@@ -109,6 +156,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Critical defect management",
     minPlan: "PRO",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   NOTIFICATIONS: {
     key: "NOTIFICATIONS",
@@ -116,6 +164,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "In-app notification system",
     minPlan: "FREE",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   SIMILAR_ISSUES: {
     key: "SIMILAR_ISSUES",
@@ -123,6 +172,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "AI-powered similar issue detection",
     minPlan: "PRO",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   AI_CLASSIFICATION: {
     key: "AI_CLASSIFICATION",
@@ -130,6 +180,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "AI defect classification",
     minPlan: "PRO",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   AI_8D_REVIEW: {
     key: "AI_8D_REVIEW",
@@ -137,6 +188,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "AI expert review of 8D reports",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   ROOT_CAUSE_SUGGESTION: {
     key: "ROOT_CAUSE_SUGGESTION",
@@ -144,6 +196,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "AI-driven root cause analysis",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   CATEGORY_INTELLIGENCE: {
     key: "CATEGORY_INTELLIGENCE",
@@ -151,6 +204,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Category-level AI insights",
     minPlan: "PRO",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   QUALITY_INTELLIGENCE: {
     key: "QUALITY_INTELLIGENCE",
@@ -158,6 +212,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Quality intelligence dashboard",
     minPlan: "PRO",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   API_ACCESS: {
     key: "API_ACCESS",
@@ -165,6 +220,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "REST/GraphQL API access",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   WEBHOOKS: {
     key: "WEBHOOKS",
@@ -172,6 +228,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Outbound event webhooks",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   SSO: {
     key: "SSO",
@@ -179,6 +236,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "SAML/OIDC single sign-on",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   MULTI_PLANT: {
     key: "MULTI_PLANT",
@@ -186,6 +244,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Multi-plant organization support",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   ADVANCED_AUDIT_LOG: {
     key: "ADVANCED_AUDIT_LOG",
@@ -193,6 +252,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Detailed audit trail",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   EMAIL_NOTIFICATIONS: {
     key: "EMAIL_NOTIFICATIONS",
@@ -200,6 +260,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Email delivery of critical alerts",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   SUPPLIER_SCORECARD: {
     key: "SUPPLIER_SCORECARD",
@@ -207,6 +268,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Supplier quality scorecard with deterministic scoring, risk grading, and drill-down signals",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   QUALITY_LINKAGE: {
     key: "QUALITY_LINKAGE",
@@ -214,6 +276,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Cross-module related records and quality linkage",
     minPlan: "PRO",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   EXECUTIVE_COCKPIT: {
     key: "EXECUTIVE_COCKPIT",
@@ -221,6 +284,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Executive quality dashboard with KPIs, risk signals, and action items",
     minPlan: "ENTERPRISE",
     supplierAccess: false,
+    module: "PLANT_QUALITY_MODULE",
   },
   SUPPLIER_DEVELOPMENT: {
     key: "SUPPLIER_DEVELOPMENT",
@@ -228,13 +292,15 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     description: "Supplier development action plans for managing supplier improvement",
     minPlan: "ENTERPRISE",
     supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
   PLANT_LOGISTIC: {
     key: "PLANT_LOGISTIC",
     label: "PlantLogistic",
     description: "Vehicle order tracking, production planning, and delivery control tower",
-    minPlan: "ENTERPRISE",
+    minPlan: "FREE",
     supplierAccess: false,
+    module: "PLANT_LOGISTIC_MODULE",
   },
 }
 
@@ -253,10 +319,37 @@ export interface FeatureAccessResult {
   currentPlan: PlanKey
 }
 
+const DEMO_MODULE_ENTITLEMENTS: Record<string, ModuleKey[]> = {
+  "oem-free-company": ["PLANT_QUALITY_MODULE"],
+  "oem-company": ["PLANT_QUALITY_MODULE", "PLANT_LOGISTIC_MODULE"],
+  "oem-enterprise-company": ["PLANT_QUALITY_MODULE", "PLANT_LOGISTIC_MODULE"],
+  "supplier-company": ["PLANT_QUALITY_MODULE"],
+  "supplier-company-2": ["PLANT_QUALITY_MODULE"],
+}
+
+function getCompanyModules(companyId: string, companyType: string): ModuleKey[] {
+  if (companyType === "SUPPLIER") {
+    return ["PLANT_QUALITY_MODULE"]
+  }
+  const entitlements = DEMO_MODULE_ENTITLEMENTS[companyId]
+  if (entitlements) return entitlements
+  return ["PLANT_QUALITY_MODULE", "PLANT_LOGISTIC_MODULE"]
+}
+
+export function checkModuleAccess(moduleKey: ModuleKey, companyId: string, companyType: string): boolean {
+  if (moduleKey === "PLANT_QUALITY_MODULE") return true
+  const entitlement = MODULE_ENTITLEMENTS[moduleKey]
+  if (!entitlement) return false
+  if (companyType === "SUPPLIER" && !entitlement.supplierAccess) return false
+  const modules = getCompanyModules(companyId, companyType)
+  return modules.includes(moduleKey)
+}
+
 export function checkFeatureAccess(
   plan: PlanKey,
   companyType: string,
-  featureKey: FeatureKey
+  featureKey: FeatureKey,
+  companyId?: string
 ): FeatureAccessResult {
   const gate = FEATURE_GATES[featureKey]
   if (!gate) {
@@ -265,6 +358,24 @@ export function checkFeatureAccess(
       reason: "Unknown feature",
       minPlan: "ENTERPRISE",
       currentPlan: plan,
+    }
+  }
+
+  if (gate.module) {
+    const entitlement = MODULE_ENTITLEMENTS[gate.module]
+    const hasModuleAccess = companyId
+      ? checkModuleAccess(gate.module, companyId, companyType)
+      : isModuleEntitled(gate.module, companyType)
+
+    if (!hasModuleAccess) {
+      return {
+        allowed: false,
+        reason: entitlement
+          ? `The ${entitlement.label} module is not included in your current subscription. Contact sales to add it.`
+          : "This module is not available for your account.",
+        minPlan: gate.minPlan,
+        currentPlan: plan,
+      }
     }
   }
 
@@ -305,9 +416,10 @@ export function checkFeatureAccess(
 export function canUseFeature(
   plan: PlanKey,
   companyType: string,
-  featureKey: FeatureKey
+  featureKey: FeatureKey,
+  companyId?: string
 ): boolean {
-  return checkFeatureAccess(plan, companyType, featureKey).allowed
+  return checkFeatureAccess(plan, companyType, featureKey, companyId).allowed
 }
 
 export const OEM_NAV_FEATURE_GATES: Record<string, FeatureKey> = {

@@ -130,7 +130,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           </div>
           <div className="flex items-center gap-1.5">
-            <AppSwitcher currentModule={plantXModule} userPlan={session.user.plan} userCompanyType={session.user.companyType} />
+            <AppSwitcher currentModule={plantXModule} userPlan={session.user.plan} userCompanyType={session.user.companyType} userCompanyId={session.user.companyId} />
             <NotificationBell />
           </div>
         </header>

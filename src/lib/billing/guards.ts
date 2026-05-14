@@ -1,7 +1,7 @@
 import type { Plan } from "@/generated/prisma/client"
 import { normalizePlan, type PlanKey } from "./plans"
-import type { FeatureKey } from "./features"
-import { canUseFeature } from "./features"
+import type { FeatureKey, ModuleKey } from "./features"
+import { canUseFeature, checkModuleAccess, isModuleEntitled } from "./features"
 
 export interface SessionPlanInfo {
   plan: PlanKey
@@ -22,12 +22,22 @@ export function getSessionPlanInfo(session: {
   return { plan, companyType, companyId }
 }
 
+export function requireModule(
+  session: { user?: { plan?: Plan | string | null; companyType?: string | null; companyId?: string | null } } | null,
+  moduleKey: ModuleKey
+): { allowed: boolean; reason: string | null } {
+  const { companyId, companyType } = getSessionPlanInfo(session)
+  const hasAccess = checkModuleAccess(moduleKey, companyId, companyType)
+  if (hasAccess) return { allowed: true, reason: null }
+  return { allowed: false, reason: `The ${moduleKey.replace("_MODULE", "").replace(/_/g, " ")} module is not included in your current subscription.` }
+}
+
 export function requireFeature(
   session: { user?: { plan?: Plan | string | null; companyType?: string | null; companyId?: string | null } } | null,
   featureKey: FeatureKey
 ): { allowed: boolean; reason: string | null } {
-  const { plan, companyType } = getSessionPlanInfo(session)
-  const allowed = canUseFeature(plan, companyType, featureKey)
+  const { plan, companyType, companyId } = getSessionPlanInfo(session)
+  const allowed = canUseFeature(plan, companyType, featureKey, companyId)
   if (allowed) return { allowed: true, reason: null }
 
   const featureLabel = featureKey.replace(/_/g, " ").toLowerCase()
@@ -68,12 +78,9 @@ export function isEnterpriseOnlyNav(href: string): boolean {
     "/quality/oem/settings/api",
     "/quality/oem/scorecard",
     "/quality/oem/supplier-development",
-    "/logistic",
-    "/logistic/orders",
-    "/logistic/orders/new",
   ]
   return enterpriseRoutes.includes(href)
 }
 
-export { canUseFeature }
-export type { FeatureKey }
+export { canUseFeature, checkModuleAccess, isModuleEntitled }
+export type { FeatureKey, ModuleKey }

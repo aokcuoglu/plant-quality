@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
-import { requireFeature } from "@/lib/billing/guards"
+import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { STATUS_LABELS } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForPriority } from "@/lib/logistic/types"
 import Link from "next/link"
@@ -19,6 +19,8 @@ export default async function LogisticOrdersPage({
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
 
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 

@@ -1,8 +1,20 @@
 # PlantLogistic Roadmap
 
-## Product Definition
+## Product Positioning
 
-PlantLogistic is the Vehicle Order & Delivery Control Tower module of the PlantX platform. It tracks vehicle requests/orders from customer/dealer/distributor demand through production planning, VIN/chassis assignment, status tracking, and delivery target visibility. PlantLogistic is designed for OEMs producing buses, midibuses, trucks, light trucks, or similar vehicles.
+**PlantLogistic** is the **Vehicle Order & Delivery Control Tower** module of the PlantX platform.
+
+It tracks vehicle requests and orders from customer, dealer, or distributor demand through production planning, VIN/chassis assignment, status tracking, and delivery target visibility — providing end-to-end factory-to-dealer transparency.
+
+---
+
+## Target Customer
+
+- Bus, midibus, truck, and light truck OEMs
+- Special-purpose vehicle manufacturers
+- Manufacturers with dealer and distributor networks
+- Made-to-order or engineer-to-order producers
+- OEMs managing mixed EV / CNG / diesel product lines
 
 ---
 
@@ -38,78 +50,95 @@ PlantLogistic is the Vehicle Order & Delivery Control Tower module of the PlantX
 
 ---
 
+## v3.1.1 — Module Entitlements + Strategic Patch
+
+**Scope:**
+- PlantLogistic module entitlement decoupled from ENTERPRISE-only plan
+- Two-layer access model: Module Entitlement (what you own) × Plan Tier (feature level)
+- AppSwitcher module visibility based on entitlements
+- Supplier users never see PlantLogistic
+- Direct URL and API protection for unauthorized module access
+- Landing page ecosystem section updated with PlantLogistic as live module
+- Commercial entitlement documentation
+- Demo seed data with per-company module entitlements
+
+---
+
 ## v3.2.0 — Production Milestone Tracking
 
-**Planned scope:**
-- Production line station/gate milestone tracking
-- Per-unit production progress visibility
-- Station-level status updates (body shop, paint, assembly, inspection, etc.)
-- Production bottleneck identification
-- Delay reasons and root cause tagging per station
-- Production progress percentage calculation
-- Integration with VIN/chassis assignment from v3.1.0
+**Scope:**
+- Body / paint / assembly / EOL / PDI production gates
+- Planned vs. actual dates per station
+- Delay reason capture at each gate
+- Quality hold flag linking to PlantQuality defects
+- Station/gate timeline visualization on order detail
 
 ---
 
 ## v3.3.0 — Yard + Dispatch MVP
 
-**Planned scope:**
-- Yard/stock yard management (vehicle location, status in yard)
-- Dispatch scheduling and carrier management
-- Delivery tracking (carrier, driver, ETA)
-- Shipment document management
-- Pre-delivery inspection (PDI) checklist
+**Scope:**
+- Yard location and parking slot management
+- Ready for dispatch status and queue
+- Carrier assignment and loading status
+- Shipment tracking and ETA
 - Delivery confirmation workflow
-- Yard movement history
 
 ---
 
-## v3.4.0 — Dealer/Distributor Portal
+## v3.4.0 — Dealer / Distributor Portal
 
-**Planned scope:**
-- External portal for dealers/distributors
-- Order visibility for customers (read-only or limited edit)
+**Scope:**
+- Limited external visibility for customers
+- Order status, ETA, and document checklist
+- No internal sensitive data exposed
 - Customer self-service order tracking
-- Request/complaint submission from dealers
-- Order confirmation workflow from customer side
-- Dealer dashboard (their orders, delivery timeline)
 
 ---
 
 ## v3.5.0 — SLA + Delay Intelligence
 
-**Planned scope:**
-- SLA configuration per customer/market/vehicle type
-- Delay detection and notification
-- Delay reason categorization and analytics
-- On-time delivery KPI tracking
-- Customer-specific delivery performance dashboards
-- Automatic escalation for SLA breaches
-- Delay pattern analysis across orders
+**Scope:**
+- Delivery SLA configuration per customer / market / vehicle type
+- Aging orders dashboard and alerts
+- Blocked vehicles tracking
+- Delay reason analytics
+- Management escalation notifications
 
 ---
 
 ## v3.6.0 — PlantLogistic ↔ PlantQuality Integration
 
-**Planned scope:**
-- Link vehicle orders to quality defects and 8D reports
-- Quality hold triggers in production pipeline linked to PlantQuality defects
-- Vehicle order quality history view
-- Cross-module KPI: orders on quality hold → impact on delivery
-- Quality event feed on order detail page
-- Defect-to-order traceability
+**Scope:**
+- Quality hold links to defects and 8D reports
+- PDI defect creation from logistic flow
+- Supplier-caused delay signal to quality module
+- FMEA / IQC / PPAP quality risk connection to delivery risk
 
 ---
 
-## Deferred Items
+## Future Vision
 
-- PlantDock module (warehouse gate & dock scheduling)
-- PlantQuote module (RFQ & supplier bidding)
-- ERP integration (SAP, Oracle, Dynamics)
-- Advanced analytics and reporting dashboards
-- PDF/Excel export for orders and reports
-- AI order prediction (demand forecasting)
-- Payment/billing changes
-- Multi-plant production coordination (depends on v3.2.0)
-- VIN lifecycle tracking beyond delivery
-- Regulatory compliance module (homologation tracking)
+- ERP / MRP integration (SAP, Oracle, Dynamics)
+- EDI / API dealer integration for order intake
+- Mobile yard scan (QR / VIN)
+- Telematics / connected vehicle data integration
+- Predictive ETA based on production pace
+- AI delay reason suggestion
+- Carrier performance scoring
+- Carbon / logistics footprint tracking
+- Multi-plant production coordination
+
+---
+
+## OEM Benchmark Principles
+
+| Principle | Description |
+|---|---|
+| Real-time order visibility | Across the entire chain, from request to delivery |
+| Delivery planning intelligence | Scheduling and planning with configurable SLAs |
+| Exception & delay management | Workflow-driven escalation and root-cause capture |
+| Yard & vehicle location visibility | At every stage — production, yard, transit |
+| Gate & zone check automation | Station/gate milestone tracking and bottleneck detection |
+| Dealer/customer transparency | Limited external portal for order and delivery visibility |
+| End-to-end factory-to-dealer traceability | Full lifecycle from order to handover |

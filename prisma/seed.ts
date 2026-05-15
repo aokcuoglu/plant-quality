@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaClient, type LogisticOrderEventType, type ProductionMilestoneGate, type ProductionMilestoneStatus } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
@@ -2174,6 +2174,179 @@ async function main() {
       update: {},
       create: event,
     });
+  }
+
+  // ── Production Milestones ──────────────────────────────────────────
+
+  console.log("\n🏭 Seeding production milestones...\n");
+
+  // Milestone template timestamps (relative)
+  const msNow = new Date("2026-05-15T12:00:00Z")
+  const msPast = (daysAgo: number) => new Date(msNow.getTime() - daysAgo * 86400000)
+  const msFuture = (daysAhead: number) => new Date(msNow.getTime() + daysAhead * 86400000)
+
+  const defaultGates = ["BODY", "PAINT", "ASSEMBLY", "ELECTRICAL", "POWERTRAIN", "EOL_TEST", "PDI", "FINAL_QUALITY", "YARD_READY"] as const
+  const defaultTitles = ["Body / Body Shop", "Paint", "Assembly", "Electrical", "Powertrain / Drivetrain", "EOL Test", "PDI", "Final Quality Gate", "Yard / Ready"]
+
+  // LO-004: GreenFleet — IN_PRODUCTION, milestones with Body+Paint completed, Assembly in progress
+  const lo004Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-004-ms-${i + 1}`,
+    orderId: "lo-004",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: i < 2 ? "COMPLETED" as ProductionMilestoneStatus : i === 2 ? "IN_PROGRESS" as ProductionMilestoneStatus : "NOT_STARTED" as ProductionMilestoneStatus,
+    plannedStart: i < 3 ? msPast(30 - i * 7) : msFuture(i * 5),
+    plannedFinish: i < 3 ? msPast(23 - i * 7) : msFuture(7 + i * 5),
+    actualStart: i < 3 ? msPast(29 - i * 7) : null,
+    actualFinish: i < 2 ? msPast(22 - i * 7) : null,
+    responsibleDepartment: i < 2 ? "Body Shop" : i === 2 ? "Assembly" : i === 3 ? "Electrical" : null,
+    delayReason: null,
+    qualityHold: false,
+    notes: null,
+    createdById: "oem-enterprise-admin",
+    updatedById: i < 2 ? "oem-enterprise-admin" : null,
+  }))
+
+  // LO-005: Iberia Bus — QUALITY_HOLD, milestones: Body+Paint completed, Assembly quality hold
+  const lo005Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-005-ms-${i + 1}`,
+    orderId: "lo-005",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: i < 2 ? "COMPLETED" as ProductionMilestoneStatus : i === 2 ? "QUALITY_HOLD" as ProductionMilestoneStatus : "NOT_STARTED" as ProductionMilestoneStatus,
+    plannedStart: i < 3 ? msPast(45 - i * 7) : msFuture(i * 5),
+    plannedFinish: i < 3 ? msPast(38 - i * 7) : msFuture(7 + i * 5),
+    actualStart: i < 3 ? msPast(44 - i * 7) : null,
+    actualFinish: i < 2 ? msPast(37 - i * 7) : null,
+    responsibleDepartment: i < 2 ? "Body Shop" : i === 2 ? "Assembly" : "Quality",
+    delayReason: i === 2 ? "Paint defect identified on unit 1 — root cause pending" : null,
+    qualityHold: i === 2,
+    notes: i === 2 ? "Quality hold pending root cause analysis for paint bubbling" : null,
+    createdById: "oem-enterprise-qe",
+    updatedById: i < 3 ? "oem-enterprise-qe" : null,
+  }))
+
+  // LO-006: MedTrans — READY_FOR_DISPATCH, milestones: all completed except Yard Ready
+  const lo006Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-006-ms-${i + 1}`,
+    orderId: "lo-006",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: i < 8 ? "COMPLETED" as ProductionMilestoneStatus : "NOT_STARTED" as ProductionMilestoneStatus,
+    plannedStart: msPast(60 - (8 - i) * 5),
+    plannedFinish: msPast(55 - (8 - i) * 5),
+    actualStart: i < 8 ? msPast(59 - (8 - i) * 5) : null,
+    actualFinish: i < 8 ? msPast(54 - (8 - i) * 5) : null,
+    responsibleDepartment: null,
+    delayReason: null,
+    qualityHold: false,
+    notes: null,
+    createdById: "oem-enterprise-admin",
+    updatedById: i < 8 ? "oem-enterprise-admin" : null,
+  }))
+
+  // LO-008: AsiaBus — DELIVERED, milestones: all completed
+  const lo008Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-008-ms-${i + 1}`,
+    orderId: "lo-008",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: "COMPLETED" as ProductionMilestoneStatus,
+    plannedStart: new Date("2026-01-01"),
+    plannedFinish: new Date("2026-03-15"),
+    actualStart: new Date("2026-01-02"),
+    actualFinish: i < 9 ? new Date("2026-03-20") : new Date("2026-03-25"),
+    responsibleDepartment: null,
+    delayReason: null,
+    qualityHold: false,
+    notes: null,
+    createdById: "oem-enterprise-admin",
+    updatedById: "oem-enterprise-admin",
+  }))
+
+  // LO-010: LateShip — IN_PRODUCTION, blocked with delay reason
+  const lo010Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-010-ms-${i + 1}`,
+    orderId: "lo-010",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: i < 1 ? "COMPLETED" as ProductionMilestoneStatus : i === 1 ? "BLOCKED" as ProductionMilestoneStatus : "NOT_STARTED" as ProductionMilestoneStatus,
+    plannedStart: msPast(50),
+    plannedFinish: msPast(40),
+    actualStart: i < 2 ? msPast(49) : null,
+    actualFinish: i < 1 ? msPast(41) : null,
+    responsibleDepartment: i === 1 ? "Paint Shop" : null,
+    delayReason: i === 1 ? "Supplier paint material shortage — ETA 2 weeks" : null,
+    qualityHold: false,
+    notes: i === 1 ? "Blocked since April 25. Supplier confirmed delivery date pending." : null,
+    createdById: "oem-enterprise-admin",
+    updatedById: i < 2 ? "oem-enterprise-admin" : null,
+  }))
+
+  // LO-003: EcoMove — PLANNED status, all milestones NOT_STARTED (just seeded)
+  const lo003Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-003-ms-${i + 1}`,
+    orderId: "lo-003",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: "NOT_STARTED" as ProductionMilestoneStatus,
+    plannedStart: msFuture(14 + i * 5),
+    plannedFinish: msFuture(21 + i * 5),
+    actualStart: null,
+    actualFinish: null,
+    responsibleDepartment: null,
+    delayReason: null,
+    qualityHold: false,
+    notes: null,
+    createdById: "oem-enterprise-qe",
+    updatedById: null,
+  }))
+
+  const allMilestones = [
+    ...lo003Milestones,
+    ...lo004Milestones,
+    ...lo005Milestones,
+    ...lo006Milestones,
+    ...lo008Milestones,
+    ...lo010Milestones,
+  ]
+
+  for (const ms of allMilestones) {
+    await prisma.plantLogisticProductionMilestone.upsert({
+      where: { id: ms.id },
+      update: {},
+      create: ms,
+    })
+  }
+
+  // Add milestone-related events
+  const milestoneEvents = [
+    { id: "lo-ev-ms-001", orderId: "lo-004", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "MILESTONES_CREATED" as LogisticOrderEventType, message: "Production milestones created (9 default gates)", createdAt: new Date("2026-05-15T10:00:00Z") },
+    { id: "lo-ev-ms-002", orderId: "lo-005", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-qe", eventType: "MILESTONES_CREATED" as LogisticOrderEventType, message: "Production milestones created (9 default gates)", createdAt: new Date("2026-05-01T08:00:00Z") },
+    { id: "lo-ev-ms-003", orderId: "lo-006", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "MILESTONES_CREATED" as LogisticOrderEventType, message: "Production milestones created (9 default gates)", createdAt: new Date("2026-03-15T09:00:00Z") },
+    { id: "lo-ev-ms-004", orderId: "lo-008", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "MILESTONES_CREATED" as LogisticOrderEventType, message: "Production milestones created (9 default gates)", createdAt: new Date("2026-01-10T08:00:00Z") },
+    { id: "lo-ev-ms-005", orderId: "lo-010", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "MILESTONES_CREATED" as LogisticOrderEventType, message: "Production milestones created (9 default gates)", createdAt: new Date("2026-04-01T10:00:00Z") },
+    { id: "lo-ev-ms-006", orderId: "lo-003", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-qe", eventType: "MILESTONES_CREATED" as LogisticOrderEventType, message: "Production milestones created (9 default gates)", createdAt: new Date("2026-05-15T09:00:00Z") },
+  ]
+
+  for (const ev of milestoneEvents) {
+    await prisma.plantLogisticOrderEvent.upsert({
+      where: { id: ev.id },
+      update: {},
+      create: ev,
+    })
   }
 
   console.log("");

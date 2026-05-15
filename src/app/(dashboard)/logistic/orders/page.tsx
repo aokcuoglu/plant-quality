@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { STATUS_LABELS } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForPriority } from "@/lib/logistic/types"
+import { labelForGate } from "@/lib/logistic/milestone-types"
+import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
 import Link from "next/link"
 import { PlusCircle, TruckIcon } from "lucide-react"
 import { StatusBadge } from "../status-badge"
@@ -46,7 +48,19 @@ export default async function LogisticOrdersPage({
   const orders = await prisma.plantLogisticOrder.findMany({
     where,
     orderBy: { createdAt: "desc" },
-    include: { createdBy: { select: { name: true } } },
+    include: {
+      createdBy: { select: { name: true } },
+      milestones: {
+        orderBy: { sequence: "asc" },
+        select: {
+          id: true,
+          gate: true,
+          status: true,
+          qualityHold: true,
+          sequence: true,
+        },
+      },
+    },
   })
 
   const statusOptions = Object.entries(STATUS_LABELS).map(([value, label]) => ({ value, label }))
@@ -119,35 +133,58 @@ export default async function LogisticOrdersPage({
                   <th className="px-4 py-3 text-left">Qty</th>
                   <th className="px-4 py-3 text-left">Priority</th>
                   <th className="px-4 py-3 text-left">Status</th>
+                  <th className="px-4 py-3 text-left">Production</th>
+                  <th className="px-4 py-3 text-left">Current Gate</th>
                   <th className="px-4 py-3 text-left">Delivery Target</th>
-                  <th className="px-4 py-3 text-left">VIN</th>
                   <th className="px-4 py-3 text-left">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {orders.map((order) => (
-                  <tr key={order.id} className="group hover:bg-muted/50">
-                    <td className="px-4 py-3">
-                      <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
-                        {order.orderNumber}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{labelForCustomerType(order.customerType)}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">
-                      {order.vehicleModel}
-                      {order.vehicleVariant ? ` (${order.vehicleVariant})` : ""}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{order.quantity}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{labelForPriority(order.priority)}</td>
-                    <td className="px-4 py-3"><StatusBadge status={order.status} /></td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">
-                      {order.plannedDeliveryDate ? order.plannedDeliveryDate.toLocaleDateString() : order.requestedDeliveryDate ? order.requestedDeliveryDate.toLocaleDateString() : "—"}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground font-mono">{order.vin || "—"}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{order.createdAt.toLocaleDateString()}</td>
-                  </tr>
-                ))}
+                {orders.map((order) => {
+                  const progress = calculateProductionProgress(order.milestones)
+                  const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
+                  const hasHold = order.milestones.some(m => m.qualityHold)
+                  return (
+                    <tr key={order.id} className="group hover:bg-muted/50">
+                      <td className="px-4 py-3">
+                        <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
+                          {order.orderNumber}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{labelForCustomerType(order.customerType)}</td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.vehicleModel}
+                        {order.vehicleVariant ? ` (${order.vehicleVariant})` : ""}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.quantity}</td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{labelForPriority(order.priority)}</td>
+                      <td className="px-4 py-3"><StatusBadge status={order.status} /></td>
+                      <td className="px-4 py-3">
+                        {order.milestones.length > 0 ? (
+                          <div className="flex items-center gap-1.5">
+                            <div className="h-1.5 w-16 rounded-full bg-muted">
+                              <div
+                                className={`h-1.5 rounded-full ${progress === 100 ? "bg-emerald-500" : hasHold ? "bg-destructive" : "bg-cyan-500"}`}
+                                style={{ width: `${progress}%` }}
+                              />
+                            </div>
+                            <span className="text-xs text-muted-foreground">{progress}%</span>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {currentMs ? labelForGate(currentMs.gate) : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.plannedDeliveryDate ? order.plannedDeliveryDate.toLocaleDateString() : order.requestedDeliveryDate ? order.requestedDeliveryDate.toLocaleDateString() : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.createdAt.toLocaleDateString()}</td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>

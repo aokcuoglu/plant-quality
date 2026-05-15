@@ -297,10 +297,45 @@ export const LogisticOrderEventType = {
   ORDER_CANCELLED: 'ORDER_CANCELLED',
   ORDER_APPROVED: 'ORDER_APPROVED',
   ORDER_REJECTED: 'ORDER_REJECTED',
-  ORDER_CLOSED: 'ORDER_CLOSED'
+  ORDER_CLOSED: 'ORDER_CLOSED',
+  MILESTONES_CREATED: 'MILESTONES_CREATED',
+  MILESTONE_STARTED: 'MILESTONE_STARTED',
+  MILESTONE_COMPLETED: 'MILESTONE_COMPLETED',
+  MILESTONE_BLOCKED: 'MILESTONE_BLOCKED',
+  MILESTONE_QUALITY_HOLD: 'MILESTONE_QUALITY_HOLD'
 } as const
 
 export type LogisticOrderEventType = (typeof LogisticOrderEventType)[keyof typeof LogisticOrderEventType]
+
+
+export const ProductionMilestoneGate = {
+  BODY: 'BODY',
+  PAINT: 'PAINT',
+  ASSEMBLY: 'ASSEMBLY',
+  ELECTRICAL: 'ELECTRICAL',
+  POWERTRAIN: 'POWERTRAIN',
+  EOL_TEST: 'EOL_TEST',
+  PDI: 'PDI',
+  FINAL_QUALITY: 'FINAL_QUALITY',
+  YARD_READY: 'YARD_READY',
+  OTHER: 'OTHER'
+} as const
+
+export type ProductionMilestoneGate = (typeof ProductionMilestoneGate)[keyof typeof ProductionMilestoneGate]
+
+
+export const ProductionMilestoneStatus = {
+  NOT_STARTED: 'NOT_STARTED',
+  PLANNED: 'PLANNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  BLOCKED: 'BLOCKED',
+  QUALITY_HOLD: 'QUALITY_HOLD',
+  COMPLETED: 'COMPLETED',
+  SKIPPED: 'SKIPPED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ProductionMilestoneStatus = (typeof ProductionMilestoneStatus)[keyof typeof ProductionMilestoneStatus]
 
 
 export const DefectEventType = {

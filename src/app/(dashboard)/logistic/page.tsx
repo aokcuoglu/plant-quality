@@ -2,9 +2,10 @@ import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
-import { labelForPriority } from "@/lib/logistic/types"
+import { labelForGate } from "@/lib/logistic/milestone-types"
+import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
 import Link from "next/link"
-import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck } from "lucide-react"
+import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck, Wrench, ShieldAlert } from "lucide-react"
 import { StatusBadge } from "./status-badge"
 
 export const dynamic = "force-dynamic"
@@ -28,6 +29,9 @@ export default async function LogisticDashboardPage() {
     qualityHoldCount,
     delayedOrders,
     recentOrders,
+    ordersWithBlockedMilestones,
+    ordersWithQualityHoldMilestones,
+    milestonesDueThisWeek,
   ] = await Promise.all([
     prisma.plantLogisticOrder.count({
       where: {
@@ -56,11 +60,39 @@ export default async function LogisticDashboardPage() {
       where: { companyId },
       orderBy: { createdAt: "desc" },
       take: 10,
-      include: { createdBy: { select: { name: true } } },
+      include: {
+        createdBy: { select: { name: true } },
+        milestones: {
+          orderBy: { sequence: "asc" },
+          select: { id: true, gate: true, status: true, qualityHold: true },
+        },
+      },
+    }),
+    prisma.plantLogisticProductionMilestone.count({
+      where: {
+        companyId,
+        status: "BLOCKED",
+      },
+    }),
+    prisma.plantLogisticProductionMilestone.count({
+      where: {
+        companyId,
+        qualityHold: true,
+      },
+    }),
+    prisma.plantLogisticProductionMilestone.count({
+      where: {
+        companyId,
+        plannedFinish: {
+          gte: new Date(),
+          lte: new Date(new Date().setDate(new Date().getDate() + 7)),
+        },
+        status: { notIn: ["COMPLETED", "SKIPPED", "CANCELLED"] },
+      },
     }),
   ])
 
-  const delayedCount = delayedOrders.length
+  const _delayedCount = delayedOrders.length
 
   return (
     <div className="space-y-6">
@@ -78,7 +110,7 @@ export default async function LogisticDashboardPage() {
         </Link>
       </div>
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         <SummaryCard
           title="Active Orders"
           value={totalActiveOrders}
@@ -100,11 +132,26 @@ export default async function LogisticDashboardPage() {
           icon={AlertTriangle}
           color={qualityHoldCount > 0 ? "destructive" : "muted"}
         />
+      </div>
+
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3">
         <SummaryCard
-          title="Delivery Risk"
-          value={delayedCount}
+          title="Milestones Blocked"
+          value={ordersWithBlockedMilestones}
+          icon={Wrench}
+          color={ordersWithBlockedMilestones > 0 ? "warning" : "muted"}
+        />
+        <SummaryCard
+          title="Milestones on Q-Hold"
+          value={ordersWithQualityHoldMilestones}
+          icon={ShieldAlert}
+          color={ordersWithQualityHoldMilestones > 0 ? "destructive" : "muted"}
+        />
+        <SummaryCard
+          title="Due This Week"
+          value={milestonesDueThisWeek}
           icon={Clock}
-          color={delayedCount > 0 ? "destructive" : "muted"}
+          color={milestonesDueThisWeek > 0 ? "warning" : "muted"}
         />
       </div>
 
@@ -137,33 +184,50 @@ export default async function LogisticDashboardPage() {
                   <th className="px-4 py-3 text-left">Order #</th>
                   <th className="px-4 py-3 text-left">Customer</th>
                   <th className="px-4 py-3 text-left">Vehicle</th>
-                  <th className="px-4 py-3 text-left">Qty</th>
-                  <th className="px-4 py-3 text-left">Priority</th>
                   <th className="px-4 py-3 text-left">Status</th>
+                  <th className="px-4 py-3 text-left">Production</th>
                   <th className="px-4 py-3 text-left">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {recentOrders.map((order) => (
-                  <tr key={order.id} className="group hover:bg-muted/50">
-                    <td className="px-4 py-3">
-                      <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
-                        {order.orderNumber}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">
-                      {order.vehicleModel}
-                      {order.vehicleVariant ? ` (${order.vehicleVariant})` : ""}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{order.quantity}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{labelForPriority(order.priority)}</td>
-                    <td className="px-4 py-3"><StatusBadge status={order.status} /></td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">
-                      {order.createdAt.toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
+                {recentOrders.map((order) => {
+                  const progress = calculateProductionProgress(order.milestones)
+                  const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
+                  return (
+                    <tr key={order.id} className="group hover:bg-muted/50">
+                      <td className="px-4 py-3">
+                        <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
+                          {order.orderNumber}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.vehicleModel}
+                        {order.vehicleVariant ? ` (${order.vehicleVariant})` : ""}
+                      </td>
+                      <td className="px-4 py-3"><StatusBadge status={order.status} /></td>
+                      <td className="px-4 py-3">
+                        {order.milestones.length > 0 ? (
+                          <div className="flex items-center gap-1.5">
+                            <div className="h-1.5 w-16 rounded-full bg-muted">
+                              <div
+                                className={`h-1.5 rounded-full ${progress === 100 ? "bg-emerald-500" : order.milestones.some(m => m.qualityHold) ? "bg-destructive" : "bg-cyan-500"}`}
+                                style={{ width: `${progress}%` }}
+                              />
+                            </div>
+                            <span className="text-xs text-muted-foreground">{progress}%</span>
+                            {currentMs && <span className="text-xs text-muted-foreground">({labelForGate(currentMs.gate)})</span>}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.createdAt.toLocaleDateString()}
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
@@ -182,9 +246,9 @@ function SummaryCard({
   title: string
   value: number
   icon: React.ComponentType<{ className?: string }>
-  color?: "muted" | "destructive"
+  color?: "muted" | "destructive" | "warning"
 }) {
-  const colorClass = color === "destructive" ? "text-destructive" : "text-foreground"
+  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-amber-600" : "text-foreground"
   return (
     <div className="rounded-lg border bg-card p-4">
       <div className="flex items-center gap-2 text-muted-foreground">

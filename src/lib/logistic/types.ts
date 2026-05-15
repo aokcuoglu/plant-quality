@@ -5,6 +5,8 @@ export type {
   LogisticOrderPriority,
   LogisticOrderStatus,
   LogisticOrderEventType,
+  ProductionMilestoneGate,
+  ProductionMilestoneStatus,
 } from "@/generated/prisma/client"
 
 export const CUSTOMER_TYPE_OPTIONS = [

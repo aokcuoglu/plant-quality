@@ -419,7 +419,8 @@ export const ModelName = {
   SupplierDevelopmentActionItem: 'SupplierDevelopmentActionItem',
   SupplierDevelopmentEvent: 'SupplierDevelopmentEvent',
   PlantLogisticOrder: 'PlantLogisticOrder',
-  PlantLogisticOrderEvent: 'PlantLogisticOrderEvent'
+  PlantLogisticOrderEvent: 'PlantLogisticOrderEvent',
+  PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -435,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink" | "supplierDevelopmentPlan" | "supplierDevelopmentActionItem" | "supplierDevelopmentEvent" | "plantLogisticOrder" | "plantLogisticOrderEvent"
+    modelProps: "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink" | "supplierDevelopmentPlan" | "supplierDevelopmentActionItem" | "supplierDevelopmentEvent" | "plantLogisticOrder" | "plantLogisticOrderEvent" | "plantLogisticProductionMilestone"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3103,6 +3104,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PlantLogisticProductionMilestone: {
+      payload: Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>
+      fields: Prisma.PlantLogisticProductionMilestoneFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlantLogisticProductionMilestoneFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlantLogisticProductionMilestoneFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>
+        }
+        findFirst: {
+          args: Prisma.PlantLogisticProductionMilestoneFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlantLogisticProductionMilestoneFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>
+        }
+        findMany: {
+          args: Prisma.PlantLogisticProductionMilestoneFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>[]
+        }
+        create: {
+          args: Prisma.PlantLogisticProductionMilestoneCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>
+        }
+        createMany: {
+          args: Prisma.PlantLogisticProductionMilestoneCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlantLogisticProductionMilestoneCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>[]
+        }
+        delete: {
+          args: Prisma.PlantLogisticProductionMilestoneDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>
+        }
+        update: {
+          args: Prisma.PlantLogisticProductionMilestoneUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>
+        }
+        deleteMany: {
+          args: Prisma.PlantLogisticProductionMilestoneDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlantLogisticProductionMilestoneUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlantLogisticProductionMilestoneUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>[]
+        }
+        upsert: {
+          args: Prisma.PlantLogisticProductionMilestoneUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlantLogisticProductionMilestonePayload>
+        }
+        aggregate: {
+          args: Prisma.PlantLogisticProductionMilestoneAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlantLogisticProductionMilestone>
+        }
+        groupBy: {
+          args: Prisma.PlantLogisticProductionMilestoneGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlantLogisticProductionMilestoneGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlantLogisticProductionMilestoneCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlantLogisticProductionMilestoneCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3838,6 +3913,32 @@ export const PlantLogisticOrderEventScalarFieldEnum = {
 export type PlantLogisticOrderEventScalarFieldEnum = (typeof PlantLogisticOrderEventScalarFieldEnum)[keyof typeof PlantLogisticOrderEventScalarFieldEnum]
 
 
+export const PlantLogisticProductionMilestoneScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  companyId: 'companyId',
+  sequence: 'sequence',
+  gate: 'gate',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  plannedStart: 'plannedStart',
+  plannedFinish: 'plannedFinish',
+  actualStart: 'actualStart',
+  actualFinish: 'actualFinish',
+  responsibleDepartment: 'responsibleDepartment',
+  delayReason: 'delayReason',
+  qualityHold: 'qualityHold',
+  notes: 'notes',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticProductionMilestoneScalarFieldEnum = (typeof PlantLogisticProductionMilestoneScalarFieldEnum)[keyof typeof PlantLogisticProductionMilestoneScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4556,6 +4657,34 @@ export type EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel> = FieldRefInpu
 export type ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderEventType[]'>
     
 
+
+/**
+ * Reference to a field of type 'ProductionMilestoneGate'
+ */
+export type EnumProductionMilestoneGateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionMilestoneGate'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductionMilestoneGate[]'
+ */
+export type ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionMilestoneGate[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductionMilestoneStatus'
+ */
+export type EnumProductionMilestoneStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionMilestoneStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductionMilestoneStatus[]'
+ */
+export type ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductionMilestoneStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4702,6 +4831,7 @@ export type GlobalOmitConfig = {
   supplierDevelopmentEvent?: Prisma.SupplierDevelopmentEventOmit
   plantLogisticOrder?: Prisma.PlantLogisticOrderOmit
   plantLogisticOrderEvent?: Prisma.PlantLogisticOrderEventOmit
+  plantLogisticProductionMilestone?: Prisma.PlantLogisticProductionMilestoneOmit
 }
 
 /* Types for Logging */

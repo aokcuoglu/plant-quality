@@ -1,3 +1,152 @@
+# PlantX v3.2.0 — PlantLogistic Production Milestone Tracking
+
+**Release Date:** 2026-05-15  
+**Version:** 3.2.0
+
+---
+
+## Summary
+
+PlantX v3.2.0 introduces Production Milestone Tracking to PlantLogistic, enabling OEM users to track vehicle orders through factory production gates/stations. Users can now see which production stage each order is at, track planned vs. actual dates, identify delays and quality holds, and monitor overall production progress — all within the existing PlantLogistic module.
+
+This release is scoped to PlantLogistic only. No PlantQuality workflow changes.
+
+---
+
+## New Features
+
+### Production Milestone Data Model
+
+- New `PlantLogisticProductionMilestone` model with: id, orderId, companyId, sequence, gate, title, description, status, plannedStart, plannedFinish, actualStart, actualFinish, responsibleDepartment, delayReason, qualityHold, notes, createdById, updatedById, timestamps
+- New `ProductionMilestoneGate` enum: BODY, PAINT, ASSEMBLY, ELECTRICAL, POWERTRAIN, EOL_TEST, PDI, FINAL_QUALITY, YARD_READY, OTHER
+- New `ProductionMilestoneStatus` enum: NOT_STARTED, PLANNED, IN_PROGRESS, BLOCKED, QUALITY_HOLD, COMPLETED, SKIPPED, CANCELLED
+- New `LogisticOrderEventType` values: MILESTONES_CREATED, MILESTONE_STARTED, MILESTONE_COMPLETED, MILESTONE_BLOCKED, MILESTONE_QUALITY_HOLD
+- Indexes: companyId+orderId, companyId+status, companyId+gate, companyId+plannedFinish, orderId+sequence
+- Foreign keys: order (cascade delete), company, createdBy, updatedBy
+
+### Milestone Status Workflow
+
+- NOT_STARTED → PLANNED → IN_PROGRESS → COMPLETED (linear flow)
+- IN_PROGRESS → BLOCKED, QUALITY_HOLD (branch)
+- BLOCKED → IN_PROGRESS (unblock)
+- QUALITY_HOLD → IN_PROGRESS (release)
+- COMPLETED, SKIPPED, CANCELLED are terminal
+- Server-side validation rejects invalid transitions
+- UI only shows valid action buttons per current status
+
+### Automatic Side Effects on Transition
+
+- Transition to IN_PROGRESS: sets `actualStart` if not already set
+- Transition to COMPLETED: sets `actualFinish` AND `actualStart` if needed
+- Transition to QUALITY_HOLD: sets `qualityHold = true`
+- Transition to IN_PROGRESS from QUALITY_HOLD: clears `qualityHold` and `delayReason`
+- Transition to NOT_STARTED: clears `actualStart`, `actualFinish`, `qualityHold`, `delayReason`
+- Creates timeline events for significant transitions
+
+### Default Milestone Template
+
+- "Create Default Milestones" button on order detail for orders without milestones
+- Creates 9 standard gates: Body → Paint → Assembly → Electrical → Powertrain → EOL Test → PDI → Final Quality Gate → Yard Ready
+- Idempotent — returns error if milestones already exist
+
+### Order Detail Milestone Section
+
+- Production progress bar with percentage
+- Current active milestone indicator
+- Blocked and quality hold badges
+- Full milestone table: sequence, gate, title, status, planned/actual dates, department, delay reason, actions
+- Overdue planned finish dates highlighted in red
+- Quality hold milestones highlighted with red background and Q-Hold badge
+- Status transition action buttons per milestone
+
+### Dashboard Production Summary
+
+- "Milestones Blocked" card with count
+- "Milestones on Q-Hold" card with count  
+- "Due This Week" card with count of milestones due within 7 days
+- Recent orders table includes production progress bar and current gate
+
+### Order List Production Indicators
+
+- Production progress bar per order
+- Current gate label per order
+- Color coding: green (100%), red (quality hold), cyan (in progress)
+
+### Server Actions
+
+- `seedDefaultMilestonesForOrder(orderId)` — Create 9 default milestones
+- `createProductionMilestone(orderId, data)` — Create single milestone
+- `updateProductionMilestone(milestoneId, data)` — Update milestone fields
+- `changeProductionMilestoneStatus(milestoneId, newStatus)` — Status transition with side effects
+- `deleteProductionMilestone(milestoneId)` — Delete milestone
+- All actions enforce: authentication, OEM companyType, PLANT_LOGISTIC_MODULE access, PLANT_LOGISTIC feature gate, companyId tenant scoping
+
+### Seed Data
+
+- 6 orders with milestone data covering diverse states:
+  - LO-003 (PLANNED): All NOT_STARTED with planned dates
+  - LO-004 (IN_PRODUCTION): Body+Paint COMPLETED, Assembly IN_PROGRESS
+  - LO-005 (QUALITY_HOLD): Body+Paint COMPLETED, Assembly QUALITY_HOLD with delay reason
+  - LO-006 (READY_FOR_DISPATCH): 8/9 COMPLETED
+  - LO-008 (DELIVERED): All 9 COMPLETED
+  - LO-010 (IN_PRODUCTION): Body COMPLETED, Paint BLOCKED with delay reason
+- 6 MILESTONES_CREATED timeline events
+
+---
+
+## Security
+
+- All milestone pages enforce OEM + PLANT_LOGISTIC_MODULE + PLANT_LOGISTIC feature gate
+- All server actions validate companyType === "OEM" and module/feature access
+- All Prisma queries scoped to session.user.companyId
+- Client-provided companyId never trusted
+- Direct URL access denied for unauthorized users
+- Supplier users cannot access any milestone routes or actions
+
+---
+
+## Database Migration
+
+- New table: `plant_logistic_production_milestones`
+- New enums: `ProductionMilestoneGate`, `ProductionMilestoneStatus`
+- New enum values added to `LogisticOrderEventType`
+- Migration: `20260515080000_add_production_milestones`
+
+---
+
+## Module Entitlement / Access
+
+- PlantLogistic milestone pages/actions require `PLANT_LOGISTIC_MODULE` + `PLANT_LOGISTIC` feature gate
+- PlantQuality-only companies cannot see PlantLogistic milestone data
+- PlantLogistic-only companies can access milestone data
+- Supplier users have zero access to PlantLogistic milestones
+
+---
+
+## PlantQuality Regression Validation
+
+- No PlantQuality schema, actions, pages, or components were modified
+- All PlantQuality features remain fully functional
+- No cross-module data leakage
+- Build, typecheck, and lint pass with zero new errors
+
+---
+
+## Deferred
+
+- Yard + Dispatch operations (v3.3.0)
+- Dealer/distributor portal (v3.4.0)
+- SLA + Delay Intelligence (v3.5.0)
+- PlantQuality integration (v3.6.0)
+- ERP/MRP integration
+- PDF/Excel export
+- AI prediction
+- Mobile yard scan
+- Broad redesign
+- Stripe/billing integration
+
+---
+
 # PlantX v3.1.1 — Module Entitlements + PlantLogistic Strategy Patch
 
 **Release Date:** 2026-05-14  

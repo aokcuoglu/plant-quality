@@ -86,7 +86,8 @@ export const ModelName = {
   SupplierDevelopmentActionItem: 'SupplierDevelopmentActionItem',
   SupplierDevelopmentEvent: 'SupplierDevelopmentEvent',
   PlantLogisticOrder: 'PlantLogisticOrder',
-  PlantLogisticOrderEvent: 'PlantLogisticOrderEvent'
+  PlantLogisticOrderEvent: 'PlantLogisticOrderEvent',
+  PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -799,6 +800,32 @@ export const PlantLogisticOrderEventScalarFieldEnum = {
 } as const
 
 export type PlantLogisticOrderEventScalarFieldEnum = (typeof PlantLogisticOrderEventScalarFieldEnum)[keyof typeof PlantLogisticOrderEventScalarFieldEnum]
+
+
+export const PlantLogisticProductionMilestoneScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  companyId: 'companyId',
+  sequence: 'sequence',
+  gate: 'gate',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  plannedStart: 'plannedStart',
+  plannedFinish: 'plannedFinish',
+  actualStart: 'actualStart',
+  actualFinish: 'actualFinish',
+  responsibleDepartment: 'responsibleDepartment',
+  delayReason: 'delayReason',
+  qualityHold: 'qualityHold',
+  notes: 'notes',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticProductionMilestoneScalarFieldEnum = (typeof PlantLogisticProductionMilestoneScalarFieldEnum)[keyof typeof PlantLogisticProductionMilestoneScalarFieldEnum]
 
 
 export const SortOrder = {

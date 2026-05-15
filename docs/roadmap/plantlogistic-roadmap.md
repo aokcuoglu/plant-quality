@@ -64,14 +64,34 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
-## v3.2.0 — Production Milestone Tracking
+## v3.2.0 — Production Milestone Tracking (Current)
 
 **Scope:**
-- Body / paint / assembly / EOL / PDI production gates
-- Planned vs. actual dates per station
-- Delay reason capture at each gate
-- Quality hold flag linking to PlantQuality defects
-- Station/gate timeline visualization on order detail
+- Production milestone data model (`PlantLogisticProductionMilestone`)
+- Standard production gates: Body, Paint, Assembly, Electrical, Powertrain, EOL Test, PDI, Final Quality, Yard Ready
+- Planned start/finish and actual start/finish date tracking
+- Milestone status workflow: NOT_STARTED → PLANNED → IN_PROGRESS → COMPLETED, with BLOCKED, QUALITY_HOLD, SKIPPED, CANCELLED
+- Delay reason capture per milestone
+- Responsible department per milestone
+- Quality hold flag per milestone
+- Production progress percentage calculation
+- Order detail milestone timeline table with status badges and actions
+- Default milestone seed functionality ("Create Default Milestones" button)
+- Status transition validation (server-side enforcement)
+- Milestone summary cards on dashboard (Milestones Blocked, Q-Hold, Due This Week)
+- Production progress bar and current gate on order list
+- Demo seed data for 6 orders with diverse milestone states
+- Module entitlement / access protection (PLANT_LOGISTIC_MODULE + PLANT_LOGISTIC feature gate)
+- Tenant isolation (companyId scoping)
+- New LogisticOrderEventType values for milestone events
+
+**Status transitions:**
+- NOT_STARTED → PLANNED, CANCELLED
+- PLANNED → IN_PROGRESS, CANCELLED
+- IN_PROGRESS → COMPLETED, BLOCKED, QUALITY_HOLD
+- BLOCKED → IN_PROGRESS
+- QUALITY_HOLD → IN_PROGRESS
+- COMPLETED, SKIPPED, CANCELLED are terminal
 
 ---
 

@@ -452,6 +452,7 @@ export type PlantLogisticOrderWhereInput = {
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   events?: Prisma.PlantLogisticOrderEventListRelationFilter
+  milestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
 }
 
 export type PlantLogisticOrderOrderByWithRelationInput = {
@@ -493,6 +494,7 @@ export type PlantLogisticOrderOrderByWithRelationInput = {
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
   events?: Prisma.PlantLogisticOrderEventOrderByRelationAggregateInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneOrderByRelationAggregateInput
 }
 
 export type PlantLogisticOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -537,6 +539,7 @@ export type PlantLogisticOrderWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   events?: Prisma.PlantLogisticOrderEventListRelationFilter
+  milestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
 }, "id" | "orderNumber">
 
 export type PlantLogisticOrderOrderByWithAggregationInput = {
@@ -657,6 +660,7 @@ export type PlantLogisticOrderCreateInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateInput = {
@@ -695,6 +699,7 @@ export type PlantLogisticOrderUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUpdateInput = {
@@ -733,6 +738,7 @@ export type PlantLogisticOrderUpdateInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateInput = {
@@ -771,6 +777,7 @@ export type PlantLogisticOrderUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateManyInput = {
@@ -1175,6 +1182,20 @@ export type PlantLogisticOrderUpdateOneRequiredWithoutEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlantLogisticOrderUpdateToOneWithWhereWithoutEventsInput, Prisma.PlantLogisticOrderUpdateWithoutEventsInput>, Prisma.PlantLogisticOrderUncheckedUpdateWithoutEventsInput>
 }
 
+export type PlantLogisticOrderCreateNestedOneWithoutMilestonesInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutMilestonesInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutMilestonesInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutMilestonesInput
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+}
+
+export type PlantLogisticOrderUpdateOneRequiredWithoutMilestonesNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutMilestonesInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutMilestonesInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutMilestonesInput
+  upsert?: Prisma.PlantLogisticOrderUpsertWithoutMilestonesInput
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlantLogisticOrderUpdateToOneWithWhereWithoutMilestonesInput, Prisma.PlantLogisticOrderUpdateWithoutMilestonesInput>, Prisma.PlantLogisticOrderUncheckedUpdateWithoutMilestonesInput>
+}
+
 export type PlantLogisticOrderCreateWithoutCompanyInput = {
   id?: string
   orderNumber: string
@@ -1210,6 +1231,7 @@ export type PlantLogisticOrderCreateWithoutCompanyInput = {
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutCompanyInput = {
@@ -1247,6 +1269,7 @@ export type PlantLogisticOrderUncheckedCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutCompanyInput = {
@@ -1350,6 +1373,7 @@ export type PlantLogisticOrderCreateWithoutCreatedByInput = {
   company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutCreatedByInput = {
@@ -1387,6 +1411,7 @@ export type PlantLogisticOrderUncheckedCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutCreatedByInput = {
@@ -1434,6 +1459,7 @@ export type PlantLogisticOrderCreateWithoutUpdatedByInput = {
   company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutUpdatedByInput = {
@@ -1471,6 +1497,7 @@ export type PlantLogisticOrderUncheckedCreateWithoutUpdatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutUpdatedByInput = {
@@ -1550,6 +1577,7 @@ export type PlantLogisticOrderCreateWithoutEventsInput = {
   company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutEventsInput = {
@@ -1587,6 +1615,7 @@ export type PlantLogisticOrderUncheckedCreateWithoutEventsInput = {
   closedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutEventsInput = {
@@ -1640,6 +1669,7 @@ export type PlantLogisticOrderUpdateWithoutEventsInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutEventsInput = {
@@ -1677,6 +1707,175 @@ export type PlantLogisticOrderUncheckedUpdateWithoutEventsInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderCreateWithoutMilestonesInput = {
+  id?: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
+  events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+}
+
+export type PlantLogisticOrderUncheckedCreateWithoutMilestonesInput = {
+  id?: string
+  companyId: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  createdById: string
+  updatedById?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type PlantLogisticOrderCreateOrConnectWithoutMilestonesInput = {
+  where: Prisma.PlantLogisticOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutMilestonesInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutMilestonesInput>
+}
+
+export type PlantLogisticOrderUpsertWithoutMilestonesInput = {
+  update: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutMilestonesInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutMilestonesInput>
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutMilestonesInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutMilestonesInput>
+  where?: Prisma.PlantLogisticOrderWhereInput
+}
+
+export type PlantLogisticOrderUpdateToOneWithWhereWithoutMilestonesInput = {
+  where?: Prisma.PlantLogisticOrderWhereInput
+  data: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutMilestonesInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutMilestonesInput>
+}
+
+export type PlantLogisticOrderUpdateWithoutMilestonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
+  events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderUncheckedUpdateWithoutMilestonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateManyCompanyInput = {
@@ -1750,6 +1949,7 @@ export type PlantLogisticOrderUpdateWithoutCompanyInput = {
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutCompanyInput = {
@@ -1787,6 +1987,7 @@ export type PlantLogisticOrderUncheckedUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutCompanyInput = {
@@ -1932,6 +2133,7 @@ export type PlantLogisticOrderUpdateWithoutCreatedByInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutCreatedByInput = {
@@ -1969,6 +2171,7 @@ export type PlantLogisticOrderUncheckedUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByInput = {
@@ -2042,6 +2245,7 @@ export type PlantLogisticOrderUpdateWithoutUpdatedByInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutUpdatedByInput = {
@@ -2079,6 +2283,7 @@ export type PlantLogisticOrderUncheckedUpdateWithoutUpdatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByInput = {
@@ -2124,10 +2329,12 @@ export type PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByInput = {
 
 export type PlantLogisticOrderCountOutputType = {
   events: number
+  milestones: number
 }
 
 export type PlantLogisticOrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   events?: boolean | PlantLogisticOrderCountOutputTypeCountEventsArgs
+  milestones?: boolean | PlantLogisticOrderCountOutputTypeCountMilestonesArgs
 }
 
 /**
@@ -2145,6 +2352,13 @@ export type PlantLogisticOrderCountOutputTypeDefaultArgs<ExtArgs extends runtime
  */
 export type PlantLogisticOrderCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PlantLogisticOrderEventWhereInput
+}
+
+/**
+ * PlantLogisticOrderCountOutputType without action
+ */
+export type PlantLogisticOrderCountOutputTypeCountMilestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticProductionMilestoneWhereInput
 }
 
 
@@ -2187,6 +2401,7 @@ export type PlantLogisticOrderSelect<ExtArgs extends runtime.Types.Extensions.In
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>
   events?: boolean | Prisma.PlantLogisticOrder$eventsArgs<ExtArgs>
+  milestones?: boolean | Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs>
   _count?: boolean | Prisma.PlantLogisticOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticOrder"]>
 
@@ -2313,6 +2528,7 @@ export type PlantLogisticOrderInclude<ExtArgs extends runtime.Types.Extensions.I
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>
   events?: boolean | Prisma.PlantLogisticOrder$eventsArgs<ExtArgs>
+  milestones?: boolean | Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs>
   _count?: boolean | Prisma.PlantLogisticOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlantLogisticOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2333,6 +2549,7 @@ export type $PlantLogisticOrderPayload<ExtArgs extends runtime.Types.Extensions.
     createdBy: Prisma.$UserPayload<ExtArgs>
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
     events: Prisma.$PlantLogisticOrderEventPayload<ExtArgs>[]
+    milestones: Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2767,6 +2984,7 @@ export interface Prisma__PlantLogisticOrderClient<T, Null = never, ExtArgs exten
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.PlantLogisticOrder$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticOrderEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  milestones<T extends Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3271,6 +3489,30 @@ export type PlantLogisticOrder$eventsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.PlantLogisticOrderEventScalarFieldEnum | Prisma.PlantLogisticOrderEventScalarFieldEnum[]
+}
+
+/**
+ * PlantLogisticOrder.milestones
+ */
+export type PlantLogisticOrder$milestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticProductionMilestone
+   */
+  select?: Prisma.PlantLogisticProductionMilestoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticProductionMilestone
+   */
+  omit?: Prisma.PlantLogisticProductionMilestoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticProductionMilestoneInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticProductionMilestoneWhereInput
+  orderBy?: Prisma.PlantLogisticProductionMilestoneOrderByWithRelationInput | Prisma.PlantLogisticProductionMilestoneOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticProductionMilestoneScalarFieldEnum | Prisma.PlantLogisticProductionMilestoneScalarFieldEnum[]
 }
 
 /**

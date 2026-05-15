@@ -54,6 +54,14 @@ export const STATUS_LABELS: Record<LogisticOrderStatus, string> = {
   CANCELLED: "Cancelled",
 }
 
+export const MILESTONE_EVENT_LABELS: Record<string, string> = {
+  MILESTONES_CREATED: "Production milestones created",
+  MILESTONE_STARTED: "Milestone started",
+  MILESTONE_COMPLETED: "Milestone completed",
+  MILESTONE_BLOCKED: "Milestone blocked",
+  MILESTONE_QUALITY_HOLD: "Milestone quality hold",
+}
+
 export function canTransitionTo(from: LogisticOrderStatus, to: LogisticOrderStatus): boolean {
   if (to === "CANCELLED" && CANCELABLE_STATUSES.includes(from)) return true
   return ALLOWED_TRANSITIONS[from]?.includes(to) ?? false

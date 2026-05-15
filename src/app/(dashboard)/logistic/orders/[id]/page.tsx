@@ -4,13 +4,18 @@ import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { getNextStatuses } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForVehicleType, labelForPowertrain, labelForPriority } from "@/lib/logistic/types"
+import { labelForGate } from "@/lib/logistic/milestone-types"
+import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
 import { StatusBadge } from "../../status-badge"
+import { MilestoneStatusBadge, MilestoneGateBadge } from "../../milestone-badge"
 import { ChangeStatusButton } from "./change-status-button"
 import { UpdatePlanningForm } from "./update-planning-form"
 import { AssignVinChassisForm } from "./assign-vin-chassis-form"
 import { AddCommentForm } from "./add-comment-form"
+import { MilestoneActions } from "./milestone-actions"
+import { SeedMilestonesButton } from "./seed-milestones-button"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Factory, AlertTriangle } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -36,6 +41,13 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
         orderBy: { createdAt: "desc" },
         include: { actor: { select: { name: true } } },
       },
+      milestones: {
+        orderBy: { sequence: "asc" },
+        include: {
+          createdBy: { select: { name: true } },
+          updatedBy: { select: { name: true } },
+        },
+      },
     },
   })
 
@@ -43,6 +55,11 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
 
   const nextStatuses = getNextStatuses(order.status)
   const isDelayed = order.plannedDeliveryDate && order.plannedDeliveryDate < new Date() && !["DELIVERED", "CLOSED", "CANCELLED", "REJECTED"].includes(order.status)
+  const productionProgress = calculateProductionProgress(order.milestones)
+  const hasMilestones = order.milestones.length > 0
+  const blockedCount = order.milestones.filter(m => m.status === "BLOCKED").length
+  const qualityHoldCount = order.milestones.filter(m => m.qualityHold).length
+  const currentMilestone = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
 
   return (
     <div className="space-y-6">
@@ -249,6 +266,118 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
           </section>
         </div>
       </div>
+
+      <section className="rounded-lg border bg-card p-4">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-sm font-medium text-foreground">Production Milestones</h2>
+          {hasMilestones && (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Progress</span>
+                <span className="text-sm font-bold text-foreground">{productionProgress}%</span>
+                <div className="h-2 w-24 rounded-full bg-muted">
+                  <div
+                    className="h-2 rounded-full bg-emerald-500 transition-all"
+                    style={{ width: `${productionProgress}%` }}
+                  />
+                </div>
+              </div>
+              {currentMilestone && (
+                <div className="flex items-center gap-1 text-xs">
+                  <Factory className="size-3 text-cyan-500" />
+                  <span className="text-muted-foreground">Current:</span>
+                  <span className="font-medium text-foreground">{labelForGate(currentMilestone.gate)}</span>
+                </div>
+              )}
+              {blockedCount > 0 && (
+                <div className="flex items-center gap-1 text-xs text-amber-600">
+                  <AlertTriangle className="size-3" />
+                  <span>{blockedCount} blocked</span>
+                </div>
+              )}
+              {qualityHoldCount > 0 && (
+                <div className="flex items-center gap-1 text-xs text-destructive">
+                  <AlertTriangle className="size-3" />
+                  <span>{qualityHoldCount} on hold</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {hasMilestones ? (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <th className="px-3 py-2 text-left">#</th>
+                  <th className="px-3 py-2 text-left">Gate</th>
+                  <th className="px-3 py-2 text-left">Title</th>
+                  <th className="px-3 py-2 text-left">Status</th>
+                  <th className="px-3 py-2 text-left">Planned Start</th>
+                  <th className="px-3 py-2 text-left">Planned Finish</th>
+                  <th className="px-3 py-2 text-left">Actual Start</th>
+                  <th className="px-3 py-2 text-left">Actual Finish</th>
+                  <th className="px-3 py-2 text-left">Department</th>
+                  <th className="px-3 py-2 text-left">Delay Reason</th>
+                  <th className="px-3 py-2 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {order.milestones.map((milestone) => {
+                  const isDelayed = milestone.plannedFinish && !["COMPLETED", "SKIPPED", "CANCELLED"].includes(milestone.status) && new Date(milestone.plannedFinish) < new Date()
+                  return (
+                    <tr key={milestone.id} className={`group ${milestone.qualityHold ? "bg-destructive/5" : ""}`}>
+                      <td className="px-3 py-2 text-sm text-muted-foreground">{milestone.sequence}</td>
+                      <td className="px-3 py-2"><MilestoneGateBadge gate={milestone.gate} /></td>
+                      <td className="px-3 py-2 text-sm font-medium text-foreground">
+                        {milestone.title}
+                        {milestone.qualityHold && (
+                          <span className="ml-1 inline-flex items-center rounded-full bg-destructive/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-destructive">
+                            Q-Hold
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2"><MilestoneStatusBadge status={milestone.status} /></td>
+                      <td className={`px-3 py-2 text-sm ${isDelayed ? "text-destructive" : "text-muted-foreground"}`}>
+                        {milestone.plannedStart ? new Date(milestone.plannedStart).toLocaleDateString() : "—"}
+                      </td>
+                      <td className={`px-3 py-2 text-sm ${isDelayed ? "font-medium text-destructive" : "text-muted-foreground"}`}>
+                        {milestone.plannedFinish ? new Date(milestone.plannedFinish).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="px-3 py-2 text-sm text-muted-foreground">
+                        {milestone.actualStart ? new Date(milestone.actualStart).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="px-3 py-2 text-sm text-muted-foreground">
+                        {milestone.actualFinish ? new Date(milestone.actualFinish).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="px-3 py-2 text-sm text-muted-foreground">{milestone.responsibleDepartment ?? "—"}</td>
+                      <td className="px-3 py-2 text-sm">
+                        {milestone.delayReason ? (
+                          <span className="text-amber-600">{milestone.delayReason}</span>
+                        ) : "—"}
+                      </td>
+                      <td className="px-3 py-2">
+                        <MilestoneActions
+                          milestoneId={milestone.id}
+                          currentStatus={milestone.status}
+                          orderId={order.id}
+                        />
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+            <Factory className="mb-3 size-10 text-muted-foreground/50" />
+            <p className="text-sm">No production milestones created yet.</p>
+            <SeedMilestonesButton orderId={order.id} />
+          </div>
+        )}
+      </section>
     </div>
   )
 }

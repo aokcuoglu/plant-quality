@@ -230,6 +230,35 @@ enum LogisticOrderEventType {
   ORDER_APPROVED
   ORDER_REJECTED
   ORDER_CLOSED
+  MILESTONES_CREATED
+  MILESTONE_STARTED
+  MILESTONE_COMPLETED
+  MILESTONE_BLOCKED
+  MILESTONE_QUALITY_HOLD
+}
+
+enum ProductionMilestoneGate {
+  BODY
+  PAINT
+  ASSEMBLY
+  ELECTRICAL
+  POWERTRAIN
+  EOL_TEST
+  PDI
+  FINAL_QUALITY
+  YARD_READY
+  OTHER
+}
+
+enum ProductionMilestoneStatus {
+  NOT_STARTED
+  PLANNED
+  IN_PROGRESS
+  BLOCKED
+  QUALITY_HOLD
+  COMPLETED
+  SKIPPED
+  CANCELLED
 }
 
 enum DefectEventType {
@@ -494,6 +523,7 @@ model Company {
   devPlansAsSupplier SupplierDevelopmentPlan[] @relation("DevPlansAsSupplier")
   logisticOrders     PlantLogisticOrder[]      @relation("LogisticOrdersOem")
   logisticOrderEvents PlantLogisticOrderEvent[] @relation("LogisticOrderEventsOem")
+  productionMilestones PlantLogisticProductionMilestone[] @relation("MilestoneCompany")
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -566,6 +596,8 @@ model User {
   createdLogisticOrders   PlantLogisticOrder[]        @relation("LogisticOrderCreatedBy")
   updatedLogisticOrders   PlantLogisticOrder[]        @relation("LogisticOrderUpdatedBy")
   logisticOrderEvents     PlantLogisticOrderEvent[]   @relation("LogisticOrderEventActor")
+  createdMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneCreatedBy")
+  updatedMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneUpdatedBy")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -1385,6 +1417,7 @@ model PlantLogisticOrder {
   deliveredAt           DateTime?                @map("delivered_at")
   closedAt              DateTime?                @map("closed_at")
   events                PlantLogisticOrderEvent[]
+  milestones            PlantLogisticProductionMilestone[] @relation("OrderMilestones")
   createdAt             DateTime                 @default(now()) @map("created_at")
   updatedAt             DateTime                 @updatedAt @map("updated_at")
 
@@ -1415,4 +1448,38 @@ model PlantLogisticOrderEvent {
   @@index([orderId, createdAt])
   @@index([companyId, createdAt])
   @@map("plant_logistic_order_events")
+}
+
+model PlantLogisticProductionMilestone {
+  id                    String                   @id @default(uuid())
+  orderId               String                   @map("order_id")
+  order                 PlantLogisticOrder        @relation("OrderMilestones", fields: [orderId], references: [id], onDelete: Cascade)
+  companyId             String                   @map("company_id")
+  company               Company                   @relation("MilestoneCompany", fields: [companyId], references: [id])
+  sequence              Int
+  gate                  ProductionMilestoneGate
+  title                 String
+  description           String?
+  status                ProductionMilestoneStatus @default(NOT_STARTED)
+  plannedStart          DateTime?                @map("planned_start")
+  plannedFinish         DateTime?                @map("planned_finish")
+  actualStart           DateTime?                @map("actual_start")
+  actualFinish          DateTime?                @map("actual_finish")
+  responsibleDepartment String?                  @map("responsible_department")
+  delayReason           String?                  @map("delay_reason")
+  qualityHold           Boolean                  @default(false) @map("quality_hold")
+  notes                 String?
+  createdById           String?                  @map("created_by_id")
+  createdBy             User?                    @relation("MilestoneCreatedBy", fields: [createdById], references: [id])
+  updatedById           String?                  @map("updated_by_id")
+  updatedBy             User?                    @relation("MilestoneUpdatedBy", fields: [updatedById], references: [id])
+  createdAt             DateTime                 @default(now()) @map("created_at")
+  updatedAt             DateTime                 @updatedAt @map("updated_at")
+
+  @@index([companyId, orderId])
+  @@index([companyId, status])
+  @@index([companyId, gate])
+  @@index([companyId, plannedFinish])
+  @@index([orderId, sequence])
+  @@map("plant_logistic_production_milestones")
 }

@@ -1062,6 +1062,40 @@ export type EnumLogisticOrderStatusNullableWithAggregatesFilter<$PrismaModel = n
   _max?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
 }
 
+export type EnumProductionMilestoneGateFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneGate | Prisma.EnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneGateFilter<$PrismaModel> | $Enums.ProductionMilestoneGate
+}
+
+export type EnumProductionMilestoneStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneStatus | Prisma.EnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel> | $Enums.ProductionMilestoneStatus
+}
+
+export type EnumProductionMilestoneGateWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneGate | Prisma.EnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneGateWithAggregatesFilter<$PrismaModel> | $Enums.ProductionMilestoneGate
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductionMilestoneGateFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductionMilestoneGateFilter<$PrismaModel>
+}
+
+export type EnumProductionMilestoneStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneStatus | Prisma.EnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProductionMilestoneStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -2056,6 +2090,40 @@ export type NestedEnumLogisticOrderStatusNullableWithAggregatesFilter<$PrismaMod
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLogisticOrderStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumProductionMilestoneGateFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneGate | Prisma.EnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneGateFilter<$PrismaModel> | $Enums.ProductionMilestoneGate
+}
+
+export type NestedEnumProductionMilestoneStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneStatus | Prisma.EnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel> | $Enums.ProductionMilestoneStatus
+}
+
+export type NestedEnumProductionMilestoneGateWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneGate | Prisma.EnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneGate[] | Prisma.ListEnumProductionMilestoneGateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneGateWithAggregatesFilter<$PrismaModel> | $Enums.ProductionMilestoneGate
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductionMilestoneGateFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductionMilestoneGateFilter<$PrismaModel>
+}
+
+export type NestedEnumProductionMilestoneStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductionMilestoneStatus | Prisma.EnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductionMilestoneStatus[] | Prisma.ListEnumProductionMilestoneStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductionMilestoneStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProductionMilestoneStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
 }
 
 

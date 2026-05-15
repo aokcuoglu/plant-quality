@@ -12,6 +12,7 @@ const ACTION_LABELS: Record<string, string> = {
   BLOCKED: "Block",
   QUALITY_HOLD: "Quality Hold",
   COMPLETED: "Complete",
+  CANCELLED: "Cancel",
 }
 
 export function MilestoneActions({

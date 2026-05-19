@@ -5,7 +5,7 @@ import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { getNextStatuses } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForVehicleType, labelForPowertrain, labelForPriority } from "@/lib/logistic/types"
 import { labelForGate } from "@/lib/logistic/milestone-types"
-import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
+import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
 import { StatusBadge } from "../../status-badge"
 import { MilestoneStatusBadge, MilestoneGateBadge } from "../../milestone-badge"
 import { ChangeStatusButton } from "./change-status-button"
@@ -60,6 +60,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
   const blockedCount = order.milestones.filter(m => m.status === "BLOCKED").length
   const qualityHoldCount = order.milestones.filter(m => m.qualityHold).length
   const currentMilestone = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
+  const milestonesCompleted = !currentMilestone && allMilestonesResolved(order.milestones)
 
   return (
     <div className="space-y-6">
@@ -287,6 +288,12 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
                   <Factory className="size-3 text-cyan-500" />
                   <span className="text-muted-foreground">Current:</span>
                   <span className="font-medium text-foreground">{labelForGate(currentMilestone.gate)}</span>
+                </div>
+              )}
+              {milestonesCompleted && (
+                <div className="flex items-center gap-1 text-xs">
+                  <Factory className="size-3 text-emerald-500" />
+                  <span className="font-medium text-emerald-600">All milestones completed</span>
                 </div>
               )}
               {blockedCount > 0 && (

@@ -5,7 +5,7 @@ import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { STATUS_LABELS } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForPriority } from "@/lib/logistic/types"
 import { labelForGate } from "@/lib/logistic/milestone-types"
-import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
+import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
 import Link from "next/link"
 import { PlusCircle, TruckIcon } from "lucide-react"
 import { StatusBadge } from "../status-badge"
@@ -144,6 +144,7 @@ export default async function LogisticOrdersPage({
                   const progress = calculateProductionProgress(order.milestones)
                   const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
                   const hasHold = order.milestones.some(m => m.qualityHold)
+  const milestonesCompleted = !currentMs && allMilestonesResolved(order.milestones)
                   return (
                     <tr key={order.id} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
@@ -176,7 +177,7 @@ export default async function LogisticOrdersPage({
                         )}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
-                        {currentMs ? labelForGate(currentMs.gate) : "—"}
+                        {currentMs ? labelForGate(currentMs.gate) : milestonesCompleted ? "Completed" : "—"}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {order.plannedDeliveryDate ? order.plannedDeliveryDate.toLocaleDateString() : order.requestedDeliveryDate ? order.requestedDeliveryDate.toLocaleDateString() : "—"}

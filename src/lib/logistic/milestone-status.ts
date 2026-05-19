@@ -51,6 +51,13 @@ export function calculateProductionProgress(
   milestones: { status: ProductionMilestoneStatus }[]
 ): number {
   if (milestones.length === 0) return 0
-  const completed = milestones.filter((m) => m.status === "COMPLETED").length
-  return Math.round((completed / milestones.length) * 100)
+  const resolved = milestones.filter((m) => m.status === "COMPLETED" || m.status === "SKIPPED").length
+  return Math.round((resolved / milestones.length) * 100)
+}
+
+export function allMilestonesResolved(
+  milestones: { status: ProductionMilestoneStatus }[]
+): boolean {
+  if (milestones.length === 0) return false
+  return milestones.every((m) => TERMINAL_MILESTONE_STATUSES.includes(m.status))
 }

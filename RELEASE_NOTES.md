@@ -1,3 +1,118 @@
+# PlantX v3.2.1 — PlantLogistic Production Milestone UX + Workflow Bugfix
+
+**Release Date:** 2026-05-19  
+**Version:** 3.2.1
+
+---
+
+## Summary
+
+PlantX v3.2.1 is a polish and bugfix patch for PlantLogistic Production Milestone Tracking (v3.2.0). It clarifies terminal state behavior, fixes BLOCKED/Quality Hold resume inconsistency, adds date validation, improves default milestone idempotency, fixes progress calculation and UI edge cases, and verifies AppSwitcher/module entitlement regression. No new product scope.
+
+---
+
+## Bug Fixes
+
+### Terminal State Edit Guard
+
+- **Problem:** `updateProductionMilestone` allowed editing all fields on COMPLETED, CANCELLED, and SKIPPED milestones, including workflow-critical fields like dates, delayReason, and qualityHold. This could corrupt historical data.
+- **Fix:** Terminal milestones now only allow `notes` updates. Any attempt to edit title, description, dates, department, or delayReason on a terminal milestone returns an explicit error: "Cannot edit workflow fields on a terminal milestone. Only notes may be updated."
+
+### BLOCKED → IN_PROGRESS delayReason Cleanup
+
+- **Problem:** When transitioning QUALITY_HOLD → IN_PROGRESS, the server correctly cleared `qualityHold` and `delayReason`. However, BLOCKED → IN_PROGRESS only cleared `qualityHold` if it was set, and never cleared `delayReason`. This meant a BLOCKED milestone resuming work would retain its stale delay reason.
+- **Fix:** BLOCKED → IN_PROGRESS now also clears `delayReason` and `qualityHold`, consistent with QUALITY_HOLD → IN_PROGRESS behavior. The rationale: if the blockage is resolved and work resumes, the delay reason is no longer active.
+
+### CANCELLED / SKIPPED Timeline Events
+
+- **Problem:** Transitions to CANCELLED or SKIPPED status produced no timeline events, leaving gaps in the activity timeline.
+- **Fix:** CANCELLED and SKIPPED transitions now create `STATUS_CHANGED` timeline events, preserving the audit trail.
+
+### Date Validation
+
+- **Problem:** `createProductionMilestone` and `updateProductionMilestone` accepted any date values without validation, allowing plannedStart to be after plannedFinish.
+- **Fix:** Both actions now validate that plannedStart ≤ plannedFinish when both dates are provided. Invalid date ranges return an explicit error.
+
+### Default Milestone Idempotency
+
+- **Problem:** `seedDefaultMilestonesForOrder` used a simple count-based check. If an order had even one manually-created milestone, the entire "Create Default Milestones" operation was blocked, even if most default gates were missing.
+- **Fix:** Changed to gate-level idempotency. The action now checks which gates already exist and only creates the missing ones. Timeline event message reflects the actual number of gates created.
+
+---
+
+## UI Fixes
+
+### Progress Calculation
+
+- **Problem:** `calculateProductionProgress` only counted COMPLETED milestones toward progress. SKIPPED milestones did not count, making 100% unreachable if any milestone was skipped. CANCELLED milestones still don't count (intentional — cancelled milestones indicate removed scope).
+- **Fix:** SKIPPED milestones now count as "resolved" in progress calculation, making 100% achievable when all milestones are either completed or skipped.
+
+### Current Gate Display
+
+- **Problem:** When all milestones were in terminal states (COMPLETED/SKIPPED), the "Current Gate" indicator showed "—" with no explanation.
+- **Fix:** Order detail page now shows "All milestones completed" with an emerald icon. Order list shows "Completed". Only cancelled (without completed) milestones show "—".
+
+### Milestone Gate Badge Labels
+
+- **Problem:** `MilestoneGateBadge` displayed raw enum values (e.g., "BODY", "EOL_TEST") instead of human-readable labels.
+- **Fix:** Badge now uses `labelForGate()` to display readable names (e.g., "Body / Body Shop", "EOL Test").
+
+---
+
+## Regression Verification
+
+### AppSwitcher / Module Entitlement
+
+- Enterprise OEM sees PlantLogistic as Live ✓
+- PRO OEM sees PlantLogistic as Live ✓
+- FREE OEM sees PlantLogistic as Locked ✓
+- Supplier does NOT see PlantLogistic ✓
+- PlantQuality shows correctly for all user types ✓
+- Active/Live/Locked/Soon badge differentiation correct ✓
+
+### Supplier Denial / Tenant Isolation
+
+- All milestone server actions enforce authentication ✓
+- All milestone server actions enforce OEM companyType ✓
+- All milestone server actions enforce PLANT_LOGISTIC_MODULE ✓
+- All Prisma queries scoped by session.user.companyId ✓
+- Client-provided companyId never trusted ✓
+- Proxy blocks unauthorized module access ✓
+
+### PlantQuality
+
+- No PlantQuality schema, actions, pages, or components modified ✓
+- All PlantQuality features remain fully functional ✓
+- No cross-module data leakage ✓
+
+---
+
+## No New Product Scope
+
+This patch introduces no new features, modules, or product scope changes. All changes are bug fixes, UX polish, and workflow consistency improvements within the existing PlantLogistic Production Milestone feature.
+
+---
+
+## Files Changed
+
+### Modified Files
+
+- `src/app/(dashboard)/logistic/milestone-actions.ts` — Terminal state edit guard, BLOCKED resume cleanup, CANCELLED/SKIPPED events, date validation, gate-level idempotency
+- `src/lib/logistic/milestone-status.ts` — Progress calculation includes SKIPPED, new `allMilestonesResolved()` helper
+- `src/app/(dashboard)/logistic/orders/[id]/page.tsx` — "All milestones completed" display, import `allMilestonesResolved`
+- `src/app/(dashboard)/logistic/orders/page.tsx` — Completed milestone display, import `allMilestonesResolved`
+- `src/app/(dashboard)/logistic/page.tsx` — Completed milestone display, import `allMilestonesResolved`
+- `src/app/(dashboard)/logistic/milestone-badge.tsx` — Use `labelForGate()` in MilestoneGateBadge
+- `docs/roadmap/plantlogistic-roadmap.md` — Add v3.2.1 patch section
+- `RELEASE_NOTES.md` — v3.2.1 section
+- `package.json` — Version 3.2.1
+
+### New Files
+
+- `docs/qa/v3.2.1-plantlogistic-milestone-workflow-polish-qa.md` — QA checklist
+
+---
+
 # PlantX v3.2.0 — PlantLogistic Production Milestone Tracking
 
 **Release Date:** 2026-05-15  

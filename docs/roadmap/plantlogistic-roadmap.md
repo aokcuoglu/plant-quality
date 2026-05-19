@@ -18,7 +18,7 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
-## v3.1.0 — Order Tracking MVP (Current)
+## v3.1.0 — Order Tracking MVP
 
 **Scope:**
 - PlantLogistic module shell and sidebar/nav integration
@@ -92,6 +92,24 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 - BLOCKED → IN_PROGRESS
 - QUALITY_HOLD → IN_PROGRESS
 - COMPLETED, SKIPPED, CANCELLED are terminal
+
+---
+
+## v3.2.1 — Milestone Workflow Polish Patch (Current)
+
+**Scope:**
+- Terminal state edit guard: workflow fields (title, description, dates, department, delayReason) blocked on COMPLETED/CANCELLED/SKIPPED milestones; only notes editable
+- BLOCKED → IN_PROGRESS now clears delayReason and qualityHold (consistent with QUALITY_HOLD → IN_PROGRESS)
+- CANCELLED and SKIPPED transitions now create timeline events (STATUS_CHANGED)
+- Date validation: plannedStart cannot exceed plannedFinish in create and update actions
+- Default milestone idempotency: gate-level check — only missing gates are created, existing gates are skipped
+- Progress calculation: SKIPPED milestones count as resolved (100% reachable)
+- Current gate display: "All milestones completed" shown when all milestones are in terminal state
+- MilestoneGateBadge shows human-readable labels instead of raw enum values
+- AppSwitcher/module entitlement regression verified
+- Supplier denial and tenant isolation regression verified
+- QA checklist documentation
+- No new product scope
 
 ---
 

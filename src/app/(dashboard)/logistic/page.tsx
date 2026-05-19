@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { labelForGate } from "@/lib/logistic/milestone-types"
-import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
+import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
 import Link from "next/link"
 import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck, Wrench, ShieldAlert } from "lucide-react"
 import { StatusBadge } from "./status-badge"
@@ -193,6 +193,7 @@ export default async function LogisticDashboardPage() {
                 {recentOrders.map((order) => {
                   const progress = calculateProductionProgress(order.milestones)
                   const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
+                  const milestonesCompleted = !currentMs && allMilestonesResolved(order.milestones)
                   return (
                     <tr key={order.id} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
@@ -217,6 +218,7 @@ export default async function LogisticDashboardPage() {
                             </div>
                             <span className="text-xs text-muted-foreground">{progress}%</span>
                             {currentMs && <span className="text-xs text-muted-foreground">({labelForGate(currentMs.gate)})</span>}
+                            {milestonesCompleted && <span className="text-xs text-emerald-600">(Completed)</span>}
                           </div>
                         ) : (
                           <span className="text-xs text-muted-foreground">—</span>

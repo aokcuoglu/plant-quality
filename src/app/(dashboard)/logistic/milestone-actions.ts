@@ -46,13 +46,16 @@ export async function seedDefaultMilestonesForOrder(orderId: string) {
   })
   if (!order) return { error: "Order not found" }
 
-  const existing = await prisma.plantLogisticProductionMilestone.count({
+  const existing = await prisma.plantLogisticProductionMilestone.findMany({
     where: { orderId, companyId },
+    select: { gate: true },
   })
-  if (existing > 0) return { error: "Milestones already exist for this order" }
+  const existingGates = new Set(existing.map((m) => m.gate))
+  const milestonesToCreate = DEFAULT_MILESTONES.filter((m) => !existingGates.has(m.gate))
+  if (milestonesToCreate.length === 0) return { error: "All default milestones already exist for this order" }
 
   await prisma.plantLogisticProductionMilestone.createMany({
-    data: DEFAULT_MILESTONES.map((m) => ({
+    data: milestonesToCreate.map((m) => ({
       orderId,
       companyId,
       sequence: m.sequence,
@@ -69,7 +72,7 @@ export async function seedDefaultMilestonesForOrder(orderId: string) {
       companyId,
       actorId: userId,
       eventType: "MILESTONES_CREATED" as LogisticOrderEventType,
-      message: "Production milestones created (9 default gates)",
+      message: `Production milestones created (${milestonesToCreate.length} default gates)`,
     },
   })
 
@@ -112,6 +115,10 @@ export async function createProductionMilestone(orderId: string, data: {
   })
 
   const sequence = data.sequence ?? (maxSequence ? maxSequence.sequence + 1 : 1)
+
+  if (data.plannedStart && data.plannedFinish && new Date(data.plannedStart) > new Date(data.plannedFinish)) {
+    return { error: "Planned start date cannot be after planned finish date" }
+  }
 
   const milestone = await prisma.plantLogisticProductionMilestone.create({
     data: {
@@ -169,16 +176,44 @@ export async function updateProductionMilestone(
   })
   if (!order) return { error: "Order not found" }
 
+  const isTerminal = ["COMPLETED", "SKIPPED", "CANCELLED"].includes(milestone.status)
+  const allowedFields = isTerminal
+    ? { notes: data.notes }
+    : {
+        title: data.title,
+        description: data.description,
+        plannedStart: data.plannedStart,
+        plannedFinish: data.plannedFinish,
+        responsibleDepartment: data.responsibleDepartment,
+        delayReason: data.delayReason,
+        notes: data.notes,
+      }
+
+  const effectivePlannedStart = allowedFields.plannedStart !== undefined
+    ? (allowedFields.plannedStart ? new Date(allowedFields.plannedStart) : null)
+    : milestone.plannedStart
+  const effectivePlannedFinish = allowedFields.plannedFinish !== undefined
+    ? (allowedFields.plannedFinish ? new Date(allowedFields.plannedFinish) : null)
+    : milestone.plannedFinish
+
+  if (effectivePlannedStart && effectivePlannedFinish && effectivePlannedStart > effectivePlannedFinish) {
+    return { error: "Planned start date cannot be after planned finish date" }
+  }
+
+  if (isTerminal && (data.title !== undefined || data.description !== undefined || data.plannedStart !== undefined || data.plannedFinish !== undefined || data.responsibleDepartment !== undefined || data.delayReason !== undefined)) {
+    return { error: "Cannot edit workflow fields on a terminal milestone. Only notes may be updated." }
+  }
+
   await prisma.plantLogisticProductionMilestone.update({
     where: { id: milestoneId },
     data: {
-      ...(data.title !== undefined && { title: data.title }),
-      ...(data.description !== undefined && { description: data.description || null }),
-      ...(data.plannedStart !== undefined && { plannedStart: data.plannedStart ? new Date(data.plannedStart) : null }),
-      ...(data.plannedFinish !== undefined && { plannedFinish: data.plannedFinish ? new Date(data.plannedFinish) : null }),
-      ...(data.responsibleDepartment !== undefined && { responsibleDepartment: data.responsibleDepartment || null }),
-      ...(data.delayReason !== undefined && { delayReason: data.delayReason || null }),
-      ...(data.notes !== undefined && { notes: data.notes || null }),
+      ...(allowedFields.title !== undefined && { title: allowedFields.title }),
+      ...(allowedFields.description !== undefined && { description: allowedFields.description || null }),
+      ...(allowedFields.plannedStart !== undefined && { plannedStart: allowedFields.plannedStart ? new Date(allowedFields.plannedStart) : null }),
+      ...(allowedFields.plannedFinish !== undefined && { plannedFinish: allowedFields.plannedFinish ? new Date(allowedFields.plannedFinish) : null }),
+      ...(allowedFields.responsibleDepartment !== undefined && { responsibleDepartment: allowedFields.responsibleDepartment || null }),
+      ...(allowedFields.delayReason !== undefined && { delayReason: allowedFields.delayReason || null }),
+      ...(allowedFields.notes !== undefined && { notes: allowedFields.notes || null }),
       updatedById: userId,
     },
   })
@@ -243,7 +278,7 @@ export async function changeProductionMilestoneStatus(
   if (newStatus === "QUALITY_HOLD") {
     updateData.qualityHold = true
   }
-  if (newStatus === "IN_PROGRESS" && milestone.qualityHold) {
+  if (newStatus === "IN_PROGRESS" && (milestone.qualityHold || milestone.status === "BLOCKED")) {
     updateData.qualityHold = false
     updateData.delayReason = null
   }
@@ -258,6 +293,8 @@ export async function changeProductionMilestoneStatus(
     COMPLETED: "MILESTONE_COMPLETED",
     BLOCKED: "MILESTONE_BLOCKED",
     QUALITY_HOLD: "MILESTONE_QUALITY_HOLD",
+    CANCELLED: "STATUS_CHANGED",
+    SKIPPED: "STATUS_CHANGED",
   }
   const eventType = eventTypeMap[newStatus]
   if (eventType) {

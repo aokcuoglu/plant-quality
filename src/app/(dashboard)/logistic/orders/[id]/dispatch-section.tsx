@@ -74,7 +74,7 @@ export function DispatchSection({
 
   function handleCreate() {
     startTransition(async () => {
-      await createOrUpdateDispatch(null, orderId, {
+      const result = await createOrUpdateDispatch(null, orderId, {
         dispatchBatchNo: form.dispatchBatchNo || null,
         carrierName: form.carrierName || null,
         transportMode: form.transportMode,
@@ -86,6 +86,7 @@ export function DispatchSection({
         plannedLoadingDate: form.plannedLoadingDate || null,
         estimatedArrivalDate: form.estimatedArrivalDate || null,
       })
+      if (result?.error) { alert(result.error); return }
       setShowCreateForm(false)
       resetForm()
       router.refresh()
@@ -119,7 +120,7 @@ export function DispatchSection({
   function handleUpdate() {
     if (!editingId) return
     startTransition(async () => {
-      await createOrUpdateDispatch(editingId, orderId, {
+      const result = await createOrUpdateDispatch(editingId, orderId, {
         dispatchBatchNo: form.dispatchBatchNo || null,
         carrierName: form.carrierName || null,
         transportMode: form.transportMode,
@@ -131,6 +132,7 @@ export function DispatchSection({
         plannedLoadingDate: form.plannedLoadingDate || null,
         estimatedArrivalDate: form.estimatedArrivalDate || null,
       })
+      if (result?.error) { alert(result.error); return }
       setEditingId(null)
       resetForm()
       router.refresh()

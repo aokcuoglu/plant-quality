@@ -69,9 +69,13 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
   const milestonesCompleted = !currentMilestone && allMilestonesResolved(order.milestones)
 
   const now = new Date()
-  const yardWaitingDays = order.yardStatus?.lastMovementAt
-    ? Math.floor((now.getTime() - new Date(order.yardStatus.lastMovementAt).getTime()) / 86400000)
-    : null
+  const yardWaitingDays = (() => {
+    if (!order.yardStatus?.lastMovementAt) return null
+    const ts = new Date(order.yardStatus.lastMovementAt).getTime()
+    if (Number.isNaN(ts)) return null
+    const days = Math.floor((now.getTime() - ts) / 86400000)
+    return Number.isFinite(days) ? days : null
+  })()
 
   return (
     <div className="space-y-6">

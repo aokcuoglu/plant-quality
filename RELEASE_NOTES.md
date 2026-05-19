@@ -1,3 +1,61 @@
+# PlantX v3.3.1 — Yard Dispatch UX + Module Switcher & Subscription Polish
+
+**Release Date:** 2026-05-19  
+**Version:** 3.3.1
+
+---
+
+## Module Switcher & AppSwitcher Fix
+
+- **Fixed:** PlantQuality showing as "Soon" inside AppSwitcher when the user is in PlantLogistic — PlantQuality is a live product and must never appear as "Coming Soon".
+- **New badge logic:** AppSwitcher modules now display one of four states:
+  - **Active** — the module the user is currently using
+  - **Live** — a live product the user's company is entitled to (clickable)
+  - **Locked** — a live product the user's company is NOT entitled to (shows lock icon, not clickable)
+  - **Soon** — a future product not yet available (not clickable)
+- **Critical rule:** PlantQuality and PlantLogistic are NEVER shown as "Soon".
+- **Supplier visibility:** Supplier users only see PlantQuality in the AppSwitcher; PlantLogistic is hidden entirely.
+
+## Plan & Usage — Platform-Level
+
+- **New route:** `/settings/plan` is now the platform-level Plan & Usage page, accessible from both PlantQuality and PlantLogistic modules.
+- **Module Access section:** The Plan & Usage page now shows a Module Access card displaying PlantQuality and PlantLogistic with Active/Locked status.
+- **Legacy redirects:** `/oem/settings/plan` and `/quality/oem/settings/plan` now redirect to `/settings/plan`.
+- **Page title:** Changed from "Plan & Usage — PlantQuality" to "Plan & Usage — PlantX".
+- **Sidebar link:** The "Plan & Usage" sidebar link now points to `/settings/plan` regardless of which module the user is in.
+
+## Yard & Dispatch Bugfixes
+
+- **Fixed:** Dispatch can now be cancelled from LOADED status. Previously, the UI showed a "Cancel" button for LOADED dispatches, but the server action rejected it. `DISPATCH_CANCELABLE_STATUSES` now includes `LOADED`.
+- **Fixed:** Yard status section now checks server action error responses and shows alerts instead of silently closing the edit form on failure.
+- **Fixed:** Dispatch create/update actions now check for error responses and show alerts.
+- **Fixed:** Yard waiting days calculation now handles invalid/unparseable date strings gracefully (shows "—" instead of "NaN days").
+
+## Subscription Strategy Documentation
+
+- **New:** `docs/commercial/plantx-subscription-strategy.md` — comprehensive documentation of the two-layer access model, current implementation, short/mid/long-term roadmap, and persona matrix.
+- **Updated:** `docs/roadmap/plantlogistic-roadmap.md` — v3.3.1 section added with module switcher and persona clarification.
+
+## QA
+
+- **New:** `docs/qa/v3.3.1-module-switcher-subscription-and-yard-dispatch-polish-qa.md`
+
+---
+
+## Deferred (Not in v3.3.1)
+
+- Stripe / iyzico billing integration
+- `CompanyModuleSubscription` database table
+- Admin module assignment UI
+- Dealer / Distributor Portal (v3.4.0)
+- Carrier Portal
+- Per-module plan tier differentiation
+- Trial period management
+- Seat-based licensing
+- Self-service upgrade flow
+
+---
+
 # PlantX v3.3.0 — PlantLogistic Yard + Dispatch MVP
 
 **Release Date:** 2026-05-19  

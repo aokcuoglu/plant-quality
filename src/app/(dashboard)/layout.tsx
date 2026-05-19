@@ -101,7 +101,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const plantXModule: "quality" | "logistic" | null = isLogisticRoute ? "logistic" : "quality"
 
   const navItems = moduleConfig.navItems
-  const planNavItem = isOemAdmin ? { href: "/oem/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined
+  const planNavItem = isOemAdmin ? { href: "/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined
 
   return (
     <div className="flex h-screen">

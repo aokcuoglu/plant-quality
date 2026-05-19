@@ -150,7 +150,34 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
-## v3.4.0 — Dealer / Distributor Portal
+## v3.3.1 — Module Switcher & Subscription Polish
+
+**Scope:**
+- AppSwitcher badge logic corrected: Active (current module), Live (entitled + live), Locked (not entitled + live), Soon (future module)
+- PlantQuality and PlantLogistic never show "Soon" — always Live or Locked based on entitlement
+- Plan & Usage page moved to platform-level route `/settings/plan`
+- Plan & Usage now shows Module Access section (PlantQuality Active/Locked, PlantLogistic Active/Locked)
+- Legacy routes `/oem/settings/plan` and `/quality/oem/settings/plan` redirect to `/settings/plan`
+- Sidebar Plan & Usage link points to `/settings/plan` from both modules
+- Dispatch cancel bugfix: LOADED status now included in cancelable statuses
+- Yard/Dispatch server action error handling: all actions now check for error responses
+- Yard waitingDays NaN risk fixed: Invalid date parsing now returns null
+- PlantLogistic persona documentation clarified
+- Subscription strategy documentation created
+- QA checklist for module switcher and subscription
+
+**External Persona Clarification:**
+
+PlantLogistic does **not** support external personas in v3.3.1. The following are planned for future versions:
+
+| Persona | Access Level | Target Version |
+|---------|-------------|-----------------|
+| Dealer | Order tracking, delivery confirmation | v3.4.0 |
+| Distributor | Order visibility, regional tracking | v3.4.0 |
+| Customer | Limited delivery status view | v5.x |
+| Carrier / Logistics Partner | Dispatch updates, proof of delivery | v5.x |
+
+Supplier users continue to use PlantQuality's supplier portal and do **not** have access to PlantLogistic.
 
 **Scope:**
 - Limited external visibility for customers

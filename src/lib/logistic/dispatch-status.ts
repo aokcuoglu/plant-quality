@@ -17,6 +17,7 @@ export const DISPATCH_CANCELABLE_STATUSES: DispatchStatus[] = [
   "PLANNED",
   "CARRIER_ASSIGNED",
   "LOADING_PLANNED",
+  "LOADED",
 ]
 
 export const DISPATCH_TERMINAL_STATUSES: DispatchStatus[] = [

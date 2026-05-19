@@ -32,11 +32,12 @@ export function YardStatusSection({ yardStatus, orderId }: {
 
   function handleSave() {
     startTransition(async () => {
-      await upsertYardStatus(orderId, {
+      const result = await upsertYardStatus(orderId, {
         yardLocation: yardLocation || null,
         parkingSlot: parkingSlot || null,
         notes: notes || null,
       })
+      if (result?.error) { alert(result.error); return }
       setEditing(false)
       router.refresh()
     })
@@ -44,7 +45,8 @@ export function YardStatusSection({ yardStatus, orderId }: {
 
   function handleMarkReady() {
     startTransition(async () => {
-      await markReadyForDispatch(orderId)
+      const result = await markReadyForDispatch(orderId)
+      if (result?.error) { alert(result.error); return }
       router.refresh()
     })
   }
@@ -52,7 +54,8 @@ export function YardStatusSection({ yardStatus, orderId }: {
   function handleBlock() {
     if (!blockReasonInput.trim()) return
     startTransition(async () => {
-      await blockDispatch(orderId, blockReasonInput.trim())
+      const result = await blockDispatch(orderId, blockReasonInput.trim())
+      if (result?.error) { alert(result.error); return }
       setShowBlockDialog(false)
       setBlockReasonInput("")
       router.refresh()
@@ -61,7 +64,8 @@ export function YardStatusSection({ yardStatus, orderId }: {
 
   function handleUnblock() {
     startTransition(async () => {
-      await unblockDispatch(orderId)
+      const result = await unblockDispatch(orderId)
+      if (result?.error) { alert(result.error); return }
       router.refresh()
     })
   }

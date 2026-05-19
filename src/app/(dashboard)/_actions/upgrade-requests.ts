@@ -56,6 +56,8 @@ export async function createUpgradeRequest(data: {
     },
   })
 
+  revalidatePath("/settings/plan")
+  revalidatePath("/logistic/settings/plan")
   revalidatePath("/quality/oem/settings/plan")
   revalidatePath("/oem/settings/plan")
 
@@ -118,6 +120,8 @@ export async function updateUpgradeRequestStatus(
     data: updateData,
   })
 
+  revalidatePath("/settings/plan")
+  revalidatePath("/logistic/settings/plan")
   revalidatePath("/quality/oem/settings/plan")
   revalidatePath("/oem/settings/plan")
 

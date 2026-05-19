@@ -179,7 +179,7 @@ export default async function QualityIntelligencePage() {
           <p className="text-sm text-muted-foreground mt-1">
             Upgrade to Pro to unlock Quality Intelligence analytics, risk signals, and cross-module insights.
           </p>
-          <Link href="/oem/settings/plan" className="mt-4 inline-block">
+          <Link href="/settings/plan" className="mt-4 inline-block">
             <Button>
               <BarChart3Icon className="mr-1.5 h-4 w-4" />
               Upgrade to Pro
@@ -521,7 +521,7 @@ export default async function QualityIntelligencePage() {
           <p className="text-xs text-muted-foreground mt-2">
             Risk scoring is deterministic and explainable — no AI or LLM is used. Every score breaks down into contributing factor points.
           </p>
-          <Link href="/oem/settings/plan" className="mt-4 inline-block">
+          <Link href="/settings/plan" className="mt-4 inline-block">
             <Button>
               <TrendingUpIcon className="mr-1.5 h-4 w-4" />
               Upgrade to Enterprise

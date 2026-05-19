@@ -3,6 +3,121 @@ import { isPlanAtLeast, isSupplierPlan } from "./plans"
 
 export type ModuleKey = "PLANT_QUALITY_MODULE" | "PLANT_LOGISTIC_MODULE"
 
+export type ModuleStatus = "ACTIVE" | "LIVE" | "LOCKED" | "SOON"
+
+export type ModuleCatalogEntry = {
+  id: string
+  name: string
+  description: string
+  status: "live" | "soon"
+  moduleKey: ModuleKey | null
+  supplierAccess: boolean
+  href: string | null
+}
+
+export const MODULE_CATALOG: ModuleCatalogEntry[] = [
+  {
+    id: "quality",
+    name: "PlantQuality",
+    description: "AI-Powered 8D & Quality Management",
+    status: "live",
+    moduleKey: "PLANT_QUALITY_MODULE",
+    supplierAccess: true,
+    href: "/quality/oem",
+  },
+  {
+    id: "logistic",
+    name: "PlantLogistic",
+    description: "Vehicle Order & Delivery Control Tower",
+    status: "live",
+    moduleKey: "PLANT_LOGISTIC_MODULE",
+    supplierAccess: false,
+    href: "/logistic",
+  },
+  {
+    id: "dock",
+    name: "PlantDock",
+    description: "Warehouse Gate & Logistics",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+  {
+    id: "quote",
+    name: "PlantQuote",
+    description: "RFQ & Supplier Bidding",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+  {
+    id: "trace",
+    name: "PlantTrace",
+    description: "Traceability & Carbon Footprint",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+  {
+    id: "audit",
+    name: "PlantAudit",
+    description: "Digital Auditing (LPA, VDA)",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+  {
+    id: "asset",
+    name: "PlantAsset",
+    description: "Machinery Maintenance & OEE",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+  {
+    id: "flow",
+    name: "PlantFlow",
+    description: "Internal Material Flow & RFID",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+  {
+    id: "staff",
+    name: "PlantStaff",
+    description: "Skill Matrix & HSE Compliance",
+    status: "soon",
+    moduleKey: null,
+    supplierAccess: false,
+    href: null,
+  },
+]
+
+export function getModuleStatus(
+  entry: ModuleCatalogEntry,
+  companyId: string,
+  companyType: string,
+  currentModule: "quality" | "logistic" | null,
+): ModuleStatus {
+  if (entry.moduleKey && currentModule && entry.id === currentModule) {
+    return "ACTIVE"
+  }
+  if (entry.status === "soon") {
+    return "SOON"
+  }
+  if (entry.moduleKey) {
+    const hasAccess = checkModuleAccess(entry.moduleKey, companyId, companyType)
+    return hasAccess ? "LIVE" : "LOCKED"
+  }
+  return "SOON"
+}
+
 export type FeatureKey =
   | "DEFECTS"
   | "FIELD_QUALITY"

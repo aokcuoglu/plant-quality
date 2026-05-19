@@ -447,7 +447,7 @@ export function UpgradeLinkageBanner() {
             Quality Linkage shows related records across modules.
           </p>
           <Link
-            href="/oem/settings/plan"
+            href="/settings/plan"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300"
           >
             Upgrade to Pro to enable Quality Linkage

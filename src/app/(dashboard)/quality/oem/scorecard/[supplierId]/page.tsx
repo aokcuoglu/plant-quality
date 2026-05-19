@@ -104,7 +104,7 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
           <p className="text-sm text-muted-foreground mt-1">
             Upgrade to Enterprise to access Supplier Scorecard details.
           </p>
-          <Link href="/oem/settings/plan" className="mt-4 inline-block">
+          <Link href="/settings/plan" className="mt-4 inline-block">
             <Button><AwardIcon className="mr-1.5 h-4 w-4" />Upgrade to Enterprise</Button>
           </Link>
         </div>

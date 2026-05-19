@@ -1,3 +1,63 @@
+# PlantX v3.3.2 — Settings Shell Context + Module Purchase Flow Polish
+
+**Release Date:** 2026-05-19  
+**Version:** 3.3.2
+
+---
+
+## Settings Shell Context Fix
+
+- **Fixed:** Plan & Usage now preserves module shell context when navigated from PlantLogistic or PlantQuality.
+- **New route:** `/logistic/settings/plan` — Plan & Usage with PlantLogistic sidebar/header context.
+- **Existing route:** `/settings/plan` — Plan & Usage with PlantQuality sidebar/header context.
+- Both routes render the same platform-level Plan & Usage content via shared `PlanAndUsageContent` server component.
+- **Sidebar:** Plan & Usage link is now module-aware — points to `/logistic/settings/plan` when in logistic context, `/settings/plan` when in quality context.
+- **Legacy redirects:** `/oem/settings/plan` and `/quality/oem/settings/plan` still redirect to `/settings/plan`.
+
+## Module Purchase / Request Access Flow
+
+- **New:** Module Catalog section on Plan & Usage shows all PlantX modules organized by status:
+  - **Active / Live** — Modules included in the current plan
+  - **Locked** — Live modules not yet entitled, with "Request access" CTA
+  - **Coming soon** — Future modules not yet available
+- **New:** "Request access" button on locked modules creates a module access request via the existing UpgradeRequest table with `sourceFeature: "MODULE_ACCESS:{moduleKey}"`.
+- **Honest labeling:** Page clearly states "Online billing is not enabled yet." No fake purchase success is ever shown.
+- **Module Catalog entries:** PlantQuality (Live), PlantLogistic (Live), PlantDock (Soon), PlantQuote (Soon), PlantTrace (Soon), PlantAudit (Soon), PlantAsset (Soon), PlantFlow (Soon), PlantStaff (Soon).
+- **PlantQuality and PlantLogistic are never shown as "Soon".**
+
+## Supplier Behavior
+
+- Supplier users cannot access Plan & Usage (redirected to login).
+- Supplier users never see PlantLogistic locked/purchase UI.
+
+## Other Changes
+
+- Updated all hardcoded `/oem/settings/plan` links across quality pages to `/settings/plan`.
+- Added `MODULE_CATALOG` and `getModuleStatus` to `features.ts` for future module listings.
+- Added `createModuleAccessRequest` server action for module-specific access requests.
+- Added `revalidatePath` for `/settings/plan` and `/logistic/settings/plan` in upgrade request actions.
+- Subscription strategy documentation updated to v3.3.2.
+
+## QA
+
+- **New:** `docs/qa/v3.3.2-settings-shell-and-module-purchase-flow-qa.md`
+
+---
+
+## Deferred (Not in v3.3.2)
+
+- Stripe / iyzico billing integration
+- `CompanyModuleSubscription` database table
+- Admin module assignment UI
+- Dealer / Distributor Portal
+- Carrier Portal
+- Per-module plan tier differentiation
+- Trial period management
+- Seat-based licensing
+- Self-service upgrade flow
+
+---
+
 # PlantX v3.3.1 — Yard Dispatch UX + Module Switcher & Subscription Polish
 
 **Release Date:** 2026-05-19  

@@ -1,4 +1,4 @@
-# PlantX Subscription Strategy v3.3.1
+# PlantX Subscription Strategy v3.3.2
 
 > Last updated: 2026-05-19
 
@@ -43,7 +43,7 @@ const DEMO_MODULE_ENTITLEMENTS: Record<string, ModuleKey[]> = {
 
 Unknown companies default to both modules. This is a **demo/config-based** approach — no database table or billing integration exists yet.
 
-### AppSwitcher Badge Logic (v3.3.1)
+### AppSwitcher Badge Logic (v3.3.2)
 
 | Badge | Meaning |
 |-------|---------|
@@ -57,16 +57,69 @@ Unknown companies default to both modules. This is a **demo/config-based** appro
 - PlantQuality is always shown as either "Active" or "Live" for OEM users.
 - Supplier users never see PlantLogistic in the AppSwitcher.
 
-### Plan & Usage (Platform-Level)
+### Plan & Usage — Module-Context-Aware (v3.3.2)
 
-Plan & Usage is now a **platform-level** page at `/settings/plan`. It shows:
-- Current plan (Free/Pro/Enterprise) with upgrade CTA
-- **Module Access** card showing PlantQuality and PlantLogistic with Active/Locked status
-- Usage metrics (defects, field defects, suppliers, etc.)
-- Feature access grid
-- Upgrade requests
+Plan & Usage preserves the **module shell context** of the user's current location:
 
-This page is accessible from both PlantQuality and PlantLogistic via the sidebar "Plan & Usage" link, and redirects from the legacy `/oem/settings/plan` and `/quality/oem/settings/plan` routes.
+- **From PlantQuality**: `/settings/plan` — shows PlantQuality sidebar/header
+- **From PlantLogistic**: `/logistic/settings/plan` — shows PlantLogistic sidebar/header
+
+Both routes render the **same platform-level content** (current plan, module access, usage, features, upgrade requests) via the shared `PlanAndUsageContent` server component, but each route stays within its layout context so the sidebar and header reflect the correct module.
+
+**Legacy redirects preserved:**
+- `/oem/settings/plan` → `/settings/plan`
+- `/quality/oem/settings/plan` → `/settings/plan`
+
+**Sidebar behavior:**
+- In PlantQuality context, the "Plan & Usage" link points to `/settings/plan`
+- In PlantLogistic context, the "Plan & Usage" link points to `/logistic/settings/plan`
+
+### Available PlantX Modules Section (v3.3.2)
+
+The Plan & Usage page now includes a **Module Catalog** section organized into three groups:
+
+| Group | Status | Behavior |
+|-------|--------|----------|
+| **Active — Included in your plan** | Module is live and company has entitlement | Shows "Active" or "Live" badge with module description |
+| **Locked — Request access** | Module is live but company does NOT have entitlement | Shows "Locked" badge + "Request access" CTA button |
+| **Coming soon** | Module is not yet a live product | Shows "Soon" badge, no action available |
+
+**Module Catalog entries:**
+
+| Module | Status | Supplier Visible |
+|--------|--------|-----------------|
+| PlantQuality | Live | Yes |
+| PlantLogistic | Live | No |
+| PlantDock | Soon | No |
+| PlantQuote | Soon | No |
+| PlantTrace | Soon | No |
+| PlantAudit | Soon | No |
+| PlantAsset | Soon | No |
+| PlantFlow | Soon | No |
+| PlantStaff | Soon | No |
+
+### Module Purchase / Request Access Flow (v3.3.2)
+
+**Current state: Sales-led Request Access**
+
+- Online billing is **not enabled yet**. The Plan & Usage page clearly labels this.
+- "Request access" sends a request to the PlantX team / workspace admin.
+- Module access requests use the existing `UpgradeRequest` model with `sourceFeature` set to `MODULE_ACCESS:{moduleKey}`.
+- This does **not** require a database schema change — it reuses the existing `UpgradeRequest` table with a convention for `sourceFeature`.
+- Commercial activation is handled manually for now.
+- Fake purchase success is **never** shown.
+
+**Request Access CTA behavior:**
+
+- Locked modules show a "Request access" button
+- Clicking opens a small form with optional message textarea
+- Submitting creates an `UpgradeRequest` with `sourceFeature: "MODULE_ACCESS:PLANT_LOGISTIC_MODULE"`
+- If an open request already exists for that module, a "Request already exists" message is shown
+- The page header states: "Online billing is not enabled yet"
+
+**Supplier behavior:**
+- Supplier users cannot access Plan & Usage (redirected to `/login`)
+- Supplier users never see PlantLogistic or locked module purchase CTAs
 
 ---
 
@@ -159,7 +212,7 @@ model CompanyModuleSubscription {
 
 ### PlantLogistic External Persona Plans (Future)
 
-| Persona | Access Level | v3.3.1 Status |
+| Persona | Access Level | v3.3.2 Status |
 |---------|-------------|---------------|
 | Dealer | Order tracking, delivery confirmation | Not implemented |
 | Distributor | Order visibility, regional tracking | Not implemented |
@@ -174,7 +227,7 @@ These external personas are deferred to v3.4.0 (Dealer/Distributor Portal) and l
 
 ### Plan & Usage Module Access Card
 
-The Plan & Usage page now shows a **Module Access** section with:
+The Plan & Usage page shows a **Module Access** section with:
 
 | Module | Status | Description |
 |--------|--------|-------------|
@@ -185,16 +238,36 @@ The Plan & Usage page now shows a **Module Access** section with:
 - **Locked**: Company does not have entitlement. Shown with lock icon + muted badge.
 - A note below: "Module access is based on your subscription. Contact sales to add modules."
 
+### Available PlantX Modules Section
+
+Shows all current and future modules organized by status:
+- **Active — Included in your plan**: Modules the company can access
+- **Locked — Request access**: Live modules the company hasn't purchased yet, with "Request access" CTA
+- **Coming soon**: Future modules not yet available
+
 ### Important Constraints
 
 - **No fake billing UI**: The Plan & Usage page does NOT simulate payment processing.
-- **No "Purchase" buttons**: Upgrade requests go through an admin approval flow, not automated billing.
-- **Clear labeling**: The page is clearly labeled as "Plan & Usage" with subtitle "Manage your subscription, modules, and usage for [company]".
-- **Billing integration note**: A callout should mention that module additions currently require contacting sales, with billing integration coming in a future update.
+- **No "Purchase" buttons**: Module access requests go through the existing UpgradeRequest flow, not automated billing.
+- **Clear labeling**: The page clearly states "Online billing is not enabled yet" in the Module Catalog header.
+- **Request access is honest**: Submitting a request shows "Request submitted" or "Request already exists" — never a fake "Purchase successful" message.
+- **Billing integration note**: A callout mentions that module additions currently require contacting sales, with billing integration coming in a future update.
 
 ---
 
-## Deferred Items (Not in v3.3.1)
+## v3.3.2 Changes
+
+- Plan & Usage now preserves module shell context via dual routes (`/settings/plan` and `/logistic/settings/plan`).
+- Plan & Usage includes a full Module Catalog showing Live/Locked/Soon modules.
+- Locked modules show "Request access" CTA that creates a `MODULE_ACCESS:{moduleKey}` upgrade request.
+- PlantLogistic Plan & Usage no longer falls into PlantQuality sidebar.
+- Hardcoded `/oem/settings/plan` links updated to `/settings/plan`.
+- `MODULE_CATALOG` and `getModuleStatus` added to `features.ts` for future module listings.
+- `createModuleAccessRequest` server action added for module-specific access requests.
+
+---
+
+## Deferred Items (Not in v3.3.2)
 
 - Stripe / iyzico billing integration
 - `CompanyModuleSubscription` database table

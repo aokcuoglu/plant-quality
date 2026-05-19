@@ -77,7 +77,7 @@ export default async function ExecutiveCockpitPage() {
           <p className="text-sm text-muted-foreground mt-1">
             Upgrade to Enterprise to unlock the Executive Quality Cockpit with KPIs, risk signals, supplier attention analysis, SLA monitoring, and action items.
           </p>
-          <Link href="/oem/settings/plan" className="mt-4 inline-block">
+          <Link href="/settings/plan" className="mt-4 inline-block">
             <Button>
               <GaugeIcon className="mr-1.5 h-4 w-4" />
               Upgrade to Enterprise

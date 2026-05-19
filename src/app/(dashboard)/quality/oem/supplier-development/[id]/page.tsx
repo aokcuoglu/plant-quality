@@ -29,7 +29,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
         <div className="rounded-lg border border-dashed bg-card p-8 text-center">
           <TargetIcon className="h-10 w-10 text-muted-foreground/50 mx-auto mb-3" />
           <p className="text-sm text-muted-foreground mt-1">Upgrade to Enterprise to access this feature.</p>
-          <Link href="/oem/settings/plan" className="mt-4 inline-block">
+          <Link href="/settings/plan" className="mt-4 inline-block">
             <Button><TargetIcon className="mr-1.5 h-4 w-4" />Upgrade</Button>
           </Link>
         </div>

@@ -5,6 +5,15 @@
 
 ---
 
+## Migration & Deployment Notes
+
+- **Prisma migration**: `20260519080000_add_yard_and_dispatch_tables` — creates `plant_logistic_yard_statuses`, `plant_logistic_dispatches`, `DispatchTransportMode` and `DispatchStatus` enums, adds 13 new `LogisticOrderEventType` values, and creates indexes and foreign keys.
+- **package-lock.json**: Synced to version 3.3.0.
+- **Docker validation**: Full lifecycle tested — `docker compose down --remove-orphans` → `docker compose build --no-cache` → `docker compose up -d` → all services healthy → seed executes → app serves on :3000.
+- **Prisma migrate status**: All 18 migrations applied, database schema up to date.
+
+---
+
 ## Summary
 
 PlantX v3.3.0 introduces Yard & Dispatch MVP for PlantLogistic. After vehicle production completes, OEMs can now track yard location, parking slot, ready/blocked for dispatch status, dispatch planning, carrier assignment, transport mode selection, and the full dispatch lifecycle from planning through delivery. This release adds comprehensive data models, server actions with multi-tenancy enforcement, UI sections in order detail, summary cards on the dashboard, summary columns in the order list, and demo seed data — all gated behind `PLANT_LOGISTIC_MODULE` entitlement.

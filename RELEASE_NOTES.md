@@ -8,6 +8,7 @@
 ## Migration & Deployment Notes
 
 - **Prisma migration**: `20260519080000_add_yard_and_dispatch_tables` — creates `plant_logistic_yard_statuses`, `plant_logistic_dispatches`, `DispatchTransportMode` and `DispatchStatus` enums, adds 13 new `LogisticOrderEventType` values, and creates indexes and foreign keys.
+- **Docker entrypoint**: Now uses `npx prisma migrate deploy` instead of `npx prisma db push --accept-data-loss` for safe, reproducible, migration-based database lifecycle management in production.
 - **package-lock.json**: Synced to version 3.3.0.
 - **Docker validation**: Full lifecycle tested — `docker compose down --remove-orphans` → `docker compose build --no-cache` → `docker compose up -d` → all services healthy → seed executes → app serves on :3000.
 - **Prisma migrate status**: All 18 migrations applied, database schema up to date.

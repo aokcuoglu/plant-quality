@@ -14,6 +14,8 @@ import { AssignVinChassisForm } from "./assign-vin-chassis-form"
 import { AddCommentForm } from "./add-comment-form"
 import { MilestoneActions } from "./milestone-actions"
 import { SeedMilestonesButton } from "./seed-milestones-button"
+import { YardStatusSection } from "./yard-status-section"
+import { DispatchSection } from "./dispatch-section"
 import Link from "next/link"
 import { ArrowLeft, Factory, AlertTriangle } from "lucide-react"
 
@@ -48,6 +50,10 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
           updatedBy: { select: { name: true } },
         },
       },
+      yardStatus: true,
+      dispatches: {
+        orderBy: { createdAt: "desc" },
+      },
     },
   })
 
@@ -61,6 +67,11 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
   const qualityHoldCount = order.milestones.filter(m => m.qualityHold).length
   const currentMilestone = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
   const milestonesCompleted = !currentMilestone && allMilestonesResolved(order.milestones)
+
+  const now = new Date()
+  const yardWaitingDays = order.yardStatus?.lastMovementAt
+    ? Math.floor((now.getTime() - new Date(order.yardStatus.lastMovementAt).getTime()) / 86400000)
+    : null
 
   return (
     <div className="space-y-6">
@@ -180,6 +191,8 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
             <AssignVinChassisForm order={order} />
           </section>
 
+          <YardStatusSection yardStatus={order.yardStatus ? { ...order.yardStatus, waitingDays: yardWaitingDays } : null} orderId={order.id} />
+
           {order.notes && (
             <section className="rounded-lg border bg-card p-4">
               <h2 className="mb-2 text-sm font-medium text-foreground">Notes</h2>
@@ -267,6 +280,8 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
           </section>
         </div>
       </div>
+
+      <DispatchSection dispatches={order.dispatches} orderId={order.id} />
 
       <section className="rounded-lg border bg-card p-4">
         <div className="mb-4 flex items-center justify-between">

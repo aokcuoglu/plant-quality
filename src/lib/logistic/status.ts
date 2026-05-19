@@ -60,6 +60,19 @@ export const MILESTONE_EVENT_LABELS: Record<string, string> = {
   MILESTONE_COMPLETED: "Milestone completed",
   MILESTONE_BLOCKED: "Milestone blocked",
   MILESTONE_QUALITY_HOLD: "Milestone quality hold",
+  YARD_STATUS_UPDATED: "Yard status updated",
+  YARD_READY_FOR_DISPATCH: "Marked ready for dispatch",
+  YARD_BLOCKED: "Blocked for dispatch",
+  YARD_UNBLOCKED: "Unblocked for dispatch",
+  DISPATCH_CREATED: "Dispatch created",
+  DISPATCH_STATUS_CHANGED: "Dispatch status changed",
+  DISPATCH_CARRIER_ASSIGNED: "Carrier assigned",
+  DISPATCH_LOADING_PLANNED: "Dispatch loading planned",
+  DISPATCH_LOADED: "Dispatch loaded",
+  DISPATCH_IN_TRANSIT: "Dispatch in transit",
+  DISPATCH_ARRIVED: "Dispatch arrived",
+  DISPATCH_DELIVERED: "Dispatch delivered",
+  DISPATCH_CANCELLED: "Dispatch cancelled",
 }
 
 export function canTransitionTo(from: LogisticOrderStatus, to: LogisticOrderStatus): boolean {

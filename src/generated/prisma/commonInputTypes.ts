@@ -1096,6 +1096,40 @@ export type EnumProductionMilestoneStatusWithAggregatesFilter<$PrismaModel = nev
   _max?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
 }
 
+export type EnumDispatchTransportModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchTransportMode | Prisma.EnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchTransportModeFilter<$PrismaModel> | $Enums.DispatchTransportMode
+}
+
+export type EnumDispatchStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchStatus | Prisma.EnumDispatchStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchStatusFilter<$PrismaModel> | $Enums.DispatchStatus
+}
+
+export type EnumDispatchTransportModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchTransportMode | Prisma.EnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchTransportModeWithAggregatesFilter<$PrismaModel> | $Enums.DispatchTransportMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDispatchTransportModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDispatchTransportModeFilter<$PrismaModel>
+}
+
+export type EnumDispatchStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchStatus | Prisma.EnumDispatchStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchStatusWithAggregatesFilter<$PrismaModel> | $Enums.DispatchStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDispatchStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDispatchStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -2124,6 +2158,40 @@ export type NestedEnumProductionMilestoneStatusWithAggregatesFilter<$PrismaModel
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductionMilestoneStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDispatchTransportModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchTransportMode | Prisma.EnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchTransportModeFilter<$PrismaModel> | $Enums.DispatchTransportMode
+}
+
+export type NestedEnumDispatchStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchStatus | Prisma.EnumDispatchStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchStatusFilter<$PrismaModel> | $Enums.DispatchStatus
+}
+
+export type NestedEnumDispatchTransportModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchTransportMode | Prisma.EnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchTransportMode[] | Prisma.ListEnumDispatchTransportModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchTransportModeWithAggregatesFilter<$PrismaModel> | $Enums.DispatchTransportMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDispatchTransportModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDispatchTransportModeFilter<$PrismaModel>
+}
+
+export type NestedEnumDispatchStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DispatchStatus | Prisma.EnumDispatchStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DispatchStatus[] | Prisma.ListEnumDispatchStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDispatchStatusWithAggregatesFilter<$PrismaModel> | $Enums.DispatchStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDispatchStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDispatchStatusFilter<$PrismaModel>
 }
 
 

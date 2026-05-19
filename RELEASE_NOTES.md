@@ -1,3 +1,80 @@
+# PlantX v3.3.0 — PlantLogistic Yard + Dispatch MVP
+
+**Release Date:** 2026-05-19  
+**Version:** 3.3.0
+
+---
+
+## Summary
+
+PlantX v3.3.0 introduces Yard & Dispatch MVP for PlantLogistic. After vehicle production completes, OEMs can now track yard location, parking slot, ready/blocked for dispatch status, dispatch planning, carrier assignment, transport mode selection, and the full dispatch lifecycle from planning through delivery. This release adds comprehensive data models, server actions with multi-tenancy enforcement, UI sections in order detail, summary cards on the dashboard, summary columns in the order list, and demo seed data — all gated behind `PLANT_LOGISTIC_MODULE` entitlement.
+
+---
+
+## New Features
+
+### Yard Status Tracking
+
+- **Yard location and parking slot** per order — identify where vehicles sit in the yard.
+- **Ready for dispatch** flag — mark vehicles that are cleared for shipment.
+- **Blocked for dispatch** with reason — prevent dispatch when quality issues or other holds exist.
+- **Last movement date** and **waiting days** calculation — identify aging inventory in the yard.
+- **Yard status section** in order detail with inline edit, mark ready, block/unblock actions.
+
+### Dispatch Planning & Lifecycle
+
+- **Dispatch records** per order with batch number, carrier, transport mode (ROAD, SEA, RAIL, AIR, MULTIMODAL, OTHER).
+- **Full status workflow**: NOT_PLANNED → PLANNED → CARRIER_ASSIGNED → LOADING_PLANNED → LOADED → IN_TRANSIT → ARRIVED → DELIVERED, with CANCELLED from early states.
+- **Date tracking**: planned loading, actual loading, ETA, actual arrival, delivered at.
+- **Destination details**: country, city, dealer/distributor name, tracking reference.
+- **Dispatch section** in order detail with create dispatch, edit dispatch details, and status transition buttons.
+- **ETA risk badge**: estimated arrival dates past due are highlighted with amber color.
+
+### Dashboard & List Enhancements
+
+- **Yard summary cards** on PlantLogistic dashboard: Vehicles in Yard, Ready for Dispatch (Yard), Dispatch Blocked, Loading Planned This Week, In Transit, Delivered This Month.
+- **Yard and Dispatch columns** in order list table showing yard location/ready/blocked status and dispatch status/carrier.
+- **Recent orders on dashboard** include yard and dispatch summary data.
+
+### Data Model
+
+- `PlantLogisticYardStatus` — one-to-one with order, tracks location, slot, ready/blocked flags, block reason, last movement.
+- `PlantLogisticDispatch` — one-to-many with order, full dispatch lifecycle with transport mode, carrier, dates, destination, tracking.
+- `DispatchTransportMode` and `DispatchStatus` enums added to Prisma schema.
+- New `LogisticOrderEventType` values for yard and dispatch events.
+- Indexes on companyId + orderId, companyId + status, companyId + readyForDispatch, companyId + blockedForDispatch.
+
+### Module Entitlement & Security
+
+- All yard and dispatch actions require `PLANT_LOGISTIC_MODULE` entitlement and `PLANT_LOGISTIC` feature.
+- All queries are companyId-scoped — no cross-tenant data access possible.
+- Supplier users are denied access (companyType check).
+- Client-provided companyId values are never trusted — always sourced from session.
+- Invalid dispatch status transitions are blocked server-side.
+
+### Demo Seed Data
+
+- 6 yard status records covering: ready for dispatch, blocked (with reason), in yard but not ready, dispatched away, delivered, and still in production.
+- 5 dispatch records covering: carrier assigned (ROAD), in transit (SEA), delivered (SEA), not planned, and planned (RAIL).
+- 7 yard/dispatch timeline events.
+
+---
+
+## Deferred (Not in v3.3.0)
+
+- **Dealer / Distributor Portal** — v3.4.0
+- **SLA + Delay Intelligence** — v3.5.0
+- **PlantLogistic ↔ PlantQuality integration** — v3.6.0
+- ERP/MRP integration
+- Carrier external portal
+- Mobile yard scan / QR scan
+- Telematics
+- AI prediction
+- PDF/Excel export
+- Stripe/billing integration
+
+---
+
 # PlantX v3.2.1 — PlantLogistic Production Milestone UX + Workflow Bugfix
 
 **Release Date:** 2026-05-19  

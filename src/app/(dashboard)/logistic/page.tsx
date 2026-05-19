@@ -2,11 +2,11 @@ import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
-import { labelForGate } from "@/lib/logistic/milestone-types"
-import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
+import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
 import Link from "next/link"
-import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck, Wrench, ShieldAlert } from "lucide-react"
+import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck, Wrench, ShieldAlert, MapPin, Ban, Ship } from "lucide-react"
 import { StatusBadge } from "./status-badge"
+import { DISPATCH_STATUS_LABELS } from "@/lib/logistic/dispatch-status"
 
 export const dynamic = "force-dynamic"
 
@@ -32,6 +32,12 @@ export default async function LogisticDashboardPage() {
     ordersWithBlockedMilestones,
     ordersWithQualityHoldMilestones,
     milestonesDueThisWeek,
+    vehiclesInYardCount,
+    readyForDispatchYardCount,
+    dispatchBlockedYardCount,
+    loadingPlannedThisWeek,
+    inTransitCount,
+    deliveredThisMonth,
   ] = await Promise.all([
     prisma.plantLogisticOrder.count({
       where: {
@@ -66,6 +72,8 @@ export default async function LogisticDashboardPage() {
           orderBy: { sequence: "asc" },
           select: { id: true, gate: true, status: true, qualityHold: true },
         },
+        yardStatus: { select: { yardLocation: true, readyForDispatch: true, blockedForDispatch: true } },
+        dispatches: { select: { status: true, carrierName: true, estimatedArrivalDate: true }, take: 1, orderBy: { createdAt: "desc" } },
       },
     }),
     prisma.plantLogisticProductionMilestone.count({
@@ -88,6 +96,40 @@ export default async function LogisticDashboardPage() {
           lte: new Date(new Date().setDate(new Date().getDate() + 7)),
         },
         status: { notIn: ["COMPLETED", "SKIPPED", "CANCELLED"] },
+      },
+    }),
+    prisma.plantLogisticYardStatus.count({
+      where: { companyId },
+    }),
+    prisma.plantLogisticYardStatus.count({
+      where: { companyId, readyForDispatch: true },
+    }),
+    prisma.plantLogisticYardStatus.count({
+      where: { companyId, blockedForDispatch: true },
+    }),
+    prisma.plantLogisticDispatch.count({
+      where: {
+        companyId,
+        plannedLoadingDate: {
+          gte: new Date(),
+          lte: new Date(new Date().setDate(new Date().getDate() + 7)),
+        },
+        status: { in: ["LOADING_PLANNED", "CARRIER_ASSIGNED", "PLANNED"] },
+      },
+    }),
+    prisma.plantLogisticDispatch.count({
+      where: {
+        companyId,
+        status: "IN_TRANSIT",
+      },
+    }),
+    prisma.plantLogisticDispatch.count({
+      where: {
+        companyId,
+        status: "DELIVERED",
+        deliveredAt: {
+          gte: new Date(new Date().setDate(1)),
+        },
       },
     }),
   ])
@@ -131,6 +173,46 @@ export default async function LogisticDashboardPage() {
           value={qualityHoldCount}
           icon={AlertTriangle}
           color={qualityHoldCount > 0 ? "destructive" : "muted"}
+        />
+      </div>
+
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3">
+        <SummaryCard
+          title="Vehicles in Yard"
+          value={vehiclesInYardCount}
+          icon={MapPin}
+        />
+        <SummaryCard
+          title="Ready for Dispatch (Yard)"
+          value={readyForDispatchYardCount}
+          icon={PackageCheck}
+          color={readyForDispatchYardCount > 0 ? "emerald" : "muted"}
+        />
+        <SummaryCard
+          title="Dispatch Blocked"
+          value={dispatchBlockedYardCount}
+          icon={Ban}
+          color={dispatchBlockedYardCount > 0 ? "destructive" : "muted"}
+        />
+      </div>
+
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3">
+        <SummaryCard
+          title="Loading Planned This Week"
+          value={loadingPlannedThisWeek}
+          icon={Clock}
+          color={loadingPlannedThisWeek > 0 ? "warning" : "muted"}
+        />
+        <SummaryCard
+          title="In Transit"
+          value={inTransitCount}
+          icon={Ship}
+          color={inTransitCount > 0 ? "emerald" : "muted"}
+        />
+        <SummaryCard
+          title="Delivered This Month"
+          value={deliveredThisMonth}
+          icon={PackageCheck}
         />
       </div>
 
@@ -186,15 +268,15 @@ export default async function LogisticDashboardPage() {
                   <th className="px-4 py-3 text-left">Vehicle</th>
                   <th className="px-4 py-3 text-left">Status</th>
                   <th className="px-4 py-3 text-left">Production</th>
+                  <th className="px-4 py-3 text-left">Yard</th>
+                  <th className="px-4 py-3 text-left">Dispatch</th>
                   <th className="px-4 py-3 text-left">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {recentOrders.map((order) => {
-                  const progress = calculateProductionProgress(order.milestones)
-                  const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
-                  const milestonesCompleted = !currentMs && allMilestonesResolved(order.milestones)
-                  return (
+                   const progress = calculateProductionProgress(order.milestones)
+                   return (
                     <tr key={order.id} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
                         <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
@@ -217,8 +299,27 @@ export default async function LogisticDashboardPage() {
                               />
                             </div>
                             <span className="text-xs text-muted-foreground">{progress}%</span>
-                            {currentMs && <span className="text-xs text-muted-foreground">({labelForGate(currentMs.gate)})</span>}
-                            {milestonesCompleted && <span className="text-xs text-emerald-600">(Completed)</span>}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.yardStatus ? (
+                          <div className="flex flex-col">
+                            <span>{order.yardStatus.yardLocation || "—"}</span>
+                            {order.yardStatus.readyForDispatch && <span className="text-[10px] text-emerald-600">Ready</span>}
+                            {order.yardStatus.blockedForDispatch && <span className="text-[10px] text-destructive">Blocked</span>}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.dispatches.length > 0 ? (
+                          <div className="flex flex-col">
+                            <span className="text-xs">{DISPATCH_STATUS_LABELS[order.dispatches[0].status as keyof typeof DISPATCH_STATUS_LABELS] ?? order.dispatches[0].status}</span>
+                            {order.dispatches[0].carrierName && <span className="text-[10px] text-muted-foreground">{order.dispatches[0].carrierName}</span>}
                           </div>
                         ) : (
                           <span className="text-xs text-muted-foreground">—</span>
@@ -248,9 +349,9 @@ function SummaryCard({
   title: string
   value: number
   icon: React.ComponentType<{ className?: string }>
-  color?: "muted" | "destructive" | "warning"
+  color?: "muted" | "destructive" | "warning" | "emerald"
 }) {
-  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-amber-600" : "text-foreground"
+  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-amber-600" : color === "emerald" ? "text-emerald-600" : "text-foreground"
   return (
     <div className="rounded-lg border bg-card p-4">
       <div className="flex items-center gap-2 text-muted-foreground">

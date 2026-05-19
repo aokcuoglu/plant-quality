@@ -235,6 +235,40 @@ enum LogisticOrderEventType {
   MILESTONE_COMPLETED
   MILESTONE_BLOCKED
   MILESTONE_QUALITY_HOLD
+  YARD_STATUS_UPDATED
+  YARD_READY_FOR_DISPATCH
+  YARD_BLOCKED
+  YARD_UNBLOCKED
+  DISPATCH_CREATED
+  DISPATCH_STATUS_CHANGED
+  DISPATCH_CARRIER_ASSIGNED
+  DISPATCH_LOADING_PLANNED
+  DISPATCH_LOADED
+  DISPATCH_IN_TRANSIT
+  DISPATCH_ARRIVED
+  DISPATCH_DELIVERED
+  DISPATCH_CANCELLED
+}
+
+enum DispatchTransportMode {
+  ROAD
+  SEA
+  RAIL
+  AIR
+  MULTIMODAL
+  OTHER
+}
+
+enum DispatchStatus {
+  NOT_PLANNED
+  PLANNED
+  CARRIER_ASSIGNED
+  LOADING_PLANNED
+  LOADED
+  IN_TRANSIT
+  ARRIVED
+  DELIVERED
+  CANCELLED
 }
 
 enum ProductionMilestoneGate {
@@ -524,6 +558,8 @@ model Company {
   logisticOrders     PlantLogisticOrder[]      @relation("LogisticOrdersOem")
   logisticOrderEvents PlantLogisticOrderEvent[] @relation("LogisticOrderEventsOem")
   productionMilestones PlantLogisticProductionMilestone[] @relation("MilestoneCompany")
+  yardStatuses       PlantLogisticYardStatus[]  @relation("YardStatusCompany")
+  dispatches          PlantLogisticDispatch[]    @relation("DispatchCompany")
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -598,6 +634,10 @@ model User {
   logisticOrderEvents     PlantLogisticOrderEvent[]   @relation("LogisticOrderEventActor")
   createdMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneCreatedBy")
   updatedMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneUpdatedBy")
+  createdYardStatuses     PlantLogisticYardStatus[]  @relation("YardStatusCreatedBy")
+  updatedYardStatuses     PlantLogisticYardStatus[]  @relation("YardStatusUpdatedBy")
+  createdDispatches       PlantLogisticDispatch[]    @relation("DispatchCreatedBy")
+  updatedDispatches       PlantLogisticDispatch[]    @relation("DispatchUpdatedBy")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -1418,6 +1458,8 @@ model PlantLogisticOrder {
   closedAt              DateTime?                @map("closed_at")
   events                PlantLogisticOrderEvent[]
   milestones            PlantLogisticProductionMilestone[] @relation("OrderMilestones")
+  yardStatus            PlantLogisticYardStatus?           @relation("OrderYardStatus")
+  dispatches            PlantLogisticDispatch[]            @relation("OrderDispatch")
   createdAt             DateTime                 @default(now()) @map("created_at")
   updatedAt             DateTime                 @updatedAt @map("updated_at")
 
@@ -1482,4 +1524,64 @@ model PlantLogisticProductionMilestone {
   @@index([companyId, plannedFinish])
   @@index([orderId, sequence])
   @@map("plant_logistic_production_milestones")
+}
+
+model PlantLogisticYardStatus {
+  id                 String    @id @default(uuid())
+  orderId            String    @unique @map("order_id")
+  order              PlantLogisticOrder @relation("OrderYardStatus", fields: [orderId], references: [id], onDelete: Cascade)
+  companyId          String    @map("company_id")
+  company            Company   @relation("YardStatusCompany", fields: [companyId], references: [id])
+  yardLocation       String?   @map("yard_location")
+  parkingSlot        String?   @map("parking_slot")
+  readyForDispatch   Boolean   @default(false) @map("ready_for_dispatch")
+  blockedForDispatch  Boolean   @default(false) @map("blocked_for_dispatch")
+  blockReason        String?   @map("block_reason")
+  lastMovementAt     DateTime? @map("last_movement_at")
+  notes              String?
+  createdById        String?   @map("created_by_id")
+  createdBy          User?     @relation("YardStatusCreatedBy", fields: [createdById], references: [id])
+  updatedById        String?   @map("updated_by_id")
+  updatedBy          User?     @relation("YardStatusUpdatedBy", fields: [updatedById], references: [id])
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  @@index([companyId, orderId])
+  @@index([companyId, readyForDispatch])
+  @@index([companyId, blockedForDispatch])
+  @@map("plant_logistic_yard_statuses")
+}
+
+model PlantLogisticDispatch {
+  id                     String             @id @default(uuid())
+  orderId                String             @map("order_id")
+  order                  PlantLogisticOrder @relation("OrderDispatch", fields: [orderId], references: [id], onDelete: Cascade)
+  companyId              String             @map("company_id")
+  company                Company            @relation("DispatchCompany", fields: [companyId], references: [id])
+  dispatchBatchNo        String?            @map("dispatch_batch_no")
+  carrierName            String?            @map("carrier_name")
+  transportMode          DispatchTransportMode @default(ROAD) @map("transport_mode")
+  status                 DispatchStatus     @default(NOT_PLANNED) @map("status")
+  plannedLoadingDate     DateTime?          @map("planned_loading_date")
+  actualLoadingDate      DateTime?          @map("actual_loading_date")
+  estimatedArrivalDate   DateTime?          @map("estimated_arrival_date")
+  actualArrivalDate      DateTime?          @map("actual_arrival_date")
+  deliveredAt            DateTime?          @map("delivered_at")
+  destinationCountry     String?            @map("destination_country")
+  destinationCity        String?            @map("destination_city")
+  dealerOrDistributorName String?           @map("dealer_or_distributor_name")
+  trackingReference      String?            @map("tracking_reference")
+  notes                  String?
+  createdById            String?            @map("created_by_id")
+  createdBy              User?              @relation("DispatchCreatedBy", fields: [createdById], references: [id])
+  updatedById            String?            @map("updated_by_id")
+  updatedBy              User?              @relation("DispatchUpdatedBy", fields: [updatedById], references: [id])
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+
+  @@index([companyId, orderId])
+  @@index([companyId, status])
+  @@index([companyId, plannedLoadingDate])
+  @@index([companyId, estimatedArrivalDate])
+  @@map("plant_logistic_dispatches")
 }

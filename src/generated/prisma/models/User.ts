@@ -274,6 +274,10 @@ export type UserWhereInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventListRelationFilter
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusListRelationFilter
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusListRelationFilter
+  createdDispatches?: Prisma.PlantLogisticDispatchListRelationFilter
+  updatedDispatches?: Prisma.PlantLogisticDispatchListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -346,6 +350,10 @@ export type UserOrderByWithRelationInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventOrderByRelationAggregateInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneOrderByRelationAggregateInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneOrderByRelationAggregateInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusOrderByRelationAggregateInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusOrderByRelationAggregateInput
+  createdDispatches?: Prisma.PlantLogisticDispatchOrderByRelationAggregateInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -421,6 +429,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventListRelationFilter
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusListRelationFilter
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusListRelationFilter
+  createdDispatches?: Prisma.PlantLogisticDispatchListRelationFilter
+  updatedDispatches?: Prisma.PlantLogisticDispatchListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -522,6 +534,10 @@ export type UserCreateInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -593,6 +609,10 @@ export type UserUncheckedCreateInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUpdateInput = {
@@ -664,6 +684,10 @@ export type UserUpdateInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -735,6 +759,10 @@ export type UserUncheckedUpdateInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1784,6 +1812,70 @@ export type UserUpdateOneWithoutUpdatedMilestonesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUpdatedMilestonesInput, Prisma.UserUpdateWithoutUpdatedMilestonesInput>, Prisma.UserUncheckedUpdateWithoutUpdatedMilestonesInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedYardStatusesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutCreatedYardStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedYardStatusesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutUpdatedYardStatusesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutUpdatedYardStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedYardStatusesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedYardStatusesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutCreatedYardStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedYardStatusesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedYardStatusesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedYardStatusesInput, Prisma.UserUpdateWithoutCreatedYardStatusesInput>, Prisma.UserUncheckedUpdateWithoutCreatedYardStatusesInput>
+}
+
+export type UserUpdateOneWithoutUpdatedYardStatusesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutUpdatedYardStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedYardStatusesInput
+  upsert?: Prisma.UserUpsertWithoutUpdatedYardStatusesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUpdatedYardStatusesInput, Prisma.UserUpdateWithoutUpdatedYardStatusesInput>, Prisma.UserUncheckedUpdateWithoutUpdatedYardStatusesInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedDispatchesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedDispatchesInput, Prisma.UserUncheckedCreateWithoutCreatedDispatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedDispatchesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutUpdatedDispatchesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedDispatchesInput, Prisma.UserUncheckedCreateWithoutUpdatedDispatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedDispatchesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedDispatchesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedDispatchesInput, Prisma.UserUncheckedCreateWithoutCreatedDispatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedDispatchesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedDispatchesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedDispatchesInput, Prisma.UserUpdateWithoutCreatedDispatchesInput>, Prisma.UserUncheckedUpdateWithoutCreatedDispatchesInput>
+}
+
+export type UserUpdateOneWithoutUpdatedDispatchesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedDispatchesInput, Prisma.UserUncheckedCreateWithoutUpdatedDispatchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedDispatchesInput
+  upsert?: Prisma.UserUpsertWithoutUpdatedDispatchesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUpdatedDispatchesInput, Prisma.UserUpdateWithoutUpdatedDispatchesInput>, Prisma.UserUncheckedUpdateWithoutUpdatedDispatchesInput>
+}
+
 export type UserCreateWithoutCompanyInput = {
   id?: string
   email: string
@@ -1852,6 +1944,10 @@ export type UserCreateWithoutCompanyInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyInput = {
@@ -1922,6 +2018,10 @@ export type UserUncheckedCreateWithoutCompanyInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyInput = {
@@ -2033,6 +2133,10 @@ export type UserCreateWithoutAccountsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -2103,6 +2207,10 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -2189,6 +2297,10 @@ export type UserUpdateWithoutAccountsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -2259,6 +2371,10 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2329,6 +2445,10 @@ export type UserCreateWithoutSessionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2399,6 +2519,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2485,6 +2609,10 @@ export type UserUpdateWithoutSessionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2555,6 +2683,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutOwnedDefectsInput = {
@@ -2625,6 +2757,10 @@ export type UserCreateWithoutOwnedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDefectsInput = {
@@ -2695,6 +2831,10 @@ export type UserUncheckedCreateWithoutOwnedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDefectsInput = {
@@ -2770,6 +2910,10 @@ export type UserCreateWithoutAssignedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedDefectsInput = {
@@ -2840,6 +2984,10 @@ export type UserUncheckedCreateWithoutAssignedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedDefectsInput = {
@@ -2915,6 +3063,10 @@ export type UserCreateWithoutEscalatedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
@@ -2985,6 +3137,10 @@ export type UserUncheckedCreateWithoutEscalatedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedDefectsInput = {
@@ -3071,6 +3227,10 @@ export type UserUpdateWithoutOwnedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
@@ -3141,6 +3301,10 @@ export type UserUncheckedUpdateWithoutOwnedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedDefectsInput = {
@@ -3222,6 +3386,10 @@ export type UserUpdateWithoutAssignedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
@@ -3292,6 +3460,10 @@ export type UserUncheckedUpdateWithoutAssignedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutEscalatedDefectsInput = {
@@ -3373,6 +3545,10 @@ export type UserUpdateWithoutEscalatedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
@@ -3443,6 +3619,10 @@ export type UserUncheckedUpdateWithoutEscalatedDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutApprovedReportsInput = {
@@ -3513,6 +3693,10 @@ export type UserCreateWithoutApprovedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedReportsInput = {
@@ -3583,6 +3767,10 @@ export type UserUncheckedCreateWithoutApprovedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedReportsInput = {
@@ -3658,6 +3846,10 @@ export type UserCreateWithoutRejectedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedReportsInput = {
@@ -3728,6 +3920,10 @@ export type UserUncheckedCreateWithoutRejectedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedReportsInput = {
@@ -3814,6 +4010,10 @@ export type UserUpdateWithoutApprovedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedReportsInput = {
@@ -3884,6 +4084,10 @@ export type UserUncheckedUpdateWithoutApprovedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedReportsInput = {
@@ -3965,6 +4169,10 @@ export type UserUpdateWithoutRejectedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedReportsInput = {
@@ -4035,6 +4243,10 @@ export type UserUncheckedUpdateWithoutRejectedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutResolvedReviewCommentsInput = {
@@ -4105,6 +4317,10 @@ export type UserCreateWithoutResolvedReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
@@ -4175,6 +4391,10 @@ export type UserUncheckedCreateWithoutResolvedReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutResolvedReviewCommentsInput = {
@@ -4250,6 +4470,10 @@ export type UserCreateWithoutReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewCommentsInput = {
@@ -4320,6 +4544,10 @@ export type UserUncheckedCreateWithoutReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewCommentsInput = {
@@ -4406,6 +4634,10 @@ export type UserUpdateWithoutResolvedReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
@@ -4476,6 +4708,10 @@ export type UserUncheckedUpdateWithoutResolvedReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutReviewCommentsInput = {
@@ -4557,6 +4793,10 @@ export type UserUpdateWithoutReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewCommentsInput = {
@@ -4627,6 +4867,10 @@ export type UserUncheckedUpdateWithoutReviewCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutDefectEventsInput = {
@@ -4697,6 +4941,10 @@ export type UserCreateWithoutDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutDefectEventsInput = {
@@ -4767,6 +5015,10 @@ export type UserUncheckedCreateWithoutDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutDefectEventsInput = {
@@ -4853,6 +5105,10 @@ export type UserUpdateWithoutDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDefectEventsInput = {
@@ -4923,6 +5179,10 @@ export type UserUncheckedUpdateWithoutDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutUploadedEvidenceInput = {
@@ -4993,6 +5253,10 @@ export type UserCreateWithoutUploadedEvidenceInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
@@ -5063,6 +5327,10 @@ export type UserUncheckedCreateWithoutUploadedEvidenceInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedEvidenceInput = {
@@ -5149,6 +5417,10 @@ export type UserUpdateWithoutUploadedEvidenceInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
@@ -5219,6 +5491,10 @@ export type UserUncheckedUpdateWithoutUploadedEvidenceInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutOwnedPpapsInput = {
@@ -5289,6 +5565,10 @@ export type UserCreateWithoutOwnedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPpapsInput = {
@@ -5359,6 +5639,10 @@ export type UserUncheckedCreateWithoutOwnedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPpapsInput = {
@@ -5434,6 +5718,10 @@ export type UserCreateWithoutAssignedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedPpapsInput = {
@@ -5504,6 +5792,10 @@ export type UserUncheckedCreateWithoutAssignedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedPpapsInput = {
@@ -5579,6 +5871,10 @@ export type UserCreateWithoutReviewedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedPpapsInput = {
@@ -5649,6 +5945,10 @@ export type UserUncheckedCreateWithoutReviewedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedPpapsInput = {
@@ -5724,6 +6024,10 @@ export type UserCreateWithoutApprovedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedPpapsInput = {
@@ -5794,6 +6098,10 @@ export type UserUncheckedCreateWithoutApprovedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedPpapsInput = {
@@ -5869,6 +6177,10 @@ export type UserCreateWithoutRejectedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedPpapsInput = {
@@ -5939,6 +6251,10 @@ export type UserUncheckedCreateWithoutRejectedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedPpapsInput = {
@@ -6025,6 +6341,10 @@ export type UserUpdateWithoutOwnedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
@@ -6095,6 +6415,10 @@ export type UserUncheckedUpdateWithoutOwnedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedPpapsInput = {
@@ -6176,6 +6500,10 @@ export type UserUpdateWithoutAssignedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
@@ -6246,6 +6574,10 @@ export type UserUncheckedUpdateWithoutAssignedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutReviewedPpapsInput = {
@@ -6327,6 +6659,10 @@ export type UserUpdateWithoutReviewedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedPpapsInput = {
@@ -6397,6 +6733,10 @@ export type UserUncheckedUpdateWithoutReviewedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutApprovedPpapsInput = {
@@ -6478,6 +6818,10 @@ export type UserUpdateWithoutApprovedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
@@ -6548,6 +6892,10 @@ export type UserUncheckedUpdateWithoutApprovedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedPpapsInput = {
@@ -6629,6 +6977,10 @@ export type UserUpdateWithoutRejectedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
@@ -6699,6 +7051,10 @@ export type UserUncheckedUpdateWithoutRejectedPpapsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutPpapEvidenceUploadsInput = {
@@ -6769,6 +7125,10 @@ export type UserCreateWithoutPpapEvidenceUploadsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
@@ -6839,6 +7199,10 @@ export type UserUncheckedCreateWithoutPpapEvidenceUploadsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEvidenceUploadsInput = {
@@ -6914,6 +7278,10 @@ export type UserCreateWithoutPpapEvidenceReviewedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEvidenceReviewedInput = {
@@ -6984,6 +7352,10 @@ export type UserUncheckedCreateWithoutPpapEvidenceReviewedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEvidenceReviewedInput = {
@@ -7070,6 +7442,10 @@ export type UserUpdateWithoutPpapEvidenceUploadsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
@@ -7140,6 +7516,10 @@ export type UserUncheckedUpdateWithoutPpapEvidenceUploadsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutPpapEvidenceReviewedInput = {
@@ -7221,6 +7601,10 @@ export type UserUpdateWithoutPpapEvidenceReviewedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEvidenceReviewedInput = {
@@ -7291,6 +7675,10 @@ export type UserUncheckedUpdateWithoutPpapEvidenceReviewedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutPpapCommentResolvedInput = {
@@ -7361,6 +7749,10 @@ export type UserCreateWithoutPpapCommentResolvedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
@@ -7431,6 +7823,10 @@ export type UserUncheckedCreateWithoutPpapCommentResolvedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentResolvedInput = {
@@ -7506,6 +7902,10 @@ export type UserCreateWithoutPpapCommentAuthoredInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
@@ -7576,6 +7976,10 @@ export type UserUncheckedCreateWithoutPpapCommentAuthoredInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapCommentAuthoredInput = {
@@ -7662,6 +8066,10 @@ export type UserUpdateWithoutPpapCommentResolvedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
@@ -7732,6 +8140,10 @@ export type UserUncheckedUpdateWithoutPpapCommentResolvedInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutPpapCommentAuthoredInput = {
@@ -7813,6 +8225,10 @@ export type UserUpdateWithoutPpapCommentAuthoredInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
@@ -7883,6 +8299,10 @@ export type UserUncheckedUpdateWithoutPpapCommentAuthoredInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutPpapEventActorsInput = {
@@ -7953,6 +8373,10 @@ export type UserCreateWithoutPpapEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutPpapEventActorsInput = {
@@ -8023,6 +8447,10 @@ export type UserUncheckedCreateWithoutPpapEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutPpapEventActorsInput = {
@@ -8109,6 +8537,10 @@ export type UserUpdateWithoutPpapEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
@@ -8179,6 +8611,10 @@ export type UserUncheckedUpdateWithoutPpapEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutIqcInspectionsInput = {
@@ -8249,6 +8685,10 @@ export type UserCreateWithoutIqcInspectionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcInspectionsInput = {
@@ -8319,6 +8759,10 @@ export type UserUncheckedCreateWithoutIqcInspectionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcInspectionsInput = {
@@ -8394,6 +8838,10 @@ export type UserCreateWithoutIqcCreatedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcCreatedReportsInput = {
@@ -8464,6 +8912,10 @@ export type UserUncheckedCreateWithoutIqcCreatedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcCreatedReportsInput = {
@@ -8539,6 +8991,10 @@ export type UserCreateWithoutIqcCompletedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcCompletedReportsInput = {
@@ -8609,6 +9065,10 @@ export type UserUncheckedCreateWithoutIqcCompletedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcCompletedReportsInput = {
@@ -8695,6 +9155,10 @@ export type UserUpdateWithoutIqcInspectionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
@@ -8765,6 +9229,10 @@ export type UserUncheckedUpdateWithoutIqcInspectionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutIqcCreatedReportsInput = {
@@ -8846,6 +9314,10 @@ export type UserUpdateWithoutIqcCreatedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcCreatedReportsInput = {
@@ -8916,6 +9388,10 @@ export type UserUncheckedUpdateWithoutIqcCreatedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutIqcCompletedReportsInput = {
@@ -8997,6 +9473,10 @@ export type UserUpdateWithoutIqcCompletedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcCompletedReportsInput = {
@@ -9067,6 +9547,10 @@ export type UserUncheckedUpdateWithoutIqcCompletedReportsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutIqcEventActorsInput = {
@@ -9137,6 +9621,10 @@ export type UserCreateWithoutIqcEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutIqcEventActorsInput = {
@@ -9207,6 +9695,10 @@ export type UserUncheckedCreateWithoutIqcEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutIqcEventActorsInput = {
@@ -9293,6 +9785,10 @@ export type UserUpdateWithoutIqcEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
@@ -9363,6 +9859,10 @@ export type UserUncheckedUpdateWithoutIqcEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutFmeaResponsibleInput = {
@@ -9433,6 +9933,10 @@ export type UserCreateWithoutFmeaResponsibleInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
@@ -9503,6 +10007,10 @@ export type UserUncheckedCreateWithoutFmeaResponsibleInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaResponsibleInput = {
@@ -9578,6 +10086,10 @@ export type UserCreateWithoutFmeaReviewedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaReviewedByInput = {
@@ -9648,6 +10160,10 @@ export type UserUncheckedCreateWithoutFmeaReviewedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaReviewedByInput = {
@@ -9723,6 +10239,10 @@ export type UserCreateWithoutFmeaApprovedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
@@ -9793,6 +10313,10 @@ export type UserUncheckedCreateWithoutFmeaApprovedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaApprovedByInput = {
@@ -9868,6 +10392,10 @@ export type UserCreateWithoutFmeaCreatedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaCreatedByInput = {
@@ -9938,6 +10466,10 @@ export type UserUncheckedCreateWithoutFmeaCreatedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaCreatedByInput = {
@@ -10024,6 +10556,10 @@ export type UserUpdateWithoutFmeaResponsibleInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
@@ -10094,6 +10630,10 @@ export type UserUncheckedUpdateWithoutFmeaResponsibleInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutFmeaReviewedByInput = {
@@ -10175,6 +10715,10 @@ export type UserUpdateWithoutFmeaReviewedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaReviewedByInput = {
@@ -10245,6 +10789,10 @@ export type UserUncheckedUpdateWithoutFmeaReviewedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutFmeaApprovedByInput = {
@@ -10326,6 +10874,10 @@ export type UserUpdateWithoutFmeaApprovedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
@@ -10396,6 +10948,10 @@ export type UserUncheckedUpdateWithoutFmeaApprovedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutFmeaCreatedByInput = {
@@ -10477,6 +11033,10 @@ export type UserUpdateWithoutFmeaCreatedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaCreatedByInput = {
@@ -10547,6 +11107,10 @@ export type UserUncheckedUpdateWithoutFmeaCreatedByInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutFmeaEventActorsInput = {
@@ -10617,6 +11181,10 @@ export type UserCreateWithoutFmeaEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
@@ -10687,6 +11255,10 @@ export type UserUncheckedCreateWithoutFmeaEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFmeaEventActorsInput = {
@@ -10773,6 +11345,10 @@ export type UserUpdateWithoutFmeaEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
@@ -10843,6 +11419,10 @@ export type UserUncheckedUpdateWithoutFmeaEventActorsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutAiCategoryAppliedByForInput = {
@@ -10913,6 +11493,10 @@ export type UserCreateWithoutAiCategoryAppliedByForInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
@@ -10983,6 +11567,10 @@ export type UserUncheckedCreateWithoutAiCategoryAppliedByForInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutAiCategoryAppliedByForInput = {
@@ -11058,6 +11646,10 @@ export type UserCreateWithoutCreatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
@@ -11128,6 +11720,10 @@ export type UserUncheckedCreateWithoutCreatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedFieldDefectsInput = {
@@ -11203,6 +11799,10 @@ export type UserCreateWithoutUpdatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
@@ -11273,6 +11873,10 @@ export type UserUncheckedCreateWithoutUpdatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedFieldDefectsInput = {
@@ -11348,6 +11952,10 @@ export type UserCreateWithoutConvertedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
@@ -11418,6 +12026,10 @@ export type UserUncheckedCreateWithoutConvertedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutConvertedFieldDefectsInput = {
@@ -11493,6 +12105,10 @@ export type UserCreateWithoutEscalatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
@@ -11563,6 +12179,10 @@ export type UserUncheckedCreateWithoutEscalatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalatedFieldDefectsInput = {
@@ -11649,6 +12269,10 @@ export type UserUpdateWithoutAiCategoryAppliedByForInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
@@ -11719,6 +12343,10 @@ export type UserUncheckedUpdateWithoutAiCategoryAppliedByForInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedFieldDefectsInput = {
@@ -11800,6 +12428,10 @@ export type UserUpdateWithoutCreatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
@@ -11870,6 +12502,10 @@ export type UserUncheckedUpdateWithoutCreatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedFieldDefectsInput = {
@@ -11951,6 +12587,10 @@ export type UserUpdateWithoutUpdatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
@@ -12021,6 +12661,10 @@ export type UserUncheckedUpdateWithoutUpdatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutConvertedFieldDefectsInput = {
@@ -12102,6 +12746,10 @@ export type UserUpdateWithoutConvertedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
@@ -12172,6 +12820,10 @@ export type UserUncheckedUpdateWithoutConvertedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutEscalatedFieldDefectsInput = {
@@ -12253,6 +12905,10 @@ export type UserUpdateWithoutEscalatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
@@ -12323,6 +12979,10 @@ export type UserUncheckedUpdateWithoutEscalatedFieldDefectsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectAttachmentsInput = {
@@ -12393,6 +13053,10 @@ export type UserCreateWithoutFieldDefectAttachmentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
@@ -12463,6 +13127,10 @@ export type UserUncheckedCreateWithoutFieldDefectAttachmentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectAttachmentsInput = {
@@ -12549,6 +13217,10 @@ export type UserUpdateWithoutFieldDefectAttachmentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
@@ -12619,6 +13291,10 @@ export type UserUncheckedUpdateWithoutFieldDefectAttachmentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectCommentsInput = {
@@ -12689,6 +13365,10 @@ export type UserCreateWithoutFieldDefectCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
@@ -12759,6 +13439,10 @@ export type UserUncheckedCreateWithoutFieldDefectCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectCommentsInput = {
@@ -12845,6 +13529,10 @@ export type UserUpdateWithoutFieldDefectCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
@@ -12915,6 +13603,10 @@ export type UserUncheckedUpdateWithoutFieldDefectCommentsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutFieldDefectEventsInput = {
@@ -12985,6 +13677,10 @@ export type UserCreateWithoutFieldDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
@@ -13055,6 +13751,10 @@ export type UserUncheckedCreateWithoutFieldDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutFieldDefectEventsInput = {
@@ -13141,6 +13841,10 @@ export type UserUpdateWithoutFieldDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
@@ -13211,6 +13915,10 @@ export type UserUncheckedUpdateWithoutFieldDefectEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -13281,6 +13989,10 @@ export type UserCreateWithoutNotificationsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -13351,6 +14063,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -13437,6 +14153,10 @@ export type UserUpdateWithoutNotificationsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -13507,6 +14227,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutEscalationHistoriesInput = {
@@ -13577,6 +14301,10 @@ export type UserCreateWithoutEscalationHistoriesInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
@@ -13647,6 +14375,10 @@ export type UserUncheckedCreateWithoutEscalationHistoriesInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutEscalationHistoriesInput = {
@@ -13733,6 +14465,10 @@ export type UserUpdateWithoutEscalationHistoriesInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
@@ -13803,6 +14539,10 @@ export type UserUncheckedUpdateWithoutEscalationHistoriesInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAiSuggestionsInput = {
@@ -13873,6 +14613,10 @@ export type UserCreateWithoutCreatedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
@@ -13943,6 +14687,10 @@ export type UserUncheckedCreateWithoutCreatedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAiSuggestionsInput = {
@@ -14018,6 +14766,10 @@ export type UserCreateWithoutAcceptedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
@@ -14088,6 +14840,10 @@ export type UserUncheckedCreateWithoutAcceptedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedAiSuggestionsInput = {
@@ -14163,6 +14919,10 @@ export type UserCreateWithoutRejectedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
@@ -14233,6 +14993,10 @@ export type UserUncheckedCreateWithoutRejectedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedAiSuggestionsInput = {
@@ -14319,6 +15083,10 @@ export type UserUpdateWithoutCreatedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
@@ -14389,6 +15157,10 @@ export type UserUncheckedUpdateWithoutCreatedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutAcceptedAiSuggestionsInput = {
@@ -14470,6 +15242,10 @@ export type UserUpdateWithoutAcceptedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
@@ -14540,6 +15316,10 @@ export type UserUncheckedUpdateWithoutAcceptedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedAiSuggestionsInput = {
@@ -14621,6 +15401,10 @@ export type UserUpdateWithoutRejectedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
@@ -14691,6 +15475,10 @@ export type UserUncheckedUpdateWithoutRejectedAiSuggestionsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAi8dReviewsInput = {
@@ -14761,6 +15549,10 @@ export type UserCreateWithoutCreatedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAi8dReviewsInput = {
@@ -14831,6 +15623,10 @@ export type UserUncheckedCreateWithoutCreatedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAi8dReviewsInput = {
@@ -14906,6 +15702,10 @@ export type UserCreateWithoutReviewedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedAi8dReviewsInput = {
@@ -14976,6 +15776,10 @@ export type UserUncheckedCreateWithoutReviewedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedAi8dReviewsInput = {
@@ -15051,6 +15855,10 @@ export type UserCreateWithoutRejectedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutRejectedAi8dReviewsInput = {
@@ -15121,6 +15929,10 @@ export type UserUncheckedCreateWithoutRejectedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutRejectedAi8dReviewsInput = {
@@ -15207,6 +16019,10 @@ export type UserUpdateWithoutCreatedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAi8dReviewsInput = {
@@ -15277,6 +16093,10 @@ export type UserUncheckedUpdateWithoutCreatedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutReviewedAi8dReviewsInput = {
@@ -15358,6 +16178,10 @@ export type UserUpdateWithoutReviewedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedAi8dReviewsInput = {
@@ -15428,6 +16252,10 @@ export type UserUncheckedUpdateWithoutReviewedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutRejectedAi8dReviewsInput = {
@@ -15509,6 +16337,10 @@ export type UserUpdateWithoutRejectedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRejectedAi8dReviewsInput = {
@@ -15579,6 +16411,10 @@ export type UserUncheckedUpdateWithoutRejectedAi8dReviewsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedUpgradeRequestsInput = {
@@ -15649,6 +16485,10 @@ export type UserCreateWithoutCreatedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedUpgradeRequestsInput = {
@@ -15719,6 +16559,10 @@ export type UserUncheckedCreateWithoutCreatedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedUpgradeRequestsInput = {
@@ -15794,6 +16638,10 @@ export type UserCreateWithoutResolvedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutResolvedUpgradeRequestsInput = {
@@ -15864,6 +16712,10 @@ export type UserUncheckedCreateWithoutResolvedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutResolvedUpgradeRequestsInput = {
@@ -15950,6 +16802,10 @@ export type UserUpdateWithoutCreatedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedUpgradeRequestsInput = {
@@ -16020,6 +16876,10 @@ export type UserUncheckedUpdateWithoutCreatedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutResolvedUpgradeRequestsInput = {
@@ -16101,6 +16961,10 @@ export type UserUpdateWithoutResolvedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResolvedUpgradeRequestsInput = {
@@ -16171,6 +17035,10 @@ export type UserUncheckedUpdateWithoutResolvedUpgradeRequestsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedQualityLinksInput = {
@@ -16241,6 +17109,10 @@ export type UserCreateWithoutCreatedQualityLinksInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedQualityLinksInput = {
@@ -16311,6 +17183,10 @@ export type UserUncheckedCreateWithoutCreatedQualityLinksInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedQualityLinksInput = {
@@ -16397,6 +17273,10 @@ export type UserUpdateWithoutCreatedQualityLinksInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedQualityLinksInput = {
@@ -16467,6 +17347,10 @@ export type UserUncheckedUpdateWithoutCreatedQualityLinksInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutOwnedDevPlansInput = {
@@ -16537,6 +17421,10 @@ export type UserCreateWithoutOwnedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDevPlansInput = {
@@ -16607,6 +17495,10 @@ export type UserUncheckedCreateWithoutOwnedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDevPlansInput = {
@@ -16682,6 +17574,10 @@ export type UserCreateWithoutCreatedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedDevPlansInput = {
@@ -16752,6 +17648,10 @@ export type UserUncheckedCreateWithoutCreatedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedDevPlansInput = {
@@ -16827,6 +17727,10 @@ export type UserCreateWithoutCompletedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCompletedDevPlansInput = {
@@ -16897,6 +17801,10 @@ export type UserUncheckedCreateWithoutCompletedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCompletedDevPlansInput = {
@@ -16983,6 +17891,10 @@ export type UserUpdateWithoutOwnedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDevPlansInput = {
@@ -17053,6 +17965,10 @@ export type UserUncheckedUpdateWithoutOwnedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedDevPlansInput = {
@@ -17134,6 +18050,10 @@ export type UserUpdateWithoutCreatedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedDevPlansInput = {
@@ -17204,6 +18124,10 @@ export type UserUncheckedUpdateWithoutCreatedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutCompletedDevPlansInput = {
@@ -17285,6 +18209,10 @@ export type UserUpdateWithoutCompletedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompletedDevPlansInput = {
@@ -17355,6 +18283,10 @@ export type UserUncheckedUpdateWithoutCompletedDevPlansInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutOwnedDevActionItemsInput = {
@@ -17425,6 +18357,10 @@ export type UserCreateWithoutOwnedDevActionItemsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutOwnedDevActionItemsInput = {
@@ -17495,6 +18431,10 @@ export type UserUncheckedCreateWithoutOwnedDevActionItemsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutOwnedDevActionItemsInput = {
@@ -17581,6 +18521,10 @@ export type UserUpdateWithoutOwnedDevActionItemsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedDevActionItemsInput = {
@@ -17651,6 +18595,10 @@ export type UserUncheckedUpdateWithoutOwnedDevActionItemsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutDevPlanEventsInput = {
@@ -17721,6 +18669,10 @@ export type UserCreateWithoutDevPlanEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutDevPlanEventsInput = {
@@ -17791,6 +18743,10 @@ export type UserUncheckedCreateWithoutDevPlanEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutDevPlanEventsInput = {
@@ -17877,6 +18833,10 @@ export type UserUpdateWithoutDevPlanEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDevPlanEventsInput = {
@@ -17947,6 +18907,10 @@ export type UserUncheckedUpdateWithoutDevPlanEventsInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedLogisticOrdersInput = {
@@ -18017,6 +18981,10 @@ export type UserCreateWithoutCreatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLogisticOrdersInput = {
@@ -18087,6 +19055,10 @@ export type UserUncheckedCreateWithoutCreatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLogisticOrdersInput = {
@@ -18162,6 +19134,10 @@ export type UserCreateWithoutUpdatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedLogisticOrdersInput = {
@@ -18232,6 +19208,10 @@ export type UserUncheckedCreateWithoutUpdatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedLogisticOrdersInput = {
@@ -18318,6 +19298,10 @@ export type UserUpdateWithoutCreatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLogisticOrdersInput = {
@@ -18388,6 +19372,10 @@ export type UserUncheckedUpdateWithoutCreatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedLogisticOrdersInput = {
@@ -18469,6 +19457,10 @@ export type UserUpdateWithoutUpdatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedLogisticOrdersInput = {
@@ -18539,6 +19531,10 @@ export type UserUncheckedUpdateWithoutUpdatedLogisticOrdersInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutLogisticOrderEventsInput = {
@@ -18609,6 +19605,10 @@ export type UserCreateWithoutLogisticOrderEventsInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutLogisticOrderEventsInput = {
@@ -18679,6 +19679,10 @@ export type UserUncheckedCreateWithoutLogisticOrderEventsInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutLogisticOrderEventsInput = {
@@ -18765,6 +19769,10 @@ export type UserUpdateWithoutLogisticOrderEventsInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLogisticOrderEventsInput = {
@@ -18835,6 +19843,10 @@ export type UserUncheckedUpdateWithoutLogisticOrderEventsInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedMilestonesInput = {
@@ -18905,6 +19917,10 @@ export type UserCreateWithoutCreatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedMilestonesInput = {
@@ -18975,6 +19991,10 @@ export type UserUncheckedCreateWithoutCreatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedMilestonesInput = {
@@ -19050,6 +20070,10 @@ export type UserCreateWithoutUpdatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedMilestonesInput = {
@@ -19120,6 +20144,10 @@ export type UserUncheckedCreateWithoutUpdatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedMilestonesInput = {
@@ -19206,6 +20234,10 @@ export type UserUpdateWithoutCreatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedMilestonesInput = {
@@ -19276,6 +20308,10 @@ export type UserUncheckedUpdateWithoutCreatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedMilestonesInput = {
@@ -19357,6 +20393,10 @@ export type UserUpdateWithoutUpdatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedMilestonesInput = {
@@ -19427,6 +20467,1258 @@ export type UserUncheckedUpdateWithoutUpdatedMilestonesInput = {
   updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedYardStatusesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedYardStatusesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedYardStatusesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutCreatedYardStatusesInput>
+}
+
+export type UserCreateWithoutUpdatedYardStatusesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutUpdatedYardStatusesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutUpdatedYardStatusesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutUpdatedYardStatusesInput>
+}
+
+export type UserUpsertWithoutCreatedYardStatusesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedYardStatusesInput, Prisma.UserUncheckedUpdateWithoutCreatedYardStatusesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutCreatedYardStatusesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedYardStatusesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedYardStatusesInput, Prisma.UserUncheckedUpdateWithoutCreatedYardStatusesInput>
+}
+
+export type UserUpdateWithoutCreatedYardStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedYardStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUpsertWithoutUpdatedYardStatusesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedYardStatusesInput, Prisma.UserUncheckedUpdateWithoutUpdatedYardStatusesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedYardStatusesInput, Prisma.UserUncheckedCreateWithoutUpdatedYardStatusesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUpdatedYardStatusesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedYardStatusesInput, Prisma.UserUncheckedUpdateWithoutUpdatedYardStatusesInput>
+}
+
+export type UserUpdateWithoutUpdatedYardStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUpdatedYardStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedDispatchesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedDispatchesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedDispatchesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedDispatchesInput, Prisma.UserUncheckedCreateWithoutCreatedDispatchesInput>
+}
+
+export type UserCreateWithoutUpdatedDispatchesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  createdAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutUsersInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutUpdatedDispatchesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  companyId?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  reviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  approvedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedReports?: Prisma.EightDReportUncheckedCreateNestedManyWithoutRejectedByInput
+  ownedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  escalatedDefects?: Prisma.DefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  defectEvents?: Prisma.DefectEventUncheckedCreateNestedManyWithoutActorInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemOwnerInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierAssigneeInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutApprovedByInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutRejectedByInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutResolvedByInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutAuthorInput
+  ppapEventActors?: Prisma.PpapEventUncheckedCreateNestedManyWithoutActorInput
+  iqcInspections?: Prisma.IqcReportUncheckedCreateNestedManyWithoutInspectorInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCreatedByInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedCreateNestedManyWithoutCompletedByInput
+  iqcEventActors?: Prisma.IqcEventUncheckedCreateNestedManyWithoutActorInput
+  fmeaResponsible?: Prisma.FmeaUncheckedCreateNestedManyWithoutResponsibleInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutApprovedByInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutReviewedByInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedCreateNestedManyWithoutCreatedByInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutActorInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutUpdatedByInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutConvertedByInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutEscalatedByInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutResolvedByInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCreatedByInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutAcceptedByInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutRejectedByInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedCreateNestedManyWithoutAuthorInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedCreateNestedManyWithoutActorInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutAiCategoryAppliedByInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCreatedByInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutReviewedByInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutRejectedByInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCreatedByInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOwnerInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutCompletedByInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedCreateNestedManyWithoutOwnerInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedCreateNestedManyWithoutActorInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutActorInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutUpdatedDispatchesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedDispatchesInput, Prisma.UserUncheckedCreateWithoutUpdatedDispatchesInput>
+}
+
+export type UserUpsertWithoutCreatedDispatchesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedDispatchesInput, Prisma.UserUncheckedUpdateWithoutCreatedDispatchesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedDispatchesInput, Prisma.UserUncheckedCreateWithoutCreatedDispatchesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedDispatchesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedDispatchesInput, Prisma.UserUncheckedUpdateWithoutCreatedDispatchesInput>
+}
+
+export type UserUpdateWithoutCreatedDispatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedDispatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUpsertWithoutUpdatedDispatchesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedDispatchesInput, Prisma.UserUncheckedUpdateWithoutUpdatedDispatchesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedDispatchesInput, Prisma.UserUncheckedCreateWithoutUpdatedDispatchesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUpdatedDispatchesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedDispatchesInput, Prisma.UserUncheckedUpdateWithoutUpdatedDispatchesInput>
+}
+
+export type UserUpdateWithoutUpdatedDispatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutUsersNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUpdatedDispatchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  reviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  resolvedReviewComments?: Prisma.ReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  approvedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedReports?: Prisma.EightDReportUncheckedUpdateManyWithoutRejectedByNestedInput
+  ownedDefects?: Prisma.DefectUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedDefects?: Prisma.DefectUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  escalatedDefects?: Prisma.DefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  defectEvents?: Prisma.DefectEventUncheckedUpdateManyWithoutActorNestedInput
+  uploadedEvidence?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemOwnerNestedInput
+  assignedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeNestedInput
+  approvedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutApprovedByNestedInput
+  rejectedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutRejectedByNestedInput
+  reviewedPpaps?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapEvidenceUploads?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+  ppapEvidenceReviewed?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+  ppapCommentResolved?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+  ppapCommentAuthored?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  ppapEventActors?: Prisma.PpapEventUncheckedUpdateManyWithoutActorNestedInput
+  iqcInspections?: Prisma.IqcReportUncheckedUpdateManyWithoutInspectorNestedInput
+  iqcCreatedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCreatedByNestedInput
+  iqcCompletedReports?: Prisma.IqcReportUncheckedUpdateManyWithoutCompletedByNestedInput
+  iqcEventActors?: Prisma.IqcEventUncheckedUpdateManyWithoutActorNestedInput
+  fmeaResponsible?: Prisma.FmeaUncheckedUpdateManyWithoutResponsibleNestedInput
+  fmeaApprovedBy?: Prisma.FmeaUncheckedUpdateManyWithoutApprovedByNestedInput
+  fmeaReviewedBy?: Prisma.FmeaUncheckedUpdateManyWithoutReviewedByNestedInput
+  fmeaCreatedBy?: Prisma.FmeaUncheckedUpdateManyWithoutCreatedByNestedInput
+  fmeaEventActors?: Prisma.FmeaEventUncheckedUpdateManyWithoutActorNestedInput
+  createdFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutUpdatedByNestedInput
+  convertedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutConvertedByNestedInput
+  escalatedFieldDefects?: Prisma.FieldDefectUncheckedUpdateManyWithoutEscalatedByNestedInput
+  escalationHistories?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  resolvedUpgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutResolvedByNestedInput
+  createdAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCreatedByNestedInput
+  acceptedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutAcceptedByNestedInput
+  rejectedAiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutRejectedByNestedInput
+  fieldDefectAttachments?: Prisma.FieldDefectAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  fieldDefectComments?: Prisma.FieldDefectCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  fieldDefectEvents?: Prisma.FieldDefectEventUncheckedUpdateManyWithoutActorNestedInput
+  aiCategoryAppliedByFor?: Prisma.FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByNestedInput
+  createdAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCreatedByNestedInput
+  reviewedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutReviewedByNestedInput
+  rejectedAi8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutRejectedByNestedInput
+  createdQualityLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+  ownedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOwnerNestedInput
+  createdDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  completedDevPlans?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutCompletedByNestedInput
+  ownedDevActionItems?: Prisma.SupplierDevelopmentActionItemUncheckedUpdateManyWithoutOwnerNestedInput
+  devPlanEvents?: Prisma.SupplierDevelopmentEventUncheckedUpdateManyWithoutActorNestedInput
+  createdLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLogisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
+  createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyCompanyInput = {
@@ -19508,6 +21800,10 @@ export type UserUpdateWithoutCompanyInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyInput = {
@@ -19578,6 +21874,10 @@ export type UserUncheckedUpdateWithoutCompanyInput = {
   logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutActorNestedInput
   createdMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedYardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCompanyInput = {
@@ -19656,6 +21956,10 @@ export type UserCountOutputType = {
   logisticOrderEvents: number
   createdMilestones: number
   updatedMilestones: number
+  createdYardStatuses: number
+  updatedYardStatuses: number
+  createdDispatches: number
+  updatedDispatches: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -19718,6 +22022,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   logisticOrderEvents?: boolean | UserCountOutputTypeCountLogisticOrderEventsArgs
   createdMilestones?: boolean | UserCountOutputTypeCountCreatedMilestonesArgs
   updatedMilestones?: boolean | UserCountOutputTypeCountUpdatedMilestonesArgs
+  createdYardStatuses?: boolean | UserCountOutputTypeCountCreatedYardStatusesArgs
+  updatedYardStatuses?: boolean | UserCountOutputTypeCountUpdatedYardStatusesArgs
+  createdDispatches?: boolean | UserCountOutputTypeCountCreatedDispatchesArgs
+  updatedDispatches?: boolean | UserCountOutputTypeCountUpdatedDispatchesArgs
 }
 
 /**
@@ -20143,6 +22451,34 @@ export type UserCountOutputTypeCountUpdatedMilestonesArgs<ExtArgs extends runtim
   where?: Prisma.PlantLogisticProductionMilestoneWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedYardStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticYardStatusWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUpdatedYardStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticYardStatusWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedDispatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticDispatchWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUpdatedDispatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticDispatchWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -20214,6 +22550,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   logisticOrderEvents?: boolean | Prisma.User$logisticOrderEventsArgs<ExtArgs>
   createdMilestones?: boolean | Prisma.User$createdMilestonesArgs<ExtArgs>
   updatedMilestones?: boolean | Prisma.User$updatedMilestonesArgs<ExtArgs>
+  createdYardStatuses?: boolean | Prisma.User$createdYardStatusesArgs<ExtArgs>
+  updatedYardStatuses?: boolean | Prisma.User$updatedYardStatusesArgs<ExtArgs>
+  createdDispatches?: boolean | Prisma.User$createdDispatchesArgs<ExtArgs>
+  updatedDispatches?: boolean | Prisma.User$updatedDispatchesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -20317,6 +22657,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   logisticOrderEvents?: boolean | Prisma.User$logisticOrderEventsArgs<ExtArgs>
   createdMilestones?: boolean | Prisma.User$createdMilestonesArgs<ExtArgs>
   updatedMilestones?: boolean | Prisma.User$updatedMilestonesArgs<ExtArgs>
+  createdYardStatuses?: boolean | Prisma.User$createdYardStatusesArgs<ExtArgs>
+  updatedYardStatuses?: boolean | Prisma.User$updatedYardStatusesArgs<ExtArgs>
+  createdDispatches?: boolean | Prisma.User$createdDispatchesArgs<ExtArgs>
+  updatedDispatches?: boolean | Prisma.User$updatedDispatchesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -20389,6 +22733,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     logisticOrderEvents: Prisma.$PlantLogisticOrderEventPayload<ExtArgs>[]
     createdMilestones: Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>[]
     updatedMilestones: Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>[]
+    createdYardStatuses: Prisma.$PlantLogisticYardStatusPayload<ExtArgs>[]
+    updatedYardStatuses: Prisma.$PlantLogisticYardStatusPayload<ExtArgs>[]
+    createdDispatches: Prisma.$PlantLogisticDispatchPayload<ExtArgs>[]
+    updatedDispatches: Prisma.$PlantLogisticDispatchPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -20854,6 +23202,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   logisticOrderEvents<T extends Prisma.User$logisticOrderEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$logisticOrderEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticOrderEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdMilestones<T extends Prisma.User$createdMilestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdMilestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   updatedMilestones<T extends Prisma.User$updatedMilestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedMilestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdYardStatuses<T extends Prisma.User$createdYardStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdYardStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticYardStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  updatedYardStatuses<T extends Prisma.User$updatedYardStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedYardStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticYardStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdDispatches<T extends Prisma.User$createdDispatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdDispatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticDispatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  updatedDispatches<T extends Prisma.User$updatedDispatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedDispatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticDispatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22725,6 +25077,102 @@ export type User$updatedMilestonesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PlantLogisticProductionMilestoneScalarFieldEnum | Prisma.PlantLogisticProductionMilestoneScalarFieldEnum[]
+}
+
+/**
+ * User.createdYardStatuses
+ */
+export type User$createdYardStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticYardStatus
+   */
+  select?: Prisma.PlantLogisticYardStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticYardStatus
+   */
+  omit?: Prisma.PlantLogisticYardStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticYardStatusInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticYardStatusWhereInput
+  orderBy?: Prisma.PlantLogisticYardStatusOrderByWithRelationInput | Prisma.PlantLogisticYardStatusOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticYardStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticYardStatusScalarFieldEnum | Prisma.PlantLogisticYardStatusScalarFieldEnum[]
+}
+
+/**
+ * User.updatedYardStatuses
+ */
+export type User$updatedYardStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticYardStatus
+   */
+  select?: Prisma.PlantLogisticYardStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticYardStatus
+   */
+  omit?: Prisma.PlantLogisticYardStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticYardStatusInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticYardStatusWhereInput
+  orderBy?: Prisma.PlantLogisticYardStatusOrderByWithRelationInput | Prisma.PlantLogisticYardStatusOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticYardStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticYardStatusScalarFieldEnum | Prisma.PlantLogisticYardStatusScalarFieldEnum[]
+}
+
+/**
+ * User.createdDispatches
+ */
+export type User$createdDispatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticDispatch
+   */
+  select?: Prisma.PlantLogisticDispatchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticDispatch
+   */
+  omit?: Prisma.PlantLogisticDispatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticDispatchInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticDispatchWhereInput
+  orderBy?: Prisma.PlantLogisticDispatchOrderByWithRelationInput | Prisma.PlantLogisticDispatchOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticDispatchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticDispatchScalarFieldEnum | Prisma.PlantLogisticDispatchScalarFieldEnum[]
+}
+
+/**
+ * User.updatedDispatches
+ */
+export type User$updatedDispatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticDispatch
+   */
+  select?: Prisma.PlantLogisticDispatchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticDispatch
+   */
+  omit?: Prisma.PlantLogisticDispatchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticDispatchInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticDispatchWhereInput
+  orderBy?: Prisma.PlantLogisticDispatchOrderByWithRelationInput | Prisma.PlantLogisticDispatchOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticDispatchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticDispatchScalarFieldEnum | Prisma.PlantLogisticDispatchScalarFieldEnum[]
 }
 
 /**

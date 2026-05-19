@@ -2349,6 +2349,237 @@ async function main() {
     })
   }
 
+  // ── Yard Statuses ────────────────────────────────────────────────────
+
+  console.log("\n🅿️ Seeding yard statuses...\n");
+
+  const yardStatuses = [
+    {
+      id: "ys-006",
+      orderId: "lo-006",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: "Yard A, Zone B3",
+      parkingSlot: "A-12",
+      readyForDispatch: true,
+      blockedForDispatch: false,
+      blockReason: null,
+      lastMovementAt: new Date("2026-05-01T10:00:00Z"),
+      notes: "Vehicle completed PDI and all quality checks. Ready for carrier assignment.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "ys-005",
+      orderId: "lo-005",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: "Yard B, Zone A1",
+      parkingSlot: "B-04",
+      readyForDispatch: false,
+      blockedForDispatch: true,
+      blockReason: "Quality hold — paint defect identified, root cause under investigation",
+      lastMovementAt: new Date("2026-05-05T14:00:00Z"),
+      notes: "Blocked until paint defect is resolved and quality clears the vehicle.",
+      createdById: "oem-enterprise-qe",
+      updatedById: "oem-enterprise-qe",
+    },
+    {
+      id: "ys-004",
+      orderId: "lo-004",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: "Yard A, Zone C2",
+      parkingSlot: null,
+      readyForDispatch: false,
+      blockedForDispatch: false,
+      lastMovementAt: new Date("2026-05-14T08:00:00Z"),
+      notes: null,
+      createdById: "oem-enterprise-admin",
+    },
+    {
+      id: "ys-007",
+      orderId: "lo-007",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: "Yard C, Zone D1",
+      parkingSlot: "C-08",
+      readyForDispatch: false,
+      blockedForDispatch: false,
+      lastMovementAt: new Date("2026-04-20T09:00:00Z"),
+      notes: "Vehicle dispatched and in transit.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "ys-008",
+      orderId: "lo-008",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: null,
+      parkingSlot: null,
+      readyForDispatch: false,
+      blockedForDispatch: false,
+      lastMovementAt: new Date("2026-03-15T12:00:00Z"),
+      notes: "Delivered to customer. Vehicle no longer in yard.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "ys-010",
+      orderId: "lo-010",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: "Yard A, Zone A2",
+      parkingSlot: "A-05",
+      readyForDispatch: false,
+      blockedForDispatch: false,
+      lastMovementAt: new Date("2026-05-10T16:00:00Z"),
+      notes: "Vehicle still in production — paint stage blocked.",
+      createdById: "oem-enterprise-admin",
+    },
+  ];
+
+  for (const ys of yardStatuses) {
+    await prisma.plantLogisticYardStatus.upsert({
+      where: { id: ys.id },
+      update: {},
+      create: ys,
+    });
+  }
+
+  // ── Dispatches ────────────────────────────────────────────────────────
+
+  console.log("\n🚚 Seeding dispatches...\n");
+
+  const dispatches = [
+    {
+      id: "disp-006",
+      orderId: "lo-006",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: "DIS-2026-042",
+      carrierName: "Global Auto Logistics",
+      transportMode: "ROAD" as const,
+      status: "CARRIER_ASSIGNED" as const,
+      plannedLoadingDate: new Date("2026-05-15"),
+      actualLoadingDate: null,
+      estimatedArrivalDate: new Date("2026-05-20"),
+      actualArrivalDate: null,
+      deliveredAt: null,
+      destinationCountry: "Turkey",
+      destinationCity: "Istanbul",
+      dealerOrDistributorName: "MedTrans Ltd",
+      trackingReference: "TRK-2026-0042",
+      notes: "Carrier confirmed. Loading scheduled for May 15.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "disp-007",
+      orderId: "lo-007",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: "DIS-2026-028",
+      carrierName: "Nordic Shipping AB",
+      transportMode: "SEA" as const,
+      status: "IN_TRANSIT" as const,
+      plannedLoadingDate: new Date("2026-04-10"),
+      actualLoadingDate: new Date("2026-04-11"),
+      estimatedArrivalDate: new Date("2026-05-05"),
+      actualArrivalDate: null,
+      deliveredAt: null,
+      destinationCountry: "Sweden",
+      destinationCity: "Stockholm",
+      dealerOrDistributorName: "Nordic Trans AB",
+      trackingReference: "SEA-2026-0028",
+      notes: "Vessel departed Antwerp port. ETA Stockholm May 5.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "disp-008",
+      orderId: "lo-008",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: "DIS-2026-010",
+      carrierName: "APL Logistics",
+      transportMode: "SEA" as const,
+      status: "DELIVERED" as const,
+      plannedLoadingDate: new Date("2026-02-20"),
+      actualLoadingDate: new Date("2026-02-22"),
+      estimatedArrivalDate: new Date("2026-03-25"),
+      actualArrivalDate: new Date("2026-03-28"),
+      deliveredAt: new Date("2026-03-28"),
+      destinationCountry: "Singapore",
+      destinationCity: "Singapore",
+      dealerOrDistributorName: "AsiaBus Holdings",
+      trackingReference: "SEA-2026-0010",
+      notes: "Successfully delivered. All units inspected and accepted by customer.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "disp-004",
+      orderId: "lo-004",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: null,
+      carrierName: null,
+      transportMode: "ROAD" as const,
+      status: "NOT_PLANNED" as const,
+      plannedLoadingDate: null,
+      actualLoadingDate: null,
+      estimatedArrivalDate: null,
+      actualArrivalDate: null,
+      deliveredAt: null,
+      destinationCountry: "Germany",
+      destinationCity: "Berlin",
+      dealerOrDistributorName: null,
+      trackingReference: null,
+      notes: null,
+      createdById: "oem-enterprise-admin",
+    },
+    {
+      id: "disp-010",
+      orderId: "lo-010",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: "DIS-2026-055",
+      carrierName: "Rail Cargo Group",
+      transportMode: "RAIL" as const,
+      status: "PLANNED" as const,
+      plannedLoadingDate: new Date("2026-05-25"),
+      actualLoadingDate: null,
+      estimatedArrivalDate: new Date("2026-06-02"),
+      actualArrivalDate: null,
+      deliveredAt: null,
+      destinationCountry: "Poland",
+      destinationCity: "Warsaw",
+      dealerOrDistributorName: "LateShip Logistics",
+      trackingReference: null,
+      notes: "Rail transport planned. Pending unblock from production delay.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+  ];
+
+  for (const d of dispatches) {
+    await prisma.plantLogisticDispatch.upsert({
+      where: { id: d.id },
+      update: {},
+      create: d,
+    });
+  }
+
+  // Yard/Dispatch events
+  const yardDispatchEvents = [
+    { id: "lo-ev-yd-001", orderId: "lo-006", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "YARD_READY_FOR_DISPATCH" as LogisticOrderEventType, message: "Marked as ready for dispatch", createdAt: new Date("2026-05-01T10:30:00Z") },
+    { id: "lo-ev-yd-002", orderId: "lo-006", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "YARD_STATUS_UPDATED" as LogisticOrderEventType, message: "Yard location updated — Location: Yard A, Zone B3, Slot: A-12", createdAt: new Date("2026-05-01T11:00:00Z") },
+    { id: "lo-ev-yd-003", orderId: "lo-005", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-qe", eventType: "YARD_BLOCKED" as LogisticOrderEventType, message: "Blocked for dispatch: Quality hold — paint defect identified, root cause under investigation", createdAt: new Date("2026-05-05T14:30:00Z") },
+    { id: "lo-ev-ds-001", orderId: "lo-006", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "DISPATCH_CARRIER_ASSIGNED" as LogisticOrderEventType, message: "Carrier assigned: Global Auto Logistics", createdAt: new Date("2026-05-02T09:00:00Z") },
+    { id: "lo-ev-ds-002", orderId: "lo-007", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "DISPATCH_LOADED" as LogisticOrderEventType, message: "Dispatch status: loaded (DIS-2026-028)", createdAt: new Date("2026-04-11T08:00:00Z") },
+    { id: "lo-ev-ds-003", orderId: "lo-007", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "DISPATCH_IN_TRANSIT" as LogisticOrderEventType, message: "Dispatch status: in transit (DIS-2026-028)", createdAt: new Date("2026-04-12T06:00:00Z") },
+    { id: "lo-ev-ds-004", orderId: "lo-008", companyId: oemEnterpriseCompany.id, actorId: "oem-enterprise-admin", eventType: "DISPATCH_DELIVERED" as LogisticOrderEventType, message: "Dispatch status: delivered (DIS-2026-010)", createdAt: new Date("2026-03-28T16:00:00Z") },
+  ];
+
+  for (const ev of yardDispatchEvents) {
+    await prisma.plantLogisticOrderEvent.upsert({
+      where: { id: ev.id },
+      update: {},
+      create: ev,
+    });
+  }
+
   console.log("");
 }
 main()

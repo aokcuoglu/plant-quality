@@ -87,7 +87,9 @@ export const ModelName = {
   SupplierDevelopmentEvent: 'SupplierDevelopmentEvent',
   PlantLogisticOrder: 'PlantLogisticOrder',
   PlantLogisticOrderEvent: 'PlantLogisticOrderEvent',
-  PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone'
+  PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone',
+  PlantLogisticYardStatus: 'PlantLogisticYardStatus',
+  PlantLogisticDispatch: 'PlantLogisticDispatch'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -826,6 +828,53 @@ export const PlantLogisticProductionMilestoneScalarFieldEnum = {
 } as const
 
 export type PlantLogisticProductionMilestoneScalarFieldEnum = (typeof PlantLogisticProductionMilestoneScalarFieldEnum)[keyof typeof PlantLogisticProductionMilestoneScalarFieldEnum]
+
+
+export const PlantLogisticYardStatusScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  companyId: 'companyId',
+  yardLocation: 'yardLocation',
+  parkingSlot: 'parkingSlot',
+  readyForDispatch: 'readyForDispatch',
+  blockedForDispatch: 'blockedForDispatch',
+  blockReason: 'blockReason',
+  lastMovementAt: 'lastMovementAt',
+  notes: 'notes',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticYardStatusScalarFieldEnum = (typeof PlantLogisticYardStatusScalarFieldEnum)[keyof typeof PlantLogisticYardStatusScalarFieldEnum]
+
+
+export const PlantLogisticDispatchScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  companyId: 'companyId',
+  dispatchBatchNo: 'dispatchBatchNo',
+  carrierName: 'carrierName',
+  transportMode: 'transportMode',
+  status: 'status',
+  plannedLoadingDate: 'plannedLoadingDate',
+  actualLoadingDate: 'actualLoadingDate',
+  estimatedArrivalDate: 'estimatedArrivalDate',
+  actualArrivalDate: 'actualArrivalDate',
+  deliveredAt: 'deliveredAt',
+  destinationCountry: 'destinationCountry',
+  destinationCity: 'destinationCity',
+  dealerOrDistributorName: 'dealerOrDistributorName',
+  trackingReference: 'trackingReference',
+  notes: 'notes',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticDispatchScalarFieldEnum = (typeof PlantLogisticDispatchScalarFieldEnum)[keyof typeof PlantLogisticDispatchScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -6,6 +6,7 @@ import { STATUS_LABELS } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForPriority } from "@/lib/logistic/types"
 import { labelForGate } from "@/lib/logistic/milestone-types"
 import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
+import { DISPATCH_STATUS_LABELS } from "@/lib/logistic/dispatch-status"
 import Link from "next/link"
 import { PlusCircle, TruckIcon } from "lucide-react"
 import { StatusBadge } from "../status-badge"
@@ -48,19 +49,21 @@ export default async function LogisticOrdersPage({
   const orders = await prisma.plantLogisticOrder.findMany({
     where,
     orderBy: { createdAt: "desc" },
-    include: {
-      createdBy: { select: { name: true } },
-      milestones: {
-        orderBy: { sequence: "asc" },
-        select: {
-          id: true,
-          gate: true,
-          status: true,
-          qualityHold: true,
-          sequence: true,
+      include: {
+        createdBy: { select: { name: true } },
+        milestones: {
+          orderBy: { sequence: "asc" },
+          select: {
+            id: true,
+            gate: true,
+            status: true,
+            qualityHold: true,
+            sequence: true,
+          },
         },
+        yardStatus: { select: { yardLocation: true, parkingSlot: true, readyForDispatch: true, blockedForDispatch: true } },
+        dispatches: { select: { status: true, carrierName: true, estimatedArrivalDate: true }, take: 1, orderBy: { createdAt: "desc" } },
       },
-    },
   })
 
   const statusOptions = Object.entries(STATUS_LABELS).map(([value, label]) => ({ value, label }))
@@ -135,6 +138,8 @@ export default async function LogisticOrdersPage({
                   <th className="px-4 py-3 text-left">Status</th>
                   <th className="px-4 py-3 text-left">Production</th>
                   <th className="px-4 py-3 text-left">Current Gate</th>
+                  <th className="px-4 py-3 text-left">Yard</th>
+                  <th className="px-4 py-3 text-left">Dispatch</th>
                   <th className="px-4 py-3 text-left">Delivery Target</th>
                   <th className="px-4 py-3 text-left">Created</th>
                 </tr>
@@ -178,6 +183,23 @@ export default async function LogisticOrdersPage({
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {currentMs ? labelForGate(currentMs.gate) : milestonesCompleted ? "Completed" : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.yardStatus ? (
+                          <div className="flex flex-col">
+                            <span>{order.yardStatus.yardLocation || "—"}{order.yardStatus.parkingSlot ? ` / ${order.yardStatus.parkingSlot}` : ""}</span>
+                            {order.yardStatus.readyForDispatch && <span className="text-[10px] text-emerald-600">Ready</span>}
+                            {order.yardStatus.blockedForDispatch && <span className="text-[10px] text-destructive">Blocked</span>}
+                          </div>
+                        ) : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                        {order.dispatches.length > 0 ? (
+                          <div className="flex flex-col">
+                            <span className="text-xs">{DISPATCH_STATUS_LABELS[order.dispatches[0].status as keyof typeof DISPATCH_STATUS_LABELS] ?? order.dispatches[0].status}</span>
+                            {order.dispatches[0].carrierName && <span className="text-[10px] text-muted-foreground">{order.dispatches[0].carrierName}</span>}
+                          </div>
+                        ) : "—"}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {order.plannedDeliveryDate ? order.plannedDeliveryDate.toLocaleDateString() : order.requestedDeliveryDate ? order.requestedDeliveryDate.toLocaleDateString() : "—"}

@@ -226,3 +226,13 @@ export type PlantLogisticOrderEvent = Prisma.PlantLogisticOrderEventModel
  * 
  */
 export type PlantLogisticProductionMilestone = Prisma.PlantLogisticProductionMilestoneModel
+/**
+ * Model PlantLogisticYardStatus
+ * 
+ */
+export type PlantLogisticYardStatus = Prisma.PlantLogisticYardStatusModel
+/**
+ * Model PlantLogisticDispatch
+ * 
+ */
+export type PlantLogisticDispatch = Prisma.PlantLogisticDispatchModel

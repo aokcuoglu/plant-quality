@@ -64,7 +64,7 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
-## v3.2.0 — Production Milestone Tracking (Current)
+## v3.2.0 — Production Milestone Tracking
 
 **Scope:**
 - Production milestone data model (`PlantLogisticProductionMilestone`)
@@ -95,7 +95,7 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
-## v3.2.1 — Milestone Workflow Polish Patch (Current)
+## v3.2.1 — Milestone Workflow Polish Patch
 
 **Scope:**
 - Terminal state edit guard: workflow fields (title, description, dates, department, delayReason) blocked on COMPLETED/CANCELLED/SKIPPED milestones; only notes editable
@@ -113,14 +113,40 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
-## v3.3.0 — Yard + Dispatch MVP
+## v3.3.0 — Yard + Dispatch MVP (Current)
 
 **Scope:**
-- Yard location and parking slot management
-- Ready for dispatch status and queue
-- Carrier assignment and loading status
-- Shipment tracking and ETA
-- Delivery confirmation workflow
+- Yard location and parking slot management per order (`PlantLogisticYardStatus`)
+- Ready for dispatch status and blocked for dispatch with reason
+- Carrier assignment and dispatch batch tracking (`PlantLogisticDispatch`)
+- Transport mode (ROAD, SEA, RAIL, AIR, MULTIMODAL, OTHER)
+- Dispatch status workflow: NOT_PLANNED → PLANNED → CARRIER_ASSIGNED → LOADING_PLANNED → LOADED → IN_TRANSIT → ARRIVED → DELIVERED, with CANCELLED from early states
+- Destination country/city, dealer/distributor, tracking reference per dispatch
+- Date tracking: planned loading, actual loading, ETA, actual arrival, delivered
+- Order detail Yard & Dispatch sections with inline edit and status transition actions
+- Dashboard yard/dispatch summary cards: Vehicles in Yard, Ready for Dispatch, Dispatch Blocked, Loading Planned This Week, In Transit, Delivered This Month
+- Order list yard/dispatch summary columns
+- Dispatch status badge component
+- Module entitlement / access protection (PLANT_LOGISTIC_MODULE + PLANT_LOGISTIC feature gate)
+- Tenant isolation (companyId scoping on all yard/dispatch queries)
+- Supplier denial (companyType check)
+- Invalid dispatch status transition blocking (server-side)
+- Demo seed data: 6 yard statuses, 5 dispatches, 7 yard/dispatch events
+- Yard/dispatch timeline events in order activity feed
+- Waiting days calculation for yard vehicles
+- ETA risk highlighting for past-due estimated arrivals
+- v3.3.0 internal OEM yard/dispatch visibility only — external dealer/distributor portal remains v3.4.0
+
+**New data models:**
+- `PlantLogisticYardStatus`: yardLocation, parkingSlot, readyForDispatch, blockedForDispatch, blockReason, lastMovementAt, notes (1:1 with order)
+- `PlantLogisticDispatch`: dispatchBatchNo, carrierName, transportMode, status, plannedLoadingDate, actualLoadingDate, estimatedArrivalDate, actualArrivalDate, deliveredAt, destinationCountry, destinationCity, dealerOrDistributorName, trackingReference, notes (N:1 with order)
+- `DispatchTransportMode` enum: ROAD, SEA, RAIL, AIR, MULTIMODAL, OTHER
+- `DispatchStatus` enum: NOT_PLANNED, PLANNED, CARRIER_ASSIGNED, LOADING_PLANNED, LOADED, IN_TRANSIT, ARRIVED, DELIVERED, CANCELLED
+- New `LogisticOrderEventType` values: YARD_STATUS_UPDATED, YARD_READY_FOR_DISPATCH, YARD_BLOCKED, YARD_UNBLOCKED, DISPATCH_CREATED, DISPATCH_STATUS_CHANGED, DISPATCH_CARRIER_ASSIGNED, DISPATCH_LOADING_PLANNED, DISPATCH_LOADED, DISPATCH_IN_TRANSIT, DISPATCH_ARRIVED, DISPATCH_DELIVERED, DISPATCH_CANCELLED
+
+**New server actions:**
+- Yard: upsertYardStatus, updateYardLocation, markReadyForDispatch, blockDispatch, unblockDispatch
+- Dispatch: createOrUpdateDispatch, assignCarrier, changeDispatchStatus, updateDispatchDates, markLoaded, markInTransit, markArrived, markDelivered
 
 ---
 

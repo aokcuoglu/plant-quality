@@ -145,7 +145,7 @@ function ModuleRequestButton({
               })
             }}
             disabled={isPending}
-            className="rounded-md bg-emerald-500 px-2 py-1 text-[10px] font-medium text-white hover:bg-emerald-600 transition-colors disabled:opacity-50"
+            className="rounded-md bg-emerald-500 px-2 py-1 text-[10px] font-medium text-primary-foreground hover:bg-emerald-600 transition-colors disabled:opacity-50"
           >
             {isPending ? "Submitting..." : "Submit"}
           </button>

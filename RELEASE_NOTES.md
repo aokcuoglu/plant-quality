@@ -37,6 +37,8 @@
 - Added `createModuleAccessRequest` server action for module-specific access requests.
 - Added `revalidatePath` for `/settings/plan` and `/logistic/settings/plan` in upgrade request actions.
 - Subscription strategy documentation updated to v3.3.2.
+- **Hardened** `createModuleAccessRequest` with admin-only server guard — non-admin OEM users can no longer submit module access requests directly.
+- **Replaced** forbidden `text-white` utility in module catalog CTA button with `text-primary-foreground`.
 
 ## QA
 

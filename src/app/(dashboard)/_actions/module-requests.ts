@@ -18,6 +18,9 @@ export async function createModuleAccessRequest(data: {
   if (session.user.companyType !== "OEM") {
     return { success: false, error: "Module access requests are only available for OEM accounts" }
   }
+  if (session.user.role !== "ADMIN") {
+    return { success: false, error: "Module access requests require admin role" }
+  }
 
   const VALID_MODULES = ["PLANT_QUALITY_MODULE", "PLANT_LOGISTIC_MODULE"]
   if (!VALID_MODULES.includes(data.moduleKey)) {

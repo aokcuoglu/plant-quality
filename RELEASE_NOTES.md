@@ -11,7 +11,7 @@
 - **New:** `CompanyType` enum extended with `DEALER` and `DISTRIBUTOR` values for external user personas.
 - **New:** `ExternalOrderStatus` enum for safe external status display (ORDER_RECEIVED, PRODUCTION_PLANNED, IN_PRODUCTION, QUALITY_CHECK, READY_FOR_DISPATCH, DISPATCHED, IN_TRANSIT, DELIVERED, ON_HOLD).
 - **New:** `PlantLogisticOrder` fields: `dealerCompanyId`, `distributorCompanyId`, `externalVisible`, `externalStatus`, `externalStatusNote` — linking orders to external companies and controlling visibility.
-- **New:** Portal dashboard with summary cards showing total, in production, ready for dispatch, in transit, and delivered order counts scoped to the logged-in dealer/distributor.
+- **New:** Portal dashboard with summary cards showing total, in production, ready for dispatch, in transit, and delivered order counts scoped to the logged-in dealer/distributor. Counts use external status mapping (including `externalStatus` overrides) for consistency with list/detail views.
 - **New:** Portal order list page with filtered external-visible orders only, showing order number, vehicle, quantity, external status, delivery ETA, dispatch summary, and last updated date.
 - **New:** Portal order detail page with safe external view: vehicle details, delivery/dispatch information, external timeline, and OEM note — with all internal-sensitive data masked (VIN, chassis, production order #, sales order #, notes, delay reasons, quality hold details, supplier info).
 - **New:** External status mapping from internal `LogisticOrderStatus` and `DispatchStatus` to `ExternalOrderStatus` with safe labels.
@@ -28,8 +28,9 @@
 
 ## Access Control & Tenant Isolation
 
-- **New:** Proxy middleware routes dealer/distributor users to `/logistic/portal`, suppliers to `/quality/supplier`, and OEM users to their respective modules.
+- **New:** `src/proxy.ts` (Next.js 16 proxy) route protection routes dealer/distributor users to `/logistic/portal`, suppliers to `/quality/supplier`, and OEM users to their respective modules.
 - **New:** Supplier users are denied access to `/logistic/portal` (redirect to `/quality/supplier`).
+- **New:** `/api/logistic/portal` API routes return 401 for unauthenticated, 403 for non-dealer/distributor sessions.
 - **New:** Dealer/distributor users cannot access internal `/logistic/orders` (redirect to `/logistic/portal` for dealer/distributor, `/quality/supplier` for supplier).
 - **New:** Direct URL protection: dealer/distributor users can only view orders where their companyId matches the order's `dealerCompanyId` or `distributorCompanyId`.
 - **New:** Portal server actions enforce session-based companyId scoping — client-provided company IDs are ignored.
@@ -38,7 +39,7 @@
 ## Navigation & Module Switcher
 
 - **Updated:** Dashboard layout detects dealer/distributor users and renders portal navigation (Overview, My Orders).
-- **Updated:** AppSwitcher hides PlantLogistic for dealer/distributor users (they're already on the portal), hides PlantQuality for dealer/distributor users, and hides PlantLogistic for supplier users.
+- **Updated:** AppSwitcher shows PlantLogistic as "Active" for dealer/distributor users with "Order Tracking Portal" description, linking to `/logistic/portal`. PlantQuality and future modules are hidden for dealer/distributor users.
 
 ## Demo Seed Data
 

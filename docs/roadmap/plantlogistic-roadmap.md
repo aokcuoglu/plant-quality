@@ -181,8 +181,9 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 - Portal order detail with masked internal data
 - External status mapping from internal order/dispatch status
 - OEM order detail External Visibility section with toggle, dealer/distributor selector, status override, note
-- Proxy middleware: dealer/distributor users → /logistic/portal; supplier → /quality/supplier; OEM → /logistic
-- Proxy middleware: supplier users denied from /logistic/portal
+- `src/proxy.ts` (Next.js 16 proxy) route protection: dealer/distributor users → /logistic/portal; supplier → /quality/supplier; OEM → /logistic
+- `/api/logistic/portal` API route protection: 401 for unauthenticated, 403 for non-dealer/distributor sessions
+- `src/proxy.ts` route protection: supplier users denied from /logistic/portal
 - Portal server actions with strict tenant isolation (session-based companyId scoping)
 - Direct URL protection: dealer/distributor cannot access another company's orders
 - AppSwitcher updated: dealer/distributor see only PlantLogistic; supplier does not see PlantLogistic

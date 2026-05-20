@@ -147,19 +147,34 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
             const description = MODULE_DESCRIPTIONS[app.id] ?? app.name
 
             if (isPortalUser && app.id === "logistic") {
+              const portalHref = "/logistic/portal"
+              return (
+                <DropdownMenuItem
+                  key={app.id}
+                  className="flex items-center gap-3 rounded-lg px-2 py-2.5 cursor-default"
+                  render={<Link href={portalHref} />}
+                >
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/30">
+                    <Icon className="size-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-foreground">{app.name}</span>
+                      <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">Active</Badge>
+                    </div>
+                    <p className="truncate text-xs text-muted-foreground">Order Tracking Portal</p>
+                  </div>
+                </DropdownMenuItem>
+              )
+            }
+            if (isPortalUser && app.id === "quality") {
               return null
             }
             if (!app.supplierVisible && companyType === "SUPPLIER") {
               return null
             }
 
-            let href: string | undefined
-            if (isPortalUser && app.id === "quality") {
-              return null
-            }
-            if (app.moduleKey) {
-              href = MODULE_HREFS[app.id]
-            }
+            const href = app.moduleKey ? MODULE_HREFS[app.id] : undefined
 
             const badge = getModuleBadge(app.id, app.moduleKey, currentModule, companyId, companyType)
 

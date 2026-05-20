@@ -278,13 +278,47 @@ export async function getPortalDashboardStats() {
       : { distributorCompanyId: companyId }),
   }
 
-  const [total, inProduction, readyForDispatch, inTransit, delivered] = await Promise.all([
-    prisma.plantLogisticOrder.count({ where }),
-    prisma.plantLogisticOrder.count({ where: { ...where, status: "IN_PRODUCTION" } }),
-    prisma.plantLogisticOrder.count({ where: { ...where, status: "READY_FOR_DISPATCH" } }),
-    prisma.plantLogisticOrder.count({ where: { ...where, status: { in: ["DISPATCHED"] } } }),
-    prisma.plantLogisticOrder.count({ where: { ...where, status: { in: ["DELIVERED", "CLOSED"] } } }),
-  ])
+  const orders = await prisma.plantLogisticOrder.findMany({
+    where,
+    select: {
+      id: true,
+      status: true,
+      externalStatus: true,
+      dispatches: {
+        select: { status: true },
+        orderBy: { createdAt: "desc" },
+        take: 1,
+      },
+    },
+  })
+
+  let total = 0
+  let inProduction = 0
+  let readyForDispatch = 0
+  let inTransit = 0
+  let delivered = 0
+
+  for (const order of orders) {
+    total++
+    const es = order.externalStatus ?? mapToExternalStatus(order.status, order.dispatches[0]?.status ?? null)
+    switch (es) {
+      case "IN_PRODUCTION":
+        inProduction++
+        break
+      case "READY_FOR_DISPATCH":
+        readyForDispatch++
+        break
+      case "DISPATCHED":
+      case "IN_TRANSIT":
+        inTransit++
+        break
+      case "DELIVERED":
+        delivered++
+        break
+      default:
+        break
+    }
+  }
 
   return {
     data: {

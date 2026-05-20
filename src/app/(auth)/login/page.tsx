@@ -25,6 +25,8 @@ const ACCOUNTS = [
   { value: "engineer@supplier.com", label: "engineer@supplier.com (Supplier QE)" },
   { value: "admin@steelforged.com", label: "admin@steelforged.com (Supplier Admin — SteelForged)" },
   { value: "engineer@steelforged.com", label: "engineer@steelforged.com (Supplier QE — SteelForged)" },
+  { value: "admin@metrodealer.com", label: "admin@metrodealer.com (Dealer Admin)" },
+  { value: "admin@akdenizdist.com", label: "admin@akdenizdist.com (Distributor Admin)" },
 ]
 
 const errorMessages: Record<string, string> = {

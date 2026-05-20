@@ -70,6 +70,30 @@ async function main() {
 
   // ── Users ────────────────────────────────────────────────────────
 
+  const dealerCompany = await prisma.company.upsert({
+    where: { id: "dealer-company" },
+    update: {},
+    create: {
+      id: "dealer-company",
+      name: "Metro Bayi A.S.",
+      type: "DEALER",
+      taxNumber: "1114447770",
+      plan: "FREE",
+    },
+  });
+
+  const distributorCompany = await prisma.company.upsert({
+    where: { id: "distributor-company" },
+    update: {},
+    create: {
+      id: "distributor-company",
+      name: "Akdeniz Distributor",
+      type: "DISTRIBUTOR",
+      taxNumber: "3335559990",
+      plan: "FREE",
+    },
+  });
+
   const users = [
     {
       id: "oem-free-admin",
@@ -147,6 +171,20 @@ async function main() {
       name: "SteelForged Engineer",
       role: "QUALITY_ENGINEER" as const,
       companyId: supplierCompany2.id,
+    },
+    {
+      id: "dealer-admin",
+      email: "admin@metrodealer.com",
+      name: "Metro Dealer Admin",
+      role: "ADMIN" as const,
+      companyId: dealerCompany.id,
+    },
+    {
+      id: "distributor-admin",
+      email: "admin@akdenizdist.com",
+      name: "Akdeniz Distributor Admin",
+      role: "ADMIN" as const,
+      companyId: distributorCompany.id,
     },
   ];
 
@@ -2142,6 +2180,100 @@ async function main() {
       createdById: "oem-enterprise-admin",
       notes: "DELAYED — planned delivery was May 1, still in production. Customer notified.",
     },
+    {
+      id: "lo-011",
+      orderNumber: "LO-00011",
+      customerName: "Metro Bayi A.S.",
+      customerType: "DEALER" as const,
+      dealerName: "Metro Bayi A.S.",
+      country: "Turkey",
+      market: "MENA",
+      vehicleModel: "CityStar 12E",
+      vehicleVariant: "Standard",
+      vehicleType: "BUS" as const,
+      powertrain: "ELECTRIC" as const,
+      quantity: 10,
+      priority: "HIGH" as const,
+      status: "IN_PRODUCTION" as const,
+      plannedProductionDate: new Date("2026-05-01"),
+      plannedProductionWeek: "2026-W18",
+      plannedDeliveryDate: new Date("2026-07-15"),
+      productionOrderNo: "PO-2026-0095",
+      companyId: oemEnterpriseCompany.id,
+      createdById: "oem-enterprise-admin",
+      externalVisible: true,
+      externalStatus: "IN_PRODUCTION" as const,
+      externalStatusNote: "Your vehicles are currently in production. We will notify you when they are ready for dispatch.",
+      dealerCompanyId: dealerCompany.id,
+    },
+    {
+      id: "lo-012",
+      orderNumber: "LO-00012",
+      customerName: "Metro Bayi A.S.",
+      customerType: "DEALER" as const,
+      dealerName: "Metro Bayi A.S.",
+      country: "Turkey",
+      market: "MENA",
+      vehicleModel: "Hauler T18",
+      vehicleType: "TRUCK" as const,
+      powertrain: "DIESEL" as const,
+      quantity: 3,
+      priority: "NORMAL" as const,
+      status: "READY_FOR_DISPATCH" as const,
+      plannedDeliveryDate: new Date("2026-06-01"),
+      companyId: oemEnterpriseCompany.id,
+      createdById: "oem-enterprise-admin",
+      externalVisible: true,
+      externalStatus: "READY_FOR_DISPATCH" as const,
+      externalStatusNote: "Your vehicles are ready and will be dispatched soon.",
+      dealerCompanyId: dealerCompany.id,
+    },
+    {
+      id: "lo-013",
+      orderNumber: "LO-00013",
+      customerName: "Akdeniz Distributor",
+      customerType: "DISTRIBUTOR" as const,
+      distributorName: "Akdeniz Distributor",
+      country: "Turkey",
+      market: "MENA",
+      vehicleModel: "CityStar 9M",
+      vehicleVariant: "Midibus",
+      vehicleType: "MIDIBUS" as const,
+      powertrain: "DIESEL" as const,
+      quantity: 8,
+      priority: "NORMAL" as const,
+      status: "DISPATCHED" as const,
+      plannedDeliveryDate: new Date("2026-05-20"),
+      companyId: oemEnterpriseCompany.id,
+      createdById: "oem-enterprise-admin",
+      externalVisible: true,
+      externalStatus: "IN_TRANSIT" as const,
+      externalStatusNote: "Your order is in transit. Estimated arrival in 5-7 business days.",
+      distributorCompanyId: distributorCompany.id,
+    },
+    {
+      id: "lo-014",
+      orderNumber: "LO-00014",
+      customerName: "Metro Bayi A.S.",
+      customerType: "DEALER" as const,
+      dealerName: "Metro Bayi A.S.",
+      country: "Turkey",
+      market: "MENA",
+      vehicleModel: "VoltRunner LT4",
+      vehicleType: "LIGHT_TRUCK" as const,
+      powertrain: "ELECTRIC" as const,
+      quantity: 5,
+      priority: "NORMAL" as const,
+      status: "DELIVERED" as const,
+      plannedDeliveryDate: new Date("2026-04-01"),
+      companyId: oemEnterpriseCompany.id,
+      createdById: "oem-enterprise-admin",
+      externalVisible: true,
+      externalStatus: "DELIVERED" as const,
+      externalStatusNote: "Your vehicles have been delivered. Please confirm receipt.",
+      dealerCompanyId: dealerCompany.id,
+      deliveredAt: new Date("2026-04-01"),
+    },
   ];
 
   for (const order of logisticOrders) {
@@ -2151,6 +2283,38 @@ async function main() {
       create: order,
     });
   }
+
+  // ── Update existing orders with external visibility ──────────────────
+  console.log("\n🔓 Setting external visibility on existing orders...\n");
+
+  await prisma.plantLogisticOrder.update({
+    where: { id: "lo-006" },
+    data: {
+      externalVisible: true,
+      externalStatus: "READY_FOR_DISPATCH",
+      externalStatusNote: "Your vehicle is ready and will be dispatched soon.",
+      dealerCompanyId: dealerCompany.id,
+    },
+  });
+
+  await prisma.plantLogisticOrder.update({
+    where: { id: "lo-007" },
+    data: {
+      externalVisible: true,
+      externalStatus: "IN_TRANSIT",
+      externalStatusNote: "Your order is in transit to the destination.",
+      distributorCompanyId: distributorCompany.id,
+    },
+  });
+
+  await prisma.plantLogisticOrder.update({
+    where: { id: "lo-008" },
+    data: {
+      externalVisible: true,
+      externalStatus: "DELIVERED",
+      externalStatusNote: "Your vehicles have been delivered. Please confirm receipt.",
+    },
+  });
 
   // Seed logistic order events
   const logisticEvents = [
@@ -2548,6 +2712,27 @@ async function main() {
       dealerOrDistributorName: "LateShip Logistics",
       trackingReference: null,
       notes: "Rail transport planned. Pending unblock from production delay.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "dis-lo-013",
+      orderId: "lo-013",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: "DIS-2026-060",
+      carrierName: "Mediterranean Logistics",
+      transportMode: "ROAD" as const,
+      status: "IN_TRANSIT" as const,
+      plannedLoadingDate: new Date("2026-05-10"),
+      actualLoadingDate: new Date("2026-05-12"),
+      estimatedArrivalDate: new Date("2026-05-25"),
+      actualArrivalDate: null,
+      deliveredAt: null,
+      destinationCountry: "Turkey",
+      destinationCity: "Istanbul",
+      dealerOrDistributorName: "Akdeniz Distributor",
+      trackingReference: "TR-2026-060-MED",
+      notes: null,
       createdById: "oem-enterprise-admin",
       updatedById: "oem-enterprise-admin",
     },

@@ -10,6 +10,8 @@ datasource db {
 enum CompanyType {
   OEM
   SUPPLIER
+  DEALER
+  DISTRIBUTOR
 }
 
 enum Role {
@@ -269,6 +271,18 @@ enum DispatchStatus {
   ARRIVED
   DELIVERED
   CANCELLED
+}
+
+enum ExternalOrderStatus {
+  ORDER_RECEIVED
+  PRODUCTION_PLANNED
+  IN_PRODUCTION
+  QUALITY_CHECK
+  READY_FOR_DISPATCH
+  DISPATCHED
+  IN_TRANSIT
+  DELIVERED
+  ON_HOLD
 }
 
 enum ProductionMilestoneGate {
@@ -560,6 +574,8 @@ model Company {
   productionMilestones PlantLogisticProductionMilestone[] @relation("MilestoneCompany")
   yardStatuses       PlantLogisticYardStatus[]  @relation("YardStatusCompany")
   dispatches          PlantLogisticDispatch[]    @relation("DispatchCompany")
+  logisticOrdersAsDealer     PlantLogisticOrder[] @relation("LogisticOrdersDealer")
+  logisticOrdersAsDistributor PlantLogisticOrder[] @relation("LogisticOrdersDistributor")
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -1448,6 +1464,13 @@ model PlantLogisticOrder {
   productionOrderNo     String?                  @map("production_order_no")
   salesOrderNo          String?                  @map("sales_order_no")
   notes                 String?
+  externalVisible       Boolean                  @default(false) @map("external_visible")
+  externalStatus        ExternalOrderStatus?     @map("external_status")
+  externalStatusNote    String?                  @map("external_status_note")
+  dealerCompanyId       String?                  @map("dealer_company_id")
+  dealerCompany         Company?                 @relation("LogisticOrdersDealer", fields: [dealerCompanyId], references: [id])
+  distributorCompanyId  String?                  @map("distributor_company_id")
+  distributorCompany    Company?                 @relation("LogisticOrdersDistributor", fields: [distributorCompanyId], references: [id])
   createdById           String                   @map("created_by_id")
   createdBy             User                     @relation("LogisticOrderCreatedBy", fields: [createdById], references: [id])
   updatedById           String?                  @map("updated_by_id")
@@ -1470,6 +1493,9 @@ model PlantLogisticOrder {
   @@index([companyId, customerName])
   @@index([companyId, vin])
   @@index([companyId, chassisNumber])
+  @@index([companyId, externalVisible])
+  @@index([dealerCompanyId, externalVisible])
+  @@index([distributorCompanyId, externalVisible])
   @@map("plant_logistic_orders")
 }
 

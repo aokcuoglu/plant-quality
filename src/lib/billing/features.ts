@@ -446,6 +446,9 @@ function getCompanyModules(companyId: string, companyType: string): ModuleKey[] 
   if (companyType === "SUPPLIER") {
     return ["PLANT_QUALITY_MODULE"]
   }
+  if (companyType === "DEALER" || companyType === "DISTRIBUTOR") {
+    return []
+  }
   const entitlements = DEMO_MODULE_ENTITLEMENTS[companyId]
   if (entitlements) return entitlements
   return ["PLANT_QUALITY_MODULE", "PLANT_LOGISTIC_MODULE"]
@@ -453,6 +456,7 @@ function getCompanyModules(companyId: string, companyType: string): ModuleKey[] 
 
 export function checkModuleAccess(moduleKey: ModuleKey, companyId: string, companyType: string): boolean {
   if (moduleKey === "PLANT_QUALITY_MODULE") return true
+  if (companyType === "DEALER" || companyType === "DISTRIBUTOR") return false
   const entitlement = MODULE_ENTITLEMENTS[moduleKey]
   if (!entitlement) return false
   if (companyType === "SUPPLIER" && !entitlement.supplierAccess) return false

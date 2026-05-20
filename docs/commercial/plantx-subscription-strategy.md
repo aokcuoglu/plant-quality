@@ -1,6 +1,6 @@
-# PlantX Subscription Strategy v3.3.2
+# PlantX Subscription Strategy v3.4.0
 
-> Last updated: 2026-05-19
+> Last updated: 2026-05-20
 
 ## Current Implementation
 
@@ -25,7 +25,8 @@ PlantX uses a **two-layer access control** system:
 | PlantQuality is always active | Every company gets PlantQuality. `checkModuleAccess("PLANT_QUALITY_MODULE", ...)` always returns `true`. |
 | PlantLogistic requires entitlement | `DEMO_MODULE_ENTITLEMENTS` determines which demo companies get PlantLogistic. Non-demo OEM companies default to both modules. |
 | Suppliers never see PlantLogistic | Supplier users are restricted to `PLANT_QUALITY_MODULE` only. |
-| AppSwitcher respects entitlements | Shows Active/Live/Locked/Soon based on module access and liveness. |
+| Dealers/Distributors are participants | Dealer and distributor companies have no module subscriptions. Their access to PlantLogistic is through the external portal, controlled by order-level visibility assignments (`externalVisible`, `dealerCompanyId`, `distributorCompanyId`). |
+| AppSwitcher respects entitlements | Shows Active/Live/Locked/Soon based on module access and liveness. Dealers/Distributors see only PlantLogistic portal; Suppliers see only PlantQuality. |
 
 ### Current Module Entitlement (Config-Based)
 
@@ -200,8 +201,8 @@ model CompanyModuleSubscription {
 | OEM Admin | Full access | If entitled | Future | Future |
 | OEM User | Plan-gated | If entitled | Future | Future |
 | Supplier User | Supplier Portal only | **No access** | Future | Future |
-| Dealer (future) | No access | Limited visibility | Future | Future |
-| Distributor (future) | No access | Limited visibility | Future | Future |
+| Dealer | No access | Portal (limited visibility) | Future | Future |
+| Distributor | No access | Portal (limited visibility) | Future | Future |
 | Carrier (future) | No access | Dispatch only | Future | Future |
 
 ### PlantQuality Supplier Portal
@@ -210,16 +211,22 @@ model CompanyModuleSubscription {
 - They see assigned defects, field quality, PPAPs, IQC, FMEA (plan-gated).
 - They do **not** see PlantLogistic, executive dashboards, or other OEM-only features.
 
-### PlantLogistic External Persona Plans (Future)
+### PlantLogistic External Persona Access (v3.4.0+)
 
-| Persona | Access Level | v3.3.2 Status |
+| Persona | Access Level | v3.4.0 Status |
 |---------|-------------|---------------|
-| Dealer | Order tracking, delivery confirmation | Not implemented |
-| Distributor | Order visibility, regional tracking | Not implemented |
+| Dealer | Portal: order tracking, delivery status, ETA | **Implemented** |
+| Distributor | Portal: order visibility, regional tracking | **Implemented** |
 | Customer | Limited delivery status view | Not implemented |
 | Carrier / Logistics Partner | Dispatch updates, proof of delivery | Not implemented |
 
-These external personas are deferred to v3.4.0 (Dealer/Distributor Portal) and later versions.
+**Dealer/Distributor Portal Access Model:**
+- Dealer and distributor users are **external participants**, not module subscribers.
+- Their access is controlled by order-level visibility assignments (`externalVisible`, `dealerCompanyId`, `distributorCompanyId`).
+- OEM company owns the PlantLogistic module subscription.
+- Dealer/distributor users see only orders explicitly assigned to their company via the dealer/distributor company relation.
+- Access is read-only; they cannot create orders, change status, or modify internal data.
+- Sensitive internal data (VIN, chassis, production details, quality hold root cause, internal notes) is masked from portal view.
 
 ---
 

@@ -1,3 +1,80 @@
+# PlantX v3.4.0 — PlantLogistic Dealer / Distributor Portal MVP
+
+**Release Date:** 2026-05-20  
+**Version:** 3.4.0
+
+---
+
+## Dealer / Distributor Portal
+
+- **New:** External dealer and distributor portal at `/logistic/portal`, `/logistic/portal/orders`, and `/logistic/portal/orders/[id]`.
+- **New:** `CompanyType` enum extended with `DEALER` and `DISTRIBUTOR` values for external user personas.
+- **New:** `ExternalOrderStatus` enum for safe external status display (ORDER_RECEIVED, PRODUCTION_PLANNED, IN_PRODUCTION, QUALITY_CHECK, READY_FOR_DISPATCH, DISPATCHED, IN_TRANSIT, DELIVERED, ON_HOLD).
+- **New:** `PlantLogisticOrder` fields: `dealerCompanyId`, `distributorCompanyId`, `externalVisible`, `externalStatus`, `externalStatusNote` — linking orders to external companies and controlling visibility.
+- **New:** Portal dashboard with summary cards showing total, in production, ready for dispatch, in transit, and delivered order counts scoped to the logged-in dealer/distributor.
+- **New:** Portal order list page with filtered external-visible orders only, showing order number, vehicle, quantity, external status, delivery ETA, dispatch summary, and last updated date.
+- **New:** Portal order detail page with safe external view: vehicle details, delivery/dispatch information, external timeline, and OEM note — with all internal-sensitive data masked (VIN, chassis, production order #, sales order #, notes, delay reasons, quality hold details, supplier info).
+- **New:** External status mapping from internal `LogisticOrderStatus` and `DispatchStatus` to `ExternalOrderStatus` with safe labels.
+
+## OEM External Visibility Assignment
+
+- **New:** External Visibility section on OEM order detail page with:
+  - Toggle to make order visible to external users
+  - Dealer company selector (dropdown of DEALER companies)
+  - Distributor company selector (dropdown of DISTRIBUTOR companies)
+  - External status override dropdown (auto-derived or manually set)
+  - OEM note field for messages visible to dealer/distributor users
+- **New:** `updateOrderExternalVisibility` server action for OEM users to manage external access.
+
+## Access Control & Tenant Isolation
+
+- **New:** Proxy middleware routes dealer/distributor users to `/logistic/portal`, suppliers to `/quality/supplier`, and OEM users to their respective modules.
+- **New:** Supplier users are denied access to `/logistic/portal` (redirect to `/quality/supplier`).
+- **New:** Dealer/distributor users cannot access internal `/logistic/orders` (redirect to `/logistic/portal` for dealer/distributor, `/quality/supplier` for supplier).
+- **New:** Direct URL protection: dealer/distributor users can only view orders where their companyId matches the order's `dealerCompanyId` or `distributorCompanyId`.
+- **New:** Portal server actions enforce session-based companyId scoping — client-provided company IDs are ignored.
+- **New:** Module entitlement: dealer/distributor companies have no module subscriptions; portal access is controlled by order-level visibility assignments, not subscription ownership.
+
+## Navigation & Module Switcher
+
+- **Updated:** Dashboard layout detects dealer/distributor users and renders portal navigation (Overview, My Orders).
+- **Updated:** AppSwitcher hides PlantLogistic for dealer/distributor users (they're already on the portal), hides PlantQuality for dealer/distributor users, and hides PlantLogistic for supplier users.
+
+## Demo Seed Data
+
+- **New:** Dealer company: "Metro Bayi A.S." (`dealer-company`, CompanyType: DEALER)
+- **New:** Distributor company: "Akdeniz Distributor" (`distributor-company`, CompanyType: DISTRIBUTOR)
+- **New:** Dealer admin user: `admin@metrodealer.com`
+- **New:** Distributor admin user: `admin@akdenizdist.com`
+- **New:** 4 external-visible orders (LO-00011, LO-00012, LO-00013, LO-00014) with dealer/distributor assignments.
+- **Updated:** 3 existing orders (LO-00006, LO-00007, LO-00008) now have `externalVisible=true` with assignments.
+- **Updated:** Login page dropdown includes dealer and distributor accounts.
+
+## Prisma Schema
+
+- `CompanyType` enum: added `DEALER`, `DISTRIBUTOR`
+- `ExternalOrderStatus` enum: new
+- `PlantLogisticOrder`: added `dealerCompanyId`, `distributorCompanyId`, `externalVisible`, `externalStatus`, `externalStatusNote` fields
+- `Company`: added `logisticOrdersAsDealer`, `logisticOrdersAsDistributor` relations
+- New indexes on `(dealerCompanyId, externalVisible)` and `(distributorCompanyId, externalVisible)`
+
+## Deferred to v3.5.0+
+
+- Dealer self-service order creation
+- Dealer comments/messaging
+- Dealer document upload
+- External carrier portal
+- Real email notification
+- ERP/MRP integration
+- Payment/billing integration
+- PlantQuality integration
+- AI prediction
+- Mobile app
+- Advanced SLA/Delay Intelligence (v3.5.0)
+- Broad redesign
+
+---
+
 # PlantX v3.3.2 — Settings Shell Context + Module Purchase Flow Polish
 
 **Release Date:** 2026-05-19  

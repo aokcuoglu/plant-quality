@@ -18,14 +18,49 @@ const PROTECTED_API_PREFIXES = [
   "/api/logistic",
 ]
 
+function isDealerOrDistributor(companyType: string | null | undefined): boolean {
+  return companyType === "DEALER" || companyType === "DISTRIBUTOR"
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const session = await auth()
 
   if (session && (pathname === "/login" || pathname === "/verify-request")) {
-    const dest = session.user.companyType === "OEM" ? "/quality/oem" : "/quality/supplier"
+    const companyType = session.user.companyType
+    let dest: string
+    if (companyType === "OEM") {
+      dest = "/quality/oem"
+    } else if (isDealerOrDistributor(companyType)) {
+      dest = "/logistic/portal"
+    } else {
+      dest = "/quality/supplier"
+    }
     const redirectUrl = request.nextUrl.clone()
     redirectUrl.pathname = dest
+    redirectUrl.search = ""
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  if (pathname.startsWith("/logistic/portal")) {
+    if (!session) {
+      const loginUrl = request.nextUrl.clone()
+      loginUrl.pathname = "/login"
+      loginUrl.searchParams.set("redirect", pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+    const { companyType } = session.user
+    if (isDealerOrDistributor(companyType)) {
+      return NextResponse.next()
+    }
+    if (companyType === "OEM") {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = "/logistic"
+      redirectUrl.search = ""
+      return NextResponse.redirect(redirectUrl)
+    }
+    const redirectUrl = request.nextUrl.clone()
+    redirectUrl.pathname = "/quality/supplier"
     redirectUrl.search = ""
     return NextResponse.redirect(redirectUrl)
   }
@@ -38,7 +73,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl)
     }
     if (session.user.companyType !== "OEM") {
-      const dest = "/quality/supplier"
+      const dest = isDealerOrDistributor(session.user.companyType) ? "/logistic/portal" : "/quality/supplier"
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = dest
       redirectUrl.search = ""
@@ -65,6 +100,16 @@ export async function proxy(request: NextRequest) {
 
     if (isProtectedApi && !session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    if (pathname.startsWith("/api/logistic/portal")) {
+      if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      }
+      if (!isDealerOrDistributor(session.user.companyType)) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      }
+      return NextResponse.next()
     }
 
     if (pathname.startsWith("/api/logistic")) {

@@ -166,24 +166,71 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 - Subscription strategy documentation created
 - QA checklist for module switcher and subscription
 
-**External Persona Clarification:**
+---
 
-PlantLogistic does **not** support external personas in v3.3.1. The following are planned for future versions:
-
-| Persona | Access Level | Target Version |
-|---------|-------------|-----------------|
-| Dealer | Order tracking, delivery confirmation | v3.4.0 |
-| Distributor | Order visibility, regional tracking | v3.4.0 |
-| Customer | Limited delivery status view | v5.x |
-| Carrier / Logistics Partner | Dispatch updates, proof of delivery | v5.x |
-
-Supplier users continue to use PlantQuality's supplier portal and do **not** have access to PlantLogistic.
+## v3.4.0 — Dealer / Distributor Portal MVP
 
 **Scope:**
-- Limited external visibility for customers
-- Order status, ETA, and document checklist
-- No internal sensitive data exposed
-- Customer self-service order tracking
+- `CompanyType` enum extended with `DEALER` and `DISTRIBUTOR`
+- `ExternalOrderStatus` enum for safe external status mapping
+- `PlantLogisticOrder` fields: `dealerCompanyId`, `distributorCompanyId`, `externalVisible`, `externalStatus`, `externalStatusNote`
+- Dealer/Distributor portal route group: `/logistic/portal`, `/logistic/portal/orders`, `/logistic/portal/orders/[id]`
+- Portal layout with simplified nav (Overview, My Orders)
+- Portal dashboard with summary cards (total, in production, ready for dispatch, in transit, delivered)
+- Portal order list with filtered visibility (only externalVisible=true, scoped by company)
+- Portal order detail with masked internal data
+- External status mapping from internal order/dispatch status
+- OEM order detail External Visibility section with toggle, dealer/distributor selector, status override, note
+- Proxy middleware: dealer/distributor users → /logistic/portal; supplier → /quality/supplier; OEM → /logistic
+- Proxy middleware: supplier users denied from /logistic/portal
+- Portal server actions with strict tenant isolation (session-based companyId scoping)
+- Direct URL protection: dealer/distributor cannot access another company's orders
+- AppSwitcher updated: dealer/distributor see only PlantLogistic; supplier does not see PlantLogistic
+- Dashboard layout updated: portal nav for dealer/distributor users
+- Demo seed data: dealer company (Metro Bayi A.S.), distributor company (Akdeniz Distributor), 4 visible orders + 3 updated orders
+- Module entitlement: dealer/distributor companies have no module entitlements (participant model, not subscriber)
+- Sensitive data masking: VIN, chassis, production order number, sales order number, internal notes, delay reason, quality hold, milestone details hidden from portal
+- Portal timeline shows only external-safe events (STATUS_CHANGED, DISPATCH_*, ORDER_CREATED)
+- Prisma migration for new fields and enum values
+- QA checklist for dealer/distributor portal
+- Commercial docs updated with participant model clarification
+- Package version bumped to 3.4.0
+
+**New data models:**
+- `ExternalOrderStatus` enum: ORDER_RECEIVED, PRODUCTION_PLANNED, IN_PRODUCTION, QUALITY_CHECK, READY_FOR_DISPATCH, DISPATCHED, IN_TRANSIT, DELIVERED, ON_HOLD
+- `CompanyType` enum values: DEALER, DISTRIBUTOR (added)
+- `PlantLogisticOrder` new fields: dealerCompanyId (FK), distributorCompanyId (FK), externalVisible (boolean), externalStatus (enum), externalStatusNote (text)
+
+**New server actions:**
+- `getPortalOrders`: dealer/distributor-scoped order list
+- `getPortalOrderDetail`: dealer/distributor-scoped single order
+- `getPortalOrderTimeline`: filtered external-safe timeline
+- `getPortalDashboardStats`: dealer/distributor dashboard metric counts
+- `updateOrderExternalVisibility`: OEM action for external visibility settings
+
+**External status mapping:**
+- DRAFT/SUBMITTED/COMMERCIAL_REVIEW → ORDER_RECEIVED
+- APPROVED/WAITING_PRODUCTION_PLAN/PLANNED → PRODUCTION_PLANNED
+- IN_PRODUCTION → IN_PRODUCTION
+- QUALITY_HOLD → QUALITY_CHECK
+- READY_FOR_DISPATCH → READY_FOR_DISPATCH
+- DISPATCHED → IN_TRANSIT (order status-based)
+- DELIVERED/CLOSED → DELIVERED
+- CANCELLED/REJECTED → ON_HOLD
+
+**Excluded (deferred to v3.5.0+):**
+- Dealer self-service order creation
+- Dealer comments/messaging
+- Dealer document upload
+- External carrier portal
+- Real email notification
+- ERP/MRP integration
+- Payment/billing integration
+- PlantQuality integration
+- AI prediction
+- Mobile app
+- Advanced SLA/Delay Intelligence (v3.5.0)
+- Broad redesign
 
 ---
 

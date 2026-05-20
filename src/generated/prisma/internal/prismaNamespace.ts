@@ -4035,6 +4035,11 @@ export const PlantLogisticOrderScalarFieldEnum = {
   productionOrderNo: 'productionOrderNo',
   salesOrderNo: 'salesOrderNo',
   notes: 'notes',
+  externalVisible: 'externalVisible',
+  externalStatus: 'externalStatus',
+  externalStatusNote: 'externalStatusNote',
+  dealerCompanyId: 'dealerCompanyId',
+  distributorCompanyId: 'distributorCompanyId',
   createdById: 'createdById',
   updatedById: 'updatedById',
   approvedAt: 'approvedAt',
@@ -4838,6 +4843,20 @@ export type EnumLogisticOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'LogisticOrderStatus[]'
  */
 export type ListEnumLogisticOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ExternalOrderStatus'
+ */
+export type EnumExternalOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExternalOrderStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ExternalOrderStatus[]'
+ */
+export type ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExternalOrderStatus[]'>
     
 
 

@@ -64,6 +64,11 @@ const LOGISTIC_NAV: NavItem[] = [
   { href: "/logistic/orders/new", label: "New Order", icon: "PlusCircleIcon" as const, gate: "PLANT_LOGISTIC" },
 ]
 
+const LOGISTIC_PORTAL_NAV: NavItem[] = [
+  { href: "/logistic/portal", label: "Overview", icon: "LayoutDashboardIcon" as const },
+  { href: "/logistic/portal/orders", label: "My Orders", icon: "PackageIcon" as const },
+]
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { session, loading } = useSession()
   const pathname = usePathname()
@@ -80,25 +85,41 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const isOem = session.user.companyType === "OEM"
   const isOemAdmin = isOem && session.user.role === "ADMIN"
-  const isLogisticRoute = isOem && pathname.startsWith("/logistic")
+  const isPortalUser = session.user.companyType === "DEALER" || session.user.companyType === "DISTRIBUTOR"
+  const isPortalRoute = pathname.startsWith("/logistic/portal")
+  const isLogisticRoute = isOem && pathname.startsWith("/logistic") && !isPortalRoute
 
-  const moduleConfig: ModuleConfig = isLogisticRoute
-    ? {
-        name: "Logistic",
-        suffix: "Logistic",
-        icon: TruckIcon,
-        navItems: LOGISTIC_NAV,
-        defaultHref: "/logistic",
-      }
-    : {
-        name: "Quality",
-        suffix: "Quality",
-        icon: Factory,
-        navItems: isOem ? QUALITY_OEM_NAV : QUALITY_SUPPLIER_NAV,
-        defaultHref: isOem ? "/quality/oem" : "/quality/supplier",
-      }
+  let moduleConfig: ModuleConfig
+  let plantXModule: "quality" | "logistic" | null
 
-  const plantXModule: "quality" | "logistic" | null = isLogisticRoute ? "logistic" : "quality"
+  if (isPortalRoute && isPortalUser) {
+    moduleConfig = {
+      name: "Logistic Portal",
+      suffix: "Logistic",
+      icon: TruckIcon,
+      navItems: LOGISTIC_PORTAL_NAV,
+      defaultHref: "/logistic/portal",
+    }
+    plantXModule = "logistic"
+  } else if (isLogisticRoute) {
+    moduleConfig = {
+      name: "Logistic",
+      suffix: "Logistic",
+      icon: TruckIcon,
+      navItems: LOGISTIC_NAV,
+      defaultHref: "/logistic",
+    }
+    plantXModule = "logistic"
+  } else {
+    moduleConfig = {
+      name: "Quality",
+      suffix: "Quality",
+      icon: Factory,
+      navItems: isOem ? QUALITY_OEM_NAV : QUALITY_SUPPLIER_NAV,
+      defaultHref: isOem ? "/quality/oem" : "/quality/supplier",
+    }
+    plantXModule = "quality"
+  }
 
   const navItems = moduleConfig.navItems
   const planNavItem = isOemAdmin ? { href: isLogisticRoute ? "/logistic/settings/plan" : "/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined

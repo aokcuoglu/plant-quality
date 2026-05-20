@@ -11,7 +11,9 @@
 
 export const CompanyType = {
   OEM: 'OEM',
-  SUPPLIER: 'SUPPLIER'
+  SUPPLIER: 'SUPPLIER',
+  DEALER: 'DEALER',
+  DISTRIBUTOR: 'DISTRIBUTOR'
 } as const
 
 export type CompanyType = (typeof CompanyType)[keyof typeof CompanyType]
@@ -346,6 +348,21 @@ export const DispatchStatus = {
 } as const
 
 export type DispatchStatus = (typeof DispatchStatus)[keyof typeof DispatchStatus]
+
+
+export const ExternalOrderStatus = {
+  ORDER_RECEIVED: 'ORDER_RECEIVED',
+  PRODUCTION_PLANNED: 'PRODUCTION_PLANNED',
+  IN_PRODUCTION: 'IN_PRODUCTION',
+  QUALITY_CHECK: 'QUALITY_CHECK',
+  READY_FOR_DISPATCH: 'READY_FOR_DISPATCH',
+  DISPATCHED: 'DISPATCHED',
+  IN_TRANSIT: 'IN_TRANSIT',
+  DELIVERED: 'DELIVERED',
+  ON_HOLD: 'ON_HOLD'
+} as const
+
+export type ExternalOrderStatus = (typeof ExternalOrderStatus)[keyof typeof ExternalOrderStatus]
 
 
 export const ProductionMilestoneGate = {

@@ -978,6 +978,13 @@ export type EnumLogisticOrderStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel> | $Enums.LogisticOrderStatus
 }
 
+export type EnumExternalOrderStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExternalOrderStatus | Prisma.EnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumExternalOrderStatusNullableFilter<$PrismaModel> | $Enums.ExternalOrderStatus | null
+}
+
 export type EnumLogisticOrderCustomerTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.LogisticOrderCustomerType | Prisma.EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
   in?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
@@ -1026,6 +1033,16 @@ export type EnumLogisticOrderStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
+}
+
+export type EnumExternalOrderStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExternalOrderStatus | Prisma.EnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumExternalOrderStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ExternalOrderStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumExternalOrderStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumExternalOrderStatusNullableFilter<$PrismaModel>
 }
 
 export type EnumLogisticOrderEventTypeFilter<$PrismaModel = never> = {
@@ -2042,6 +2059,13 @@ export type NestedEnumLogisticOrderStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel> | $Enums.LogisticOrderStatus
 }
 
+export type NestedEnumExternalOrderStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExternalOrderStatus | Prisma.EnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumExternalOrderStatusNullableFilter<$PrismaModel> | $Enums.ExternalOrderStatus | null
+}
+
 export type NestedEnumLogisticOrderCustomerTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.LogisticOrderCustomerType | Prisma.EnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
   in?: $Enums.LogisticOrderCustomerType[] | Prisma.ListEnumLogisticOrderCustomerTypeFieldRefInput<$PrismaModel>
@@ -2090,6 +2114,16 @@ export type NestedEnumLogisticOrderStatusWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLogisticOrderStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumExternalOrderStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExternalOrderStatus | Prisma.EnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ExternalOrderStatus[] | Prisma.ListEnumExternalOrderStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumExternalOrderStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ExternalOrderStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumExternalOrderStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumExternalOrderStatusNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumLogisticOrderEventTypeFilter<$PrismaModel = never> = {

@@ -16,6 +16,7 @@ import { MilestoneActions } from "./milestone-actions"
 import { SeedMilestonesButton } from "./seed-milestones-button"
 import { YardStatusSection } from "./yard-status-section"
 import { DispatchSection } from "./dispatch-section"
+import { ExternalVisibilitySection } from "./external-visibility-section"
 import Link from "next/link"
 import { ArrowLeft, Factory, AlertTriangle } from "lucide-react"
 
@@ -39,6 +40,8 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
     include: {
       createdBy: { select: { name: true, email: true } },
       updatedBy: { select: { name: true } },
+      dealerCompany: { select: { id: true, name: true } },
+      distributorCompany: { select: { id: true, name: true } },
       events: {
         orderBy: { createdAt: "desc" },
         include: { actor: { select: { name: true } } },
@@ -58,6 +61,19 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
   })
 
   if (!order) notFound()
+
+  const [dealerCompanies, distributorCompanies] = await Promise.all([
+    prisma.company.findMany({
+      where: { type: "DEALER" },
+      select: { id: true, name: true },
+      orderBy: { name: "asc" },
+    }),
+    prisma.company.findMany({
+      where: { type: "DISTRIBUTOR" },
+      select: { id: true, name: true },
+      orderBy: { name: "asc" },
+    }),
+  ])
 
   const nextStatuses = getNextStatuses(order.status)
   const isDelayed = order.plannedDeliveryDate && order.plannedDeliveryDate < new Date() && !["DELIVERED", "CLOSED", "CANCELLED", "REJECTED"].includes(order.status)
@@ -286,6 +302,17 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
       </div>
 
       <DispatchSection dispatches={order.dispatches} orderId={order.id} />
+
+      <ExternalVisibilitySection
+        orderId={order.id}
+        externalVisible={order.externalVisible}
+        externalStatus={order.externalStatus}
+        externalStatusNote={order.externalStatusNote}
+        dealerCompanyId={order.dealerCompanyId}
+        distributorCompanyId={order.distributorCompanyId}
+        dealerCompanies={dealerCompanies}
+        distributorCompanies={distributorCompanies}
+      />
 
       <section className="rounded-lg border bg-card p-4">
         <div className="mb-4 flex items-center justify-between">

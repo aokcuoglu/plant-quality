@@ -63,6 +63,7 @@ const MODULE_DESCRIPTIONS: Record<string, string> = {
 const MODULE_HREFS: Record<string, string> = {
   quality: "/quality/oem",
   logistic: "/logistic",
+  logisticPortal: "/logistic/portal",
 }
 
 interface AppModule {
@@ -121,6 +122,7 @@ interface AppSwitcherProps {
 export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userCompanyType = "OEM", userCompanyId = "" }: AppSwitcherProps) {
   const companyType = userCompanyType ?? "OEM"
   const companyId = userCompanyId ?? ""
+  const isPortalUser = companyType === "DEALER" || companyType === "DISTRIBUTOR"
 
   return (
     <DropdownMenu>
@@ -143,10 +145,20 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
           {apps.map((app) => {
             const Icon = MODULE_ICONS[app.id] ?? ShieldCheck
             const description = MODULE_DESCRIPTIONS[app.id] ?? app.name
-            const href = app.moduleKey ? MODULE_HREFS[app.id] : undefined
 
-            if (app.moduleKey && !app.supplierVisible && companyType === "SUPPLIER") {
+            if (isPortalUser && app.id === "logistic") {
               return null
+            }
+            if (!app.supplierVisible && companyType === "SUPPLIER") {
+              return null
+            }
+
+            let href: string | undefined
+            if (isPortalUser && app.id === "quality") {
+              return null
+            }
+            if (app.moduleKey) {
+              href = MODULE_HREFS[app.id]
             }
 
             const badge = getModuleBadge(app.id, app.moduleKey, currentModule, companyId, companyType)

@@ -13,7 +13,7 @@
 
 ## Portal Dashboard/List/Detail Status Consistency
 
-- **New:** `getExternalOrderStatus()` helper for consistent external status resolution across dashboard stats, order list, and order detail. Uses `externalStatus` override when present, falls back to `mapToExternalStatus()`.
+- **New:** `getExternalOrderStatus()` helper for consistent external status resolution. Uses `externalStatus` override when present, falls back to `mapToExternalStatus()`. Portal actions (`getPortalOrders`, `getPortalOrderDetail`, `getPortalDashboardStats`) already use the same `externalStatus ?? mapToExternalStatus()` pattern — the helper consolidates this logic for future reuse.
 - **New:** `getExternalOrderStatusLabel()` convenience helper combining status resolution with label lookup.
 - **New:** `getExternalEta()` helper for consistent ETA resolution (favoring dispatch estimated arrival over planned delivery date).
 
@@ -55,8 +55,9 @@
 
 ## PlantQuality Regression
 
-- No PlantQuality schema, actions, pages, or components modified.
-- All PlantQuality features remain fully functional.
+- One PlantQuality page file was touched for lint compliance only: `src/app/(dashboard)/quality/oem/defects/new/page.tsx` — unused `Supplier` interface renamed to `_Supplier`. No behavioral change.
+- No PlantQuality functional regression. All PlantQuality features remain fully functional.
+- No PlantQuality workflow behavior changed.
 - No cross-module data leakage.
 
 ---

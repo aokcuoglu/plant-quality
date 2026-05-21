@@ -854,7 +854,6 @@ async function main() {
     },
   ];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   for (const fmea of fmeas) {
     await prisma.fmea.upsert({
       where: { id: fmea.id },
@@ -1245,7 +1244,6 @@ async function main() {
     ],
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.fmea.upsert({
     where: { id: isolationFmea.id },
     update: {},
@@ -1484,7 +1482,6 @@ async function main() {
     ],
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.fmea.upsert({
     where: { id: entFmea.id },
     update: {},
@@ -2321,9 +2318,8 @@ async function main() {
   console.log("=== Dealer / Distributor Portal Seed Summary ===");
   console.log(`Dealer company: ${dealerCompany.name} (${dealerCompany.id})`);
   console.log(`Distributor company: ${distributorCompany.name} (${distributorCompany.id})`);
-  console.log("Dealer visible orders: LO-00006, LO-00011, LO-00012, LO-00014 (4 orders)");
+  console.log("Dealer visible orders: LO-00006, LO-00008, LO-00011, LO-00012, LO-00014 (5 orders)");
   console.log("Distributor visible orders: LO-00007, LO-00013 (2 orders)");
-  console.log("LO-00008 visible to dealer (assigned via dealerCompanyId)");
   console.log("");
 
   // Seed logistic order events

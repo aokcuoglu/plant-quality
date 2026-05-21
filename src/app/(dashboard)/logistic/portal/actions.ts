@@ -3,7 +3,7 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { isDealerUser, isDistributorUser, isPortalUser, isOemUser } from "@/lib/logistic/portal-access"
-import { mapToExternalStatus } from "@/lib/logistic/external-status"
+import { getExternalOrderStatus } from "@/lib/logistic/external-status"
 import type { ExternalOrderStatus } from "@/lib/logistic/external-status"
 
 const AUTH_ERROR = "Authentication required"
@@ -64,7 +64,7 @@ export async function getPortalOrders() {
 
   const result = orders.map((order) => {
     const latestDispatch = order.dispatches[0]
-    const externalStatus: ExternalOrderStatus = order.externalStatus ?? mapToExternalStatus(order.status, latestDispatch?.status ?? null)
+    const externalStatus = getExternalOrderStatus(order.status, order.externalStatus, latestDispatch?.status ?? null)
 
     return {
       id: order.id,
@@ -166,7 +166,7 @@ export async function getPortalOrderDetail(orderId: string) {
   if (!order) return { error: NOT_FOUND }
 
   const latestDispatch = order.dispatches[0]
-  const externalStatus: ExternalOrderStatus = order.externalStatus ?? mapToExternalStatus(order.status, latestDispatch?.status ?? null)
+  const externalStatus = getExternalOrderStatus(order.status, order.externalStatus, latestDispatch?.status ?? null)
 
   return {
     data: {
@@ -300,7 +300,7 @@ export async function getPortalDashboardStats() {
 
   for (const order of orders) {
     total++
-    const es = order.externalStatus ?? mapToExternalStatus(order.status, order.dispatches[0]?.status ?? null)
+    const es = getExternalOrderStatus(order.status, order.externalStatus, order.dispatches[0]?.status ?? null)
     switch (es) {
       case "IN_PRODUCTION":
         inProduction++

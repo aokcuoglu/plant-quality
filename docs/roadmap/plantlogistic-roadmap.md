@@ -234,6 +234,21 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
+## v3.4.1 — Dealer Portal UX + Access Polish
+
+**Scope:**
+- Direct URL denial UX hardening: portal users accessing unauthorized orders receive `notFound()` instead of redirect, preventing data existence leakage
+- Portal server actions: `getPortalOrderDetail` and `getPortalOrderTimeline` return `NOT_FOUND` for both access denied and not found, eliminating data leak vectors
+- Portal dashboard empty state: "No visible orders yet" with "Contact your OEM" message when dashboard has zero visible orders
+- Shared external status helpers: `getExternalOrderStatus()`, `getExternalOrderStatusLabel()`, `getExternalEta()` added for consistent status resolution across dashboard, list, and detail
+- AppSwitcher: dealer/distributor users now see only PlantLogistic in the module switcher — all other modules (Quality, Dock, Quote, etc.) are completely hidden
+- Seed data fix: LO-00008 now has `dealerCompanyId` assigned (was dangling with `externalVisible=true` but no assignment)
+- Seed output clarity: dealer/distributor portal seed summary logged with company IDs, visible order counts, and persona mapping
+- Lint cleanup: unused `companyId` variable removed from `portal-access.ts`, unused `Supplier` interface fixed in defect form
+- No new product scope
+
+---
+
 ## v3.5.0 — SLA + Delay Intelligence
 
 **Scope:**

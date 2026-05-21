@@ -87,6 +87,31 @@ export function labelForExternalDispatchStatus(v: string): string {
   return EXTERNAL_DISPATCH_STATUS_LABELS[v] ?? v
 }
 
+export function getExternalOrderStatus(
+  orderStatus: LogisticOrderStatus,
+  externalStatusOverride: ExternalOrderStatus | null | undefined,
+  dispatchStatus?: DispatchStatus | null
+): ExternalOrderStatus {
+  return externalStatusOverride ?? mapToExternalStatus(orderStatus, dispatchStatus)
+}
+
+export function getExternalOrderStatusLabel(
+  orderStatus: LogisticOrderStatus,
+  externalStatusOverride: ExternalOrderStatus | null | undefined,
+  dispatchStatus?: DispatchStatus | null
+): string {
+  return labelForExternalStatus(getExternalOrderStatus(orderStatus, externalStatusOverride, dispatchStatus))
+}
+
+export function getExternalEta(
+  plannedDeliveryDate: Date | string | null,
+  dispatchEstimatedArrival: Date | string | null
+): Date | null {
+  if (dispatchEstimatedArrival) return dispatchEstimatedArrival instanceof Date ? dispatchEstimatedArrival : new Date(dispatchEstimatedArrival)
+  if (plannedDeliveryDate) return plannedDeliveryDate instanceof Date ? plannedDeliveryDate : new Date(plannedDeliveryDate)
+  return null
+}
+
 export const PORTAL_VISIBLE_ORDER_FIELDS = {
   orderNumber: true,
   customerName: true,

@@ -2313,8 +2313,18 @@ async function main() {
       externalVisible: true,
       externalStatus: "DELIVERED",
       externalStatusNote: "Your vehicles have been delivered. Please confirm receipt.",
+      dealerCompanyId: dealerCompany.id,
     },
   });
+
+  console.log("");
+  console.log("=== Dealer / Distributor Portal Seed Summary ===");
+  console.log(`Dealer company: ${dealerCompany.name} (${dealerCompany.id})`);
+  console.log(`Distributor company: ${distributorCompany.name} (${distributorCompany.id})`);
+  console.log("Dealer visible orders: LO-00006, LO-00011, LO-00012, LO-00014 (4 orders)");
+  console.log("Distributor visible orders: LO-00007, LO-00013 (2 orders)");
+  console.log("LO-00008 visible to dealer (assigned via dealerCompanyId)");
+  console.log("");
 
   // Seed logistic order events
   const logisticEvents = [

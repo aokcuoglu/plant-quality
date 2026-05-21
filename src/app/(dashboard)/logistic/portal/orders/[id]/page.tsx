@@ -20,8 +20,7 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
   ])
 
   if ("error" in orderResult) {
-    if (orderResult.error === "Order not found") notFound()
-    redirect("/logistic/portal/orders")
+    notFound()
   }
 
   const order = orderResult.data

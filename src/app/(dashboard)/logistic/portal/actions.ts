@@ -15,7 +15,7 @@ export async function getPortalOrders() {
   if (!session?.user) return { error: AUTH_ERROR }
 
   const { companyId, companyType } = session.user
-  if (!isPortalUser(companyType)) return { error: ACCESS_ERROR }
+  if (!isPortalUser(companyType)) return { error: NOT_FOUND }
 
   const where = {
     externalVisible: true,
@@ -107,7 +107,7 @@ export async function getPortalOrderDetail(orderId: string) {
   if (!session?.user) return { error: AUTH_ERROR }
 
   const { companyId, companyType } = session.user
-  if (!isPortalUser(companyType)) return { error: ACCESS_ERROR }
+  if (!isPortalUser(companyType)) return { error: NOT_FOUND }
 
   const where: Record<string, unknown> = {
     id: orderId,
@@ -199,7 +199,7 @@ export async function getPortalOrderTimeline(orderId: string) {
   if (!session?.user) return { error: AUTH_ERROR }
 
   const { companyId, companyType } = session.user
-  if (!isPortalUser(companyType)) return { error: ACCESS_ERROR }
+  if (!isPortalUser(companyType)) return { error: NOT_FOUND }
 
   const where: Record<string, unknown> = {
     id: orderId,
@@ -269,7 +269,7 @@ export async function getPortalDashboardStats() {
   if (!session?.user) return { error: AUTH_ERROR }
 
   const { companyId, companyType } = session.user
-  if (!isPortalUser(companyType)) return { error: ACCESS_ERROR }
+  if (!isPortalUser(companyType)) return { error: NOT_FOUND }
 
   const where = {
     externalVisible: true,

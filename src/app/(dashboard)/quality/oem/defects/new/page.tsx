@@ -6,7 +6,7 @@ import { getSuppliers } from "../queries"
 import { NewDefectForm } from "./form"
 import { PageHeader } from "@/components/layout/PageHeader"
 
-interface Supplier {
+interface _Supplier {
   id: string
   name: string
   users: { id: string; name: string | null; email: string }[]

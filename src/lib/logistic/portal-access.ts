@@ -56,7 +56,7 @@ export function requireOemLogisticAccess(
   if (!session?.user) {
     return { allowed: false, reason: "Authentication required." }
   }
-  const { companyType, companyId } = session.user
+  const { companyType } = session.user
   if (isOemUser(companyType)) {
     return { allowed: true, reason: null }
   }

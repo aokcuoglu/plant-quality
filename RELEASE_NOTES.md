@@ -1,3 +1,66 @@
+# PlantX v3.4.1 — Dealer Portal UX + Access Polish
+
+**Release Date:** 2026-05-21  
+**Version:** 3.4.1
+
+---
+
+## Direct URL Denial UX Hardening
+
+- **Fixed:** Portal order detail page now uses `notFound()` for all unauthorized access scenarios, preventing data existence leakage. Previously, `getPortalOrderDetail` returned distinct error messages ("Access denied" vs. "Order not found"), which could leak whether an order exists.
+- **Fixed:** All portal server actions (`getPortalOrders`, `getPortalOrderDetail`, `getPortalOrderTimeline`, `getPortalDashboardStats`) now return `NOT_FOUND` instead of `ACCESS_ERROR` for non-portal users. This ensures cross-tenant access attempts receive the same response as genuinely missing resources.
+- **Fixed:** Portal order detail redirect on error replaced with `notFound()` call — users cannot distinguish between "not your order" and "doesn't exist".
+
+## Portal Dashboard/List/Detail Status Consistency
+
+- **New:** `getExternalOrderStatus()` helper for consistent external status resolution across dashboard stats, order list, and order detail. Uses `externalStatus` override when present, falls back to `mapToExternalStatus()`.
+- **New:** `getExternalOrderStatusLabel()` convenience helper combining status resolution with label lookup.
+- **New:** `getExternalEta()` helper for consistent ETA resolution (favoring dispatch estimated arrival over planned delivery date).
+
+## Portal Empty/Error State Polish
+
+- **New:** Dashboard empty state for zero visible orders — "No visible orders yet" with "Contact your OEM for order visibility assignment" message and `Inbox` icon.
+- Dashboard cards are hidden when total is zero; shown only when orders exist.
+
+## AppSwitcher External User Behavior
+
+- **Fixed:** Dealer/distributor users now see **only** PlantLogistic in the AppSwitcher. All other modules (PlantQuality, PlantDock, PlantQuote, etc.) are completely hidden — not shown as "Locked" or "Soon", just hidden. Previously, future modules were visible as "Soon" to portal users, which was confusing.
+- **Verified:** Supplier users do not see PlantLogistic in AppSwitcher (unchanged).
+- **Verified:** OEM users see both modules based on entitlement (unchanged).
+
+## Seed Data & Clarity
+
+- **Fixed:** LO-00008 seed order now has `dealerCompanyId = dealer-company`. Previously had `externalVisible=true` with no dealer/distributor assignment, making it unreachable by any portal query — a dangling external-visible order.
+- **New:** Seed output includes dealer/distributor portal summary section showing company IDs, visible order counts per persona.
+- **Verified:** Seed is idempotent — existing data is not overwritten.
+
+## Lint & Dead Code Cleanup
+
+- **Fixed:** Unused `companyId` variable removed from `requireOemLogisticAccess()` in `portal-access.ts` (previously `const { companyType, companyId } = session.user` with unused `companyId`).
+- **Fixed:** Unused `Supplier` interface in defect form page renamed to `_Supplier` per eslint convention.
+- **Verified:** Zero lint warnings and zero TypeScript errors.
+
+## Security & Access
+
+- **Verified:** Dealer sees only orders scoped by `dealerCompanyId`.
+- **Verified:** Distributor sees only orders scoped by `distributorCompanyId`.
+- **Verified:** Dealer cannot access distributor's orders (returns 404/not-found).
+- **Verified:** Distributor cannot access dealer's orders (returns 404/not-found).
+- **Verified:** Orders with `externalVisible=false` are invisible to all portal users.
+- **Verified:** Supplier cannot access `/logistic/portal` (redirected to `/quality/supplier`).
+- **Verified:** Dealer/distributor cannot access internal `/logistic/orders` (redirected via proxy).
+- **Verified:** OEM internal PlantLogistic works unchanged.
+- **Verified:** Client-provided companyId/dealerCompanyId/distributorCompanyId never trusted — always sourced from session.
+- **Verified:** No data existence leakage through error message differentiation.
+
+## PlantQuality Regression
+
+- No PlantQuality schema, actions, pages, or components modified.
+- All PlantQuality features remain fully functional.
+- No cross-module data leakage.
+
+---
+
 # PlantX v3.4.0 — PlantLogistic Dealer / Distributor Portal MVP
 
 **Release Date:** 2026-05-20  

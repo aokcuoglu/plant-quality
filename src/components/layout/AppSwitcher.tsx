@@ -167,7 +167,7 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                 </DropdownMenuItem>
               )
             }
-            if (isPortalUser && app.id === "quality") {
+            if (isPortalUser) {
               return null
             }
             if (!app.supplierVisible && companyType === "SUPPLIER") {

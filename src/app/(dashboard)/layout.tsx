@@ -62,6 +62,7 @@ const LOGISTIC_NAV: NavItem[] = [
   { href: "/logistic", label: "Overview", icon: "LayoutDashboardIcon" as const, gate: "PLANT_LOGISTIC" },
   { href: "/logistic/orders", label: "Vehicle Orders", icon: "TruckIcon" as const, gate: "PLANT_LOGISTIC" },
   { href: "/logistic/orders/new", label: "New Order", icon: "PlusCircleIcon" as const, gate: "PLANT_LOGISTIC" },
+  { href: "/logistic/delay-intelligence", label: "Delay Intelligence", icon: "AlertTriangleIcon" as const, gate: "PLANT_LOGISTIC" },
 ]
 
 const LOGISTIC_PORTAL_NAV: NavItem[] = [

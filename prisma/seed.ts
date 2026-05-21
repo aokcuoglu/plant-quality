@@ -2271,6 +2271,54 @@ async function main() {
       dealerCompanyId: dealerCompany.id,
       deliveredAt: new Date("2026-04-01"),
     },
+    {
+      id: "lo-015",
+      orderNumber: "LO-00015",
+      customerName: "Danube Express S.R.L.",
+      customerType: "CUSTOMER" as const,
+      country: "Romania",
+      market: "EU",
+      vehicleModel: "CityStar 12E",
+      vehicleVariant: "Standard",
+      vehicleType: "BUS" as const,
+      powertrain: "ELECTRIC" as const,
+      quantity: 6,
+      priority: "HIGH" as const,
+      status: "DISPATCHED" as const,
+      requestedDeliveryDate: new Date("2026-05-10"),
+      plannedDeliveryDate: new Date("2026-05-01"),
+      vin: "WVGZZZ999ZR000715",
+      chassisNumber: "CH-2026-0715-E",
+      productionOrderNo: "PO-2026-0200",
+      companyId: oemEnterpriseCompany.id,
+      createdById: "oem-enterprise-admin",
+      notes: "ETA overdue — dispatch delayed. Carrier communication issue. Customer notified.",
+    },
+    {
+      id: "lo-016",
+      orderNumber: "LO-00016",
+      customerName: "Metro Bayi A.S.",
+      customerType: "DEALER" as const,
+      dealerName: "Metro Bayi A.S.",
+      country: "Turkey",
+      market: "MENA",
+      vehicleModel: "Hauler T26",
+      vehicleType: "TRUCK" as const,
+      powertrain: "DIESEL" as const,
+      quantity: 3,
+      priority: "HIGH" as const,
+      status: "IN_PRODUCTION" as const,
+      requestedDeliveryDate: new Date("2026-05-18"),
+      plannedDeliveryDate: new Date("2026-05-15"),
+      productionOrderNo: "PO-2026-0210",
+      companyId: oemEnterpriseCompany.id,
+      createdById: "oem-enterprise-admin",
+      externalVisible: true,
+      externalStatus: "ON_HOLD" as const,
+      externalStatusNote: "There is a slight delay in your order. Our team is working on resolving it. Please contact your OEM representative for updates.",
+      dealerCompanyId: dealerCompany.id,
+      notes: "AT_RISK — requested delivery overdue. Milestone Assembly behind schedule.",
+    },
   ];
 
   for (const order of logisticOrders) {
@@ -2318,8 +2366,16 @@ async function main() {
   console.log("=== Dealer / Distributor Portal Seed Summary ===");
   console.log(`Dealer company: ${dealerCompany.name} (${dealerCompany.id})`);
   console.log(`Distributor company: ${distributorCompany.name} (${distributorCompany.id})`);
-  console.log("Dealer visible orders: LO-00006, LO-00008, LO-00011, LO-00012, LO-00014 (5 orders)");
+  console.log("Dealer visible orders: LO-00006, LO-00008, LO-00011, LO-00012, LO-00014, LO-00016 (6 orders)");
   console.log("Distributor visible orders: LO-00007, LO-00013 (2 orders)");
+  console.log("");
+  console.log("=== SLA + Delay Intelligence Demo Scenarios ===");
+  console.log("LO-00005: BLOCKED — quality hold, paint defect, yard blocked");
+  console.log("LO-00010: DELAYED — production milestone blocked, delivery overdue");
+  console.log("LO-00015: DELAYED — ETA overdue, dispatch delayed");
+  console.log("LO-00016: AT_RISK — delivery deadline close, assembly behind schedule (dealer-visible with safe external status)");
+  console.log("LO-00004: ON_TRACK — in production, milestones progressing");
+  console.log("LO-00008: DELIVERED — completed order");
   console.log("");
 
   // Seed logistic order events
@@ -2484,6 +2540,27 @@ async function main() {
     updatedById: null,
   }))
 
+  // LO-016: Metro Bayi — IN_PRODUCTION, assembly milestone delayed (AT_RISK demo)
+  const lo016Milestones = defaultGates.map((gate, i) => ({
+    id: `lo-016-ms-${i + 1}`,
+    orderId: "lo-016",
+    companyId: oemEnterpriseCompany.id,
+    sequence: i + 1,
+    gate: gate as ProductionMilestoneGate,
+    title: defaultTitles[i],
+    status: i < 2 ? "COMPLETED" as ProductionMilestoneStatus : i === 2 ? "IN_PROGRESS" as ProductionMilestoneStatus : "NOT_STARTED" as ProductionMilestoneStatus,
+    plannedStart: i < 3 ? msPast(40 - i * 7) : msFuture(i * 5),
+    plannedFinish: i < 3 ? msPast(33 - i * 7) : msFuture(7 + i * 5),
+    actualStart: i < 3 ? msPast(39 - i * 7) : null,
+    actualFinish: i < 2 ? msPast(32 - i * 7) : null,
+    responsibleDepartment: i === 2 ? "Assembly" : null,
+    delayReason: null,
+    qualityHold: false,
+    notes: null,
+    createdById: "oem-enterprise-admin",
+    updatedById: i < 3 ? "oem-enterprise-admin" : null,
+  }))
+
   const allMilestones = [
     ...lo003Milestones,
     ...lo004Milestones,
@@ -2491,6 +2568,7 @@ async function main() {
     ...lo006Milestones,
     ...lo008Milestones,
     ...lo010Milestones,
+    ...lo016Milestones,
   ]
 
   for (const ms of allMilestones) {
@@ -2601,6 +2679,19 @@ async function main() {
       lastMovementAt: new Date("2026-05-10T16:00:00Z"),
       notes: "Vehicle still in production — paint stage blocked.",
       createdById: "oem-enterprise-admin",
+    },
+    {
+      id: "ys-015",
+      orderId: "lo-015",
+      companyId: oemEnterpriseCompany.id,
+      yardLocation: "Yard C, Zone E2",
+      parkingSlot: "C-15",
+      readyForDispatch: true,
+      blockedForDispatch: false,
+      lastMovementAt: new Date("2026-04-28T09:00:00Z"),
+      notes: "Vehicle ready for dispatch. Carrier delay.",
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
     },
   ];
 
@@ -2739,6 +2830,27 @@ async function main() {
       dealerOrDistributorName: "Akdeniz Distributor",
       trackingReference: "TR-2026-060-MED",
       notes: null,
+      createdById: "oem-enterprise-admin",
+      updatedById: "oem-enterprise-admin",
+    },
+    {
+      id: "disp-015",
+      orderId: "lo-015",
+      companyId: oemEnterpriseCompany.id,
+      dispatchBatchNo: "DIS-2026-075",
+      carrierName: "Balkan Freight Ltd.",
+      transportMode: "ROAD" as const,
+      status: "IN_TRANSIT" as const,
+      plannedLoadingDate: new Date("2026-05-08"),
+      actualLoadingDate: new Date("2026-05-09"),
+      estimatedArrivalDate: new Date("2026-05-18"),
+      actualArrivalDate: null,
+      deliveredAt: null,
+      destinationCountry: "Romania",
+      destinationCity: "Bucharest",
+      dealerOrDistributorName: "Danube Express S.R.L.",
+      trackingReference: "BF-2026-0075",
+      notes: "ETA was May 18 — carrier reports transit delay. No updated ETA.",
       createdById: "oem-enterprise-admin",
       updatedById: "oem-enterprise-admin",
     },

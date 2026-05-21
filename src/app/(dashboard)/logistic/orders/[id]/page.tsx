@@ -6,6 +6,7 @@ import { getNextStatuses } from "@/lib/logistic/status"
 import { labelForCustomerType, labelForVehicleType, labelForPowertrain, labelForPriority } from "@/lib/logistic/types"
 import { labelForGate } from "@/lib/logistic/milestone-types"
 import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
+import { getOrderSlaSummary, type OrderSlaInput } from "@/lib/logistic/sla"
 import { StatusBadge } from "../../status-badge"
 import { MilestoneStatusBadge, MilestoneGateBadge } from "../../milestone-badge"
 import { ChangeStatusButton } from "./change-status-button"
@@ -17,6 +18,7 @@ import { SeedMilestonesButton } from "./seed-milestones-button"
 import { YardStatusSection } from "./yard-status-section"
 import { DispatchSection } from "./dispatch-section"
 import { ExternalVisibilitySection } from "./external-visibility-section"
+import { DelayRiskPanel } from "./delay-risk-panel"
 import Link from "next/link"
 import { ArrowLeft, Factory, AlertTriangle } from "lucide-react"
 
@@ -93,6 +95,44 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
     return Number.isFinite(days) ? days : null
   })()
 
+  const slaInput: OrderSlaInput = {
+    id: order.id,
+    orderNumber: order.orderNumber,
+    status: order.status,
+    requestedDeliveryDate: order.requestedDeliveryDate,
+    plannedDeliveryDate: order.plannedDeliveryDate,
+    deliveredAt: order.deliveredAt,
+    closedAt: order.closedAt,
+    externalVisible: order.externalVisible,
+    externalStatus: order.externalStatus,
+    externalStatusNote: order.externalStatusNote,
+    milestones: order.milestones.map((m) => ({
+      id: m.id,
+      gate: m.gate,
+      title: m.title,
+      status: m.status,
+      plannedFinish: m.plannedFinish,
+      qualityHold: m.qualityHold,
+      responsibleDepartment: m.responsibleDepartment,
+      delayReason: m.delayReason,
+    })),
+    yardStatus: order.yardStatus
+      ? {
+          readyForDispatch: order.yardStatus.readyForDispatch,
+          blockedForDispatch: order.yardStatus.blockedForDispatch,
+          blockReason: order.yardStatus.blockReason,
+          lastMovementAt: order.yardStatus.lastMovementAt,
+        }
+      : null,
+    dispatches: order.dispatches.map((d) => ({
+      id: d.id,
+      status: d.status,
+      plannedLoadingDate: d.plannedLoadingDate,
+      estimatedArrivalDate: d.estimatedArrivalDate,
+    })),
+  }
+  const slaSummary = getOrderSlaSummary(slaInput)
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
@@ -126,6 +166,8 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
           </div>
         )}
       </div>
+
+      <DelayRiskPanel summary={slaSummary} />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
         <div className="space-y-6">

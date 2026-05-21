@@ -7,6 +7,7 @@ import { labelForCustomerType, labelForPriority } from "@/lib/logistic/types"
 import { labelForGate } from "@/lib/logistic/milestone-types"
 import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
 import { DISPATCH_STATUS_LABELS } from "@/lib/logistic/dispatch-status"
+import { getOrderSlaSummary, SLA_STATUS_LABELS as SLA_LABELS, type OrderSlaInput } from "@/lib/logistic/sla"
 import Link from "next/link"
 import { PlusCircle, TruckIcon } from "lucide-react"
 import { StatusBadge } from "../status-badge"
@@ -59,10 +60,14 @@ export default async function LogisticOrdersPage({
             status: true,
             qualityHold: true,
             sequence: true,
+            title: true,
+            plannedFinish: true,
+            responsibleDepartment: true,
+            delayReason: true,
           },
         },
-        yardStatus: { select: { yardLocation: true, parkingSlot: true, readyForDispatch: true, blockedForDispatch: true } },
-        dispatches: { select: { status: true, carrierName: true, estimatedArrivalDate: true }, take: 1, orderBy: { createdAt: "desc" } },
+        yardStatus: { select: { yardLocation: true, parkingSlot: true, readyForDispatch: true, blockedForDispatch: true, blockReason: true, lastMovementAt: true } },
+        dispatches: { select: { id: true, status: true, plannedLoadingDate: true, estimatedArrivalDate: true, carrierName: true }, take: 1, orderBy: { createdAt: "desc" } },
       },
   })
 
@@ -141,16 +146,54 @@ export default async function LogisticOrdersPage({
                   <th className="px-4 py-3 text-left">Yard</th>
                   <th className="px-4 py-3 text-left">Dispatch</th>
                   <th className="px-4 py-3 text-left">Delivery Target</th>
+                  <th className="px-4 py-3 text-left">SLA</th>
                   <th className="px-4 py-3 text-left">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {orders.map((order) => {
-                  const progress = calculateProductionProgress(order.milestones)
-                  const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
-                  const hasHold = order.milestones.some(m => m.qualityHold)
+                   const progress = calculateProductionProgress(order.milestones)
+                   const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
+                   const hasHold = order.milestones.some(m => m.qualityHold)
   const milestonesCompleted = !currentMs && allMilestonesResolved(order.milestones)
-                  return (
+                   const slaInput: OrderSlaInput = {
+                     id: order.id,
+                     orderNumber: order.orderNumber,
+                     status: order.status,
+                     requestedDeliveryDate: order.requestedDeliveryDate,
+                     plannedDeliveryDate: order.plannedDeliveryDate,
+                     deliveredAt: order.deliveredAt,
+                     closedAt: order.closedAt,
+                     externalVisible: order.externalVisible,
+                     externalStatus: order.externalStatus,
+                     externalStatusNote: order.externalStatusNote,
+                     milestones: order.milestones.map((m) => ({
+                       id: m.id,
+                       gate: m.gate,
+                       title: m.title ?? m.gate,
+                       status: m.status,
+                       plannedFinish: m.plannedFinish,
+                       qualityHold: m.qualityHold,
+                       responsibleDepartment: m.responsibleDepartment,
+                       delayReason: m.delayReason,
+                     })),
+                     yardStatus: order.yardStatus
+                       ? {
+                           readyForDispatch: order.yardStatus.readyForDispatch,
+                           blockedForDispatch: order.yardStatus.blockedForDispatch,
+                           blockReason: order.yardStatus.blockReason ?? null,
+                           lastMovementAt: order.yardStatus.lastMovementAt,
+                         }
+                       : null,
+                     dispatches: order.dispatches.map((d) => ({
+                       id: d.id,
+                       status: d.status,
+                       plannedLoadingDate: d.plannedLoadingDate,
+                       estimatedArrivalDate: d.estimatedArrivalDate,
+                     })),
+                   }
+                   const sla = getOrderSlaSummary(slaInput)
+                   return (
                     <tr key={order.id} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
                         <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
@@ -203,6 +246,22 @@ export default async function LogisticOrdersPage({
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {order.plannedDeliveryDate ? order.plannedDeliveryDate.toLocaleDateString() : order.requestedDeliveryDate ? order.requestedDeliveryDate.toLocaleDateString() : "—"}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                          sla.slaStatus === "DELAYED" ? "bg-red-500/10 text-red-600" :
+                          sla.slaStatus === "BLOCKED" ? "bg-red-500/10 text-red-700" :
+                          sla.slaStatus === "AT_RISK" ? "bg-amber-500/10 text-amber-600" :
+                          sla.slaStatus === "DELIVERED" ? "bg-green-500/10 text-green-600" :
+                          "bg-emerald-500/10 text-emerald-600"
+                        }`}>
+                          {SLA_LABELS[sla.slaStatus]}
+                        </span>
+                        {sla.daysUntilOrOverdue !== 0 && sla.slaStatus !== "DELIVERED" && (
+                          <span className={`ml-1 text-[10px] ${sla.daysUntilOrOverdue < 0 ? "text-destructive" : "text-amber-600"}`}>
+                            {sla.daysUntilOrOverdue < 0 ? `${Math.abs(sla.daysUntilOrOverdue)}d overdue` : `${sla.daysUntilOrOverdue}d`}
+                          </span>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">{order.createdAt.toLocaleDateString()}</td>
                     </tr>

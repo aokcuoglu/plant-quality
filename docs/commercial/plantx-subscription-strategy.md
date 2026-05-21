@@ -1,6 +1,6 @@
-# PlantX Subscription Strategy v3.4.0
+# PlantX Subscription Strategy v3.5.0
 
-> Last updated: 2026-05-20
+> Last updated: 2026-05-21
 
 ## Current Implementation
 
@@ -215,8 +215,8 @@ model CompanyModuleSubscription {
 
 | Persona | Access Level | v3.4.0 Status |
 |---------|-------------|---------------|
-| Dealer | Portal: order tracking, delivery status, ETA | **Implemented** |
-| Distributor | Portal: order visibility, regional tracking | **Implemented** |
+| Dealer | Portal: order tracking, delivery status, ETA, safe delay visibility | **Implemented** |
+| Distributor | Portal: order visibility, regional tracking, safe delay visibility | **Implemented** |
 | Customer | Limited delivery status view | Not implemented |
 | Carrier / Logistics Partner | Dispatch updates, proof of delivery | Not implemented |
 

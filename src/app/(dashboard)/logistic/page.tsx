@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
 import { calculateProductionProgress } from "@/lib/logistic/milestone-status"
+import { getOrderSlaSummary, type OrderSlaInput } from "@/lib/logistic/sla"
 import Link from "next/link"
 import { PlusCircle, TruckIcon, Factory, AlertTriangle, Clock, PackageCheck, Wrench, ShieldAlert, MapPin, Ban, Ship } from "lucide-react"
 import { StatusBadge } from "./status-badge"
@@ -136,6 +137,90 @@ export default async function LogisticDashboardPage() {
 
   const _delayedCount = delayedOrders.length
 
+  const allActiveOrders = await prisma.plantLogisticOrder.findMany({
+    where: {
+      companyId,
+      status: { notIn: ["CLOSED", "CANCELLED", "REJECTED"] },
+    },
+    include: {
+      milestones: {
+        orderBy: { sequence: "asc" },
+        select: {
+          id: true,
+          gate: true,
+          title: true,
+          status: true,
+          plannedFinish: true,
+          qualityHold: true,
+          responsibleDepartment: true,
+          delayReason: true,
+        },
+      },
+      yardStatus: {
+        select: {
+          readyForDispatch: true,
+          blockedForDispatch: true,
+          blockReason: true,
+          lastMovementAt: true,
+        },
+      },
+      dispatches: {
+        select: {
+          id: true,
+          status: true,
+          plannedLoadingDate: true,
+          estimatedArrivalDate: true,
+        },
+        orderBy: { createdAt: "desc" },
+      },
+    },
+  })
+
+  const slaSummaries = allActiveOrders.map((order) => {
+    const input: OrderSlaInput = {
+      id: order.id,
+      orderNumber: order.orderNumber,
+      status: order.status,
+      requestedDeliveryDate: order.requestedDeliveryDate,
+      plannedDeliveryDate: order.plannedDeliveryDate,
+      deliveredAt: order.deliveredAt,
+      closedAt: order.closedAt,
+      externalVisible: order.externalVisible,
+      externalStatus: order.externalStatus,
+      externalStatusNote: order.externalStatusNote,
+      milestones: order.milestones.map((m) => ({
+        id: m.id,
+        gate: m.gate,
+        title: m.title,
+        status: m.status,
+        plannedFinish: m.plannedFinish,
+        qualityHold: m.qualityHold,
+        responsibleDepartment: m.responsibleDepartment,
+        delayReason: m.delayReason,
+      })),
+      yardStatus: order.yardStatus
+        ? {
+            readyForDispatch: order.yardStatus.readyForDispatch,
+            blockedForDispatch: order.yardStatus.blockedForDispatch,
+            blockReason: order.yardStatus.blockReason,
+            lastMovementAt: order.yardStatus.lastMovementAt,
+          }
+        : null,
+      dispatches: order.dispatches.map((d) => ({
+        id: d.id,
+        status: d.status,
+        plannedLoadingDate: d.plannedLoadingDate,
+        estimatedArrivalDate: d.estimatedArrivalDate,
+      })),
+    }
+    return getOrderSlaSummary(input)
+  })
+
+  const slaDelayedCount = slaSummaries.filter((s) => s.slaStatus === "DELAYED").length
+  const slaAtRiskCount = slaSummaries.filter((s) => s.slaStatus === "AT_RISK").length
+  const slaBlockedCount = slaSummaries.filter((s) => s.slaStatus === "BLOCKED").length
+  const slaEtaOverdueCount = slaSummaries.filter((s) => s.delayCategory === "ETA_OVERDUE").length
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -143,13 +228,22 @@ export default async function LogisticDashboardPage() {
           <h1 className="text-xl font-semibold tracking-tight text-foreground">PlantLogistic</h1>
           <p className="text-sm text-muted-foreground">Vehicle Order & Delivery Control Tower</p>
         </div>
-        <Link
-          href="/logistic/orders/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
-        >
-          <PlusCircle className="size-4" />
-          New Order
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/logistic/delay-intelligence"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+          >
+            <AlertTriangle className="size-4" />
+            Delay Intelligence
+          </Link>
+          <Link
+            href="/logistic/orders/new"
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+          >
+            <PlusCircle className="size-4" />
+            New Order
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
@@ -173,6 +267,33 @@ export default async function LogisticDashboardPage() {
           value={qualityHoldCount}
           icon={AlertTriangle}
           color={qualityHoldCount > 0 ? "destructive" : "muted"}
+        />
+      </div>
+
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-4">
+        <SummaryCard
+          title="SLA Delayed"
+          value={slaDelayedCount}
+          icon={AlertTriangle}
+          color={slaDelayedCount > 0 ? "destructive" : "muted"}
+        />
+        <SummaryCard
+          title="At Risk"
+          value={slaAtRiskCount}
+          icon={Clock}
+          color={slaAtRiskCount > 0 ? "warning" : "muted"}
+        />
+        <SummaryCard
+          title="Blocked"
+          value={slaBlockedCount}
+          icon={Ban}
+          color={slaBlockedCount > 0 ? "destructive" : "muted"}
+        />
+        <SummaryCard
+          title="ETA Overdue"
+          value={slaEtaOverdueCount}
+          icon={Ship}
+          color={slaEtaOverdueCount > 0 ? "destructive" : "muted"}
         />
       </div>
 

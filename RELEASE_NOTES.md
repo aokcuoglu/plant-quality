@@ -1,4 +1,117 @@
-# PlantX v3.4.1 — Dealer Portal UX + Access Polish
+# PlantX v3.5.0 — PlantLogistic SLA + Delay Intelligence
+
+**Release Date:** 2026-05-21  
+**Version:** 3.5.0
+
+---
+
+## SLA Status & Risk Level Calculation
+
+- **New:** Deterministic rule-based SLA status for every vehicle order: `ON_TRACK`, `AT_RISK`, `DELAYED`, `BLOCKED`, `DELIVERED`
+- **New:** Risk level determination: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL` based on overdue days, blocking conditions, and quality hold status
+- **New:** Delay category classification: `PRODUCTION_DELAY`, `MILESTONE_OVERDUE`, `QUALITY_HOLD_AGING`, `YARD_AGING`, `DISPATCH_DELAY`, `DELIVERY_RISK`, `ETA_OVERDUE`, `EXTERNAL_COMMITMENT_RISK`
+- **New:** Aging / waiting days calculations for yard vehicles and overdue milestones
+- **New:** Internal delay reason, responsible department, and suggested action text for each delayed order
+- Implementation: Pure helper functions in `src/lib/logistic/sla.ts` — no new database model required
+
+## Delay Intelligence Page
+
+- **New:** `/logistic/delay-intelligence` OEM-only page showing:
+  - KPI cards: Orders Delayed, At Risk, Blocked, Quality Hold Aging, Dispatch Overdue, ETA Overdue
+  - Risk table: order number, customer, vehicle, order status, SLA status, risk level, target date, days overdue/remaining, delay category, blocking stage, responsible department, suggested action
+  - Filters by risk level and delay category
+  - Links to order detail for each row
+- Access gated by `PLANT_LOGISTIC_MODULE` + `PLANT_LOGISTIC` feature requirement
+- Supplier and dealer/distributor users cannot access this page
+
+## Dashboard SLA & Delay Cards
+
+- **New:** Dashboard (`/logistic`) now shows 4 SLA-specific cards: SLA Delayed, At Risk, Blocked, ETA Overdue
+- **New:** "Delay Intelligence" link button added to dashboard header
+- Existing dashboard cards preserved (Active Orders, In Production, Ready for Dispatch, Quality Hold, etc.)
+
+## Order List Risk Indicators
+
+- **New:** SLA status badge column in order list (`/logistic/orders`) showing On Track / At Risk / Delayed / Blocked / Delivered
+- **New:** Days overdue or days remaining shown alongside the badge
+- Color-coded: green for On Track, amber for At Risk, red for Delayed/Blocked
+
+## Order Detail SLA & Delay Panel
+
+- **New:** `DelayRiskPanel` component on order detail page (`/logistic/orders/[id]`) showing:
+  - SLA status badge and risk level badge
+  - Target date and days overdue/remaining
+  - Blocking stage highlight (red alert if blocked)
+  - Delay category, internal reason, responsible department, suggested action
+  - Delayed milestones section with quality hold and blocked indicators
+  - Yard dispatch block section with days in yard
+  - Dispatch delay section with loading overdue and ETA overdue warnings
+- Delivered orders show compact "delivered — no active SLA tracking" message
+- ON_TRACK + LOW risk orders show compact status line
+
+## Dealer/Distributor External-Safe Delay Visibility
+
+- **New:** `ExternalDelayPanel` component on portal order detail (`/logistic/portal/orders/[id]`) showing:
+  - Safe delivery status: On Track, At Risk, Delayed, In Transit, Delivered, Contact OEM
+  - Estimated delivery date (ETA / planned delivery)
+  - OEM note (from `externalStatusNote`)
+  - Contact OEM prompt for blocked orders
+- **Privacy:** No internal delay reasons, no responsible departments, no quality hold details, no supplier/internal comments, no production milestone data visible to external users
+
+## Server Helper Functions
+
+- **New:** `src/lib/logistic/sla.ts` — comprehensive SLA calculation library:
+  - `getOrderSlaStatus()`, `getOrderRiskLevel()`, `getOrderDelayCategory()`
+  - `getOrderSlaSummary()` — consolidated summary object
+  - `getExternalDelayStatus()`, `getExternalEta()` — external-safe visibility
+  - `getDaysUntilOrOverdue()`, `getCurrentBlockingStage()`
+  - `getMilestoneDelays()`, `getYardDelay()`, `getDispatchDelays()`
+  - `getInternalDelayReason()`, `getResponsibleDepartment()`, `getSuggestedAction()`
+- All functions are pure helpers operating on existing order/milestone/yard/dispatch data — no new database model
+
+## Navigation & Access Control
+
+- **New:** "Delay Intelligence" added to logistic sidebar navigation
+- **New:** `/logistic/delay-intelligence` added to feature gate (`isFeatureGatedNav`)
+- Access requires: OEM company type + `PLANT_LOGISTIC_MODULE` entitlement + `PLANT_LOGISTIC` feature
+- Dealer/distributor users: portal routes only, cannot access Delay Intelligence
+- Supplier users: redirected away from all logistic routes
+
+## Demo Seed Data
+
+- **New:** LO-00015 "Danube Express S.R.L." — DISPATCHED order with ETA overdue (demonstrates dispatch delay detection)
+- **New:** LO-00016 "Metro Bayi A.S." — IN_PRODUCTION with assembly milestone behind schedule (demonstrates AT_RISK detection, dealer-visible with safe external status)
+- Existing LO-00005 "Iberia Bus" continues to demonstrate QUALITY_HOLD / BLOCKED scenario
+- Existing LO-00010 "LateShip Logistics" continues to demonstrate production milestone blocking + delivery overdue
+- Existing LO-007 dispatch already has past ETA (demonstrates IN_TRANSIT ETA overdue)
+- Seed output summary now includes Delay Intelligence demo scenario descriptions
+
+## Module Entitlement & Tenant Isolation
+
+- All Delay Intelligence queries scoped by `companyId` (OEM tenant)
+- Dealer/distributor portal data scoped by `dealerCompanyId` / `distributorCompanyId`
+- Supplier denial enforced at route level and server action level
+- No cross-tenant data leakage
+
+## PlantQuality Regression
+
+- No changes to PlantQuality workflows, data models, or routes
+- All existing v3.4.1 features preserved
+
+## Deferred
+
+- AI delay prediction (future)
+- Persistent alert records / acknowledge workflow (future)
+- Automated email notifications (future)
+- Dealer/distributor messaging/comments (future)
+- PlantQuality integration (v3.6.0)
+- ERP/MRP integration (future)
+- Carrier portal (future)
+- Mobile app (future)
+- PDF/Excel export (future)
+- SLA configuration UI (future)
+
+---
 
 **Release Date:** 2026-05-21  
 **Version:** 3.4.1

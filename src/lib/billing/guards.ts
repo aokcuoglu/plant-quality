@@ -68,6 +68,7 @@ export function isFeatureGatedNav(href: string): FeatureKey | null {
     "/logistic": "PLANT_LOGISTIC",
     "/logistic/orders": "PLANT_LOGISTIC",
     "/logistic/orders/new": "PLANT_LOGISTIC",
+    "/logistic/delay-intelligence": "PLANT_LOGISTIC",
   }
   return gatedNav[href] ?? null
 }

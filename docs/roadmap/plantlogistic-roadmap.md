@@ -252,11 +252,53 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 ## v3.5.0 — SLA + Delay Intelligence
 
 **Scope:**
-- Delivery SLA configuration per customer / market / vehicle type
-- Aging orders dashboard and alerts
-- Blocked vehicles tracking
-- Delay reason analytics
-- Management escalation notifications
+- Deterministic rule-based SLA status calculation for every order (ON_TRACK, AT_RISK, DELAYED, BLOCKED, DELIVERED)
+- Risk level determination (LOW, MEDIUM, HIGH, CRITICAL) based on overdue days and blocking conditions
+- Delay category classification (PRODUCTION_DELAY, MILESTONE_OVERDUE, QUALITY_HOLD_AGING, YARD_AGING, DISPATCH_DELAY, DELIVERY_RISK, ETA_OVERDUE, EXTERNAL_COMMITMENT_RISK)
+- Aging / waiting days calculations for yard vehicles
+- Stage-level delay detection: milestone overdue, quality hold aging, yard dispatch block, dispatch loading overdue, ETA overdue
+- Delay Intelligence page (`/logistic/delay-intelligence`) with KPI cards and risk table for OEM internal users
+- Dashboard SLA/Delay cards: Delayed, At Risk, Blocked, ETA Overdue counts
+- Order list SLA/Risk badge column with days overdue/remaining
+- Order detail SLA & Delay panel showing blocking stage, delay category, internal reason, responsible department, suggested action
+- Dealer/distributor external-safe delay visibility: safe status (On Track, At Risk, Delayed, In Transit, Delivered, Contact OEM) with ETA but no internal delay reasons or responsible departments
+- `src/lib/logistic/sla.ts` pure helper library with no DB model additions
+- Module entitlement / access protection: Delay Intelligence gated by PLANT_LOGISTIC_MODULE + PLANT_LOGISTIC feature
+- Tenant isolation: all queries scoped by companyId
+- Supplier denial: supplier users cannot access PlantLogistic routes
+- Dealer/distributor: cannot access Delay Intelligence internal page
+- Demo seed data: LO-00015 (dispatched, ETA overdue), LO-00016 (AT_RISK, milestone delayed, dealer-visible with safe external status)
+- Nav updated: Delay Intelligence route added to LOGISTIC_NAV
+- Feature gate: `/logistic/delay-intelligence` added to `isFeatureGatedNav`
+- No new Prisma migration (calculated helpers only)
+- No PlantQuality workflow changes
+
+**Excluded:**
+- AI delay prediction
+- Persistent alert records / acknowledge workflow
+- Automated email notifications
+- Dealer/distributor messaging/comments
+- PlantQuality integration (v3.6.0)
+- ERP/MRP integration
+- Carrier portal
+- Mobile app
+- PDF/Excel export
+- Billing/payment integration
+- Broad redesign
+- SLA configuration UI
+
+**New helper functions:**
+- `getOrderSlaStatus()`, `getOrderRiskLevel()`, `getOrderDelayCategory()`, `getOrderDelaySummary()`
+- `getExternalDelayStatus()`, `getExternalEta()`
+- `getDaysUntilOrOverdue()`, `getCurrentBlockingStage()`
+- `getMilestoneDelays()`, `getYardDelay()`, `getDispatchDelays()`
+- `getInternalDelayReason()`, `getResponsibleDepartment()`, `getSuggestedAction()`
+
+**New UI components:**
+- Delay Intelligence page: `/logistic/delay-intelligence` (Server Component, OEM-only)
+- `DelayRiskPanel`: order detail SLA & delay breakdown component
+- `ExternalDelayPanel`: portal order detail safe delay status component
+- `SlaStatusBadge` / `RiskLevelBadge`: reusable badge components
 
 ---
 

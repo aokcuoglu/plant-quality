@@ -111,7 +111,7 @@ See `docs/release/plantx-v3.0.0-readiness-checklist.md` for the complete securit
 - Free-tier AI blocked — AI routes require PRO (classification, similar issues) or ENTERPRISE (8D review, root cause)
 - Cross-tenant supplier assignment — `assertSupplierBelongsToOem` enforced across all creation/assignment actions
 - Cron scoping — `CRON_SECRET` header required; notifications are companyId-scoped
-- Middleware protection — `proxy.ts` enforces session on dashboard and protected API routes
+- Server Component / Server Action protection — session checks enforce access on all dashboard and protected API routes
 - Sidebar/nav gate alignment — all nav items have `gate` property synced with backend
 - Direct URL and Server Action access — pages redirect unauthorized users; actions return errors
 

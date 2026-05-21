@@ -28,13 +28,14 @@
 
 ## Access Control & Tenant Isolation
 
-- **New:** `src/proxy.ts` (Next.js 16 proxy) route protection routes dealer/distributor users to `/logistic/portal`, suppliers to `/quality/supplier`, and OEM users to their respective modules.
-- **New:** Supplier users are denied access to `/logistic/portal` (redirect to `/quality/supplier`).
-- **New:** `/api/logistic/portal` API routes return 401 for unauthenticated, 403 for non-dealer/distributor sessions.
-- **New:** Dealer/distributor users cannot access internal `/logistic/orders` (redirect to `/logistic/portal` for dealer/distributor, `/quality/supplier` for supplier).
-- **New:** Direct URL protection: dealer/distributor users can only view orders where their companyId matches the order's `dealerCompanyId` or `distributorCompanyId`.
+- **New:** Dealer/distributor portal access is protected by Server Component guards (`auth()` + `isPortalUser()` checks) and Server Action authorization. No runtime middleware/proxy enforcement is claimed for v3.4.0.
+- **New:** Server Components in `/logistic/portal` redirect unauthenticated or unauthorized users; Server Actions (`getPortalOrders`, `getPortalOrderDetail`, `getPortalOrderDetail`, `getPortalOrderTimeline`, `getPortalDashboardStats`) verify session and companyType before returning data.
+- **New:** `updateOrderExternalVisibility` Server Action requires OEM companyType and enforces companyId scoping.
+- **New:** Supplier users cannot access `/logistic/portal` — Server Component checks redirect to `/quality/supplier`.
+- **New:** Direct URL protection: dealer/distributor users can only view orders where their companyId matches the order's `dealerCompanyId` or `distributorCompanyId`. Data scoping is enforced in Server Action queries, not at a runtime middleware layer.
 - **New:** Portal server actions enforce session-based companyId scoping — client-provided company IDs are ignored.
 - **New:** Module entitlement: dealer/distributor companies have no module subscriptions; portal access is controlled by order-level visibility assignments, not subscription ownership.
+- **Note:** `src/proxy.ts` (Next.js 16 proxy) is present in the codebase but is not wired as active runtime middleware. Route protection for v3.4.0 is enforced at the Server Component and Server Action level. Middleware/proxy hardening may be added as future platform hardening.
 
 ## Navigation & Module Switcher
 
@@ -603,7 +604,7 @@ This patch decouples module visibility from plan tier, adds the `ModuleKey` / `M
 
 ### Route Protection
 
-- **`src/proxy.ts`**: `/logistic` routes now check `PLANT_LOGISTIC_MODULE` entitlement via `checkModuleAccess()`. `/api/logistic` returns 403 if module not entitled.
+- **Server Component guards:** `/logistic` routes check `PLANT_LOGISTIC_MODULE` entitlement via `requireModule()`. `/api/logistic` actions enforce module entitlement and companyType checks.
 - **All PlantLogistic page components**: Added `requireModule(session, "PLANT_LOGISTIC_MODULE")` before `requireFeature(session, "PLANT_LOGISTIC")`.
 - **`src/app/(dashboard)/logistic/actions.ts`**: All 6 server actions now enforce module entitlement before plan-tier check.
 
@@ -718,7 +719,7 @@ A new feature key `PLANT_LOGISTIC` has been added:
 - **Module-Aware Layout:** The dashboard layout detects the current module from the URL pathname and renders the appropriate sidebar, header breadcrumb, and module icon.
 - **AppSwitcher Access Control:** AppSwitcher now respects feature gates and company type — PlantLogistic is only shown as "Live" to ENTERPRISE OEM users. Supplier users do not see PlantLogistic at all. Free/Pro OEM see it as locked/disabled with a lock icon.
 - **Header Breadcrumb:** Shows "PlantQuality" or "PlantLogistic" dynamically based on the active module.
-- **Supplier Isolation:** Supplier users never see the PlantLogistic sidebar or nav items, even via direct URL (blocked at proxy, page, and layout levels).
+- **Supplier Isolation:** Supplier users never see the PlantLogistic sidebar or nav items, even via direct URL (blocked at page and layout levels).
 - **Feature Gate:** PlantLogistic nav items still gated by `PLANT_LOGISTIC` feature key — OEM FREE/PRO see locked items.
 - **Fixed:** PlantLogistic order list page (`/logistic/orders`) runtime crash caused by `onChange` event handler in Server Component — replaced with explicit "Apply filters" submit button.
 - **Fixed:** Feature gate navigation maps now include `/logistic/orders/new` in `OEM_NAV_FEATURE_GATES`, `isFeatureGatedNav`, and `isEnterpriseOnlyNav`.
@@ -753,7 +754,7 @@ A new feature key `PLANT_LOGISTIC` has been added:
 - Direct URL access denied for unauthorized users
 - Supplier users cannot access any PlantLogistic routes or actions
 - FREE/PRO OEM users are redirected with locked nav items
-- **Proxy-level enforcement:** `/logistic` routes blocked for non-OEM users at middleware level; `/api/logistic` API routes return 403 for non-OEM sessions
+- **Server Component enforcement:** `/logistic` routes redirect non-OEM users at the page level; `/api/logistic` Server Actions return 403 for non-OEM sessions
 - **Layout-level guard:** Dashboard layout never renders PlantLogistic sidebar for supplier users (falls back to PlantQuality shell)
 
 ---
@@ -825,7 +826,7 @@ All v2.9.3 security fixes are included and verified:
 - **Free-tier AI access blocked** — AI routes require PRO (Classification, Similar Issues) or ENTERPRISE (8D Review, Root Cause)
 - **Cross-tenant supplier assignment** — `assertSupplierBelongsToOem` enforced across all creation/assignment actions (PPAP, IQC, FMEA, Field Defects, Development Plans)
 - **Cron scoping** — SLA reminders cron requires `CRON_SECRET` header; notifications are companyId-scoped
-- **Middleware protection** — `proxy.ts` enforces session on all dashboard and protected API routes
+- **Server Component / Server Action protection** — Session checks enforce access on all dashboard and protected API routes
 - **Sidebar/nav alignment** — All nav items have `gate` properties synced with backend
 - **Direct URL and Server Action protection** — Unauthorized access returns redirect or error at both page and action level
 
@@ -939,8 +940,8 @@ PlantQuality v2.9.3 is a security-hardening and commercial-readiness patch that 
 
 ### #10 Middleware Protection Gaps
 
-- **Problem:** No Next.js middleware existed to enforce authentication on dashboard and API routes, relying entirely on per-page/per-route `auth()` calls.
-- **Fix:** Updated `src/proxy.ts` (Next.js 16 proxy) with defense-in-depth session check. Unauthenticated requests to protected API routes return 401; page requests redirect to login.
+- **Problem:** No runtime route-level enforcement existed for dashboard and API routes, relying entirely on per-page/per-route `auth()` calls.
+- **Fix:** Added Server Component auth guards and Server Action authorization checks for defense-in-depth session enforcement. Unauthenticated or unauthorized requests are redirected or return 401/403.
 
 ### #11 Sidebar Gate Mismatch
 
@@ -967,7 +968,7 @@ PlantQuality v2.9.3 is a security-hardening and commercial-readiness patch that 
 - `src/app/(dashboard)/quality/oem/fmea/actions/fmea.ts` — assertSupplierBelongsToOem
 - `src/app/(dashboard)/field/actions.ts` — assertSupplierBelongsToOem (create + assign)
 - `src/lib/supplier-access.ts` — New shared helper
-- `src/proxy.ts` — Defense-in-depth auth enforcement (Next.js 16 proxy)
+- `src/proxy.ts` — Present in codebase (not wired as active runtime middleware as of v3.4.0)
 - `src/app/(dashboard)/layout.tsx` — Supplier sidebar gates
 - `src/app/api/upload/route.ts` — companyId requirement
 - `package.json` — Version 2.9.3
@@ -1092,7 +1093,7 @@ PlantQuality v2.9.2 is a final QA and demo polish patch preparing the product fo
 - All Prisma queries scoped by `companyId` from session.
 - No client-provided `companyId` is trusted.
 - Direct URL access protected at the page level.
-- No Next.js middleware for route-level defense (optional future improvement).
+- No runtime middleware/proxy for route-level defense (future platform hardening possibility).
 
 ---
 

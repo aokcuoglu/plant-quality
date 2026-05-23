@@ -182,6 +182,7 @@ export async function getPortalOrderDetail(orderId: string) {
       powertrain: order.powertrain,
       quantity: order.quantity,
       priority: order.priority,
+      status: order.status,
       externalStatus,
       plannedDeliveryDate: order.plannedDeliveryDate,
       country: order.country,

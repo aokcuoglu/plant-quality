@@ -5,7 +5,7 @@ import { getPortalOrderDetail, getPortalOrderTimeline } from "../../actions"
 import { labelForExternalStatus, colorForExternalStatus, labelForExternalDispatchStatus } from "@/lib/logistic/external-status"
 import { labelForVehicleType, labelForPowertrain, labelForPriority, labelForCustomerType } from "@/lib/logistic/types"
 import { labelForTransportMode } from "@/lib/logistic/dispatch-status"
-import { getExternalDelayStatus, getExternalEta, type OrderSlaInput, type ExternalDelayStatus } from "@/lib/logistic/sla"
+import { type OrderSlaInput } from "@/lib/logistic/sla"
 import { ExternalDelayPanel } from "./delay-panel"
 import { ArrowLeft, TruckIcon, Calendar, Info } from "lucide-react"
 import Link from "next/link"
@@ -28,12 +28,10 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
   const order = orderResult.data
   const timeline = "data" in timelineResult ? timelineResult.data : []
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const orderAny = order as any
   const portalSlaInput: OrderSlaInput = {
     id: order.id,
     orderNumber: order.orderNumber,
-    status: orderAny.status ?? "IN_PRODUCTION",
+    status: order.status ?? "IN_PRODUCTION",
     requestedDeliveryDate: null,
     plannedDeliveryDate: order.plannedDeliveryDate ? new Date(order.plannedDeliveryDate) : null,
     deliveredAt: null,
@@ -45,7 +43,7 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
     yardStatus: null,
     dispatches: order.dispatches.map((d) => ({
       id: d.id,
-      status: (d as any).status ?? "NOT_PLANNED",
+      status: d.status ?? "NOT_PLANNED",
       plannedLoadingDate: d.plannedLoadingDate,
       estimatedArrivalDate: d.estimatedArrivalDate,
     })),

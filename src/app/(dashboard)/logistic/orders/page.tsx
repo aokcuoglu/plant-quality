@@ -7,10 +7,11 @@ import { labelForCustomerType, labelForPriority } from "@/lib/logistic/types"
 import { labelForGate } from "@/lib/logistic/milestone-types"
 import { calculateProductionProgress, allMilestonesResolved } from "@/lib/logistic/milestone-status"
 import { DISPATCH_STATUS_LABELS } from "@/lib/logistic/dispatch-status"
-import { getOrderSlaSummary, SLA_STATUS_LABELS as SLA_LABELS, type OrderSlaInput } from "@/lib/logistic/sla"
+import { getOrderSlaSummary, formatSlaDate, formatDaysValue, type OrderSlaInput } from "@/lib/logistic/sla"
 import Link from "next/link"
 import { PlusCircle, TruckIcon } from "lucide-react"
 import { StatusBadge } from "../status-badge"
+import { SlaStatusBadge } from "../sla-badge"
 
 export const dynamic = "force-dynamic"
 
@@ -245,21 +246,13 @@ export default async function LogisticOrdersPage({
                         ) : "—"}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
-                        {order.plannedDeliveryDate ? order.plannedDeliveryDate.toLocaleDateString() : order.requestedDeliveryDate ? order.requestedDeliveryDate.toLocaleDateString() : "—"}
+                        {formatSlaDate(order.requestedDeliveryDate ?? order.plannedDeliveryDate)}
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                          sla.slaStatus === "DELAYED" ? "bg-red-500/10 text-red-600" :
-                          sla.slaStatus === "BLOCKED" ? "bg-red-500/10 text-red-700" :
-                          sla.slaStatus === "AT_RISK" ? "bg-amber-500/10 text-amber-600" :
-                          sla.slaStatus === "DELIVERED" ? "bg-green-500/10 text-green-600" :
-                          "bg-emerald-500/10 text-emerald-600"
-                        }`}>
-                          {SLA_LABELS[sla.slaStatus]}
-                        </span>
-                        {sla.daysUntilOrOverdue !== 0 && sla.slaStatus !== "DELIVERED" && (
+                        <SlaStatusBadge status={sla.slaStatus} />
+                        {sla.daysUntilOrOverdue !== null && sla.slaStatus !== "DELIVERED" && sla.slaStatus !== "CANCELLED" && (
                           <span className={`ml-1 text-[10px] ${sla.daysUntilOrOverdue < 0 ? "text-destructive" : "text-amber-600"}`}>
-                            {sla.daysUntilOrOverdue < 0 ? `${Math.abs(sla.daysUntilOrOverdue)}d overdue` : `${sla.daysUntilOrOverdue}d`}
+                            {formatDaysValue(sla.daysUntilOrOverdue)}
                           </span>
                         )}
                       </td>

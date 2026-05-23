@@ -107,8 +107,14 @@ export function getExternalEta(
   plannedDeliveryDate: Date | string | null,
   dispatchEstimatedArrival: Date | string | null
 ): Date | null {
-  if (dispatchEstimatedArrival) return dispatchEstimatedArrival instanceof Date ? dispatchEstimatedArrival : new Date(dispatchEstimatedArrival)
-  if (plannedDeliveryDate) return plannedDeliveryDate instanceof Date ? plannedDeliveryDate : new Date(plannedDeliveryDate)
+  if (dispatchEstimatedArrival) {
+    const d = dispatchEstimatedArrival instanceof Date ? dispatchEstimatedArrival : new Date(dispatchEstimatedArrival)
+    if (!isNaN(d.getTime())) return d
+  }
+  if (plannedDeliveryDate) {
+    const d = plannedDeliveryDate instanceof Date ? plannedDeliveryDate : new Date(plannedDeliveryDate)
+    if (!isNaN(d.getTime())) return d
+  }
   return null
 }
 

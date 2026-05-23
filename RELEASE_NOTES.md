@@ -1,3 +1,85 @@
+# PlantX v3.5.1 — SLA + Delay Intelligence UX / Accuracy Polish
+
+**Release Date:** 2026-05-23  
+**Version:** 3.5.1
+
+---
+
+## SLA/Risk Calculation Accuracy Polish
+
+- **Fixed:** CANCELLED and REJECTED orders now return `CANCELLED` SLA status instead of `DELIVERED`. These orders are no longer counted as delivered in SLA metrics.
+- **Fixed:** `getDaysUntilOrOverdue` now returns `null` instead of `0` when no target date exists, preventing misleading "Today" labels for unscheduled orders.
+- **Fixed:** Redundant `if/else` branch in `getOrderSlaStatus` that had identical logic for DELAYED check — simplified to a single condition.
+- **Fixed:** Date calculations in `daysBetween`/`daysDiffFromNow` now use start-of-day normalization instead of raw millisecond division, eliminating off-by-one errors at DST boundaries.
+- **Fixed:** `getSlaTargetDate` now validates dates with `isNaN` check before returning, preventing `Invalid Date` propagation.
+- **Fixed:** `getExternalEta` in both `sla.ts` and `external-status.ts` now validate dates with `isNaN` check, preventing `Invalid Date` from reaching the UI.
+- **Added:** `CANCELLED` to `SlaStatus` type with distinct label and muted color styling.
+- **Added:** `formatSlaDate()` and `formatDaysValue()` helper functions for consistent date and day-count display across all pages.
+- **Added:** `NOT_SCHEDULED` constant for display of missing target dates.
+
+## Dashboard / List / Detail Consistency
+
+- **Fixed:** Delay-intelligence page now uses canonical `SlaStatusBadge` and `RiskLevelBadge` components instead of inline color maps, ensuring styling consistency across all pages.
+- **Fixed:** Order list page now uses `SlaStatusBadge` component instead of inline SLA status styling, removing third duplicate of `SLA_STATUS_COLORS`.
+- **Fixed:** `RiskLevelBadge` component now imports `RISK_LEVEL_LABELS` and `RISK_LEVEL_COLORS` from `sla.ts` instead of duplicating them, ensuring single source of truth.
+- **Fixed:** Order list "Delivery Target" column now uses `formatSlaDate()` with `requestedDeliveryDate ?? plannedDeliveryDate` fallback, consistent with SLA engine priority.
+- **Fixed:** Order detail page "Delivery Risk" badge now uses `slaSummary.slaStatus` instead of inline `isDelayed` computation. The inline check only considered `plannedDeliveryDate` while the SLA engine prefers `requestedDeliveryDate`, creating inconsistent risk display.
+- **Fixed:** Delay-intelligence page target date column now uses `formatSlaDate()`, showing "Not scheduled" for null dates instead of "—".
+- **Fixed:** Delay-intelligence page days column properly handles `null` (unscheduled) showing "—", and uses `formatDaysValue()` for consistent formatting.
+- **Fixed:** Delay-intelligence page suggested action column now has `title` attribute for full-text tooltip on truncated text.
+- **Fixed:** `DelayRiskPanel` properly handles `CANCELLED` SLA status, showing "Order cancelled" instead of "Order delivered".
+- **Fixed:** `DelayRiskPanel` display of days now uses `formatDaysValue()` and handles `null` (no target date) with "No target date" label.
+
+## External-Safe Delay Visibility Hardening
+
+- **Fixed:** Dealer/distributor portal delay panel OEM Note box now uses `bg-accent` design token instead of `bg-blue-500/5` with `border-blue-500/20`, complying with the design system.
+- **Fixed:** `ExternalDelayPanel` now uses `formatSlaDate()` for estimated delivery date, preventing `Invalid Date` display.
+- **Fixed:** `getExternalDelayStatus` now handles `CANCELLED` orders, returning `CONTACT_OEM` (safe external status) instead of treating them as delivered.
+
+## Date/Null/NaN Handling
+
+- **Fixed:** All date display across delay intelligence, order list, order detail, and portal pages now uses `formatSlaDate()` which guards against `Invalid Date` and returns "Not scheduled" for null values.
+- **Fixed:** `getDaysUntilOrOverdue` returns `null` instead of `0` for orders without a target date. All consumers updated to handle the nullable return type.
+- **Fixed:** `OrderSlaSummary.daysUntilOrOverdue` type changed from `number` to `number | null`. All consumers updated accordingly.
+
+## Seed Data Clarity
+
+- **Updated:** Console seed summary now includes full SLA status and risk level for each demo order.
+- **Updated:** Seed summary documents CANCELLED status handling, start-of-day date normalization, and date null behavior.
+- **Added:** LO-00006 (AT_RISK) and LO-00007 (AT_RISK) to seed scenario list for completeness.
+
+## Lint / Dead Code Cleanup
+
+- **Removed:** Unused imports in delay-intelligence page (`SLA_STATUS_LABELS`, `SLA_STATUS_COLORS`, `RISK_LEVEL_LABELS`, `RISK_LEVEL_COLORS`, `SlaStatus` type).
+- **Removed:** Unused `RiskLevelBadge` import in orders list page.
+- **Removed:** Dead `status` property from delay-intelligence `FilterParams` type.
+- **Removed:** Duplicate days display logic in `DelayRiskPanel`.
+
+## Supplier Denial / Tenant Isolation Regression Validation
+
+- **Verified:** Supplier redirect from `/logistic` and `/logistic/delay-intelligence` still enforced.
+- **Verified:** Dealer/distributor portal still uses `externalVisible` + company scoping in Prisma queries.
+- **Verified:** No cross-tenant data access in any SLA helper — all queries filtered by `companyId`.
+
+## PlantQuality Regression Validation
+
+- **Verified:** No changes to PlantQuality models, routes, or components.
+- **Verified:** `src/lib/sla.ts` (defect 8D SLA) and `src/lib/sla-field-defect.ts` remain unchanged.
+- **Verified:** `src/lib/sla-notifications.ts` (8D SLA notifications) remain unchanged.
+
+## No New Product Scope
+
+- No AI delay prediction features added.
+- No email notifications added.
+- No persistent alert workflow added.
+- No dealer/distributor messaging/comments added.
+- No document upload added.
+- No PlantQuality integration added.
+- No ERP/MRP integration added.
+- No billing/payment integration added.
+
+---
+
 # PlantX v3.5.0 — PlantLogistic SLA + Delay Intelligence
 
 **Release Date:** 2026-05-21  

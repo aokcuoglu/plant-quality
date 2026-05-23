@@ -2369,13 +2369,21 @@ async function main() {
   console.log("Dealer visible orders: LO-00006, LO-00008, LO-00011, LO-00012, LO-00014, LO-00016 (6 orders)");
   console.log("Distributor visible orders: LO-00007, LO-00013 (2 orders)");
   console.log("");
-  console.log("=== SLA + Delay Intelligence Demo Scenarios ===");
-  console.log("LO-00005: BLOCKED — quality hold, paint defect, yard blocked");
-  console.log("LO-00010: DELAYED — production milestone blocked, delivery overdue");
-  console.log("LO-00015: DELAYED — ETA overdue, dispatch delayed");
-  console.log("LO-00016: AT_RISK — delivery deadline close, assembly behind schedule (dealer-visible with safe external status)");
-  console.log("LO-00004: ON_TRACK — in production, milestones progressing");
-  console.log("LO-00008: DELIVERED — completed order");
+  console.log("=== SLA + Delay Intelligence Demo Scenarios (v3.5.1) ===");
+  console.log("LO-00004: ON_TRACK / LOW — in production, milestones progressing (GreenFleet GmbH)");
+  console.log("LO-00005: BLOCKED / HIGH — quality hold, paint defect, yard blocked (Iberia Bus)");
+  console.log("LO-00006: AT_RISK / MEDIUM — ready for dispatch, past delivery target (MedTrans)");
+  console.log("LO-00007: AT_RISK / MEDIUM — dispatched, ETA overdue (Nordic Trans)");
+  console.log("LO-00008: DELIVERED / LOW — completed order (AsiaBus)");
+  console.log("LO-00010: DELAYED / HIGH — production milestone blocked, delivery overdue (LateShip)");
+  console.log("LO-00015: DELAYED / MEDIUM — ETA overdue, dispatch delayed (Danube Express)");
+  console.log("LO-00016: AT_RISK / MEDIUM — delivery deadline close, assembly behind schedule, dealer-visible (Metro Bayi)");
+  console.log("");
+  console.log("Key SLA calculation notes:");
+  console.log("- CANCELLED/REJECTED orders return CANCELLED SLA status (not DELIVERED)");
+  console.log("- Days until/overdue returns null when no target date (shows 'Not scheduled')");
+  console.log("- Date calculations use start-of-day normalization for DST safety");
+  console.log("- Dealer/distributor see external-safe status only; internal delay reasons hidden");
   console.log("");
 
   // Seed logistic order events

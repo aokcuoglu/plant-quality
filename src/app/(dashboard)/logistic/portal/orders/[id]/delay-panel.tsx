@@ -3,6 +3,7 @@ import {
   EXTERNAL_DELAY_STATUS_COLORS,
   getExternalDelayStatus,
   getExternalEta,
+  formatSlaDate,
   type OrderSlaInput,
 } from "@/lib/logistic/sla"
 import { Info } from "lucide-react"
@@ -36,12 +37,12 @@ export function ExternalDelayPanel({
         {eta && (
           <div>
             <dt className="text-xs text-muted-foreground">Estimated Delivery</dt>
-            <dd className="text-sm font-medium text-foreground">{eta.toLocaleDateString()}</dd>
+            <dd className="text-sm font-medium text-foreground">{formatSlaDate(eta)}</dd>
           </div>
         )}
 
         {externalStatusNote && (
-          <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-3">
+          <div className="rounded-lg border bg-accent p-3">
             <p className="text-xs font-medium text-foreground">OEM Note</p>
             <p className="text-sm text-muted-foreground mt-1">{externalStatusNote}</p>
           </div>

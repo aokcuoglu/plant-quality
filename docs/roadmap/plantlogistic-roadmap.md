@@ -302,6 +302,35 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 
 ---
 
+## v3.5.1 — SLA + Delay Intelligence UX / Accuracy Polish
+
+**Scope:**
+- CANCELLED/REJECTED orders now return `CANCELLED` SLA status (not `DELIVERED`)
+- `getDaysUntilOrOverdue` returns `null` for orders without target dates (not misleading `0`)
+- Date calculations use start-of-day normalization for DST-safe day counting
+- Invalid Date guards in `getSlaTargetDate`, `getExternalEta` (both `sla.ts` and `external-status.ts`)
+- `formatSlaDate()` and `formatDaysValue()` shared display helpers for consistent "Not scheduled" / day-count formatting
+- Badge consolidation: `SlaStatusBadge` and `RiskLevelBadge` now import from canonical `sla.ts` maps (no duplicated inline colors)
+- Order list uses `SlaStatusBadge` component (was inline)
+- Order detail risk badge uses `slaSummary.slaStatus` (was inline `isDelayed` check)
+- Dealer/distributor portal OEM note uses `bg-accent` design token (was `bg-blue-500/5`)
+- `ExternalDelayPanel` uses `formatSlaDate()` (was raw `.toLocaleDateString()`)
+- `getExternalDelayStatus` handles CANCELLED orders → `CONTACT_OEM`
+- Delay Intelligence page uses canonical badges, `formatSlaDate()`, `formatDaysValue()`, and shows "Not scheduled" for null target dates
+- Delay Intelligence suggested action column has `title` attribute for full-text tooltip
+- Redundant `if/else` DELAYED branch in `getOrderSlaStatus` simplified
+- Dead `status` filter param removed from `FilterParams`
+- Duplicate days display logic removed from `DelayRiskPanel`
+- Seed data console summary updated with SLA status/risk for each demo order
+- Lint warnings resolved (unused imports removed)
+
+**Excluded:**
+- No new product features beyond v3.5.0 scope
+- No AI, notifications, or PlantQuality integration
+- No database schema changes
+
+---
+
 ## v3.6.0 — PlantLogistic ↔ PlantQuality Integration
 
 **Scope:**

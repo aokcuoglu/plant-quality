@@ -11,6 +11,7 @@ export type SlaStatus =
   | "DELAYED"
   | "BLOCKED"
   | "DELIVERED"
+  | "CANCELLED"
 
 export type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"
 
@@ -39,6 +40,7 @@ export const SLA_STATUS_LABELS: Record<SlaStatus, string> = {
   DELAYED: "Delayed",
   BLOCKED: "Blocked",
   DELIVERED: "Delivered",
+  CANCELLED: "Cancelled",
 }
 
 export const RISK_LEVEL_LABELS: Record<RiskLevel, string> = {
@@ -75,6 +77,7 @@ export const SLA_STATUS_COLORS: Record<SlaStatus, string> = {
   DELAYED: "bg-red-500/10 text-red-600",
   BLOCKED: "bg-red-500/10 text-red-700",
   DELIVERED: "bg-green-500/10 text-green-600",
+  CANCELLED: "bg-muted text-muted-foreground",
 }
 
 export const RISK_LEVEL_COLORS: Record<RiskLevel, string> = {
@@ -135,7 +138,7 @@ export interface OrderSlaSummary {
   slaStatus: SlaStatus
   riskLevel: RiskLevel
   targetDate: Date | null
-  daysUntilOrOverdue: number
+  daysUntilOrOverdue: number | null
   delayCategory: DelayCategory
   currentBlockingStage: string | null
   milestoneDelays: MilestoneDelayInfo[]
@@ -181,9 +184,14 @@ export interface OrderSlaInput {
   }[]
 }
 
+function startOfDay(d: Date): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate())
+}
+
 function daysBetween(from: Date, to: Date): number {
-  const msPerDay = 86400000
-  return Math.floor((to.getTime() - from.getTime()) / msPerDay)
+  const fromDay = startOfDay(from)
+  const toDay = startOfDay(to)
+  return Math.round((toDay.getTime() - fromDay.getTime()) / 86400000)
 }
 
 function daysDiffFromNow(date: Date): number {
@@ -192,12 +200,16 @@ function daysDiffFromNow(date: Date): number {
 
 export function getSlaTargetDate(order: OrderSlaInput): Date | null {
   if (order.deliveredAt || order.closedAt) return null
-  return order.requestedDeliveryDate ?? order.plannedDeliveryDate ?? null
+  const requested = order.requestedDeliveryDate ? new Date(order.requestedDeliveryDate) : null
+  const planned = order.plannedDeliveryDate ? new Date(order.plannedDeliveryDate) : null
+  if (requested && !isNaN(requested.getTime())) return requested
+  if (planned && !isNaN(planned.getTime())) return planned
+  return null
 }
 
 export function getOrderSlaStatus(order: OrderSlaInput): SlaStatus {
   if (DELIVERED_STATUSES.includes(order.status)) return "DELIVERED"
-  if (CANCELLED_STATUSES.includes(order.status)) return "DELIVERED"
+  if (CANCELLED_STATUSES.includes(order.status)) return "CANCELLED"
 
   const hasBlockedMilestone = order.milestones.some(
     (m) => m.status === "BLOCKED" || m.status === "QUALITY_HOLD"
@@ -213,12 +225,7 @@ export function getOrderSlaStatus(order: OrderSlaInput): SlaStatus {
 
   const daysToTarget = daysDiffFromNow(target)
 
-  if (order.status === "IN_PRODUCTION" || order.status === "READY_FOR_DISPATCH" || order.status === "DISPATCHED") {
-    if (daysToTarget < 0) return "DELAYED"
-  } else {
-    if (daysToTarget < 0) return "DELAYED"
-  }
-
+  if (daysToTarget < 0) return "DELAYED"
   if (daysToTarget <= 7) return "AT_RISK"
 
   const hasOverdueMilestone = order.milestones.some(
@@ -245,7 +252,7 @@ export function getOrderSlaStatus(order: OrderSlaInput): SlaStatus {
 export function getOrderRiskLevel(order: OrderSlaInput): RiskLevel {
   const sla = getOrderSlaStatus(order)
 
-  if (sla === "DELIVERED") return "LOW"
+  if (sla === "DELIVERED" || sla === "CANCELLED") return "LOW"
 
   if (sla === "BLOCKED") {
     const target = getSlaTargetDate(order)
@@ -273,7 +280,7 @@ export function getOrderRiskLevel(order: OrderSlaInput): RiskLevel {
 
 export function getOrderDelayCategory(order: OrderSlaInput): DelayCategory {
   const sla = getOrderSlaStatus(order)
-  if (sla === "DELIVERED") return "NONE"
+  if (sla === "DELIVERED" || sla === "CANCELLED") return "NONE"
 
   if (sla === "BLOCKED") {
     const qHold = order.milestones.find((m) => m.status === "QUALITY_HOLD")
@@ -325,9 +332,9 @@ export function getOrderDelayCategory(order: OrderSlaInput): DelayCategory {
   return "NONE"
 }
 
-export function getDaysUntilOrOverdue(order: OrderSlaInput): number {
+export function getDaysUntilOrOverdue(order: OrderSlaInput): number | null {
   const target = getSlaTargetDate(order)
-  if (!target) return 0
+  if (!target) return null
   return daysDiffFromNow(target)
 }
 
@@ -501,6 +508,7 @@ export function getExternalDelayStatus(order: OrderSlaInput): ExternalDelayStatu
   const dispatchStatus = order.dispatches[0]?.status
 
   if (sla === "DELIVERED") return "DELIVERED"
+  if (sla === "CANCELLED") return "CONTACT_OEM"
   if (sla === "BLOCKED") return "CONTACT_OEM"
 
   if (dispatchStatus === "IN_TRANSIT") {
@@ -517,7 +525,29 @@ export function getExternalDelayStatus(order: OrderSlaInput): ExternalDelayStatu
 
 export function getExternalEta(order: OrderSlaInput): Date | null {
   const dispatch = order.dispatches[0]
-  if (dispatch?.estimatedArrivalDate) return new Date(dispatch.estimatedArrivalDate)
-  if (order.plannedDeliveryDate) return new Date(order.plannedDeliveryDate)
+  if (dispatch?.estimatedArrivalDate) {
+    const d = new Date(dispatch.estimatedArrivalDate)
+    if (!isNaN(d.getTime())) return d
+  }
+  if (order.plannedDeliveryDate) {
+    const d = new Date(order.plannedDeliveryDate)
+    if (!isNaN(d.getTime())) return d
+  }
   return null
+}
+
+export const NOT_SCHEDULED = "Not scheduled"
+
+export function formatSlaDate(date: Date | null | undefined): string {
+  if (!date) return NOT_SCHEDULED
+  const d = date instanceof Date ? date : new Date(date)
+  if (isNaN(d.getTime())) return NOT_SCHEDULED
+  return d.toLocaleDateString()
+}
+
+export function formatDaysValue(days: number | null): string {
+  if (days === null) return NOT_SCHEDULED
+  if (days > 0) return `${days}d left`
+  if (days < 0) return `${Math.abs(days)}d overdue`
+  return "Today"
 }

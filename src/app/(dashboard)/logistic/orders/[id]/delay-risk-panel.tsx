@@ -1,18 +1,22 @@
 import {
   DELAY_CATEGORY_LABELS,
+  formatSlaDate,
+  formatDaysValue,
   type OrderSlaSummary,
 } from "@/lib/logistic/sla"
 import { SlaStatusBadge, RiskLevelBadge } from "../../sla-badge"
 import { AlertTriangle, Clock, ShieldAlert, Factory, TruckIcon, MapPin } from "lucide-react"
 
 export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
-  if (summary.slaStatus === "DELIVERED") {
+  if (summary.slaStatus === "DELIVERED" || summary.slaStatus === "CANCELLED") {
     return (
       <section className="rounded-lg border bg-card p-4">
         <h2 className="mb-3 text-sm font-medium text-foreground flex items-center gap-2">
           <Clock className="size-4 text-emerald-500" /> SLA & Delay Status
         </h2>
-        <p className="text-sm text-muted-foreground">Order delivered — no active SLA tracking.</p>
+        <p className="text-sm text-muted-foreground">
+          {summary.slaStatus === "CANCELLED" ? "Order cancelled — no active SLA tracking." : "Order delivered — no active SLA tracking."}
+        </p>
       </section>
     )
   }
@@ -28,9 +32,12 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
           <RiskLevelBadge level={summary.riskLevel} />
           {summary.targetDate && (
             <span className="text-sm text-muted-foreground">
-              Target: {summary.targetDate.toLocaleDateString()}
-              {summary.daysUntilOrOverdue > 0 && ` (${summary.daysUntilOrOverdue}d remaining)`}
+              Target: {formatSlaDate(summary.targetDate)}
+              {summary.daysUntilOrOverdue !== null && summary.daysUntilOrOverdue > 0 && ` (${summary.daysUntilOrOverdue}d remaining)`}
             </span>
+          )}
+          {summary.targetDate === null && (
+            <span className="text-sm text-muted-foreground">No target date scheduled</span>
           )}
         </div>
       </section>
@@ -43,19 +50,25 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
         <AlertTriangle className="size-4 text-amber-500" /> SLA & Delay Status
       </h2>
 
-      <div className="space-y-4">
+        <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
           <SlaStatusBadge status={summary.slaStatus} />
           <RiskLevelBadge level={summary.riskLevel} />
           {summary.targetDate && (
             <span className="text-sm text-muted-foreground">
-              Target: {summary.targetDate.toLocaleDateString()}
+              Target: {formatSlaDate(summary.targetDate)}
             </span>
           )}
-          {summary.daysUntilOrOverdue !== 0 && (
+          {summary.targetDate === null && (
+            <span className="text-sm text-muted-foreground">No target date</span>
+          )}
+          {summary.daysUntilOrOverdue !== null && summary.daysUntilOrOverdue !== 0 && (
             <span className={`text-sm font-medium ${summary.daysUntilOrOverdue < 0 ? "text-destructive" : "text-amber-600"}`}>
-              {summary.daysUntilOrOverdue < 0 ? `${Math.abs(summary.daysUntilOrOverdue)} days overdue` : `${summary.daysUntilOrOverdue} days remaining`}
+              {formatDaysValue(summary.daysUntilOrOverdue)}
             </span>
+          )}
+          {summary.daysUntilOrOverdue === 0 && (
+            <span className="text-sm font-medium text-amber-600">Due today</span>
           )}
         </div>
 
@@ -111,7 +124,7 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
                   </div>
                   {ms.plannedFinish && (
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      Planned finish: {ms.plannedFinish.toLocaleDateString()}
+                      Planned finish: {formatSlaDate(ms.plannedFinish)}
                       {ms.overdue && <span className="text-destructive ml-1">({ms.daysOverdue}d overdue)</span>}
                     </p>
                   )}

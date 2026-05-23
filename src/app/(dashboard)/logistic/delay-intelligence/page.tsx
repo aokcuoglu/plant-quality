@@ -4,21 +4,21 @@ import { prisma } from "@/lib/prisma"
 import { requireFeature, requireModule } from "@/lib/billing/guards"
 import {
   getOrderSlaSummary,
-  SLA_STATUS_LABELS,
-  RISK_LEVEL_LABELS,
+  formatSlaDate,
+  formatDaysValue,
   DELAY_CATEGORY_LABELS,
-  type SlaStatus,
   type RiskLevel,
   type DelayCategory,
   type OrderSlaInput,
 } from "@/lib/logistic/sla"
 import { STATUS_LABELS } from "@/lib/logistic/status"
+import { SlaStatusBadge, RiskLevelBadge } from "../sla-badge"
 import Link from "next/link"
 import { AlertTriangle, Clock, ShieldAlert, ArrowUpRight, TruckIcon } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
-type FilterParams = Promise<{ risk?: string; category?: string; status?: string }>
+type FilterParams = Promise<{ risk?: string; category?: string }>
 
 export default async function DelayIntelligencePage({ searchParams }: { searchParams: FilterParams }) {
   const session = await auth()
@@ -151,27 +151,6 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
     { value: "NONE", label: "On Track" },
   ]
 
-  const slaColors: Record<SlaStatus, string> = {
-    ON_TRACK: "bg-emerald-500/10 text-emerald-600",
-    AT_RISK: "bg-amber-500/10 text-amber-600",
-    DELAYED: "bg-red-500/10 text-red-600",
-    BLOCKED: "bg-red-500/10 text-red-700",
-    DELIVERED: "bg-green-500/10 text-green-600",
-  }
-
-  const riskColors: Record<RiskLevel, string> = {
-    LOW: "bg-emerald-500/10 text-emerald-600",
-    MEDIUM: "bg-amber-500/10 text-amber-600",
-    HIGH: "bg-orange-500/10 text-orange-600",
-    CRITICAL: "bg-red-500/10 text-red-600",
-  }
-
-  function formatDays(days: number): string {
-    if (days > 0) return `${days}d left`
-    if (days < 0) return `${Math.abs(days)}d overdue`
-    return "Today"
-  }
-
   return (
     <div className="space-y-6">
       <div>
@@ -261,25 +240,21 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
                         </span>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${slaColors[summary.slaStatus]}`}>
-                          {SLA_STATUS_LABELS[summary.slaStatus]}
-                        </span>
+                        <SlaStatusBadge status={summary.slaStatus} />
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${riskColors[summary.riskLevel]}`}>
-                          {RISK_LEVEL_LABELS[summary.riskLevel]}
-                        </span>
+                        <RiskLevelBadge level={summary.riskLevel} />
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
-                        {summary.targetDate ? summary.targetDate.toLocaleDateString() : "—"}
+                        {formatSlaDate(summary.targetDate)}
                       </td>
                       <td className="px-4 py-3 text-sm">
-                        {summary.daysUntilOrOverdue !== 0 ? (
+                        {summary.daysUntilOrOverdue !== null ? (
                           <span className={summary.daysUntilOrOverdue < 0 ? "text-destructive" : summary.daysUntilOrOverdue <= 7 ? "text-amber-600" : "text-muted-foreground"}>
-                            {formatDays(summary.daysUntilOrOverdue)}
+                            {formatDaysValue(summary.daysUntilOrOverdue)}
                           </span>
                         ) : (
-                          <span className="text-amber-600">Today</span>
+                          <span className="text-muted-foreground">—</span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -291,7 +266,7 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {summary.responsibleDepartment ?? "—"}
                       </td>
-                      <td className="px-4 py-3 text-sm">
+                      <td className="px-4 py-3 text-sm" title={summary.suggestedAction ?? undefined}>
                         {summary.suggestedAction ? (
                           <span className="text-muted-foreground">{summary.suggestedAction.length > 30 ? summary.suggestedAction.slice(0, 30) + "…" : summary.suggestedAction}</span>
                         ) : "—"}

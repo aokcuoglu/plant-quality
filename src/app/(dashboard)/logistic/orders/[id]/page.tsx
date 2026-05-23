@@ -78,7 +78,6 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
   ])
 
   const nextStatuses = getNextStatuses(order.status)
-  const isDelayed = order.plannedDeliveryDate && order.plannedDeliveryDate < new Date() && !["DELIVERED", "CLOSED", "CANCELLED", "REJECTED"].includes(order.status)
   const productionProgress = calculateProductionProgress(order.milestones)
   const hasMilestones = order.milestones.length > 0
   const blockedCount = order.milestones.filter(m => m.status === "BLOCKED").length
@@ -143,7 +142,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
           <div className="flex items-center gap-3">
             <h1 className="text-xl font-semibold tracking-tight text-foreground">{order.orderNumber}</h1>
             <StatusBadge status={order.status} />
-            {isDelayed && (
+            {(slaSummary.slaStatus === "DELAYED" || slaSummary.slaStatus === "BLOCKED") && (
               <span className="inline-flex items-center rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-destructive">
                 Delivery Risk
               </span>

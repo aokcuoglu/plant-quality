@@ -28,7 +28,6 @@ export default async function LogisticDashboardPage() {
     inProductionCount,
     readyForDispatchCount,
     qualityHoldCount,
-    delayedOrders,
     recentOrders,
     ordersWithBlockedMilestones,
     ordersWithQualityHoldMilestones,
@@ -54,14 +53,6 @@ export default async function LogisticDashboardPage() {
     }),
     prisma.plantLogisticOrder.count({
       where: { companyId, status: "QUALITY_HOLD" },
-    }),
-    prisma.plantLogisticOrder.findMany({
-      where: {
-        companyId,
-        status: { notIn: ["DELIVERED", "CLOSED", "CANCELLED", "REJECTED"] },
-        plannedDeliveryDate: { lt: new Date() },
-      },
-      select: { id: true },
     }),
     prisma.plantLogisticOrder.findMany({
       where: { companyId },
@@ -134,8 +125,6 @@ export default async function LogisticDashboardPage() {
       },
     }),
   ])
-
-  const _delayedCount = delayedOrders.length
 
   const allActiveOrders = await prisma.plantLogisticOrder.findMany({
     where: {

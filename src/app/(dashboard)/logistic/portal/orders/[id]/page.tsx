@@ -7,7 +7,7 @@ import { labelForVehicleType, labelForPowertrain, labelForPriority, labelForCust
 import { labelForTransportMode } from "@/lib/logistic/dispatch-status"
 import { type OrderSlaInput } from "@/lib/logistic/sla"
 import { ExternalDelayPanel } from "./delay-panel"
-import { ArrowLeft, TruckIcon, Calendar, Info } from "lucide-react"
+import { ArrowLeft, TruckIcon, Calendar } from "lucide-react"
 import Link from "next/link"
 
 export default async function PortalOrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -66,18 +66,6 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
           {labelForExternalStatus(order.externalStatus)}
         </span>
       </div>
-
-      {order.externalStatusNote && (
-        <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
-          <div className="flex items-start gap-3">
-            <Info className="size-5 text-blue-500 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-sm font-medium text-foreground">OEM Note</p>
-              <p className="text-sm text-muted-foreground">{order.externalStatusNote}</p>
-            </div>
-          </div>
-        </div>
-      )}
 
       <ExternalDelayPanel order={portalSlaInput} externalStatusNote={order.externalStatusNote ?? null} />
 

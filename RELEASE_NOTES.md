@@ -54,6 +54,8 @@
 - **Removed:** Unused `RiskLevelBadge` import in orders list page.
 - **Removed:** Dead `status` property from delay-intelligence `FilterParams` type.
 - **Removed:** Duplicate days display logic in `DelayRiskPanel`.
+- **Removed:** Duplicate inline OEM Note block on portal order detail page (`border-blue-500/20 bg-blue-500/5`) that violated design system tokens and duplicated `ExternalDelayPanel`. Panel already renders the note safely with `bg-accent`.
+- **Removed:** Dead `delayedOrders` Prisma query and `_delayedCount` variable from logistic dashboard — dashboard already derives counts from `slaSummaries`.
 
 ## Supplier Denial / Tenant Isolation Regression Validation
 

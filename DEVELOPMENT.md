@@ -298,6 +298,42 @@ When developing features, use **three sub-agents**:
 - DiagramNode now uses `bg-card` and `border-border` tokens for theme-safe rendering
 - 8D wizard table wrappers now have `overflow-x-auto` instead of `overflow-visible` to prevent sidebar overflow
 
+### 2026-05-25 — PlantQuality ↔ PlantLogistic Integration (v3.6.0)
+
+**Prisma Schema Changes:**
+
+| Change | Details |
+|--------|---------|
+| `QualityRecordType` | Added `LOGISTIC_ORDER` |
+| `QualityLinkType` | Added `LOGISTIC_QUALITY_HOLD`, `ORDER_TO_DEFECT` |
+| `PlantLogisticProductionMilestone` | Added `linkedDefectId` + `linkedDefect` relation (FK to Defect) |
+| `Defect` | Added reverse relation `logisticMilestones` |
+
+**New Files:**
+
+| File | Purpose |
+|------|---------|
+| `src/app/(dashboard)/logistic/orders/[id]/create-defect-from-hold.tsx` | Client component: "Create Defect" button + dialog for quality hold milestones |
+| `src/app/api/companies/route.ts` | GET endpoint returning supplier companies (OEM-only) |
+
+**Modified Files:**
+
+| File | Change |
+|------|--------|
+| `src/app/(dashboard)/logistic/milestone-actions.ts` | Added `createDefectFromQualityHold()` — creates Defect from quality hold milestone, creates QualityRecordLink (ORDER_TO_DEFECT), events, notifications |
+| `src/app/(dashboard)/logistic/orders/[id]/page.tsx` | Added `CreateDefectFromHoldButton` to milestone actions column when status === QUALITY_HOLD |
+| `src/lib/quality-linkage/manual-links.ts` | Added `LOGISTIC_ORDER` to verifyRecordBelongsToCompany + revalidateRelatedPaths |
+| `src/lib/quality-linkage/find-related.ts` | Added `LOGISTIC_ORDER` to buildHref + resolveRecord |
+| `src/lib/quality-linkage/types.ts` | Added labels/colors/icons for new types |
+| `src/components/quality-linkage/related-records-panel.tsx` | Added `LOGISTIC_ORDER` icon (Truck) + new link types to select |
+
+**Integration Flow:**
+1. OEM sees QUALITY_HOLD milestone → clicks "Create Defect"
+2. Dialog: selects supplier, enters part number
+3. Server creates: Defect + EightDReport + QualityRecordLink (ORDER_TO_DEFECT) + events + notifications
+4. Milestone shows "View Defect" link to quality defect detail
+5. Defect detail shows logistic order in Related Quality Records
+
 **Verified:**
 - `npx tsc --noEmit` — zero errors
 - ESLint on all changed files — zero warnings

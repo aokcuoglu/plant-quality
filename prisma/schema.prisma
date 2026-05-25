@@ -98,6 +98,7 @@ enum QualityRecordType {
   PPAP
   IQC
   FMEA
+  LOGISTIC_ORDER
 }
 
 enum QualityLinkType {
@@ -113,6 +114,8 @@ enum QualityLinkType {
   RELATED_HISTORY
   IQC_REJECTION
   SAME_SUPPLIER_ONLY
+  LOGISTIC_QUALITY_HOLD
+  ORDER_TO_DEFECT
 }
 
 enum DevPlanSourceType {
@@ -728,6 +731,7 @@ model Defect {
   ppap         PpapSubmission?
   fmea         Fmea?
   linkedFieldDefect FieldDefect?
+  logisticMilestones PlantLogisticProductionMilestone[] @relation("MilestoneDefect")
   iqcReport    IqcReport?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -1536,6 +1540,8 @@ model PlantLogisticProductionMilestone {
   responsibleDepartment String?                  @map("responsible_department")
   delayReason           String?                  @map("delay_reason")
   qualityHold           Boolean                  @default(false) @map("quality_hold")
+  linkedDefectId        String?                  @map("linked_defect_id")
+  linkedDefect          Defect?                  @relation("MilestoneDefect", fields: [linkedDefectId], references: [id])
   notes                 String?
   createdById           String?                  @map("created_by_id")
   createdBy             User?                    @relation("MilestoneCreatedBy", fields: [createdById], references: [id])

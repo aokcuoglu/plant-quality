@@ -50,6 +50,7 @@ export type PlantLogisticProductionMilestoneMinAggregateOutputType = {
   responsibleDepartment: string | null
   delayReason: string | null
   qualityHold: boolean | null
+  linkedDefectId: string | null
   notes: string | null
   createdById: string | null
   updatedById: string | null
@@ -73,6 +74,7 @@ export type PlantLogisticProductionMilestoneMaxAggregateOutputType = {
   responsibleDepartment: string | null
   delayReason: string | null
   qualityHold: boolean | null
+  linkedDefectId: string | null
   notes: string | null
   createdById: string | null
   updatedById: string | null
@@ -96,6 +98,7 @@ export type PlantLogisticProductionMilestoneCountAggregateOutputType = {
   responsibleDepartment: number
   delayReason: number
   qualityHold: number
+  linkedDefectId: number
   notes: number
   createdById: number
   updatedById: number
@@ -129,6 +132,7 @@ export type PlantLogisticProductionMilestoneMinAggregateInputType = {
   responsibleDepartment?: true
   delayReason?: true
   qualityHold?: true
+  linkedDefectId?: true
   notes?: true
   createdById?: true
   updatedById?: true
@@ -152,6 +156,7 @@ export type PlantLogisticProductionMilestoneMaxAggregateInputType = {
   responsibleDepartment?: true
   delayReason?: true
   qualityHold?: true
+  linkedDefectId?: true
   notes?: true
   createdById?: true
   updatedById?: true
@@ -175,6 +180,7 @@ export type PlantLogisticProductionMilestoneCountAggregateInputType = {
   responsibleDepartment?: true
   delayReason?: true
   qualityHold?: true
+  linkedDefectId?: true
   notes?: true
   createdById?: true
   updatedById?: true
@@ -285,6 +291,7 @@ export type PlantLogisticProductionMilestoneGroupByOutputType = {
   responsibleDepartment: string | null
   delayReason: string | null
   qualityHold: boolean
+  linkedDefectId: string | null
   notes: string | null
   createdById: string | null
   updatedById: string | null
@@ -331,6 +338,7 @@ export type PlantLogisticProductionMilestoneWhereInput = {
   responsibleDepartment?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   delayReason?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   qualityHold?: Prisma.BoolFilter<"PlantLogisticProductionMilestone"> | boolean
+  linkedDefectId?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   notes?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   createdById?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   updatedById?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
@@ -338,6 +346,7 @@ export type PlantLogisticProductionMilestoneWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"PlantLogisticProductionMilestone"> | Date | string
   order?: Prisma.XOR<Prisma.PlantLogisticOrderScalarRelationFilter, Prisma.PlantLogisticOrderWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  linkedDefect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
@@ -358,6 +367,7 @@ export type PlantLogisticProductionMilestoneOrderByWithRelationInput = {
   responsibleDepartment?: Prisma.SortOrderInput | Prisma.SortOrder
   delayReason?: Prisma.SortOrderInput | Prisma.SortOrder
   qualityHold?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -365,6 +375,7 @@ export type PlantLogisticProductionMilestoneOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   order?: Prisma.PlantLogisticOrderOrderByWithRelationInput
   company?: Prisma.CompanyOrderByWithRelationInput
+  linkedDefect?: Prisma.DefectOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
 }
@@ -388,6 +399,7 @@ export type PlantLogisticProductionMilestoneWhereUniqueInput = Prisma.AtLeast<{
   responsibleDepartment?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   delayReason?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   qualityHold?: Prisma.BoolFilter<"PlantLogisticProductionMilestone"> | boolean
+  linkedDefectId?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   notes?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   createdById?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   updatedById?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
@@ -395,6 +407,7 @@ export type PlantLogisticProductionMilestoneWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"PlantLogisticProductionMilestone"> | Date | string
   order?: Prisma.XOR<Prisma.PlantLogisticOrderScalarRelationFilter, Prisma.PlantLogisticOrderWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  linkedDefect?: Prisma.XOR<Prisma.DefectNullableScalarRelationFilter, Prisma.DefectWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
@@ -415,6 +428,7 @@ export type PlantLogisticProductionMilestoneOrderByWithAggregationInput = {
   responsibleDepartment?: Prisma.SortOrderInput | Prisma.SortOrder
   delayReason?: Prisma.SortOrderInput | Prisma.SortOrder
   qualityHold?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -446,6 +460,7 @@ export type PlantLogisticProductionMilestoneScalarWhereWithAggregatesInput = {
   responsibleDepartment?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticProductionMilestone"> | string | null
   delayReason?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticProductionMilestone"> | string | null
   qualityHold?: Prisma.BoolWithAggregatesFilter<"PlantLogisticProductionMilestone"> | boolean
+  linkedDefectId?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticProductionMilestone"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticProductionMilestone"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticProductionMilestone"> | string | null
   updatedById?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticProductionMilestone"> | string | null
@@ -472,6 +487,7 @@ export type PlantLogisticProductionMilestoneCreateInput = {
   updatedAt?: Date | string
   order: Prisma.PlantLogisticOrderCreateNestedOneWithoutMilestonesInput
   company: Prisma.CompanyCreateNestedOneWithoutProductionMilestonesInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLogisticMilestonesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedMilestonesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedMilestonesInput
 }
@@ -492,6 +508,7 @@ export type PlantLogisticProductionMilestoneUncheckedCreateInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   updatedById?: string | null
@@ -518,6 +535,7 @@ export type PlantLogisticProductionMilestoneUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.PlantLogisticOrderUpdateOneRequiredWithoutMilestonesNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutProductionMilestonesNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLogisticMilestonesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedMilestonesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedMilestonesNestedInput
 }
@@ -538,6 +556,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateInput = {
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -561,6 +580,7 @@ export type PlantLogisticProductionMilestoneCreateManyInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   updatedById?: string | null
@@ -603,6 +623,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateManyInput = {
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -636,6 +657,7 @@ export type PlantLogisticProductionMilestoneCountOrderByAggregateInput = {
   responsibleDepartment?: Prisma.SortOrder
   delayReason?: Prisma.SortOrder
   qualityHold?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
@@ -663,6 +685,7 @@ export type PlantLogisticProductionMilestoneMaxOrderByAggregateInput = {
   responsibleDepartment?: Prisma.SortOrder
   delayReason?: Prisma.SortOrder
   qualityHold?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
@@ -686,6 +709,7 @@ export type PlantLogisticProductionMilestoneMinOrderByAggregateInput = {
   responsibleDepartment?: Prisma.SortOrder
   delayReason?: Prisma.SortOrder
   qualityHold?: Prisma.SortOrder
+  linkedDefectId?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
@@ -823,6 +847,48 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByN
   deleteMany?: Prisma.PlantLogisticProductionMilestoneScalarWhereInput | Prisma.PlantLogisticProductionMilestoneScalarWhereInput[]
 }
 
+export type PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput> | Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput[] | Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput[]
+  connectOrCreate?: Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput[]
+  createMany?: Prisma.PlantLogisticProductionMilestoneCreateManyLinkedDefectInputEnvelope
+  connect?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+}
+
+export type PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput> | Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput[] | Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput[]
+  connectOrCreate?: Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput[]
+  createMany?: Prisma.PlantLogisticProductionMilestoneCreateManyLinkedDefectInputEnvelope
+  connect?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+}
+
+export type PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput> | Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput[] | Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput[]
+  connectOrCreate?: Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput[]
+  upsert?: Prisma.PlantLogisticProductionMilestoneUpsertWithWhereUniqueWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneUpsertWithWhereUniqueWithoutLinkedDefectInput[]
+  createMany?: Prisma.PlantLogisticProductionMilestoneCreateManyLinkedDefectInputEnvelope
+  set?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  disconnect?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  delete?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  connect?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  update?: Prisma.PlantLogisticProductionMilestoneUpdateWithWhereUniqueWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneUpdateWithWhereUniqueWithoutLinkedDefectInput[]
+  updateMany?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithWhereWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneUpdateManyWithWhereWithoutLinkedDefectInput[]
+  deleteMany?: Prisma.PlantLogisticProductionMilestoneScalarWhereInput | Prisma.PlantLogisticProductionMilestoneScalarWhereInput[]
+}
+
+export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput> | Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput[] | Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput[]
+  connectOrCreate?: Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput[]
+  upsert?: Prisma.PlantLogisticProductionMilestoneUpsertWithWhereUniqueWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneUpsertWithWhereUniqueWithoutLinkedDefectInput[]
+  createMany?: Prisma.PlantLogisticProductionMilestoneCreateManyLinkedDefectInputEnvelope
+  set?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  disconnect?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  delete?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  connect?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput | Prisma.PlantLogisticProductionMilestoneWhereUniqueInput[]
+  update?: Prisma.PlantLogisticProductionMilestoneUpdateWithWhereUniqueWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneUpdateWithWhereUniqueWithoutLinkedDefectInput[]
+  updateMany?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithWhereWithoutLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneUpdateManyWithWhereWithoutLinkedDefectInput[]
+  deleteMany?: Prisma.PlantLogisticProductionMilestoneScalarWhereInput | Prisma.PlantLogisticProductionMilestoneScalarWhereInput[]
+}
+
 export type PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput = {
   create?: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutOrderInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutOrderInput> | Prisma.PlantLogisticProductionMilestoneCreateWithoutOrderInput[] | Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutOrderInput[]
   connectOrCreate?: Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutOrderInput | Prisma.PlantLogisticProductionMilestoneCreateOrConnectWithoutOrderInput[]
@@ -891,6 +957,7 @@ export type PlantLogisticProductionMilestoneCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   order: Prisma.PlantLogisticOrderCreateNestedOneWithoutMilestonesInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLogisticMilestonesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedMilestonesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedMilestonesInput
 }
@@ -910,6 +977,7 @@ export type PlantLogisticProductionMilestoneUncheckedCreateWithoutCompanyInput =
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   updatedById?: string | null
@@ -962,6 +1030,7 @@ export type PlantLogisticProductionMilestoneScalarWhereInput = {
   responsibleDepartment?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   delayReason?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   qualityHold?: Prisma.BoolFilter<"PlantLogisticProductionMilestone"> | boolean
+  linkedDefectId?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   notes?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   createdById?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
   updatedById?: Prisma.StringNullableFilter<"PlantLogisticProductionMilestone"> | string | null
@@ -988,6 +1057,7 @@ export type PlantLogisticProductionMilestoneCreateWithoutCreatedByInput = {
   updatedAt?: Date | string
   order: Prisma.PlantLogisticOrderCreateNestedOneWithoutMilestonesInput
   company: Prisma.CompanyCreateNestedOneWithoutProductionMilestonesInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLogisticMilestonesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedMilestonesInput
 }
 
@@ -1007,6 +1077,7 @@ export type PlantLogisticProductionMilestoneUncheckedCreateWithoutCreatedByInput
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   updatedById?: string | null
   createdAt?: Date | string
@@ -1042,6 +1113,7 @@ export type PlantLogisticProductionMilestoneCreateWithoutUpdatedByInput = {
   updatedAt?: Date | string
   order: Prisma.PlantLogisticOrderCreateNestedOneWithoutMilestonesInput
   company: Prisma.CompanyCreateNestedOneWithoutProductionMilestonesInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLogisticMilestonesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedMilestonesInput
 }
 
@@ -1061,6 +1133,7 @@ export type PlantLogisticProductionMilestoneUncheckedCreateWithoutUpdatedByInput
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   createdAt?: Date | string
@@ -1109,6 +1182,78 @@ export type PlantLogisticProductionMilestoneUpdateManyWithWhereWithoutUpdatedByI
   data: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneUpdateManyMutationInput, Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByInput>
 }
 
+export type PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput = {
+  id?: string
+  sequence: number
+  gate: $Enums.ProductionMilestoneGate
+  title: string
+  description?: string | null
+  status?: $Enums.ProductionMilestoneStatus
+  plannedStart?: Date | string | null
+  plannedFinish?: Date | string | null
+  actualStart?: Date | string | null
+  actualFinish?: Date | string | null
+  responsibleDepartment?: string | null
+  delayReason?: string | null
+  qualityHold?: boolean
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  order: Prisma.PlantLogisticOrderCreateNestedOneWithoutMilestonesInput
+  company: Prisma.CompanyCreateNestedOneWithoutProductionMilestonesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedMilestonesInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedMilestonesInput
+}
+
+export type PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput = {
+  id?: string
+  orderId: string
+  companyId: string
+  sequence: number
+  gate: $Enums.ProductionMilestoneGate
+  title: string
+  description?: string | null
+  status?: $Enums.ProductionMilestoneStatus
+  plannedStart?: Date | string | null
+  plannedFinish?: Date | string | null
+  actualStart?: Date | string | null
+  actualFinish?: Date | string | null
+  responsibleDepartment?: string | null
+  delayReason?: string | null
+  qualityHold?: boolean
+  notes?: string | null
+  createdById?: string | null
+  updatedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PlantLogisticProductionMilestoneCreateOrConnectWithoutLinkedDefectInput = {
+  where: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput>
+}
+
+export type PlantLogisticProductionMilestoneCreateManyLinkedDefectInputEnvelope = {
+  data: Prisma.PlantLogisticProductionMilestoneCreateManyLinkedDefectInput | Prisma.PlantLogisticProductionMilestoneCreateManyLinkedDefectInput[]
+  skipDuplicates?: boolean
+}
+
+export type PlantLogisticProductionMilestoneUpsertWithWhereUniqueWithoutLinkedDefectInput = {
+  where: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput
+  update: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneUpdateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedUpdateWithoutLinkedDefectInput>
+  create: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneCreateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedCreateWithoutLinkedDefectInput>
+}
+
+export type PlantLogisticProductionMilestoneUpdateWithWhereUniqueWithoutLinkedDefectInput = {
+  where: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput
+  data: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneUpdateWithoutLinkedDefectInput, Prisma.PlantLogisticProductionMilestoneUncheckedUpdateWithoutLinkedDefectInput>
+}
+
+export type PlantLogisticProductionMilestoneUpdateManyWithWhereWithoutLinkedDefectInput = {
+  where: Prisma.PlantLogisticProductionMilestoneScalarWhereInput
+  data: Prisma.XOR<Prisma.PlantLogisticProductionMilestoneUpdateManyMutationInput, Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectInput>
+}
+
 export type PlantLogisticProductionMilestoneCreateWithoutOrderInput = {
   id?: string
   sequence: number
@@ -1127,6 +1272,7 @@ export type PlantLogisticProductionMilestoneCreateWithoutOrderInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutProductionMilestonesInput
+  linkedDefect?: Prisma.DefectCreateNestedOneWithoutLogisticMilestonesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedMilestonesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedMilestonesInput
 }
@@ -1146,6 +1292,7 @@ export type PlantLogisticProductionMilestoneUncheckedCreateWithoutOrderInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   updatedById?: string | null
@@ -1194,6 +1341,7 @@ export type PlantLogisticProductionMilestoneCreateManyCompanyInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   updatedById?: string | null
@@ -1219,6 +1367,7 @@ export type PlantLogisticProductionMilestoneUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.PlantLogisticOrderUpdateOneRequiredWithoutMilestonesNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLogisticMilestonesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedMilestonesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedMilestonesNestedInput
 }
@@ -1238,6 +1387,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateWithoutCompanyInput =
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1260,6 +1410,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyInp
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1283,6 +1434,7 @@ export type PlantLogisticProductionMilestoneCreateManyCreatedByInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   updatedById?: string | null
   createdAt?: Date | string
@@ -1305,6 +1457,7 @@ export type PlantLogisticProductionMilestoneCreateManyUpdatedByInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   createdAt?: Date | string
@@ -1330,6 +1483,7 @@ export type PlantLogisticProductionMilestoneUpdateWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.PlantLogisticOrderUpdateOneRequiredWithoutMilestonesNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutProductionMilestonesNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLogisticMilestonesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedMilestonesNestedInput
 }
 
@@ -1349,6 +1503,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateWithoutCreatedByInput
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1371,6 +1526,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCreatedByI
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1396,6 +1552,7 @@ export type PlantLogisticProductionMilestoneUpdateWithoutUpdatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.PlantLogisticOrderUpdateOneRequiredWithoutMilestonesNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutProductionMilestonesNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLogisticMilestonesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedMilestonesNestedInput
 }
 
@@ -1415,6 +1572,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateWithoutUpdatedByInput
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1437,8 +1595,101 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutUpdatedByI
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PlantLogisticProductionMilestoneCreateManyLinkedDefectInput = {
+  id?: string
+  orderId: string
+  companyId: string
+  sequence: number
+  gate: $Enums.ProductionMilestoneGate
+  title: string
+  description?: string | null
+  status?: $Enums.ProductionMilestoneStatus
+  plannedStart?: Date | string | null
+  plannedFinish?: Date | string | null
+  actualStart?: Date | string | null
+  actualFinish?: Date | string | null
+  responsibleDepartment?: string | null
+  delayReason?: string | null
+  qualityHold?: boolean
+  notes?: string | null
+  createdById?: string | null
+  updatedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PlantLogisticProductionMilestoneUpdateWithoutLinkedDefectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  gate?: Prisma.EnumProductionMilestoneGateFieldUpdateOperationsInput | $Enums.ProductionMilestoneGate
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProductionMilestoneStatusFieldUpdateOperationsInput | $Enums.ProductionMilestoneStatus
+  plannedStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actualStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order?: Prisma.PlantLogisticOrderUpdateOneRequiredWithoutMilestonesNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutProductionMilestonesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedMilestonesNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedMilestonesNestedInput
+}
+
+export type PlantLogisticProductionMilestoneUncheckedUpdateWithoutLinkedDefectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  gate?: Prisma.EnumProductionMilestoneGateFieldUpdateOperationsInput | $Enums.ProductionMilestoneGate
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProductionMilestoneStatusFieldUpdateOperationsInput | $Enums.ProductionMilestoneStatus
+  plannedStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actualStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  sequence?: Prisma.IntFieldUpdateOperationsInput | number
+  gate?: Prisma.EnumProductionMilestoneGateFieldUpdateOperationsInput | $Enums.ProductionMilestoneGate
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProductionMilestoneStatusFieldUpdateOperationsInput | $Enums.ProductionMilestoneStatus
+  plannedStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actualStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actualFinish?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1458,6 +1709,7 @@ export type PlantLogisticProductionMilestoneCreateManyOrderInput = {
   responsibleDepartment?: string | null
   delayReason?: string | null
   qualityHold?: boolean
+  linkedDefectId?: string | null
   notes?: string | null
   createdById?: string | null
   updatedById?: string | null
@@ -1483,6 +1735,7 @@ export type PlantLogisticProductionMilestoneUpdateWithoutOrderInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutProductionMilestonesNestedInput
+  linkedDefect?: Prisma.DefectUpdateOneWithoutLogisticMilestonesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedMilestonesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedMilestonesNestedInput
 }
@@ -1502,6 +1755,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateWithoutOrderInput = {
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1524,6 +1778,7 @@ export type PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderInput
   responsibleDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   delayReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualityHold?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linkedDefectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1549,6 +1804,7 @@ export type PlantLogisticProductionMilestoneSelect<ExtArgs extends runtime.Types
   responsibleDepartment?: boolean
   delayReason?: boolean
   qualityHold?: boolean
+  linkedDefectId?: boolean
   notes?: boolean
   createdById?: boolean
   updatedById?: boolean
@@ -1556,6 +1812,7 @@ export type PlantLogisticProductionMilestoneSelect<ExtArgs extends runtime.Types
   updatedAt?: boolean
   order?: boolean | Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>
   createdBy?: boolean | Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticProductionMilestone"]>
@@ -1576,6 +1833,7 @@ export type PlantLogisticProductionMilestoneSelectCreateManyAndReturn<ExtArgs ex
   responsibleDepartment?: boolean
   delayReason?: boolean
   qualityHold?: boolean
+  linkedDefectId?: boolean
   notes?: boolean
   createdById?: boolean
   updatedById?: boolean
@@ -1583,6 +1841,7 @@ export type PlantLogisticProductionMilestoneSelectCreateManyAndReturn<ExtArgs ex
   updatedAt?: boolean
   order?: boolean | Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>
   createdBy?: boolean | Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticProductionMilestone"]>
@@ -1603,6 +1862,7 @@ export type PlantLogisticProductionMilestoneSelectUpdateManyAndReturn<ExtArgs ex
   responsibleDepartment?: boolean
   delayReason?: boolean
   qualityHold?: boolean
+  linkedDefectId?: boolean
   notes?: boolean
   createdById?: boolean
   updatedById?: boolean
@@ -1610,6 +1870,7 @@ export type PlantLogisticProductionMilestoneSelectUpdateManyAndReturn<ExtArgs ex
   updatedAt?: boolean
   order?: boolean | Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>
   createdBy?: boolean | Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticProductionMilestone"]>
@@ -1630,6 +1891,7 @@ export type PlantLogisticProductionMilestoneSelectScalar = {
   responsibleDepartment?: boolean
   delayReason?: boolean
   qualityHold?: boolean
+  linkedDefectId?: boolean
   notes?: boolean
   createdById?: boolean
   updatedById?: boolean
@@ -1637,22 +1899,25 @@ export type PlantLogisticProductionMilestoneSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PlantLogisticProductionMilestoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "companyId" | "sequence" | "gate" | "title" | "description" | "status" | "plannedStart" | "plannedFinish" | "actualStart" | "actualFinish" | "responsibleDepartment" | "delayReason" | "qualityHold" | "notes" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["plantLogisticProductionMilestone"]>
+export type PlantLogisticProductionMilestoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "companyId" | "sequence" | "gate" | "title" | "description" | "status" | "plannedStart" | "plannedFinish" | "actualStart" | "actualFinish" | "responsibleDepartment" | "delayReason" | "qualityHold" | "linkedDefectId" | "notes" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["plantLogisticProductionMilestone"]>
 export type PlantLogisticProductionMilestoneInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>
   createdBy?: boolean | Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>
 }
 export type PlantLogisticProductionMilestoneIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>
   createdBy?: boolean | Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>
 }
 export type PlantLogisticProductionMilestoneIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  linkedDefect?: boolean | Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>
   createdBy?: boolean | Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>
 }
@@ -1662,6 +1927,7 @@ export type $PlantLogisticProductionMilestonePayload<ExtArgs extends runtime.Typ
   objects: {
     order: Prisma.$PlantLogisticOrderPayload<ExtArgs>
     company: Prisma.$CompanyPayload<ExtArgs>
+    linkedDefect: Prisma.$DefectPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
   }
@@ -1681,6 +1947,7 @@ export type $PlantLogisticProductionMilestonePayload<ExtArgs extends runtime.Typ
     responsibleDepartment: string | null
     delayReason: string | null
     qualityHold: boolean
+    linkedDefectId: string | null
     notes: string | null
     createdById: string | null
     updatedById: string | null
@@ -2082,6 +2349,7 @@ export interface Prisma__PlantLogisticProductionMilestoneClient<T, Null = never,
   readonly [Symbol.toStringTag]: "PrismaPromise"
   order<T extends Prisma.PlantLogisticOrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrderDefaultArgs<ExtArgs>>): Prisma.Prisma__PlantLogisticOrderClient<runtime.Types.Result.GetResult<Prisma.$PlantLogisticOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  linkedDefect<T extends Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs>>): Prisma.Prisma__DefectClient<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticProductionMilestone$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticProductionMilestone$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -2128,6 +2396,7 @@ export interface PlantLogisticProductionMilestoneFieldRefs {
   readonly responsibleDepartment: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'String'>
   readonly delayReason: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'String'>
   readonly qualityHold: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'Boolean'>
+  readonly linkedDefectId: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'String'>
   readonly notes: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'String'>
   readonly createdById: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'String'>
   readonly updatedById: Prisma.FieldRef<"PlantLogisticProductionMilestone", 'String'>
@@ -2531,6 +2800,25 @@ export type PlantLogisticProductionMilestoneDeleteManyArgs<ExtArgs extends runti
    * Limit how many PlantLogisticProductionMilestones to delete.
    */
   limit?: number
+}
+
+/**
+ * PlantLogisticProductionMilestone.linkedDefect
+ */
+export type PlantLogisticProductionMilestone$linkedDefectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Defect
+   */
+  select?: Prisma.DefectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Defect
+   */
+  omit?: Prisma.DefectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DefectInclude<ExtArgs> | null
+  where?: Prisma.DefectWhereInput
 }
 
 /**

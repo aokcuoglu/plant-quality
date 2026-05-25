@@ -126,7 +126,8 @@ export const QualityRecordType = {
   EIGHT_D: 'EIGHT_D',
   PPAP: 'PPAP',
   IQC: 'IQC',
-  FMEA: 'FMEA'
+  FMEA: 'FMEA',
+  LOGISTIC_ORDER: 'LOGISTIC_ORDER'
 } as const
 
 export type QualityRecordType = (typeof QualityRecordType)[keyof typeof QualityRecordType]
@@ -144,7 +145,9 @@ export const QualityLinkType = {
   MANUAL: 'MANUAL',
   RELATED_HISTORY: 'RELATED_HISTORY',
   IQC_REJECTION: 'IQC_REJECTION',
-  SAME_SUPPLIER_ONLY: 'SAME_SUPPLIER_ONLY'
+  SAME_SUPPLIER_ONLY: 'SAME_SUPPLIER_ONLY',
+  LOGISTIC_QUALITY_HOLD: 'LOGISTIC_QUALITY_HOLD',
+  ORDER_TO_DEFECT: 'ORDER_TO_DEFECT'
 } as const
 
 export type QualityLinkType = (typeof QualityLinkType)[keyof typeof QualityLinkType]

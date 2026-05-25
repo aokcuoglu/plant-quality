@@ -40,6 +40,8 @@ function buildHref(recordType: QualityRecordType, id: string, companyType: strin
       return `${prefix}/iqc/${id}`
     case "FMEA":
       return `${prefix}/fmea/${id}`
+    case "LOGISTIC_ORDER":
+      return `/logistic/orders/${id}`
   }
 }
 
@@ -1625,6 +1627,23 @@ async function resolveRecord(
         partNumber: f.partNumber,
         createdAt: f.createdAt,
         href: buildHref("FMEA", f.id, companyType),
+      }
+    }
+    case "LOGISTIC_ORDER": {
+      const lo = await prisma.plantLogisticOrder.findFirst({
+        where: { id: recordId, companyId: oemId },
+      })
+      if (!lo) return null
+      return {
+        recordType: "LOGISTIC_ORDER",
+        id: lo.id,
+        title: `${lo.orderNumber} — ${lo.vehicleModel}`,
+        status: lo.status,
+        statusLabel: statusLabel("LOGISTIC_ORDER", lo.status),
+        supplier: null,
+        partNumber: lo.vehicleModel,
+        createdAt: lo.createdAt,
+        href: buildHref("LOGISTIC_ORDER", lo.id, companyType),
       }
     }
   }

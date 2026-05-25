@@ -10,6 +10,7 @@ import {
   FileText,
   Link2,
   ShieldAlert,
+  Truck,
   Unlink,
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -40,6 +41,7 @@ const RECORD_TYPE_ICONS: Record<QualityRecordType, React.ReactNode> = {
   PPAP: <FileCheck className="h-4 w-4" />,
   IQC: <ClipboardCheck className="h-4 w-4" />,
   FMEA: <ShieldAlert className="h-4 w-4" />,
+  LOGISTIC_ORDER: <Truck className="h-4 w-4" />,
 }
 
 function ConfidenceBadge({ confidence, score }: { confidence: Confidence; score: number }) {
@@ -393,6 +395,8 @@ function LinkRecordDialog({
                 ["FMEA_COVERAGE", "FMEA coverage"],
                 ["RELATED_HISTORY", "Related history"],
                 ["IQC_REJECTION", "IQC rejection history"],
+                ["ORDER_TO_DEFECT", "Order → Defect"],
+                ["LOGISTIC_QUALITY_HOLD", "Quality Hold → Logistic"],
               ] as [QualityLinkType, string][]).map(([k, v]) => (
                 <option key={k} value={k}>{v}</option>
               ))}

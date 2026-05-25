@@ -11,6 +11,7 @@ import type {
   LogisticOrderEventType,
 } from "@/generated/prisma/client"
 import { canTransitionMilestone } from "@/lib/logistic/milestone-status"
+import { addCalendarDays } from "@/lib/sla"
 
 const DEFAULT_MILESTONES: {
   gate: ProductionMilestoneGate
@@ -80,6 +81,136 @@ export async function seedDefaultMilestonesForOrder(orderId: string) {
   revalidatePath("/logistic/orders")
   revalidatePath(`/logistic/orders/${orderId}`)
   return { success: true }
+}
+
+export async function createDefectFromQualityHold(milestoneId: string, supplierId: string, partNumber: string) {
+  const session = await auth()
+  if (!session?.user?.id) redirect("/login")
+  if (session.user.companyType !== "OEM") redirect("/quality/supplier")
+
+  const moduleAccess = requireModule(session, "PLANT_LOGISTIC_MODULE")
+  if (!moduleAccess.allowed) redirect("/quality/oem")
+  const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
+  if (!allowed) redirect("/quality/oem")
+
+  const companyId = session.user.companyId
+  const userId = session.user.id
+
+  const milestone = await prisma.plantLogisticProductionMilestone.findFirst({
+    where: { id: milestoneId, companyId },
+    include: { order: { select: { vehicleModel: true, vin: true, vehicleVariant: true } } },
+  })
+  if (!milestone) return { error: "Milestone not found" }
+
+  if (milestone.linkedDefectId) {
+    return { error: "A defect is already linked to this milestone" }
+  }
+
+  const supplier = await prisma.company.findFirst({
+    where: { id: supplierId, type: "SUPPLIER" },
+  })
+  if (!supplier) return { error: "Supplier not found" }
+
+  const vehicleInfo = [
+    milestone.order.vehicleModel,
+    milestone.order.vehicleVariant ? `(${milestone.order.vehicleVariant})` : null,
+    milestone.order.vin ? `VIN: ${milestone.order.vin}` : null,
+  ].filter(Boolean).join(" ")
+
+  const description = `[Quality Hold] ${milestone.title} — ${milestone.gate.replace(/_/g, " ")}\n\n${milestone.delayReason || "No delay reason recorded"}\n\nVehicle: ${vehicleInfo}\nLinked from logistic order`
+
+  const defect = await prisma.defect.create({
+    data: {
+      oemId: companyId,
+      supplierId,
+      partNumber,
+      description,
+      status: "OPEN",
+      oemOwnerId: userId,
+      currentActionOwner: "SUPPLIER",
+      supplierResponseDueAt: addCalendarDays(new Date(), 7),
+    },
+  })
+
+  await prisma.eightDReport.create({
+    data: {
+      defectId: defect.id,
+      d2_problem: milestone.delayReason || description,
+    },
+  })
+
+  await prisma.plantLogisticProductionMilestone.update({
+    where: { id: milestoneId },
+    data: {
+      linkedDefectId: defect.id,
+      qualityHold: true,
+    },
+  })
+
+  await prisma.defectEvent.create({
+    data: {
+      defectId: defect.id,
+      type: "CREATED",
+      actorId: userId,
+      metadata: {
+        source: "logistic_quality_hold",
+        milestoneId,
+        orderId: milestone.orderId,
+        vehicleModel: milestone.order.vehicleModel,
+        gate: milestone.gate,
+      },
+    },
+  })
+
+  await prisma.qualityRecordLink.create({
+    data: {
+      companyId,
+      sourceType: "LOGISTIC_ORDER",
+      sourceId: milestone.orderId,
+      targetType: "DEFECT",
+      targetId: defect.id,
+      linkType: "ORDER_TO_DEFECT",
+      reason: `Quality hold defect for milestone ${milestone.title}`,
+      createdById: userId,
+    },
+  })
+
+  await prisma.plantLogisticOrderEvent.create({
+    data: {
+      orderId: milestone.orderId,
+      companyId,
+      actorId: userId,
+      eventType: "MILESTONE_QUALITY_HOLD" as LogisticOrderEventType,
+      message: `Quality hold defect created for milestone ${milestone.title} — Defect ${defect.id}`,
+    },
+  })
+
+  const supplierUsers = await prisma.user.findMany({
+    where: { companyId: supplierId },
+    select: { id: true },
+  })
+  if (supplierUsers.length > 0) {
+    await prisma.notification.createMany({
+      data: supplierUsers.map((user) => ({
+        userId: user.id,
+        companyId: supplierId,
+        message: `New 8D defect created from quality hold: ${milestone.title} (${partNumber})`,
+        type: "INFO" as const,
+        link: `/quality/supplier/defects/${defect.id}`,
+        isRead: false,
+      })),
+    })
+  }
+
+  revalidatePath("/logistic")
+  revalidatePath("/logistic/orders")
+  revalidatePath(`/logistic/orders/${milestone.orderId}`)
+  revalidatePath("/quality/oem/defects")
+  revalidatePath(`/quality/oem/defects/${defect.id}`)
+  revalidatePath(`/quality/supplier/defects/${defect.id}`)
+  revalidatePath("/quality/supplier/defects")
+
+  return { success: true, defectId: defect.id }
 }
 
 export async function createProductionMilestone(orderId: string, data: {

@@ -317,6 +317,7 @@ export type DefectWhereInput = {
   ppap?: Prisma.XOR<Prisma.PpapSubmissionNullableScalarRelationFilter, Prisma.PpapSubmissionWhereInput> | null
   fmea?: Prisma.XOR<Prisma.FmeaNullableScalarRelationFilter, Prisma.FmeaWhereInput> | null
   linkedFieldDefect?: Prisma.XOR<Prisma.FieldDefectNullableScalarRelationFilter, Prisma.FieldDefectWhereInput> | null
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
   iqcReport?: Prisma.XOR<Prisma.IqcReportNullableScalarRelationFilter, Prisma.IqcReportWhereInput> | null
 }
 
@@ -353,6 +354,7 @@ export type DefectOrderByWithRelationInput = {
   ppap?: Prisma.PpapSubmissionOrderByWithRelationInput
   fmea?: Prisma.FmeaOrderByWithRelationInput
   linkedFieldDefect?: Prisma.FieldDefectOrderByWithRelationInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneOrderByRelationAggregateInput
   iqcReport?: Prisma.IqcReportOrderByWithRelationInput
 }
 
@@ -392,6 +394,7 @@ export type DefectWhereUniqueInput = Prisma.AtLeast<{
   ppap?: Prisma.XOR<Prisma.PpapSubmissionNullableScalarRelationFilter, Prisma.PpapSubmissionWhereInput> | null
   fmea?: Prisma.XOR<Prisma.FmeaNullableScalarRelationFilter, Prisma.FmeaWhereInput> | null
   linkedFieldDefect?: Prisma.XOR<Prisma.FieldDefectNullableScalarRelationFilter, Prisma.FieldDefectWhereInput> | null
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
   iqcReport?: Prisma.XOR<Prisma.IqcReportNullableScalarRelationFilter, Prisma.IqcReportWhereInput> | null
 }, "id">
 
@@ -477,6 +480,7 @@ export type DefectCreateInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -508,6 +512,7 @@ export type DefectUncheckedCreateInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -539,6 +544,7 @@ export type DefectUpdateInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -570,6 +576,7 @@ export type DefectUncheckedUpdateInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1075,6 +1082,22 @@ export type DefectUpdateOneWithoutLinkedFieldDefectNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DefectUpdateToOneWithWhereWithoutLinkedFieldDefectInput, Prisma.DefectUpdateWithoutLinkedFieldDefectInput>, Prisma.DefectUncheckedUpdateWithoutLinkedFieldDefectInput>
 }
 
+export type DefectCreateNestedOneWithoutLogisticMilestonesInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutLogisticMilestonesInput, Prisma.DefectUncheckedCreateWithoutLogisticMilestonesInput>
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutLogisticMilestonesInput
+  connect?: Prisma.DefectWhereUniqueInput
+}
+
+export type DefectUpdateOneWithoutLogisticMilestonesNestedInput = {
+  create?: Prisma.XOR<Prisma.DefectCreateWithoutLogisticMilestonesInput, Prisma.DefectUncheckedCreateWithoutLogisticMilestonesInput>
+  connectOrCreate?: Prisma.DefectCreateOrConnectWithoutLogisticMilestonesInput
+  upsert?: Prisma.DefectUpsertWithoutLogisticMilestonesInput
+  disconnect?: Prisma.DefectWhereInput | boolean
+  delete?: Prisma.DefectWhereInput | boolean
+  connect?: Prisma.DefectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DefectUpdateToOneWithWhereWithoutLogisticMilestonesInput, Prisma.DefectUpdateWithoutLogisticMilestonesInput>, Prisma.DefectUncheckedUpdateWithoutLogisticMilestonesInput>
+}
+
 export type DefectCreateWithoutOemInput = {
   id?: string
   partNumber: string
@@ -1102,6 +1125,7 @@ export type DefectCreateWithoutOemInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1132,6 +1156,7 @@ export type DefectUncheckedCreateWithoutOemInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1172,6 +1197,7 @@ export type DefectCreateWithoutSupplierInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1202,6 +1228,7 @@ export type DefectUncheckedCreateWithoutSupplierInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1301,6 +1328,7 @@ export type DefectCreateWithoutOemOwnerInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1331,6 +1359,7 @@ export type DefectUncheckedCreateWithoutOemOwnerInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1371,6 +1400,7 @@ export type DefectCreateWithoutSupplierAssigneeInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1401,6 +1431,7 @@ export type DefectUncheckedCreateWithoutSupplierAssigneeInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1441,6 +1472,7 @@ export type DefectCreateWithoutEscalatedByInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1471,6 +1503,7 @@ export type DefectUncheckedCreateWithoutEscalatedByInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1559,6 +1592,7 @@ export type DefectCreateWithoutEightDReportInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1589,6 +1623,7 @@ export type DefectUncheckedCreateWithoutEightDReportInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1635,6 +1670,7 @@ export type DefectUpdateWithoutEightDReportInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1665,6 +1701,7 @@ export type DefectUncheckedUpdateWithoutEightDReportInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1695,6 +1732,7 @@ export type DefectCreateWithoutEventsInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1725,6 +1763,7 @@ export type DefectUncheckedCreateWithoutEventsInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1771,6 +1810,7 @@ export type DefectUpdateWithoutEventsInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1801,6 +1841,7 @@ export type DefectUncheckedUpdateWithoutEventsInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1831,6 +1872,7 @@ export type DefectCreateWithoutEvidencesInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1861,6 +1903,7 @@ export type DefectUncheckedCreateWithoutEvidencesInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1907,6 +1950,7 @@ export type DefectUpdateWithoutEvidencesInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1937,6 +1981,7 @@ export type DefectUncheckedUpdateWithoutEvidencesInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -1967,6 +2012,7 @@ export type DefectCreateWithoutPpapInput = {
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -1997,6 +2043,7 @@ export type DefectUncheckedCreateWithoutPpapInput = {
   evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -2043,6 +2090,7 @@ export type DefectUpdateWithoutPpapInput = {
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2073,6 +2121,7 @@ export type DefectUncheckedUpdateWithoutPpapInput = {
   evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2104,6 +2153,7 @@ export type DefectCreateWithoutIqcReportInput = {
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
 }
 
 export type DefectUncheckedCreateWithoutIqcReportInput = {
@@ -2134,6 +2184,7 @@ export type DefectUncheckedCreateWithoutIqcReportInput = {
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
 }
 
 export type DefectCreateOrConnectWithoutIqcReportInput = {
@@ -2180,6 +2231,7 @@ export type DefectUpdateWithoutIqcReportInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
 }
 
 export type DefectUncheckedUpdateWithoutIqcReportInput = {
@@ -2210,6 +2262,7 @@ export type DefectUncheckedUpdateWithoutIqcReportInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
 }
 
 export type DefectCreateWithoutFmeaInput = {
@@ -2239,6 +2292,7 @@ export type DefectCreateWithoutFmeaInput = {
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -2269,6 +2323,7 @@ export type DefectUncheckedCreateWithoutFmeaInput = {
   evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -2315,6 +2370,7 @@ export type DefectUpdateWithoutFmeaInput = {
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2345,6 +2401,7 @@ export type DefectUncheckedUpdateWithoutFmeaInput = {
   evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2375,6 +2432,7 @@ export type DefectCreateWithoutLinkedFieldDefectInput = {
   evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -2405,6 +2463,7 @@ export type DefectUncheckedCreateWithoutLinkedFieldDefectInput = {
   evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
   ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
   fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutLinkedDefectInput
   iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
 }
 
@@ -2451,6 +2510,7 @@ export type DefectUpdateWithoutLinkedFieldDefectInput = {
   evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2481,6 +2541,147 @@ export type DefectUncheckedUpdateWithoutLinkedFieldDefectInput = {
   evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
+  iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
+}
+
+export type DefectCreateWithoutLogisticMilestonesInput = {
+  id?: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  oem: Prisma.CompanyCreateNestedOneWithoutDefectsAsOemInput
+  supplier: Prisma.CompanyCreateNestedOneWithoutDefectsAsSupInput
+  oemOwner?: Prisma.UserCreateNestedOneWithoutOwnedDefectsInput
+  supplierAssignee?: Prisma.UserCreateNestedOneWithoutAssignedDefectsInput
+  escalatedBy?: Prisma.UserCreateNestedOneWithoutEscalatedDefectsInput
+  eightDReport?: Prisma.EightDReportCreateNestedOneWithoutDefectInput
+  events?: Prisma.DefectEventCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceCreateNestedManyWithoutDefectInput
+  ppap?: Prisma.PpapSubmissionCreateNestedOneWithoutDefectInput
+  fmea?: Prisma.FmeaCreateNestedOneWithoutDefectInput
+  linkedFieldDefect?: Prisma.FieldDefectCreateNestedOneWithoutLinkedDefectInput
+  iqcReport?: Prisma.IqcReportCreateNestedOneWithoutLinkedDefectInput
+}
+
+export type DefectUncheckedCreateWithoutLogisticMilestonesInput = {
+  id?: string
+  oemId: string
+  supplierId: string
+  partNumber: string
+  description: string
+  status?: $Enums.DefectStatus
+  imageUrls?: Prisma.DefectCreateimageUrlsInput | string[]
+  oemOwnerId?: string | null
+  supplierAssigneeId?: string | null
+  supplierResponseDueAt?: Date | string | null
+  eightDSubmissionDueAt?: Date | string | null
+  oemReviewDueAt?: Date | string | null
+  revisionDueAt?: Date | string | null
+  currentActionOwner?: $Enums.ActionOwner
+  escalationLevel?: $Enums.EscalationLevel
+  escalatedAt?: Date | string | null
+  escalatedById?: string | null
+  escalationReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resolvedAt?: Date | string | null
+  eightDReport?: Prisma.EightDReportUncheckedCreateNestedOneWithoutDefectInput
+  events?: Prisma.DefectEventUncheckedCreateNestedManyWithoutDefectInput
+  evidences?: Prisma.DefectEvidenceUncheckedCreateNestedManyWithoutDefectInput
+  ppap?: Prisma.PpapSubmissionUncheckedCreateNestedOneWithoutDefectInput
+  fmea?: Prisma.FmeaUncheckedCreateNestedOneWithoutDefectInput
+  linkedFieldDefect?: Prisma.FieldDefectUncheckedCreateNestedOneWithoutLinkedDefectInput
+  iqcReport?: Prisma.IqcReportUncheckedCreateNestedOneWithoutLinkedDefectInput
+}
+
+export type DefectCreateOrConnectWithoutLogisticMilestonesInput = {
+  where: Prisma.DefectWhereUniqueInput
+  create: Prisma.XOR<Prisma.DefectCreateWithoutLogisticMilestonesInput, Prisma.DefectUncheckedCreateWithoutLogisticMilestonesInput>
+}
+
+export type DefectUpsertWithoutLogisticMilestonesInput = {
+  update: Prisma.XOR<Prisma.DefectUpdateWithoutLogisticMilestonesInput, Prisma.DefectUncheckedUpdateWithoutLogisticMilestonesInput>
+  create: Prisma.XOR<Prisma.DefectCreateWithoutLogisticMilestonesInput, Prisma.DefectUncheckedCreateWithoutLogisticMilestonesInput>
+  where?: Prisma.DefectWhereInput
+}
+
+export type DefectUpdateToOneWithWhereWithoutLogisticMilestonesInput = {
+  where?: Prisma.DefectWhereInput
+  data: Prisma.XOR<Prisma.DefectUpdateWithoutLogisticMilestonesInput, Prisma.DefectUncheckedUpdateWithoutLogisticMilestonesInput>
+}
+
+export type DefectUpdateWithoutLogisticMilestonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oem?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsOemNestedInput
+  supplier?: Prisma.CompanyUpdateOneRequiredWithoutDefectsAsSupNestedInput
+  oemOwner?: Prisma.UserUpdateOneWithoutOwnedDefectsNestedInput
+  supplierAssignee?: Prisma.UserUpdateOneWithoutAssignedDefectsNestedInput
+  escalatedBy?: Prisma.UserUpdateOneWithoutEscalatedDefectsNestedInput
+  eightDReport?: Prisma.EightDReportUpdateOneWithoutDefectNestedInput
+  events?: Prisma.DefectEventUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUpdateManyWithoutDefectNestedInput
+  ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
+  fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
+  linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
+}
+
+export type DefectUncheckedUpdateWithoutLogisticMilestonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  oemId?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.StringFieldUpdateOperationsInput | string
+  partNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDefectStatusFieldUpdateOperationsInput | $Enums.DefectStatus
+  imageUrls?: Prisma.DefectUpdateimageUrlsInput | string[]
+  oemOwnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierAssigneeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierResponseDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDSubmissionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oemReviewDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revisionDueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentActionOwner?: Prisma.EnumActionOwnerFieldUpdateOperationsInput | $Enums.ActionOwner
+  escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
+  escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eightDReport?: Prisma.EightDReportUncheckedUpdateOneWithoutDefectNestedInput
+  events?: Prisma.DefectEventUncheckedUpdateManyWithoutDefectNestedInput
+  evidences?: Prisma.DefectEvidenceUncheckedUpdateManyWithoutDefectNestedInput
+  ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
+  fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
+  linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2557,6 +2758,7 @@ export type DefectUpdateWithoutOemInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2587,6 +2789,7 @@ export type DefectUncheckedUpdateWithoutOemInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2640,6 +2843,7 @@ export type DefectUpdateWithoutSupplierInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2670,6 +2874,7 @@ export type DefectUncheckedUpdateWithoutSupplierInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2792,6 +2997,7 @@ export type DefectUpdateWithoutOemOwnerInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2822,6 +3028,7 @@ export type DefectUncheckedUpdateWithoutOemOwnerInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2875,6 +3082,7 @@ export type DefectUpdateWithoutSupplierAssigneeInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2905,6 +3113,7 @@ export type DefectUncheckedUpdateWithoutSupplierAssigneeInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2958,6 +3167,7 @@ export type DefectUpdateWithoutEscalatedByInput = {
   ppap?: Prisma.PpapSubmissionUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -2988,6 +3198,7 @@ export type DefectUncheckedUpdateWithoutEscalatedByInput = {
   ppap?: Prisma.PpapSubmissionUncheckedUpdateOneWithoutDefectNestedInput
   fmea?: Prisma.FmeaUncheckedUpdateOneWithoutDefectNestedInput
   linkedFieldDefect?: Prisma.FieldDefectUncheckedUpdateOneWithoutLinkedDefectNestedInput
+  logisticMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutLinkedDefectNestedInput
   iqcReport?: Prisma.IqcReportUncheckedUpdateOneWithoutLinkedDefectNestedInput
 }
 
@@ -3022,11 +3233,13 @@ export type DefectUncheckedUpdateManyWithoutEscalatedByInput = {
 export type DefectCountOutputType = {
   events: number
   evidences: number
+  logisticMilestones: number
 }
 
 export type DefectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   events?: boolean | DefectCountOutputTypeCountEventsArgs
   evidences?: boolean | DefectCountOutputTypeCountEvidencesArgs
+  logisticMilestones?: boolean | DefectCountOutputTypeCountLogisticMilestonesArgs
 }
 
 /**
@@ -3051,6 +3264,13 @@ export type DefectCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.E
  */
 export type DefectCountOutputTypeCountEvidencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DefectEvidenceWhereInput
+}
+
+/**
+ * DefectCountOutputType without action
+ */
+export type DefectCountOutputTypeCountLogisticMilestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticProductionMilestoneWhereInput
 }
 
 
@@ -3087,6 +3307,7 @@ export type DefectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   ppap?: boolean | Prisma.Defect$ppapArgs<ExtArgs>
   fmea?: boolean | Prisma.Defect$fmeaArgs<ExtArgs>
   linkedFieldDefect?: boolean | Prisma.Defect$linkedFieldDefectArgs<ExtArgs>
+  logisticMilestones?: boolean | Prisma.Defect$logisticMilestonesArgs<ExtArgs>
   iqcReport?: boolean | Prisma.Defect$iqcReportArgs<ExtArgs>
   _count?: boolean | Prisma.DefectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["defect"]>
@@ -3186,6 +3407,7 @@ export type DefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   ppap?: boolean | Prisma.Defect$ppapArgs<ExtArgs>
   fmea?: boolean | Prisma.Defect$fmeaArgs<ExtArgs>
   linkedFieldDefect?: boolean | Prisma.Defect$linkedFieldDefectArgs<ExtArgs>
+  logisticMilestones?: boolean | Prisma.Defect$logisticMilestonesArgs<ExtArgs>
   iqcReport?: boolean | Prisma.Defect$iqcReportArgs<ExtArgs>
   _count?: boolean | Prisma.DefectCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -3218,6 +3440,7 @@ export type $DefectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     ppap: Prisma.$PpapSubmissionPayload<ExtArgs> | null
     fmea: Prisma.$FmeaPayload<ExtArgs> | null
     linkedFieldDefect: Prisma.$FieldDefectPayload<ExtArgs> | null
+    logisticMilestones: Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>[]
     iqcReport: Prisma.$IqcReportPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -3647,6 +3870,7 @@ export interface Prisma__DefectClient<T, Null = never, ExtArgs extends runtime.T
   ppap<T extends Prisma.Defect$ppapArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$ppapArgs<ExtArgs>>): Prisma.Prisma__PpapSubmissionClient<runtime.Types.Result.GetResult<Prisma.$PpapSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   fmea<T extends Prisma.Defect$fmeaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$fmeaArgs<ExtArgs>>): Prisma.Prisma__FmeaClient<runtime.Types.Result.GetResult<Prisma.$FmeaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   linkedFieldDefect<T extends Prisma.Defect$linkedFieldDefectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$linkedFieldDefectArgs<ExtArgs>>): Prisma.Prisma__FieldDefectClient<runtime.Types.Result.GetResult<Prisma.$FieldDefectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  logisticMilestones<T extends Prisma.Defect$logisticMilestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$logisticMilestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   iqcReport<T extends Prisma.Defect$iqcReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Defect$iqcReportArgs<ExtArgs>>): Prisma.Prisma__IqcReportClient<runtime.Types.Result.GetResult<Prisma.$IqcReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4277,6 +4501,30 @@ export type Defect$linkedFieldDefectArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.FieldDefectInclude<ExtArgs> | null
   where?: Prisma.FieldDefectWhereInput
+}
+
+/**
+ * Defect.logisticMilestones
+ */
+export type Defect$logisticMilestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticProductionMilestone
+   */
+  select?: Prisma.PlantLogisticProductionMilestoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticProductionMilestone
+   */
+  omit?: Prisma.PlantLogisticProductionMilestoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticProductionMilestoneInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticProductionMilestoneWhereInput
+  orderBy?: Prisma.PlantLogisticProductionMilestoneOrderByWithRelationInput | Prisma.PlantLogisticProductionMilestoneOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticProductionMilestoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticProductionMilestoneScalarFieldEnum | Prisma.PlantLogisticProductionMilestoneScalarFieldEnum[]
 }
 
 /**

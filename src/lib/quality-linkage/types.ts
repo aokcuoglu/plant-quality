@@ -9,6 +9,7 @@ export const QUALITY_RECORD_TYPE_LABELS: Record<QualityRecordType, string> = {
   PPAP: "PPAP",
   IQC: "IQC",
   FMEA: "FMEA",
+  LOGISTIC_ORDER: "Vehicle Order",
 }
 
 export const QUALITY_LINK_TYPE_LABELS: Record<QualityLinkType, string> = {
@@ -24,6 +25,8 @@ export const QUALITY_LINK_TYPE_LABELS: Record<QualityLinkType, string> = {
   RELATED_HISTORY: "Related history",
   IQC_REJECTION: "IQC rejection history",
   SAME_SUPPLIER_ONLY: "Same supplier only",
+  LOGISTIC_QUALITY_HOLD: "Quality Hold → Logistic",
+  ORDER_TO_DEFECT: "Order → Defect",
 }
 
 export const QUALITY_LINK_TYPE_COLORS: Record<QualityLinkType, string> = {
@@ -39,6 +42,8 @@ export const QUALITY_LINK_TYPE_COLORS: Record<QualityLinkType, string> = {
   RELATED_HISTORY: "bg-muted text-muted-foreground border-border",
   IQC_REJECTION: "bg-red-500/10 text-red-400 border-red-500/20",
   SAME_SUPPLIER_ONLY: "bg-muted/60 text-muted-foreground border-border",
+  LOGISTIC_QUALITY_HOLD: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+  ORDER_TO_DEFECT: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
 }
 
 export const QUALITY_RECORD_TYPE_COLORS: Record<QualityRecordType, string> = {
@@ -48,6 +53,7 @@ export const QUALITY_RECORD_TYPE_COLORS: Record<QualityRecordType, string> = {
   PPAP: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
   IQC: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   FMEA: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+  LOGISTIC_ORDER: "bg-blue-500/10 text-blue-500 border-blue-500/20",
 }
 
 export const QUALITY_RECORD_TYPE_ICONS: Record<QualityRecordType, string> = {
@@ -57,6 +63,7 @@ export const QUALITY_RECORD_TYPE_ICONS: Record<QualityRecordType, string> = {
   PPAP: "FileCheck",
   IQC: "ClipboardCheck",
   FMEA: "ShieldAlert",
+  LOGISTIC_ORDER: "Truck",
 }
 
 export const SCORE_MANUAL = 100

@@ -19,6 +19,7 @@ import { YardStatusSection } from "./yard-status-section"
 import { DispatchSection } from "./dispatch-section"
 import { ExternalVisibilitySection } from "./external-visibility-section"
 import { DelayRiskPanel } from "./delay-risk-panel"
+import { CreateDefectFromHoldButton } from "./create-defect-from-hold"
 import Link from "next/link"
 import { ArrowLeft, Factory, AlertTriangle } from "lucide-react"
 
@@ -53,6 +54,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
         include: {
           createdBy: { select: { name: true } },
           updatedBy: { select: { name: true } },
+          linkedDefect: { select: { id: true, status: true } },
         },
       },
       yardStatus: true,
@@ -452,11 +454,21 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
                         ) : "—"}
                       </td>
                       <td className="px-3 py-2">
-                        <MilestoneActions
-                          milestoneId={milestone.id}
-                          currentStatus={milestone.status}
-                          orderId={order.id}
-                        />
+                        <div className="flex items-center gap-1">
+                          <MilestoneActions
+                            milestoneId={milestone.id}
+                            currentStatus={milestone.status}
+                            orderId={order.id}
+                          />
+                          {milestone.status === "QUALITY_HOLD" && (
+                            <CreateDefectFromHoldButton
+                              milestoneId={milestone.id}
+                              orderId={order.id}
+                              linkedDefectId={milestone.linkedDefectId}
+                              companyId={order.companyId}
+                            />
+                          )}
+                        </div>
                       </td>
                     </tr>
                   )

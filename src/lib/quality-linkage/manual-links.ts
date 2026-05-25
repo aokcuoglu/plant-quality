@@ -43,7 +43,7 @@ export async function createManualQualityLink(input: CreateManualLinkInput) {
     return { error: "Cannot link a record to itself" }
   }
 
-  const validLinkTypes: QualityLinkType[] = ["MANUAL", "SAME_PART", "SAME_SUPPLIER", "SAME_FAILURE_MODE", "SAME_VEHICLE", "PPAP_REFERENCE", "FMEA_COVERAGE", "RELATED_HISTORY", "IQC_REJECTION", "SAME_SUPPLIER_ONLY"]
+  const validLinkTypes: QualityLinkType[] = ["MANUAL", "SAME_PART", "SAME_SUPPLIER", "SAME_FAILURE_MODE", "SAME_VEHICLE", "PPAP_REFERENCE", "FMEA_COVERAGE", "RELATED_HISTORY", "IQC_REJECTION", "SAME_SUPPLIER_ONLY", "LOGISTIC_QUALITY_HOLD", "ORDER_TO_DEFECT"]
   if (!validLinkTypes.includes(input.linkType)) {
     return { error: "Invalid link type for manual creation" }
   }
@@ -139,6 +139,10 @@ async function verifyRecordBelongsToCompany(
       const count = await prisma.fmea.count({ where: { id: recordId, oemId: companyId } })
       return count > 0
     }
+    case "LOGISTIC_ORDER": {
+      const count = await prisma.plantLogisticOrder.count({ where: { id: recordId, companyId } })
+      return count > 0
+    }
   }
 }
 
@@ -171,6 +175,9 @@ async function revalidateRelatedPaths(
       case "FMEA":
         paths.add(`/quality/oem/fmea/${id}`)
         paths.add(`/quality/supplier/fmea/${id}`)
+        break
+      case "LOGISTIC_ORDER":
+        paths.add(`/logistic/orders/${id}`)
         break
     }
   }

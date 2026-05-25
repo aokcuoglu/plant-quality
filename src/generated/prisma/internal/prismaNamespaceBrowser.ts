@@ -825,6 +825,7 @@ export const PlantLogisticProductionMilestoneScalarFieldEnum = {
   responsibleDepartment: 'responsibleDepartment',
   delayReason: 'delayReason',
   qualityHold: 'qualityHold',
+  linkedDefectId: 'linkedDefectId',
   notes: 'notes',
   createdById: 'createdById',
   updatedById: 'updatedById',

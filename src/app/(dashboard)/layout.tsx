@@ -68,6 +68,7 @@ const LOGISTIC_NAV: NavItem[] = [
 const LOGISTIC_PORTAL_NAV: NavItem[] = [
   { href: "/logistic/portal", label: "Overview", icon: "LayoutDashboardIcon" as const },
   { href: "/logistic/portal/orders", label: "My Orders", icon: "PackageIcon" as const },
+  { href: "/logistic/portal/orders/new", label: "New Order", icon: "PlusCircleIcon" as const },
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

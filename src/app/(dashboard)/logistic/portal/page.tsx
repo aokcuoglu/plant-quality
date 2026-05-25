@@ -3,7 +3,8 @@ import { redirect } from "next/navigation"
 import { isPortalUser } from "@/lib/logistic/portal-access"
 import { getPortalDashboardStats } from "./actions"
 import { DashboardCard } from "@/components/layout/DashboardCard"
-import { PackageIcon, Factory, TruckIcon, CheckCircle, BarChart3, Inbox } from "lucide-react"
+import { PackageIcon, Factory, TruckIcon, CheckCircle, BarChart3, Inbox, PlusCircle } from "lucide-react"
+import Link from "next/link"
 
 export default async function PortalOverviewPage() {
   const session = await auth()
@@ -17,18 +18,34 @@ export default async function PortalOverviewPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">Order Tracking Portal</h1>
-        <p className="text-sm text-muted-foreground">
-          Welcome, {session.user.name ?? session.user.email}. Viewing orders assigned to {session.user.companyName} ({companyTypeLabel}).
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-semibold tracking-tight text-foreground">Order Tracking Portal</h1>
+          <p className="text-sm text-muted-foreground">
+            Welcome, {session.user.name ?? session.user.email}. Viewing orders assigned to {session.user.companyName} ({companyTypeLabel}).
+          </p>
+        </div>
+        <Link
+          href="/logistic/portal/orders/new"
+          className="inline-flex items-center gap-1.5 shrink-0 rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors"
+        >
+          <PlusCircle className="size-4" />
+          New Order
+        </Link>
       </div>
 
       {stats.total === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <Inbox className="size-12 text-muted-foreground/30" />
           <p className="mt-4 text-sm text-muted-foreground">No visible orders yet.</p>
-          <p className="text-xs text-muted-foreground">Contact your OEM for order visibility assignment.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Submit your first order request to get started.</p>
+          <Link
+            href="/logistic/portal/orders/new"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors"
+          >
+            <PlusCircle className="size-4" />
+            Create First Order
+          </Link>
         </div>
       ) : (
         <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">

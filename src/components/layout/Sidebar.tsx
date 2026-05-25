@@ -24,6 +24,7 @@ import {
   TruckIcon,
   LockIcon,
   PackageCheckIcon,
+  PackageIcon,
   ClipboardList,
   SettingsIcon,
   type LucideIcon,
@@ -60,6 +61,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   TargetIcon,
   TruckIcon,
   PackageCheckIcon,
+  PackageIcon,
   ClipboardList,
   SettingsIcon,
 }

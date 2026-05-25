@@ -21,6 +21,7 @@ import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/q
 import { DetailRow } from "@/components/DetailRow"
 import { formatDueDate } from "@/lib/sla"
 import { getFieldDefectSlaStatus, getFieldDefectActiveDueDate } from "@/lib/sla-field-defect"
+import { AuditTimeline } from "@/components/AuditTimeline"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { findSimilarIssues } from "@/lib/ai/similar-issues"
 import { findRelatedForFieldDefect, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
@@ -414,29 +415,9 @@ export default async function OemFieldDetailPage({
             </div>
           )}
 
-          <div className="rounded-lg border bg-card">
-            <div className="px-4 py-3 border-b border-border">
-              <h2 className="text-sm font-semibold">Activity</h2>
-            </div>
-            <div className="px-4 py-3 max-h-64 overflow-y-auto">
-              {fd.events.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No activity yet</p>
-              ) : (
-                <div className="space-y-2">
-                  {fd.events.map((event) => (
-                    <div key={event.id} className="text-xs">
-                      <span className="text-muted-foreground">
-                        {event.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
-                      </span>
-                      <span className="ml-2 text-foreground">
-                        {event.actor?.name ?? event.actor?.email ?? "System"} &mdash;{" "}
-                        {event.type.replace(/_/g, " ").toLowerCase().replace(/^field defect /, "")}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+          <div>
+            <h2 className="text-sm font-semibold mb-3">Activity</h2>
+            <AuditTimeline events={fd.events.map((e) => ({ id: e.id, type: e.type, actor: e.actor ? { name: e.actor.name, email: e.actor.email } : null, metadata: e.metadata, createdAt: e.createdAt }))} />
           </div>
 
           <AiInsightPanel

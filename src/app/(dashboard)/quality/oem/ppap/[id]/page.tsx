@@ -10,6 +10,7 @@ import { PpapReviewCommentForm } from "./PpapReviewCommentForm"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
 import { findRelatedForPpap, createManualQualityLink, removeManualQualityLink } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
+import { AuditTimeline } from "@/components/AuditTimeline"
 
 export default async function OemPpapDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -35,7 +36,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
         include: { reviewedBy: { select: { name: true } } },
       },
       reviewComments: { include: { author: { select: { name: true } } }, orderBy: { createdAt: "asc" } },
-      events: { include: { actor: { select: { name: true } } }, orderBy: { createdAt: "desc" } },
+      events: { include: { actor: { select: { name: true, email: true } } }, orderBy: { createdAt: "desc" } },
     },
   })
 
@@ -265,17 +266,9 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
           )}
 
           {ppap.events.length > 0 && (
-            <div className="rounded-lg border bg-card p-4 space-y-3">
-              <h2 className="text-sm font-medium text-foreground">Activity</h2>
-              <div className="space-y-2">
-                {ppap.events.slice(0, 20).map((e) => (
-                  <div key={e.id} className="flex items-start gap-2 text-xs">
-                    <span className="shrink-0 text-muted-foreground">{e.createdAt.toLocaleDateString()}</span>
-                    <span className="text-foreground">{(e.type as string).replace(/_/g, " ").toLowerCase()}</span>
-                    {e.actor && <span className="text-muted-foreground">by {e.actor.name}</span>}
-                  </div>
-                ))}
-              </div>
+            <div>
+              <h2 className="text-sm font-semibold mb-3">Activity</h2>
+              <AuditTimeline events={ppap.events.map((e) => ({ id: e.id, type: e.type, actor: e.actor ? { name: e.actor.name, email: e.actor.email } : null, metadata: e.metadata, createdAt: e.createdAt }))} />
             </div>
           )}
         </div>

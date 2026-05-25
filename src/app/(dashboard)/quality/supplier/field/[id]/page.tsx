@@ -16,6 +16,7 @@ import { normalizePlan, canUseFeature } from "@/lib/billing"
 import { RelatedQualityRecordsPanel, UpgradeLinkageBanner } from "@/components/quality-linkage/related-records-panel"
 import { findRelatedForFieldDefect } from "@/lib/quality-linkage"
 import { clearSupplierNameCache } from "@/lib/quality-linkage/find-related"
+import { AuditTimeline } from "@/components/AuditTimeline"
 
 export default async function SupplierFieldDetailPage({
   params,
@@ -230,28 +231,9 @@ export default async function SupplierFieldDetailPage({
             </div>
           </div>
 
-          <div className="rounded-lg border bg-card">
-            <div className="px-4 py-3 border-b border-border">
-              <h2 className="text-sm font-semibold">Activity</h2>
-            </div>
-            <div className="px-4 py-3 max-h-80 overflow-y-auto">
-              {fd.events.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No activity yet</p>
-              ) : (
-                <div className="space-y-3">
-                  {fd.events.map((event) => (
-                    <div key={event.id} className="text-xs">
-                      <span className="text-muted-foreground">
-                        {event.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
-                      </span>
-                      <span className="ml-2 text-foreground">
-                        {event.actor?.name ?? event.actor?.email ?? "System"} — {event.type.replace(/_/g, " ").toLowerCase().replace(/^field defect /, "")}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+          <div>
+            <h2 className="text-sm font-semibold mb-3">Activity</h2>
+            <AuditTimeline events={fd.events.map((e) => ({ id: e.id, type: e.type, actor: e.actor ? { name: e.actor.name, email: e.actor.email } : null, metadata: e.metadata, createdAt: e.createdAt }))} />
           </div>
         </div>
       </div>

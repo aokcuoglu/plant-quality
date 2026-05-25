@@ -124,6 +124,10 @@ When developing features, use **three sub-agents**:
 ### 5.3 Git/Release Agent — Commit & Deploy
 - Runs `npx tsc --noEmit` and `npx eslint` on all changed files
 - Runs `docker-compose up -d --build app`
+- Bumps version in `package.json`
+- Tags Docker image: `docker tag plant-quality-app:latest ghcr.io/aokcuoglu/plantx:vX.Y.Z` + `:latest`
+- Logs into GHCR: `echo $(gh auth token) | docker login ghcr.io -u aokcuoglu --password-stdin`
+- Pushes to GHCR: `docker push ghcr.io/aokcuoglu/plantx:vX.Y.Z && docker push ghcr.io/aokcuoglu/plantx:latest`
 - Verifies the app starts successfully
 - Creates a git commit with proper message format:
   ```

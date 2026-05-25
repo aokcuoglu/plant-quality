@@ -14,7 +14,7 @@ export default async function DevPlanDetailLoading() {
           <div className="h-4 w-64 bg-muted/60 animate-pulse rounded" />
         </div>
       </div>
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-4 space-y-3">
             <div className="h-4 w-24 bg-muted animate-pulse rounded" />

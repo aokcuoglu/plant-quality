@@ -118,11 +118,11 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
         />
       )}
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-4 space-y-3">
             <h2 className="text-sm font-medium text-foreground">Request Details</h2>
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
               <dt className="text-muted-foreground">Request #</dt>
               <dd className="text-foreground font-medium">{ppap.requestNumber}</dd>
               <dt className="text-muted-foreground">Part Number</dt>

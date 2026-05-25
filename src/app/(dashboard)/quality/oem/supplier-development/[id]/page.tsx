@@ -55,7 +55,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
         <PageHeader title={plan.title} description="Supplier development action plan" />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-4">
             <h2 className="text-sm font-semibold text-foreground mb-4">Plan Overview</h2>

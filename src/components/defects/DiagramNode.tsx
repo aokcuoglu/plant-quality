@@ -38,13 +38,13 @@ export function DiagramNode({ id, data }: NodeProps<DiagramNodeType>) {
         colors.bg,
       )}
     >
-      <Handle type="target" position={Position.Top} className="!border-2 !border-slate-300 !bg-white !size-3" />
+      <Handle type="target" position={Position.Top} className="!border-2 !border-border !bg-card !size-3" />
 
       <div className="flex items-start gap-2">
         {data.isRoot && <BugIcon className={cn("mt-0.5 size-4 shrink-0", colors.text)} />}
         <p className={cn("text-xs leading-snug font-medium", colors.text)}>
           {data.isRoot ? "The Problem" : "Why?"}
-          <span className="ml-1.5 font-normal text-slate-500">{data.label}</span>
+          <span className="ml-1.5 font-normal text-muted-foreground">{data.label}</span>
         </p>
       </div>
 
@@ -53,19 +53,19 @@ export function DiagramNode({ id, data }: NodeProps<DiagramNodeType>) {
           type="button"
           onClick={(e) => { e.stopPropagation(); data.onAddChild(id) }}
           className={cn(
-            "absolute -bottom-3 left-1/2 -translate-x-1/2 flex size-6 items-center justify-center rounded-full border-2 border-slate-300 bg-white shadow-sm transition-all hover:scale-110 hover:border-emerald-400 hover:bg-emerald-50",
+            "absolute -bottom-3 left-1/2 -translate-x-1/2 flex size-6 items-center justify-center rounded-full border-2 border-border bg-card shadow-sm transition-all hover:scale-110 hover:border-emerald-400 hover:bg-emerald-50",
             colors.ring,
           )}
           title="Add Why?"
         >
-          <PlusIcon className="size-3.5 text-slate-500" />
+          <PlusIcon className="size-3.5 text-muted-foreground" />
         </button>
       )}
 
       <Handle
         type="source"
         position={Position.Bottom}
-        className={cn("!border-2 !border-slate-300 !bg-white !size-3", data.isLeaf ? "!visible" : "!invisible")}
+        className={cn("!border-2 !border-border !bg-card !size-3", data.isLeaf ? "!visible" : "!invisible")}
       />
     </div>
   )

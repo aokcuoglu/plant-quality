@@ -5,7 +5,7 @@ export default function SupplierFieldDetailLoading() {
         <div className="h-4 w-4 animate-pulse rounded bg-muted" />
         <div className="h-6 w-64 animate-pulse rounded bg-muted" />
       </div>
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="rounded-lg border bg-card p-4 space-y-3">

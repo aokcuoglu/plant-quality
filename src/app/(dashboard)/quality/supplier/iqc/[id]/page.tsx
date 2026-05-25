@@ -76,11 +76,11 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-4">
           <div className="rounded-lg border bg-card p-4 space-y-3">
             <h2 className="text-sm font-medium text-foreground">Inspection Summary</h2>
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
               <dt className="text-muted-foreground">Inspection Number</dt>
               <dd className="text-foreground font-mono text-xs">{report.inspectionNumber}</dd>
               <dt className="text-muted-foreground">Part Number</dt>

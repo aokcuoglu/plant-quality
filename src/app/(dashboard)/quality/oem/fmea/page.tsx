@@ -47,12 +47,10 @@ export default async function OemFmeaPage({
           <h1 className="text-xl font-semibold tracking-tight text-foreground">FMEA Analysis</h1>
           <p className="text-sm text-muted-foreground">Failure Mode and Effects Analysis</p>
         </div>
-        <Link href="/quality/oem/fmea/new">
-          <button className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors">
+           <Link href="/quality/oem/fmea/new" className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors">
             <PlusIcon className="size-4" />
             New FMEA
-          </button>
-        </Link>
+          </Link>
       </div>
 
       {supplierFilterName && (

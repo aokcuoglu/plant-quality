@@ -750,7 +750,7 @@ export function EightDWizardForm({
             <MessageSquareIcon className="h-3.5 w-3.5" /> Customer Review Comments
           </div>
           {currentComments.map((c) => (
-            <div key={c.id} className="rounded-md bg-white/50 p-2 text-xs dark:bg-black/10">
+            <div key={c.id} className="rounded-md bg-card/50 p-2 text-xs">
               <div className="mb-0.5 flex items-center justify-between gap-2">
                 <span className="font-medium text-foreground">{c.author.name ?? "Customer"}</span>
                 <span className={cn(
@@ -871,7 +871,7 @@ export function EightDWizardForm({
               <h2 className="text-lg font-semibold">D3 — Containment Actions</h2>
               <p className="text-sm text-muted-foreground">Immediate actions to contain the problem and protect the customer</p>
             </div>
-            <div className="overflow-visible border rounded-lg">
+            <div className="overflow-x-auto border rounded-lg">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -956,7 +956,7 @@ export function EightDWizardForm({
               <h2 className="text-lg font-semibold">D5 — Permanent Corrective Actions</h2>
               <p className="text-sm text-muted-foreground">Select and implement permanent corrective actions</p>
             </div>
-            <div className="overflow-visible border rounded-lg">
+            <div className="overflow-x-auto border rounded-lg">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -1007,7 +1007,7 @@ export function EightDWizardForm({
                 <h2 className="text-lg font-semibold">D6 — Validation & Closure</h2>
                 <p className="text-sm text-muted-foreground">Validate that corrective actions are effective</p>
               </div>
-              <div className="overflow-visible border rounded-lg">
+              <div className="overflow-x-auto border rounded-lg">
                 <Table>
                   <TableHeader>
                     <TableRow>

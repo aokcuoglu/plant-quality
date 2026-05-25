@@ -85,7 +85,7 @@ export default async function SupplierPpapDetailPage({ params }: { params: Promi
         />
       )}
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-4 space-y-3">
             <h2 className="text-sm font-medium text-foreground">Request Details</h2>

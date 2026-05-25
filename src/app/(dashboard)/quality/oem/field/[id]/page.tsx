@@ -160,7 +160,7 @@ export default async function OemFieldDetailPage({
         <h1 className="text-xl font-semibold tracking-tight">{fd.title}</h1>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[3fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[3fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card">
             <div className="px-4 py-3 border-b border-border">

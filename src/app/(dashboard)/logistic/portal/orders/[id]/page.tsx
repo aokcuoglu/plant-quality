@@ -69,7 +69,7 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
 
       <ExternalDelayPanel order={portalSlaInput} externalStatusNote={order.externalStatusNote ?? null} />
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-5">
             <h2 className="text-sm font-medium text-foreground mb-4">Vehicle Details</h2>

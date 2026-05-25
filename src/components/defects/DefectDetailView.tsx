@@ -866,7 +866,7 @@ export function DefectDetailView({
         Back to {companyType === "OEM" ? "Defects" : "Reports"}
       </Link>
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
         {/* Left column */}
         <div className="space-y-6">
           <div>

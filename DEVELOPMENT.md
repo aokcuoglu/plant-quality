@@ -246,3 +246,59 @@ When developing features, use **three sub-agents**:
 - `npx tsc --noEmit` — zero errors
 - ESLint on all changed files — zero warnings
 - `docker-compose up -d --build app` — build successful, app running on localhost:3000
+
+### 2026-05-25 — Responsive Layout & Design System Fixes
+
+**Responsive Layout (critical):**
+
+| File | Change |
+|------|--------|
+| `DefectDetailView.tsx` | `lg:grid-cols-[2fr_1fr]` → `xl:grid-cols-[2fr_1fr]` — sidebar + content overflow fix |
+| `oem/field/[id]/page.tsx` | `lg:grid-cols-[3fr_1fr]` → `xl:grid-cols-[3fr_1fr]` — right column was only 192px |
+| `oem/ppap/[id]/page.tsx` | `lg:grid-cols-[2fr_1fr]` → `xl:` |
+| `oem/iqc/[id]/page.tsx` | Same |
+| `oem/fmea/[id]/page.tsx` | Same |
+| `oem/supplier-development/[id]/page.tsx` | Same |
+| `oem/scorecard/[supplierId]/page.tsx` | Same |
+| `supplier/ppap/[id]/page.tsx` | Same |
+| `supplier/field/[id]/page.tsx` | Same |
+| `supplier/iqc/[id]/page.tsx` | Same |
+| `supplier/fmea/[id]/page.tsx` | Same |
+| `supplier/development/[id]/page.tsx` | Same |
+| `logistic/portal/orders/[id]/page.tsx` | Same |
+| `oem/defects/[id]/loading.tsx` | `lg:grid-cols-3` → `xl:grid-cols-[2fr_1fr]` — matches actual layout |
+| `supplier/defects/[id]/loading.tsx` | Same fix |
+| `oem/defects/[id]/loading.tsx` | `bg-slate-*` → `bg-muted`/`bg-muted/80` design tokens |
+| `oem/defects/loading.tsx` | Same |
+| `oem/defects/new/loading.tsx` | Same |
+| `supplier/defects/loading.tsx` | Same |
+| `supplier/defects/[id]/8d/loading.tsx` | Same |
+
+**Design System Violations Fixed:**
+
+| File | Change |
+|------|--------|
+| `src/components/ui/tooltip.tsx` | `bg-slate-900 text-white dark:bg-slate-700` → `bg-popover text-popover-foreground` |
+| `src/components/defects/DiagramNode.tsx` | `border-slate-300` → `border-border`, `bg-white` → `bg-card`, `text-slate-500` → `text-muted-foreground` |
+| `src/components/defects/EightDWizardForm.tsx` | `overflow-visible` → `overflow-x-auto` (3 instances), `bg-white/50 dark:bg-black/10` → `bg-card/50` |
+| `src/app/(dashboard)/quality/oem/fmea/page.tsx` | Raw `<button>` with `text-white` → `<Link>` with `text-primary-foreground` |
+
+**Responsive Improvements:**
+
+| Pattern | Change |
+|---------|--------|
+| 5 detail page `<dl>` grids | `grid-cols-2` → `grid-cols-1 sm:grid-cols-2` — stacks on mobile |
+| `min-w-0` added | 2 loading skeletons (defect detail OEM + supplier) — prevents content overflow |
+| All `xl:grid-cols` pages | Two-column layouts now only activate at ≥1280px (was ≥1024px) |
+
+**Key Decisions:**
+- `lg` (1024px) breakpoint was too small for two-column layouts with sidebar (256px) — only 768px for content, right column was cramped
+- `xl` (1280px) gives ~950px for content with sidebar, making `2fr/1fr` split usable
+- Tooltip redesign uses semantic `bg-popover text-popover-foreground` tokens, automatically theme-safe
+- DiagramNode now uses `bg-card` and `border-border` tokens for theme-safe rendering
+- 8D wizard table wrappers now have `overflow-x-auto` instead of `overflow-visible` to prevent sidebar overflow
+
+**Verified:**
+- `npx tsc --noEmit` — zero errors
+- ESLint on all changed files — zero warnings
+- `docker-compose up -d --build app` — build successful, app running on localhost:3000

@@ -5,6 +5,8 @@ import { auth } from "@/lib/auth"
 import { getSuppliers } from "../queries"
 import { NewDefectForm } from "./form"
 import { PageHeader } from "@/components/layout/PageHeader"
+import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 interface _Supplier {
   id: string
@@ -17,6 +19,19 @@ export default async function NewDefectPage() {
   if (!session || session.user.companyType !== "OEM") redirect("/login")
 
   const suppliers = await getSuppliers()
+
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "DEFECT")
+    } else {
+      const resolver = resolveFieldConfigSync("DEFECT")
+      fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+    }
+  } catch {
+    const resolver = resolveFieldConfigSync("DEFECT")
+    fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+  }
 
   return (
     <div className="mx-auto max-w-lg space-y-6">
@@ -33,7 +48,7 @@ export default async function NewDefectPage() {
         description="Report a quality defect to a supplier"
       />
 
-      <NewDefectForm suppliers={suppliers} />
+      <NewDefectForm suppliers={suppliers} fieldConfig={fieldConfig} />
     </div>
   )
 }

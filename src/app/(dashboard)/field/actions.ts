@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { requireFeature, canConsumeUsage, consumeUsage } from "@/lib/billing"
 import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { validateCustomFields } from "@/lib/custom-fields/validation"
 import type { DefectEventType, FieldDefectSeverity, FieldDefectSource, FieldDefectStatus, Prisma } from "@/generated/prisma/client"
 import { isValidStatusTransition, validateVin } from "@/lib/field-defect"
 import { canOemManage } from "@/lib/field-defect-server"
@@ -233,8 +235,24 @@ export async function createFieldDefect(formData: FormData): Promise<{ success: 
   const partName = (formData.get("partName") as string) || null
   const supplierId = (formData.get("supplierId") as string) || null
   const statusValue = formData.get("_status") as string | null
+  const customFieldsRaw = formData.get("customFields") as string | null
 
   if (!title || !description) return { success: false, error: "Title and description are required" }
+
+  let customFieldsData: Prisma.InputJsonValue | undefined = undefined
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "FIELD_DEFECT")
+      const validation = validateCustomFields(parsed, config.all)
+      if (!validation.success) {
+        return { success: false, error: validation.error }
+      }
+      customFieldsData = validation.data as Prisma.InputJsonValue
+    } catch {
+      return { success: false, error: "Invalid custom fields data" }
+    }
+  }
 
   if (vin) {
     const vinResult = validateVin(vin)
@@ -284,6 +302,7 @@ export async function createFieldDefect(formData: FormData): Promise<{ success: 
       supplierId,
       supplierNameSnapshot: supplierName,
       status: fieldStatus,
+      customFields: customFieldsData,
     },
   })
 
@@ -385,6 +404,20 @@ export async function updateFieldDefect(id: string, formData: FormData) {
   if (category !== null) data.category = category.trim() || null
   if (subcategory !== null) data.subcategory = subcategory.trim() || null
   if (probableArea !== null) data.probableArea = probableArea.trim() || null
+
+  const customFieldsRaw = formData.get("customFields") as string | null
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "FIELD_DEFECT")
+      const validation = validateCustomFields(parsed, config.all)
+      if (validation.success) {
+        data.customFields = validation.data as Prisma.InputJsonValue
+      }
+    } catch {
+      // ignore
+    }
+  }
 
   await prisma.fieldDefect.update({
     where: { id, oemId: session.user.companyId },

@@ -6,7 +6,9 @@ import { requireFeature } from "@/lib/billing"
 import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import { revalidatePath } from "next/cache"
 import { getDefaultRequirements, PPAP_REQUIREMENTS } from "@/lib/ppap"
-import type { PpapLevel, PpapReasonForSubmission, PpapSubmissionRequirement } from "@/generated/prisma/client"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { validateCustomFields } from "@/lib/custom-fields/validation"
+import type { PpapLevel, PpapReasonForSubmission, PpapSubmissionRequirement, Prisma } from "@/generated/prisma/client"
 
 function generateRequestNumber(): string {
   const prefix = "PPAP"
@@ -43,6 +45,7 @@ export async function createPpapRequest(formData: FormData) {
   const dueDateStr = formData.get("dueDate") as string | null
   const notes = (formData.get("notes") as string) || null
   const requirementsStr = formData.get("requirements") as string | null
+  const customFieldsRaw = formData.get("customFields") as string | null
 
   if (!supplierId || !partNumber || !partName) {
     return { success: false, error: "Supplier, part number, and part name are required" }
@@ -74,6 +77,20 @@ export async function createPpapRequest(formData: FormData) {
 
   const requestNumber = generateRequestNumber()
 
+  let customFieldsData: Prisma.InputJsonValue | undefined = undefined
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "PPAP_SUBMISSION")
+      const validation = validateCustomFields(parsed, config.all)
+      if (validation.success) {
+        customFieldsData = validation.data as Prisma.InputJsonValue
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   const ppap = await prisma.ppapSubmission.create({
     data: {
       requestNumber,
@@ -93,6 +110,7 @@ export async function createPpapRequest(formData: FormData) {
       dueDate: dueDateStr ? new Date(dueDateStr) : null,
       notes,
       requirements: requirements as Record<string, boolean>,
+      customFields: customFieldsData,
     },
   })
 

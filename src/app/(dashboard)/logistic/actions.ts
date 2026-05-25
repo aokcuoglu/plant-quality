@@ -14,6 +14,9 @@ import type {
   LogisticOrderEventType,
 } from "@/generated/prisma/client"
 import { canTransitionTo } from "@/lib/logistic/status"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { validateCustomFields } from "@/lib/custom-fields/validation"
+import type { Prisma } from "@/generated/prisma/client"
 
 export async function createLogisticOrder(formData: FormData) {
   const session = await auth()
@@ -51,6 +54,7 @@ export async function createLogisticOrder(formData: FormData) {
   const vehicleVariant = (formData.get("vehicleVariant") as string)?.trim() || null
   const notes = (formData.get("notes") as string)?.trim() || null
   const salesOrderNo = (formData.get("salesOrderNo") as string)?.trim() || null
+  const customFieldsRaw = formData.get("customFields") as string | null
 
   const customerType = (formData.get("customerType") as LogisticOrderCustomerType) || "CUSTOMER"
   const vehicleType = (formData.get("vehicleType") as LogisticOrderVehicleType) || "BUS"
@@ -75,6 +79,20 @@ export async function createLogisticOrder(formData: FormData) {
     orderNumber = "LO-00001"
   }
 
+  let customFieldsData: Prisma.InputJsonValue | undefined = undefined
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "LOGISTIC_ORDER")
+      const validation = validateCustomFields(parsed, config.all)
+      if (validation.success) {
+        customFieldsData = validation.data as Prisma.InputJsonValue
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   const order = await prisma.plantLogisticOrder.create({
     data: {
       companyId,
@@ -97,6 +115,7 @@ export async function createLogisticOrder(formData: FormData) {
       salesOrderNo,
       notes,
       createdById,
+      customFields: customFieldsData,
       events: {
         create: {
           companyId,

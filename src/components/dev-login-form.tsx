@@ -11,6 +11,8 @@ const ACCOUNTS = [
   { value: "engineer@supplier.com", label: "engineer@supplier.com (Supplier QE)" },
   { value: "admin@steelforged.com", label: "admin@steelforged.com (SteelForged)" },
   { value: "engineer@steelforged.com", label: "engineer@steelforged.com (SteelForged)" },
+  { value: "admin@metrodealer.com", label: "admin@metrodealer.com (Dealer)" },
+  { value: "admin@akdenizdist.com", label: "admin@akdenizdist.com (Distributor)" },
 ]
 
 interface Props {

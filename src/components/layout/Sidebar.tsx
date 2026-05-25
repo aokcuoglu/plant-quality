@@ -25,6 +25,7 @@ import {
   LockIcon,
   PackageCheckIcon,
   ClipboardList,
+  SettingsIcon,
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
@@ -60,6 +61,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   TruckIcon,
   PackageCheckIcon,
   ClipboardList,
+  SettingsIcon,
 }
 
 interface SidebarLinkItem {
@@ -72,6 +74,7 @@ interface SidebarLinkItem {
 interface SidebarProps {
   navItems: SidebarLinkItem[]
   planNavItem?: SidebarLinkItem
+  fieldConfigNavItem?: SidebarLinkItem
   moduleName?: string
   moduleIcon?: LucideIcon
   user: {
@@ -85,7 +88,7 @@ interface SidebarProps {
 
 const noop = () => () => {}
 
-export function Sidebar({ navItems, planNavItem, moduleName = "Quality", moduleIcon: ModuleIcon = Factory, user }: SidebarProps) {
+export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, moduleName = "Quality", moduleIcon: ModuleIcon = Factory, user }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const isClient = useSyncExternalStore(noop, () => true, () => false)
 
@@ -202,6 +205,7 @@ export function Sidebar({ navItems, planNavItem, moduleName = "Quality", moduleI
           </div>
 
           <div className={cn(isCollapsed ? "mt-2 flex flex-col items-center gap-2" : "mt-1 space-y-1")}>
+            {fieldConfigNavItem && <SidebarLink item={fieldConfigNavItem} isCollapsed={isCollapsed} />}
             {planNavItem && <SidebarLink item={planNavItem} isCollapsed={isCollapsed} />}
             <ThemeToggle collapsed={isCollapsed} />
 

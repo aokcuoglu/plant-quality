@@ -8,13 +8,16 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createFmea } from "../actions/fmea"
+import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { CustomFieldsData } from "@/lib/custom-fields/types"
 
 interface Supplier {
   id: string
   name: string
 }
 
-export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
+export function FmeaCreateForm({ suppliers, fieldConfig }: { suppliers: Supplier[]; fieldConfig: ResolvedFields }) {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -29,6 +32,7 @@ export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
   const [revision, setRevision] = useState("")
   const [dueDate, setDueDate] = useState("")
   const [notes, setNotes] = useState("")
+  const [customFields, setCustomFields] = useState<CustomFieldsData>({})
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,6 +51,7 @@ export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
     formData.set("revision", revision)
     formData.set("dueDate", dueDate)
     formData.set("notes", notes)
+    formData.set("customFields", JSON.stringify(customFields))
 
     try {
       const result = await createFmea(formData)
@@ -149,6 +154,16 @@ export function FmeaCreateForm({ suppliers }: { suppliers: Supplier[] }) {
           <Textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Optional notes or context for this FMEA" rows={3} />
         </div>
       </div>
+
+      {fieldConfig.custom.length > 0 && (
+        <DynamicCustomFields
+          entity="FMEA"
+          fields={fieldConfig.all}
+          values={customFields}
+          onChange={(fieldName, value) => setCustomFields((prev) => ({ ...prev, [fieldName]: value }))}
+          mode="create"
+        />
+      )}
 
       <div className="flex items-center gap-3">
         <Button type="submit" disabled={saving || !title || !partNumber}>

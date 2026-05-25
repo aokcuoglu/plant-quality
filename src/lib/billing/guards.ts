@@ -65,6 +65,7 @@ export function isFeatureGatedNav(href: string): FeatureKey | null {
     "/quality/oem/executive": "EXECUTIVE_COCKPIT",
     "/quality/oem/scorecard": "SUPPLIER_SCORECARD",
     "/quality/oem/supplier-development": "SUPPLIER_DEVELOPMENT",
+    "/settings/field-config": "CUSTOM_FIELDS",
     "/logistic": "PLANT_LOGISTIC",
     "/logistic/orders": "PLANT_LOGISTIC",
     "/logistic/orders/new": "PLANT_LOGISTIC",
@@ -79,6 +80,7 @@ export function isEnterpriseOnlyNav(href: string): boolean {
     "/quality/oem/settings/api",
     "/quality/oem/scorecard",
     "/quality/oem/supplier-development",
+    "/settings/field-config",
   ]
   return enterpriseRoutes.includes(href)
 }

@@ -10,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
+import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { CustomFieldsData } from "@/lib/custom-fields/types"
 import type { FieldDefectSource, FieldDefectSeverity } from "@/generated/prisma/client"
 
 type FieldDefectData = {
@@ -38,14 +41,19 @@ export function EditFieldDefectForm({
   fieldDefect,
   sourceOptions,
   severityOptions,
+  fieldConfig,
 }: {
   fieldDefect: FieldDefectData
   sourceOptions: { value: string; label: string }[]
   severityOptions: { value: string; label: string }[]
+  fieldConfig: ResolvedFields
 }) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [customFields, setCustomFields] = useState<CustomFieldsData>(
+    (fieldDefect as Record<string, unknown>).customFields as CustomFieldsData ?? {}
+  )
 
   function formatDate(d: Date | null): string {
     if (!d) return ""
@@ -56,6 +64,7 @@ export function EditFieldDefectForm({
     e.preventDefault()
     setError(null)
     const formData = new FormData(e.currentTarget)
+    formData.set("customFields", JSON.stringify(customFields))
     const result = await updateFieldDefect(fieldDefect.id, formData)
     if (result.success) {
       router.push(`/quality/oem/field/${fieldDefect.id}`)
@@ -194,6 +203,19 @@ export function EditFieldDefectForm({
       </div>
 
       <Separator />
+
+      {fieldConfig.custom.length > 0 && (
+        <>
+          <DynamicCustomFields
+            entity="FIELD_DEFECT"
+            fields={fieldConfig.all}
+            values={customFields}
+            onChange={(fieldName, value) => setCustomFields((prev) => ({ ...prev, [fieldName]: value }))}
+            mode="edit"
+          />
+          <Separator />
+        </>
+      )}
 
       <div className="flex items-center gap-3">
         <Button type="submit" disabled={isPending}>

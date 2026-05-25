@@ -579,6 +579,7 @@ model Company {
   dispatches          PlantLogisticDispatch[]    @relation("DispatchCompany")
   logisticOrdersAsDealer     PlantLogisticOrder[] @relation("LogisticOrdersDealer")
   logisticOrdersAsDistributor PlantLogisticOrder[] @relation("LogisticOrdersDistributor")
+  customFieldDefinitions CustomFieldDefinition[]
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -725,6 +726,7 @@ model Defect {
   escalatedById        String?         @map("escalated_by_id")
   escalatedBy          User?           @relation("DefectEscalatedBy", fields: [escalatedById], references: [id])
   escalationReason     String?         @map("escalation_reason")
+  customFields  Json?             @map("custom_fields")
   eightDReport EightDReport?
   events       DefectEvent[]
   evidences    DefectEvidence[]
@@ -863,6 +865,7 @@ model PpapSubmission {
   requirements          Json?         @map("requirements")
   notes                 String?       @map("notes")
   supplierNotes         String?       @map("supplier_notes")
+  customFields   Json?           @map("custom_fields")
   evidences             PpapEvidence[]
   reviewComments        PpapReviewComment[]
   events                PpapEvent[]
@@ -973,6 +976,7 @@ model IqcReport {
   measurements            Json?              @map("measurements")
   nonconformities         Json?              @map("nonconformities")
   dispositionNotes        String?            @map("disposition_notes")
+  customFields     Json?              @map("custom_fields")
   checklistItems          IqcChecklistItem[]
   events                  IqcEvent[]
   createdAt               DateTime           @default(now()) @map("created_at")
@@ -1050,6 +1054,7 @@ model Fmea {
   rejectionReason   String?    @map("rejection_reason")
   revisionNo        Int        @default(0) @map("revision_no")
   notes             String?    @map("notes")
+  customFields     Json?      @map("custom_fields")
   createdById       String     @map("created_by_id")
   createdBy         User       @relation("FmeaCreatedBy", fields: [createdById], references: [id])
   events            FmeaEvent[]
@@ -1135,6 +1140,7 @@ model FieldDefect {
   escalatedById         String?             @map("escalated_by_id")
   escalatedBy           User?               @relation("FieldDefectEscalatedBy", fields: [escalatedById], references: [id])
   escalationReason      String?             @map("escalation_reason")
+  customFields   Json?               @map("custom_fields")
   attachments           FieldDefectAttachment[]
   events                FieldDefectEvent[]
   comments              FieldDefectComment[]
@@ -1479,6 +1485,7 @@ model PlantLogisticOrder {
   createdBy             User                     @relation("LogisticOrderCreatedBy", fields: [createdById], references: [id])
   updatedById           String?                  @map("updated_by_id")
   updatedBy             User?                    @relation("LogisticOrderUpdatedBy", fields: [updatedById], references: [id])
+  customFields   Json?                   @map("custom_fields")
   approvedAt            DateTime?                @map("approved_at")
   rejectedAt            DateTime?                @map("rejected_at")
   deliveredAt           DateTime?                @map("delivered_at")
@@ -1582,6 +1589,56 @@ model PlantLogisticYardStatus {
   @@index([companyId, readyForDispatch])
   @@index([companyId, blockedForDispatch])
   @@map("plant_logistic_yard_statuses")
+}
+
+model CustomFieldDefinition {
+  id              String            @id @default(uuid())
+  companyId       String            @map("company_id")
+  company         Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  entity          CustomFieldEntity @map("entity_type")
+  fieldName       String            @map("field_name")
+  label           String?           @map("label")
+  placeholder     String?           @map("placeholder")
+  fieldType       CustomFieldType   @map("field_type")
+  section         String?           @map("section")
+  isBuiltIn       Boolean           @default(false) @map("is_built_in")
+  visible         Boolean           @default(true) @map("visible")
+  required        Boolean           @default(false) @map("required")
+  options         Json?             @map("options")
+  defaultValue    Json?             @map("default_value")
+  validation      Json?             @map("validation")
+  visibleInList   Boolean           @default(false) @map("visible_in_list")
+  order           Int               @default(0) @map("sort_order")
+  active          Boolean           @default(true) @map("active")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+
+  @@unique([companyId, entity, fieldName])
+  @@index([companyId, entity, active])
+  @@index([companyId, entity, order])
+  @@map("custom_field_definitions")
+}
+
+enum CustomFieldEntity {
+  DEFECT
+  FIELD_DEFECT
+  PPAP_SUBMISSION
+  IQC_REPORT
+  FMEA
+  LOGISTIC_ORDER
+}
+
+enum CustomFieldType {
+  TEXT
+  TEXTAREA
+  NUMBER
+  DATE
+  SELECT
+  MULTI_SELECT
+  CHECKBOX
+  URL
+  EMAIL
+  USER
 }
 
 model PlantLogisticDispatch {

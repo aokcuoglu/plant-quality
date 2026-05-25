@@ -5,14 +5,20 @@ import Link from "next/link"
 import { createDefect } from "../actions"
 import { Button } from "@/components/ui/button"
 import { ImageUploader, type UploadedImage } from "@/components/ImageUploader"
+import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { CustomFieldsData } from "@/lib/custom-fields/types"
 
 export function NewDefectForm({
   suppliers,
+  fieldConfig,
 }: {
   suppliers: { id: string; name: string; users: { id: string; name: string | null; email: string }[] }[]
+  fieldConfig: ResolvedFields
 }) {
   const [images, setImages] = useState<UploadedImage[]>([])
   const [supplierId, setSupplierId] = useState("")
+  const [customFields, setCustomFields] = useState<CustomFieldsData>({})
   const formRef = useRef<HTMLFormElement>(null)
   const selectedSupplier = suppliers.find((s) => s.id === supplierId)
 
@@ -21,6 +27,7 @@ export function NewDefectForm({
       ref={formRef}
       action={async (formData: FormData) => {
         formData.set("imageUrls", JSON.stringify(images.map((i) => i.publicUrl)))
+        formData.set("customFields", JSON.stringify(customFields))
         await createDefect(formData)
       }}
       className="space-y-5"
@@ -94,6 +101,16 @@ export function NewDefectForm({
       </div>
 
       <ImageUploader onImagesChange={setImages} />
+
+      {fieldConfig.custom.length > 0 && (
+        <DynamicCustomFields
+          entity="DEFECT"
+          fields={fieldConfig.all}
+          values={customFields}
+          onChange={(fieldName, value) => setCustomFields((prev) => ({ ...prev, [fieldName]: value }))}
+          mode="create"
+        />
+      )}
 
       <div className="flex items-center gap-3 pt-2">
         <Button type="submit">Create Defect</Button>

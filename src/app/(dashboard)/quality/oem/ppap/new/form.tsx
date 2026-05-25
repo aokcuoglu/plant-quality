@@ -5,12 +5,17 @@ import { useRouter } from "next/navigation"
 import { createPpapRequest } from "../actions/review"
 import { Button } from "@/components/ui/button"
 import { PPAP_LEVELS, PPAP_REASONS, PPAP_REQUIREMENTS, getDefaultRequirements } from "@/lib/ppap"
+import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { CustomFieldsData } from "@/lib/custom-fields/types"
 import type { PpapLevel } from "@/generated/prisma/client"
 
 export function PpapCreateForm({
   suppliers,
+  fieldConfig,
 }: {
   suppliers: { id: string; name: string; users: { id: string; name: string | null; email: string }[] }[]
+  fieldConfig: ResolvedFields
 }) {
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
@@ -20,6 +25,7 @@ export function PpapCreateForm({
   )
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [customFields, setCustomFields] = useState<CustomFieldsData>({})
 
   function handleLevelChange(newLevel: PpapLevel) {
     setLevel(newLevel)
@@ -35,6 +41,7 @@ export function PpapCreateForm({
     setError(null)
     formData.set("level", level)
     formData.set("requirements", JSON.stringify(requirements))
+    formData.set("customFields", JSON.stringify(customFields))
     try {
       const result = await createPpapRequest(formData)
       if (result.success && result.ppapId) {
@@ -250,6 +257,16 @@ export function PpapCreateForm({
           ))}
         </div>
       </div>
+
+      {fieldConfig.custom.length > 0 && (
+        <DynamicCustomFields
+          entity="PPAP_SUBMISSION"
+          fields={fieldConfig.all}
+          values={customFields}
+          onChange={(fieldName, value) => setCustomFields((prev) => ({ ...prev, [fieldName]: value }))}
+          mode="create"
+        />
+      )}
 
       <div className="flex items-center gap-3 pt-2">
         <Button type="submit" disabled={saving}>

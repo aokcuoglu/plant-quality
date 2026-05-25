@@ -6,6 +6,9 @@ import { canConsumeUsage, consumeUsage } from "@/lib/billing"
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
 import { addCalendarDays } from "@/lib/sla"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { validateCustomFields } from "@/lib/custom-fields/validation"
+import type { Prisma } from "@/generated/prisma/client"
 
 export async function createDefect(formData: FormData): Promise<void> {
   const session = await auth()
@@ -23,6 +26,7 @@ export async function createDefect(formData: FormData): Promise<void> {
   const partNumber = formData.get("partNumber") as string
   const description = formData.get("description") as string
   const imageUrlsRaw = formData.get("imageUrls") as string
+  const customFieldsRaw = formData.get("customFields") as string | null
 
   if (!supplierId || !partNumber || !description) return
 
@@ -47,6 +51,20 @@ export async function createDefect(formData: FormData): Promise<void> {
     } catch {}
   }
 
+  let customFieldsData: Prisma.InputJsonValue | undefined = undefined
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "DEFECT")
+      const validation = validateCustomFields(parsed, config.all)
+      if (validation.success) {
+        customFieldsData = validation.data as Prisma.InputJsonValue
+      }
+    } catch {
+      // ignore invalid custom fields
+    }
+  }
+
   const defect = await prisma.defect.create({
     data: {
       oemId: session.user.companyId,
@@ -59,6 +77,7 @@ export async function createDefect(formData: FormData): Promise<void> {
       supplierAssigneeId: supplierAssignee?.id ?? null,
       supplierResponseDueAt: addCalendarDays(new Date(), 7),
       currentActionOwner: "SUPPLIER",
+      customFields: customFieldsData,
     },
   })
 

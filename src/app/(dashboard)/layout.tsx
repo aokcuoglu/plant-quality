@@ -125,12 +125,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navItems = moduleConfig.navItems
   const planNavItem = isOemAdmin ? { href: isLogisticRoute ? "/logistic/settings/plan" : "/settings/plan", label: "Plan & Usage", icon: "CreditCardIcon" as const } : undefined
+  const fieldConfigNavItem = isOemAdmin ? { href: "/settings/field-config", label: "Field Configuration", icon: "SettingsIcon" as const, gate: "CUSTOM_FIELDS" as FeatureKey } : undefined
 
   return (
     <div className="flex h-screen">
       <Sidebar
         navItems={navItems}
         planNavItem={planNavItem}
+        fieldConfigNavItem={fieldConfigNavItem}
         moduleName={moduleConfig.suffix}
         moduleIcon={moduleConfig.icon}
         user={{

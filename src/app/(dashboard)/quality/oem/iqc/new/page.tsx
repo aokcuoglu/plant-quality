@@ -6,6 +6,8 @@ import { requireFeature } from "@/lib/billing"
 import { getSuppliers } from "../../defects/queries"
 import { IqcCreateForm } from "./form"
 import { PageHeader } from "@/components/layout/PageHeader"
+import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export default async function NewIqcPage() {
   const session = await auth()
@@ -16,6 +18,19 @@ export default async function NewIqcPage() {
   if (!iqcGate.allowed) redirect("/quality/oem/iqc")
 
   const suppliers = await getSuppliers()
+
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "IQC_REPORT")
+    } else {
+      const resolver = resolveFieldConfigSync("IQC_REPORT")
+      fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+    }
+  } catch {
+    const resolver = resolveFieldConfigSync("IQC_REPORT")
+    fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+  }
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -32,7 +47,7 @@ export default async function NewIqcPage() {
         description="Create a new incoming quality control inspection record"
       />
 
-      <IqcCreateForm suppliers={suppliers} />
+      <IqcCreateForm suppliers={suppliers} fieldConfig={fieldConfig} />
     </div>
   )
 }

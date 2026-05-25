@@ -3,6 +3,8 @@ import { redirect, notFound } from "next/navigation"
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { EditFieldDefectForm } from "./edit-form"
+import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { FieldDefectSource, FieldDefectSeverity } from "@/generated/prisma/client"
 
 const sourceOptions: { value: FieldDefectSource; label: string }[] = [
@@ -37,6 +39,19 @@ export default async function EditFieldDefectPage({
 
   if (!fd) notFound()
 
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "FIELD_DEFECT")
+    } else {
+      const resolver = resolveFieldConfigSync("FIELD_DEFECT")
+      fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+    }
+  } catch {
+    const resolver = resolveFieldConfigSync("FIELD_DEFECT")
+    fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+  }
+
   const editableStatuses = ["DRAFT", "OPEN", "UNDER_REVIEW", "SUPPLIER_ASSIGNED"]
   if (!editableStatuses.includes(fd.status)) {
     redirect(`/quality/oem/field/${id}`)
@@ -49,7 +64,7 @@ export default async function EditFieldDefectPage({
       </Link>
       <h1 className="text-xl font-semibold tracking-tight">Edit Field Defect</h1>
 
-      <EditFieldDefectForm fieldDefect={fd} sourceOptions={sourceOptions} severityOptions={severityOptions} />
+      <EditFieldDefectForm fieldDefect={fd} sourceOptions={sourceOptions} severityOptions={severityOptions} fieldConfig={fieldConfig} />
     </div>
   )
 }

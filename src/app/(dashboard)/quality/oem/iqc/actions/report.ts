@@ -6,7 +6,9 @@ import { requireFeature } from "@/lib/billing"
 import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import { revalidatePath } from "next/cache"
 import { canManageIqc, generateIqcInspectionNumber, IQC_DEFAULT_CHECKLIST, isNegativeResult, IQC_INSPECTION_TYPE_LABELS } from "@/lib/iqc"
-import type { IqcResult, IqcInspectionType, IqcChecklistResult, IqcStatus } from "@/generated/prisma/client"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { validateCustomFields } from "@/lib/custom-fields/validation"
+import type { IqcResult, IqcInspectionType, IqcChecklistResult, IqcStatus, Prisma } from "@/generated/prisma/client"
 
 export async function createIqcInspection(formData: FormData) {
   const session = await auth()
@@ -33,9 +35,24 @@ export async function createIqcInspection(formData: FormData) {
   const inspectionType = (formData.get("inspectionType") as IqcInspectionType) || "RECEIVING_INSPECTION"
   const samplingPlan = (formData.get("samplingPlan") as string) || null
   const notes = (formData.get("notes") as string) || null
+  const customFieldsRaw = formData.get("customFields") as string | null
 
   if (!supplierId || !partNumber || quantityReceived <= 0) {
     return { success: false, error: "Supplier, part number, and quantity received are required" }
+  }
+
+  let customFieldsData: Prisma.InputJsonValue | undefined = undefined
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "IQC_REPORT")
+      const validation = validateCustomFields(parsed, config.all)
+      if (validation.success) {
+        customFieldsData = validation.data as Prisma.InputJsonValue
+      }
+    } catch {
+      // ignore
+    }
   }
 
   const supplier = await prisma.company.findFirst({
@@ -71,6 +88,7 @@ export async function createIqcInspection(formData: FormData) {
       status: "PLANNED",
       notes,
       createdById: session.user.id,
+      customFields: customFieldsData,
     },
   })
 

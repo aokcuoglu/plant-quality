@@ -7,6 +7,8 @@ import { assertSupplierBelongsToOem } from "@/lib/supplier-access"
 import { revalidatePath } from "next/cache"
 import { generateFmeaNumber } from "@/lib/fmea"
 import { calcRpn, calcRevisedRpn, validateSod, getMaxRpn, type FmeaRow } from "@/lib/fmea/types"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { validateCustomFields } from "@/lib/custom-fields/validation"
 import type { FmeaStatus, FmeaType } from "@/generated/prisma/client"
 import type { Prisma } from "@/generated/prisma/client"
 
@@ -36,6 +38,7 @@ export async function createFmea(formData: FormData) {
   const title = formData.get("title") as string
   const dueDateStr = formData.get("dueDate") as string | null
   const notes = (formData.get("notes") as string) || null
+  const customFieldsRaw = formData.get("customFields") as string | null
 
   if (!partNumber || !title) {
     return { success: false, error: "Title and part number are required" }
@@ -53,6 +56,20 @@ export async function createFmea(formData: FormData) {
 
   const fmeaNumber = generateFmeaNumber()
   const status: FmeaStatus = supplierId ? "REQUESTED" : "DRAFT"
+
+  let customFieldsData: Prisma.InputJsonValue | undefined = undefined
+  if (customFieldsRaw && session.user.plan === "ENTERPRISE") {
+    try {
+      const parsed = JSON.parse(customFieldsRaw)
+      const config = await resolveFieldConfig(session.user.companyId, "FMEA")
+      const validation = validateCustomFields(parsed, config.all)
+      if (validation.success) {
+        customFieldsData = validation.data as Prisma.InputJsonValue
+      }
+    } catch {
+      // ignore
+    }
+  }
 
   const fmea = await prisma.fmea.create({
     data: {
@@ -73,6 +90,7 @@ export async function createFmea(formData: FormData) {
       notes,
       createdById: session.user.id,
       rows: [],
+      customFields: customFieldsData,
     },
   })
 

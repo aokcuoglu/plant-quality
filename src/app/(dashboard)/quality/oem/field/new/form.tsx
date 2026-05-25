@@ -9,6 +9,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
+import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { CustomFieldsData } from "@/lib/custom-fields/types"
 import type { FieldDefectSource, FieldDefectSeverity } from "@/generated/prisma/client"
 
 const sourceOptions: { value: FieldDefectSource; label: string }[] = [
@@ -27,17 +30,21 @@ const severityOptions: { value: FieldDefectSeverity; label: string }[] = [
 
 export function NewFieldDefectForm({
   suppliers,
+  fieldConfig,
 }: {
   suppliers: { id: string; name: string; users: { id: string; name: string | null; email: string }[] }[]
+  fieldConfig: ResolvedFields
 }) {
   const formRef = useRef<HTMLFormElement>(null)
   const [supplierId, setSupplierId] = useState("")
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
+  const [customFields, setCustomFields] = useState<CustomFieldsData>({})
 
   function handleSubmit(status: "DRAFT" | "OPEN") {
     const formData = new FormData(formRef.current!)
     formData.set("_status", status)
+    formData.set("customFields", JSON.stringify(customFields))
     setError(null)
     startTransition(async () => {
       const result = await createFieldDefect(formData)
@@ -182,6 +189,19 @@ export function NewFieldDefectForm({
         </div>
 
         <Separator />
+
+        {fieldConfig.custom.length > 0 && (
+          <>
+            <DynamicCustomFields
+              entity="FIELD_DEFECT"
+              fields={fieldConfig.all}
+              values={customFields}
+              onChange={(fieldName, value) => setCustomFields((prev) => ({ ...prev, [fieldName]: value }))}
+              mode="create"
+            />
+            <Separator />
+          </>
+        )}
 
         <div className="flex items-center gap-3">
           <Button type="button" disabled={isPending} onClick={() => handleSubmit("OPEN")}>

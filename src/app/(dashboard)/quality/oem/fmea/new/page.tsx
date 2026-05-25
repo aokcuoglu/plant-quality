@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { requireFeature } from "@/lib/billing"
 import { FmeaCreateForm } from "./form"
+import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export default async function NewFmeaPage() {
   const session = await auth()
@@ -28,13 +30,26 @@ export default async function NewFmeaPage() {
     orderBy: { name: "asc" },
   })
 
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "FMEA")
+    } else {
+      const resolver = resolveFieldConfigSync("FMEA")
+      fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+    }
+  } catch {
+    const resolver = resolveFieldConfigSync("FMEA")
+    fieldConfig = { all: resolver.resolve(), visible: resolver.visible, builtIn: resolver.builtIn, custom: resolver.custom }
+  }
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">Create FMEA</h1>
         <p className="text-sm text-muted-foreground">Create a new Failure Mode and Effects Analysis request</p>
       </div>
-      <FmeaCreateForm suppliers={suppliers} />
+      <FmeaCreateForm suppliers={suppliers} fieldConfig={fieldConfig} />
     </div>
   )
 }

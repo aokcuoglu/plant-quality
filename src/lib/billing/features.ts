@@ -147,6 +147,7 @@ export type FeatureKey =
   | "EXECUTIVE_COCKPIT"
   | "SUPPLIER_DEVELOPMENT"
   | "PLANT_LOGISTIC"
+  | "CUSTOM_FIELDS"
 
 export type ModuleEntitlement = {
   key: ModuleKey
@@ -416,6 +417,14 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     minPlan: "FREE",
     supplierAccess: false,
     module: "PLANT_LOGISTIC_MODULE",
+  },
+  CUSTOM_FIELDS: {
+    key: "CUSTOM_FIELDS",
+    label: "Custom Fields",
+    description: "Configure form fields and add custom fields per entity",
+    minPlan: "ENTERPRISE",
+    supplierAccess: true,
+    module: "PLANT_QUALITY_MODULE",
   },
 }
 

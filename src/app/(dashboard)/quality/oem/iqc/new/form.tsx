@@ -8,19 +8,26 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { IQC_INSPECTION_TYPES } from "@/lib/iqc"
+import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { CustomFieldsData } from "@/lib/custom-fields/types"
 
 export function IqcCreateForm({
   suppliers,
+  fieldConfig,
 }: {
   suppliers: { id: string; name: string; users: { id: string; name: string | null; email: string }[] }[]
+  fieldConfig: ResolvedFields
 }) {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [customFields, setCustomFields] = useState<CustomFieldsData>({})
 
   async function handleSubmit(formData: FormData) {
     setSaving(true)
     setError(null)
+    formData.set("customFields", JSON.stringify(customFields))
     try {
       const result = await createIqcInspection(formData)
       if (result.success && result.inspectionId) {
@@ -144,6 +151,16 @@ export function IqcCreateForm({
           <Textarea id="notes" name="notes" rows={3} placeholder="Additional notes or observations..." />
         </div>
       </div>
+
+      {fieldConfig.custom.length > 0 && (
+        <DynamicCustomFields
+          entity="IQC_REPORT"
+          fields={fieldConfig.all}
+          values={customFields}
+          onChange={(fieldName, value) => setCustomFields((prev) => ({ ...prev, [fieldName]: value }))}
+          mode="create"
+        />
+      )}
 
       <div className="flex items-center gap-3 pt-2">
         <Button type="submit" disabled={saving}>

@@ -48,7 +48,7 @@ export function StatusDonut({ data, total }: { data: RawItem[]; total: number })
 
   return (
     <div className="h-[250px] w-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={250}>
         <PieChart>
           <Pie
             data={chartData}

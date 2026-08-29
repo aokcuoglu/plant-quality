@@ -120,6 +120,7 @@ export type FmeaCountAggregateOutputType = {
   rejectionReason: number
   revisionNo: number
   notes: number
+  customFields: number
   createdById: number
   createdAt: number
   updatedAt: number
@@ -221,6 +222,7 @@ export type FmeaCountAggregateInputType = {
   rejectionReason?: true
   revisionNo?: true
   notes?: true
+  customFields?: true
   createdById?: true
   createdAt?: true
   updatedAt?: true
@@ -339,6 +341,7 @@ export type FmeaGroupByOutputType = {
   rejectionReason: string | null
   revisionNo: number
   notes: string | null
+  customFields: runtime.JsonValue | null
   createdById: string
   createdAt: Date
   updatedAt: Date
@@ -393,6 +396,7 @@ export type FmeaWhereInput = {
   rejectionReason?: Prisma.StringNullableFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntFilter<"Fmea"> | number
   notes?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"Fmea">
   createdById?: Prisma.StringFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
@@ -432,6 +436,7 @@ export type FmeaOrderByWithRelationInput = {
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -474,6 +479,7 @@ export type FmeaWhereUniqueInput = Prisma.AtLeast<{
   rejectionReason?: Prisma.StringNullableFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntFilter<"Fmea"> | number
   notes?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"Fmea">
   createdById?: Prisma.StringFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
@@ -513,6 +519,7 @@ export type FmeaOrderByWithAggregationInput = {
   rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -552,6 +559,7 @@ export type FmeaScalarWhereWithAggregatesInput = {
   rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntWithAggregatesFilter<"Fmea"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"Fmea"> | string | null
+  customFields?: Prisma.JsonNullableWithAggregatesFilter<"Fmea">
   createdById?: Prisma.StringWithAggregatesFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Fmea"> | Date | string
@@ -577,6 +585,7 @@ export type FmeaCreateInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -615,6 +624,7 @@ export type FmeaUncheckedCreateInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -641,6 +651,7 @@ export type FmeaUpdateInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -679,6 +690,7 @@ export type FmeaUncheckedUpdateInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -711,6 +723,7 @@ export type FmeaCreateManyInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -736,6 +749,7 @@ export type FmeaUpdateManyMutationInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -766,6 +780,7 @@ export type FmeaUncheckedUpdateManyInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -812,6 +827,7 @@ export type FmeaCountOrderByAggregateInput = {
   rejectionReason?: Prisma.SortOrder
   revisionNo?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  customFields?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1216,6 +1232,7 @@ export type FmeaCreateWithoutOemInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   supplier?: Prisma.CompanyCreateNestedOneWithoutFmeaAsSupInput
@@ -1252,6 +1269,7 @@ export type FmeaUncheckedCreateWithoutOemInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1288,6 +1306,7 @@ export type FmeaCreateWithoutSupplierInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1324,6 +1343,7 @@ export type FmeaUncheckedCreateWithoutSupplierInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1385,6 +1405,7 @@ export type FmeaScalarWhereInput = {
   rejectionReason?: Prisma.StringNullableFilter<"Fmea"> | string | null
   revisionNo?: Prisma.IntFilter<"Fmea"> | number
   notes?: Prisma.StringNullableFilter<"Fmea"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"Fmea">
   createdById?: Prisma.StringFilter<"Fmea"> | string
   createdAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Fmea"> | Date | string
@@ -1426,6 +1447,7 @@ export type FmeaCreateWithoutResponsibleInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1462,6 +1484,7 @@ export type FmeaUncheckedCreateWithoutResponsibleInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1498,6 +1521,7 @@ export type FmeaCreateWithoutApprovedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1534,6 +1558,7 @@ export type FmeaUncheckedCreateWithoutApprovedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1570,6 +1595,7 @@ export type FmeaCreateWithoutReviewedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1606,6 +1632,7 @@ export type FmeaUncheckedCreateWithoutReviewedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1642,6 +1669,7 @@ export type FmeaCreateWithoutCreatedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1679,6 +1707,7 @@ export type FmeaUncheckedCreateWithoutCreatedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.FmeaEventUncheckedCreateNestedManyWithoutFmeaInput
@@ -1778,6 +1807,7 @@ export type FmeaCreateWithoutDefectInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1814,6 +1844,7 @@ export type FmeaUncheckedCreateWithoutDefectInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1856,6 +1887,7 @@ export type FmeaUpdateWithoutDefectInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -1892,6 +1924,7 @@ export type FmeaUncheckedUpdateWithoutDefectInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1918,6 +1951,7 @@ export type FmeaCreateWithoutEventsInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutFmeaAsOemInput
@@ -1955,6 +1989,7 @@ export type FmeaUncheckedCreateWithoutEventsInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1996,6 +2031,7 @@ export type FmeaUpdateWithoutEventsInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -2033,6 +2069,7 @@ export type FmeaUncheckedUpdateWithoutEventsInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2063,6 +2100,7 @@ export type FmeaCreateManyOemInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2093,6 +2131,7 @@ export type FmeaCreateManySupplierInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2118,6 +2157,7 @@ export type FmeaUpdateWithoutOemInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   supplier?: Prisma.CompanyUpdateOneWithoutFmeaAsSupNestedInput
@@ -2154,6 +2194,7 @@ export type FmeaUncheckedUpdateWithoutOemInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2185,6 +2226,7 @@ export type FmeaUncheckedUpdateManyWithoutOemInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2210,6 +2252,7 @@ export type FmeaUpdateWithoutSupplierInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -2246,6 +2289,7 @@ export type FmeaUncheckedUpdateWithoutSupplierInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2277,6 +2321,7 @@ export type FmeaUncheckedUpdateManyWithoutSupplierInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2307,6 +2352,7 @@ export type FmeaCreateManyResponsibleInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2337,6 +2383,7 @@ export type FmeaCreateManyApprovedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2367,6 +2414,7 @@ export type FmeaCreateManyReviewedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2398,6 +2446,7 @@ export type FmeaCreateManyCreatedByInput = {
   rejectionReason?: string | null
   revisionNo?: number
   notes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2422,6 +2471,7 @@ export type FmeaUpdateWithoutResponsibleInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -2458,6 +2508,7 @@ export type FmeaUncheckedUpdateWithoutResponsibleInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2489,6 +2540,7 @@ export type FmeaUncheckedUpdateManyWithoutResponsibleInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2514,6 +2566,7 @@ export type FmeaUpdateWithoutApprovedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -2550,6 +2603,7 @@ export type FmeaUncheckedUpdateWithoutApprovedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2581,6 +2635,7 @@ export type FmeaUncheckedUpdateManyWithoutApprovedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2606,6 +2661,7 @@ export type FmeaUpdateWithoutReviewedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -2642,6 +2698,7 @@ export type FmeaUncheckedUpdateWithoutReviewedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2673,6 +2730,7 @@ export type FmeaUncheckedUpdateManyWithoutReviewedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2698,6 +2756,7 @@ export type FmeaUpdateWithoutCreatedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutFmeaAsOemNestedInput
@@ -2735,6 +2794,7 @@ export type FmeaUncheckedUpdateWithoutCreatedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.FmeaEventUncheckedUpdateManyWithoutFmeaNestedInput
@@ -2766,6 +2826,7 @@ export type FmeaUncheckedUpdateManyWithoutCreatedByInput = {
   rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   revisionNo?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2827,6 +2888,7 @@ export type FmeaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  customFields?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2867,6 +2929,7 @@ export type FmeaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  customFields?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2905,6 +2968,7 @@ export type FmeaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  customFields?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2943,12 +3007,13 @@ export type FmeaSelectScalar = {
   rejectionReason?: boolean
   revisionNo?: boolean
   notes?: boolean
+  customFields?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FmeaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fmeaNumber" | "title" | "fmeaType" | "status" | "partNumber" | "partName" | "processName" | "projectName" | "vehicleModel" | "revision" | "oemId" | "supplierId" | "responsibleId" | "dueDate" | "defectId" | "rows" | "submittedAt" | "reviewedAt" | "reviewedById" | "approvedAt" | "approvedById" | "rejectionReason" | "revisionNo" | "notes" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["fmea"]>
+export type FmeaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fmeaNumber" | "title" | "fmeaType" | "status" | "partNumber" | "partName" | "processName" | "projectName" | "vehicleModel" | "revision" | "oemId" | "supplierId" | "responsibleId" | "dueDate" | "defectId" | "rows" | "submittedAt" | "reviewedAt" | "reviewedById" | "approvedAt" | "approvedById" | "rejectionReason" | "revisionNo" | "notes" | "customFields" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["fmea"]>
 export type FmeaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.Fmea$supplierArgs<ExtArgs>
@@ -3017,6 +3082,7 @@ export type $FmeaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     rejectionReason: string | null
     revisionNo: number
     notes: string | null
+    customFields: runtime.JsonValue | null
     createdById: string
     createdAt: Date
     updatedAt: Date
@@ -3476,6 +3542,7 @@ export interface FmeaFieldRefs {
   readonly rejectionReason: Prisma.FieldRef<"Fmea", 'String'>
   readonly revisionNo: Prisma.FieldRef<"Fmea", 'Int'>
   readonly notes: Prisma.FieldRef<"Fmea", 'String'>
+  readonly customFields: Prisma.FieldRef<"Fmea", 'Json'>
   readonly createdById: Prisma.FieldRef<"Fmea", 'String'>
   readonly createdAt: Prisma.FieldRef<"Fmea", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Fmea", 'DateTime'>

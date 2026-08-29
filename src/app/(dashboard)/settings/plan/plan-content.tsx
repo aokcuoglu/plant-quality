@@ -124,7 +124,7 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
         description={`Manage your subscription, modules, and usage for ${company.name}`}
       />
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
@@ -167,7 +167,7 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
               <div key={moduleKey} className="flex items-center gap-3">
                 <div className={cn(
                   "flex size-8 shrink-0 items-center justify-center rounded-lg",
-                  hasModule ? "bg-emerald-500/10 text-emerald-500" : "bg-muted text-muted-foreground"
+                  hasModule ? "bg-muted text-muted-foreground" : "bg-muted text-muted-foreground"
                 )}>
                   <ModuleIcon className="size-4" />
                 </div>
@@ -177,7 +177,7 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
                       {entitlement.label}
                     </span>
                     {hasModule ? (
-                      <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-emerald-500">
+                      <span className="inline-flex items-center rounded-full border border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-foreground">
                         Active
                       </span>
                     ) : (
@@ -213,7 +213,7 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
         <CardContent className="space-y-6">
           {activeModules.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-medium uppercase tracking-wider text-emerald-500">
+              <h3 className="text-xs font-medium uppercase tracking-wider text-foreground">
                 Active &mdash; Included in your plan
               </h3>
               <div className="grid gap-2">
@@ -288,8 +288,8 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
                                   status.isOver
                                     ? "bg-destructive"
                                     : status.isNear
-                                      ? "bg-amber-500"
-                                      : "bg-emerald-500"
+                                      ? "bg-destructive"
+                                      : "bg-foreground"
                                 )}
                                 style={{ width: `${Math.min(100, status.percentage)}%` }}
                               />
@@ -316,7 +316,7 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {featureAccessList.map((f) => (
               <div key={f.key} className="flex items-center gap-2 text-sm">
-                <span className={cn("size-2 rounded-full shrink-0", f.access.allowed ? "bg-emerald-500" : "bg-muted-foreground/30")} />
+                <span className={cn("size-2 rounded-full shrink-0", f.access.allowed ? "bg-foreground" : "bg-muted-foreground/30")} />
                 <span className={f.access.allowed ? "text-foreground" : "text-muted-foreground"}>
                   {f.label}
                 </span>

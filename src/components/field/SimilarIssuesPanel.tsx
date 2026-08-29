@@ -60,7 +60,7 @@ export function SimilarIssuesPanel({
     <div className="rounded-lg border bg-card">
       <div className="px-4 py-3 border-b border-border flex items-center justify-between">
         <h2 className="text-sm font-semibold flex items-center gap-2">
-          <SearchIcon className="h-4 w-4 text-emerald-500" />
+          <SearchIcon className="h-4 w-4 text-foreground" />
           Similar Issues
         </h2>
         {canManage && canUseSimilar && (
@@ -68,7 +68,7 @@ export function SimilarIssuesPanel({
             onClick={handleFindSimilar}
             disabled={isPending}
             aria-label="Search for similar issues"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-1.5 text-xs font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-muted text-muted-foreground px-3 py-1.5 text-xs font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? (
               <RefreshCwIcon className="h-3.5 w-3.5 animate-spin" />
@@ -120,7 +120,7 @@ export function SimilarIssuesPanel({
                   {issue.similarityReasons.map((reason, i) => (
                     <span
                       key={i}
-                      className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500"
+                      className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground"
                     >
                       {reason}
                     </span>

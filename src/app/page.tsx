@@ -70,8 +70,8 @@ const products: Product[] = [
     icon: ShieldCheck,
     status: "live",
     href: "/login?redirect=/quality/oem",
-    color: "from-emerald-400 to-emerald-600",
-    accent: "bg-emerald-500/10 text-emerald-400",
+    color: "from-blue-500 to-blue-700",
+    accent: "bg-muted text-muted-foreground",
   },
   {
     id: "logistic",
@@ -81,7 +81,7 @@ const products: Product[] = [
     status: "live",
     href: "/login?redirect=/logistic",
     color: "from-blue-400 to-blue-600",
-    accent: "bg-blue-500/10 text-blue-400",
+    accent: "bg-muted text-muted-foreground",
   },
   {
     id: "dock",
@@ -126,7 +126,7 @@ const products: Product[] = [
     icon: Settings,
     status: "planned",
     color: "from-amber-400 to-amber-600",
-    accent: "bg-amber-500/10 text-amber-400",
+    accent: "bg-destructive/10 text-destructive",
   },
   {
     id: "flow",
@@ -144,7 +144,7 @@ const products: Product[] = [
     icon: Users,
     status: "planned",
     color: "from-rose-400 to-rose-600",
-    accent: "bg-rose-500/10 text-rose-400",
+    accent: "bg-muted0/10 text-destructive",
   },
 ]
 
@@ -212,7 +212,7 @@ function WaitlistDialog({
             }}
             className="border-border bg-muted text-foreground placeholder:text-muted-foreground/60"
           />
-          {error && <p className="text-xs text-red-400">{error}</p>}
+          {error && <p className="text-xs text-destructive">{error}</p>}
           <Button type="submit" className="w-full gap-2" disabled={pending}>
             {pending ? (
               <>
@@ -241,7 +241,7 @@ function HeroNetwork() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       {/* Slow pulsing orbs */}
-      <div className="absolute top-1/2 left-1/2 size-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/[0.07] blur-[120px]" />
+      <div className="absolute top-1/2 left-1/2 size-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.07] blur-[120px]" />
       <div className="absolute top-1/3 right-1/4 size-[500px] rounded-full bg-blue-500/[0.06] blur-[100px]" />
       <div className="absolute bottom-0 left-0 size-[400px] rounded-full bg-cyan-500/[0.05] blur-[80px]" />
 
@@ -249,7 +249,7 @@ function HeroNetwork() {
       <svg className="absolute inset-0 h-full w-full opacity-[0.18]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="netGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#34d399" stopOpacity="0.5" />
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
             <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2" />
           </linearGradient>
         </defs>
@@ -290,7 +290,7 @@ function HeroNetwork() {
           ["20%", "80%"],
           ["80%", "80%"],
         ].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r={2.5} fill="#34d399" opacity={0.5} />
+          <circle key={i} cx={cx} cy={cy} r={2.5} fill="#3b82f6" opacity={0.5} />
         ))}
       </svg>
     </div>
@@ -345,13 +345,13 @@ function SectionHeading({
       className="mx-auto max-w-3xl text-center"
     >
       {eyebrow && (
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium tracking-widest uppercase text-emerald-400">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium tracking-widest uppercase text-foreground">
           <Sparkles className="size-3.5" />
           {eyebrow}
         </div>
       )}
       <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        {title} <span className="text-emerald-400">{highlight}</span>
+        {title} <span className="text-foreground">{highlight}</span>
       </h2>
       <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{description}</p>
     </motion.div>
@@ -373,7 +373,7 @@ function GlassCard({
     <div
       className={cn(
         "relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-md transition-all",
-        hover && "hover:border-border/70 hover:shadow-lg hover:shadow-emerald-500/5",
+        hover && "hover:border-border/70 hover:shadow-lg hover:shadow-blue-600/5",
         className
       )}
     >
@@ -391,12 +391,12 @@ export default function LandingPage() {
   const heroY = useTransform(scrollYProgress, [0, 0.18], [0, -60])
 
   return (
-    <div className="dark flex min-h-dvh flex-col bg-background text-muted-foreground selection:bg-emerald-500/30">
+    <div className="dark flex min-h-dvh flex-col bg-background text-muted-foreground selection:bg-foreground/30">
       {/* ─── Header ─── */}
       <header className="fixed top-0 z-50 w-full border-b border-border bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5">
-            <div className="relative flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 shadow-lg shadow-emerald-500/20">
+            <div className="relative flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-600/20">
               <Factory className="size-4.5 text-foreground" strokeWidth={2.5} />
             </div>
             <span className="text-lg font-bold tracking-tight text-foreground">PlantX</span>
@@ -421,7 +421,7 @@ export default function LandingPage() {
           <a href="#ecosystem">
             <Button
               size="sm"
-              className="bg-emerald-500 text-background font-semibold hover:bg-emerald-400 shadow-lg shadow-emerald-500/15"
+              className="bg-foreground text-background font-semibold hover:bg-foreground/80 shadow-lg shadow-foreground/10"
             >
               Explore Ecosystem
             </Button>
@@ -445,8 +445,8 @@ export default function LandingPage() {
               className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-medium tracking-wider uppercase text-muted-foreground backdrop-blur-sm"
             >
               <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-blue-500 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-foreground" />
               </span>
               The Industrial Efficiency Hub
             </motion.div>
@@ -458,7 +458,7 @@ export default function LandingPage() {
               className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
             >
               <span className="block">The Industrial OS</span>
-              <span className="mt-2 block bg-gradient-to-r from-emerald-400 via-teal-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="mt-2 block bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
                 PlantX
               </span>
             </motion.h1>
@@ -482,7 +482,7 @@ export default function LandingPage() {
               <Link href="/login?redirect=/quality/oem">
                 <Button
                   size="lg"
-                  className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-background shadow-xl shadow-emerald-500/15 transition-transform hover:bg-emerald-400 hover:scale-[1.02] hover:shadow-emerald-500/25"
+                  className="h-12 gap-2 bg-foreground px-8 text-base font-semibold text-background shadow-xl shadow-foreground/10 transition-transform hover:bg-foreground/80 hover:scale-[1.02] hover:shadow-foreground/15"
                 >
                   Launch PlantQuality <ChevronRight className="size-4" />
                 </Button>
@@ -527,14 +527,14 @@ export default function LandingPage() {
                     className={cn(
                       "group relative flex flex-col rounded-2xl border bg-card/60 p-6 backdrop-blur-md transition-all",
                       isLive
-                        ? "border-emerald-500/30 shadow-lg shadow-emerald-500/5 hover:border-emerald-400/50 hover:shadow-emerald-500/10"
+                        ? "border-border shadow-lg shadow-blue-600/5 hover:border-border hover:shadow-blue-600/10"
                         : "border-border hover:border-border",
                       (product.id === "quality" || product.id === "logistic") && "sm:col-span-2 lg:col-span-2"
                     )}
                   >
                     {/* ambient glow for hero card */}
                     {product.id === "quality" && (
-                      <div className="pointer-events-none absolute -top-24 -right-24 size-[320px] rounded-full bg-emerald-500/8 blur-[80px]" />
+                      <div className="pointer-events-none absolute -top-24 -right-24 size-[320px] rounded-full bg-foreground/8 blur-[80px]" />
                     )}
                     {product.id === "logistic" && (
                       <div className="pointer-events-none absolute -top-24 -right-24 size-[320px] rounded-full bg-blue-500/8 blur-[80px]" />
@@ -554,9 +554,9 @@ export default function LandingPage() {
                         className={cn(
                           "border px-2 text-[10px] font-semibold tracking-wider uppercase",
                           isLive &&
-                            "border-emerald-500/40 bg-emerald-500/10 text-emerald-400",
+                            "border-blue-600/40 bg-muted text-muted-foreground",
                           isUpcoming &&
-                            "border-blue-500/40 bg-blue-500/10 text-blue-400",
+                            "border-blue-500/40 bg-muted text-muted-foreground",
                           !isLive &&
                             !isUpcoming &&
                             "border-border bg-muted text-muted-foreground"
@@ -583,7 +583,7 @@ export default function LandingPage() {
                         <Link href={product.href}>
                           <Button
                             size="sm"
-                            className="w-full bg-emerald-500 text-background font-semibold hover:bg-emerald-400 shadow-md shadow-emerald-500/10"
+                            className="w-full bg-foreground text-background font-semibold hover:bg-foreground/80 shadow-md shadow-blue-600/10"
                           >
                             Open App <ChevronRight className="size-3.5" />
                           </Button>
@@ -610,7 +610,7 @@ export default function LandingPage() {
         {/* ═══════ Data-Driven Core (Dashboard Preview) ═══════ */}
         <section id="platform" className="relative overflow-hidden border-t border-border bg-card">
           <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute top-0 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-gradient-radial from-emerald-500/[0.06] to-transparent blur-3xl" />
+            <div className="absolute top-0 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-gradient-radial from-blue-600/[0.06] to-transparent blur-3xl" />
           </div>
 
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
@@ -627,7 +627,7 @@ export default function LandingPage() {
               <GlassCard className="sm:col-span-2 lg:col-span-2 p-6">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex size-8 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
+                    <div className="flex size-8 items-center justify-center rounded-lg bg-foreground/15 text-foreground">
                       <BarChart3 className="size-4" />
                     </div>
                     <div>
@@ -635,7 +635,7 @@ export default function LandingPage() {
                       <p className="text-xs text-muted-foreground/60">Monthly aggregated</p>
                     </div>
                   </div>
-                  <Badge className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[10px]">
+                  <Badge className="border-border bg-muted text-muted-foreground text-[10px]">
                     -12% YoY
                   </Badge>
                 </div>
@@ -656,7 +656,7 @@ export default function LandingPage() {
                         whileInView={{ height: `${b.h * 1.8}px` }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="w-full rounded-t-sm bg-gradient-to-t from-emerald-500/60 to-emerald-400/90"
+                        className="w-full rounded-t-sm bg-gradient-to-t from-blue-600/60 to-blue-500/90"
                       />
                       <span className="text-[10px] text-muted-foreground/60">{b.m}</span>
                     </div>
@@ -667,7 +667,7 @@ export default function LandingPage() {
               {/* Live metrics */}
               <GlassCard className="flex flex-col justify-between p-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
+                  <div className="flex size-8 items-center justify-center rounded-lg bg-blue-500/15 text-muted-foreground">
                     <Gauge className="size-4" />
                   </div>
                   <span className="text-sm font-medium text-muted-foreground">Plant Health Score</span>
@@ -682,7 +682,7 @@ export default function LandingPage() {
                     whileInView={{ width: "94%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-400"
+                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-400"
                   />
                 </div>
               </GlassCard>
@@ -697,7 +697,7 @@ export default function LandingPage() {
                 </div>
                 <div className="mt-4 space-y-3">
                   {[
-                    { label: "PlantQuality", pct: 100, color: "bg-emerald-500" },
+                    { label: "PlantQuality", pct: 100, color: "bg-foreground" },
                     { label: "PlantLogistic", pct: 90, color: "bg-blue-500" },
                     { label: "PlantDock", pct: 80, color: "bg-indigo-500" },
                   ].map((m) => (
@@ -724,7 +724,7 @@ export default function LandingPage() {
               <GlassCard className="sm:col-span-2 p-6 lg:col-span-2">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex size-8 items-center justify-center rounded-lg bg-rose-500/15 text-rose-400">
+                    <div className="flex size-8 items-center justify-center rounded-lg bg-muted0/15 text-destructive">
                       <SearchCheck className="size-4" />
                     </div>
                     <span className="text-sm font-medium text-muted-foreground">Open Defects Overview</span>
@@ -750,8 +750,8 @@ export default function LandingPage() {
                     >
                       <span className="font-mono font-semibold text-muted-foreground">{row[0]}</span>
                       <span>{row[1]}</span>
-                      <span className="text-emerald-400">{row[2]}</span>
-                      <span className="text-right text-rose-400">{row[3]}</span>
+                      <span className="text-foreground">{row[2]}</span>
+                      <span className="text-right text-destructive">{row[3]}</span>
                     </div>
                   ))}
                 </div>
@@ -838,7 +838,7 @@ export default function LandingPage() {
                   transition={{ duration: 0.45, delay: i * 0.07 }}
                 >
                   <GlassCard className="h-full p-6" hover>
-                    <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-muted to-card border border-border text-emerald-400 shadow-lg">
+                    <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-muted to-card border border-border text-foreground shadow-lg">
                       <item.icon className="size-6" />
                     </div>
                     <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
@@ -853,7 +853,7 @@ export default function LandingPage() {
         {/* ═══════ CTA ═══════ */}
         <section className="relative overflow-hidden border-t border-border bg-background">
           <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute -top-[200px] left-1/2 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-emerald-500/[0.06] blur-[120px]" />
+            <div className="absolute -top-[200px] left-1/2 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-foreground/[0.06] blur-[120px]" />
           </div>
           <div className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
             <motion.div
@@ -872,7 +872,7 @@ export default function LandingPage() {
                 <Link href="/login?redirect=/quality/oem">
                   <Button
                     size="lg"
-                    className="h-12 gap-2 bg-emerald-500 px-8 text-base font-semibold text-background shadow-xl shadow-emerald-500/15 hover:bg-emerald-400"
+                    className="h-12 gap-2 bg-foreground px-8 text-base font-semibold text-background shadow-xl shadow-foreground/10 hover:bg-foreground/80"
                   >
                     Get Started <ChevronRight className="size-4" />
                   </Button>
@@ -897,7 +897,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2.5">
-              <div className="flex size-7 items-center justify-center rounded-md bg-gradient-to-br from-emerald-500 to-blue-600">
+              <div className="flex size-7 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-blue-700">
                 <Factory className="size-4 text-foreground" strokeWidth={2.5} />
               </div>
               <span className="text-sm font-bold tracking-tight text-foreground">PlantX</span>

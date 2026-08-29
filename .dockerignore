@@ -13,4 +13,3 @@ coverage
 .vercel
 .turbo
 .cursor
-postgres_data

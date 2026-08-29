@@ -53,7 +53,7 @@ export default async function SupplierDevelopmentPage() {
         </Link>
       </div>
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-4">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
         <DashboardCard
           title="Total Plans"
           value={data.totalCount}
@@ -153,7 +153,7 @@ export default async function SupplierDevelopmentPage() {
                         )}
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <Link href={`/quality/oem/supplier-development/${plan.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+                        <Link href={`/quality/oem/supplier-development/${plan.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground transition-colors">
                           Detail <ArrowRightIcon className="h-3 w-3" />
                         </Link>
                       </td>

@@ -11,6 +11,7 @@ import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
 import type { IqcResult } from "@/generated/prisma/client"
 import type { SupplierScorecard, SupplierScorecardSummary, SignalDetail } from "./types"
 import { computeScore, getGrade, getRiskLevel, applyPenalty, getRecommendedAction, PENALTY_CONFIG } from "./scoring"
+import { getScorecardConfig } from "./config"
 
 const NEGATIVE_IQC_RESULTS: IqcResult[] = ["REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"]
 
@@ -188,6 +189,8 @@ export async function getSupplierScorecards(
 
   const supplierScorecards: SupplierScorecard[] = []
 
+  const config = await getScorecardConfig(companyId)
+
   for (const [supplierId, supplierName] of supplierMap) {
     const supplierFieldDefects = fieldDefects.filter((fd) => fd.supplierId === supplierId)
     const supplierDefects = defects.filter((d) => d.supplierId === supplierId)
@@ -228,14 +231,14 @@ export async function getSupplierScorecards(
     const fmeaGapCount = fmeaGapBySupplier.get(supplierId) ?? 0
 
     const penaltyBreakdown = {
-      fieldDefectHighCritical: { count: fieldDefectHighCritical, penalty: applyPenalty(fieldDefectHighCritical, PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.perItem, PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.cap), cap: PENALTY_CONFIG.FIELD_DEFECT_HIGH_CRITICAL.cap },
-      repeatIssueCluster: { count: repeatIssueCount, penalty: applyPenalty(repeatIssueCount, PENALTY_CONFIG.REPEAT_ISSUE_CLUSTER.perItem, PENALTY_CONFIG.REPEAT_ISSUE_CLUSTER.cap), cap: PENALTY_CONFIG.REPEAT_ISSUE_CLUSTER.cap },
-      iqcRejected: { count: iqcRejectedCount, penalty: applyPenalty(iqcRejectedCount, PENALTY_CONFIG.IQC_REJECTED.perItem, PENALTY_CONFIG.IQC_REJECTED.cap), cap: PENALTY_CONFIG.IQC_REJECTED.cap },
-      openOverdue8d: { count: overdue8dCount, penalty: applyPenalty(overdue8dCount, PENALTY_CONFIG.OPEN_OVERDUE_8D.perItem, PENALTY_CONFIG.OPEN_OVERDUE_8D.cap), cap: PENALTY_CONFIG.OPEN_OVERDUE_8D.cap },
-      slaBreach: { count: Math.max(escalationCount, slaBreaches), penalty: applyPenalty(Math.max(escalationCount, slaBreaches), PENALTY_CONFIG.SLA_BREACH.perItem, PENALTY_CONFIG.SLA_BREACH.cap), cap: PENALTY_CONFIG.SLA_BREACH.cap },
-      ppapApprovedWithIssues: { count: ppapWithIssuesCount, penalty: applyPenalty(ppapWithIssuesCount, PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.perItem, PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.cap), cap: PENALTY_CONFIG.PPAP_APPROVED_WITH_ISSUES.cap },
-      fmeaCoverageGap: { count: fmeaGapCount, penalty: applyPenalty(fmeaGapCount, PENALTY_CONFIG.FMEA_COVERAGE_GAP.perItem, PENALTY_CONFIG.FMEA_COVERAGE_GAP.cap), cap: PENALTY_CONFIG.FMEA_COVERAGE_GAP.cap },
-      executiveRiskSignal: { count: escalationCount > 0 ? Math.min(escalationCount, 3) : 0, penalty: applyPenalty(escalationCount > 0 ? Math.min(escalationCount, 3) : 0, PENALTY_CONFIG.EXECUTIVE_RISK_SIGNAL.perItem, PENALTY_CONFIG.EXECUTIVE_RISK_SIGNAL.cap), cap: PENALTY_CONFIG.EXECUTIVE_RISK_SIGNAL.cap },
+      fieldDefectHighCritical: { count: fieldDefectHighCritical, penalty: applyPenalty(fieldDefectHighCritical, config.fieldDefectPerItem, config.fieldDefectCap), cap: config.fieldDefectCap },
+      repeatIssueCluster: { count: repeatIssueCount, penalty: applyPenalty(repeatIssueCount, config.repeatIssuePerItem, config.repeatIssueCap), cap: config.repeatIssueCap },
+      iqcRejected: { count: iqcRejectedCount, penalty: applyPenalty(iqcRejectedCount, config.iqcRejectedPerItem, config.iqcRejectedCap), cap: config.iqcRejectedCap },
+      openOverdue8d: { count: overdue8dCount, penalty: applyPenalty(overdue8dCount, config.openOverdue8dPerItem, config.openOverdue8dCap), cap: config.openOverdue8dCap },
+      slaBreach: { count: Math.max(escalationCount, slaBreaches), penalty: applyPenalty(Math.max(escalationCount, slaBreaches), config.slaBreachPerItem, config.slaBreachCap), cap: config.slaBreachCap },
+      ppapApprovedWithIssues: { count: ppapWithIssuesCount, penalty: applyPenalty(ppapWithIssuesCount, config.ppapWithIssuesPerItem, config.ppapWithIssuesCap), cap: config.ppapWithIssuesCap },
+      fmeaCoverageGap: { count: fmeaGapCount, penalty: applyPenalty(fmeaGapCount, config.fmeaGapPerItem, config.fmeaGapCap), cap: config.fmeaGapCap },
+      executiveRiskSignal: { count: escalationCount > 0 ? Math.min(escalationCount, 3) : 0, penalty: applyPenalty(escalationCount > 0 ? Math.min(escalationCount, 3) : 0, config.execRiskPerItem, config.execRiskCap), cap: config.execRiskCap },
     }
 
     const overallScore = computeScore(penaltyBreakdown)
@@ -354,4 +357,118 @@ export async function getSupplierScorecardDetail(
   if (!summary) return null
 
   return summary.suppliers.find((s) => s.supplierId === supplierId) ?? null
+}
+
+export async function getSupplierSelfScorecard(
+  session: {
+    user?: { companyId?: string | null; companyType?: string | null; role?: string | null; plan?: string | null }
+  } | null
+): Promise<SupplierScorecard | null> {
+  if (!session?.user?.companyId || session.user.companyType !== "SUPPLIER") {
+    return null
+  }
+
+  const companyId = session.user.companyId
+
+  const company = await prisma.company.findUnique({
+    where: { id: companyId },
+    select: { name: true },
+  })
+
+  if (!company) return null
+
+  const now = new Date()
+
+  const [fieldDefects, defects, iqcReports, escalations] = await Promise.all([
+    prisma.fieldDefect.findMany({
+      where: { supplierId: companyId, deletedAt: null },
+      select: { id: true, status: true, severity: true, reportDate: true, createdAt: true },
+    }),
+    prisma.defect.findMany({
+      where: { supplierId: companyId },
+      select: { id: true, status: true, createdAt: true, resolvedAt: true },
+    }),
+    prisma.iqcReport.findMany({
+      where: { supplierId: companyId },
+      select: { id: true, result: true, inspectionDate: true, createdAt: true },
+    }),
+    prisma.escalationHistory.findMany({
+      where: { companyId },
+      select: { entityId: true, entityType: true, newLevel: true },
+    }),
+  ])
+
+  const config = await getScorecardConfig(companyId)
+
+  const fieldDefectHighCritical = fieldDefects.filter(
+    (fd) => (fd.severity === "CRITICAL" || fd.severity === "MAJOR") && fd.status !== "CLOSED" && fd.status !== "CANCELLED"
+  ).length
+
+  const iqcRejectedCount = iqcReports.filter(
+    (iqc) => iqc.result === "REJECTED" || iqc.result === "ON_HOLD" || iqc.result === "REWORK_REQUIRED" || iqc.result === "SORTING_REQUIRED"
+  ).length
+
+  const openDefects = defects.filter((d) => d.status !== "RESOLVED" && d.status !== "REJECTED").length
+  const overdueDefects = 0
+  const overdueFdCount = 0
+  const overdue8dCount = overdueDefects + overdueFdCount
+
+  const slaBreaches = 0
+
+  const escalationCount = escalations.filter((e) => e.newLevel !== "NONE").length
+
+  const penaltyBreakdown = {
+    fieldDefectHighCritical: { count: fieldDefectHighCritical, penalty: applyPenalty(fieldDefectHighCritical, config.fieldDefectPerItem, config.fieldDefectCap), cap: config.fieldDefectCap },
+    repeatIssueCluster: { count: 0, penalty: 0, cap: config.repeatIssueCap },
+    iqcRejected: { count: iqcRejectedCount, penalty: applyPenalty(iqcRejectedCount, config.iqcRejectedPerItem, config.iqcRejectedCap), cap: config.iqcRejectedCap },
+    openOverdue8d: { count: overdue8dCount, penalty: 0, cap: config.openOverdue8dCap },
+    slaBreach: { count: slaBreaches, penalty: 0, cap: config.slaBreachCap },
+    ppapApprovedWithIssues: { count: 0, penalty: 0, cap: config.ppapWithIssuesCap },
+    fmeaCoverageGap: { count: 0, penalty: 0, cap: config.fmeaGapCap },
+    executiveRiskSignal: { count: 0, penalty: 0, cap: config.execRiskCap },
+  }
+
+  const overallScore = computeScore(penaltyBreakdown)
+  const grade = getGrade(overallScore)
+  const riskLevel = getRiskLevel(overallScore)
+
+  const keySignals: SignalDetail[] = []
+  if (fieldDefectHighCritical > 0) keySignals.push({ label: "Critical/Major Field Defects", count: fieldDefectHighCritical, severity: "critical" })
+  if (iqcRejectedCount > 0) keySignals.push({ label: "IQC Rejected/On-Hold", count: iqcRejectedCount, severity: iqcRejectedCount >= 3 ? "high" : "medium" })
+  if (openDefects > 0) keySignals.push({ label: "Open Defects", count: openDefects, severity: "medium" })
+  keySignals.sort((a, b) => {
+    const order: Record<string, number> = { critical: 4, high: 3, medium: 2, low: 1 }
+    return (order[b.severity] ?? 0) - (order[a.severity] ?? 0)
+  })
+
+  const allDates = [
+    ...fieldDefects.map((fd) => fd.reportDate ?? fd.createdAt),
+    ...defects.map((d) => d.createdAt),
+    ...iqcReports.map((iqc) => iqc.inspectionDate ?? iqc.createdAt),
+  ].filter((d): d is Date => d !== null)
+    .map((d) => new Date(d).getTime())
+    .filter((t) => Number.isFinite(t))
+  const latestActivityAt = allDates.length > 0 ? new Date(Math.max(...allDates)) : null
+
+  return {
+    supplierId: companyId,
+    supplierName: company.name,
+    overallScore,
+    grade,
+    riskLevel,
+    openIssuesCount: openDefects + fieldDefects.filter((fd) => fd.status !== "CLOSED" && fd.status !== "CANCELLED").length,
+    repeatIssuesCount: 0,
+    fieldDefectsCount: fieldDefects.length,
+    defects8dCount: defects.length,
+    overdue8dCount: overdue8dCount,
+    iqcRejectedCount,
+    ppapApprovedWithIssuesCount: 0,
+    fmeaCoverageGapCount: 0,
+    escalationCount,
+    latestActivityAt,
+    keySignals: keySignals.slice(0, 5),
+    recommendedAction: getRecommendedAction(riskLevel, keySignals.length),
+    penaltyBreakdown,
+    drillDownLinks: [],
+  }
 }

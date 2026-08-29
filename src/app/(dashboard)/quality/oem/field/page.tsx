@@ -16,6 +16,11 @@ import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
+import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
+import type { ResolvedField } from "@/lib/custom-fields/types"
 
 const STATUS_FILTERS: { value: string; label: string }[] = [
   { value: "active", label: "Active" },
@@ -72,6 +77,18 @@ export default async function OemFieldPage({
 
   const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page, supplierId || undefined)
   const totalPages = Math.ceil(totalCount / FIELD_DEFECT_PAGE_SIZE)
+
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "FIELD_DEFECT")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
 
   function buildUrl(overrides: Record<string, string | undefined>) {
     const sp = new URLSearchParams()
@@ -196,8 +213,39 @@ export default async function OemFieldPage({
         )
       })()}
 
-      <div className="w-full max-w-sm">
-        <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter", "supplierId"]} />
+      <div className="flex items-center gap-3">
+        <div className="w-full max-w-sm">
+          <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter", "supplierId"]} />
+        </div>
+        {fieldDefects.length > 0 && (
+          <ExportCsvButton
+            fileName="field-defects.csv"
+            headers={[
+              { key: "title", label: "Title" },
+              { key: "status", label: "Status" },
+              { key: "severity", label: "Severity" },
+              { key: "category", label: "Category" },
+              { key: "supplierName", label: "Supplier" },
+              { key: "vin", label: "VIN" },
+              { key: "vehicleModel", label: "Vehicle" },
+              { key: "partNumber", label: "Part #" },
+              { key: "reportDate", label: "Report Date" },
+              { key: "createdAt", label: "Created" },
+            ]}
+            rows={fieldDefects.map((fd) => ({
+              ...fd,
+              reportDate: fd.reportDate.toISOString(),
+              createdAt: fd.createdAt.toISOString(),
+              status: String(fd.status),
+              severity: String(fd.severity),
+              supplierName: fd.supplierName ?? "",
+              vin: fd.vin ?? "",
+              vehicleModel: fd.vehicleModel ?? "",
+              partNumber: fd.partNumber ?? "",
+            }))}
+            listVisibleFields={listVisibleFields}
+          />
+        )}
       </div>
 
       {fieldDefects.length === 0 ? (
@@ -228,6 +276,7 @@ export default async function OemFieldPage({
                 <Th>Part #</Th>
                 <Th>Report Date</Th>
                 <Th>Created</Th>
+                <CustomFieldsTableHeaders fields={listVisibleFields} />
               </tr>
             </thead>
             <tbody>
@@ -291,6 +340,7 @@ export default async function OemFieldPage({
                       {fd.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                   </Td>
+                  <CustomFieldsTableCells fields={listVisibleFields} customFields={fd.customFields ?? null} />
                 </tr>
               ))}
             </tbody>

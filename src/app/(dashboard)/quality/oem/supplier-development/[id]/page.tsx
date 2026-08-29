@@ -136,7 +136,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
                             <span className={`inline-flex shrink-0 items-center rounded-md border px-1.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${ACTION_STATUS_CONFIG[item.status].className}`}>
                               {ACTION_STATUS_CONFIG[item.status].label}
                             </span>
-                            <span className={`inline-flex shrink-0 items-center rounded-md border px-1.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${item.ownerType === "OEM" ? "bg-muted text-muted-foreground border-border" : "bg-amber-500/10 text-amber-600 border-amber-500/20"}`}>
+                            <span className={`inline-flex shrink-0 items-center rounded-md border px-1.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${item.ownerType === "OEM" ? "bg-muted text-muted-foreground border-border" : "bg-destructive/10 text-destructive border-destructive/20"}`}>
                               {item.ownerType}
                             </span>
                           </div>
@@ -146,8 +146,8 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
                             <span>Due: {item.dueDate ? (itemOverdue ? <span className="text-destructive font-semibold">{new Date(item.dueDate).toLocaleDateString()}</span> : new Date(item.dueDate).toLocaleDateString()) : "None"}</span>
                           </div>
                           {item.supplierResponse && (
-                            <div className="mt-2 rounded-md bg-amber-500/5 border border-amber-500/10 p-2">
-                              <p className="text-xs font-medium text-amber-600">Supplier Response:</p>
+                            <div className="mt-2 rounded-md bg-destructive/5 border border-amber-500/10 p-2">
+                              <p className="text-xs font-medium text-destructive">Supplier Response:</p>
                               <p className="text-xs text-foreground mt-0.5">{item.supplierResponse}</p>
                             </div>
                           )}

@@ -72,6 +72,8 @@ export type PlantLogisticOrderMinAggregateOutputType = {
   rejectedAt: Date | null
   deliveredAt: Date | null
   closedAt: Date | null
+  planSheetId: string | null
+  planSheetLineId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -114,6 +116,8 @@ export type PlantLogisticOrderMaxAggregateOutputType = {
   rejectedAt: Date | null
   deliveredAt: Date | null
   closedAt: Date | null
+  planSheetId: string | null
+  planSheetLineId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -152,10 +156,13 @@ export type PlantLogisticOrderCountAggregateOutputType = {
   distributorCompanyId: number
   createdById: number
   updatedById: number
+  customFields: number
   approvedAt: number
   rejectedAt: number
   deliveredAt: number
   closedAt: number
+  planSheetId: number
+  planSheetLineId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -208,6 +215,8 @@ export type PlantLogisticOrderMinAggregateInputType = {
   rejectedAt?: true
   deliveredAt?: true
   closedAt?: true
+  planSheetId?: true
+  planSheetLineId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -250,6 +259,8 @@ export type PlantLogisticOrderMaxAggregateInputType = {
   rejectedAt?: true
   deliveredAt?: true
   closedAt?: true
+  planSheetId?: true
+  planSheetLineId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -288,10 +299,13 @@ export type PlantLogisticOrderCountAggregateInputType = {
   distributorCompanyId?: true
   createdById?: true
   updatedById?: true
+  customFields?: true
   approvedAt?: true
   rejectedAt?: true
   deliveredAt?: true
   closedAt?: true
+  planSheetId?: true
+  planSheetLineId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -417,10 +431,13 @@ export type PlantLogisticOrderGroupByOutputType = {
   distributorCompanyId: string | null
   createdById: string
   updatedById: string | null
+  customFields: runtime.JsonValue | null
   approvedAt: Date | null
   rejectedAt: Date | null
   deliveredAt: Date | null
   closedAt: Date | null
+  planSheetId: string | null
+  planSheetLineId: string | null
   createdAt: Date
   updatedAt: Date
   _count: PlantLogisticOrderCountAggregateOutputType | null
@@ -482,10 +499,13 @@ export type PlantLogisticOrderWhereInput = {
   distributorCompanyId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
   createdById?: Prisma.StringFilter<"PlantLogisticOrder"> | string
   updatedById?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"PlantLogisticOrder">
   approvedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
+  planSheetId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
+  planSheetLineId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlantLogisticOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PlantLogisticOrder"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -497,6 +517,9 @@ export type PlantLogisticOrderWhereInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
   yardStatus?: Prisma.XOR<Prisma.PlantLogisticYardStatusNullableScalarRelationFilter, Prisma.PlantLogisticYardStatusWhereInput> | null
   dispatches?: Prisma.PlantLogisticDispatchListRelationFilter
+  comments?: Prisma.PlantLogisticOrderCommentListRelationFilter
+  planSheet?: Prisma.XOR<Prisma.PlantLogisticPlanSheetNullableScalarRelationFilter, Prisma.PlantLogisticPlanSheetWhereInput> | null
+  planSheetLine?: Prisma.XOR<Prisma.PlantLogisticPlanSheetLineNullableScalarRelationFilter, Prisma.PlantLogisticPlanSheetLineWhereInput> | null
 }
 
 export type PlantLogisticOrderOrderByWithRelationInput = {
@@ -533,10 +556,13 @@ export type PlantLogisticOrderOrderByWithRelationInput = {
   distributorCompanyId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  planSheetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  planSheetLineId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
@@ -548,11 +574,15 @@ export type PlantLogisticOrderOrderByWithRelationInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneOrderByRelationAggregateInput
   yardStatus?: Prisma.PlantLogisticYardStatusOrderByWithRelationInput
   dispatches?: Prisma.PlantLogisticDispatchOrderByRelationAggregateInput
+  comments?: Prisma.PlantLogisticOrderCommentOrderByRelationAggregateInput
+  planSheet?: Prisma.PlantLogisticPlanSheetOrderByWithRelationInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineOrderByWithRelationInput
 }
 
 export type PlantLogisticOrderWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   orderNumber?: string
+  planSheetLineId?: string
   AND?: Prisma.PlantLogisticOrderWhereInput | Prisma.PlantLogisticOrderWhereInput[]
   OR?: Prisma.PlantLogisticOrderWhereInput[]
   NOT?: Prisma.PlantLogisticOrderWhereInput | Prisma.PlantLogisticOrderWhereInput[]
@@ -587,10 +617,12 @@ export type PlantLogisticOrderWhereUniqueInput = Prisma.AtLeast<{
   distributorCompanyId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
   createdById?: Prisma.StringFilter<"PlantLogisticOrder"> | string
   updatedById?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"PlantLogisticOrder">
   approvedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
+  planSheetId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlantLogisticOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PlantLogisticOrder"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -602,7 +634,10 @@ export type PlantLogisticOrderWhereUniqueInput = Prisma.AtLeast<{
   milestones?: Prisma.PlantLogisticProductionMilestoneListRelationFilter
   yardStatus?: Prisma.XOR<Prisma.PlantLogisticYardStatusNullableScalarRelationFilter, Prisma.PlantLogisticYardStatusWhereInput> | null
   dispatches?: Prisma.PlantLogisticDispatchListRelationFilter
-}, "id" | "orderNumber">
+  comments?: Prisma.PlantLogisticOrderCommentListRelationFilter
+  planSheet?: Prisma.XOR<Prisma.PlantLogisticPlanSheetNullableScalarRelationFilter, Prisma.PlantLogisticPlanSheetWhereInput> | null
+  planSheetLine?: Prisma.XOR<Prisma.PlantLogisticPlanSheetLineNullableScalarRelationFilter, Prisma.PlantLogisticPlanSheetLineWhereInput> | null
+}, "id" | "orderNumber" | "planSheetLineId">
 
 export type PlantLogisticOrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -638,10 +673,13 @@ export type PlantLogisticOrderOrderByWithAggregationInput = {
   distributorCompanyId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  planSheetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  planSheetLineId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PlantLogisticOrderCountOrderByAggregateInput
@@ -688,10 +726,13 @@ export type PlantLogisticOrderScalarWhereWithAggregatesInput = {
   distributorCompanyId?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticOrder"> | string | null
   createdById?: Prisma.StringWithAggregatesFilter<"PlantLogisticOrder"> | string
   updatedById?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticOrder"> | string | null
+  customFields?: Prisma.JsonNullableWithAggregatesFilter<"PlantLogisticOrder">
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PlantLogisticOrder"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PlantLogisticOrder"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PlantLogisticOrder"> | Date | string | null
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PlantLogisticOrder"> | Date | string | null
+  planSheetId?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticOrder"> | string | null
+  planSheetLineId?: Prisma.StringNullableWithAggregatesFilter<"PlantLogisticOrder"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PlantLogisticOrder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PlantLogisticOrder"> | Date | string
 }
@@ -725,6 +766,7 @@ export type PlantLogisticOrderCreateInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -740,6 +782,9 @@ export type PlantLogisticOrderCreateInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateInput = {
@@ -776,16 +821,20 @@ export type PlantLogisticOrderUncheckedCreateInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderUpdateInput = {
@@ -817,6 +866,7 @@ export type PlantLogisticOrderUpdateInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -832,6 +882,9 @@ export type PlantLogisticOrderUpdateInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateInput = {
@@ -868,16 +921,20 @@ export type PlantLogisticOrderUncheckedUpdateInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateManyInput = {
@@ -914,10 +971,13 @@ export type PlantLogisticOrderCreateManyInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -951,6 +1011,7 @@ export type PlantLogisticOrderUpdateManyMutationInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -993,10 +1054,13 @@ export type PlantLogisticOrderUncheckedUpdateManyInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1045,10 +1109,13 @@ export type PlantLogisticOrderCountOrderByAggregateInput = {
   distributorCompanyId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
+  customFields?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
   rejectedAt?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
+  planSheetId?: Prisma.SortOrder
+  planSheetLineId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1095,6 +1162,8 @@ export type PlantLogisticOrderMaxOrderByAggregateInput = {
   rejectedAt?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
+  planSheetId?: Prisma.SortOrder
+  planSheetLineId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1137,6 +1206,8 @@ export type PlantLogisticOrderMinOrderByAggregateInput = {
   rejectedAt?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
+  planSheetId?: Prisma.SortOrder
+  planSheetLineId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1148,6 +1219,11 @@ export type PlantLogisticOrderSumOrderByAggregateInput = {
 export type PlantLogisticOrderScalarRelationFilter = {
   is?: Prisma.PlantLogisticOrderWhereInput
   isNot?: Prisma.PlantLogisticOrderWhereInput
+}
+
+export type PlantLogisticOrderNullableScalarRelationFilter = {
+  is?: Prisma.PlantLogisticOrderWhereInput | null
+  isNot?: Prisma.PlantLogisticOrderWhereInput | null
 }
 
 export type PlantLogisticOrderCreateNestedManyWithoutCompanyInput = {
@@ -1440,6 +1516,94 @@ export type PlantLogisticOrderUpdateOneRequiredWithoutDispatchesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlantLogisticOrderUpdateToOneWithWhereWithoutDispatchesInput, Prisma.PlantLogisticOrderUpdateWithoutDispatchesInput>, Prisma.PlantLogisticOrderUncheckedUpdateWithoutDispatchesInput>
 }
 
+export type PlantLogisticOrderCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutCommentsInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+}
+
+export type PlantLogisticOrderUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutCommentsInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.PlantLogisticOrderUpsertWithoutCommentsInput
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlantLogisticOrderUpdateToOneWithWhereWithoutCommentsInput, Prisma.PlantLogisticOrderUpdateWithoutCommentsInput>, Prisma.PlantLogisticOrderUncheckedUpdateWithoutCommentsInput>
+}
+
+export type PlantLogisticOrderCreateNestedManyWithoutPlanSheetInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput> | Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput[] | Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput[]
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput | Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput[]
+  createMany?: Prisma.PlantLogisticOrderCreateManyPlanSheetInputEnvelope
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+}
+
+export type PlantLogisticOrderUncheckedCreateNestedManyWithoutPlanSheetInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput> | Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput[] | Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput[]
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput | Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput[]
+  createMany?: Prisma.PlantLogisticOrderCreateManyPlanSheetInputEnvelope
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+}
+
+export type PlantLogisticOrderUpdateManyWithoutPlanSheetNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput> | Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput[] | Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput[]
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput | Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput[]
+  upsert?: Prisma.PlantLogisticOrderUpsertWithWhereUniqueWithoutPlanSheetInput | Prisma.PlantLogisticOrderUpsertWithWhereUniqueWithoutPlanSheetInput[]
+  createMany?: Prisma.PlantLogisticOrderCreateManyPlanSheetInputEnvelope
+  set?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  disconnect?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  delete?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  update?: Prisma.PlantLogisticOrderUpdateWithWhereUniqueWithoutPlanSheetInput | Prisma.PlantLogisticOrderUpdateWithWhereUniqueWithoutPlanSheetInput[]
+  updateMany?: Prisma.PlantLogisticOrderUpdateManyWithWhereWithoutPlanSheetInput | Prisma.PlantLogisticOrderUpdateManyWithWhereWithoutPlanSheetInput[]
+  deleteMany?: Prisma.PlantLogisticOrderScalarWhereInput | Prisma.PlantLogisticOrderScalarWhereInput[]
+}
+
+export type PlantLogisticOrderUncheckedUpdateManyWithoutPlanSheetNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput> | Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput[] | Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput[]
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput | Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput[]
+  upsert?: Prisma.PlantLogisticOrderUpsertWithWhereUniqueWithoutPlanSheetInput | Prisma.PlantLogisticOrderUpsertWithWhereUniqueWithoutPlanSheetInput[]
+  createMany?: Prisma.PlantLogisticOrderCreateManyPlanSheetInputEnvelope
+  set?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  disconnect?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  delete?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput | Prisma.PlantLogisticOrderWhereUniqueInput[]
+  update?: Prisma.PlantLogisticOrderUpdateWithWhereUniqueWithoutPlanSheetInput | Prisma.PlantLogisticOrderUpdateWithWhereUniqueWithoutPlanSheetInput[]
+  updateMany?: Prisma.PlantLogisticOrderUpdateManyWithWhereWithoutPlanSheetInput | Prisma.PlantLogisticOrderUpdateManyWithWhereWithoutPlanSheetInput[]
+  deleteMany?: Prisma.PlantLogisticOrderScalarWhereInput | Prisma.PlantLogisticOrderScalarWhereInput[]
+}
+
+export type PlantLogisticOrderCreateNestedOneWithoutPlanSheetLineInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetLineInput
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+}
+
+export type PlantLogisticOrderUncheckedCreateNestedOneWithoutPlanSheetLineInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetLineInput
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+}
+
+export type PlantLogisticOrderUpdateOneWithoutPlanSheetLineNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetLineInput
+  upsert?: Prisma.PlantLogisticOrderUpsertWithoutPlanSheetLineInput
+  disconnect?: Prisma.PlantLogisticOrderWhereInput | boolean
+  delete?: Prisma.PlantLogisticOrderWhereInput | boolean
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlantLogisticOrderUpdateToOneWithWhereWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUpdateWithoutPlanSheetLineInput>, Prisma.PlantLogisticOrderUncheckedUpdateWithoutPlanSheetLineInput>
+}
+
+export type PlantLogisticOrderUncheckedUpdateOneWithoutPlanSheetLineNestedInput = {
+  create?: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput>
+  connectOrCreate?: Prisma.PlantLogisticOrderCreateOrConnectWithoutPlanSheetLineInput
+  upsert?: Prisma.PlantLogisticOrderUpsertWithoutPlanSheetLineInput
+  disconnect?: Prisma.PlantLogisticOrderWhereInput | boolean
+  delete?: Prisma.PlantLogisticOrderWhereInput | boolean
+  connect?: Prisma.PlantLogisticOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlantLogisticOrderUpdateToOneWithWhereWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUpdateWithoutPlanSheetLineInput>, Prisma.PlantLogisticOrderUncheckedUpdateWithoutPlanSheetLineInput>
+}
+
 export type PlantLogisticOrderCreateWithoutCompanyInput = {
   id?: string
   orderNumber: string
@@ -1469,6 +1633,7 @@ export type PlantLogisticOrderCreateWithoutCompanyInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -1483,6 +1648,9 @@ export type PlantLogisticOrderCreateWithoutCompanyInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutCompanyInput = {
@@ -1518,16 +1686,20 @@ export type PlantLogisticOrderUncheckedCreateWithoutCompanyInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutCompanyInput = {
@@ -1569,6 +1741,7 @@ export type PlantLogisticOrderCreateWithoutDealerCompanyInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -1583,6 +1756,9 @@ export type PlantLogisticOrderCreateWithoutDealerCompanyInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutDealerCompanyInput = {
@@ -1618,16 +1794,20 @@ export type PlantLogisticOrderUncheckedCreateWithoutDealerCompanyInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutDealerCompanyInput = {
@@ -1669,6 +1849,7 @@ export type PlantLogisticOrderCreateWithoutDistributorCompanyInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -1683,6 +1864,9 @@ export type PlantLogisticOrderCreateWithoutDistributorCompanyInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutDistributorCompanyInput = {
@@ -1718,16 +1902,20 @@ export type PlantLogisticOrderUncheckedCreateWithoutDistributorCompanyInput = {
   dealerCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutDistributorCompanyInput = {
@@ -1793,10 +1981,13 @@ export type PlantLogisticOrderScalarWhereInput = {
   distributorCompanyId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
   createdById?: Prisma.StringFilter<"PlantLogisticOrder"> | string
   updatedById?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"PlantLogisticOrder">
   approvedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   rejectedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"PlantLogisticOrder"> | Date | string | null
+  planSheetId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
+  planSheetLineId?: Prisma.StringNullableFilter<"PlantLogisticOrder"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlantLogisticOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PlantLogisticOrder"> | Date | string
 }
@@ -1862,6 +2053,7 @@ export type PlantLogisticOrderCreateWithoutCreatedByInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -1876,6 +2068,9 @@ export type PlantLogisticOrderCreateWithoutCreatedByInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutCreatedByInput = {
@@ -1911,16 +2106,20 @@ export type PlantLogisticOrderUncheckedCreateWithoutCreatedByInput = {
   dealerCompanyId?: string | null
   distributorCompanyId?: string | null
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutCreatedByInput = {
@@ -1962,6 +2161,7 @@ export type PlantLogisticOrderCreateWithoutUpdatedByInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -1976,6 +2176,9 @@ export type PlantLogisticOrderCreateWithoutUpdatedByInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutUpdatedByInput = {
@@ -2011,16 +2214,20 @@ export type PlantLogisticOrderUncheckedCreateWithoutUpdatedByInput = {
   dealerCompanyId?: string | null
   distributorCompanyId?: string | null
   createdById: string
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutUpdatedByInput = {
@@ -2094,6 +2301,7 @@ export type PlantLogisticOrderCreateWithoutEventsInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -2108,6 +2316,9 @@ export type PlantLogisticOrderCreateWithoutEventsInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutEventsInput = {
@@ -2144,15 +2355,19 @@ export type PlantLogisticOrderUncheckedCreateWithoutEventsInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutEventsInput = {
@@ -2200,6 +2415,7 @@ export type PlantLogisticOrderUpdateWithoutEventsInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2214,6 +2430,9 @@ export type PlantLogisticOrderUpdateWithoutEventsInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutEventsInput = {
@@ -2250,15 +2469,19 @@ export type PlantLogisticOrderUncheckedUpdateWithoutEventsInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateWithoutMilestonesInput = {
@@ -2290,6 +2513,7 @@ export type PlantLogisticOrderCreateWithoutMilestonesInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -2304,6 +2528,9 @@ export type PlantLogisticOrderCreateWithoutMilestonesInput = {
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutMilestonesInput = {
@@ -2340,15 +2567,19 @@ export type PlantLogisticOrderUncheckedCreateWithoutMilestonesInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutMilestonesInput = {
@@ -2396,6 +2627,7 @@ export type PlantLogisticOrderUpdateWithoutMilestonesInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2410,6 +2642,9 @@ export type PlantLogisticOrderUpdateWithoutMilestonesInput = {
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutMilestonesInput = {
@@ -2446,15 +2681,19 @@ export type PlantLogisticOrderUncheckedUpdateWithoutMilestonesInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateWithoutYardStatusInput = {
@@ -2486,6 +2725,7 @@ export type PlantLogisticOrderCreateWithoutYardStatusInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -2500,6 +2740,9 @@ export type PlantLogisticOrderCreateWithoutYardStatusInput = {
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutYardStatusInput = {
@@ -2536,15 +2779,19 @@ export type PlantLogisticOrderUncheckedCreateWithoutYardStatusInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutYardStatusInput = {
@@ -2592,6 +2839,7 @@ export type PlantLogisticOrderUpdateWithoutYardStatusInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2606,6 +2854,9 @@ export type PlantLogisticOrderUpdateWithoutYardStatusInput = {
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutYardStatusInput = {
@@ -2642,15 +2893,19 @@ export type PlantLogisticOrderUncheckedUpdateWithoutYardStatusInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateWithoutDispatchesInput = {
@@ -2682,6 +2937,7 @@ export type PlantLogisticOrderCreateWithoutDispatchesInput = {
   externalVisible?: boolean
   externalStatus?: $Enums.ExternalOrderStatus | null
   externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
@@ -2696,6 +2952,9 @@ export type PlantLogisticOrderCreateWithoutDispatchesInput = {
   events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
 }
 
 export type PlantLogisticOrderUncheckedCreateWithoutDispatchesInput = {
@@ -2732,15 +2991,19 @@ export type PlantLogisticOrderUncheckedCreateWithoutDispatchesInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type PlantLogisticOrderCreateOrConnectWithoutDispatchesInput = {
@@ -2788,6 +3051,7 @@ export type PlantLogisticOrderUpdateWithoutDispatchesInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2802,6 +3066,9 @@ export type PlantLogisticOrderUpdateWithoutDispatchesInput = {
   events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutDispatchesInput = {
@@ -2838,15 +3105,567 @@ export type PlantLogisticOrderUncheckedUpdateWithoutDispatchesInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderCreateWithoutCommentsInput = {
+  id?: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
+  dealerCompany?: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersAsDealerInput
+  distributorCompany?: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersAsDistributorInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
+  events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
+  yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
+}
+
+export type PlantLogisticOrderUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  companyId: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  dealerCompanyId?: string | null
+  distributorCompanyId?: string | null
+  createdById: string
+  updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type PlantLogisticOrderCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.PlantLogisticOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutCommentsInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutCommentsInput>
+}
+
+export type PlantLogisticOrderUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutCommentsInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutCommentsInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.PlantLogisticOrderWhereInput
+}
+
+export type PlantLogisticOrderUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.PlantLogisticOrderWhereInput
+  data: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutCommentsInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutCommentsInput>
+}
+
+export type PlantLogisticOrderUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
+  dealerCompany?: Prisma.CompanyUpdateOneWithoutLogisticOrdersAsDealerNestedInput
+  distributorCompany?: Prisma.CompanyUpdateOneWithoutLogisticOrdersAsDistributorNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
+  events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderCreateWithoutPlanSheetInput = {
+  id?: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
+  dealerCompany?: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersAsDealerInput
+  distributorCompany?: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersAsDistributorInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
+  events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
+  yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineCreateNestedOneWithoutOrderInput
+}
+
+export type PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput = {
+  id?: string
+  companyId: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  dealerCompanyId?: string | null
+  distributorCompanyId?: string | null
+  createdById: string
+  updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  planSheetLineId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type PlantLogisticOrderCreateOrConnectWithoutPlanSheetInput = {
+  where: Prisma.PlantLogisticOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput>
+}
+
+export type PlantLogisticOrderCreateManyPlanSheetInputEnvelope = {
+  data: Prisma.PlantLogisticOrderCreateManyPlanSheetInput | Prisma.PlantLogisticOrderCreateManyPlanSheetInput[]
+  skipDuplicates?: boolean
+}
+
+export type PlantLogisticOrderUpsertWithWhereUniqueWithoutPlanSheetInput = {
+  where: Prisma.PlantLogisticOrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutPlanSheetInput>
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetInput>
+}
+
+export type PlantLogisticOrderUpdateWithWhereUniqueWithoutPlanSheetInput = {
+  where: Prisma.PlantLogisticOrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutPlanSheetInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutPlanSheetInput>
+}
+
+export type PlantLogisticOrderUpdateManyWithWhereWithoutPlanSheetInput = {
+  where: Prisma.PlantLogisticOrderScalarWhereInput
+  data: Prisma.XOR<Prisma.PlantLogisticOrderUpdateManyMutationInput, Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutPlanSheetInput>
+}
+
+export type PlantLogisticOrderCreateWithoutPlanSheetLineInput = {
+  id?: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersInput
+  dealerCompany?: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersAsDealerInput
+  distributorCompany?: Prisma.CompanyCreateNestedOneWithoutLogisticOrdersAsDistributorInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedLogisticOrdersInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedLogisticOrdersInput
+  events?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutOrderInput
+  yardStatus?: Prisma.PlantLogisticYardStatusCreateNestedOneWithoutOrderInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentCreateNestedManyWithoutOrderInput
+  planSheet?: Prisma.PlantLogisticPlanSheetCreateNestedOneWithoutOrdersInput
+}
+
+export type PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput = {
+  id?: string
+  companyId: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  dealerCompanyId?: string | null
+  distributorCompanyId?: string | null
+  createdById: string
+  updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  planSheetId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutOrderInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutOrderInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedOneWithoutOrderInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutOrderInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type PlantLogisticOrderCreateOrConnectWithoutPlanSheetLineInput = {
+  where: Prisma.PlantLogisticOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput>
+}
+
+export type PlantLogisticOrderUpsertWithoutPlanSheetLineInput = {
+  update: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutPlanSheetLineInput>
+  create: Prisma.XOR<Prisma.PlantLogisticOrderCreateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedCreateWithoutPlanSheetLineInput>
+  where?: Prisma.PlantLogisticOrderWhereInput
+}
+
+export type PlantLogisticOrderUpdateToOneWithWhereWithoutPlanSheetLineInput = {
+  where?: Prisma.PlantLogisticOrderWhereInput
+  data: Prisma.XOR<Prisma.PlantLogisticOrderUpdateWithoutPlanSheetLineInput, Prisma.PlantLogisticOrderUncheckedUpdateWithoutPlanSheetLineInput>
+}
+
+export type PlantLogisticOrderUpdateWithoutPlanSheetLineInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
+  dealerCompany?: Prisma.CompanyUpdateOneWithoutLogisticOrdersAsDealerNestedInput
+  distributorCompany?: Prisma.CompanyUpdateOneWithoutLogisticOrdersAsDistributorNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
+  events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+}
+
+export type PlantLogisticOrderUncheckedUpdateWithoutPlanSheetLineInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderCreateManyCompanyInput = {
@@ -2882,10 +3701,13 @@ export type PlantLogisticOrderCreateManyCompanyInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2923,10 +3745,13 @@ export type PlantLogisticOrderCreateManyDealerCompanyInput = {
   distributorCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2964,10 +3789,13 @@ export type PlantLogisticOrderCreateManyDistributorCompanyInput = {
   dealerCompanyId?: string | null
   createdById: string
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3001,6 +3829,7 @@ export type PlantLogisticOrderUpdateWithoutCompanyInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3015,6 +3844,9 @@ export type PlantLogisticOrderUpdateWithoutCompanyInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutCompanyInput = {
@@ -3050,16 +3882,20 @@ export type PlantLogisticOrderUncheckedUpdateWithoutCompanyInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutCompanyInput = {
@@ -3095,10 +3931,13 @@ export type PlantLogisticOrderUncheckedUpdateManyWithoutCompanyInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3132,6 +3971,7 @@ export type PlantLogisticOrderUpdateWithoutDealerCompanyInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3146,6 +3986,9 @@ export type PlantLogisticOrderUpdateWithoutDealerCompanyInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutDealerCompanyInput = {
@@ -3181,16 +4024,20 @@ export type PlantLogisticOrderUncheckedUpdateWithoutDealerCompanyInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyInput = {
@@ -3226,10 +4073,13 @@ export type PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyInput = {
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3263,6 +4113,7 @@ export type PlantLogisticOrderUpdateWithoutDistributorCompanyInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3277,6 +4128,9 @@ export type PlantLogisticOrderUpdateWithoutDistributorCompanyInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutDistributorCompanyInput = {
@@ -3312,16 +4166,20 @@ export type PlantLogisticOrderUncheckedUpdateWithoutDistributorCompanyInput = {
   dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyInput = {
@@ -3357,10 +4215,13 @@ export type PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyInput 
   dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3398,10 +4259,13 @@ export type PlantLogisticOrderCreateManyCreatedByInput = {
   dealerCompanyId?: string | null
   distributorCompanyId?: string | null
   updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3439,10 +4303,13 @@ export type PlantLogisticOrderCreateManyUpdatedByInput = {
   dealerCompanyId?: string | null
   distributorCompanyId?: string | null
   createdById: string
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Date | string | null
   rejectedAt?: Date | string | null
   deliveredAt?: Date | string | null
   closedAt?: Date | string | null
+  planSheetId?: string | null
+  planSheetLineId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3476,6 +4343,7 @@ export type PlantLogisticOrderUpdateWithoutCreatedByInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3490,6 +4358,9 @@ export type PlantLogisticOrderUpdateWithoutCreatedByInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutCreatedByInput = {
@@ -3525,16 +4396,20 @@ export type PlantLogisticOrderUncheckedUpdateWithoutCreatedByInput = {
   dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByInput = {
@@ -3570,10 +4445,13 @@ export type PlantLogisticOrderUncheckedUpdateManyWithoutCreatedByInput = {
   dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3607,6 +4485,7 @@ export type PlantLogisticOrderUpdateWithoutUpdatedByInput = {
   externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
   externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
   externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3621,6 +4500,9 @@ export type PlantLogisticOrderUpdateWithoutUpdatedByInput = {
   milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheet?: Prisma.PlantLogisticPlanSheetUpdateOneWithoutOrdersNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateWithoutUpdatedByInput = {
@@ -3656,16 +4538,20 @@ export type PlantLogisticOrderUncheckedUpdateWithoutUpdatedByInput = {
   dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
   milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
   yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByInput = {
@@ -3701,10 +4587,199 @@ export type PlantLogisticOrderUncheckedUpdateManyWithoutUpdatedByInput = {
   dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PlantLogisticOrderCreateManyPlanSheetInput = {
+  id?: string
+  companyId: string
+  orderNumber: string
+  requestNumber?: string | null
+  customerName: string
+  customerType?: $Enums.LogisticOrderCustomerType
+  dealerName?: string | null
+  distributorName?: string | null
+  country?: string | null
+  market?: string | null
+  vehicleModel: string
+  vehicleVariant?: string | null
+  vehicleType?: $Enums.LogisticOrderVehicleType
+  powertrain?: $Enums.LogisticOrderPowertrain | null
+  quantity?: number
+  priority?: $Enums.LogisticOrderPriority
+  status?: $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Date | string | null
+  plannedProductionDate?: Date | string | null
+  plannedProductionWeek?: string | null
+  plannedDeliveryDate?: Date | string | null
+  vin?: string | null
+  chassisNumber?: string | null
+  productionOrderNo?: string | null
+  salesOrderNo?: string | null
+  notes?: string | null
+  externalVisible?: boolean
+  externalStatus?: $Enums.ExternalOrderStatus | null
+  externalStatusNote?: string | null
+  dealerCompanyId?: string | null
+  distributorCompanyId?: string | null
+  createdById: string
+  updatedById?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  closedAt?: Date | string | null
+  planSheetLineId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PlantLogisticOrderUpdateWithoutPlanSheetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutLogisticOrdersNestedInput
+  dealerCompany?: Prisma.CompanyUpdateOneWithoutLogisticOrdersAsDealerNestedInput
+  distributorCompany?: Prisma.CompanyUpdateOneWithoutLogisticOrdersAsDistributorNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedLogisticOrdersNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedLogisticOrdersNestedInput
+  events?: Prisma.PlantLogisticOrderEventUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutOrderNestedInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUpdateOneWithoutOrderNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUpdateManyWithoutOrderNestedInput
+  planSheetLine?: Prisma.PlantLogisticPlanSheetLineUpdateOneWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderUncheckedUpdateWithoutPlanSheetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutOrderNestedInput
+  milestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutOrderNestedInput
+  yardStatus?: Prisma.PlantLogisticYardStatusUncheckedUpdateOneWithoutOrderNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutOrderNestedInput
+  comments?: Prisma.PlantLogisticOrderCommentUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type PlantLogisticOrderUncheckedUpdateManyWithoutPlanSheetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  requestNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerType?: Prisma.EnumLogisticOrderCustomerTypeFieldUpdateOperationsInput | $Enums.LogisticOrderCustomerType
+  dealerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  market?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleModel?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleVariant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.EnumLogisticOrderVehicleTypeFieldUpdateOperationsInput | $Enums.LogisticOrderVehicleType
+  powertrain?: Prisma.NullableEnumLogisticOrderPowertrainFieldUpdateOperationsInput | $Enums.LogisticOrderPowertrain | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  priority?: Prisma.EnumLogisticOrderPriorityFieldUpdateOperationsInput | $Enums.LogisticOrderPriority
+  status?: Prisma.EnumLogisticOrderStatusFieldUpdateOperationsInput | $Enums.LogisticOrderStatus
+  requestedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plannedProductionWeek?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  plannedDeliveryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  chassisNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salesOrderNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  externalVisible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  externalStatus?: Prisma.NullableEnumExternalOrderStatusFieldUpdateOperationsInput | $Enums.ExternalOrderStatus | null
+  externalStatusNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dealerCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributorCompanyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  planSheetLineId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3718,12 +4793,14 @@ export type PlantLogisticOrderCountOutputType = {
   events: number
   milestones: number
   dispatches: number
+  comments: number
 }
 
 export type PlantLogisticOrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   events?: boolean | PlantLogisticOrderCountOutputTypeCountEventsArgs
   milestones?: boolean | PlantLogisticOrderCountOutputTypeCountMilestonesArgs
   dispatches?: boolean | PlantLogisticOrderCountOutputTypeCountDispatchesArgs
+  comments?: boolean | PlantLogisticOrderCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -3755,6 +4832,13 @@ export type PlantLogisticOrderCountOutputTypeCountMilestonesArgs<ExtArgs extends
  */
 export type PlantLogisticOrderCountOutputTypeCountDispatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PlantLogisticDispatchWhereInput
+}
+
+/**
+ * PlantLogisticOrderCountOutputType without action
+ */
+export type PlantLogisticOrderCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticOrderCommentWhereInput
 }
 
 
@@ -3792,10 +4876,13 @@ export type PlantLogisticOrderSelect<ExtArgs extends runtime.Types.Extensions.In
   distributorCompanyId?: boolean
   createdById?: boolean
   updatedById?: boolean
+  customFields?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   deliveredAt?: boolean
   closedAt?: boolean
+  planSheetId?: boolean
+  planSheetLineId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3807,6 +4894,9 @@ export type PlantLogisticOrderSelect<ExtArgs extends runtime.Types.Extensions.In
   milestones?: boolean | Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs>
   yardStatus?: boolean | Prisma.PlantLogisticOrder$yardStatusArgs<ExtArgs>
   dispatches?: boolean | Prisma.PlantLogisticOrder$dispatchesArgs<ExtArgs>
+  comments?: boolean | Prisma.PlantLogisticOrder$commentsArgs<ExtArgs>
+  planSheet?: boolean | Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>
+  planSheetLine?: boolean | Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>
   _count?: boolean | Prisma.PlantLogisticOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticOrder"]>
 
@@ -3844,10 +4934,13 @@ export type PlantLogisticOrderSelectCreateManyAndReturn<ExtArgs extends runtime.
   distributorCompanyId?: boolean
   createdById?: boolean
   updatedById?: boolean
+  customFields?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   deliveredAt?: boolean
   closedAt?: boolean
+  planSheetId?: boolean
+  planSheetLineId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3855,6 +4948,8 @@ export type PlantLogisticOrderSelectCreateManyAndReturn<ExtArgs extends runtime.
   distributorCompany?: boolean | Prisma.PlantLogisticOrder$distributorCompanyArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>
+  planSheet?: boolean | Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>
+  planSheetLine?: boolean | Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticOrder"]>
 
 export type PlantLogisticOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -3891,10 +4986,13 @@ export type PlantLogisticOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.
   distributorCompanyId?: boolean
   createdById?: boolean
   updatedById?: boolean
+  customFields?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   deliveredAt?: boolean
   closedAt?: boolean
+  planSheetId?: boolean
+  planSheetLineId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3902,6 +5000,8 @@ export type PlantLogisticOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.
   distributorCompany?: boolean | Prisma.PlantLogisticOrder$distributorCompanyArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>
+  planSheet?: boolean | Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>
+  planSheetLine?: boolean | Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>
 }, ExtArgs["result"]["plantLogisticOrder"]>
 
 export type PlantLogisticOrderSelectScalar = {
@@ -3938,15 +5038,18 @@ export type PlantLogisticOrderSelectScalar = {
   distributorCompanyId?: boolean
   createdById?: boolean
   updatedById?: boolean
+  customFields?: boolean
   approvedAt?: boolean
   rejectedAt?: boolean
   deliveredAt?: boolean
   closedAt?: boolean
+  planSheetId?: boolean
+  planSheetLineId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PlantLogisticOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "orderNumber" | "requestNumber" | "customerName" | "customerType" | "dealerName" | "distributorName" | "country" | "market" | "vehicleModel" | "vehicleVariant" | "vehicleType" | "powertrain" | "quantity" | "priority" | "status" | "requestedDeliveryDate" | "plannedProductionDate" | "plannedProductionWeek" | "plannedDeliveryDate" | "vin" | "chassisNumber" | "productionOrderNo" | "salesOrderNo" | "notes" | "externalVisible" | "externalStatus" | "externalStatusNote" | "dealerCompanyId" | "distributorCompanyId" | "createdById" | "updatedById" | "approvedAt" | "rejectedAt" | "deliveredAt" | "closedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["plantLogisticOrder"]>
+export type PlantLogisticOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "orderNumber" | "requestNumber" | "customerName" | "customerType" | "dealerName" | "distributorName" | "country" | "market" | "vehicleModel" | "vehicleVariant" | "vehicleType" | "powertrain" | "quantity" | "priority" | "status" | "requestedDeliveryDate" | "plannedProductionDate" | "plannedProductionWeek" | "plannedDeliveryDate" | "vin" | "chassisNumber" | "productionOrderNo" | "salesOrderNo" | "notes" | "externalVisible" | "externalStatus" | "externalStatusNote" | "dealerCompanyId" | "distributorCompanyId" | "createdById" | "updatedById" | "customFields" | "approvedAt" | "rejectedAt" | "deliveredAt" | "closedAt" | "planSheetId" | "planSheetLineId" | "createdAt" | "updatedAt", ExtArgs["result"]["plantLogisticOrder"]>
 export type PlantLogisticOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   dealerCompany?: boolean | Prisma.PlantLogisticOrder$dealerCompanyArgs<ExtArgs>
@@ -3957,6 +5060,9 @@ export type PlantLogisticOrderInclude<ExtArgs extends runtime.Types.Extensions.I
   milestones?: boolean | Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs>
   yardStatus?: boolean | Prisma.PlantLogisticOrder$yardStatusArgs<ExtArgs>
   dispatches?: boolean | Prisma.PlantLogisticOrder$dispatchesArgs<ExtArgs>
+  comments?: boolean | Prisma.PlantLogisticOrder$commentsArgs<ExtArgs>
+  planSheet?: boolean | Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>
+  planSheetLine?: boolean | Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>
   _count?: boolean | Prisma.PlantLogisticOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlantLogisticOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3965,6 +5071,8 @@ export type PlantLogisticOrderIncludeCreateManyAndReturn<ExtArgs extends runtime
   distributorCompany?: boolean | Prisma.PlantLogisticOrder$distributorCompanyArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>
+  planSheet?: boolean | Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>
+  planSheetLine?: boolean | Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>
 }
 export type PlantLogisticOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3972,6 +5080,8 @@ export type PlantLogisticOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime
   distributorCompany?: boolean | Prisma.PlantLogisticOrder$distributorCompanyArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.PlantLogisticOrder$updatedByArgs<ExtArgs>
+  planSheet?: boolean | Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>
+  planSheetLine?: boolean | Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>
 }
 
 export type $PlantLogisticOrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3986,6 +5096,9 @@ export type $PlantLogisticOrderPayload<ExtArgs extends runtime.Types.Extensions.
     milestones: Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>[]
     yardStatus: Prisma.$PlantLogisticYardStatusPayload<ExtArgs> | null
     dispatches: Prisma.$PlantLogisticDispatchPayload<ExtArgs>[]
+    comments: Prisma.$PlantLogisticOrderCommentPayload<ExtArgs>[]
+    planSheet: Prisma.$PlantLogisticPlanSheetPayload<ExtArgs> | null
+    planSheetLine: Prisma.$PlantLogisticPlanSheetLinePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4021,10 +5134,13 @@ export type $PlantLogisticOrderPayload<ExtArgs extends runtime.Types.Extensions.
     distributorCompanyId: string | null
     createdById: string
     updatedById: string | null
+    customFields: runtime.JsonValue | null
     approvedAt: Date | null
     rejectedAt: Date | null
     deliveredAt: Date | null
     closedAt: Date | null
+    planSheetId: string | null
+    planSheetLineId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["plantLogisticOrder"]>
@@ -4430,6 +5546,9 @@ export interface Prisma__PlantLogisticOrderClient<T, Null = never, ExtArgs exten
   milestones<T extends Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticProductionMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   yardStatus<T extends Prisma.PlantLogisticOrder$yardStatusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$yardStatusArgs<ExtArgs>>): Prisma.Prisma__PlantLogisticYardStatusClient<runtime.Types.Result.GetResult<Prisma.$PlantLogisticYardStatusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   dispatches<T extends Prisma.PlantLogisticOrder$dispatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$dispatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticDispatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.PlantLogisticOrder$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticOrderCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  planSheet<T extends Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$planSheetArgs<ExtArgs>>): Prisma.Prisma__PlantLogisticPlanSheetClient<runtime.Types.Result.GetResult<Prisma.$PlantLogisticPlanSheetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  planSheetLine<T extends Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlantLogisticOrder$planSheetLineArgs<ExtArgs>>): Prisma.Prisma__PlantLogisticPlanSheetLineClient<runtime.Types.Result.GetResult<Prisma.$PlantLogisticPlanSheetLinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4492,10 +5611,13 @@ export interface PlantLogisticOrderFieldRefs {
   readonly distributorCompanyId: Prisma.FieldRef<"PlantLogisticOrder", 'String'>
   readonly createdById: Prisma.FieldRef<"PlantLogisticOrder", 'String'>
   readonly updatedById: Prisma.FieldRef<"PlantLogisticOrder", 'String'>
+  readonly customFields: Prisma.FieldRef<"PlantLogisticOrder", 'Json'>
   readonly approvedAt: Prisma.FieldRef<"PlantLogisticOrder", 'DateTime'>
   readonly rejectedAt: Prisma.FieldRef<"PlantLogisticOrder", 'DateTime'>
   readonly deliveredAt: Prisma.FieldRef<"PlantLogisticOrder", 'DateTime'>
   readonly closedAt: Prisma.FieldRef<"PlantLogisticOrder", 'DateTime'>
+  readonly planSheetId: Prisma.FieldRef<"PlantLogisticOrder", 'String'>
+  readonly planSheetLineId: Prisma.FieldRef<"PlantLogisticOrder", 'String'>
   readonly createdAt: Prisma.FieldRef<"PlantLogisticOrder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PlantLogisticOrder", 'DateTime'>
 }
@@ -5044,6 +6166,68 @@ export type PlantLogisticOrder$dispatchesArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.PlantLogisticDispatchScalarFieldEnum | Prisma.PlantLogisticDispatchScalarFieldEnum[]
+}
+
+/**
+ * PlantLogisticOrder.comments
+ */
+export type PlantLogisticOrder$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticOrderComment
+   */
+  select?: Prisma.PlantLogisticOrderCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticOrderComment
+   */
+  omit?: Prisma.PlantLogisticOrderCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticOrderCommentInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticOrderCommentWhereInput
+  orderBy?: Prisma.PlantLogisticOrderCommentOrderByWithRelationInput | Prisma.PlantLogisticOrderCommentOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticOrderCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticOrderCommentScalarFieldEnum | Prisma.PlantLogisticOrderCommentScalarFieldEnum[]
+}
+
+/**
+ * PlantLogisticOrder.planSheet
+ */
+export type PlantLogisticOrder$planSheetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticPlanSheet
+   */
+  select?: Prisma.PlantLogisticPlanSheetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticPlanSheet
+   */
+  omit?: Prisma.PlantLogisticPlanSheetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticPlanSheetInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticPlanSheetWhereInput
+}
+
+/**
+ * PlantLogisticOrder.planSheetLine
+ */
+export type PlantLogisticOrder$planSheetLineArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticPlanSheetLine
+   */
+  select?: Prisma.PlantLogisticPlanSheetLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticPlanSheetLine
+   */
+  omit?: Prisma.PlantLogisticPlanSheetLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticPlanSheetLineInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticPlanSheetLineWhereInput
 }
 
 /**

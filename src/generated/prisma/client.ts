@@ -232,7 +232,37 @@ export type PlantLogisticProductionMilestone = Prisma.PlantLogisticProductionMil
  */
 export type PlantLogisticYardStatus = Prisma.PlantLogisticYardStatusModel
 /**
+ * Model CustomFieldDefinition
+ * 
+ */
+export type CustomFieldDefinition = Prisma.CustomFieldDefinitionModel
+/**
  * Model PlantLogisticDispatch
  * 
  */
 export type PlantLogisticDispatch = Prisma.PlantLogisticDispatchModel
+/**
+ * Model PlantLogisticOrderComment
+ * 
+ */
+export type PlantLogisticOrderComment = Prisma.PlantLogisticOrderCommentModel
+/**
+ * Model PlantLogisticPlanSheet
+ * 
+ */
+export type PlantLogisticPlanSheet = Prisma.PlantLogisticPlanSheetModel
+/**
+ * Model PlantLogisticPlanSheetLine
+ * 
+ */
+export type PlantLogisticPlanSheetLine = Prisma.PlantLogisticPlanSheetLineModel
+/**
+ * Model PlantLogisticPlanSheetEvent
+ * 
+ */
+export type PlantLogisticPlanSheetEvent = Prisma.PlantLogisticPlanSheetEventModel
+/**
+ * Model SupplierScorecardConfig
+ * 
+ */
+export type SupplierScorecardConfig = Prisma.SupplierScorecardConfigModel

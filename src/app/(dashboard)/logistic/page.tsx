@@ -227,7 +227,7 @@ export default async function LogisticDashboardPage() {
           </Link>
           <Link
             href="/logistic/orders/new"
-            className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+            className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-foreground/90"
           >
             <PlusCircle className="size-4" />
             New Order
@@ -259,7 +259,7 @@ export default async function LogisticDashboardPage() {
         />
       </div>
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-4">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard
           title="SLA Delayed"
           value={slaDelayedCount}
@@ -296,7 +296,7 @@ export default async function LogisticDashboardPage() {
           title="Ready for Dispatch (Yard)"
           value={readyForDispatchYardCount}
           icon={PackageCheck}
-          color={readyForDispatchYardCount > 0 ? "emerald" : "muted"}
+          color={readyForDispatchYardCount > 0 ? "blue" : "muted"}
         />
         <SummaryCard
           title="Dispatch Blocked"
@@ -317,7 +317,7 @@ export default async function LogisticDashboardPage() {
           title="In Transit"
           value={inTransitCount}
           icon={Ship}
-          color={inTransitCount > 0 ? "emerald" : "muted"}
+          color={inTransitCount > 0 ? "blue" : "muted"}
         />
         <SummaryCard
           title="Delivered This Month"
@@ -352,7 +352,7 @@ export default async function LogisticDashboardPage() {
           <h2 className="text-sm font-medium text-foreground">Recent Orders</h2>
           <Link
             href="/logistic/orders"
-            className="text-xs text-emerald-500 hover:text-emerald-600"
+            className="text-xs text-foreground hover:text-foreground"
           >
             View all
           </Link>
@@ -363,7 +363,7 @@ export default async function LogisticDashboardPage() {
             <p className="text-sm">No vehicle orders yet</p>
             <Link
               href="/logistic/orders/new"
-              className="mt-2 text-xs text-emerald-500 hover:text-emerald-600"
+              className="mt-2 text-xs text-foreground hover:text-foreground"
             >
               Create your first order
             </Link>
@@ -389,7 +389,7 @@ export default async function LogisticDashboardPage() {
                    return (
                     <tr key={order.id} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
+                        <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-foreground">
                           {order.orderNumber}
                         </Link>
                       </td>
@@ -404,7 +404,7 @@ export default async function LogisticDashboardPage() {
                           <div className="flex items-center gap-1.5">
                             <div className="h-1.5 w-16 rounded-full bg-muted">
                               <div
-                                className={`h-1.5 rounded-full ${progress === 100 ? "bg-emerald-500" : order.milestones.some(m => m.qualityHold) ? "bg-destructive" : "bg-cyan-500"}`}
+                                className={`h-1.5 rounded-full ${progress === 100 ? "bg-foreground" : order.milestones.some(m => m.qualityHold) ? "bg-destructive" : "bg-accent"}`}
                                 style={{ width: `${progress}%` }}
                               />
                             </div>
@@ -418,7 +418,7 @@ export default async function LogisticDashboardPage() {
                         {order.yardStatus ? (
                           <div className="flex flex-col">
                             <span>{order.yardStatus.yardLocation || "—"}</span>
-                            {order.yardStatus.readyForDispatch && <span className="text-[10px] text-emerald-600">Ready</span>}
+                            {order.yardStatus.readyForDispatch && <span className="text-[10px] text-foreground">Ready</span>}
                             {order.yardStatus.blockedForDispatch && <span className="text-[10px] text-destructive">Blocked</span>}
                           </div>
                         ) : (
@@ -459,9 +459,9 @@ function SummaryCard({
   title: string
   value: number
   icon: React.ComponentType<{ className?: string }>
-  color?: "muted" | "destructive" | "warning" | "emerald"
+  color?: "muted" | "destructive" | "warning" | "blue"
 }) {
-  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-amber-600" : color === "emerald" ? "text-emerald-600" : "text-foreground"
+  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-destructive" : color === "blue" ? "text-foreground" : "text-foreground"
   return (
     <div className="rounded-lg border bg-card p-4">
       <div className="flex items-center gap-2 text-muted-foreground">

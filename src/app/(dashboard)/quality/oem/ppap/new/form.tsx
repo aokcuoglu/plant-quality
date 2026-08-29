@@ -9,6 +9,7 @@ import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFie
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { CustomFieldsData } from "@/lib/custom-fields/types"
 import type { PpapLevel } from "@/generated/prisma/client"
+import { DatePicker } from "@/components/ui/date-picker"
 
 export function PpapCreateForm({
   suppliers,
@@ -60,7 +61,7 @@ export function PpapCreateForm({
   return (
     <form ref={formRef} action={handleSubmit} className="space-y-5">
       {error && (
-        <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+        <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm text-destructive">
           {error}
         </div>
       )}
@@ -68,7 +69,7 @@ export function PpapCreateForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <label htmlFor="supplierId" className="text-sm font-medium text-foreground">
-            Supplier <span className="text-red-400">*</span>
+            Supplier <span className="text-destructive">*</span>
           </label>
           <select
             id="supplierId"
@@ -85,7 +86,7 @@ export function PpapCreateForm({
 
         <div className="space-y-2">
           <label htmlFor="partNumber" className="text-sm font-medium text-foreground">
-            Part Number <span className="text-red-400">*</span>
+            Part Number <span className="text-destructive">*</span>
           </label>
           <input
             id="partNumber"
@@ -99,7 +100,7 @@ export function PpapCreateForm({
 
         <div className="space-y-2">
           <label htmlFor="partName" className="text-sm font-medium text-foreground">
-            Part Name <span className="text-red-400">*</span>
+            Part Name <span className="text-destructive">*</span>
           </label>
           <input
             id="partName"
@@ -179,7 +180,7 @@ export function PpapCreateForm({
 
         <div className="space-y-2">
           <label htmlFor="level" className="text-sm font-medium text-foreground">
-            PPAP Level <span className="text-red-400">*</span>
+            PPAP Level <span className="text-destructive">*</span>
           </label>
           <select
             id="level"
@@ -213,12 +214,7 @@ export function PpapCreateForm({
           <label htmlFor="dueDate" className="text-sm font-medium text-foreground">
             Due Date
           </label>
-          <input
-            id="dueDate"
-            name="dueDate"
-            type="date"
-            className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          />
+          <DatePicker name="dueDate" placeholder="mm / dd / yyyy" />
         </div>
 
         <div className="space-y-2 sm:col-span-2">

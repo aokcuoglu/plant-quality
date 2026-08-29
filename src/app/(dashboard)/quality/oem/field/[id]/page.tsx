@@ -174,7 +174,7 @@ export default async function OemFieldDetailPage({
                 fd.category ? (
                   <span className="text-sm text-foreground">
                     {fd.category}{fd.subcategory ? ` / ${fd.subcategory}` : ""}
-                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-emerald-500">(AI)</span>}
+                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-foreground">(AI)</span>}
                   </span>
                 ) : (
                   <span className="text-sm italic text-muted-foreground">Uncategorized</span>
@@ -184,16 +184,16 @@ export default async function OemFieldDetailPage({
                 <DetailRow label="Probable Area" value={
                   <span className="text-sm text-foreground">
                     {fd.probableArea}
-                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-emerald-500">(AI)</span>}
+                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-foreground">(AI)</span>}
                   </span>
                 } />
               )}
               {fd.aiCategoryApplied && (
-                <DetailRow label="Classification Source" value={<span className="text-xs font-medium text-emerald-500">AI-applied classification</span>} />
+                <DetailRow label="Classification Source" value={<span className="text-xs font-medium text-foreground">AI-applied classification</span>} />
               )}
               <DetailRow label="Safety Impact" value={fd.safetyImpact ? <span className="text-destructive font-medium">Yes</span> : "No"} />
               <DetailRow label="Vehicle Down" value={fd.vehicleDown ? <span className="text-destructive font-medium">Yes</span> : "No"} />
-              <DetailRow label="Repeat Issue" value={fd.repeatIssue ? <span className="text-amber-600 font-medium dark:text-amber-400">Yes</span> : "No"} />
+              <DetailRow label="Repeat Issue" value={fd.repeatIssue ? <span className="text-destructive font-medium dark:text-destructive">Yes</span> : "No"} />
             </div>
           </div>
 
@@ -250,8 +250,8 @@ export default async function OemFieldDetailPage({
           )}
 
           {fd.linkedDefectId && fd.linkedDefect && (
-            <div className="rounded-lg border bg-emerald-500/5 border-emerald-500/20">
-              <div className="px-4 py-3 border-b border-emerald-500/20">
+            <div className="rounded-lg border bg-foreground/5 border-border">
+              <div className="px-4 py-3 border-b border-border">
                 <h2 className="text-sm font-semibold text-foreground">Linked to 8D Report</h2>
               </div>
               <div className="px-4 py-3">
@@ -279,8 +279,8 @@ export default async function OemFieldDetailPage({
                           <span className="text-xs font-medium text-foreground">{overallScore ?? "—"}/100</span>
                           {reviewLabel && (
                             <span className={`text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full ${
-                              reviewStatus === "STRONG" ? "bg-emerald-500/10 text-emerald-500" :
-                              reviewStatus === "NEEDS_IMPROVEMENT" ? "bg-amber-500/10 text-amber-500" :
+                              reviewStatus === "STRONG" ? "bg-muted text-muted-foreground" :
+                              reviewStatus === "NEEDS_IMPROVEMENT" ? "bg-destructive/10 text-destructive" :
                               reviewStatus === "INCOMPLETE" || reviewStatus === "RISKY" ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground"
                             }`}>
                               {reviewLabel}

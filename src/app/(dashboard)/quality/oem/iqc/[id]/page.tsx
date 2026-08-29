@@ -154,7 +154,7 @@ export default async function OemIqcDetailPage({ params }: { params: Promise<{ i
           {report.linkedDefect && (
             <div className="rounded-lg border bg-card p-4 space-y-3">
               <h2 className="text-sm font-medium text-foreground">Linked Defect</h2>
-              <Link href={`/quality/oem/defects/${report.linkedDefect.id}`} className="inline-flex items-center gap-1.5 text-sm text-emerald-400 hover:underline">
+              <Link href={`/quality/oem/defects/${report.linkedDefect.id}`} className="inline-flex items-center gap-1.5 text-sm text-foreground hover:underline">
                 <LinkIcon className="size-3.5" />
                 {report.linkedDefect.partNumber} — {report.linkedDefect.description.length > 80 ? report.linkedDefect.description.slice(0, 80) + "..." : report.linkedDefect.description}
               </Link>

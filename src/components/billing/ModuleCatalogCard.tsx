@@ -42,9 +42,9 @@ export function ModuleCatalogCard({ entry, status }: ModuleCatalogCardProps) {
         className={cn(
           "flex size-10 shrink-0 items-center justify-center rounded-lg",
           isActive
-            ? "bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/30"
+            ? "bg-muted text-muted-foreground ring-1 ring-blue-600/30"
             : isLive
-              ? "bg-emerald-500/10 text-emerald-500"
+              ? "bg-muted text-muted-foreground"
               : isLocked
                 ? "bg-muted text-muted-foreground"
                 : "bg-muted text-muted-foreground/50"
@@ -63,11 +63,11 @@ export function ModuleCatalogCard({ entry, status }: ModuleCatalogCardProps) {
             {entry.name}
           </span>
           {isActive ? (
-            <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-emerald-500">
+            <span className="inline-flex items-center rounded-full border border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-foreground">
               Active
             </span>
           ) : isLive ? (
-            <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-emerald-500">
+            <span className="inline-flex items-center rounded-full border border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-foreground">
               Live
             </span>
           ) : isLocked ? (
@@ -104,7 +104,7 @@ function ModuleRequestButton({
   if (success) {
     return (
       <div className="flex flex-col items-end gap-1">
-        <span className="text-xs text-emerald-500">
+        <span className="text-xs text-foreground">
           {success.duplicate ? "Request already exists" : "Request submitted"}
         </span>
         <button
@@ -126,7 +126,7 @@ function ModuleRequestButton({
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Why do you need this module? (optional)"
           rows={2}
-          className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"
+          className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground resize-none"
           disabled={isPending}
         />
         <div className="flex gap-1.5">
@@ -145,7 +145,7 @@ function ModuleRequestButton({
               })
             }}
             disabled={isPending}
-            className="rounded-md bg-emerald-500 px-2 py-1 text-[10px] font-medium text-primary-foreground hover:bg-emerald-600 transition-colors disabled:opacity-50"
+            className="rounded-md bg-foreground px-2 py-1 text-[10px] font-medium text-primary-foreground hover:bg-foreground/90 transition-colors disabled:opacity-50"
           >
             {isPending ? "Submitting..." : "Submit"}
           </button>
@@ -167,7 +167,7 @@ function ModuleRequestButton({
     <button
       type="button"
       onClick={() => setShowForm(true)}
-      className="shrink-0 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-medium text-emerald-500 hover:bg-emerald-500/20 transition-colors"
+      className="shrink-0 rounded-md border border-border bg-muted px-2.5 py-1 text-[10px] font-medium text-foreground hover:bg-foreground/20 transition-colors"
     >
       Request access
     </button>

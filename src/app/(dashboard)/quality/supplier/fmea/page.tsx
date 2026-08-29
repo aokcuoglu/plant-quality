@@ -59,7 +59,7 @@ export default async function SupplierFmeaPage() {
                   return (
                     <tr key={f.id} className="transition-colors hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <Link href={`/quality/supplier/fmea/${f.id}`} className="font-medium text-foreground hover:text-emerald-400">{f.fmeaNumber}</Link>
+                        <Link href={`/quality/supplier/fmea/${f.id}`} className="font-medium text-foreground hover:text-foreground">{f.fmeaNumber}</Link>
                       </td>
                       <td className="max-w-[200px] truncate px-4 py-3 text-muted-foreground">{f.title}</td>
                       <td className="px-4 py-3 text-muted-foreground">{FMEA_TYPE_LABELS[f.fmeaType] ?? f.fmeaType}</td>
@@ -73,7 +73,7 @@ export default async function SupplierFmeaPage() {
                       <td className={`px-4 py-3 font-semibold ${getRpnColor(maxRpn)}`}>{maxRpn || "—"}</td>
                       <td className="px-4 py-3 text-muted-foreground">
                         {f.dueDate ? (
-                          <span className={overdue ? "text-red-400" : ""}>
+                          <span className={overdue ? "text-destructive" : ""}>
                             {f.dueDate.toLocaleDateString()}
                             {overdue && " (Overdue)"}
                           </span>

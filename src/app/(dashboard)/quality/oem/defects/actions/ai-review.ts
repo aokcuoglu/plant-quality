@@ -346,4 +346,3 @@ export async function getLatestAi8dReview(defectId: string) {
   return latestReview
 }
 
-export type { Ai8dReviewResult, EightDCompletenessResult, RootCauseSuggestion }

@@ -173,10 +173,10 @@ export function RelatedQualityRecordsPanel({
                 return (
                   <div
                     key={link.id}
-                    className="flex items-center justify-between gap-2 rounded border border-emerald-500/20 bg-emerald-500/5 p-2 text-sm"
+                    className="flex items-center justify-between gap-2 rounded border border-border bg-foreground/5 p-2 text-sm"
                   >
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <Badge variant="outline" className="bg-foreground/10 text-foreground border-foreground/20 text-[10px] px-1.5 py-0">
+                      <Badge variant="outline" className="bg-muted text-foreground border-foreground/20 text-[10px] px-1.5 py-0">
                         Manual
                       </Badge>
                       <Badge variant="outline" className={`${QUALITY_RECORD_TYPE_COLORS[displayType]} text-[10px] px-1.5 py-0 border`}>
@@ -452,7 +452,7 @@ export function UpgradeLinkageBanner() {
           </p>
           <Link
             href="/settings/plan"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-muted-foreground"
           >
             Upgrade to Pro to enable Quality Linkage
           </Link>

@@ -51,8 +51,8 @@ interface Ai8dReviewPanelProps {
 }
 
 const reviewStatusColors: Record<string, string> = {
-  STRONG: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  NEEDS_IMPROVEMENT: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  STRONG: "bg-muted text-muted-foreground dark:text-foreground",
+  NEEDS_IMPROVEMENT: "bg-destructive/10 text-destructive dark:text-destructive",
   INCOMPLETE: "bg-destructive/10 text-destructive",
   RISKY: "bg-destructive/10 text-destructive",
 }
@@ -65,8 +65,8 @@ const reviewStatusLabel: Record<string, string> = {
 }
 
 const statusColors: Record<string, string> = {
-  GENERATED: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  REVIEWED: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  GENERATED: "bg-destructive/10 text-destructive dark:text-destructive",
+  REVIEWED: "bg-muted text-muted-foreground dark:text-foreground",
   REJECTED: "bg-destructive/10 text-destructive",
   EXPIRED: "bg-muted text-muted-foreground",
 }
@@ -129,7 +129,7 @@ function CompletenessChecklist({ completeness }: { completeness: EightDCompleten
           <div className={cn(
             "flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px]",
             item.complete
-              ? "bg-emerald-500/10 text-emerald-500"
+              ? "bg-muted text-muted-foreground"
               : "bg-destructive/10 text-destructive",
           )}>
             {item.complete ? <CheckIcon className="h-2.5 w-2.5" /> : <XIcon className="h-2.5 w-2.5" />}
@@ -145,9 +145,9 @@ function CompletenessChecklist({ completeness }: { completeness: EightDCompleten
             className={cn(
               "h-full rounded-full transition-all",
               completeness.completenessPercent >= 80
-                ? "bg-emerald-500"
+                ? "bg-foreground"
                 : completeness.completenessPercent >= 50
-                  ? "bg-amber-500"
+                  ? "bg-destructive"
                   : "bg-destructive",
             )}
             style={{ width: `${completeness.completenessPercent}%` }}
@@ -329,7 +329,7 @@ export function Ai8dReviewPanel({
     <div className="rounded-lg border bg-card">
       <div className="px-4 py-3 border-b border-border flex items-center justify-between">
         <h2 className="text-sm font-semibold flex items-center gap-2">
-          <SparklesIcon className="h-4 w-4 text-emerald-500" />
+          <SparklesIcon className="h-4 w-4 text-foreground" />
           AI 8D Review
         </h2>
         {latestReview && (
@@ -347,9 +347,9 @@ export function Ai8dReviewPanel({
         )}
 
         {hasMalformedReview && !isPending && (
-          <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-3">
+          <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-3">
             <div className="flex items-center gap-2 mb-2">
-              <AlertTriangleIcon className="h-4 w-4 text-amber-500" />
+              <AlertTriangleIcon className="h-4 w-4 text-destructive" />
               <p className="text-sm font-medium text-foreground">Review data could not be loaded</p>
             </div>
             <p className="text-xs text-muted-foreground">
@@ -366,7 +366,7 @@ export function Ai8dReviewPanel({
                 onClick={handleGenerate}
                 disabled={isPending}
                 aria-label="Generate AI 8D review"
-                className="inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 rounded-lg bg-muted text-muted-foreground px-3 py-2 text-sm font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <SparklesIcon className="h-4 w-4" />
                 Generate AI Review
@@ -399,7 +399,7 @@ export function Ai8dReviewPanel({
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-emerald-500"
+                    className="h-full rounded-full bg-foreground"
                     style={{ width: `${Math.min(100, review.confidence)}%` }}
                   />
                 </div>
@@ -422,7 +422,7 @@ export function Ai8dReviewPanel({
                     <div className={cn(
                       "flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full text-[9px]",
                       item.complete
-                        ? "bg-emerald-500/10 text-emerald-500"
+                        ? "bg-muted text-muted-foreground"
                         : "bg-destructive/10 text-destructive",
                     )}>
                       {item.complete ? <CheckIcon className="h-2 w-2" /> : <XIcon className="h-2 w-2" />}
@@ -438,7 +438,7 @@ export function Ai8dReviewPanel({
             {review.weakPoints.length > 0 && (
               <div className="border-t pt-3">
                 <p className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
-                  <AlertTriangleIcon className="h-3 w-3 text-amber-500" />
+                  <AlertTriangleIcon className="h-3 w-3 text-destructive" />
                   Weak Points
                 </p>
                 <div className="space-y-1">
@@ -466,7 +466,7 @@ export function Ai8dReviewPanel({
             {review.suggestedQuestionsForSupplier.length > 0 && (
               <div className="border-t pt-3">
                 <p className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
-                  <HelpCircleIcon className="h-3 w-3 text-blue-500" />
+                  <HelpCircleIcon className="h-3 w-3 text-muted-foreground" />
                   Questions for Supplier
                 </p>
                 <SuggestionList items={review.suggestedQuestionsForSupplier} icon={<span className="text-muted-foreground">•</span>} />
@@ -476,7 +476,7 @@ export function Ai8dReviewPanel({
             {review.suggestedRootCauseAngles.length > 0 && (
               <div className="border-t pt-3">
                 <p className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
-                  <LightbulbIcon className="h-3 w-3 text-amber-500" />
+                  <LightbulbIcon className="h-3 w-3 text-destructive" />
                   Root Cause Angles
                 </p>
                 <SuggestionList items={review.suggestedRootCauseAngles} icon={<span className="text-muted-foreground">•</span>} />
@@ -486,7 +486,7 @@ export function Ai8dReviewPanel({
             {review.suggestedContainmentActions.length > 0 && (
               <div className="border-t pt-3">
                 <p className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
-                  <ShieldCheckIcon className="h-3 w-3 text-blue-500" />
+                  <ShieldCheckIcon className="h-3 w-3 text-muted-foreground" />
                   Suggested Containment
                 </p>
                 <SuggestionList items={review.suggestedContainmentActions} icon={<span className="text-muted-foreground">•</span>} />
@@ -524,7 +524,7 @@ export function Ai8dReviewPanel({
                     onClick={handleMarkReviewed}
                     disabled={isPending}
                     aria-label="Mark AI review as reviewed"
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-muted text-muted-foreground px-3 py-2 text-sm font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <CheckIcon className="h-4 w-4" />
                     Mark Reviewed
@@ -672,7 +672,7 @@ export function Ai8dReviewPanel({
 
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
-                    <div className="h-full rounded-full bg-emerald-500" style={{ width: `${Math.min(100, rootCauseResult.confidence)}%` }} />
+                    <div className="h-full rounded-full bg-foreground" style={{ width: `${Math.min(100, rootCauseResult.confidence)}%` }} />
                   </div>
                   <span className="text-xs text-muted-foreground">{rootCauseResult.confidence}%</span>
                 </div>

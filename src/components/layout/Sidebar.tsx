@@ -27,6 +27,8 @@ import {
   PackageIcon,
   ClipboardList,
   SettingsIcon,
+  LayoutGridIcon,
+  ShipIcon,
   type LucideIcon,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
@@ -64,6 +66,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
   PackageIcon,
   ClipboardList,
   SettingsIcon,
+  LayoutGridIcon,
+  ShipIcon,
 }
 
 interface SidebarLinkItem {
@@ -234,7 +238,7 @@ export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, moduleName 
 function SignOutButton({ collapsed }: { collapsed?: boolean }) {
   return (
     <button
-      onClick={() => signOut()}
+      onClick={() => signOut({ callbackUrl: "/login" })}
       className={cn(
         "flex items-center gap-2 rounded-md text-xs text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive",
         collapsed ? "justify-center p-2" : "w-full px-2 py-1.5"

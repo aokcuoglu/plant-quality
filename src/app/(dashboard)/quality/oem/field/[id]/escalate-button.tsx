@@ -46,7 +46,7 @@ export function EscalateButton({
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex w-full items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-950/30 transition-colors"
+        className="flex w-full items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-destructive hover:bg-destructive/10 dark:text-destructive hover:bg-destructive/20 transition-colors"
       >
         <AlertTriangleIcon className="h-4 w-4" />
         Escalate to {ESCALATION_LABELS[nextLevel]}
@@ -67,7 +67,7 @@ export function EscalateButton({
                 value={reason}
                 onChange={(e) => { setReason(e.target.value); setError("") }}
                 rows={3}
-                className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground"
                 placeholder="Describe why this field defect is being escalated..."
               />
               {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
@@ -83,7 +83,7 @@ export function EscalateButton({
               <button
                 onClick={handleSubmit}
                 disabled={isPending}
-                className="rounded-md bg-orange-600 px-4 py-2 text-sm text-white hover:bg-orange-700 disabled:opacity-50 transition-colors"
+                className="rounded-md bg-destructive px-4 py-2 text-sm text-white hover:bg-destructive/90 disabled:opacity-50 transition-colors"
               >
                 {isPending ? "Escalating..." : "Escalate"}
               </button>

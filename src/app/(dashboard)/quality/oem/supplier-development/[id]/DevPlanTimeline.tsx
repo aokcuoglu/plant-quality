@@ -10,7 +10,7 @@ export function DevPlanTimeline({ events }: { events: DevPlanEventDetail[] }) {
       {events.map((event) => (
         <div key={event.id} className="flex gap-3">
           <div className="flex flex-col items-center">
-            <div className="size-2 rounded-full bg-emerald-500 mt-1.5" />
+            <div className="size-2 rounded-full bg-foreground mt-1.5" />
             <div className="w-px flex-1 bg-border" />
           </div>
           <div className="min-w-0 flex-1 pb-3">

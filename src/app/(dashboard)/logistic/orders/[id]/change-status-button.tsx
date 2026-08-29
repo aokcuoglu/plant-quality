@@ -43,7 +43,7 @@ export function ChangeStatusButton({
       className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:opacity-50 ${
         isCancel || isReject
           ? "bg-destructive/10 text-destructive hover:bg-destructive/20"
-          : "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20"
+          : "bg-muted text-muted-foreground hover:bg-foreground/20"
       }`}
     >
       {loading ? "..." : label}

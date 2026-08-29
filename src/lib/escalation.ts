@@ -20,12 +20,12 @@ export const ESCALATION_COLORS: Record<EscalationLevel, { dot: string; bg: strin
     bg: "bg-muted text-muted-foreground",
   },
   LEVEL_1: {
-    dot: "bg-amber-500",
-    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive dark:text-destructive",
   },
   LEVEL_2: {
-    dot: "bg-orange-500",
-    bg: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
+    dot: "bg-destructive/60",
+    bg: "bg-destructive/10 text-destructive dark:text-destructive",
   },
   LEVEL_3: {
     dot: "bg-destructive",

@@ -8,6 +8,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export default async function OemIqcPage({
   searchParams,
@@ -40,6 +44,18 @@ export default async function OemIqcPage({
       inspector: { select: { name: true, email: true } },
     },
   })
+
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "IQC_REPORT")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
 
   return (
     <div className="space-y-6">
@@ -78,13 +94,14 @@ export default async function OemIqcPage({
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Result</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</th>
+                <CustomFieldsTableHeaders fields={listVisibleFields} />
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {reports.map((r) => (
                 <tr key={r.id} className="transition-colors hover:bg-muted/50">
                   <td className="px-4 py-3">
-                    <Link href={`/quality/oem/iqc/${r.id}`} className="font-medium text-foreground hover:text-emerald-400 truncate block max-w-[200px]">{r.inspectionNumber}</Link>
+                    <Link href={`/quality/oem/iqc/${r.id}`} className="font-medium text-foreground hover:text-foreground truncate block max-w-[200px]">{r.inspectionNumber}</Link>
                   </td>
                   <td className="px-4 py-3">
                     <div className="truncate max-w-[180px] text-muted-foreground">{r.partNumber}</div>
@@ -107,6 +124,7 @@ export default async function OemIqcPage({
                     )}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground text-xs">{r.inspectionDate?.toLocaleDateString() ?? "—"}</td>
+                  <CustomFieldsTableCells fields={listVisibleFields} customFields={r.customFields as Record<string, unknown> | null} />
                 </tr>
               ))}
             </tbody>

@@ -35,7 +35,7 @@ export function CancelInspectionButton({ inspectionId }: { inspectionId: string 
       <Button
         type="button"
         variant="outline"
-        className="w-full text-red-400 border-red-400/30 hover:bg-red-500/10"
+        className="w-full text-destructive border-red-400/30 hover:bg-destructive/10"
         onClick={() => setOpen(true)}
       >
         Cancel Inspection
@@ -51,14 +51,14 @@ export function CancelInspectionButton({ inspectionId }: { inspectionId: string 
           </DialogHeader>
 
           {error && (
-            <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-xs text-red-400">{error}</div>
+            <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-xs text-destructive">{error}</div>
           )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={isPending}>
               Keep Inspection
             </Button>
-            <Button type="button" className="bg-red-500/10 text-red-400 border border-red-400/30 hover:bg-red-500/20" onClick={handleConfirm} disabled={isPending}>
+            <Button type="button" className="bg-destructive/10 text-destructive border border-red-400/30 hover:bg-destructive/20" onClick={handleConfirm} disabled={isPending}>
               {isPending ? "Cancelling..." : "Confirm Cancel"}
             </Button>
           </DialogFooter>

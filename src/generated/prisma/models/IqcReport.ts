@@ -137,6 +137,7 @@ export type IqcReportCountAggregateOutputType = {
   measurements: number
   nonconformities: number
   dispositionNotes: number
+  customFields: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -254,6 +255,7 @@ export type IqcReportCountAggregateInputType = {
   measurements?: true
   nonconformities?: true
   dispositionNotes?: true
+  customFields?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -376,6 +378,7 @@ export type IqcReportGroupByOutputType = {
   measurements: runtime.JsonValue | null
   nonconformities: runtime.JsonValue | null
   dispositionNotes: string | null
+  customFields: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   _count: IqcReportCountAggregateOutputType | null
@@ -434,6 +437,7 @@ export type IqcReportWhereInput = {
   measurements?: Prisma.JsonNullableFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"IqcReport">
   createdAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -477,6 +481,7 @@ export type IqcReportOrderByWithRelationInput = {
   measurements?: Prisma.SortOrderInput | Prisma.SortOrder
   nonconformities?: Prisma.SortOrderInput | Prisma.SortOrder
   dispositionNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   oem?: Prisma.CompanyOrderByWithRelationInput
@@ -523,6 +528,7 @@ export type IqcReportWhereUniqueInput = Prisma.AtLeast<{
   measurements?: Prisma.JsonNullableFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"IqcReport">
   createdAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -566,6 +572,7 @@ export type IqcReportOrderByWithAggregationInput = {
   measurements?: Prisma.SortOrderInput | Prisma.SortOrder
   nonconformities?: Prisma.SortOrderInput | Prisma.SortOrder
   dispositionNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.IqcReportCountOrderByAggregateInput
@@ -609,6 +616,7 @@ export type IqcReportScalarWhereWithAggregatesInput = {
   measurements?: Prisma.JsonNullableWithAggregatesFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableWithAggregatesFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableWithAggregatesFilter<"IqcReport"> | string | null
+  customFields?: Prisma.JsonNullableWithAggregatesFilter<"IqcReport">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"IqcReport"> | Date | string
 }
@@ -638,6 +646,7 @@ export type IqcReportCreateInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -681,6 +690,7 @@ export type IqcReportUncheckedCreateInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -712,6 +722,7 @@ export type IqcReportUpdateInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -755,6 +766,7 @@ export type IqcReportUncheckedUpdateInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -792,6 +804,7 @@ export type IqcReportCreateManyInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -821,6 +834,7 @@ export type IqcReportUpdateManyMutationInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -856,6 +870,7 @@ export type IqcReportUncheckedUpdateManyInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -906,6 +921,7 @@ export type IqcReportCountOrderByAggregateInput = {
   measurements?: Prisma.SortOrder
   nonconformities?: Prisma.SortOrder
   dispositionNotes?: Prisma.SortOrder
+  customFields?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1302,6 +1318,7 @@ export type IqcReportCreateWithoutOemInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   supplier: Prisma.CompanyCreateNestedOneWithoutIqcAsSupInput
@@ -1343,6 +1360,7 @@ export type IqcReportUncheckedCreateWithoutOemInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -1384,6 +1402,7 @@ export type IqcReportCreateWithoutSupplierInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -1425,6 +1444,7 @@ export type IqcReportUncheckedCreateWithoutSupplierInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -1491,6 +1511,7 @@ export type IqcReportScalarWhereInput = {
   measurements?: Prisma.JsonNullableFilter<"IqcReport">
   nonconformities?: Prisma.JsonNullableFilter<"IqcReport">
   dispositionNotes?: Prisma.StringNullableFilter<"IqcReport"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"IqcReport">
   createdAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"IqcReport"> | Date | string
 }
@@ -1536,6 +1557,7 @@ export type IqcReportCreateWithoutInspectorInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -1577,6 +1599,7 @@ export type IqcReportUncheckedCreateWithoutInspectorInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -1618,6 +1641,7 @@ export type IqcReportCreateWithoutCreatedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -1659,6 +1683,7 @@ export type IqcReportUncheckedCreateWithoutCreatedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -1700,6 +1725,7 @@ export type IqcReportCreateWithoutCompletedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -1741,6 +1767,7 @@ export type IqcReportUncheckedCreateWithoutCompletedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -1830,6 +1857,7 @@ export type IqcReportCreateWithoutLinkedDefectInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -1871,6 +1899,7 @@ export type IqcReportUncheckedCreateWithoutLinkedDefectInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -1918,6 +1947,7 @@ export type IqcReportUpdateWithoutLinkedDefectInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -1959,6 +1989,7 @@ export type IqcReportUncheckedUpdateWithoutLinkedDefectInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -1990,6 +2021,7 @@ export type IqcReportCreateWithoutChecklistItemsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -2032,6 +2064,7 @@ export type IqcReportUncheckedCreateWithoutChecklistItemsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   events?: Prisma.IqcEventUncheckedCreateNestedManyWithoutReportInput
@@ -2078,6 +2111,7 @@ export type IqcReportUpdateWithoutChecklistItemsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -2120,6 +2154,7 @@ export type IqcReportUncheckedUpdateWithoutChecklistItemsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   events?: Prisma.IqcEventUncheckedUpdateManyWithoutReportNestedInput
@@ -2150,6 +2185,7 @@ export type IqcReportCreateWithoutEventsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutIqcAsOemInput
@@ -2192,6 +2228,7 @@ export type IqcReportUncheckedCreateWithoutEventsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedCreateNestedManyWithoutIqcInspectionInput
@@ -2238,6 +2275,7 @@ export type IqcReportUpdateWithoutEventsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -2280,6 +2318,7 @@ export type IqcReportUncheckedUpdateWithoutEventsInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -2315,6 +2354,7 @@ export type IqcReportCreateManyOemInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2349,6 +2389,7 @@ export type IqcReportCreateManySupplierInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2378,6 +2419,7 @@ export type IqcReportUpdateWithoutOemInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsSupNestedInput
@@ -2419,6 +2461,7 @@ export type IqcReportUncheckedUpdateWithoutOemInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -2455,6 +2498,7 @@ export type IqcReportUncheckedUpdateManyWithoutOemInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2484,6 +2528,7 @@ export type IqcReportUpdateWithoutSupplierInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -2525,6 +2570,7 @@ export type IqcReportUncheckedUpdateWithoutSupplierInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -2561,6 +2607,7 @@ export type IqcReportUncheckedUpdateManyWithoutSupplierInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2595,6 +2642,7 @@ export type IqcReportCreateManyInspectorInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2629,6 +2677,7 @@ export type IqcReportCreateManyCreatedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2663,6 +2712,7 @@ export type IqcReportCreateManyCompletedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2692,6 +2742,7 @@ export type IqcReportUpdateWithoutInspectorInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -2733,6 +2784,7 @@ export type IqcReportUncheckedUpdateWithoutInspectorInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -2769,6 +2821,7 @@ export type IqcReportUncheckedUpdateManyWithoutInspectorInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2798,6 +2851,7 @@ export type IqcReportUpdateWithoutCreatedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -2839,6 +2893,7 @@ export type IqcReportUncheckedUpdateWithoutCreatedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -2875,6 +2930,7 @@ export type IqcReportUncheckedUpdateManyWithoutCreatedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2904,6 +2960,7 @@ export type IqcReportUpdateWithoutCompletedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutIqcAsOemNestedInput
@@ -2945,6 +3002,7 @@ export type IqcReportUncheckedUpdateWithoutCompletedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   checklistItems?: Prisma.IqcChecklistItemUncheckedUpdateManyWithoutIqcInspectionNestedInput
@@ -2981,6 +3039,7 @@ export type IqcReportUncheckedUpdateManyWithoutCompletedByInput = {
   measurements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   nonconformities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   dispositionNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3056,6 +3115,7 @@ export type IqcReportSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3100,6 +3160,7 @@ export type IqcReportSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3141,6 +3202,7 @@ export type IqcReportSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3182,11 +3244,12 @@ export type IqcReportSelectScalar = {
   measurements?: boolean
   nonconformities?: boolean
   dispositionNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type IqcReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "inspectionNumber" | "partNumber" | "partName" | "purchaseOrder" | "deliveryNote" | "lotNumber" | "batchNumber" | "quantityReceived" | "inspectionQuantity" | "vehicleModel" | "projectName" | "oemId" | "supplierId" | "inspectorId" | "inspectionDate" | "inspectionType" | "samplingPlan" | "status" | "result" | "notes" | "linkedDefectId" | "createdById" | "completedAt" | "completedById" | "quantityAccepted" | "quantityRejected" | "measurements" | "nonconformities" | "dispositionNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["iqcReport"]>
+export type IqcReportOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "inspectionNumber" | "partNumber" | "partName" | "purchaseOrder" | "deliveryNote" | "lotNumber" | "batchNumber" | "quantityReceived" | "inspectionQuantity" | "vehicleModel" | "projectName" | "oemId" | "supplierId" | "inspectorId" | "inspectionDate" | "inspectionType" | "samplingPlan" | "status" | "result" | "notes" | "linkedDefectId" | "createdById" | "completedAt" | "completedById" | "quantityAccepted" | "quantityRejected" | "measurements" | "nonconformities" | "dispositionNotes" | "customFields" | "createdAt" | "updatedAt", ExtArgs["result"]["iqcReport"]>
 export type IqcReportInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3258,6 +3321,7 @@ export type $IqcReportPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     measurements: runtime.JsonValue | null
     nonconformities: runtime.JsonValue | null
     dispositionNotes: string | null
+    customFields: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["iqcReport"]>
@@ -3721,6 +3785,7 @@ export interface IqcReportFieldRefs {
   readonly measurements: Prisma.FieldRef<"IqcReport", 'Json'>
   readonly nonconformities: Prisma.FieldRef<"IqcReport", 'Json'>
   readonly dispositionNotes: Prisma.FieldRef<"IqcReport", 'String'>
+  readonly customFields: Prisma.FieldRef<"IqcReport", 'Json'>
   readonly createdAt: Prisma.FieldRef<"IqcReport", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"IqcReport", 'DateTime'>
 }

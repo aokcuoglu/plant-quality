@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { revalidatePath } from "next/cache"
 import { isDealerUser, isDistributorUser, isPortalUser, isOemUser } from "@/lib/logistic/portal-access"
 import { getExternalOrderStatus } from "@/lib/logistic/external-status"
 import type { ExternalOrderStatus } from "@/lib/logistic/external-status"
@@ -160,6 +161,21 @@ export async function getPortalOrderDetail(orderId: string) {
         },
         orderBy: { createdAt: "desc" },
       },
+      comments: {
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          author: {
+            select: {
+              name: true,
+              email: true,
+              companyId: true,
+            },
+          },
+        },
+        orderBy: { createdAt: "asc" },
+      },
     },
   })
 
@@ -191,6 +207,7 @@ export async function getPortalOrderDetail(orderId: string) {
       createdAt: order.createdAt,
       updatedAt: order.updatedAt,
       dispatches: order.dispatches,
+      comments: order.comments,
     },
   }
 }
@@ -366,4 +383,46 @@ export async function updateOrderExternalVisibility(
   })
 
   return { data: { id: updated.id, externalVisible: updated.externalVisible } }
+}
+
+export async function addPortalOrderComment(orderId: string, content: string) {
+  const session = await auth()
+  if (!session?.user) return { error: AUTH_ERROR }
+
+  if (!content.trim()) return { error: "Comment is required" }
+
+  const { companyId, companyType, role } = session.user
+  if (!isPortalUser(companyType)) return { error: NOT_FOUND }
+
+  if (role !== "ADMIN") return { error: "Only admin users can comment" }
+
+  const where: Record<string, unknown> = {
+    id: orderId,
+    externalVisible: true,
+  }
+
+  if (isDealerUser(companyType)) {
+    where.dealerCompanyId = companyId
+  } else if (isDistributorUser(companyType)) {
+    where.distributorCompanyId = companyId
+  }
+
+  const order = await prisma.plantLogisticOrder.findFirst({
+    where,
+    select: { id: true },
+  })
+
+  if (!order) return { error: NOT_FOUND }
+
+  await prisma.plantLogisticOrderComment.create({
+    data: {
+      orderId,
+      authorId: session.user.id,
+      content: content.trim(),
+    },
+  })
+
+  revalidatePath(`/logistic/portal/orders/${orderId}`)
+
+  return { success: true as const }
 }

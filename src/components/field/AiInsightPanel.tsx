@@ -41,13 +41,13 @@ interface AiInsightPanelProps {
 
 const severityColors: Record<string, string> = {
   MINOR: "bg-primary/10 text-primary",
-  MAJOR: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  MAJOR: "bg-destructive/10 text-destructive dark:text-destructive",
   CRITICAL: "bg-destructive/10 text-destructive",
 }
 
 const riskColors: Record<string, string> = {
-  LOW: "text-emerald-500",
-  MEDIUM: "text-amber-500",
+  LOW: "text-foreground",
+  MEDIUM: "text-destructive",
   HIGH: "text-destructive",
 }
 
@@ -59,8 +59,8 @@ const statusLabels: Record<string, string> = {
 }
 
 const statusColors: Record<string, string> = {
-  GENERATED: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  ACCEPTED: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  GENERATED: "bg-destructive/10 text-destructive dark:text-destructive",
+  ACCEPTED: "bg-muted text-muted-foreground dark:text-foreground",
   REJECTED: "bg-destructive/10 text-destructive",
   EXPIRED: "bg-muted text-muted-foreground",
 }
@@ -154,7 +154,7 @@ export function AiInsightPanel({
     <div className="rounded-lg border bg-card">
       <div className="px-4 py-3 border-b border-border flex items-center justify-between">
         <h2 className="text-sm font-semibold flex items-center gap-2">
-          <SparklesIcon className="h-4 w-4 text-emerald-500" />
+          <SparklesIcon className="h-4 w-4 text-foreground" />
           AI Insight
         </h2>
         {latestSuggestion && (
@@ -179,7 +179,7 @@ export function AiInsightPanel({
                 onClick={handleGenerate}
                 disabled={isPending}
                 aria-label="Generate AI classification"
-                className="inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 rounded-lg bg-muted text-muted-foreground px-3 py-2 text-sm font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <SparklesIcon className="h-4 w-4" />
                 Generate Classification
@@ -237,7 +237,7 @@ export function AiInsightPanel({
               <div className="flex items-center gap-2 mt-0.5">
                 <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-emerald-500"
+                    className="h-full rounded-full bg-foreground"
                     style={{ width: `${Math.min(100, latestClassification.confidence)}%` }}
                   />
                 </div>
@@ -285,7 +285,7 @@ export function AiInsightPanel({
                     onClick={() => handleAction(latestSuggestion.id, "accept")}
                     disabled={isPending}
                     aria-label="Accept AI suggestion"
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500/10 text-emerald-500 px-3 py-2 text-sm font-medium hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-muted text-muted-foreground px-3 py-2 text-sm font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <CheckIcon className="h-4 w-4" />
                     Accept

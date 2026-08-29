@@ -11,6 +11,10 @@ import { PlusIcon } from "lucide-react"
 import { formatDueDate, getActionOwnerLabel } from "@/lib/sla"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
+import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export default async function DefectsPage({
   searchParams,
@@ -31,6 +35,18 @@ export default async function DefectsPage({
 
   const { defects, totalCount } = await getDefects(filter, search, page, supplierId || undefined)
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "DEFECT")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
 
   function buildUrl(params: { filter?: string; q?: string; page?: number }) {
     const sp = new URLSearchParams()
@@ -61,7 +77,30 @@ export default async function DefectsPage({
         <SupplierFilterBadge supplierName={supplierFilterName} clearHref="/quality/oem/defects" />
       )}
 
-      <SearchInput placeholder="Search by part number or description…" preserveParams={["filter", "supplierId"]} />
+      <div className="flex items-center gap-3">
+        <SearchInput placeholder="Search by part number or description…" preserveParams={["filter", "supplierId"]} />
+        {defects.length > 0 && (
+          <ExportCsvButton
+            fileName="defects.csv"
+            headers={[
+              { key: "partNumber", label: "Part Number" },
+              { key: "description", label: "Description" },
+              { key: "supplierName", label: "Supplier" },
+              { key: "oemOwnerName", label: "Owner" },
+              { key: "status", label: "Status" },
+              { key: "createdAt", label: "Created" },
+            ]}
+            rows={defects.map((d) => ({
+              ...d,
+              createdAt: d.createdAt.toISOString(),
+              supplierName: d.supplierName ?? "",
+              oemOwnerName: d.oemOwnerName ?? "",
+              status: String(d.status),
+            }))}
+            listVisibleFields={listVisibleFields}
+          />
+        )}
+      </div>
 
       <div className="flex flex-wrap gap-1.5">
         {[
@@ -105,6 +144,7 @@ export default async function DefectsPage({
               <Th>Evidence</Th>
               <Th>Status</Th>
               <Th>Created</Th>
+              <CustomFieldsTableHeaders fields={listVisibleFields} />
             </tr>
           </thead>
           <tbody>
@@ -128,7 +168,7 @@ export default async function DefectsPage({
                   </span>
                 </Td>
                 <Td>
-                  <span className={d.evidenceReady ? "inline-block rounded-md bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400" : "inline-block rounded-md bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-600 dark:text-amber-400"}>
+                  <span className={d.evidenceReady ? "inline-block rounded-md bg-muted px-2 py-1 text-xs font-medium text-foreground" : "inline-block rounded-md bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive dark:text-destructive"}>
                     {d.evidenceReady ? "Ready" : "Missing"}
                   </span>
                 </Td>
@@ -138,6 +178,7 @@ export default async function DefectsPage({
                 <Td className="text-muted-foreground">
                   {d.createdAt.toLocaleDateString()}
                 </Td>
+                <CustomFieldsTableCells fields={listVisibleFields} customFields={d.customFields ?? null} />
               </tr>
             ))}
             {defects.length === 0 && (

@@ -120,6 +120,7 @@ export type PpapSubmissionCountAggregateOutputType = {
   requirements: number
   notes: number
   supplierNotes: number
+  customFields: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -222,6 +223,7 @@ export type PpapSubmissionCountAggregateInputType = {
   requirements?: true
   notes?: true
   supplierNotes?: true
+  customFields?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -329,6 +331,7 @@ export type PpapSubmissionGroupByOutputType = {
   requirements: runtime.JsonValue | null
   notes: string | null
   supplierNotes: string | null
+  customFields: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   _count: PpapSubmissionCountAggregateOutputType | null
@@ -384,6 +387,7 @@ export type PpapSubmissionWhereInput = {
   requirements?: Prisma.JsonNullableFilter<"PpapSubmission">
   notes?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   supplierNotes?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"PpapSubmission">
   createdAt?: Prisma.DateTimeFilter<"PpapSubmission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PpapSubmission"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -429,6 +433,7 @@ export type PpapSubmissionOrderByWithRelationInput = {
   requirements?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   oem?: Prisma.CompanyOrderByWithRelationInput
@@ -477,6 +482,7 @@ export type PpapSubmissionWhereUniqueInput = Prisma.AtLeast<{
   requirements?: Prisma.JsonNullableFilter<"PpapSubmission">
   notes?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   supplierNotes?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"PpapSubmission">
   createdAt?: Prisma.DateTimeFilter<"PpapSubmission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PpapSubmission"> | Date | string
   oem?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
@@ -522,6 +528,7 @@ export type PpapSubmissionOrderByWithAggregationInput = {
   requirements?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   supplierNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PpapSubmissionCountOrderByAggregateInput
@@ -562,6 +569,7 @@ export type PpapSubmissionScalarWhereWithAggregatesInput = {
   requirements?: Prisma.JsonNullableWithAggregatesFilter<"PpapSubmission">
   notes?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
   supplierNotes?: Prisma.StringNullableWithAggregatesFilter<"PpapSubmission"> | string | null
+  customFields?: Prisma.JsonNullableWithAggregatesFilter<"PpapSubmission">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PpapSubmission"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PpapSubmission"> | Date | string
 }
@@ -588,6 +596,7 @@ export type PpapSubmissionCreateInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -633,6 +642,7 @@ export type PpapSubmissionUncheckedCreateInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -662,6 +672,7 @@ export type PpapSubmissionUpdateInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -707,6 +718,7 @@ export type PpapSubmissionUncheckedUpdateInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -744,6 +756,7 @@ export type PpapSubmissionCreateManyInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -770,6 +783,7 @@ export type PpapSubmissionUpdateManyMutationInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -804,6 +818,7 @@ export type PpapSubmissionUncheckedUpdateManyInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -853,6 +868,7 @@ export type PpapSubmissionCountOrderByAggregateInput = {
   requirements?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   supplierNotes?: Prisma.SortOrder
+  customFields?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1330,6 +1346,7 @@ export type PpapSubmissionCreateWithoutOemInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   supplier: Prisma.CompanyCreateNestedOneWithoutPpapAsSupInput
@@ -1373,6 +1390,7 @@ export type PpapSubmissionUncheckedCreateWithoutOemInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -1412,6 +1430,7 @@ export type PpapSubmissionCreateWithoutSupplierInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -1455,6 +1474,7 @@ export type PpapSubmissionUncheckedCreateWithoutSupplierInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -1521,6 +1541,7 @@ export type PpapSubmissionScalarWhereInput = {
   requirements?: Prisma.JsonNullableFilter<"PpapSubmission">
   notes?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
   supplierNotes?: Prisma.StringNullableFilter<"PpapSubmission"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"PpapSubmission">
   createdAt?: Prisma.DateTimeFilter<"PpapSubmission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PpapSubmission"> | Date | string
 }
@@ -1563,6 +1584,7 @@ export type PpapSubmissionCreateWithoutOemOwnerInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -1606,6 +1628,7 @@ export type PpapSubmissionUncheckedCreateWithoutOemOwnerInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -1645,6 +1668,7 @@ export type PpapSubmissionCreateWithoutSupplierAssigneeInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -1688,6 +1712,7 @@ export type PpapSubmissionUncheckedCreateWithoutSupplierAssigneeInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -1727,6 +1752,7 @@ export type PpapSubmissionCreateWithoutApprovedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -1770,6 +1796,7 @@ export type PpapSubmissionUncheckedCreateWithoutApprovedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -1809,6 +1836,7 @@ export type PpapSubmissionCreateWithoutRejectedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -1852,6 +1880,7 @@ export type PpapSubmissionUncheckedCreateWithoutRejectedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -1891,6 +1920,7 @@ export type PpapSubmissionCreateWithoutReviewedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -1934,6 +1964,7 @@ export type PpapSubmissionUncheckedCreateWithoutReviewedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -2053,6 +2084,7 @@ export type PpapSubmissionCreateWithoutDefectInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -2096,6 +2128,7 @@ export type PpapSubmissionUncheckedCreateWithoutDefectInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -2141,6 +2174,7 @@ export type PpapSubmissionUpdateWithoutDefectInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -2184,6 +2218,7 @@ export type PpapSubmissionUncheckedUpdateWithoutDefectInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -2213,6 +2248,7 @@ export type PpapSubmissionCreateWithoutEvidencesInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -2257,6 +2293,7 @@ export type PpapSubmissionUncheckedCreateWithoutEvidencesInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   reviewComments?: Prisma.PpapReviewCommentUncheckedCreateNestedManyWithoutPpapInput
@@ -2301,6 +2338,7 @@ export type PpapSubmissionUpdateWithoutEvidencesInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -2345,6 +2383,7 @@ export type PpapSubmissionUncheckedUpdateWithoutEvidencesInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewComments?: Prisma.PpapReviewCommentUncheckedUpdateManyWithoutPpapNestedInput
@@ -2373,6 +2412,7 @@ export type PpapSubmissionCreateWithoutReviewCommentsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -2417,6 +2457,7 @@ export type PpapSubmissionUncheckedCreateWithoutReviewCommentsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -2461,6 +2502,7 @@ export type PpapSubmissionUpdateWithoutReviewCommentsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -2505,6 +2547,7 @@ export type PpapSubmissionUncheckedUpdateWithoutReviewCommentsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -2533,6 +2576,7 @@ export type PpapSubmissionCreateWithoutEventsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   oem: Prisma.CompanyCreateNestedOneWithoutPpapAsOemInput
@@ -2577,6 +2621,7 @@ export type PpapSubmissionUncheckedCreateWithoutEventsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   evidences?: Prisma.PpapEvidenceUncheckedCreateNestedManyWithoutPpapInput
@@ -2621,6 +2666,7 @@ export type PpapSubmissionUpdateWithoutEventsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -2665,6 +2711,7 @@ export type PpapSubmissionUncheckedUpdateWithoutEventsInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -2700,6 +2747,7 @@ export type PpapSubmissionCreateManyOemInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2733,6 +2781,7 @@ export type PpapSubmissionCreateManySupplierInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2759,6 +2808,7 @@ export type PpapSubmissionUpdateWithoutOemInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   supplier?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsSupNestedInput
@@ -2802,6 +2852,7 @@ export type PpapSubmissionUncheckedUpdateWithoutOemInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -2838,6 +2889,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutOemInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2864,6 +2916,7 @@ export type PpapSubmissionUpdateWithoutSupplierInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -2907,6 +2960,7 @@ export type PpapSubmissionUncheckedUpdateWithoutSupplierInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -2943,6 +2997,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutSupplierInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2976,6 +3031,7 @@ export type PpapSubmissionCreateManyOemOwnerInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3009,6 +3065,7 @@ export type PpapSubmissionCreateManySupplierAssigneeInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3042,6 +3099,7 @@ export type PpapSubmissionCreateManyApprovedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3075,6 +3133,7 @@ export type PpapSubmissionCreateManyRejectedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3108,6 +3167,7 @@ export type PpapSubmissionCreateManyReviewedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: string | null
   supplierNotes?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3134,6 +3194,7 @@ export type PpapSubmissionUpdateWithoutOemOwnerInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -3177,6 +3238,7 @@ export type PpapSubmissionUncheckedUpdateWithoutOemOwnerInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -3213,6 +3275,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutOemOwnerInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3239,6 +3302,7 @@ export type PpapSubmissionUpdateWithoutSupplierAssigneeInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -3282,6 +3346,7 @@ export type PpapSubmissionUncheckedUpdateWithoutSupplierAssigneeInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -3318,6 +3383,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutSupplierAssigneeInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3344,6 +3410,7 @@ export type PpapSubmissionUpdateWithoutApprovedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -3387,6 +3454,7 @@ export type PpapSubmissionUncheckedUpdateWithoutApprovedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -3423,6 +3491,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutApprovedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3449,6 +3518,7 @@ export type PpapSubmissionUpdateWithoutRejectedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -3492,6 +3562,7 @@ export type PpapSubmissionUncheckedUpdateWithoutRejectedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -3528,6 +3599,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutRejectedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3554,6 +3626,7 @@ export type PpapSubmissionUpdateWithoutReviewedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   oem?: Prisma.CompanyUpdateOneRequiredWithoutPpapAsOemNestedInput
@@ -3597,6 +3670,7 @@ export type PpapSubmissionUncheckedUpdateWithoutReviewedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   evidences?: Prisma.PpapEvidenceUncheckedUpdateManyWithoutPpapNestedInput
@@ -3633,6 +3707,7 @@ export type PpapSubmissionUncheckedUpdateManyWithoutReviewedByInput = {
   requirements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   supplierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3716,6 +3791,7 @@ export type PpapSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   requirements?: boolean
   notes?: boolean
   supplierNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3762,6 +3838,7 @@ export type PpapSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   requirements?: boolean
   notes?: boolean
   supplierNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3804,6 +3881,7 @@ export type PpapSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   requirements?: boolean
   notes?: boolean
   supplierNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3846,11 +3924,12 @@ export type PpapSubmissionSelectScalar = {
   requirements?: boolean
   notes?: boolean
   supplierNotes?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PpapSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requestNumber" | "partNumber" | "partName" | "projectName" | "vehicleModel" | "revisionLevel" | "drawingNumber" | "revision" | "level" | "reasonForSubmission" | "status" | "oemId" | "supplierId" | "oemOwnerId" | "supplierAssigneeId" | "defectId" | "submittedAt" | "reviewedAt" | "reviewedById" | "approvedAt" | "rejectedAt" | "approvedById" | "rejectedById" | "rejectionReason" | "dueDate" | "requirements" | "notes" | "supplierNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["ppapSubmission"]>
+export type PpapSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "requestNumber" | "partNumber" | "partName" | "projectName" | "vehicleModel" | "revisionLevel" | "drawingNumber" | "revision" | "level" | "reasonForSubmission" | "status" | "oemId" | "supplierId" | "oemOwnerId" | "supplierAssigneeId" | "defectId" | "submittedAt" | "reviewedAt" | "reviewedById" | "approvedAt" | "rejectedAt" | "approvedById" | "rejectedById" | "rejectionReason" | "dueDate" | "requirements" | "notes" | "supplierNotes" | "customFields" | "createdAt" | "updatedAt", ExtArgs["result"]["ppapSubmission"]>
 export type PpapSubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   oem?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -3931,6 +4010,7 @@ export type $PpapSubmissionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     requirements: runtime.JsonValue | null
     notes: string | null
     supplierNotes: string | null
+    customFields: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["ppapSubmission"]>
@@ -4396,6 +4476,7 @@ export interface PpapSubmissionFieldRefs {
   readonly requirements: Prisma.FieldRef<"PpapSubmission", 'Json'>
   readonly notes: Prisma.FieldRef<"PpapSubmission", 'String'>
   readonly supplierNotes: Prisma.FieldRef<"PpapSubmission", 'String'>
+  readonly customFields: Prisma.FieldRef<"PpapSubmission", 'Json'>
   readonly createdAt: Prisma.FieldRef<"PpapSubmission", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PpapSubmission", 'DateTime'>
 }

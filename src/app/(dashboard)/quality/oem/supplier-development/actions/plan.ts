@@ -75,6 +75,7 @@ export async function createDevPlan(formData: FormData) {
       id: supplierId,
       type: "SUPPLIER",
       OR: [
+        { primaryOemId: session.user.companyId },
         { defectsAsSup: { some: { oemId: session.user.companyId } } },
         { ppapAsSup: { some: { oemId: session.user.companyId } } },
         { iqcAsSup: { some: { oemId: session.user.companyId } } },

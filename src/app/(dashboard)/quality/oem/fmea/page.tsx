@@ -8,6 +8,9 @@ import { getFmeaStatusColor, getRpnColor, isFmeaOverdue, FMEA_STATUS_LABELS, FME
 import type { FmeaStatus } from "@/generated/prisma/client"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export default async function OemFmeaPage({
   searchParams,
@@ -40,6 +43,18 @@ export default async function OemFmeaPage({
     },
   })
 
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "FMEA")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -47,7 +62,7 @@ export default async function OemFmeaPage({
           <h1 className="text-xl font-semibold tracking-tight text-foreground">FMEA Analysis</h1>
           <p className="text-sm text-muted-foreground">Failure Mode and Effects Analysis</p>
         </div>
-           <Link href="/quality/oem/fmea/new" className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors">
+           <Link href="/quality/oem/fmea/new" className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors">
             <PlusIcon className="size-4" />
             New FMEA
           </Link>
@@ -77,8 +92,9 @@ export default async function OemFmeaPage({
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Max RPN</th>
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Due</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Created</th>
-                </tr>
+                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Created</th>
+                 <CustomFieldsTableHeaders fields={listVisibleFields} />
+               </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {fmeas.map((f) => {
@@ -88,7 +104,7 @@ export default async function OemFmeaPage({
                   return (
                     <tr key={f.id} className="transition-colors hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <Link href={`/quality/oem/fmea/${f.id}`} className="font-medium text-foreground hover:text-emerald-400">{f.fmeaNumber}</Link>
+                        <Link href={`/quality/oem/fmea/${f.id}`} className="font-medium text-foreground hover:text-foreground">{f.fmeaNumber}</Link>
                       </td>
                       <td className="max-w-[200px] truncate px-4 py-3 text-muted-foreground">{f.title}</td>
                       <td className="px-4 py-3 text-muted-foreground">{FMEA_TYPE_LABELS[f.fmeaType] ?? f.fmeaType}</td>
@@ -102,13 +118,14 @@ export default async function OemFmeaPage({
                       <td className={`px-4 py-3 font-semibold ${getRpnColor(maxRpn)}`}>{maxRpn || "—"}</td>
                       <td className="px-4 py-3 text-muted-foreground">
                         {f.dueDate ? (
-                          <span className={overdue ? "text-red-400" : ""}>
+                          <span className={overdue ? "text-destructive" : ""}>
                             {f.dueDate.toLocaleDateString()}
                             {overdue && " (Overdue)"}
                           </span>
                         ) : "—"}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{f.createdAt.toLocaleDateString()}</td>
+                      <CustomFieldsTableCells fields={listVisibleFields} customFields={f.customFields as Record<string, unknown> | null} />
                     </tr>
                   )
                 })}

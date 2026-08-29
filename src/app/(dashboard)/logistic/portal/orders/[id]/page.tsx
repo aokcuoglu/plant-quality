@@ -7,6 +7,7 @@ import { labelForVehicleType, labelForPowertrain, labelForPriority, labelForCust
 import { labelForTransportMode } from "@/lib/logistic/dispatch-status"
 import { type OrderSlaInput } from "@/lib/logistic/sla"
 import { ExternalDelayPanel } from "./delay-panel"
+import { PortalCommentSection } from "./comment-section"
 import { ArrowLeft, TruckIcon, Calendar } from "lucide-react"
 import Link from "next/link"
 
@@ -108,7 +109,7 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
           {order.dispatches && order.dispatches.length > 0 && (
             <div className="rounded-lg border bg-card p-5">
               <h2 className="text-sm font-medium text-foreground mb-4 flex items-center gap-2">
-                <TruckIcon className="size-4 text-emerald-500" /> Delivery Information
+                <TruckIcon className="size-4 text-foreground" /> Delivery Information
               </h2>
               {order.dispatches.map((dispatch) => (
                 <div key={dispatch.id} className="space-y-3 pb-4 mb-4 border-b last:border-b-0 last:mb-0 last:pb-0">
@@ -161,7 +162,7 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
         <div className="space-y-6">
           <div className="rounded-lg border bg-card p-5">
             <h2 className="text-sm font-medium text-foreground mb-4 flex items-center gap-2">
-              <Calendar className="size-4 text-emerald-500" /> Order Summary
+              <Calendar className="size-4 text-foreground" /> Order Summary
             </h2>
             <dl className="space-y-3 text-sm">
               <div>
@@ -207,7 +208,7 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
               <div className="space-y-3">
                 {timeline.map((event) => (
                   <div key={event.id} className="flex items-start gap-3">
-                    <div className="mt-1 size-2 rounded-full bg-emerald-500 shrink-0" />
+                    <div className="mt-1 size-2 rounded-full bg-foreground shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm text-foreground">{event.message ?? event.eventType.replace(/_/g, " ").toLowerCase()}</p>
                       <p className="text-xs text-muted-foreground">{new Date(event.createdAt).toLocaleString()}</p>
@@ -217,6 +218,10 @@ export default async function PortalOrderDetailPage({ params }: { params: Promis
               </div>
             </div>
           )}
+
+          <div className="rounded-lg border bg-card p-5">
+            <PortalCommentSection orderId={order.id} comments={order.comments ?? []} />
+          </div>
         </div>
       </div>
     </div>

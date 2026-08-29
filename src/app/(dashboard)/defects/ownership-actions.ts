@@ -44,6 +44,7 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
       id: true,
       oemId: true,
       supplierId: true,
+      status: true,
       oemOwnerId: true,
       supplierAssigneeId: true,
       supplierResponseDueAt: true,
@@ -53,6 +54,10 @@ export async function updateDefectOwnershipAndSla(defectId: string, formData: Fo
     },
   })
   if (!defect) return { success: false as const, error: "Defect not found" }
+
+  if (defect.status === "RESOLVED") {
+    return { success: false as const, error: "Cannot modify ownership of a resolved defect" }
+  }
 
   const updateData: {
     oemOwnerId?: string | null

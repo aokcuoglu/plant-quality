@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import { DatePicker } from "@/components/ui/date-picker"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { CustomFieldsData } from "@/lib/custom-fields/types"
 import type { FieldDefectSource, FieldDefectSeverity } from "@/generated/prisma/client"
@@ -148,7 +149,7 @@ export function NewFieldDefectForm({
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="failureDate">Failure Date</Label>
-              <Input id="failureDate" name="failureDate" type="date" />
+              <DatePicker id="failureDate" name="failureDate" placeholder="mm / dd / yyyy" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="location">Location / Service Center</Label>

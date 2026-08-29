@@ -30,7 +30,7 @@ export function TrendArea({ data }: { data: RawItem[] }) {
 
   return (
     <div className="h-[250px] w-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={250}>
         <AreaChart data={chartData} margin={{ left: 0, right: 8, top: 4, bottom: 4 }}>
           <defs>
             <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">

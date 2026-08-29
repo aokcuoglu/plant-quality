@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { DatePicker } from "@/components/ui/date-picker"
 
 export function UpdatePlanningForm({ order }: { order: { id: string; plannedProductionDate: Date | null; plannedDeliveryDate: Date | null; plannedProductionWeek: string | null; productionOrderNo: string | null } }) {
   const [loading, setLoading] = useState(false)
@@ -58,11 +59,10 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
     <form action={handleSave} className="space-y-3">
       <div className="space-y-2">
         <label className="text-xs text-muted-foreground">Planned Production Date</label>
-        <input
-          type="date"
+        <DatePicker
           name="plannedProductionDate"
           defaultValue={formatDate(order.plannedProductionDate)}
-          className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground"
+          placeholder="mm / dd / yyyy"
         />
       </div>
       <div className="space-y-2">
@@ -77,11 +77,10 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
       </div>
       <div className="space-y-2">
         <label className="text-xs text-muted-foreground">Planned Delivery Date</label>
-        <input
-          type="date"
+        <DatePicker
           name="plannedDeliveryDate"
           defaultValue={formatDate(order.plannedDeliveryDate)}
-          className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground"
+          placeholder="mm / dd / yyyy"
         />
       </div>
       <div className="space-y-2">
@@ -98,7 +97,7 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-600 disabled:opacity-50"
+          className="rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-foreground/90 disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save"}
         </button>

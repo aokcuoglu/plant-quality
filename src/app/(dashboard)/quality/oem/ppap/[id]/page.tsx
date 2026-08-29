@@ -159,7 +159,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
               <dd className="text-foreground">
                 {ppap.dueDate
                   ? isPpapOverdue(ppap.dueDate, ppap.status)
-                    ? <span className="text-red-400 font-medium">{ppap.dueDate.toLocaleDateString()} (Overdue)</span>
+                    ? <span className="text-destructive font-medium">{ppap.dueDate.toLocaleDateString()} (Overdue)</span>
                     : ppap.dueDate.toLocaleDateString()
                   : "—"}
               </dd>
@@ -189,7 +189,7 @@ export default async function OemPpapDetailPage({ params }: { params: Promise<{ 
               </div>
             )}
             {ppap.rejectionReason && (
-              <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-3 space-y-1">
+              <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3 space-y-1">
                 <h3 className="text-sm font-medium text-destructive">Rejection / Revision Reason</h3>
                 <p className="text-sm text-muted-foreground">{ppap.rejectionReason}</p>
               </div>

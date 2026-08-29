@@ -60,9 +60,9 @@ export function MilestoneActions({
             disabled={loading}
             className={`rounded px-2 py-0.5 text-xs font-medium transition-colors disabled:opacity-50 ${
               isPrimary
-                ? "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                ? "bg-muted text-muted-foreground hover:bg-foreground/20"
                 : status === "BLOCKED"
-                ? "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20"
+                ? "bg-muted text-muted-foreground hover:bg-accent"
                 : status === "QUALITY_HOLD"
                 ? "bg-destructive/10 text-destructive hover:bg-destructive/20"
                 : "bg-muted text-muted-foreground hover:bg-muted/80"

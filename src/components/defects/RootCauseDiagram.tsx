@@ -137,13 +137,13 @@ export function RootCauseDiagram({
 
       {totalContribution !== 100 && initialRootCauses.length > 0 && (
         <div className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-xs",
-          totalContribution > 100 ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-400" : "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900 dark:bg-amber-950/20 dark:text-amber-400")}>
+          totalContribution > 100 ? "border-destructive/20 bg-destructive/10 text-destructive dark:border-red-900 dark:bg-red-950/20 dark:text-destructive" : "border-destructive/20 bg-destructive/10 text-destructive dark:border-amber-900 dark:bg-amber-950/20 dark:text-destructive")}>
           <AlertTriangleIcon className="h-3.5 w-3.5 shrink-0" />
           Total contribution: {totalContribution}% {totalContribution > 100 ? "(exceeds 100%)" : "(ideally should equal 100%)"}
         </div>
       )}
       {totalContribution === 100 && initialRootCauses.length > 0 && (
-        <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-xs text-green-700 dark:border-green-900 dark:bg-green-950/20 dark:text-green-400">
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground border-border dark:bg-muted/30 text-muted-foreground">
           <CheckIcon className="h-3.5 w-3.5 shrink-0" /> Total contribution: 100% — validated
         </div>
       )}

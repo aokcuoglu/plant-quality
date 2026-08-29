@@ -166,7 +166,7 @@ export default async function SupplierDashboardPage() {
         description={`Welcome back, ${session.user.name ?? session.user.email}`}
       />
 
-      <div className="grid gap-4 md:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <DashboardCard
           title="Total Defects"
           value={totalDefects}
@@ -203,7 +203,7 @@ export default async function SupplierDashboardPage() {
         />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <DashboardCard
           title="SLA Active"
           value={slaActive}
@@ -226,7 +226,7 @@ export default async function SupplierDashboardPage() {
         />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="text-sm font-medium">Defect Status Distribution</CardTitle>
@@ -261,7 +261,7 @@ export default async function SupplierDashboardPage() {
         <p className="text-xs text-muted-foreground">{avgResolutionDays !== null ? "Mean time from creation to resolution" : "No resolved defects yet"}</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <DashboardCard
           title="Overdue Assigned"
           value={overdueAssigned}
@@ -285,7 +285,7 @@ export default async function SupplierDashboardPage() {
         />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <DashboardCard
           title="Missing Evidence"
           value={missingEvidence}
@@ -303,7 +303,7 @@ export default async function SupplierDashboardPage() {
       </div>
 
       <h2 className="text-lg font-semibold text-foreground pt-2">Quality Modules</h2>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <DashboardCard
           title="PPAP Action Required"
           value={supplierPpapPending}

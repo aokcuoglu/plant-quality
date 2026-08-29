@@ -83,15 +83,15 @@ export function IqcChecklistEditor({
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-medium text-foreground">Checklist</h2>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span className="text-emerald-400">{ok} OK</span>
-          <span className="text-red-400">{nok} NOK</span>
+          <span className="text-foreground">{ok} OK</span>
+          <span className="text-destructive">{nok} NOK</span>
           <span>{na} N/A</span>
           <span>{pending} pending</span>
         </div>
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-xs text-red-400">{error}</div>
+        <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-xs text-destructive">{error}</div>
       )}
 
       <div className="overflow-x-auto">
@@ -152,7 +152,7 @@ export function IqcChecklistEditor({
                             type="button"
                             onClick={() => saveEdit(item.id)}
                             disabled={isPending}
-                            className="inline-flex h-7 items-center justify-center rounded-md bg-emerald-500/10 px-2 text-xs font-medium text-emerald-400 hover:bg-emerald-500/20 disabled:opacity-50"
+                            className="inline-flex h-7 items-center justify-center rounded-md bg-muted px-2 text-xs font-medium text-foreground hover:bg-foreground/20 disabled:opacity-50"
                           >
                             {isPending ? "..." : "Save"}
                           </button>

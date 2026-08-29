@@ -8,6 +8,7 @@ import {
   labelForPowertrain,
   labelForPriority,
 } from "@/lib/logistic/types"
+import { DatePicker } from "@/components/ui/date-picker"
 
 interface Oem {
   id: string
@@ -66,7 +67,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             name="oemId"
             required
             defaultValue=""
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           >
             <option value="" disabled>Select manufacturer...</option>
             {oems.map((oem) => (
@@ -84,7 +85,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             type="text"
             required
             placeholder="End customer name"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           />
         </div>
 
@@ -97,7 +98,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             type="text"
             required
             placeholder="e.g. CityBus 12M"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           />
         </div>
 
@@ -109,7 +110,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             name="vehicleType"
             required
             defaultValue="BUS"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           >
             {vehicleTypes.map((t) => (
               <option key={t} value={t}>{labelForVehicleType(t)}</option>
@@ -127,7 +128,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             required
             min={1}
             defaultValue={1}
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           />
         </div>
 
@@ -136,7 +137,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
           <select
             name="priority"
             defaultValue="NORMAL"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           >
             {priorities.map((p) => (
               <option key={p} value={p}>{labelForPriority(p)}</option>
@@ -150,7 +151,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             name="country"
             type="text"
             placeholder="e.g. Turkey"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           />
         </div>
 
@@ -160,7 +161,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             name="market"
             type="text"
             placeholder="e.g. Domestic"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           />
         </div>
 
@@ -170,7 +171,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
             name="vehicleVariant"
             type="text"
             placeholder="e.g. CNG, Electric"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           />
         </div>
 
@@ -179,7 +180,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
           <select
             name="powertrain"
             defaultValue=""
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           >
             <option value="">Not specified</option>
             {powertrains.map((p) => (
@@ -190,11 +191,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
 
         <div>
           <label className="block text-xs font-medium text-foreground mb-1">Requested Delivery Date</label>
-          <input
-            name="requestedDeliveryDate"
-            type="date"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
-          />
+          <DatePicker name="requestedDeliveryDate" placeholder="mm / dd / yyyy" />
         </div>
       </div>
 
@@ -204,7 +201,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
           name="notes"
           rows={3}
           placeholder="Additional information or special requirements..."
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
         />
       </div>
 
@@ -223,7 +220,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
           type="submit"
           disabled={submitting}
           className={cn(
-            "rounded-md bg-emerald-500 px-6 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors",
+            "rounded-md bg-foreground px-6 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors",
             submitting && "opacity-50 cursor-not-allowed"
           )}
         >

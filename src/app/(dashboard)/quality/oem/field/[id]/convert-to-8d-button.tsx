@@ -36,7 +36,7 @@ export function ConvertTo8DButton({ fieldDefectId }: { fieldDefectId: string }) 
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} className="bg-emerald-500 hover:bg-emerald-600">
+      <Button onClick={() => setOpen(true)} className="bg-foreground text-background hover:bg-foreground/90">
         Convert to 8D
       </Button>
 
@@ -60,7 +60,7 @@ export function ConvertTo8DButton({ fieldDefectId }: { fieldDefectId: string }) 
             <Button
               onClick={() => startTransition(handleConvert)}
               disabled={isPending}
-              className="bg-emerald-500 hover:bg-emerald-600"
+              className="bg-foreground text-background hover:bg-foreground/90"
             >
               {isPending ? "Converting..." : "Convert to 8D"}
             </Button>

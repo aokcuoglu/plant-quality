@@ -23,7 +23,7 @@ export function ExternalDelayPanel({
   return (
     <div className="rounded-lg border bg-card p-5">
       <h2 className="text-sm font-medium text-foreground mb-4 flex items-center gap-2">
-        <Info className="size-4 text-emerald-500" /> Delivery Status
+        <Info className="size-4 text-foreground" /> Delivery Status
       </h2>
 
       <div className="space-y-4">
@@ -49,7 +49,7 @@ export function ExternalDelayPanel({
         )}
 
         {delayStatus === "CONTACT_OEM" && (
-          <p className="text-xs text-amber-600">
+          <p className="text-xs text-destructive">
             Please contact your OEM representative for more information about this order.
           </p>
         )}

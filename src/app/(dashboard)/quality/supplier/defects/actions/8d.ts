@@ -175,6 +175,7 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
         eightDSubmissionDueAt,
       },
     })
+    // Only log the significant transition; skip per-step noise.
     await logDefectEvent(defectId, "EIGHT_D_STARTED", session.user.id, {
       previousStatus: defect.status,
       nextStatus: "IN_PROGRESS",
@@ -186,14 +187,11 @@ export async function saveEightDStep(defectId: string, data: Record<string, unkn
       where: { id: defectId },
       data: { eightDSubmissionDueAt },
     })
-    await logDefectEvent(defectId, "EIGHT_D_STEP_SAVED", session.user.id, {
-      initializedEightDSubmissionDueAt: eightDSubmissionDueAt.toISOString(),
-    })
+    // Intentionally NOT logging EIGHT_D_STEP_SAVED here anymore.
   }
 
-  await logDefectEvent(defectId, "EIGHT_D_STEP_SAVED", session.user.id, {
-    keys: Object.keys(data),
-  })
+  // Intentionally NOT logging EIGHT_D_STEP_SAVED for every field change.
+  // The UI coalesces 8D work; the timeline only shows start + submit.
 
   revalidatePath(`/quality/supplier/defects/${defectId}/8d`)
   revalidatePath(`/quality/oem/defects/${defectId}`)

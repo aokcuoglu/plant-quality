@@ -30,30 +30,30 @@ export const QUALITY_LINK_TYPE_LABELS: Record<QualityLinkType, string> = {
 }
 
 export const QUALITY_LINK_TYPE_COLORS: Record<QualityLinkType, string> = {
-  SAME_PART: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-  SAME_SUPPLIER: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-  SAME_FAILURE_MODE: "bg-red-500/10 text-red-500 border-red-500/20",
+  SAME_PART: "bg-muted text-muted-foreground border-border",
+  SAME_SUPPLIER: "bg-muted text-muted-foreground border-border",
+  SAME_FAILURE_MODE: "bg-destructive/10 text-destructive border-destructive/20",
   SAME_VEHICLE: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-  IQC_TO_DEFECT: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  FIELD_TO_8D: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  IQC_TO_DEFECT: "bg-muted text-muted-foreground border-border",
+  FIELD_TO_8D: "bg-muted text-muted-foreground border-border",
   PPAP_REFERENCE: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
-  FMEA_COVERAGE: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-  MANUAL: "bg-foreground/10 text-foreground border-foreground/20",
+  FMEA_COVERAGE: "bg-destructive/10 text-destructive border-destructive/20",
+  MANUAL: "bg-muted text-foreground border-foreground/20",
   RELATED_HISTORY: "bg-muted text-muted-foreground border-border",
-  IQC_REJECTION: "bg-red-500/10 text-red-400 border-red-500/20",
+  IQC_REJECTION: "bg-destructive/10 text-destructive border-destructive/20",
   SAME_SUPPLIER_ONLY: "bg-muted/60 text-muted-foreground border-border",
-  LOGISTIC_QUALITY_HOLD: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  ORDER_TO_DEFECT: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  LOGISTIC_QUALITY_HOLD: "bg-destructive/10 text-destructive border-destructive/20",
+  ORDER_TO_DEFECT: "bg-muted text-muted-foreground border-border",
 }
 
 export const QUALITY_RECORD_TYPE_COLORS: Record<QualityRecordType, string> = {
-  FIELD_DEFECT: "bg-red-500/10 text-red-500 border-red-500/20",
-  DEFECT: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  EIGHT_D: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+  FIELD_DEFECT: "bg-destructive/10 text-destructive border-destructive/20",
+  DEFECT: "bg-destructive/10 text-destructive border-destructive/20",
+  EIGHT_D: "bg-destructive/10 text-destructive border-destructive/20",
   PPAP: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
-  IQC: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  FMEA: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-  LOGISTIC_ORDER: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  IQC: "bg-muted text-muted-foreground border-border",
+  FMEA: "bg-destructive/10 text-destructive border-destructive/20",
+  LOGISTIC_ORDER: "bg-muted text-muted-foreground border-border",
 }
 
 export const QUALITY_RECORD_TYPE_ICONS: Record<QualityRecordType, string> = {
@@ -91,9 +91,9 @@ export function confidenceLabel(c: Confidence): string {
 }
 
 export const CONFIDENCE_STYLES: Record<Confidence, { label: string; className: string }> = {
-  direct: { label: "Direct", className: "bg-foreground/10 text-foreground border-foreground/20" },
-  strong: { label: "Strong", className: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
-  moderate: { label: "Moderate", className: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
+  direct: { label: "Direct", className: "bg-muted text-foreground border-foreground/20" },
+  strong: { label: "Strong", className: "bg-muted text-muted-foreground border-border" },
+  moderate: { label: "Moderate", className: "bg-destructive/10 text-destructive border-destructive/20" },
   weak: { label: "Low", className: "bg-muted text-muted-foreground border-border" },
 }
 

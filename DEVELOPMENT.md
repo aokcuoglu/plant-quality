@@ -1,7 +1,7 @@
 # PlantX — Agent Coding Guide & Roadmap
 
 > **Last updated:** 2026-05-25  
-> **Current version:** 3.5.1  
+> **Current version:** 3.7.0  
 > **Stack:** Next.js 16 (App Router), TypeScript strict, Tailwind CSS, shadcn/ui, Prisma 7, PostgreSQL, Auth.js v5, Cloudflare R2
 
 ---
@@ -174,27 +174,26 @@ When developing features, use **three sub-agents**:
 | v3.4.1 | Dealer portal UX + access polish | 2026-05-20 |
 | v3.5.0 | SLA + Delay Intelligence | 2026-05-21 |
 | v3.5.1 | SLA/Delay UX & accuracy polish | 2026-05-23 |
+| v3.6.0 | PlantQuality ↔ PlantLogistic Integration | 2026-05-25 |
+| v3.7.0 | Dealer self-service order creation | 2026-05-25 |
 
 ### 6.2 In Progress (Current Sprint)
 
-| Task | Status | Description |
-|------|--------|-------------|
-| **Audit Trail UI** | ✅ DONE | Unified `AuditTimeline` component across all 8 detail pages (defect, field defect, PPAP, IQC, FMEA — both OEM and supplier). Replaced inconsistent inline rendering with icon-labeled metadata-rich timeline. |
+_No active sprint items — see Next Up below._
 
 ### 6.3 Next Up (Prioritized)
 
 | Priority | Task | Description |
 |----------|------|-------------|
-| **P0** | PDF/Excel Export | 8D report PDF package, defect list Excel, PPAP package export |
-| **P0** | Email Notification Delivery | Production email via Resend (currently Mailpit dev-only) |
 | **P1** | Rate Limiting | API route rate limiting to prevent abuse |
 | **P1** | Error Monitoring | Sentry or similar for production error tracking |
 | **P1** | Production Deployment | Test on Supabase + Cloudflare R2, not just Docker |
+| **P2** | PDF/Excel Export | 8D report PDF package, defect list Excel, PPAP package export |
+| **P2** | Email Notification Delivery | Production email via Resend (currently Mailpit dev-only) |
 | **P2** | Supplier-facing Scorecard Sharing | Suppliers view their own scorecard |
 | **P2** | Custom KPI Weighting UI | Admin-configured scorecard weights |
 | **P2** | Advanced Benchmarking | Cross-organization quality comparison |
 | **P2** | Automated Email Digest | Weekly/monthly quality digest to executives |
-| **Future** | PlantQuality ↔ PlantLogistic Integration (v3.6.0) | Quality hold → defect, PDI → defect creation, supplier delay signal |
 | **Future** | ERP/MRP Integration | SAP, Oracle, Dynamics connector |
 | **Future** | Mobile Yard Scan | QR/VIN scanning for yard operations |
 | **Future** | AI Delay Prediction | Predictive ETA for PlantLogistic |
@@ -337,6 +336,37 @@ When developing features, use **three sub-agents**:
 3. Server creates: Defect + EightDReport + QualityRecordLink (ORDER_TO_DEFECT) + events + notifications
 4. Milestone shows "View Defect" link to quality defect detail
 5. Defect detail shows logistic order in Related Quality Records
+
+**Verified:**
+- `npx tsc --noEmit` — zero errors
+- ESLint on all changed files — zero warnings
+- `docker-compose up -d --build app` — build successful, app running on localhost:3000
+
+### 2026-05-25 — Dealer Self-Service Order Creation (v3.7.0)
+
+**New Files:**
+
+| File | Purpose |
+|------|---------|
+| `src/app/(dashboard)/logistic/portal/orders/new/form.tsx` | `PortalOrderForm` — dealer self-service order form with OEM selector, customer, vehicle, quantity, priority, delivery date |
+| `src/app/(dashboard)/logistic/portal/orders/new/page.tsx` | New Order page at `/logistic/portal/orders/new` |
+| `src/app/api/logistic/portal/create-order/route.ts` | POST endpoint accepting dealer-submitted order requests with OEM target selection |
+
+**Modified Files:**
+
+| File | Change |
+|------|--------|
+| `src/app/(dashboard)/logistic/portal/actions.ts` | Added `getAvailableOems()` — returns OEM companies with PLANT_LOGISTIC_MODULE for dealer target selection |
+| `src/app/(dashboard)/layout.tsx` | Added `LOGISTIC_PORTAL_NAV` entry for "New Order" |
+| `src/app/(dashboard)/logistic/portal/page.tsx` | Added "New Order" CTA button in dashboard header + empty state |
+| `package.json` | Version bumped to 3.7.0 |
+
+**Flow:**
+1. Dealer navigates to `/logistic/portal/orders/new`
+2. Selects target OEM, fills in customer name, vehicle model, quantity, priority, requested delivery date
+3. Form validates all required fields client-side
+4. POST to `/api/logistic/portal/create-order` creates order scoped by `dealerCompanyId`, auto-links to selected OEM
+5. OEM sees new order in logistic order list
 
 **Verified:**
 - `npx tsc --noEmit` — zero errors

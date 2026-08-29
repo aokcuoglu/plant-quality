@@ -383,7 +383,7 @@ export const FEATURE_GATES: Record<FeatureKey, FeatureGate> = {
     label: "Supplier Scorecard",
     description: "Supplier quality scorecard with deterministic scoring, risk grading, and drill-down signals",
     minPlan: "ENTERPRISE",
-    supplierAccess: false,
+    supplierAccess: true,
     module: "PLANT_QUALITY_MODULE",
   },
   QUALITY_LINKAGE: {

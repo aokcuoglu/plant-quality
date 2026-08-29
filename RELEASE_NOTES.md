@@ -1,3 +1,78 @@
+# PlantX v3.7.0 — Dealer Self-Service Order Creation
+
+**Release Date:** 2026-05-25  
+**Version:** 3.7.0
+
+---
+
+## Dealer Self-Service Order Creation
+
+- **New:** `/logistic/portal/orders/new` page — dealers can now create vehicle orders directly, without waiting for OEM to create orders for them.
+- **New:** `PortalOrderForm` — form with OEM target selector (shows only OEMs with PLANT_LOGISTIC_MODULE), customer name, vehicle model, quantity, priority level, and requested delivery date.
+- **New:** `POST /api/logistic/portal/create-order` — creates order scoped by the dealer's `dealerCompanyId`, auto-linked to the selected OEM company.
+- **New:** "New Order" navigation item in `LOGISTIC_PORTAL_NAV` sidebar.
+- **New:** "New Order" CTA button on portal dashboard (header + empty state).
+
+## Access & Security
+
+- Dealer-scoped: orders created are automatically associated with the dealer's `dealerCompanyId` from session.
+- OEM selector dropdown shows only companies with `PLANT_LOGISTIC_MODULE` entitlement.
+- Client-provided dealerCompanyId never trusted — always sourced from session.
+- All form fields validated client-side before submission.
+
+## Deferred
+
+- Distributor self-service order creation (dealer-only for v3.7.0)
+- Order edit/cancel by dealer
+- Dealer document upload
+- Real email notification to OEM on dealer order submission
+
+---
+
+# PlantX v3.6.0 — PlantQuality ↔ PlantLogistic Integration
+
+**Release Date:** 2026-05-25  
+**Version:** 3.6.0
+
+---
+
+## PlantQuality ↔ PlantLogistic Integration
+
+- **New:** Quality hold milestones can now create linked 8D defects directly from the logistic order detail page.
+- **New Schema:** `QualityRecordType` extended with `LOGISTIC_ORDER`. `QualityLinkType` extended with `LOGISTIC_QUALITY_HOLD` and `ORDER_TO_DEFECT`.
+- **New:** `PlantLogisticProductionMilestone.linkedDefectId` FK — bidirectional link between logistic milestones and quality defects.
+- **New:** `Defect.logisticMilestones` reverse relation — defect detail page shows linked logistic orders.
+
+## Create Defect from Quality Hold Flow
+
+- **New:** `CreateDefectFromHoldButton` component on milestone actions (visible when milestone status is QUALITY_HOLD).
+- **New:** `createDefectFromQualityHold()` server action — creates Defect, EightDReport, QualityRecordLink (ORDER_TO_DEFECT), audit events, and notifications in a single transaction.
+- **Dialog:** OEM selects supplier company and enters part number → defect created and linked to the logistic order.
+- **Bidirectional visibility:** Milestone shows "View Defect" link; defect detail shows logistic order in Related Quality Records panel.
+
+## Quality Linkage System Extensions
+
+- `LOGISTIC_ORDER` type added to record verification, href building, record resolution, and UI panel.
+- Truck icon for logistic orders in `RelatedRecordsPanel`.
+- Labels, colors, and icons for `LOGISTIC_QUALITY_HOLD` and `ORDER_TO_DEFECT` link types.
+
+## Supplier Lookup API
+
+- **New:** `GET /api/companies` — returns supplier companies (OEM-only endpoint).
+- Used by `CreateDefectFromHoldButton` dialog for supplier selection.
+
+## Migration
+
+- Prisma migration for `linkedDefectId` FK on `PlantLogisticProductionMilestone` and Defect reverse relation.
+
+## Deferred
+
+- PDI defect creation (similar pattern, future)
+- Supplier-caused delay signal to quality module
+- FMEA / IQC / PPAP quality risk connection to delivery risk
+
+---
+
 # PlantX v3.5.1 — SLA + Delay Intelligence UX / Accuracy Polish
 
 **Release Date:** 2026-05-23  
@@ -76,7 +151,7 @@
 - No persistent alert workflow added.
 - No dealer/distributor messaging/comments added.
 - No document upload added.
-- No PlantQuality integration added.
+- No PlantQuality integration added (arrives in v3.6.0)
 - No ERP/MRP integration added.
 - No billing/payment integration added.
 
@@ -188,7 +263,7 @@
 - Persistent alert records / acknowledge workflow (future)
 - Automated email notifications (future)
 - Dealer/distributor messaging/comments (future)
-- PlantQuality integration (v3.6.0)
+- PlantLogistic ↔ PlantQuality integration ✅ (v3.6.0)
 - ERP/MRP integration (future)
 - Carrier portal (future)
 - Mobile app (future)
@@ -323,7 +398,7 @@
 
 ## Deferred to v3.5.0+
 
-- Dealer self-service order creation
+- Distributor self-service order creation (dealer self-service arrived in v3.7.0)
 - Dealer comments/messaging
 - Dealer document upload
 - External carrier portal
@@ -534,7 +609,7 @@ PlantX v3.3.0 introduces Yard & Dispatch MVP for PlantLogistic. After vehicle pr
 
 - **Dealer / Distributor Portal** — v3.4.0
 - **SLA + Delay Intelligence** — v3.5.0
-- **PlantLogistic ↔ PlantQuality integration** — v3.6.0
+- **PlantLogistic ↔ PlantQuality integration** ✅ — v3.6.0
 - ERP/MRP integration
 - Carrier external portal
 - Mobile yard scan / QR scan
@@ -799,7 +874,7 @@ This release is scoped to PlantLogistic only. No PlantQuality workflow changes.
 - Yard + Dispatch operations (v3.3.0)
 - Dealer/distributor portal (v3.4.0)
 - SLA + Delay Intelligence (v3.5.0)
-- PlantQuality integration (v3.6.0)
+- PlantQuality integration ✅ (v3.6.0)
 - ERP/MRP integration
 - PDF/Excel export
 - AI prediction
@@ -1026,7 +1101,7 @@ A new feature key `PLANT_LOGISTIC` has been added:
 - Yard/stock tracking (v3.3.0)
 - Dispatch/carrier/shipment management (v3.3.0+)
 - Dealer/distributor external portal (v3.4.0)
-- PlantLogistic ↔ PlantQuality integration (v3.6.0)
+- PlantLogistic ↔ PlantQuality integration ✅ (v3.6.0)
 - ERP integration
 - PDF/Excel export
 - AI order prediction

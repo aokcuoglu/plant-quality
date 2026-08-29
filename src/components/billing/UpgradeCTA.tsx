@@ -38,7 +38,7 @@ export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, cla
         <button
           type="button"
           onClick={() => setDialogOpen(true)}
-          className={cn("text-xs text-emerald-500 hover:text-emerald-400 hover:underline cursor-pointer", className)}
+          className={cn("text-xs text-foreground hover:underline cursor-pointer", className)}
         >
           Requires {PLAN_LABELS[targetPlan]}
         </button>
@@ -70,7 +70,7 @@ export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, cla
         <button
           type="button"
           onClick={() => setDialogOpen(true)}
-          className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
+          className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
         >
           Request {PLAN_LABELS[targetPlan]}
         </button>

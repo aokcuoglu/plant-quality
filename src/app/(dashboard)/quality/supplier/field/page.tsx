@@ -11,6 +11,10 @@ import { getFieldDefects } from "@/app/(dashboard)/field/actions"
 import { FIELD_DEFECT_SOURCE_LABELS } from "@/lib/field-defect"
 import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 const STATUS_FILTERS = [
   { value: "active", label: "Active" },
@@ -51,6 +55,18 @@ export default async function SupplierFieldPage({
   const { fieldDefects, totalCount } = await getFieldDefects(filter, search, page)
   const totalPages = Math.ceil(totalCount / FIELD_DEFECT_PAGE_SIZE)
 
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "FIELD_DEFECT")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
+
   function buildUrl(overrides: Record<string, string | undefined>) {
     const sp = new URLSearchParams()
     const f = overrides.filter ?? filter
@@ -86,8 +102,36 @@ export default async function SupplierFieldPage({
         ))}
       </div>
 
-      <div className="w-full max-w-sm">
-        <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter"]} />
+      <div className="flex items-center gap-3">
+        <div className="w-full max-w-sm">
+          <SearchInput placeholder="Search title, VIN, part number..." preserveParams={["filter"]} />
+        </div>
+        {fieldDefects.length > 0 && (
+          <ExportCsvButton
+            fileName="field-defects.csv"
+            headers={[
+              { key: "title", label: "Title" },
+              { key: "status", label: "Status" },
+              { key: "severity", label: "Severity" },
+              { key: "source", label: "Source" },
+              { key: "vin", label: "VIN" },
+              { key: "vehicleModel", label: "Vehicle" },
+              { key: "partNumber", label: "Part #" },
+              { key: "reportDate", label: "Report Date" },
+            ]}
+            rows={fieldDefects.map((fd) => ({
+              ...fd,
+              reportDate: fd.reportDate.toISOString(),
+              status: String(fd.status),
+              severity: String(fd.severity),
+              source: String(fd.source),
+              vin: fd.vin ?? "",
+              vehicleModel: fd.vehicleModel ?? "",
+              partNumber: fd.partNumber ?? "",
+            }))}
+            listVisibleFields={listVisibleFields}
+          />
+        )}
       </div>
 
       {fieldDefects.length === 0 ? (
@@ -109,6 +153,7 @@ export default async function SupplierFieldPage({
                 <Th>Vehicle</Th>
                 <Th>Part #</Th>
                 <Th>Report Date</Th>
+                <CustomFieldsTableHeaders fields={listVisibleFields} />
               </tr>
             </thead>
             <tbody>
@@ -138,6 +183,7 @@ export default async function SupplierFieldPage({
                       {fd.reportDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                     </span>
                   </Td>
+                  <CustomFieldsTableCells fields={listVisibleFields} customFields={fd.customFields ?? null} />
                 </tr>
               ))}
             </tbody>

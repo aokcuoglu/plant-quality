@@ -158,7 +158,7 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
         <p className="text-sm text-muted-foreground">Monitor SLA compliance, delay risks, and blocking stages across all active orders</p>
       </div>
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
         <KPICard title="Delayed" value={delayedCount} icon={AlertTriangle} color={delayedCount > 0 ? "destructive" : "muted"} />
         <KPICard title="At Risk" value={atRiskCount} icon={Clock} color={atRiskCount > 0 ? "warning" : "muted"} />
         <KPICard title="Blocked" value={blockedCount} icon={ShieldAlert} color={blockedCount > 0 ? "destructive" : "muted"} />
@@ -227,7 +227,7 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
                   return (
                     <tr key={summary.orderId} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <Link href={`/logistic/orders/${summary.orderId}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-emerald-500">
+                        <Link href={`/logistic/orders/${summary.orderId}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground">
                           {summary.orderNumber}
                           <ArrowUpRight className="size-3" />
                         </Link>
@@ -250,7 +250,7 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
                       </td>
                       <td className="px-4 py-3 text-sm">
                         {summary.daysUntilOrOverdue !== null ? (
-                          <span className={summary.daysUntilOrOverdue < 0 ? "text-destructive" : summary.daysUntilOrOverdue <= 7 ? "text-amber-600" : "text-muted-foreground"}>
+                          <span className={summary.daysUntilOrOverdue < 0 ? "text-destructive" : summary.daysUntilOrOverdue <= 7 ? "text-destructive" : "text-muted-foreground"}>
                             {formatDaysValue(summary.daysUntilOrOverdue)}
                           </span>
                         ) : (
@@ -292,9 +292,9 @@ function KPICard({
   title: string
   value: number
   icon: React.ComponentType<{ className?: string }>
-  color: "muted" | "destructive" | "warning" | "emerald"
+  color: "muted" | "destructive" | "warning" | "blue"
 }) {
-  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-amber-600" : color === "emerald" ? "text-emerald-600" : "text-foreground"
+  const colorClass = color === "destructive" ? "text-destructive" : color === "warning" ? "text-destructive" : color === "blue" ? "text-foreground" : "text-foreground"
   return (
     <div className="rounded-lg border bg-card p-4">
       <div className="flex items-center gap-2 text-muted-foreground">

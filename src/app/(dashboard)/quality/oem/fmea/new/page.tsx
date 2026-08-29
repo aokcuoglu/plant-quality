@@ -18,6 +18,7 @@ export default async function NewFmeaPage() {
     where: {
       type: "SUPPLIER",
       OR: [
+        { primaryOemId: session.user.companyId },
         { defectsAsSup: { some: { oemId: session.user.companyId } } },
         { ppapAsSup: { some: { oemId: session.user.companyId } } },
         { iqcAsSup: { some: { oemId: session.user.companyId } } },

@@ -91,7 +91,7 @@ export function UpgradeRequestDialog({
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Requested Plan</span>
-                <span className="font-medium text-emerald-500">{PLAN_LABELS[requestedPlan]}</span>
+                <span className="font-medium text-foreground">{PLAN_LABELS[requestedPlan]}</span>
               </div>
               {sourceFeature && (
                 <div className="flex items-center justify-between text-sm">
@@ -151,7 +151,7 @@ export function UpgradeRequestDialog({
               <Button
                 onClick={handleSubmit}
                 disabled={isPending}
-                className="bg-emerald-500 hover:bg-emerald-600"
+                className="bg-foreground text-background hover:bg-foreground/90"
               >
                 {isPending ? "Submitting..." : "Submit Request"}
               </Button>

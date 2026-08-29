@@ -72,28 +72,28 @@ export const EXTERNAL_DELAY_STATUS_LABELS: Record<ExternalDelayStatus, string> =
 }
 
 export const SLA_STATUS_COLORS: Record<SlaStatus, string> = {
-  ON_TRACK: "bg-emerald-500/10 text-emerald-600",
-  AT_RISK: "bg-amber-500/10 text-amber-600",
-  DELAYED: "bg-red-500/10 text-red-600",
-  BLOCKED: "bg-red-500/10 text-red-700",
-  DELIVERED: "bg-green-500/10 text-green-600",
+  ON_TRACK: "bg-muted text-muted-foreground",
+  AT_RISK: "bg-muted text-muted-foreground",
+  DELAYED: "bg-destructive/10 text-destructive",
+  BLOCKED: "bg-destructive/10 text-destructive",
+  DELIVERED: "bg-muted text-muted-foreground",
   CANCELLED: "bg-muted text-muted-foreground",
 }
 
 export const RISK_LEVEL_COLORS: Record<RiskLevel, string> = {
-  LOW: "bg-emerald-500/10 text-emerald-600",
-  MEDIUM: "bg-amber-500/10 text-amber-600",
-  HIGH: "bg-orange-500/10 text-orange-600",
-  CRITICAL: "bg-red-500/10 text-red-600",
+  LOW: "bg-muted text-muted-foreground",
+  MEDIUM: "bg-muted text-muted-foreground",
+  HIGH: "bg-destructive/10 text-destructive",
+  CRITICAL: "bg-destructive/10 text-destructive",
 }
 
 export const EXTERNAL_DELAY_STATUS_COLORS: Record<ExternalDelayStatus, string> = {
-  ON_TRACK: "bg-emerald-500/10 text-emerald-600",
-  AT_RISK: "bg-amber-500/10 text-amber-600",
-  DELAYED: "bg-red-500/10 text-red-600",
-  IN_TRANSIT: "bg-indigo-500/10 text-indigo-600",
-  DELIVERED: "bg-green-500/10 text-green-600",
-  CONTACT_OEM: "bg-red-500/10 text-red-600",
+  ON_TRACK: "bg-muted text-muted-foreground",
+  AT_RISK: "bg-muted text-muted-foreground",
+  DELAYED: "bg-destructive/10 text-destructive",
+  IN_TRANSIT: "bg-accent text-accent-foreground",
+  DELIVERED: "bg-muted text-muted-foreground",
+  CONTACT_OEM: "bg-destructive/10 text-destructive",
 }
 
 export const DELIVERED_STATUSES: LogisticOrderStatus[] = ["DELIVERED", "CLOSED"]

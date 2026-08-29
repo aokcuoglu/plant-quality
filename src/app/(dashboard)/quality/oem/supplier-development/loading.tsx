@@ -14,7 +14,7 @@ export default async function SupplierDevelopmentLoading() {
         </div>
         <div className="h-9 w-32 bg-muted animate-pulse rounded-md" />
       </div>
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-4">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="rounded-lg border bg-card p-4 space-y-2">
             <div className="h-4 w-24 bg-muted animate-pulse rounded" />

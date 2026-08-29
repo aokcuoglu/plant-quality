@@ -55,11 +55,11 @@ export const IQC_CHECKLIST_RESULT_LABELS: Record<string, string> = {
 export function getIqcStatusColor(status: string): string {
   switch (status) {
     case "COMPLETED":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "CANCELLED":
-      return "bg-red-500/10 text-red-400"
+      return "bg-destructive/10 text-destructive"
     case "IN_PROGRESS":
-      return "bg-blue-500/10 text-blue-400"
+      return "bg-muted text-muted-foreground"
     case "PLANNED":
       return "bg-cyan-500/10 text-cyan-400"
     case "DRAFT":
@@ -72,15 +72,15 @@ export function getIqcStatusColor(status: string): string {
 export function getIqcResultColor(result: string | null): string {
   switch (result) {
     case "ACCEPTED":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "CONDITIONAL_ACCEPTED":
-      return "bg-amber-500/10 text-amber-400"
+      return "bg-destructive/10 text-destructive"
     case "REJECTED":
-      return "bg-red-500/10 text-red-400"
+      return "bg-destructive/10 text-destructive"
     case "ON_HOLD":
-      return "bg-orange-500/10 text-orange-400"
+      return "bg-destructive/10 text-destructive"
     case "REWORK_REQUIRED":
-      return "bg-orange-500/10 text-orange-400"
+      return "bg-destructive/10 text-destructive"
     case "SORTING_REQUIRED":
       return "bg-yellow-500/10 text-yellow-400"
     default:
@@ -91,9 +91,9 @@ export function getIqcResultColor(result: string | null): string {
 export function getIqcChecklistResultColor(result: string): string {
   switch (result) {
     case "OK":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "NOK":
-      return "bg-red-500/10 text-red-400"
+      return "bg-destructive/10 text-destructive"
     case "NA":
       return "bg-muted text-muted-foreground"
     default:

@@ -90,13 +90,13 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
               <dt className="text-muted-foreground">Total Rows</dt>
               <dd className="text-foreground">{rows.length}</dd>
               <dt className="text-muted-foreground">Max RPN</dt>
-              <dd className={`font-semibold ${maxRpn >= 200 ? "text-red-400" : maxRpn >= 100 ? "text-amber-400" : "text-emerald-400"}`}>{maxRpn || "—"}</dd>
+              <dd className={`font-semibold ${maxRpn >= 200 ? "text-destructive" : maxRpn >= 100 ? "text-destructive" : "text-foreground"}`}>{maxRpn || "—"}</dd>
               <dt className="text-muted-foreground">Open Actions</dt>
               <dd className="text-foreground">{openActions}</dd>
               <dt className="text-muted-foreground">Completed Actions</dt>
               <dd className="text-foreground">{completedActions}</dd>
               <dt className="text-muted-foreground">Due Date</dt>
-              <dd className={overdue ? "text-red-400" : "text-foreground"}>
+              <dd className={overdue ? "text-destructive" : "text-foreground"}>
                 {fmea.dueDate ? fmea.dueDate.toLocaleDateString() : "—"}
                 {overdue && " (Overdue)"}
               </dd>
@@ -105,7 +105,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
               {fmea.submittedAt && <><dt className="text-muted-foreground">Submitted</dt><dd className="text-foreground">{fmea.submittedAt.toLocaleDateString()}</dd></>}
               {fmea.reviewedAt && <><dt className="text-muted-foreground">Reviewed</dt><dd className="text-foreground">{fmea.reviewedAt.toLocaleDateString()}</dd></>}
               {fmea.approvedAt && <><dt className="text-muted-foreground">Approved</dt><dd className="text-foreground">{fmea.approvedAt.toLocaleDateString()}</dd></>}
-              {fmea.rejectionReason && <><dt className="text-muted-foreground">Rejection Reason</dt><dd className="text-red-400">{fmea.rejectionReason}</dd></>}
+              {fmea.rejectionReason && <><dt className="text-muted-foreground">Rejection Reason</dt><dd className="text-destructive">{fmea.rejectionReason}</dd></>}
             </dl>
           </div>
 
@@ -140,7 +140,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
               </thead>
               <tbody className="divide-y divide-border">
                 {rows.map((row, i) => (
-                  <tr key={row.id ?? i} className={Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-red-500/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-amber-500/5" : ""}>
+                  <tr key={row.id ?? i} className={Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : ""}>
                     {fmea.fmeaType === "PROCESS" && <td className="px-2 py-2 text-foreground">{row.processStep ?? "—"}</td>}
                     <td className="max-w-[200px] truncate px-2 py-2 text-foreground">{row.failureMode || "—"}</td>
                     <td className="max-w-[200px] truncate px-2 py-2 text-muted-foreground">{row.failureEffect || "—"}</td>
@@ -149,7 +149,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
                     <td className="px-2 py-2 text-center text-foreground">{row.occurrence}</td>
                     <td className="px-2 py-2 text-muted-foreground">{(row.preventionControl ?? row.currentControl) || "—"}</td>
                     <td className="px-2 py-2 text-center text-foreground">{row.detection}</td>
-                    <td className={`px-2 py-2 text-center font-semibold ${row.rpn >= 200 ? "text-red-400" : row.rpn >= 100 ? "text-amber-400" : "text-emerald-400"}`}>{row.rpn}</td>
+                    <td className={`px-2 py-2 text-center font-semibold ${row.rpn >= 200 ? "text-destructive" : row.rpn >= 100 ? "text-destructive" : "text-foreground"}`}>{row.rpn}</td>
                     <td className="px-2 py-2 text-muted-foreground">{row.recommendedAction || "—"}</td>
                     <td className="px-2 py-2">
                           <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${getActionStatusColor((row.actionStatus ?? "OPEN") as FmeaActionStatus)}`}>
@@ -159,7 +159,7 @@ export default async function SupplierFmeaDetailPage({ params }: { params: Promi
                     <td className="px-2 py-2 text-center text-foreground">{row.revisedSeverity ?? "—"}</td>
                     <td className="px-2 py-2 text-center text-foreground">{row.revisedOccurrence ?? "—"}</td>
                     <td className="px-2 py-2 text-center text-foreground">{row.revisedDetection ?? "—"}</td>
-                    <td className={`px-2 py-2 text-center font-semibold ${(row.revisedRpn ?? 0) >= 200 ? "text-red-400" : (row.revisedRpn ?? 0) >= 100 ? "text-amber-400" : row.revisedRpn != null ? "text-emerald-400" : ""}`}>{row.revisedRpn ?? "—"}</td>
+                    <td className={`px-2 py-2 text-center font-semibold ${(row.revisedRpn ?? 0) >= 200 ? "text-destructive" : (row.revisedRpn ?? 0) >= 100 ? "text-destructive" : row.revisedRpn != null ? "text-foreground" : ""}`}>{row.revisedRpn ?? "—"}</td>
                     <td className="max-w-[150px] truncate px-2 py-2 text-muted-foreground">{row.supplierComment || "—"}</td>
                     <td className="max-w-[150px] truncate px-2 py-2 text-muted-foreground">{row.oemComment || "—"}</td>
                   </tr>

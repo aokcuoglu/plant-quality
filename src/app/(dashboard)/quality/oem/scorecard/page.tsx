@@ -37,10 +37,10 @@ function RiskBadge({ level }: { level: string }) {
 
 function ScoreBar({ score }: { score: number }) {
   const safeScore = Math.max(0, Math.min(100, Number.isFinite(score) ? score : 0))
-  let barColor = "bg-emerald-500"
-  if (safeScore < 40) barColor = "bg-red-500"
-  else if (safeScore < 60) barColor = "bg-orange-500"
-  else if (safeScore < 80) barColor = "bg-amber-500"
+  let barColor = "bg-foreground"
+  if (safeScore < 40) barColor = "bg-destructive"
+  else if (safeScore < 60) barColor = "bg-destructive/60"
+  else if (safeScore < 80) barColor = "bg-destructive"
 
   return (
     <div className="flex items-center gap-2">
@@ -54,9 +54,9 @@ function ScoreBar({ score }: { score: number }) {
 
 function SignalBadge({ signal }: { signal: { label: string; count: number; severity: string } }) {
   const severityColors: Record<string, string> = {
-    critical: "bg-red-500/10 text-red-500 border-red-500/20",
-    high: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-    medium: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+    critical: "bg-destructive/10 text-destructive border-destructive/20",
+    high: "bg-destructive/10 text-destructive border-destructive/20",
+    medium: "bg-destructive/10 text-destructive border-destructive/20",
     low: "bg-muted text-muted-foreground border-border",
   }
   const className = severityColors[signal.severity] ?? severityColors.low
@@ -118,7 +118,7 @@ export default async function SupplierScorecardPage() {
         description="Deterministic supplier quality scoring across field defects, 8D, IQC, PPAP, FMEA, and SLA signals"
       />
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-4">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
         <DashboardCard
           title="Suppliers Monitored"
           value={data.suppliersMonitored}
@@ -215,7 +215,7 @@ function SupplierRow({ supplier }: { supplier: SupplierScorecard }) {
         <span className="text-sm text-muted-foreground">{supplier.recommendedAction}</span>
       </td>
       <td className="px-4 py-3 text-right">
-        <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+        <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground transition-colors">
           Detail <ArrowRightIcon className="h-3 w-3" />
         </Link>
       </td>

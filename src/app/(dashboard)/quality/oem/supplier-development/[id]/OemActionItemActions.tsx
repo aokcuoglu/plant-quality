@@ -30,17 +30,17 @@ export function OemActionItemActions({ itemId, planId, status, ownerType }: { it
   return (
     <div className="flex flex-wrap gap-1">
       {canMarkComplete && status === "OPEN" && (
-        <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-emerald-500 transition-colors px-1.5 py-0.5 rounded border border-border hover:border-emerald-500/20 disabled:opacity-50">
+        <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
           Start
         </button>
       )}
       {canMarkComplete && (
-        <button onClick={() => handleStatusUpdate("COMPLETED")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-emerald-500 transition-colors px-1.5 py-0.5 rounded border border-border hover:border-emerald-500/20 disabled:opacity-50">
+        <button onClick={() => handleStatusUpdate("COMPLETED")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
           Complete
         </button>
       )}
       {canAccept && (
-        <button onClick={() => handleStatusUpdate("ACCEPTED")} disabled={isSubmitting !== null} className="text-xs text-emerald-600 hover:text-emerald-700 transition-colors px-1.5 py-0.5 rounded border border-emerald-500/20 hover:border-emerald-500/40 disabled:opacity-50">
+        <button onClick={() => handleStatusUpdate("ACCEPTED")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
           Accept
         </button>
       )}

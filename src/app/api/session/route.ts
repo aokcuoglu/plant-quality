@@ -26,9 +26,9 @@ export async function GET(request: Request) {
       image: (token.picture as string) ?? null,
       role: token.role as Role,
       plan: token.plan as Plan,
-      companyId: token.companyId as string,
-      companyName: token.companyName as string,
-      companyType: token.companyType as CompanyType,
+      companyId: (token.companyId as string) ?? "",
+      companyName: (token.companyName as string) ?? "",
+      companyType: (token.companyType as CompanyType) ?? "OEM",
     },
     expires,
   })

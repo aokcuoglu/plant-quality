@@ -1,23 +1,24 @@
 # PlantX — Agent Reference
 
-> Last updated: 2026-04-25
-## Docker Development Environment
+> Last updated: 2026-08-28
+## Development Environment
 
-This project runs locally via Docker Compose on Orbstack (macOS).
+This project runs locally via Orbstack (macOS). PostgreSQL is provided by Orbstack's local database; other services run via Docker Compose.
 
 ### Architecture
 
 | Service    | Image                 | Host Port   | Purpose                  |
 |------------|----------------------|-------------|--------------------------|
 | `app`      | `plant-quality-app`  | `3000`      | Next.js 16 application   |
-| `db`       | `postgres:16-alpine` | `5432`      | PostgreSQL database      |
 | `minio`    | `minio/minio`        | `9000/9001` | S3-compatible storage    |
 | `mailpit`  | `axllent/mailpit`    | `1025/8025` | SMTP catcher + web UI    |
+
+PostgreSQL runs locally via Orbstack on `localhost:5432`.
 
 ### Quick Start
 
 ```bash
-docker-compose up -d          # Start everything
+docker-compose up -d          # Start everything (app, minio, mailpit)
 docker-compose logs -f app  # Tail app logs
 docker-compose down -v      # Stop + remove volumes
 ```
@@ -34,7 +35,8 @@ docker-compose down -v      # Stop + remove volumes
 
 ### Environment
 
-- `.env.docker` — used **only** by Docker Compose (never commit!)
+- `.env` — local development (uses Orbstack PostgreSQL)
+- `.env.docker` — used by Docker Compose (never commit!)
 - `.env.docker.example` — template for new developers
 
 ### Build Notes
@@ -52,7 +54,7 @@ docker-compose down -v      # Stop + remove volumes
 docker-compose up -d --build app
 ```
 
-This single command rebuilds the app image and restarts the container. Other services (db, minio, mailpit) are unaffected.
+This single command rebuilds the app image and restarts the container. Other services (minio, mailpit) are unaffected.
 
 If only the database schema changed (Prisma migrations), a simpler restart suffices:
 
@@ -73,19 +75,27 @@ Two login methods are available:
 
 ### Database
 
+PostgreSQL runs in a dedicated Orbstack container `plantx-postgres-local` (port `5432`).
+
 ```bash
 # Connect from host
-psql -h localhost -U postgres -d plantx
+PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres -d plantx
 
-# Connect from another container
-docker exec -it plantx-db psql -U postgres -d plantx
+# Start the container if not running
+docker start plantx-postgres-local
+```
+
+Make sure the `plantx` database exists:
+
+```bash
+docker exec plantx-postgres-local psql -U postgres -c "CREATE DATABASE plantx;"
 ```
 
 ### Troubleshooting
 
 | Issue                              | Fix                                                  |
 |------------------------------------|------------------------------------------------------|
-| Connection refused (PostgreSQL)    | Ensure port `5432` is mapped in docker-compose.yml   |
+| Connection refused (PostgreSQL)    | Ensure Orbstack PostgreSQL is running on `localhost:5432` |
 | CSRF errors during login           | `trustHost: true` is set in `src/lib/auth.ts`        |
 | `Missing env: R2_ACCOUNT_ID` build | `.env.docker` is injected during build stage         |
 | Verification link fails            | Check `AUTH_URL` matches actual host:port          |
@@ -96,7 +106,7 @@ docker exec -it plantx-db psql -U postgres -d plantx
 
 ```bash
 docker-compose down -v
-rm -rf postgres_data minio_data
+rm -rf minio_data
 docker-compose up -d --build
 ```
 
@@ -113,6 +123,8 @@ Do NOT use `.env.docker` in production. Replace with:
 
 - Previously used Supabase PostgreSQL directly during dev
 - Previously ran `npm run dev` on host machine
+- Previously used Docker Compose `postgres:16-alpine` container for local DB
+- Now uses Orbstack local PostgreSQL; Docker Compose handles app, minio, mailpit only
 - Now fully containerized for clean, reproducible local stacks
 
 ---
@@ -145,7 +157,7 @@ For every change, verify the following. Flag any violation with the file path an
    - [ ] No data is returned to the client that belongs to a different `companyId`.
 
 2. **Server vs. Client Boundaries**
-   - [ ] `'use client'` is only used when necessary (interactivity, hooks, browser APIs). Data fetching should happen in Server Components.
+   - [ ] `'use client'` is only when necessary (interactivity, hooks, browser APIs). Data fetching should happen in Server Components.
    - [ ] `"use server"` files do not import client-only modules (React hooks, browser APIs, `window`, `document`).
    - [ ] Serializing JSONB to the client uses safe parsing; `JSON.stringify` is used for initial props where needed.
 
@@ -297,8 +309,6 @@ Dashboard (any page under /app/(dashboard)):
 | **Loading skeleton** | `bg-muted` / `bg-muted/60` with `animate-pulse` |
 | **Empty state** | Centered icon (`text-muted-foreground/50`) + message + CTA button |
 
----
-
 ### Typography Patterns
 
 | Hierarchy | Tailwind |
@@ -311,8 +321,6 @@ Dashboard (any page under /app/(dashboard)):
 | Badge / pill | `text-[10px] font-semibold tracking-wider uppercase` |
 | Table header | `text-xs font-medium uppercase tracking-wider text-muted-foreground` |
 | Big metric value | `text-3xl font-bold tracking-tight text-foreground` |
-
----
 
 ### Existing Components — REUSE BEFORE REBUILD
 

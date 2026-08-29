@@ -24,9 +24,10 @@ const DEFAULT_MILESTONES: {
   { gate: "ELECTRICAL", title: "Electrical", sequence: 4 },
   { gate: "POWERTRAIN", title: "Powertrain / Drivetrain", sequence: 5 },
   { gate: "EOL_TEST", title: "EOL Test", sequence: 6 },
-  { gate: "PDI", title: "PDI", sequence: 7 },
-  { gate: "FINAL_QUALITY", title: "Final Quality Gate", sequence: 8 },
-  { gate: "YARD_READY", title: "Yard / Ready", sequence: 9 },
+  { gate: "WASH", title: "Washing", sequence: 7 },
+  { gate: "PDI", title: "PDI", sequence: 8 },
+  { gate: "FINAL_QUALITY", title: "Final Quality Gate", sequence: 9 },
+  { gate: "YARD_READY", title: "Yard / Ready", sequence: 10 },
 ]
 
 export async function seedDefaultMilestonesForOrder(orderId: string) {

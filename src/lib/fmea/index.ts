@@ -30,19 +30,19 @@ export function getFmeaStatusColor(status: FmeaStatus): string {
     case "DRAFT":
       return "bg-muted text-muted-foreground"
     case "REQUESTED":
-      return "bg-blue-500/10 text-blue-400"
+      return "bg-muted text-muted-foreground"
     case "SUPPLIER_IN_PROGRESS":
-      return "bg-amber-500/10 text-amber-400"
+      return "bg-destructive/10 text-destructive"
     case "SUBMITTED":
-      return "bg-amber-500/10 text-amber-400"
+      return "bg-destructive/10 text-destructive"
     case "UNDER_REVIEW":
-      return "bg-blue-500/10 text-blue-400"
+      return "bg-muted text-muted-foreground"
     case "REVISION_REQUIRED":
-      return "bg-orange-500/10 text-orange-400"
+      return "bg-destructive/10 text-destructive"
     case "APPROVED":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "REJECTED":
-      return "bg-red-500/10 text-red-400"
+      return "bg-destructive/10 text-destructive"
     case "ARCHIVED":
       return "bg-muted text-muted-foreground"
     case "CANCELLED":
@@ -53,15 +53,15 @@ export function getFmeaStatusColor(status: FmeaStatus): string {
 }
 
 export function getRpnColor(rpn: number): string {
-  if (rpn >= 200) return "text-red-400"
-  if (rpn >= 100) return "text-amber-400"
-  return "text-emerald-400"
+  if (rpn >= 200) return "text-destructive"
+  if (rpn >= 100) return "text-destructive"
+  return "text-foreground"
 }
 
 export function getRpnBg(rpn: number): string {
-  if (rpn >= 200) return "bg-red-500/10 text-red-400"
-  if (rpn >= 100) return "bg-amber-500/10 text-amber-400"
-  return "bg-emerald-500/10 text-emerald-400"
+  if (rpn >= 200) return "bg-destructive/10 text-destructive"
+  if (rpn >= 100) return "bg-destructive/10 text-destructive"
+  return "bg-muted text-muted-foreground"
 }
 
 export function getActionStatusColor(status: FmeaActionStatus): string {
@@ -69,9 +69,9 @@ export function getActionStatusColor(status: FmeaActionStatus): string {
     case "OPEN":
       return "bg-muted text-muted-foreground"
     case "IN_PROGRESS":
-      return "bg-amber-500/10 text-amber-400"
+      return "bg-destructive/10 text-destructive"
     case "COMPLETED":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "CANCELLED":
       return "bg-muted text-muted-foreground"
     default:

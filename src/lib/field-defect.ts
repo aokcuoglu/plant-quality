@@ -40,8 +40,8 @@ export const FIELD_DEFECT_SEVERITY_COLORS: Record<
     bg: "bg-primary/10 text-primary",
   },
   MAJOR: {
-    dot: "bg-amber-500",
-    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive dark:text-destructive",
   },
   CRITICAL: {
     dot: "bg-destructive",
@@ -62,20 +62,20 @@ export const FIELD_DEFECT_STATUS_COLORS: Record<
     bg: "bg-destructive/10 text-destructive",
   },
   UNDER_REVIEW: {
-    dot: "bg-amber-500",
-    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive dark:text-destructive",
   },
   SUPPLIER_ASSIGNED: {
     dot: "bg-primary",
     bg: "bg-primary/10 text-primary",
   },
   LINKED_TO_8D: {
-    dot: "bg-emerald-500",
-    bg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    dot: "bg-foreground",
+    bg: "bg-muted text-muted-foreground dark:text-foreground",
   },
   CLOSED: {
-    dot: "bg-emerald-500",
-    bg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    dot: "bg-foreground",
+    bg: "bg-muted text-muted-foreground dark:text-foreground",
   },
   CANCELLED: {
     dot: "bg-muted-foreground",

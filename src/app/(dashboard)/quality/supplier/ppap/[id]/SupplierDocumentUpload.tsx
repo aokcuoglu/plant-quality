@@ -129,13 +129,13 @@ export function SupplierDocumentUpload({
       </div>
 
       {evidence.oemComment && (
-        <div className="rounded border border-amber-500/20 bg-amber-500/5 px-2 py-1 text-xs text-amber-400">
+        <div className="rounded border border-destructive/20 bg-destructive/5 px-2 py-1 text-xs text-destructive">
           OEM: {evidence.oemComment}
         </div>
       )}
 
       {error && (
-        <div className="rounded border border-red-500/20 bg-red-500/5 px-2 py-1 text-xs text-red-400">
+        <div className="rounded border border-destructive/20 bg-destructive/5 px-2 py-1 text-xs text-destructive">
           {error}
         </div>
       )}
@@ -164,7 +164,7 @@ export function SupplierDocumentUpload({
               <button
                 onClick={handleUpload}
                 disabled={uploading}
-                className="rounded-md bg-emerald-500 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-600 disabled:opacity-50"
+                className="rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-white hover:bg-foreground/90 disabled:opacity-50"
               >
                 {uploading ? "Uploading..." : "Upload"}
               </button>
@@ -174,10 +174,10 @@ export function SupplierDocumentUpload({
       )}
 
       {evidence.status === "APPROVED" && (
-        <div className="text-xs text-emerald-400">Document approved by OEM</div>
+        <div className="text-xs text-foreground">Document approved by OEM</div>
       )}
       {evidence.status === "REJECTED" && (
-        <div className="text-xs text-red-400">Document rejected by OEM{evidence.oemComment ? `: ${evidence.oemComment}` : ""}</div>
+        <div className="text-xs text-destructive">Document rejected by OEM{evidence.oemComment ? `: ${evidence.oemComment}` : ""}</div>
       )}
       {evidence.status === "UPLOADED" && !canUploadThis && (
         <div className="text-xs text-muted-foreground">Awaiting OEM review</div>

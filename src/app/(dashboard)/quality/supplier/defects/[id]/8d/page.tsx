@@ -69,11 +69,11 @@ export default async function EightDReportPage({
       </Link>
 
       {defect.status === "REJECTED" && (
-        <div className="rounded-lg border border-rose-200 bg-rose-50/50 px-4 py-3 dark:border-rose-900 dark:bg-rose-950/10">
-          <p className="text-sm font-medium text-rose-700 dark:text-rose-400">
+        <div className="rounded-lg border border-border bg-muted/50 px-4 py-3 dark:border-rose-900 dark:bg-rose-950/10">
+          <p className="text-sm font-medium text-destructive dark:text-destructive">
             Revision Requested
           </p>
-          <p className="mt-1 text-xs text-rose-600 dark:text-rose-500">
+          <p className="mt-1 text-xs text-destructive dark:text-destructive">
             The customer has requested changes. Please review their comments below, update the relevant sections, and resubmit the report.
           </p>
         </div>

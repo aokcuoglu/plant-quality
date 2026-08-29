@@ -20,9 +20,9 @@ interface UpgradeRequestRow {
 }
 
 const STATUS_STYLES: Record<UpgradeRequestStatus, string> = {
-  OPEN: "bg-blue-500/10 text-blue-500",
-  CONTACTED: "bg-amber-500/10 text-amber-500",
-  APPROVED: "bg-emerald-500/10 text-emerald-500",
+  OPEN: "bg-muted text-muted-foreground",
+  CONTACTED: "bg-destructive/10 text-destructive",
+  APPROVED: "bg-muted text-muted-foreground",
   REJECTED: "bg-destructive/10 text-destructive",
   CLOSED: "bg-muted text-muted-foreground",
 }
@@ -102,7 +102,7 @@ export function UpgradeRequestList({ requests }: { requests: UpgradeRequestRow[]
                   {PLAN_LABELS[req.currentPlan] ?? req.currentPlan}
                 </span>
                 <span className="text-xs text-muted-foreground">&rarr;</span>
-                <span className="text-sm font-medium text-emerald-500">
+                <span className="text-sm font-medium text-foreground">
                   {PLAN_LABELS[req.requestedPlan] ?? req.requestedPlan}
                 </span>
                 {req.sourceFeature && (

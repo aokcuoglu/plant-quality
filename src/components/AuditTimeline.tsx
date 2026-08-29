@@ -55,10 +55,60 @@ function formatMetadataSummary(metadata: unknown): string | null {
   return parts.length > 0 ? parts.join(" · ") : null
 }
 
+function groupTimelineEvents(events: AuditTimelineEvent[]): AuditTimelineEvent[] {
+  const COALESCE_MS = 5 * 60 * 1000 // 5 minutes
+  const grouped: AuditTimelineEvent[] = []
+  let i = 0
+
+  while (i < events.length) {
+    const current = events[i]
+    if (current.type !== "EIGHT_D_STEP_SAVED") {
+      grouped.push(current)
+      i++
+      continue
+    }
+
+    const actorId = current.actor?.email ?? current.actor?.name ?? ""
+    const batch: AuditTimelineEvent[] = [current]
+    let j = i + 1
+    while (j < events.length) {
+      const next = events[j]
+      if (
+        next.type === "EIGHT_D_STEP_SAVED" &&
+        (next.actor?.email ?? next.actor?.name ?? "") === actorId &&
+        new Date(next.createdAt).getTime() - new Date(current.createdAt).getTime() <= COALESCE_MS
+      ) {
+        batch.push(next)
+        j++
+      } else {
+        break
+      }
+    }
+
+    if (batch.length === 1) {
+      grouped.push(current)
+    } else {
+      const last = batch[batch.length - 1]
+      grouped.push({
+        ...last,
+        metadata: {
+          ...(isRecord(last.metadata) ? last.metadata : {}),
+          groupCount: batch.length,
+        } as unknown,
+      })
+    }
+
+    i = j
+  }
+
+  return grouped
+}
+
 export function AuditTimeline({ events, initialLimit = DEFAULT_LIMIT }: AuditTimelineProps) {
   const [showAll, setShowAll] = useState(false)
   const sorted = [...events].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-  const visible = showAll ? sorted : sorted.slice(0, initialLimit)
+  const grouped = groupTimelineEvents(sorted)
+  const visible = showAll ? grouped : grouped.slice(0, initialLimit)
 
   if (events.length === 0) {
     return (
@@ -72,7 +122,9 @@ export function AuditTimeline({ events, initialLimit = DEFAULT_LIMIT }: AuditTim
     <div className="space-y-3">
       <div className="divide-y rounded-lg border bg-card">
         {visible.map((event) => {
-          const meta = (EVENT_META[event.type] as EventMeta | undefined) ?? { label: event.type.replace(/_/g, " ").toLowerCase(), description: "", icon: () => null, iconColor: "text-muted-foreground" }
+          const isGroup = isRecord(event.metadata) && typeof event.metadata.groupCount === "number"
+          const metaType = isGroup ? "EIGHT_D_STEP_SAVED" : event.type
+          const meta = (EVENT_META[metaType] as EventMeta | undefined) ?? { label: event.type.replace(/_/g, " ").toLowerCase(), description: "", icon: () => null, iconColor: "text-muted-foreground" }
           const Icon = meta.icon
           const actorName = event.actor?.name || event.actor?.email || "System"
           const time = formatEventDate(event.createdAt)
@@ -85,7 +137,7 @@ export function AuditTimeline({ events, initialLimit = DEFAULT_LIMIT }: AuditTim
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-foreground">
-                  {meta.label}
+                  {isGroup ? `8D Report Updated` : meta.label}
                 </p>
                 {detail && (
                   <p className="text-xs text-muted-foreground mt-0.5">{detail}</p>
@@ -98,13 +150,13 @@ export function AuditTimeline({ events, initialLimit = DEFAULT_LIMIT }: AuditTim
           )
         })}
       </div>
-      {events.length > initialLimit && (
+      {grouped.length > initialLimit && (
         <button
           type="button"
           onClick={() => setShowAll(!showAll)}
           className="text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
-          {showAll ? "Show less" : `Show all ${events.length} events`}
+          {showAll ? "Show less" : `Show all ${grouped.length} events`}
         </button>
       )}
     </div>

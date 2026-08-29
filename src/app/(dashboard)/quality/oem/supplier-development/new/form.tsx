@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/layout/PageHeader"
 import { Button } from "@/components/ui/button"
 import { createDevPlan } from "@/app/(dashboard)/quality/oem/supplier-development/actions/plan"
 import type { DevPlanSourceType, DevPlanPriority, DevActionOwnerType } from "@/lib/supplier-development/client"
+import { DatePicker } from "@/components/ui/date-picker"
 
 interface Supplier { id: string; name: string }
 interface OemUser { id: string; name: string | null }
@@ -131,7 +132,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
                 placeholder="e.g. Quality Improvement Plan Q2 2026"
                 required
               />
@@ -142,7 +143,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
               <select
                 value={supplierId}
                 onChange={(e) => setSupplierId(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
                 required
               >
                 <option value="">Select supplier</option>
@@ -157,7 +158,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as DevPlanPriority)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -168,12 +169,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Due Date</label>
-              <input
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-              />
+              <DatePicker value={dueDate} onChange={setDueDate} placeholder="mm / dd / yyyy" />
             </div>
 
             <div className="space-y-1.5">
@@ -181,7 +177,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
               <select
                 value={sourceType}
                 onChange={(e) => setSourceType(e.target.value as DevPlanSourceType | "")}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
               >
                 <option value="">None</option>
                 {Object.entries(SOURCE_TYPE_LABELS).map(([key, label]) => (
@@ -195,7 +191,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
               <select
                 value={ownerId}
                 onChange={(e) => setOwnerId(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
               >
                 <option value="">Unassigned</option>
                 {oemUsers.map((u) => (
@@ -210,7 +206,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
                 placeholder="Describe the improvement goals and context for this plan..."
               />
             </div>
@@ -220,11 +216,11 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
             <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Initial Status</label>
             <div className="flex gap-3">
               <label className="flex items-center gap-2 text-sm text-foreground">
-                <input type="radio" name="initialStatus" value="DRAFT" checked={status === "DRAFT"} onChange={() => setStatus("DRAFT")} className="accent-emerald-500" />
+                <input type="radio" name="initialStatus" value="DRAFT" checked={status === "DRAFT"} onChange={() => setStatus("DRAFT")} className="accent-blue-600" />
                 Draft
               </label>
               <label className="flex items-center gap-2 text-sm text-foreground">
-                <input type="radio" name="initialStatus" value="OPEN" checked={status === "OPEN"} onChange={() => setStatus("OPEN")} className="accent-emerald-500" />
+                <input type="radio" name="initialStatus" value="OPEN" checked={status === "OPEN"} onChange={() => setStatus("OPEN")} className="accent-blue-600" />
                 Open (visible to supplier immediately)
               </label>
             </div>
@@ -257,7 +253,7 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
                         type="text"
                         value={item.title}
                         onChange={(e) => updateActionItem(item.id, "title", e.target.value)}
-                        className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                        className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
                         placeholder="Action item title"
                       />
                     </div>
@@ -265,24 +261,19 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
                       <select
                         value={item.ownerType}
                         onChange={(e) => updateActionItem(item.id, "ownerType", e.target.value)}
-                        className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                        className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
                       >
                         <option value="OEM">OEM</option>
                         <option value="SUPPLIER">Supplier</option>
                       </select>
-                      <input
-                        type="date"
-                        value={item.dueDate}
-                        onChange={(e) => updateActionItem(item.id, "dueDate", e.target.value)}
-                        className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-                      />
+                      <DatePicker value={item.dueDate} onChange={(d) => updateActionItem(item.id, "dueDate", d)} placeholder="mm / dd / yyyy" />
                     </div>
                     <div className="sm:col-span-2">
                       <input
                         type="text"
                         value={item.description}
                         onChange={(e) => updateActionItem(item.id, "description", e.target.value)}
-                        className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                        className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
                         placeholder="Description (optional)"
                       />
                     </div>

@@ -64,7 +64,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
 
   return (
     <>
-      <Button type="button" onClick={() => setOpen(true)} className="w-full bg-emerald-500/10 text-emerald-400 border border-emerald-400/30 hover:bg-emerald-500/20">
+      <Button type="button" onClick={() => setOpen(true)} className="w-full bg-muted text-muted-foreground border border-border hover:bg-foreground/20">
         Complete Inspection
       </Button>
 
@@ -78,18 +78,18 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
           </DialogHeader>
 
           {error && (
-            <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-xs text-red-400">{error}</div>
+            <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-xs text-destructive">{error}</div>
           )}
 
           {hasNokItems && (
-            <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-400">
+            <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-xs text-destructive">
               This inspection has NOK checklist items. Accepted is unavailable while checklist contains NOK items.
             </div>
           )}
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Result <span className="text-red-400">*</span></label>
+              <label className="text-sm font-medium text-foreground">Result <span className="text-destructive">*</span></label>
               <div className="space-y-1">
                 {RESULT_OPTIONS.map((opt) => {
                   const isDisabled = opt.value === "ACCEPTED" && acceptedDisabled
@@ -100,7 +100,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
                         isDisabled
                           ? "border-border bg-muted/50 opacity-50 cursor-not-allowed"
                           : result === opt.value
-                            ? "border-emerald-400/50 bg-emerald-500/10 text-foreground"
+                            ? "border-border bg-muted text-foreground"
                             : "border-border bg-background text-foreground hover:bg-muted/50"
                       }`}
                     >
@@ -111,7 +111,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
                         checked={result === opt.value}
                         onChange={() => !isDisabled && setResult(opt.value)}
                         disabled={isDisabled}
-                        className="accent-emerald-500"
+                        className="accent-blue-600"
                       />
                       <span className={isDisabled ? "line-through" : ""}>{opt.label}</span>
                     </label>

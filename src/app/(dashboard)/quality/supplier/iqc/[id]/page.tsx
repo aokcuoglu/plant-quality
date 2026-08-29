@@ -121,8 +121,8 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-medium text-foreground">Checklist</h2>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span className="text-emerald-400">{checklistSummary.ok} OK</span>
-                <span className="text-red-400">{checklistSummary.nok} NOK</span>
+                <span className="text-foreground">{checklistSummary.ok} OK</span>
+                <span className="text-destructive">{checklistSummary.nok} NOK</span>
                 <span>{checklistSummary.na} N/A</span>
               </div>
             </div>
@@ -157,7 +157,7 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
           {report.linkedDefect && (
             <div className="rounded-lg border bg-card p-4 space-y-3">
               <h2 className="text-sm font-medium text-foreground">Related Defect</h2>
-              <Link href={`/quality/supplier/defects/${report.linkedDefect.id}`} className="inline-flex items-center gap-1.5 text-sm text-emerald-400 hover:underline">
+              <Link href={`/quality/supplier/defects/${report.linkedDefect.id}`} className="inline-flex items-center gap-1.5 text-sm text-foreground hover:underline">
                 <LinkIcon className="size-3.5" />
                 {report.linkedDefect.partNumber} — Defect raised from this inspection
               </Link>

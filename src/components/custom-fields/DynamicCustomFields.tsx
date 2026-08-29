@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
+import { DatePicker } from "@/components/ui/date-picker"
 import type { ResolvedField } from "@/lib/custom-fields/types"
 import type { CustomFieldType, CustomFieldEntity } from "@/lib/custom-fields/constants"
 
@@ -143,10 +144,10 @@ function FieldInput({
           <Label>
             {label} {required && <span className="text-destructive">*</span>}
           </Label>
-          <Input
-            type="date"
+          <DatePicker
             value={(value as string) ?? ""}
-            onChange={(e) => onChange(e.target.value || null)}
+            onChange={(d) => onChange(d || null)}
+            placeholder="mm / dd / yyyy"
           />
           {error && <p className="text-xs text-destructive">{error}</p>}
         </div>

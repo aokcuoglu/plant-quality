@@ -7,6 +7,7 @@ import type { DispatchStatus, DispatchTransportMode } from "@/generated/prisma/c
 import { DispatchStatusBadge } from "../../dispatch-status-badge"
 import { getNextDispatchStatuses, DISPATCH_STATUS_LABELS, TRANSPORT_MODE_OPTIONS, labelForTransportMode } from "@/lib/logistic/dispatch-status"
 import { createOrUpdateDispatch, changeDispatchStatus } from "../../dispatch-actions"
+import { DatePicker } from "@/components/ui/date-picker"
 
 function TransportIcon({ mode }: { mode: string }) {
   switch (mode) {
@@ -148,7 +149,7 @@ export function DispatchSection({
         {!showCreateForm && dispatches.length === 0 && (
           <button
             onClick={() => { resetForm(); setShowCreateForm(true) }}
-            className="inline-flex items-center gap-1 rounded-lg bg-emerald-500/10 px-3 py-1.5 text-sm font-medium text-emerald-600 hover:bg-emerald-500/20"
+            className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-foreground hover:bg-foreground/20"
           >
             <Plus className="size-3.5" /> Add Dispatch
           </button>
@@ -156,7 +157,7 @@ export function DispatchSection({
         {!showCreateForm && dispatches.length > 0 && (
           <button
             onClick={() => { resetForm(); setShowCreateForm(true) }}
-            className="inline-flex items-center gap-1 rounded-lg bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-600 hover:bg-emerald-500/20"
+            className="inline-flex items-center gap-1 rounded-lg bg-muted px-2 py-1 text-xs font-medium text-foreground hover:bg-foreground/20"
           >
             <Plus className="size-3" /> Add
           </button>
@@ -199,11 +200,11 @@ export function DispatchSection({
             </div>
             <div>
               <label className="mb-1 block text-xs text-muted-foreground">Planned Loading Date</label>
-              <input type="date" value={form.plannedLoadingDate} onChange={(e) => setForm(f => ({ ...f, plannedLoadingDate: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+              <DatePicker value={form.plannedLoadingDate} onChange={(d) => setForm(f => ({ ...f, plannedLoadingDate: d }))} placeholder="mm / dd / yyyy" />
             </div>
             <div>
               <label className="mb-1 block text-xs text-muted-foreground">Estimated Arrival</label>
-              <input type="date" value={form.estimatedArrivalDate} onChange={(e) => setForm(f => ({ ...f, estimatedArrivalDate: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+              <DatePicker value={form.estimatedArrivalDate} onChange={(d) => setForm(f => ({ ...f, estimatedArrivalDate: d }))} placeholder="mm / dd / yyyy" />
             </div>
           </div>
           <div>
@@ -211,7 +212,7 @@ export function DispatchSection({
             <textarea value={form.notes} onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" placeholder="Dispatch notes..." />
           </div>
           <div className="flex gap-2">
-            <button onClick={handleCreate} disabled={isPending} className="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50">
+            <button onClick={handleCreate} disabled={isPending} className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
               {isPending ? "Creating..." : "Create Dispatch"}
             </button>
             <button onClick={() => { setShowCreateForm(false); resetForm() }} className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
@@ -268,11 +269,11 @@ export function DispatchSection({
                       </div>
                       <div>
                         <label className="mb-1 block text-xs text-muted-foreground">Planned Loading Date</label>
-                        <input type="date" value={form.plannedLoadingDate} onChange={(e) => setForm(f => ({ ...f, plannedLoadingDate: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <DatePicker value={form.plannedLoadingDate} onChange={(d) => setForm(f => ({ ...f, plannedLoadingDate: d }))} placeholder="mm / dd / yyyy" />
                       </div>
                       <div>
                         <label className="mb-1 block text-xs text-muted-foreground">Estimated Arrival</label>
-                        <input type="date" value={form.estimatedArrivalDate} onChange={(e) => setForm(f => ({ ...f, estimatedArrivalDate: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <DatePicker value={form.estimatedArrivalDate} onChange={(d) => setForm(f => ({ ...f, estimatedArrivalDate: d }))} placeholder="mm / dd / yyyy" />
                       </div>
                     </div>
                     <div>
@@ -280,7 +281,7 @@ export function DispatchSection({
                       <textarea value={form.notes} onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                     </div>
                     <div className="flex gap-2">
-                      <button onClick={handleUpdate} disabled={isPending} className="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50">
+                      <button onClick={handleUpdate} disabled={isPending} className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
                         {isPending ? "Updating..." : "Update"}
                       </button>
                       <button onClick={() => { setEditingId(null); resetForm() }} className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
@@ -325,7 +326,7 @@ export function DispatchSection({
                         <dt className="text-xs text-muted-foreground">ETA</dt>
                         <dd className="text-foreground">
                           {d.estimatedArrivalDate ? (
-                            <span className={new Date(d.estimatedArrivalDate) < new Date() && d.status !== "DELIVERED" && d.status !== "CANCELLED" ? "text-amber-600" : ""}>
+                            <span className={new Date(d.estimatedArrivalDate) < new Date() && d.status !== "DELIVERED" && d.status !== "CANCELLED" ? "text-destructive" : ""}>
                               {fmtDate(d.estimatedArrivalDate)}
                             </span>
                           ) : "—"}
@@ -372,7 +373,7 @@ export function DispatchSection({
                             className={`rounded-lg px-2 py-1 text-xs font-medium disabled:opacity-50 ${
                               ns === "CANCELLED"
                                 ? "bg-destructive/10 text-destructive hover:bg-destructive/20"
-                                : "bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                                : "bg-muted text-muted-foreground hover:bg-foreground/20"
                             }`}
                           >
                             {DISPATCH_STATUS_LABELS[ns]}

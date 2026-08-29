@@ -43,7 +43,7 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
   if (success) {
     return (
       <div className="space-y-2">
-        <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-500">
+        <div className="rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground">
           {success.duplicate
             ? `An open request to upgrade to ${PLAN_LABELS[success.plan as PlanKey]} already exists.`
             : `Your request to upgrade to ${PLAN_LABELS[success.plan as PlanKey]} has been submitted.`}
@@ -73,7 +73,7 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell us why you need this upgrade (optional)"
           rows={2}
-          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground resize-none"
           disabled={isPending}
         />
         <div className="flex gap-2">
@@ -81,7 +81,7 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors disabled:opacity-50"
+            className="rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-white hover:bg-foreground/90 transition-colors disabled:opacity-50"
           >
             {isPending ? "Submitting..." : "Submit Request"}
           </button>
@@ -109,7 +109,7 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
           <button
             type="button"
             onClick={() => handleRequest("PRO")}
-            className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-white hover:bg-foreground/90 transition-colors"
           >
             Request Pro
           </button>
@@ -118,7 +118,7 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
           <button
             type="button"
             onClick={() => handleRequest("ENTERPRISE")}
-            className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-500 hover:bg-emerald-500/20 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground hover:bg-foreground/20 transition-colors"
           >
             Request Enterprise
           </button>

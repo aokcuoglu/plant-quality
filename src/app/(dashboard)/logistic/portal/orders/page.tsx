@@ -45,7 +45,7 @@ export default async function PortalOrdersPage() {
                 {orders.map((order) => (
                   <tr key={order.id} className="transition-colors hover:bg-muted/30">
                     <td className="whitespace-nowrap px-4 py-3">
-                      <Link href={`/logistic/portal/orders/${order.id}`} className="font-medium text-foreground hover:text-emerald-500 transition-colors">
+                      <Link href={`/logistic/portal/orders/${order.id}`} className="font-medium text-foreground hover:text-foreground transition-colors">
                         {order.orderNumber}
                       </Link>
                     </td>

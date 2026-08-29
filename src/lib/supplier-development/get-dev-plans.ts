@@ -339,6 +339,7 @@ export async function getSuppliersForOem(session: { user?: { companyId?: string 
     where: {
       type: "SUPPLIER",
       OR: [
+        { primaryOemId: session.user.companyId },
         { defectsAsSup: { some: { oemId: session.user.companyId } } },
         { ppapAsSup: { some: { oemId: session.user.companyId } } },
         { iqcAsSup: { some: { oemId: session.user.companyId } } },
@@ -372,6 +373,7 @@ export async function getSupplierUsers(session: { user?: { companyId?: string | 
       id: supplierId,
       type: "SUPPLIER",
       OR: [
+        { primaryOemId: session.user.companyId },
         { defectsAsSup: { some: { oemId: session.user.companyId } } },
         { ppapAsSup: { some: { oemId: session.user.companyId } } },
         { iqcAsSup: { some: { oemId: session.user.companyId } } },

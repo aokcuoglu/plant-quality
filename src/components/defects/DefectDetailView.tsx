@@ -42,6 +42,7 @@ import { ExportEightDButton } from "./ExportEightDButton"
 import { toast } from "@/components/ui/use-toast"
 import { formatDueDate, getActionOwnerLabel, getActiveDueDate, isDefectOverdue } from "@/lib/sla"
 import { updateDefectOwnershipAndSla } from "@/app/(dashboard)/defects/ownership-actions"
+import { DatePicker } from "@/components/ui/date-picker"
 import { formatEvidenceSectionLabel } from "@/lib/evidence"
 import {
   addReviewComment,
@@ -228,7 +229,7 @@ function CommentModal({
             className={cn(
               "flex items-center gap-1 rounded-md px-2 py-1 text-xs transition-colors",
               hasComments
-                ? "text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/30"
+                ? "text-muted-foreground hover:bg-blue-50 dark:text-muted-foreground dark:hover:bg-blue-950/30"
                 : "text-muted-foreground hover:bg-muted",
             )}
           />
@@ -240,7 +241,7 @@ function CommentModal({
           <MessageSquareIcon className="h-3.5 w-3.5" />
         )}
         {hasComments && (
-          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-blue-100 text-[10px] font-medium text-blue-600 dark:bg-blue-900/40 dark:text-blue-400">
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-blue-100 text-[10px] font-medium text-muted-foreground dark:bg-blue-900/40 dark:text-muted-foreground">
             {section.comments.length}
           </span>
         )}
@@ -268,8 +269,8 @@ function CommentModal({
                   <span className={cn(
                     "rounded-full px-2 py-0.5 text-[10px] font-medium",
                     c.status === "OPEN"
-                      ? "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-300"
-                      : "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300",
+                      ? "bg-red-100 text-destructive bg-destructive/30 text-muted-foreground"
+                      : "bg-muted text-foreground dark:bg-muted/50 text-muted-foreground",
                   )}>
                     {c.status === "OPEN" ? "Open" : "Resolved"}
                   </span>
@@ -287,7 +288,7 @@ function CommentModal({
                       type="button"
                       onClick={() => handleResolve(c.id)}
                       disabled={pending}
-                      className="text-xs font-medium text-green-700 hover:underline disabled:opacity-50"
+                      className="text-xs font-medium text-foreground hover:underline disabled:opacity-50"
                     >
                       Mark resolved
                     </button>
@@ -296,7 +297,7 @@ function CommentModal({
                       type="button"
                       onClick={() => handleReopen(c.id)}
                       disabled={pending}
-                      className="text-xs font-medium text-amber-700 hover:underline disabled:opacity-50"
+                      className="text-xs font-medium text-destructive hover:underline disabled:opacity-50"
                     >
                       Reopen
                     </button>
@@ -458,7 +459,7 @@ function SupplierReportView({ defect }: { defect: DefectDetail }) {
             <div className="mb-1 flex items-center justify-between">
               <span className="text-xs font-medium text-muted-foreground">{section.label}</span>
               {section.comments.length > 0 && (
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-[10px] font-medium text-amber-600 dark:bg-amber-900/40 dark:text-amber-400">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-[10px] font-medium text-destructive dark:bg-amber-900/40 dark:text-destructive">
                 {section.comments.filter((c) => c.status === "OPEN").length || section.comments.length}
                 </span>
               )}
@@ -544,7 +545,7 @@ function OemReviewPanel({
               key={section.stepId}
               className={cn(
                 "rounded-lg border p-3",
-                section.comments.some((c) => c.status === "OPEN") && "border-red-200 bg-red-50/30 dark:border-red-900 dark:bg-red-950/10",
+                section.comments.some((c) => c.status === "OPEN") && "border-destructive/20 bg-red-50/30 dark:border-red-900 dark:bg-red-950/10",
                 !section.content && !section.rows?.length && "opacity-50",
               )}
             >
@@ -706,13 +707,13 @@ function OemReviewPanel({
       </Dialog>
 
       {defect.status === "RESOLVED" && (
-        <div className="rounded-lg border border-green-200 bg-green-50/50 px-4 py-3 text-center text-sm text-green-700 dark:border-green-900 dark:bg-green-950/20 dark:text-green-400">
+        <div className="rounded-lg border border-border bg-muted/50 px-4 py-3 text-center text-sm text-foreground border-border dark:bg-muted/30 text-muted-foreground">
           Report approved and closed.
         </div>
       )}
 
       {defect.status === "REJECTED" && (
-        <div className="rounded-lg border border-red-200 bg-red-50/50 px-4 py-3 text-center text-sm text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-400">
+        <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-4 py-3 text-center text-sm text-destructive dark:border-red-900 dark:bg-red-950/20 dark:text-destructive">
           Revision requested — supplier has been notified to update the report.
         </div>
       )}
@@ -740,7 +741,11 @@ function OwnershipSlaPanel({
   const [eightDSubmissionDueAt, setEightDSubmissionDueAt] = useState(toDateInputValue(defect.eightDSubmissionDueAt))
   const [oemReviewDueAt, setOemReviewDueAt] = useState(toDateInputValue(defect.oemReviewDueAt))
   const [revisionDueAt, setRevisionDueAt] = useState(toDateInputValue(defect.revisionDueAt))
-  const canEdit = defect.canEditSla || defect.canEditSupplierAssignee || defect.canSelfAssign
+  const editableStatuses = companyType === "SUPPLIER"
+    ? ["OPEN", "IN_PROGRESS", "REJECTED"]
+    : ["OPEN", "IN_PROGRESS", "WAITING_APPROVAL", "REJECTED"]
+  const canEdit = (defect.canEditSla || defect.canEditSupplierAssignee || defect.canSelfAssign)
+    && editableStatuses.includes(defect.status)
 
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
@@ -809,12 +814,11 @@ function OwnershipSlaPanel({
               ].map((field) => (
                 <div key={field.name} className="space-y-1.5">
                   <label className="text-xs font-medium text-muted-foreground">{field.label}</label>
-                  <input
-                    type="date"
-                    name={field.name}
+                  <DatePicker
                     value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    onChange={(d) => field.onChange(d)}
                     disabled={!defect.canEditSla}
+                    placeholder="mm / dd / yyyy"
                     className="h-9 w-full rounded-md border border-input bg-background px-2 text-sm disabled:opacity-60"
                   />
                 </div>
@@ -939,7 +943,7 @@ export function DefectDetailView({
                 <span className="text-sm text-muted-foreground">Active Due Date</span>
                 <span className={cn(
                   "text-sm font-medium",
-                  overdue && "rounded-full bg-red-50 px-2 py-1 text-xs text-red-700 dark:bg-red-950/30 dark:text-red-300",
+                  overdue && "rounded-full bg-destructive/10 px-2 py-1 text-xs text-destructive bg-destructive/20 text-muted-foreground",
                 )}>
                   {overdue ? `Overdue · ${formatDueDate(activeDueDate)}` : formatDueDate(activeDueDate)}
                 </span>
@@ -1018,13 +1022,13 @@ export function DefectDetailView({
           )}
 
           {companyType === "SUPPLIER" && defect.status === "WAITING_APPROVAL" && (
-            <div className="rounded-lg border border-blue-200 bg-blue-50/50 px-4 py-3 text-center text-sm text-blue-700 dark:border-blue-800 dark:bg-blue-950/20 dark:text-blue-400">
+            <div className="rounded-lg border border-blue-200 bg-blue-50/50 px-4 py-3 text-center text-sm text-blue-700 dark:border-blue-800 dark:bg-blue-950/20 dark:text-muted-foreground">
               Report submitted — awaiting customer approval
             </div>
           )}
 
           {companyType === "SUPPLIER" && defect.status === "REJECTED" && (
-            <div className="rounded-lg border border-rose-200 bg-rose-50/50 px-4 py-3 text-center text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/20 dark:text-rose-400">
+            <div className="rounded-lg border border-border bg-muted/50 px-4 py-3 text-center text-sm text-destructive dark:border-rose-900 dark:bg-rose-950/20 dark:text-destructive">
               <p className="font-medium">Revision Requested</p>
               <p className="mt-1 text-xs">The customer has requested changes to the 8D report.</p>
             </div>

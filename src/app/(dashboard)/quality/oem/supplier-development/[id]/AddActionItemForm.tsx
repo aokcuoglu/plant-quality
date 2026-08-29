@@ -5,6 +5,7 @@ import type { DevActionOwnerType } from "@/lib/supplier-development/client"
 import { PlusCircleIcon } from "lucide-react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { DatePicker } from "@/components/ui/date-picker"
 
 export function AddActionItemForm({ planId }: { planId: string }) {
   const router = useRouter()
@@ -62,7 +63,7 @@ export function AddActionItemForm({ planId }: { planId: string }) {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           placeholder="Action item title *"
           required
         />
@@ -75,23 +76,18 @@ export function AddActionItemForm({ planId }: { planId: string }) {
             <option value="OEM">OEM</option>
             <option value="SUPPLIER">Supplier</option>
           </select>
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground"
-          />
+          <DatePicker value={dueDate} onChange={setDueDate} placeholder="Due date" className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground" />
         </div>
         <input
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="sm:col-span-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          className="sm:col-span-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
           placeholder="Description (optional)"
         />
       </div>
       <div className="flex gap-2">
-        <button type="submit" disabled={isSubmitting} className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-emerald-600 disabled:opacity-50">
+        <button type="submit" disabled={isSubmitting} className="rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
           {isSubmitting ? "Adding..." : "Add"}
         </button>
         <button type="button" onClick={() => { setIsOpen(false); setTitle(""); setDescription(""); setDueDate(""); setError(null) }} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">

@@ -3,13 +3,13 @@ import { DISPATCH_STATUS_LABELS } from "@/lib/logistic/dispatch-status"
 
 const STATUS_COLORS: Record<DispatchStatus, string> = {
   NOT_PLANNED: "bg-muted text-muted-foreground",
-  PLANNED: "bg-blue-500/10 text-blue-600",
-  CARRIER_ASSIGNED: "bg-indigo-500/10 text-indigo-600",
-  LOADING_PLANNED: "bg-cyan-500/10 text-cyan-600",
-  LOADED: "bg-teal-500/10 text-teal-600",
-  IN_TRANSIT: "bg-amber-500/10 text-amber-600",
-  ARRIVED: "bg-purple-500/10 text-purple-600",
-  DELIVERED: "bg-emerald-500/10 text-emerald-600",
+  PLANNED: "bg-accent text-accent-foreground",
+  CARRIER_ASSIGNED: "bg-accent text-accent-foreground",
+  LOADING_PLANNED: "bg-accent text-accent-foreground",
+  LOADED: "bg-accent text-accent-foreground",
+  IN_TRANSIT: "bg-muted text-muted-foreground",
+  ARRIVED: "bg-muted text-muted-foreground",
+  DELIVERED: "bg-muted text-muted-foreground",
   CANCELLED: "bg-destructive/10 text-destructive",
 }
 

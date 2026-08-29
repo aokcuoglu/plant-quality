@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createFmea } from "../actions/fmea"
 import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import { DatePicker } from "@/components/ui/date-picker"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { CustomFieldsData } from "@/lib/custom-fields/types"
 
@@ -70,7 +71,7 @@ export function FmeaCreateForm({ suppliers, fieldConfig }: { suppliers: Supplier
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-400">{error}</div>
+        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
 
       <div className="space-y-4 rounded-lg border bg-card p-6">
@@ -145,7 +146,7 @@ export function FmeaCreateForm({ suppliers, fieldConfig }: { suppliers: Supplier
 
           <div className="space-y-2">
             <Label>Due Date</Label>
-            <Input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+            <DatePicker value={dueDate} onChange={setDueDate} placeholder="mm / dd / yyyy" />
           </div>
         </div>
 

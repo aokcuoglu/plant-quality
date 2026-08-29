@@ -10,6 +10,7 @@ export const MILESTONE_GATE_OPTIONS = [
   { value: "ELECTRICAL" as const, label: "Electrical" },
   { value: "POWERTRAIN" as const, label: "Powertrain / Drivetrain" },
   { value: "EOL_TEST" as const, label: "EOL Test" },
+  { value: "WASH" as const, label: "Washing" },
   { value: "PDI" as const, label: "PDI" },
   { value: "FINAL_QUALITY" as const, label: "Final Quality Gate" },
   { value: "YARD_READY" as const, label: "Yard / Ready" },

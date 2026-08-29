@@ -163,6 +163,7 @@ export type FieldDefectCountAggregateOutputType = {
   escalatedAt: number
   escalatedById: number
   escalationReason: number
+  customFields: number
   createdAt: number
   updatedAt: number
   closedAt: number
@@ -308,6 +309,7 @@ export type FieldDefectCountAggregateInputType = {
   escalatedAt?: true
   escalatedById?: true
   escalationReason?: true
+  customFields?: true
   createdAt?: true
   updatedAt?: true
   closedAt?: true
@@ -440,6 +442,7 @@ export type FieldDefectGroupByOutputType = {
   escalatedAt: Date | null
   escalatedById: string | null
   escalationReason: string | null
+  customFields: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   closedAt: Date | null
@@ -508,6 +511,7 @@ export type FieldDefectWhereInput = {
   escalatedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   escalatedById?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   escalationReason?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"FieldDefect">
   createdAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
@@ -565,6 +569,7 @@ export type FieldDefectOrderByWithRelationInput = {
   escalatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   escalatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   escalationReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -625,6 +630,7 @@ export type FieldDefectWhereUniqueInput = Prisma.AtLeast<{
   escalatedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   escalatedById?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   escalationReason?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"FieldDefect">
   createdAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
@@ -682,6 +688,7 @@ export type FieldDefectOrderByWithAggregationInput = {
   escalatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   escalatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   escalationReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  customFields?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -735,6 +742,7 @@ export type FieldDefectScalarWhereWithAggregatesInput = {
   escalatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FieldDefect"> | Date | string | null
   escalatedById?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
   escalationReason?: Prisma.StringNullableWithAggregatesFilter<"FieldDefect"> | string | null
+  customFields?: Prisma.JsonNullableWithAggregatesFilter<"FieldDefect">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FieldDefect"> | Date | string
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"FieldDefect"> | Date | string | null
@@ -772,6 +780,7 @@ export type FieldDefectCreateInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -829,6 +838,7 @@ export type FieldDefectUncheckedCreateInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -870,6 +880,7 @@ export type FieldDefectUpdateInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -927,6 +938,7 @@ export type FieldDefectUncheckedUpdateInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -976,6 +988,7 @@ export type FieldDefectCreateManyInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -1013,6 +1026,7 @@ export type FieldDefectUpdateManyMutationInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1058,6 +1072,7 @@ export type FieldDefectUncheckedUpdateManyInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1118,6 +1133,7 @@ export type FieldDefectCountOrderByAggregateInput = {
   escalatedAt?: Prisma.SortOrder
   escalatedById?: Prisma.SortOrder
   escalationReason?: Prisma.SortOrder
+  customFields?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
@@ -1656,6 +1672,7 @@ export type FieldDefectCreateWithoutOemInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -1711,6 +1728,7 @@ export type FieldDefectUncheckedCreateWithoutOemInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -1762,6 +1780,7 @@ export type FieldDefectCreateWithoutSupplierInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -1817,6 +1836,7 @@ export type FieldDefectUncheckedCreateWithoutSupplierInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -1895,6 +1915,7 @@ export type FieldDefectScalarWhereInput = {
   escalatedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
   escalatedById?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
   escalationReason?: Prisma.StringNullableFilter<"FieldDefect"> | string | null
+  customFields?: Prisma.JsonNullableFilter<"FieldDefect">
   createdAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FieldDefect"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"FieldDefect"> | Date | string | null
@@ -1948,6 +1969,7 @@ export type FieldDefectCreateWithoutCreatedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2003,6 +2025,7 @@ export type FieldDefectUncheckedCreateWithoutCreatedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2054,6 +2077,7 @@ export type FieldDefectCreateWithoutUpdatedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2109,6 +2133,7 @@ export type FieldDefectUncheckedCreateWithoutUpdatedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2160,6 +2185,7 @@ export type FieldDefectCreateWithoutConvertedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2215,6 +2241,7 @@ export type FieldDefectUncheckedCreateWithoutConvertedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2266,6 +2293,7 @@ export type FieldDefectCreateWithoutEscalatedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2321,6 +2349,7 @@ export type FieldDefectUncheckedCreateWithoutEscalatedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2372,6 +2401,7 @@ export type FieldDefectCreateWithoutAiCategoryAppliedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2427,6 +2457,7 @@ export type FieldDefectUncheckedCreateWithoutAiCategoryAppliedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2558,6 +2589,7 @@ export type FieldDefectCreateWithoutLinkedDefectInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2613,6 +2645,7 @@ export type FieldDefectUncheckedCreateWithoutLinkedDefectInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2670,6 +2703,7 @@ export type FieldDefectUpdateWithoutLinkedDefectInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2725,6 +2759,7 @@ export type FieldDefectUncheckedUpdateWithoutLinkedDefectInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2766,6 +2801,7 @@ export type FieldDefectCreateWithoutAttachmentsInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2822,6 +2858,7 @@ export type FieldDefectUncheckedCreateWithoutAttachmentsInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -2878,6 +2915,7 @@ export type FieldDefectUpdateWithoutAttachmentsInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2934,6 +2972,7 @@ export type FieldDefectUncheckedUpdateWithoutAttachmentsInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2974,6 +3013,7 @@ export type FieldDefectCreateWithoutCommentsInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3030,6 +3070,7 @@ export type FieldDefectUncheckedCreateWithoutCommentsInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3086,6 +3127,7 @@ export type FieldDefectUpdateWithoutCommentsInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3142,6 +3184,7 @@ export type FieldDefectUncheckedUpdateWithoutCommentsInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3182,6 +3225,7 @@ export type FieldDefectCreateWithoutEventsInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3238,6 +3282,7 @@ export type FieldDefectUncheckedCreateWithoutEventsInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3294,6 +3339,7 @@ export type FieldDefectUpdateWithoutEventsInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3350,6 +3396,7 @@ export type FieldDefectUncheckedUpdateWithoutEventsInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3390,6 +3437,7 @@ export type FieldDefectCreateWithoutAiSuggestionsInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3446,6 +3494,7 @@ export type FieldDefectUncheckedCreateWithoutAiSuggestionsInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3502,6 +3551,7 @@ export type FieldDefectUpdateWithoutAiSuggestionsInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3558,6 +3608,7 @@ export type FieldDefectUncheckedUpdateWithoutAiSuggestionsInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3605,6 +3656,7 @@ export type FieldDefectCreateManyOemInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3649,6 +3701,7 @@ export type FieldDefectCreateManySupplierInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -3686,6 +3739,7 @@ export type FieldDefectUpdateWithoutOemInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3741,6 +3795,7 @@ export type FieldDefectUncheckedUpdateWithoutOemInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3789,6 +3844,7 @@ export type FieldDefectUncheckedUpdateManyWithoutOemInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3826,6 +3882,7 @@ export type FieldDefectUpdateWithoutSupplierInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3881,6 +3938,7 @@ export type FieldDefectUncheckedUpdateWithoutSupplierInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3929,6 +3987,7 @@ export type FieldDefectUncheckedUpdateManyWithoutSupplierInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3973,6 +4032,7 @@ export type FieldDefectCreateManyCreatedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -4017,6 +4077,7 @@ export type FieldDefectCreateManyUpdatedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -4061,6 +4122,7 @@ export type FieldDefectCreateManyConvertedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -4105,6 +4167,7 @@ export type FieldDefectCreateManyEscalatedByInput = {
   escalationLevel?: $Enums.EscalationLevel
   escalatedAt?: Date | string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -4149,6 +4212,7 @@ export type FieldDefectCreateManyAiCategoryAppliedByInput = {
   escalatedAt?: Date | string | null
   escalatedById?: string | null
   escalationReason?: string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   closedAt?: Date | string | null
@@ -4186,6 +4250,7 @@ export type FieldDefectUpdateWithoutCreatedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4241,6 +4306,7 @@ export type FieldDefectUncheckedUpdateWithoutCreatedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4289,6 +4355,7 @@ export type FieldDefectUncheckedUpdateManyWithoutCreatedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4326,6 +4393,7 @@ export type FieldDefectUpdateWithoutUpdatedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4381,6 +4449,7 @@ export type FieldDefectUncheckedUpdateWithoutUpdatedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4429,6 +4498,7 @@ export type FieldDefectUncheckedUpdateManyWithoutUpdatedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4466,6 +4536,7 @@ export type FieldDefectUpdateWithoutConvertedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4521,6 +4592,7 @@ export type FieldDefectUncheckedUpdateWithoutConvertedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4569,6 +4641,7 @@ export type FieldDefectUncheckedUpdateManyWithoutConvertedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4606,6 +4679,7 @@ export type FieldDefectUpdateWithoutEscalatedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4661,6 +4735,7 @@ export type FieldDefectUncheckedUpdateWithoutEscalatedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4709,6 +4784,7 @@ export type FieldDefectUncheckedUpdateManyWithoutEscalatedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4746,6 +4822,7 @@ export type FieldDefectUpdateWithoutAiCategoryAppliedByInput = {
   escalationLevel?: Prisma.EnumEscalationLevelFieldUpdateOperationsInput | $Enums.EscalationLevel
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4801,6 +4878,7 @@ export type FieldDefectUncheckedUpdateWithoutAiCategoryAppliedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4849,6 +4927,7 @@ export type FieldDefectUncheckedUpdateManyWithoutAiCategoryAppliedByInput = {
   escalatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   escalatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   escalationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customFields?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4952,6 +5031,7 @@ export type FieldDefectSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   escalatedAt?: boolean
   escalatedById?: boolean
   escalationReason?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   closedAt?: boolean
@@ -5010,6 +5090,7 @@ export type FieldDefectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   escalatedAt?: boolean
   escalatedById?: boolean
   escalationReason?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   closedAt?: boolean
@@ -5063,6 +5144,7 @@ export type FieldDefectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   escalatedAt?: boolean
   escalatedById?: boolean
   escalationReason?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   closedAt?: boolean
@@ -5116,13 +5198,14 @@ export type FieldDefectSelectScalar = {
   escalatedAt?: boolean
   escalatedById?: boolean
   escalationReason?: boolean
+  customFields?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   closedAt?: boolean
   deletedAt?: boolean
 }
 
-export type FieldDefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "source" | "status" | "severity" | "safetyImpact" | "vehicleDown" | "repeatIssue" | "vin" | "vehicleModel" | "vehicleVariant" | "mileage" | "failureDate" | "reportDate" | "location" | "partNumber" | "partName" | "category" | "subcategory" | "probableArea" | "aiCategoryApplied" | "aiCategoryAppliedAt" | "aiCategoryAppliedById" | "supplierId" | "supplierNameSnapshot" | "oemId" | "createdById" | "updatedById" | "linkedDefectId" | "convertedTo8DAt" | "convertedById" | "responseDueAt" | "resolutionDueAt" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "createdAt" | "updatedAt" | "closedAt" | "deletedAt", ExtArgs["result"]["fieldDefect"]>
+export type FieldDefectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "source" | "status" | "severity" | "safetyImpact" | "vehicleDown" | "repeatIssue" | "vin" | "vehicleModel" | "vehicleVariant" | "mileage" | "failureDate" | "reportDate" | "location" | "partNumber" | "partName" | "category" | "subcategory" | "probableArea" | "aiCategoryApplied" | "aiCategoryAppliedAt" | "aiCategoryAppliedById" | "supplierId" | "supplierNameSnapshot" | "oemId" | "createdById" | "updatedById" | "linkedDefectId" | "convertedTo8DAt" | "convertedById" | "responseDueAt" | "resolutionDueAt" | "escalationLevel" | "escalatedAt" | "escalatedById" | "escalationReason" | "customFields" | "createdAt" | "updatedAt" | "closedAt" | "deletedAt", ExtArgs["result"]["fieldDefect"]>
 export type FieldDefectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aiCategoryAppliedBy?: boolean | Prisma.FieldDefect$aiCategoryAppliedByArgs<ExtArgs>
   supplier?: boolean | Prisma.FieldDefect$supplierArgs<ExtArgs>
@@ -5214,6 +5297,7 @@ export type $FieldDefectPayload<ExtArgs extends runtime.Types.Extensions.Interna
     escalatedAt: Date | null
     escalatedById: string | null
     escalationReason: string | null
+    customFields: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
     closedAt: Date | null
@@ -5691,6 +5775,7 @@ export interface FieldDefectFieldRefs {
   readonly escalatedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
   readonly escalatedById: Prisma.FieldRef<"FieldDefect", 'String'>
   readonly escalationReason: Prisma.FieldRef<"FieldDefect", 'String'>
+  readonly customFields: Prisma.FieldRef<"FieldDefect", 'Json'>
   readonly createdAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>
   readonly closedAt: Prisma.FieldRef<"FieldDefect", 'DateTime'>

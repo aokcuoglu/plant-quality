@@ -170,7 +170,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
 
       <DelayRiskPanel summary={slaSummary} />
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+      <div className="grid gap-6 xl:grid-cols-2">
         <div className="space-y-6">
           <section className="rounded-lg border bg-card p-4">
             <h2 className="mb-3 text-sm font-medium text-foreground">Customer Information</h2>
@@ -320,7 +320,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
               {order.events.map((event) => (
                 <div key={event.id} className="flex gap-3">
                   <div className="flex flex-col items-center">
-                    <div className={`size-2 rounded-full ${event.eventType === "STATUS_CHANGED" ? "bg-emerald-500" : event.eventType === "COMMENT_ADDED" ? "bg-blue-500" : "bg-muted-foreground"}`} />
+                    <div className={`size-2 rounded-full ${event.eventType === "STATUS_CHANGED" ? "bg-foreground" : event.eventType === "COMMENT_ADDED" ? "bg-foreground" : "bg-muted-foreground"}`} />
                     <div className="w-px flex-1 bg-border" />
                   </div>
                   <div className="flex-1 pb-3">
@@ -367,7 +367,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
                 <span className="text-sm font-bold text-foreground">{productionProgress}%</span>
                 <div className="h-2 w-24 rounded-full bg-muted">
                   <div
-                    className="h-2 rounded-full bg-emerald-500 transition-all"
+                    className="h-2 rounded-full bg-foreground transition-all"
                     style={{ width: `${productionProgress}%` }}
                   />
                 </div>
@@ -381,12 +381,12 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
               )}
               {milestonesCompleted && (
                 <div className="flex items-center gap-1 text-xs">
-                  <Factory className="size-3 text-emerald-500" />
-                  <span className="font-medium text-emerald-600">All milestones completed</span>
+                  <Factory className="size-3 text-foreground" />
+                  <span className="font-medium text-foreground">All milestones completed</span>
                 </div>
               )}
               {blockedCount > 0 && (
-                <div className="flex items-center gap-1 text-xs text-amber-600">
+                <div className="flex items-center gap-1 text-xs text-destructive">
                   <AlertTriangle className="size-3" />
                   <span>{blockedCount} blocked</span>
                 </div>
@@ -450,7 +450,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
                       <td className="px-3 py-2 text-sm text-muted-foreground">{milestone.responsibleDepartment ?? "—"}</td>
                       <td className="px-3 py-2 text-sm">
                         {milestone.delayReason ? (
-                          <span className="text-amber-600">{milestone.delayReason}</span>
+                          <span className="text-destructive">{milestone.delayReason}</span>
                         ) : "—"}
                       </td>
                       <td className="px-3 py-2">

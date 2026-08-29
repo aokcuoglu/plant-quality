@@ -27,7 +27,7 @@ export default async function PortalOverviewPage() {
         </div>
         <Link
           href="/logistic/portal/orders/new"
-          className="inline-flex items-center gap-1.5 shrink-0 rounded-md bg-emerald-500 px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors"
+          className="inline-flex items-center gap-1.5 shrink-0 rounded-md bg-foreground px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
         >
           <PlusCircle className="size-4" />
           New Order
@@ -41,14 +41,14 @@ export default async function PortalOverviewPage() {
           <p className="mt-1 text-xs text-muted-foreground">Submit your first order request to get started.</p>
           <Link
             href="/logistic/portal/orders/new"
-            className="mt-4 inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-md bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
           >
             <PlusCircle className="size-4" />
             Create First Order
           </Link>
         </div>
       ) : (
-        <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           <DashboardCard
             title="Total Orders"
             value={String(stats?.total ?? 0)}

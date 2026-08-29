@@ -110,21 +110,21 @@ export const PPAP_DOCUMENT_STATUS_LABELS: Record<string, string> = {
 export function getPpapStatusColor(status: string): string {
   switch (status) {
     case "APPROVED":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "REJECTED":
     case "CANCELLED":
     case "EXPIRED":
-      return "bg-red-500/10 text-red-400"
+      return "bg-destructive/10 text-destructive"
     case "DRAFT":
       return "bg-muted text-muted-foreground"
     case "SUBMITTED":
     case "SUPPLIER_IN_PROGRESS":
-      return "bg-blue-500/10 text-blue-400"
+      return "bg-muted text-muted-foreground"
     case "UNDER_REVIEW":
-      return "bg-amber-500/10 text-amber-400"
+      return "bg-destructive/10 text-destructive"
     case "REVISION_REQUIRED":
     case "REVISED":
-      return "bg-orange-500/10 text-orange-400"
+      return "bg-destructive/10 text-destructive"
     case "REQUESTED":
       return "bg-cyan-500/10 text-cyan-400"
     default:
@@ -135,15 +135,15 @@ export function getPpapStatusColor(status: string): string {
 export function getDocumentStatusColor(status: string): string {
   switch (status) {
     case "APPROVED":
-      return "bg-emerald-500/10 text-emerald-400"
+      return "bg-muted text-muted-foreground"
     case "REJECTED":
-      return "bg-red-500/10 text-red-400"
+      return "bg-destructive/10 text-destructive"
     case "UPLOADED":
-      return "bg-blue-500/10 text-blue-400"
+      return "bg-muted text-muted-foreground"
     case "UNDER_REVIEW":
-      return "bg-amber-500/10 text-amber-400"
+      return "bg-destructive/10 text-destructive"
     case "REVISION_REQUIRED":
-      return "bg-orange-500/10 text-orange-400"
+      return "bg-destructive/10 text-destructive"
     case "MISSING":
     default:
       return "bg-muted text-muted-foreground"

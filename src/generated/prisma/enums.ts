@@ -20,6 +20,7 @@ export type CompanyType = (typeof CompanyType)[keyof typeof CompanyType]
 
 
 export const Role = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',
   QUALITY_ENGINEER: 'QUALITY_ENGINEER',
   VIEWER: 'VIEWER'
@@ -338,6 +339,37 @@ export const DispatchTransportMode = {
 export type DispatchTransportMode = (typeof DispatchTransportMode)[keyof typeof DispatchTransportMode]
 
 
+export const PlanSheetChannel = {
+  EXPORT: 'EXPORT',
+  DOMESTIC: 'DOMESTIC'
+} as const
+
+export type PlanSheetChannel = (typeof PlanSheetChannel)[keyof typeof PlanSheetChannel]
+
+
+export const PlanSheetStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PlanSheetStatus = (typeof PlanSheetStatus)[keyof typeof PlanSheetStatus]
+
+
+export const PlanSheetLineStatus = {
+  PENDING: 'PENDING',
+  SUBMITTED: 'SUBMITTED',
+  CONFIRMED: 'CONFIRMED',
+  REJECTED: 'REJECTED',
+  GENERATED: 'GENERATED'
+} as const
+
+export type PlanSheetLineStatus = (typeof PlanSheetLineStatus)[keyof typeof PlanSheetLineStatus]
+
+
 export const DispatchStatus = {
   NOT_PLANNED: 'NOT_PLANNED',
   PLANNED: 'PLANNED',
@@ -375,6 +407,7 @@ export const ProductionMilestoneGate = {
   ELECTRICAL: 'ELECTRICAL',
   POWERTRAIN: 'POWERTRAIN',
   EOL_TEST: 'EOL_TEST',
+  WASH: 'WASH',
   PDI: 'PDI',
   FINAL_QUALITY: 'FINAL_QUALITY',
   YARD_READY: 'YARD_READY',
@@ -687,3 +720,31 @@ export const EscalationLevel = {
 } as const
 
 export type EscalationLevel = (typeof EscalationLevel)[keyof typeof EscalationLevel]
+
+
+export const CustomFieldEntity = {
+  DEFECT: 'DEFECT',
+  FIELD_DEFECT: 'FIELD_DEFECT',
+  PPAP_SUBMISSION: 'PPAP_SUBMISSION',
+  IQC_REPORT: 'IQC_REPORT',
+  FMEA: 'FMEA',
+  LOGISTIC_ORDER: 'LOGISTIC_ORDER'
+} as const
+
+export type CustomFieldEntity = (typeof CustomFieldEntity)[keyof typeof CustomFieldEntity]
+
+
+export const CustomFieldType = {
+  TEXT: 'TEXT',
+  TEXTAREA: 'TEXTAREA',
+  NUMBER: 'NUMBER',
+  DATE: 'DATE',
+  SELECT: 'SELECT',
+  MULTI_SELECT: 'MULTI_SELECT',
+  CHECKBOX: 'CHECKBOX',
+  URL: 'URL',
+  EMAIL: 'EMAIL',
+  USER: 'USER'
+} as const
+
+export type CustomFieldType = (typeof CustomFieldType)[keyof typeof CustomFieldType]

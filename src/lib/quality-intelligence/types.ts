@@ -121,10 +121,10 @@ export function getRiskLevel(score: number): RiskLevel {
 }
 
 export const RISK_LEVEL_CONFIG: Record<RiskLevel, { label: string; className: string }> = {
-  low: { label: "Low", className: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
-  medium: { label: "Medium", className: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
-  high: { label: "High", className: "bg-orange-500/10 text-orange-500 border-orange-500/20" },
-  critical: { label: "Critical", className: "bg-red-500/10 text-red-500 border-red-500/20" },
+  low: { label: "Low", className: "bg-muted text-muted-foreground border-border" },
+  medium: { label: "Medium", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  high: { label: "High", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  critical: { label: "Critical", className: "bg-destructive/10 text-destructive border-destructive/20" },
 }
 
 export const SIGNAL_POINTS = {

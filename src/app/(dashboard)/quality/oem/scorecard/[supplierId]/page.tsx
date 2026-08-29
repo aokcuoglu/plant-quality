@@ -60,9 +60,9 @@ function PenaltyRow({ label, count, penalty, cap, perItem }: { label: string; co
 
 function SignalBadge({ signal }: { signal: { label: string; count: number; severity: string } }) {
   const severityColors: Record<string, string> = {
-    critical: "bg-red-500/10 text-red-500 border-red-500/20",
-    high: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-    medium: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+    critical: "bg-destructive/10 text-destructive border-destructive/20",
+    high: "bg-destructive/10 text-destructive border-destructive/20",
+    medium: "bg-destructive/10 text-destructive border-destructive/20",
     low: "bg-muted text-muted-foreground border-border",
   }
   const className = severityColors[signal.severity] ?? severityColors.low
@@ -119,10 +119,10 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
   if (!supplier) notFound()
 
   const safeScore = Math.max(0, Math.min(100, Number.isFinite(supplier.overallScore) ? supplier.overallScore : 0))
-  let barColor = "bg-emerald-500"
-  if (safeScore < 40) barColor = "bg-red-500"
-  else if (safeScore < 60) barColor = "bg-orange-500"
-  else if (safeScore < 80) barColor = "bg-amber-500"
+  let barColor = "bg-foreground"
+  if (safeScore < 40) barColor = "bg-destructive"
+  else if (safeScore < 60) barColor = "bg-destructive/60"
+  else if (safeScore < 80) barColor = "bg-destructive"
 
   const bd = supplier.penaltyBreakdown
   const totalPenalty = 100 - safeScore
@@ -209,7 +209,7 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
             {supplier.drillDownLinks.length > 0 ? (
               <div className="space-y-1.5">
                 {supplier.drillDownLinks.map((link, idx) => (
-                  <Link key={`${link.href}-${idx}`} href={link.href} className="flex items-center gap-2 text-sm text-foreground hover:text-emerald-500 transition-colors py-1">
+                  <Link key={`${link.href}-${idx}`} href={link.href} className="flex items-center gap-2 text-sm text-foreground hover:text-foreground transition-colors py-1">
                     <ArrowLeftIcon className="h-3 w-3 rotate-180" />
                     {link.label}
                   </Link>
@@ -233,7 +233,7 @@ export default async function SupplierScorecardDetailPage({ params }: { params: 
             <h2 className="text-sm font-semibold text-foreground mb-3">Development Plan</h2>
             <p className="text-sm text-muted-foreground mb-3">Create a supplier development action plan to address quality issues.</p>
             {canUseFeature(normalizePlan(session.user.plan), session.user.companyType, "SUPPLIER_DEVELOPMENT") ? (
-              <Link href={`/quality/oem/supplier-development/new?supplierId=${encodeURIComponent(supplier.supplierId)}&sourceType=SCORECARD`} className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+              <Link href={`/quality/oem/supplier-development/new?supplierId=${encodeURIComponent(supplier.supplierId)}&sourceType=SCORECARD`} className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-foreground transition-colors">
                 <TargetIcon className="h-4 w-4" />
                 Create Development Plan
               </Link>

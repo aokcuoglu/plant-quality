@@ -75,26 +75,26 @@ export function SupplierActionItemCard({ item, planId, isReadOnly, canActOnItems
             value={supplierResponse}
             onChange={(e) => setSupplierResponse(e.target.value)}
             rows={2}
-            className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
             placeholder="Add your response..."
           />
           <div className="flex gap-2">
             {item.status === "OPEN" && (
-              <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} className="text-xs text-foreground hover:text-emerald-500 px-2 py-1 rounded border border-border hover:border-emerald-500/20 transition-colors disabled:opacity-50">
+              <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
                 Start Work
               </button>
             )}
             {item.status === "IN_PROGRESS" && canSubmit && (
-              <button onClick={() => handleStatusUpdate("SUBMITTED")} disabled={isSubmitting} className="text-xs text-foreground hover:text-emerald-500 px-2 py-1 rounded border border-border hover:border-emerald-500/20 transition-colors disabled:opacity-50">
+              <button onClick={() => handleStatusUpdate("SUBMITTED")} disabled={isSubmitting} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
                 Submit
               </button>
             )}
             {item.status === "REJECTED" && (
-              <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} className="text-xs text-foreground hover:text-emerald-500 px-2 py-1 rounded border border-border hover:border-emerald-500/20 transition-colors disabled:opacity-50">
+              <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
                 Re-work
               </button>
             )}
-            <button onClick={handleResponseUpdate} disabled={isSubmitting || !supplierResponse.trim()} className="text-xs text-emerald-600 hover:text-emerald-700 px-2 py-1 rounded border border-emerald-500/20 hover:border-emerald-500/40 transition-colors disabled:opacity-50">
+            <button onClick={handleResponseUpdate} disabled={isSubmitting || !supplierResponse.trim()} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
               Save Response
             </button>
           </div>

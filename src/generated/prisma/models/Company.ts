@@ -33,6 +33,7 @@ export type CompanyMinAggregateOutputType = {
   planStartedAt: Date | null
   trialEndsAt: Date | null
   taxNumber: string | null
+  primaryOemId: string | null
   createdAt: Date | null
 }
 
@@ -45,6 +46,7 @@ export type CompanyMaxAggregateOutputType = {
   planStartedAt: Date | null
   trialEndsAt: Date | null
   taxNumber: string | null
+  primaryOemId: string | null
   createdAt: Date | null
 }
 
@@ -57,6 +59,7 @@ export type CompanyCountAggregateOutputType = {
   planStartedAt: number
   trialEndsAt: number
   taxNumber: number
+  primaryOemId: number
   createdAt: number
   _all: number
 }
@@ -71,6 +74,7 @@ export type CompanyMinAggregateInputType = {
   planStartedAt?: true
   trialEndsAt?: true
   taxNumber?: true
+  primaryOemId?: true
   createdAt?: true
 }
 
@@ -83,6 +87,7 @@ export type CompanyMaxAggregateInputType = {
   planStartedAt?: true
   trialEndsAt?: true
   taxNumber?: true
+  primaryOemId?: true
   createdAt?: true
 }
 
@@ -95,6 +100,7 @@ export type CompanyCountAggregateInputType = {
   planStartedAt?: true
   trialEndsAt?: true
   taxNumber?: true
+  primaryOemId?: true
   createdAt?: true
   _all?: true
 }
@@ -180,6 +186,7 @@ export type CompanyGroupByOutputType = {
   planStartedAt: Date | null
   trialEndsAt: Date | null
   taxNumber: string | null
+  primaryOemId: string | null
   createdAt: Date
   _count: CompanyCountAggregateOutputType | null
   _min: CompanyMinAggregateOutputType | null
@@ -213,7 +220,10 @@ export type CompanyWhereInput = {
   planStartedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
   trialEndsAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
   taxNumber?: Prisma.StringNullableFilter<"Company"> | string | null
+  primaryOemId?: Prisma.StringNullableFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
+  primaryOem?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  linkedSuppliers?: Prisma.CompanyListRelationFilter
   users?: Prisma.UserListRelationFilter
   defectsAsOem?: Prisma.DefectListRelationFilter
   defectsAsSup?: Prisma.DefectListRelationFilter
@@ -241,6 +251,11 @@ export type CompanyWhereInput = {
   dispatches?: Prisma.PlantLogisticDispatchListRelationFilter
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderListRelationFilter
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderListRelationFilter
+  planSheets?: Prisma.PlantLogisticPlanSheetListRelationFilter
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineListRelationFilter
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventListRelationFilter
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionListRelationFilter
+  scorecardConfig?: Prisma.XOR<Prisma.SupplierScorecardConfigNullableScalarRelationFilter, Prisma.SupplierScorecardConfigWhereInput> | null
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -252,7 +267,10 @@ export type CompanyOrderByWithRelationInput = {
   planStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   taxNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  primaryOemId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  primaryOem?: Prisma.CompanyOrderByWithRelationInput
+  linkedSuppliers?: Prisma.CompanyOrderByRelationAggregateInput
   users?: Prisma.UserOrderByRelationAggregateInput
   defectsAsOem?: Prisma.DefectOrderByRelationAggregateInput
   defectsAsSup?: Prisma.DefectOrderByRelationAggregateInput
@@ -280,6 +298,11 @@ export type CompanyOrderByWithRelationInput = {
   dispatches?: Prisma.PlantLogisticDispatchOrderByRelationAggregateInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderOrderByRelationAggregateInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderOrderByRelationAggregateInput
+  planSheets?: Prisma.PlantLogisticPlanSheetOrderByRelationAggregateInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineOrderByRelationAggregateInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventOrderByRelationAggregateInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionOrderByRelationAggregateInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigOrderByWithRelationInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -294,7 +317,10 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   planStartedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
   trialEndsAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
   taxNumber?: Prisma.StringNullableFilter<"Company"> | string | null
+  primaryOemId?: Prisma.StringNullableFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
+  primaryOem?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  linkedSuppliers?: Prisma.CompanyListRelationFilter
   users?: Prisma.UserListRelationFilter
   defectsAsOem?: Prisma.DefectListRelationFilter
   defectsAsSup?: Prisma.DefectListRelationFilter
@@ -322,6 +348,11 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   dispatches?: Prisma.PlantLogisticDispatchListRelationFilter
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderListRelationFilter
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderListRelationFilter
+  planSheets?: Prisma.PlantLogisticPlanSheetListRelationFilter
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineListRelationFilter
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventListRelationFilter
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionListRelationFilter
+  scorecardConfig?: Prisma.XOR<Prisma.SupplierScorecardConfigNullableScalarRelationFilter, Prisma.SupplierScorecardConfigWhereInput> | null
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -333,6 +364,7 @@ export type CompanyOrderByWithAggregationInput = {
   planStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrderInput | Prisma.SortOrder
   taxNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  primaryOemId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CompanyCountOrderByAggregateInput
   _max?: Prisma.CompanyMaxOrderByAggregateInput
@@ -351,6 +383,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
   planStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
   trialEndsAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
   taxNumber?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
+  primaryOemId?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Company"> | Date | string
 }
 
@@ -364,6 +397,8 @@ export type CompanyCreateInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -391,6 +426,11 @@ export type CompanyCreateInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -402,7 +442,9 @@ export type CompanyUncheckedCreateInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -430,6 +472,11 @@ export type CompanyUncheckedCreateInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -442,6 +489,8 @@ export type CompanyUpdateInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -469,6 +518,11 @@ export type CompanyUpdateInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -480,7 +534,9 @@ export type CompanyUncheckedUpdateInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -508,6 +564,11 @@ export type CompanyUncheckedUpdateInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -519,6 +580,7 @@ export type CompanyCreateManyInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
 }
 
@@ -543,7 +605,23 @@ export type CompanyUncheckedUpdateManyInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CompanyNullableScalarRelationFilter = {
+  is?: Prisma.CompanyWhereInput | null
+  isNot?: Prisma.CompanyWhereInput | null
+}
+
+export type CompanyListRelationFilter = {
+  every?: Prisma.CompanyWhereInput
+  some?: Prisma.CompanyWhereInput
+  none?: Prisma.CompanyWhereInput
+}
+
+export type CompanyOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type CompanyCountOrderByAggregateInput = {
@@ -555,6 +633,7 @@ export type CompanyCountOrderByAggregateInput = {
   planStartedAt?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrder
   taxNumber?: Prisma.SortOrder
+  primaryOemId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -567,6 +646,7 @@ export type CompanyMaxOrderByAggregateInput = {
   planStartedAt?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrder
   taxNumber?: Prisma.SortOrder
+  primaryOemId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -579,17 +659,33 @@ export type CompanyMinOrderByAggregateInput = {
   planStartedAt?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrder
   taxNumber?: Prisma.SortOrder
+  primaryOemId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-}
-
-export type CompanyNullableScalarRelationFilter = {
-  is?: Prisma.CompanyWhereInput | null
-  isNot?: Prisma.CompanyWhereInput | null
 }
 
 export type CompanyScalarRelationFilter = {
   is?: Prisma.CompanyWhereInput
   isNot?: Prisma.CompanyWhereInput
+}
+
+export type CompanyCreateNestedOneWithoutLinkedSuppliersInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLinkedSuppliersInput, Prisma.CompanyUncheckedCreateWithoutLinkedSuppliersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLinkedSuppliersInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyCreateNestedManyWithoutPrimaryOemInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPrimaryOemInput, Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput> | Prisma.CompanyCreateWithoutPrimaryOemInput[] | Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput[]
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput | Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput[]
+  createMany?: Prisma.CompanyCreateManyPrimaryOemInputEnvelope
+  connect?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+}
+
+export type CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPrimaryOemInput, Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput> | Prisma.CompanyCreateWithoutPrimaryOemInput[] | Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput[]
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput | Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput[]
+  createMany?: Prisma.CompanyCreateManyPrimaryOemInputEnvelope
+  connect?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -614,6 +710,44 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type CompanyUpdateOneWithoutLinkedSuppliersNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLinkedSuppliersInput, Prisma.CompanyUncheckedCreateWithoutLinkedSuppliersInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLinkedSuppliersInput
+  upsert?: Prisma.CompanyUpsertWithoutLinkedSuppliersInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLinkedSuppliersInput, Prisma.CompanyUpdateWithoutLinkedSuppliersInput>, Prisma.CompanyUncheckedUpdateWithoutLinkedSuppliersInput>
+}
+
+export type CompanyUpdateManyWithoutPrimaryOemNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPrimaryOemInput, Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput> | Prisma.CompanyCreateWithoutPrimaryOemInput[] | Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput[]
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput | Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput[]
+  upsert?: Prisma.CompanyUpsertWithWhereUniqueWithoutPrimaryOemInput | Prisma.CompanyUpsertWithWhereUniqueWithoutPrimaryOemInput[]
+  createMany?: Prisma.CompanyCreateManyPrimaryOemInputEnvelope
+  set?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  disconnect?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  delete?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  connect?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  update?: Prisma.CompanyUpdateWithWhereUniqueWithoutPrimaryOemInput | Prisma.CompanyUpdateWithWhereUniqueWithoutPrimaryOemInput[]
+  updateMany?: Prisma.CompanyUpdateManyWithWhereWithoutPrimaryOemInput | Prisma.CompanyUpdateManyWithWhereWithoutPrimaryOemInput[]
+  deleteMany?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
+}
+
+export type CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPrimaryOemInput, Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput> | Prisma.CompanyCreateWithoutPrimaryOemInput[] | Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput[]
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput | Prisma.CompanyCreateOrConnectWithoutPrimaryOemInput[]
+  upsert?: Prisma.CompanyUpsertWithWhereUniqueWithoutPrimaryOemInput | Prisma.CompanyUpsertWithWhereUniqueWithoutPrimaryOemInput[]
+  createMany?: Prisma.CompanyCreateManyPrimaryOemInputEnvelope
+  set?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  disconnect?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  delete?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  connect?: Prisma.CompanyWhereUniqueInput | Prisma.CompanyWhereUniqueInput[]
+  update?: Prisma.CompanyUpdateWithWhereUniqueWithoutPrimaryOemInput | Prisma.CompanyUpdateWithWhereUniqueWithoutPrimaryOemInput[]
+  updateMany?: Prisma.CompanyUpdateManyWithWhereWithoutPrimaryOemInput | Prisma.CompanyUpdateManyWithWhereWithoutPrimaryOemInput[]
+  deleteMany?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
 }
 
 export type CompanyCreateNestedOneWithoutUsersInput = {
@@ -992,6 +1126,20 @@ export type CompanyUpdateOneRequiredWithoutYardStatusesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutYardStatusesInput, Prisma.CompanyUpdateWithoutYardStatusesInput>, Prisma.CompanyUncheckedUpdateWithoutYardStatusesInput>
 }
 
+export type CompanyCreateNestedOneWithoutCustomFieldDefinitionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutCustomFieldDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutCustomFieldDefinitionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutCustomFieldDefinitionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutCustomFieldDefinitionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutCustomFieldDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutCustomFieldDefinitionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutCustomFieldDefinitionsInput
+  upsert?: Prisma.CompanyUpsertWithoutCustomFieldDefinitionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutCustomFieldDefinitionsInput, Prisma.CompanyUpdateWithoutCustomFieldDefinitionsInput>, Prisma.CompanyUncheckedUpdateWithoutCustomFieldDefinitionsInput>
+}
+
 export type CompanyCreateNestedOneWithoutDispatchesInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutDispatchesInput, Prisma.CompanyUncheckedCreateWithoutDispatchesInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutDispatchesInput
@@ -1006,7 +1154,63 @@ export type CompanyUpdateOneRequiredWithoutDispatchesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutDispatchesInput, Prisma.CompanyUpdateWithoutDispatchesInput>, Prisma.CompanyUncheckedUpdateWithoutDispatchesInput>
 }
 
-export type CompanyCreateWithoutUsersInput = {
+export type CompanyCreateNestedOneWithoutPlanSheetsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPlanSheetsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutPlanSheetsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPlanSheetsInput
+  upsert?: Prisma.CompanyUpsertWithoutPlanSheetsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutPlanSheetsInput, Prisma.CompanyUpdateWithoutPlanSheetsInput>, Prisma.CompanyUncheckedUpdateWithoutPlanSheetsInput>
+}
+
+export type CompanyCreateNestedOneWithoutPlanSheetLinesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetLinesInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetLinesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPlanSheetLinesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutPlanSheetLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetLinesInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetLinesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPlanSheetLinesInput
+  upsert?: Prisma.CompanyUpsertWithoutPlanSheetLinesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutPlanSheetLinesInput, Prisma.CompanyUpdateWithoutPlanSheetLinesInput>, Prisma.CompanyUncheckedUpdateWithoutPlanSheetLinesInput>
+}
+
+export type CompanyCreateNestedOneWithoutPlanSheetEventsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetEventsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetEventsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPlanSheetEventsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutPlanSheetEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetEventsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetEventsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPlanSheetEventsInput
+  upsert?: Prisma.CompanyUpsertWithoutPlanSheetEventsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutPlanSheetEventsInput, Prisma.CompanyUpdateWithoutPlanSheetEventsInput>, Prisma.CompanyUncheckedUpdateWithoutPlanSheetEventsInput>
+}
+
+export type CompanyCreateNestedOneWithoutScorecardConfigInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutScorecardConfigInput, Prisma.CompanyUncheckedCreateWithoutScorecardConfigInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutScorecardConfigInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutScorecardConfigNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutScorecardConfigInput, Prisma.CompanyUncheckedCreateWithoutScorecardConfigInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutScorecardConfigInput
+  upsert?: Prisma.CompanyUpsertWithoutScorecardConfigInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutScorecardConfigInput, Prisma.CompanyUpdateWithoutScorecardConfigInput>, Prisma.CompanyUncheckedUpdateWithoutScorecardConfigInput>
+}
+
+export type CompanyCreateWithoutLinkedSuppliersInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
@@ -1016,6 +1220,8 @@ export type CompanyCreateWithoutUsersInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
   ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
@@ -1042,9 +1248,14 @@ export type CompanyCreateWithoutUsersInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
-export type CompanyUncheckedCreateWithoutUsersInput = {
+export type CompanyUncheckedCreateWithoutLinkedSuppliersInput = {
   id?: string
   name: string
   type: $Enums.CompanyType
@@ -1053,7 +1264,9 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
   ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
@@ -1080,6 +1293,339 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLinkedSuppliersInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLinkedSuppliersInput, Prisma.CompanyUncheckedCreateWithoutLinkedSuppliersInput>
+}
+
+export type CompanyCreateWithoutPrimaryOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPrimaryOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPrimaryOemInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPrimaryOemInput, Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput>
+}
+
+export type CompanyCreateManyPrimaryOemInputEnvelope = {
+  data: Prisma.CompanyCreateManyPrimaryOemInput | Prisma.CompanyCreateManyPrimaryOemInput[]
+  skipDuplicates?: boolean
+}
+
+export type CompanyUpsertWithoutLinkedSuppliersInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLinkedSuppliersInput, Prisma.CompanyUncheckedUpdateWithoutLinkedSuppliersInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLinkedSuppliersInput, Prisma.CompanyUncheckedCreateWithoutLinkedSuppliersInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLinkedSuppliersInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLinkedSuppliersInput, Prisma.CompanyUncheckedUpdateWithoutLinkedSuppliersInput>
+}
+
+export type CompanyUpdateWithoutLinkedSuppliersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLinkedSuppliersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUpsertWithWhereUniqueWithoutPrimaryOemInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPrimaryOemInput, Prisma.CompanyUncheckedUpdateWithoutPrimaryOemInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPrimaryOemInput, Prisma.CompanyUncheckedCreateWithoutPrimaryOemInput>
+}
+
+export type CompanyUpdateWithWhereUniqueWithoutPrimaryOemInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPrimaryOemInput, Prisma.CompanyUncheckedUpdateWithoutPrimaryOemInput>
+}
+
+export type CompanyUpdateManyWithWhereWithoutPrimaryOemInput = {
+  where: Prisma.CompanyScalarWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateManyMutationInput, Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemInput>
+}
+
+export type CompanyScalarWhereInput = {
+  AND?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
+  OR?: Prisma.CompanyScalarWhereInput[]
+  NOT?: Prisma.CompanyScalarWhereInput | Prisma.CompanyScalarWhereInput[]
+  id?: Prisma.StringFilter<"Company"> | string
+  name?: Prisma.StringFilter<"Company"> | string
+  type?: Prisma.EnumCompanyTypeFilter<"Company"> | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFilter<"Company"> | $Enums.Plan
+  planStatus?: Prisma.StringNullableFilter<"Company"> | string | null
+  planStartedAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
+  trialEndsAt?: Prisma.DateTimeNullableFilter<"Company"> | Date | string | null
+  taxNumber?: Prisma.StringNullableFilter<"Company"> | string | null
+  primaryOemId?: Prisma.StringNullableFilter<"Company"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Company"> | Date | string
+}
+
+export type CompanyCreateWithoutUsersInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutUsersInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutUsersInput = {
@@ -1108,6 +1654,8 @@ export type CompanyUpdateWithoutUsersInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
   ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
@@ -1134,6 +1682,11 @@ export type CompanyUpdateWithoutUsersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsersInput = {
@@ -1145,7 +1698,9 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
   ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
@@ -1172,6 +1727,11 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDefectsAsOemInput = {
@@ -1184,6 +1744,8 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
   ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
@@ -1210,6 +1772,11 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
@@ -1221,7 +1788,9 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
   ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
@@ -1248,6 +1817,11 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsOemInput = {
@@ -1265,6 +1839,8 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
@@ -1291,6 +1867,11 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
@@ -1302,7 +1883,9 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
@@ -1329,6 +1912,11 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDefectsAsSupInput = {
@@ -1357,6 +1945,8 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
   ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
@@ -1383,6 +1973,11 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
@@ -1394,7 +1989,9 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
   ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
@@ -1421,6 +2018,11 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutDefectsAsSupInput = {
@@ -1444,6 +2046,8 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
@@ -1470,6 +2074,11 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
@@ -1481,7 +2090,9 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
@@ -1508,6 +2119,11 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutPpapAsOemInput = {
@@ -1520,6 +2136,8 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -1546,6 +2164,11 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
@@ -1557,7 +2180,9 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -1584,6 +2209,11 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsOemInput = {
@@ -1601,6 +2231,8 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -1627,6 +2259,11 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
@@ -1638,7 +2275,9 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -1665,6 +2304,11 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutPpapAsSupInput = {
@@ -1693,6 +2337,8 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -1719,6 +2365,11 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
@@ -1730,7 +2381,9 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -1757,6 +2410,11 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutPpapAsSupInput = {
@@ -1780,6 +2438,8 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -1806,6 +2466,11 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
@@ -1817,7 +2482,9 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -1844,6 +2511,11 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutIqcAsOemInput = {
@@ -1856,6 +2528,8 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -1882,6 +2556,11 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
@@ -1893,7 +2572,9 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -1920,6 +2601,11 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsOemInput = {
@@ -1937,6 +2623,8 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -1963,6 +2651,11 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
@@ -1974,7 +2667,9 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -2001,6 +2696,11 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutIqcAsSupInput = {
@@ -2029,6 +2729,8 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2055,6 +2757,11 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
@@ -2066,7 +2773,9 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -2093,6 +2802,11 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutIqcAsSupInput = {
@@ -2116,6 +2830,8 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2142,6 +2858,11 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
@@ -2153,7 +2874,9 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -2180,6 +2903,11 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFmeaAsOemInput = {
@@ -2192,6 +2920,8 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -2218,6 +2948,11 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
@@ -2229,7 +2964,9 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -2256,6 +2993,11 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsOemInput = {
@@ -2273,6 +3015,8 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -2299,6 +3043,11 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
@@ -2310,7 +3059,9 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -2337,6 +3088,11 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFmeaAsSupInput = {
@@ -2365,6 +3121,8 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2391,6 +3149,11 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
@@ -2402,7 +3165,9 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -2429,6 +3194,11 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutFmeaAsSupInput = {
@@ -2452,6 +3222,8 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2478,6 +3250,11 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
@@ -2489,7 +3266,9 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -2516,6 +3295,11 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutFieldDefectsAsSupInput = {
@@ -2528,6 +3312,8 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -2554,6 +3340,11 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
@@ -2565,7 +3356,9 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -2592,6 +3385,11 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsSupInput = {
@@ -2609,6 +3407,8 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -2635,6 +3435,11 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
@@ -2646,7 +3451,9 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -2673,6 +3480,11 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutFieldDefectsAsOemInput = {
@@ -2701,6 +3513,8 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2727,6 +3541,11 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
@@ -2738,7 +3557,9 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -2765,6 +3586,11 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutFieldDefectsAsOemInput = {
@@ -2788,6 +3614,8 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2814,6 +3642,11 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
@@ -2825,7 +3658,9 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -2852,6 +3687,11 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutNotificationsInput = {
@@ -2864,6 +3704,8 @@ export type CompanyCreateWithoutNotificationsInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -2890,6 +3732,11 @@ export type CompanyCreateWithoutNotificationsInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutNotificationsInput = {
@@ -2901,7 +3748,9 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -2928,6 +3777,11 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutNotificationsInput = {
@@ -2956,6 +3810,8 @@ export type CompanyUpdateWithoutNotificationsInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -2982,6 +3838,11 @@ export type CompanyUpdateWithoutNotificationsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutNotificationsInput = {
@@ -2993,7 +3854,9 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -3020,6 +3883,11 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutEscalationHistoryInput = {
@@ -3032,6 +3900,8 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -3058,6 +3928,11 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
@@ -3069,7 +3944,9 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -3096,6 +3973,11 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutEscalationHistoryInput = {
@@ -3124,6 +4006,8 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -3150,6 +4034,11 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
@@ -3161,7 +4050,9 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -3188,6 +4079,11 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAiSuggestionsInput = {
@@ -3200,6 +4096,8 @@ export type CompanyCreateWithoutAiSuggestionsInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -3226,6 +4124,11 @@ export type CompanyCreateWithoutAiSuggestionsInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
@@ -3237,7 +4140,9 @@ export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -3264,6 +4169,11 @@ export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAiSuggestionsInput = {
@@ -3292,6 +4202,8 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -3318,6 +4230,11 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
@@ -3329,7 +4246,9 @@ export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -3356,6 +4275,11 @@ export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAi8dReviewsInput = {
@@ -3368,6 +4292,8 @@ export type CompanyCreateWithoutAi8dReviewsInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -3394,6 +4320,11 @@ export type CompanyCreateWithoutAi8dReviewsInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
@@ -3405,7 +4336,9 @@ export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -3432,6 +4365,11 @@ export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAi8dReviewsInput = {
@@ -3460,6 +4398,8 @@ export type CompanyUpdateWithoutAi8dReviewsInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -3486,6 +4426,11 @@ export type CompanyUpdateWithoutAi8dReviewsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
@@ -3497,7 +4442,9 @@ export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -3524,6 +4471,11 @@ export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutUsageCountersInput = {
@@ -3536,6 +4488,8 @@ export type CompanyCreateWithoutUsageCountersInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -3562,6 +4516,11 @@ export type CompanyCreateWithoutUsageCountersInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutUsageCountersInput = {
@@ -3573,7 +4532,9 @@ export type CompanyUncheckedCreateWithoutUsageCountersInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -3600,6 +4561,11 @@ export type CompanyUncheckedCreateWithoutUsageCountersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutUsageCountersInput = {
@@ -3628,6 +4594,8 @@ export type CompanyUpdateWithoutUsageCountersInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -3654,6 +4622,11 @@ export type CompanyUpdateWithoutUsageCountersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
@@ -3665,7 +4638,9 @@ export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -3692,6 +4667,11 @@ export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutUpgradeRequestsInput = {
@@ -3704,6 +4684,8 @@ export type CompanyCreateWithoutUpgradeRequestsInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -3730,6 +4712,11 @@ export type CompanyCreateWithoutUpgradeRequestsInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutUpgradeRequestsInput = {
@@ -3741,7 +4728,9 @@ export type CompanyUncheckedCreateWithoutUpgradeRequestsInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -3768,6 +4757,11 @@ export type CompanyUncheckedCreateWithoutUpgradeRequestsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutUpgradeRequestsInput = {
@@ -3796,6 +4790,8 @@ export type CompanyUpdateWithoutUpgradeRequestsInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -3822,6 +4818,11 @@ export type CompanyUpdateWithoutUpgradeRequestsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUpgradeRequestsInput = {
@@ -3833,7 +4834,9 @@ export type CompanyUncheckedUpdateWithoutUpgradeRequestsInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -3860,6 +4863,11 @@ export type CompanyUncheckedUpdateWithoutUpgradeRequestsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutQualityRecordLinksInput = {
@@ -3872,6 +4880,8 @@ export type CompanyCreateWithoutQualityRecordLinksInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -3898,6 +4908,11 @@ export type CompanyCreateWithoutQualityRecordLinksInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutQualityRecordLinksInput = {
@@ -3909,7 +4924,9 @@ export type CompanyUncheckedCreateWithoutQualityRecordLinksInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -3936,6 +4953,11 @@ export type CompanyUncheckedCreateWithoutQualityRecordLinksInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutQualityRecordLinksInput = {
@@ -3964,6 +4986,8 @@ export type CompanyUpdateWithoutQualityRecordLinksInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -3990,6 +5014,11 @@ export type CompanyUpdateWithoutQualityRecordLinksInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutQualityRecordLinksInput = {
@@ -4001,7 +5030,9 @@ export type CompanyUncheckedUpdateWithoutQualityRecordLinksInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -4028,6 +5059,11 @@ export type CompanyUncheckedUpdateWithoutQualityRecordLinksInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDevPlansAsOemInput = {
@@ -4040,6 +5076,8 @@ export type CompanyCreateWithoutDevPlansAsOemInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -4066,6 +5104,11 @@ export type CompanyCreateWithoutDevPlansAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDevPlansAsOemInput = {
@@ -4077,7 +5120,9 @@ export type CompanyUncheckedCreateWithoutDevPlansAsOemInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -4104,6 +5149,11 @@ export type CompanyUncheckedCreateWithoutDevPlansAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDevPlansAsOemInput = {
@@ -4121,6 +5171,8 @@ export type CompanyCreateWithoutDevPlansAsSupplierInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -4147,6 +5199,11 @@ export type CompanyCreateWithoutDevPlansAsSupplierInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDevPlansAsSupplierInput = {
@@ -4158,7 +5215,9 @@ export type CompanyUncheckedCreateWithoutDevPlansAsSupplierInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -4185,6 +5244,11 @@ export type CompanyUncheckedCreateWithoutDevPlansAsSupplierInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDevPlansAsSupplierInput = {
@@ -4213,6 +5277,8 @@ export type CompanyUpdateWithoutDevPlansAsOemInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -4239,6 +5305,11 @@ export type CompanyUpdateWithoutDevPlansAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDevPlansAsOemInput = {
@@ -4250,7 +5321,9 @@ export type CompanyUncheckedUpdateWithoutDevPlansAsOemInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -4277,6 +5350,11 @@ export type CompanyUncheckedUpdateWithoutDevPlansAsOemInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutDevPlansAsSupplierInput = {
@@ -4300,6 +5378,8 @@ export type CompanyUpdateWithoutDevPlansAsSupplierInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -4326,6 +5406,11 @@ export type CompanyUpdateWithoutDevPlansAsSupplierInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput = {
@@ -4337,7 +5422,9 @@ export type CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -4364,6 +5451,11 @@ export type CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutLogisticOrdersInput = {
@@ -4376,6 +5468,8 @@ export type CompanyCreateWithoutLogisticOrdersInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -4402,6 +5496,11 @@ export type CompanyCreateWithoutLogisticOrdersInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutLogisticOrdersInput = {
@@ -4413,7 +5512,9 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -4440,6 +5541,11 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutLogisticOrdersInput = {
@@ -4457,6 +5563,8 @@ export type CompanyCreateWithoutLogisticOrdersAsDealerInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -4483,6 +5591,11 @@ export type CompanyCreateWithoutLogisticOrdersAsDealerInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutLogisticOrdersAsDealerInput = {
@@ -4494,7 +5607,9 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersAsDealerInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -4521,6 +5636,11 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersAsDealerInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutLogisticOrdersAsDealerInput = {
@@ -4538,6 +5658,8 @@ export type CompanyCreateWithoutLogisticOrdersAsDistributorInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -4564,6 +5686,11 @@ export type CompanyCreateWithoutLogisticOrdersAsDistributorInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutLogisticOrdersAsDistributorInput = {
@@ -4575,7 +5702,9 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersAsDistributorInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -4602,6 +5731,11 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersAsDistributorInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutLogisticOrdersAsDistributorInput = {
@@ -4630,6 +5764,8 @@ export type CompanyUpdateWithoutLogisticOrdersInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -4656,6 +5792,11 @@ export type CompanyUpdateWithoutLogisticOrdersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutLogisticOrdersInput = {
@@ -4667,7 +5808,9 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -4694,6 +5837,11 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutLogisticOrdersAsDealerInput = {
@@ -4717,6 +5865,8 @@ export type CompanyUpdateWithoutLogisticOrdersAsDealerInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -4743,6 +5893,11 @@ export type CompanyUpdateWithoutLogisticOrdersAsDealerInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDealerInput = {
@@ -4754,7 +5909,9 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDealerInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -4781,6 +5938,11 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDealerInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUpsertWithoutLogisticOrdersAsDistributorInput = {
@@ -4804,6 +5966,8 @@ export type CompanyUpdateWithoutLogisticOrdersAsDistributorInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -4830,6 +5994,11 @@ export type CompanyUpdateWithoutLogisticOrdersAsDistributorInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDistributorInput = {
@@ -4841,7 +6010,9 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDistributorInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -4868,6 +6039,11 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDistributorInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutLogisticOrderEventsInput = {
@@ -4880,6 +6056,8 @@ export type CompanyCreateWithoutLogisticOrderEventsInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -4906,6 +6084,11 @@ export type CompanyCreateWithoutLogisticOrderEventsInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutLogisticOrderEventsInput = {
@@ -4917,7 +6100,9 @@ export type CompanyUncheckedCreateWithoutLogisticOrderEventsInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -4944,6 +6129,11 @@ export type CompanyUncheckedCreateWithoutLogisticOrderEventsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutLogisticOrderEventsInput = {
@@ -4972,6 +6162,8 @@ export type CompanyUpdateWithoutLogisticOrderEventsInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -4998,6 +6190,11 @@ export type CompanyUpdateWithoutLogisticOrderEventsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutLogisticOrderEventsInput = {
@@ -5009,7 +6206,9 @@ export type CompanyUncheckedUpdateWithoutLogisticOrderEventsInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -5036,6 +6235,11 @@ export type CompanyUncheckedUpdateWithoutLogisticOrderEventsInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutProductionMilestonesInput = {
@@ -5048,6 +6252,8 @@ export type CompanyCreateWithoutProductionMilestonesInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -5074,6 +6280,11 @@ export type CompanyCreateWithoutProductionMilestonesInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutProductionMilestonesInput = {
@@ -5085,7 +6296,9 @@ export type CompanyUncheckedCreateWithoutProductionMilestonesInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -5112,6 +6325,11 @@ export type CompanyUncheckedCreateWithoutProductionMilestonesInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutProductionMilestonesInput = {
@@ -5140,6 +6358,8 @@ export type CompanyUpdateWithoutProductionMilestonesInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -5166,6 +6386,11 @@ export type CompanyUpdateWithoutProductionMilestonesInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutProductionMilestonesInput = {
@@ -5177,7 +6402,9 @@ export type CompanyUncheckedUpdateWithoutProductionMilestonesInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -5204,6 +6431,11 @@ export type CompanyUncheckedUpdateWithoutProductionMilestonesInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutYardStatusesInput = {
@@ -5216,6 +6448,8 @@ export type CompanyCreateWithoutYardStatusesInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -5242,6 +6476,11 @@ export type CompanyCreateWithoutYardStatusesInput = {
   dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutYardStatusesInput = {
@@ -5253,7 +6492,9 @@ export type CompanyUncheckedCreateWithoutYardStatusesInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -5280,6 +6521,11 @@ export type CompanyUncheckedCreateWithoutYardStatusesInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutYardStatusesInput = {
@@ -5308,6 +6554,8 @@ export type CompanyUpdateWithoutYardStatusesInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -5334,6 +6582,11 @@ export type CompanyUpdateWithoutYardStatusesInput = {
   dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutYardStatusesInput = {
@@ -5345,7 +6598,9 @@ export type CompanyUncheckedUpdateWithoutYardStatusesInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -5372,6 +6627,207 @@ export type CompanyUncheckedUpdateWithoutYardStatusesInput = {
   dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutCustomFieldDefinitionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutCustomFieldDefinitionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutCustomFieldDefinitionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutCustomFieldDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutCustomFieldDefinitionsInput>
+}
+
+export type CompanyUpsertWithoutCustomFieldDefinitionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutCustomFieldDefinitionsInput, Prisma.CompanyUncheckedUpdateWithoutCustomFieldDefinitionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutCustomFieldDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutCustomFieldDefinitionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutCustomFieldDefinitionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutCustomFieldDefinitionsInput, Prisma.CompanyUncheckedUpdateWithoutCustomFieldDefinitionsInput>
+}
+
+export type CompanyUpdateWithoutCustomFieldDefinitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutDispatchesInput = {
@@ -5384,6 +6840,8 @@ export type CompanyCreateWithoutDispatchesInput = {
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
   createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
@@ -5410,6 +6868,11 @@ export type CompanyCreateWithoutDispatchesInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutDispatchesInput = {
@@ -5421,7 +6884,9 @@ export type CompanyUncheckedCreateWithoutDispatchesInput = {
   planStartedAt?: Date | string | null
   trialEndsAt?: Date | string | null
   taxNumber?: string | null
+  primaryOemId?: string | null
   createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
   defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
   defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
@@ -5448,6 +6913,11 @@ export type CompanyUncheckedCreateWithoutDispatchesInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutDispatchesInput = {
@@ -5476,6 +6946,8 @@ export type CompanyUpdateWithoutDispatchesInput = {
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
@@ -5502,6 +6974,11 @@ export type CompanyUpdateWithoutDispatchesInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutDispatchesInput = {
@@ -5513,7 +6990,9 @@ export type CompanyUncheckedUpdateWithoutDispatchesInput = {
   planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
   defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
   defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
@@ -5540,6 +7019,909 @@ export type CompanyUncheckedUpdateWithoutDispatchesInput = {
   yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
   logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutPlanSheetsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPlanSheetsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPlanSheetsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetsInput>
+}
+
+export type CompanyUpsertWithoutPlanSheetsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPlanSheetsInput, Prisma.CompanyUncheckedUpdateWithoutPlanSheetsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutPlanSheetsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPlanSheetsInput, Prisma.CompanyUncheckedUpdateWithoutPlanSheetsInput>
+}
+
+export type CompanyUpdateWithoutPlanSheetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPlanSheetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutPlanSheetLinesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPlanSheetLinesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPlanSheetLinesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetLinesInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetLinesInput>
+}
+
+export type CompanyUpsertWithoutPlanSheetLinesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPlanSheetLinesInput, Prisma.CompanyUncheckedUpdateWithoutPlanSheetLinesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetLinesInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetLinesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutPlanSheetLinesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPlanSheetLinesInput, Prisma.CompanyUncheckedUpdateWithoutPlanSheetLinesInput>
+}
+
+export type CompanyUpdateWithoutPlanSheetLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPlanSheetLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutPlanSheetEventsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPlanSheetEventsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPlanSheetEventsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetEventsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetEventsInput>
+}
+
+export type CompanyUpsertWithoutPlanSheetEventsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPlanSheetEventsInput, Prisma.CompanyUncheckedUpdateWithoutPlanSheetEventsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPlanSheetEventsInput, Prisma.CompanyUncheckedCreateWithoutPlanSheetEventsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutPlanSheetEventsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPlanSheetEventsInput, Prisma.CompanyUncheckedUpdateWithoutPlanSheetEventsInput>
+}
+
+export type CompanyUpdateWithoutPlanSheetEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPlanSheetEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutScorecardConfigInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutScorecardConfigInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutScorecardConfigInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutScorecardConfigInput, Prisma.CompanyUncheckedCreateWithoutScorecardConfigInput>
+}
+
+export type CompanyUpsertWithoutScorecardConfigInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutScorecardConfigInput, Prisma.CompanyUncheckedUpdateWithoutScorecardConfigInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutScorecardConfigInput, Prisma.CompanyUncheckedCreateWithoutScorecardConfigInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutScorecardConfigInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutScorecardConfigInput, Prisma.CompanyUncheckedUpdateWithoutScorecardConfigInput>
+}
+
+export type CompanyUpdateWithoutScorecardConfigInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutScorecardConfigInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateManyPrimaryOemInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+}
+
+export type CompanyUpdateWithoutPrimaryOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPrimaryOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateManyWithoutPrimaryOemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -5548,6 +7930,7 @@ export type CompanyUncheckedUpdateWithoutDispatchesInput = {
  */
 
 export type CompanyCountOutputType = {
+  linkedSuppliers: number
   users: number
   defectsAsOem: number
   defectsAsSup: number
@@ -5575,9 +7958,14 @@ export type CompanyCountOutputType = {
   dispatches: number
   logisticOrdersAsDealer: number
   logisticOrdersAsDistributor: number
+  planSheets: number
+  planSheetLines: number
+  planSheetEvents: number
+  customFieldDefinitions: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  linkedSuppliers?: boolean | CompanyCountOutputTypeCountLinkedSuppliersArgs
   users?: boolean | CompanyCountOutputTypeCountUsersArgs
   defectsAsOem?: boolean | CompanyCountOutputTypeCountDefectsAsOemArgs
   defectsAsSup?: boolean | CompanyCountOutputTypeCountDefectsAsSupArgs
@@ -5605,6 +7993,10 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   dispatches?: boolean | CompanyCountOutputTypeCountDispatchesArgs
   logisticOrdersAsDealer?: boolean | CompanyCountOutputTypeCountLogisticOrdersAsDealerArgs
   logisticOrdersAsDistributor?: boolean | CompanyCountOutputTypeCountLogisticOrdersAsDistributorArgs
+  planSheets?: boolean | CompanyCountOutputTypeCountPlanSheetsArgs
+  planSheetLines?: boolean | CompanyCountOutputTypeCountPlanSheetLinesArgs
+  planSheetEvents?: boolean | CompanyCountOutputTypeCountPlanSheetEventsArgs
+  customFieldDefinitions?: boolean | CompanyCountOutputTypeCountCustomFieldDefinitionsArgs
 }
 
 /**
@@ -5615,6 +8007,13 @@ export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
    * Select specific fields to fetch from the CompanyCountOutputType
    */
   select?: Prisma.CompanyCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLinkedSuppliersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyWhereInput
 }
 
 /**
@@ -5806,6 +8205,34 @@ export type CompanyCountOutputTypeCountLogisticOrdersAsDistributorArgs<ExtArgs e
   where?: Prisma.PlantLogisticOrderWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountPlanSheetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticPlanSheetWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountPlanSheetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticPlanSheetLineWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountPlanSheetEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlantLogisticPlanSheetEventWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountCustomFieldDefinitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomFieldDefinitionWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5816,7 +8243,10 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   planStartedAt?: boolean
   trialEndsAt?: boolean
   taxNumber?: boolean
+  primaryOemId?: boolean
   createdAt?: boolean
+  primaryOem?: boolean | Prisma.Company$primaryOemArgs<ExtArgs>
+  linkedSuppliers?: boolean | Prisma.Company$linkedSuppliersArgs<ExtArgs>
   users?: boolean | Prisma.Company$usersArgs<ExtArgs>
   defectsAsOem?: boolean | Prisma.Company$defectsAsOemArgs<ExtArgs>
   defectsAsSup?: boolean | Prisma.Company$defectsAsSupArgs<ExtArgs>
@@ -5844,6 +8274,11 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   dispatches?: boolean | Prisma.Company$dispatchesArgs<ExtArgs>
   logisticOrdersAsDealer?: boolean | Prisma.Company$logisticOrdersAsDealerArgs<ExtArgs>
   logisticOrdersAsDistributor?: boolean | Prisma.Company$logisticOrdersAsDistributorArgs<ExtArgs>
+  planSheets?: boolean | Prisma.Company$planSheetsArgs<ExtArgs>
+  planSheetLines?: boolean | Prisma.Company$planSheetLinesArgs<ExtArgs>
+  planSheetEvents?: boolean | Prisma.Company$planSheetEventsArgs<ExtArgs>
+  customFieldDefinitions?: boolean | Prisma.Company$customFieldDefinitionsArgs<ExtArgs>
+  scorecardConfig?: boolean | Prisma.Company$scorecardConfigArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -5856,7 +8291,9 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   planStartedAt?: boolean
   trialEndsAt?: boolean
   taxNumber?: boolean
+  primaryOemId?: boolean
   createdAt?: boolean
+  primaryOem?: boolean | Prisma.Company$primaryOemArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
 export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -5868,7 +8305,9 @@ export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   planStartedAt?: boolean
   trialEndsAt?: boolean
   taxNumber?: boolean
+  primaryOemId?: boolean
   createdAt?: boolean
+  primaryOem?: boolean | Prisma.Company$primaryOemArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
 export type CompanySelectScalar = {
@@ -5880,11 +8319,14 @@ export type CompanySelectScalar = {
   planStartedAt?: boolean
   trialEndsAt?: boolean
   taxNumber?: boolean
+  primaryOemId?: boolean
   createdAt?: boolean
 }
 
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "plan" | "planStatus" | "planStartedAt" | "trialEndsAt" | "taxNumber" | "createdAt", ExtArgs["result"]["company"]>
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "plan" | "planStatus" | "planStartedAt" | "trialEndsAt" | "taxNumber" | "primaryOemId" | "createdAt", ExtArgs["result"]["company"]>
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  primaryOem?: boolean | Prisma.Company$primaryOemArgs<ExtArgs>
+  linkedSuppliers?: boolean | Prisma.Company$linkedSuppliersArgs<ExtArgs>
   users?: boolean | Prisma.Company$usersArgs<ExtArgs>
   defectsAsOem?: boolean | Prisma.Company$defectsAsOemArgs<ExtArgs>
   defectsAsSup?: boolean | Prisma.Company$defectsAsSupArgs<ExtArgs>
@@ -5912,14 +8354,25 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   dispatches?: boolean | Prisma.Company$dispatchesArgs<ExtArgs>
   logisticOrdersAsDealer?: boolean | Prisma.Company$logisticOrdersAsDealerArgs<ExtArgs>
   logisticOrdersAsDistributor?: boolean | Prisma.Company$logisticOrdersAsDistributorArgs<ExtArgs>
+  planSheets?: boolean | Prisma.Company$planSheetsArgs<ExtArgs>
+  planSheetLines?: boolean | Prisma.Company$planSheetLinesArgs<ExtArgs>
+  planSheetEvents?: boolean | Prisma.Company$planSheetEventsArgs<ExtArgs>
+  customFieldDefinitions?: boolean | Prisma.Company$customFieldDefinitionsArgs<ExtArgs>
+  scorecardConfig?: boolean | Prisma.Company$scorecardConfigArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type CompanyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  primaryOem?: boolean | Prisma.Company$primaryOemArgs<ExtArgs>
+}
+export type CompanyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  primaryOem?: boolean | Prisma.Company$primaryOemArgs<ExtArgs>
+}
 
 export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Company"
   objects: {
+    primaryOem: Prisma.$CompanyPayload<ExtArgs> | null
+    linkedSuppliers: Prisma.$CompanyPayload<ExtArgs>[]
     users: Prisma.$UserPayload<ExtArgs>[]
     defectsAsOem: Prisma.$DefectPayload<ExtArgs>[]
     defectsAsSup: Prisma.$DefectPayload<ExtArgs>[]
@@ -5947,6 +8400,11 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     dispatches: Prisma.$PlantLogisticDispatchPayload<ExtArgs>[]
     logisticOrdersAsDealer: Prisma.$PlantLogisticOrderPayload<ExtArgs>[]
     logisticOrdersAsDistributor: Prisma.$PlantLogisticOrderPayload<ExtArgs>[]
+    planSheets: Prisma.$PlantLogisticPlanSheetPayload<ExtArgs>[]
+    planSheetLines: Prisma.$PlantLogisticPlanSheetLinePayload<ExtArgs>[]
+    planSheetEvents: Prisma.$PlantLogisticPlanSheetEventPayload<ExtArgs>[]
+    customFieldDefinitions: Prisma.$CustomFieldDefinitionPayload<ExtArgs>[]
+    scorecardConfig: Prisma.$SupplierScorecardConfigPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5957,6 +8415,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     planStartedAt: Date | null
     trialEndsAt: Date | null
     taxNumber: string | null
+    primaryOemId: string | null
     createdAt: Date
   }, ExtArgs["result"]["company"]>
   composites: {}
@@ -6352,6 +8811,8 @@ readonly fields: CompanyFieldRefs;
  */
 export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  primaryOem<T extends Prisma.Company$primaryOemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$primaryOemArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  linkedSuppliers<T extends Prisma.Company$linkedSuppliersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$linkedSuppliersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   users<T extends Prisma.Company$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   defectsAsOem<T extends Prisma.Company$defectsAsOemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$defectsAsOemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   defectsAsSup<T extends Prisma.Company$defectsAsSupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$defectsAsSupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DefectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6379,6 +8840,11 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   dispatches<T extends Prisma.Company$dispatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$dispatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticDispatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   logisticOrdersAsDealer<T extends Prisma.Company$logisticOrdersAsDealerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticOrdersAsDealerArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   logisticOrdersAsDistributor<T extends Prisma.Company$logisticOrdersAsDistributorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticOrdersAsDistributorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  planSheets<T extends Prisma.Company$planSheetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$planSheetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticPlanSheetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  planSheetLines<T extends Prisma.Company$planSheetLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$planSheetLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticPlanSheetLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  planSheetEvents<T extends Prisma.Company$planSheetEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$planSheetEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlantLogisticPlanSheetEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customFieldDefinitions<T extends Prisma.Company$customFieldDefinitionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$customFieldDefinitionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomFieldDefinitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  scorecardConfig<T extends Prisma.Company$scorecardConfigArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$scorecardConfigArgs<ExtArgs>>): Prisma.Prisma__SupplierScorecardConfigClient<runtime.Types.Result.GetResult<Prisma.$SupplierScorecardConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6416,6 +8882,7 @@ export interface CompanyFieldRefs {
   readonly planStartedAt: Prisma.FieldRef<"Company", 'DateTime'>
   readonly trialEndsAt: Prisma.FieldRef<"Company", 'DateTime'>
   readonly taxNumber: Prisma.FieldRef<"Company", 'String'>
+  readonly primaryOemId: Prisma.FieldRef<"Company", 'String'>
   readonly createdAt: Prisma.FieldRef<"Company", 'DateTime'>
 }
     
@@ -6671,6 +9138,10 @@ export type CompanyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.CompanyCreateManyInput | Prisma.CompanyCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -6741,6 +9212,10 @@ export type CompanyUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many Companies to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -6807,6 +9282,49 @@ export type CompanyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Companies to delete.
    */
   limit?: number
+}
+
+/**
+ * Company.primaryOem
+ */
+export type Company$primaryOemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
+ * Company.linkedSuppliers
+ */
+export type Company$linkedSuppliersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+  orderBy?: Prisma.CompanyOrderByWithRelationInput | Prisma.CompanyOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyScalarFieldEnum | Prisma.CompanyScalarFieldEnum[]
 }
 
 /**
@@ -7455,6 +9973,121 @@ export type Company$logisticOrdersAsDistributorArgs<ExtArgs extends runtime.Type
   take?: number
   skip?: number
   distinct?: Prisma.PlantLogisticOrderScalarFieldEnum | Prisma.PlantLogisticOrderScalarFieldEnum[]
+}
+
+/**
+ * Company.planSheets
+ */
+export type Company$planSheetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticPlanSheet
+   */
+  select?: Prisma.PlantLogisticPlanSheetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticPlanSheet
+   */
+  omit?: Prisma.PlantLogisticPlanSheetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticPlanSheetInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticPlanSheetWhereInput
+  orderBy?: Prisma.PlantLogisticPlanSheetOrderByWithRelationInput | Prisma.PlantLogisticPlanSheetOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticPlanSheetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticPlanSheetScalarFieldEnum | Prisma.PlantLogisticPlanSheetScalarFieldEnum[]
+}
+
+/**
+ * Company.planSheetLines
+ */
+export type Company$planSheetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticPlanSheetLine
+   */
+  select?: Prisma.PlantLogisticPlanSheetLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticPlanSheetLine
+   */
+  omit?: Prisma.PlantLogisticPlanSheetLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticPlanSheetLineInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticPlanSheetLineWhereInput
+  orderBy?: Prisma.PlantLogisticPlanSheetLineOrderByWithRelationInput | Prisma.PlantLogisticPlanSheetLineOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticPlanSheetLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticPlanSheetLineScalarFieldEnum | Prisma.PlantLogisticPlanSheetLineScalarFieldEnum[]
+}
+
+/**
+ * Company.planSheetEvents
+ */
+export type Company$planSheetEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlantLogisticPlanSheetEvent
+   */
+  select?: Prisma.PlantLogisticPlanSheetEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlantLogisticPlanSheetEvent
+   */
+  omit?: Prisma.PlantLogisticPlanSheetEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlantLogisticPlanSheetEventInclude<ExtArgs> | null
+  where?: Prisma.PlantLogisticPlanSheetEventWhereInput
+  orderBy?: Prisma.PlantLogisticPlanSheetEventOrderByWithRelationInput | Prisma.PlantLogisticPlanSheetEventOrderByWithRelationInput[]
+  cursor?: Prisma.PlantLogisticPlanSheetEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlantLogisticPlanSheetEventScalarFieldEnum | Prisma.PlantLogisticPlanSheetEventScalarFieldEnum[]
+}
+
+/**
+ * Company.customFieldDefinitions
+ */
+export type Company$customFieldDefinitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomFieldDefinition
+   */
+  select?: Prisma.CustomFieldDefinitionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomFieldDefinition
+   */
+  omit?: Prisma.CustomFieldDefinitionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomFieldDefinitionInclude<ExtArgs> | null
+  where?: Prisma.CustomFieldDefinitionWhereInput
+  orderBy?: Prisma.CustomFieldDefinitionOrderByWithRelationInput | Prisma.CustomFieldDefinitionOrderByWithRelationInput[]
+  cursor?: Prisma.CustomFieldDefinitionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomFieldDefinitionScalarFieldEnum | Prisma.CustomFieldDefinitionScalarFieldEnum[]
+}
+
+/**
+ * Company.scorecardConfig
+ */
+export type Company$scorecardConfigArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierScorecardConfig
+   */
+  select?: Prisma.SupplierScorecardConfigSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierScorecardConfig
+   */
+  omit?: Prisma.SupplierScorecardConfigOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierScorecardConfigInclude<ExtArgs> | null
+  where?: Prisma.SupplierScorecardConfigWhereInput
 }
 
 /**

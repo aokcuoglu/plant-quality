@@ -49,7 +49,7 @@ export function CreateDefectFromIqcButton({ inspectionId }: { inspectionId: stri
                 </DialogDescription>
               </DialogHeader>
               <div className="flex items-center gap-2">
-                <Link href={`/quality/oem/defects/${createdDefectId}`} className="text-sm text-emerald-400 hover:underline">
+                <Link href={`/quality/oem/defects/${createdDefectId}`} className="text-sm text-foreground hover:underline">
                   View Defect →
                 </Link>
               </div>
@@ -69,7 +69,7 @@ export function CreateDefectFromIqcButton({ inspectionId }: { inspectionId: stri
               </DialogHeader>
 
               {error && (
-                <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-xs text-red-400">{error}</div>
+                <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-xs text-destructive">{error}</div>
               )}
 
               <DialogFooter>

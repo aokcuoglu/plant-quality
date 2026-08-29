@@ -50,7 +50,7 @@ export default async function SupplierIqcPage() {
               {reports.map((r) => (
                 <tr key={r.id} className="transition-colors hover:bg-muted/50">
                   <td className="px-4 py-3">
-                    <Link href={`/quality/supplier/iqc/${r.id}`} className="font-medium text-foreground hover:text-emerald-400 truncate block max-w-[200px]">{r.inspectionNumber}</Link>
+                    <Link href={`/quality/supplier/iqc/${r.id}`} className="font-medium text-foreground hover:text-foreground truncate block max-w-[200px]">{r.inspectionNumber}</Link>
                   </td>
                   <td className="px-4 py-3">
                     <div className="truncate max-w-[180px] text-muted-foreground">{r.partNumber}</div>

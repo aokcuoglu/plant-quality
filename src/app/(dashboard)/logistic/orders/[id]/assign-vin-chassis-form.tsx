@@ -70,7 +70,7 @@ export function AssignVinChassisForm({ order }: { order: { id: string; vin: stri
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-600 disabled:opacity-50"
+          className="rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-foreground/90 disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save"}
         </button>

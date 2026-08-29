@@ -19,8 +19,8 @@ const statusConfig: Record<string, { dot: string; bg: string; label: string }> =
     label: "Waiting Approval",
   },
   RESOLVED: {
-    dot: "bg-emerald-500",
-    bg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    dot: "bg-blue-600",
+    bg: "bg-blue-600/10 text-blue-700 dark:text-blue-500",
     label: "Resolved",
   },
   REJECTED: {

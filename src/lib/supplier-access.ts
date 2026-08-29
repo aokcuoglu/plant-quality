@@ -15,6 +15,7 @@ export async function assertSupplierBelongsToOem(
       id: supplierId,
       type: "SUPPLIER",
       OR: [
+        { primaryOemId: oemCompanyId },
         { defectsAsSup: { some: { oemId: oemCompanyId } } },
         { ppapAsSup: { some: { oemId: oemCompanyId } } },
         { iqcAsSup: { some: { oemId: oemCompanyId } } },

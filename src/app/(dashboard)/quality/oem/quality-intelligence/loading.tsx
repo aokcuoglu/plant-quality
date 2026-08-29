@@ -19,7 +19,7 @@ export default function QualityIntelligenceLoading() {
         ))}
       </div>
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="rounded-lg border bg-card p-4 space-y-2">
             <div className="flex items-center gap-2">

@@ -18,7 +18,7 @@ export default function Loading() {
           </div>
         ))}
       </div>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[1, 2, 3].map((i) => (
           <div key={i} className="rounded-xl border bg-card p-4">
             <div className="h-[250px] animate-pulse rounded bg-muted" />

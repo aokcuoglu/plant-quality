@@ -76,7 +76,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
         <h2 className="text-sm font-medium text-foreground">Yard Status</h2>
         <div className="flex items-center gap-2">
           {yardStatus?.readyForDispatch && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
+            <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
               <CheckCircle2 className="size-3" /> Ready
             </span>
           )}
@@ -132,7 +132,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
             <button
               onClick={handleSave}
               disabled={isPending}
-              className="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50"
+              className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50"
             >
               {isPending ? "Saving..." : "Save"}
             </button>
@@ -176,7 +176,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
             <dt className="text-xs text-muted-foreground">Waiting Days</dt>
             <dd className="text-foreground">
               {waitingDays !== null ? (
-                <span className={waitingDays > 14 ? "text-destructive" : waitingDays > 7 ? "text-amber-600" : ""}>
+                <span className={waitingDays > 14 ? "text-destructive" : waitingDays > 7 ? "text-destructive" : ""}>
                   {waitingDays} day{waitingDays !== 1 ? "s" : ""}
                 </span>
               ) : "—"}
@@ -190,7 +190,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
           <button
             onClick={handleMarkReady}
             disabled={isPending}
-            className="inline-flex items-center gap-1 rounded-lg bg-emerald-500/10 px-3 py-1.5 text-sm font-medium text-emerald-600 hover:bg-emerald-500/20 disabled:opacity-50"
+            className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-foreground hover:bg-foreground/20 disabled:opacity-50"
           >
             <CheckCircle2 className="size-3.5" /> Mark Ready
           </button>
@@ -208,7 +208,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
           <button
             onClick={handleUnblock}
             disabled={isPending}
-            className="inline-flex items-center gap-1 rounded-lg bg-amber-500/10 px-3 py-1.5 text-sm font-medium text-amber-600 hover:bg-amber-500/20 disabled:opacity-50"
+            className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-accent disabled:opacity-50"
           >
             Unblock Dispatch
           </button>
@@ -229,7 +229,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
             <button
               onClick={handleBlock}
               disabled={isPending || !blockReasonInput.trim()}
-              className="rounded-lg bg-destructive px-3 py-1.5 text-sm font-medium text-white hover:bg-destructive/90 disabled:opacity-50"
+              className="rounded-lg bg-destructive px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-destructive/90 disabled:opacity-50"
             >
               {isPending ? "Blocking..." : "Block"}
             </button>

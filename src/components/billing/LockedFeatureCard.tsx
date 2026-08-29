@@ -67,7 +67,7 @@ export function LockedFeatureCard({ featureKey, currentPlan, companyType, title,
           <button
             type="button"
             onClick={() => setDialogOpen(true)}
-            className="shrink-0 rounded-md bg-emerald-500 px-2.5 py-1 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
+            className="shrink-0 rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
           >
             Upgrade
           </button>

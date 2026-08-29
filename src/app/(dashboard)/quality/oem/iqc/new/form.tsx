@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { IQC_INSPECTION_TYPES } from "@/lib/iqc"
 import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFields"
+import { DatePicker } from "@/components/ui/date-picker"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { CustomFieldsData } from "@/lib/custom-fields/types"
 
@@ -46,7 +47,7 @@ export function IqcCreateForm({
   return (
     <form action={handleSubmit} className="space-y-5">
       {error && (
-        <div className="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+        <div className="rounded-lg border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm text-destructive">
           {error}
         </div>
       )}
@@ -54,7 +55,7 @@ export function IqcCreateForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="supplierId">
-            Supplier <span className="text-red-400">*</span>
+            Supplier <span className="text-destructive">*</span>
           </Label>
           <select
             id="supplierId"
@@ -71,7 +72,7 @@ export function IqcCreateForm({
 
         <div className="space-y-2">
           <Label htmlFor="partNumber">
-            Part Number <span className="text-red-400">*</span>
+            Part Number <span className="text-destructive">*</span>
           </Label>
           <Input id="partNumber" name="partNumber" required placeholder="e.g. AX-7420-B" />
         </div>
@@ -96,7 +97,7 @@ export function IqcCreateForm({
 
         <div className="space-y-2">
           <Label htmlFor="quantityReceived">
-            Quantity Received <span className="text-red-400">*</span>
+            Quantity Received <span className="text-destructive">*</span>
           </Label>
           <Input id="quantityReceived" name="quantityReceived" type="number" min="1" required placeholder="e.g. 100" />
         </div>
@@ -138,7 +139,7 @@ export function IqcCreateForm({
 
         <div className="space-y-2">
           <Label htmlFor="inspectionDate">Inspection Date</Label>
-          <Input id="inspectionDate" name="inspectionDate" type="date" />
+          <DatePicker id="inspectionDate" name="inspectionDate" placeholder="mm / dd / yyyy" />
         </div>
 
         <div className="space-y-2">

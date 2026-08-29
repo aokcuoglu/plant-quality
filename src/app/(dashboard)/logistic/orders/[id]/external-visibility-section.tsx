@@ -73,7 +73,7 @@ export function ExternalVisibilitySection({
               onChange={(e) => setExternalVisible(e.target.checked)}
               className="peer sr-only"
             />
-            <div className="h-6 w-11 rounded-full bg-muted peer-checked:bg-emerald-500 after:absolute after:left-[2px] after:top-[2px] after:size-5 after:rounded-full after:bg-foreground after:transition-all peer-checked:after:translate-x-full peer-checked:after:bg-background peer-focus-visible:ring-2 peer-focus-visible:ring-emerald-500/40"></div>
+            <div className="h-6 w-11 rounded-full bg-muted peer-checked:bg-foreground after:absolute after:left-[2px] after:top-[2px] after:size-5 after:rounded-full after:bg-foreground after:transition-all peer-checked:after:translate-x-full peer-checked:after:bg-background peer-focus-visible:ring-2 peer-focus-visible:ring-foreground/20"></div>
           </label>
           <span className="text-sm text-foreground">
             {externalVisible ? "Visible to external users" : "Not visible externally"}
@@ -88,7 +88,7 @@ export function ExternalVisibilitySection({
                 <select
                   value={dealerCompanyId}
                   onChange={(e) => setDealerCompanyId(e.target.value)}
-                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
+                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600"
                 >
                   <option value="">None</option>
                   {dealerCompanies.map((c) => (
@@ -101,7 +101,7 @@ export function ExternalVisibilitySection({
                 <select
                   value={distributorCompanyId}
                   onChange={(e) => setDistributorCompanyId(e.target.value)}
-                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
+                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600"
                 >
                   <option value="">None</option>
                   {distributorCompanies.map((c) => (
@@ -116,7 +116,7 @@ export function ExternalVisibilitySection({
               <select
                 value={externalStatus ?? ""}
                 onChange={(e) => setExternalStatus(e.target.value as ExternalOrderStatus || null)}
-                className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
+                className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600"
               >
                 <option value="">Auto (derived from internal status)</option>
                 {EXTERNAL_STATUS_OPTIONS.map((o) => (
@@ -132,7 +132,7 @@ export function ExternalVisibilitySection({
                 onChange={(e) => setExternalStatusNote(e.target.value)}
                 placeholder="Optional message visible to dealer/distributor..."
                 rows={2}
-                className="flex w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500 placeholder:text-muted-foreground"
+                className="flex w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600 placeholder:text-muted-foreground"
               />
             </div>
           </>
@@ -141,13 +141,13 @@ export function ExternalVisibilitySection({
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center justify-center rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-black shadow-xs transition-colors hover:bg-emerald-400 disabled:opacity-50"
+          className="inline-flex items-center justify-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-foreground/80 disabled:opacity-50"
         >
           {saving ? "Saving..." : "Save Visibility Settings"}
         </button>
 
         {message && (
-          <p className={`text-xs ${message.type === "success" ? "text-emerald-500" : "text-destructive"}`}>
+          <p className={`text-xs ${message.type === "success" ? "text-foreground" : "text-destructive"}`}>
             {message.text}
           </p>
         )}

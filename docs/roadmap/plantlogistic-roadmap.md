@@ -219,9 +219,9 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 - CANCELLED/REJECTED → ON_HOLD
 
 **Excluded (deferred to v3.5.0+):**
-- Dealer self-service order creation
 - Dealer comments/messaging
 - Dealer document upload
+- Distributor self-service order creation (dealer-only arrives in v3.7.0)
 - External carrier portal
 - Real email notification
 - ERP/MRP integration
@@ -338,6 +338,35 @@ It tracks vehicle requests and orders from customer, dealer, or distributor dema
 - PDI defect creation from logistic flow
 - Supplier-caused delay signal to quality module
 - FMEA / IQC / PPAP quality risk connection to delivery risk
+
+---
+
+## v3.7.0 — Dealer Self-Service Order Creation
+
+**Scope:**
+- New Order page at `/logistic/portal/orders/new` for dealer self-service
+- `PortalOrderForm` with OEM target selector, customer name, vehicle model, quantity, priority, delivery date
+- `POST /api/logistic/portal/create-order` API route for dealer-submitted orders
+- Order auto-scoped by `dealerCompanyId` from session, linked to selected OEM
+- "New Order" nav item in `LOGISTIC_PORTAL_NAV` sidebar
+- CTA buttons on portal dashboard (header + empty state)
+- Available OEMs endpoint for dealer targeting (only companies with PLANT_LOGISTIC_MODULE)
+
+**New files:**
+- `src/app/(dashboard)/logistic/portal/orders/new/form.tsx` — PortalOrderForm
+- `src/app/(dashboard)/logistic/portal/orders/new/page.tsx` — New Order page
+- `src/app/api/logistic/portal/create-order/route.ts` — POST endpoint
+
+**Modified files:**
+- `src/app/(dashboard)/logistic/portal/actions.ts` — getAvailableOems()
+- `src/app/(dashboard)/layout.tsx` — LOGISTIC_PORTAL_NAV entry
+- `src/app/(dashboard)/logistic/portal/page.tsx` — CTA buttons
+
+**Excluded (future):**
+- Distributor self-service order creation
+- Order edit/cancel by dealer
+- Dealer document upload
+- Email notification to OEM on dealer order submission
 
 ---
 

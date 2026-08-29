@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { checkModuleAccess } from "@/lib/billing/features"
+import { getRateLimitKey, checkRateLimit } from "@/lib/rate-limit"
 
 const PUBLIC_PATHS = new Set(["/", "/login", "/verify-request"])
 
@@ -90,7 +91,33 @@ export async function proxy(request: NextRequest) {
   }
 
   if (pathname.startsWith("/api/")) {
-    if (pathname.startsWith("/api/auth") || pathname.startsWith("/api/cron")) {
+    if (pathname.startsWith("/api/cron")) {
+      return NextResponse.next()
+    }
+
+    if (pathname.startsWith("/api/auth")) {
+      // Whitelist read-only endpoints that are needed before every sign-in / sign-out
+      if (pathname === "/api/auth/csrf" || pathname === "/api/auth/providers" || pathname === "/api/auth/session") {
+        return NextResponse.next()
+      }
+
+      const rlResult = checkRateLimit(
+        getRateLimitKey(request),
+        "auth",
+      )
+      if (!rlResult.allowed) {
+        return NextResponse.json(
+          { error: "Too many authentication attempts. Please try again later." },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(rlResult.retryAfter),
+              "X-RateLimit-Remaining": "0",
+              "X-RateLimit-Reset": String(rlResult.resetAt),
+            },
+          },
+        )
+      }
       return NextResponse.next()
     }
 
@@ -109,6 +136,25 @@ export async function proxy(request: NextRequest) {
       if (!isDealerOrDistributor(session.user.companyType)) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 })
       }
+
+      const rlResult = checkRateLimit(
+        getRateLimitKey(request, session.user.id),
+        "api",
+      )
+      if (!rlResult.allowed) {
+        return NextResponse.json(
+          { error: "Too many requests. Please try again later." },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(rlResult.retryAfter),
+              "X-RateLimit-Remaining": "0",
+              "X-RateLimit-Reset": String(rlResult.resetAt),
+            },
+          },
+        )
+      }
+
       return NextResponse.next()
     }
 
@@ -120,6 +166,66 @@ export async function proxy(request: NextRequest) {
       const hasModule = checkModuleAccess("PLANT_LOGISTIC_MODULE", companyId, session.user.companyType ?? "OEM")
       if (!hasModule) {
         return NextResponse.json({ error: "Module not included in subscription" }, { status: 403 })
+      }
+
+      const rlResult = checkRateLimit(
+        getRateLimitKey(request, session.user.id),
+        "api",
+      )
+      if (!rlResult.allowed) {
+        return NextResponse.json(
+          { error: "Too many requests. Please try again later." },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(rlResult.retryAfter),
+              "X-RateLimit-Remaining": "0",
+              "X-RateLimit-Reset": String(rlResult.resetAt),
+            },
+          },
+        )
+      }
+
+      return NextResponse.next()
+    }
+
+    if (pathname.startsWith("/api/ai")) {
+      const rlResult = checkRateLimit(
+        getRateLimitKey(request, session?.user?.id),
+        "ai",
+      )
+      if (!rlResult.allowed) {
+        return NextResponse.json(
+          { error: "AI service rate limit reached. Please wait a moment and try again." },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(rlResult.retryAfter),
+              "X-RateLimit-Remaining": "0",
+              "X-RateLimit-Reset": String(rlResult.resetAt),
+            },
+          },
+        )
+      }
+    }
+
+    if (isProtectedApi) {
+      const rlResult = checkRateLimit(
+        getRateLimitKey(request, session?.user?.id),
+        "api",
+      )
+      if (!rlResult.allowed) {
+        return NextResponse.json(
+          { error: "Too many requests. Please try again later." },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(rlResult.retryAfter),
+              "X-RateLimit-Remaining": "0",
+              "X-RateLimit-Reset": String(rlResult.resetAt),
+            },
+          },
+        )
       }
     }
 

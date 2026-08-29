@@ -12,6 +12,9 @@ import Link from "next/link"
 import { PlusCircle, TruckIcon } from "lucide-react"
 import { StatusBadge } from "../status-badge"
 import { SlaStatusBadge } from "../sla-badge"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export const dynamic = "force-dynamic"
 
@@ -45,6 +48,7 @@ export default async function LogisticOrdersPage({
       { vehicleModel: { contains: searchFilter, mode: "insensitive" } },
       { vin: { contains: searchFilter, mode: "insensitive" } },
       { chassisNumber: { contains: searchFilter, mode: "insensitive" } },
+      { customFields: { path: [], string_contains: searchFilter } },
     ]
   }
 
@@ -72,6 +76,18 @@ export default async function LogisticOrdersPage({
       },
   })
 
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "LOGISTIC_ORDER")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
+
   const statusOptions = Object.entries(STATUS_LABELS).map(([value, label]) => ({ value, label }))
 
   return (
@@ -83,7 +99,7 @@ export default async function LogisticOrdersPage({
         </div>
         <Link
           href="/logistic/orders/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+          className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-foreground/90"
         >
           <PlusCircle className="size-4" />
           New Order
@@ -124,7 +140,7 @@ export default async function LogisticOrdersPage({
           <p className="text-sm">No vehicle orders found</p>
           <Link
             href="/logistic/orders/new"
-            className="mt-2 text-xs text-emerald-500 hover:text-emerald-600"
+            className="mt-2 text-xs text-foreground hover:text-foreground"
           >
             Create your first order
           </Link>
@@ -149,6 +165,7 @@ export default async function LogisticOrdersPage({
                   <th className="px-4 py-3 text-left">Delivery Target</th>
                   <th className="px-4 py-3 text-left">SLA</th>
                   <th className="px-4 py-3 text-left">Created</th>
+                  <CustomFieldsTableHeaders fields={listVisibleFields} />
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -197,7 +214,7 @@ export default async function LogisticOrdersPage({
                    return (
                     <tr key={order.id} className="group hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-emerald-500">
+                        <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-foreground">
                           {order.orderNumber}
                         </Link>
                       </td>
@@ -215,7 +232,7 @@ export default async function LogisticOrdersPage({
                           <div className="flex items-center gap-1.5">
                             <div className="h-1.5 w-16 rounded-full bg-muted">
                               <div
-                                className={`h-1.5 rounded-full ${progress === 100 ? "bg-emerald-500" : hasHold ? "bg-destructive" : "bg-cyan-500"}`}
+                                className={`h-1.5 rounded-full ${progress === 100 ? "bg-foreground" : hasHold ? "bg-destructive" : "bg-accent"}`}
                                 style={{ width: `${progress}%` }}
                               />
                             </div>
@@ -232,7 +249,7 @@ export default async function LogisticOrdersPage({
                         {order.yardStatus ? (
                           <div className="flex flex-col">
                             <span>{order.yardStatus.yardLocation || "—"}{order.yardStatus.parkingSlot ? ` / ${order.yardStatus.parkingSlot}` : ""}</span>
-                            {order.yardStatus.readyForDispatch && <span className="text-[10px] text-emerald-600">Ready</span>}
+                            {order.yardStatus.readyForDispatch && <span className="text-[10px] text-foreground">Ready</span>}
                             {order.yardStatus.blockedForDispatch && <span className="text-[10px] text-destructive">Blocked</span>}
                           </div>
                         ) : "—"}
@@ -251,12 +268,13 @@ export default async function LogisticOrdersPage({
                       <td className="px-4 py-3">
                         <SlaStatusBadge status={sla.slaStatus} />
                         {sla.daysUntilOrOverdue !== null && sla.slaStatus !== "DELIVERED" && sla.slaStatus !== "CANCELLED" && (
-                          <span className={`ml-1 text-[10px] ${sla.daysUntilOrOverdue < 0 ? "text-destructive" : "text-amber-600"}`}>
+                          <span className={`ml-1 text-[10px] ${sla.daysUntilOrOverdue < 0 ? "text-destructive" : "text-destructive"}`}>
                             {formatDaysValue(sla.daysUntilOrOverdue)}
                           </span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">{order.createdAt.toLocaleDateString()}</td>
+                      <CustomFieldsTableCells fields={listVisibleFields} customFields={order.customFields as Record<string, unknown> | null} />
                     </tr>
                   )
                 })}

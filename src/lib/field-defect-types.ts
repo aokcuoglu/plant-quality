@@ -21,4 +21,5 @@ export interface FieldDefectRow {
   category: string | null
   subcategory: string | null
   probableArea: string | null
+  customFields: Record<string, unknown> | null
 }

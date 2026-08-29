@@ -10,8 +10,8 @@ export const PLAN_LABELS: Record<PlanKey, string> = {
 
 export const PLAN_BADGE_COLORS: Record<PlanKey, string> = {
   FREE: "bg-muted text-muted-foreground border-border",
-  PRO: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  ENTERPRISE: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  PRO: "bg-destructive/10 text-destructive border-destructive/20",
+  ENTERPRISE: "bg-muted text-muted-foreground border-border",
 }
 
 export function normalizePlan(plan: Plan | string | null | undefined): PlanKey {

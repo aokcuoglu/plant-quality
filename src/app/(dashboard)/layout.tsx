@@ -1,6 +1,7 @@
 "use client"
 
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect } from "react"
 import {
   Building2Icon,
   ChevronRight,
@@ -55,11 +56,15 @@ const QUALITY_SUPPLIER_NAV: NavItem[] = [
   { href: "/quality/supplier/iqc", label: "IQC", icon: "ClipboardCheckIcon" as const, gate: "IQC" },
   { href: "/quality/supplier/fmea", label: "FMEA", icon: "ShieldAlertIcon" as const, gate: "FMEA" },
   { href: "/quality/supplier/escalations", label: "Escalations", icon: "AlertTriangleIcon" as const },
+  { href: "/quality/supplier/scorecard", label: "My Scorecard", icon: "AwardIcon" as const, gate: "SUPPLIER_SCORECARD" },
   { href: "/quality/supplier/notifications", label: "Notifications", icon: "BellIcon" as const },
 ]
 
 const LOGISTIC_NAV: NavItem[] = [
   { href: "/logistic", label: "Overview", icon: "LayoutDashboardIcon" as const, gate: "PLANT_LOGISTIC" },
+  { href: "/logistic/board", label: "Live Board", icon: "LayoutGridIcon" as const, gate: "PLANT_LOGISTIC" },
+  { href: "/logistic/plan-sheets", label: "Şase Listeleri", icon: "FileTextIcon" as const, gate: "PLANT_LOGISTIC" },
+  { href: "/logistic/dispatches", label: "Sevk Kuyruğu", icon: "ShipIcon" as const, gate: "PLANT_LOGISTIC" },
   { href: "/logistic/orders", label: "Vehicle Orders", icon: "TruckIcon" as const, gate: "PLANT_LOGISTIC" },
   { href: "/logistic/orders/new", label: "New Order", icon: "PlusCircleIcon" as const, gate: "PLANT_LOGISTIC" },
   { href: "/logistic/delay-intelligence", label: "Delay Intelligence", icon: "AlertTriangleIcon" as const, gate: "PLANT_LOGISTIC" },
@@ -74,6 +79,13 @@ const LOGISTIC_PORTAL_NAV: NavItem[] = [
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { session, loading } = useSession()
   const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (session?.user?.role === "SUPER_ADMIN") {
+      router.replace("/admin")
+    }
+  }, [session, router])
 
   if (loading) {
     return (

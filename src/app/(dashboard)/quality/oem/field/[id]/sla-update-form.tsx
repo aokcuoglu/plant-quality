@@ -4,6 +4,7 @@ import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { ClockIcon } from "lucide-react"
 import { setFieldDefectSla } from "@/app/(dashboard)/field/actions"
+import { DatePicker } from "@/components/ui/date-picker"
 
 export function SlaUpdateForm({
   fieldDefectId,
@@ -61,22 +62,12 @@ export function SlaUpdateForm({
             <div className="mt-4 space-y-3">
               <div>
                 <label className="text-sm font-medium text-foreground">Response Due Date</label>
-                <input
-                  type="date"
-                  value={responseDueAt}
-                  onChange={(e) => setResponseDueAt(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
+                <DatePicker value={responseDueAt} onChange={setResponseDueAt} placeholder="mm / dd / yyyy" className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground" />
                 <p className="mt-0.5 text-xs text-muted-foreground">When the supplier should acknowledge/respond</p>
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground">Resolution Due Date</label>
-                <input
-                  type="date"
-                  value={resolutionDueAt}
-                  onChange={(e) => setResolutionDueAt(e.target.value)}
-                  className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
+                <DatePicker value={resolutionDueAt} onChange={setResolutionDueAt} placeholder="mm / dd / yyyy" className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground" />
                 <p className="mt-0.5 text-xs text-muted-foreground">When the issue should be fully resolved</p>
               </div>
             </div>
@@ -92,7 +83,7 @@ export function SlaUpdateForm({
               <button
                 onClick={handleSubmit}
                 disabled={isPending}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+                className="rounded-md bg-foreground/90 px-4 py-2 text-sm text-white hover:bg-foreground/90 disabled:opacity-50 transition-colors"
               >
                 {isPending ? "Saving..." : "Save"}
               </button>

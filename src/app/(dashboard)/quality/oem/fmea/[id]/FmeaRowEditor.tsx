@@ -116,7 +116,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-400">{error}</div>
+        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
 
       <div className="overflow-x-auto rounded-lg border bg-card">
@@ -140,7 +140,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
           </thead>
           <tbody className="divide-y divide-border">
             {rows.map(row => (
-              <tr key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-red-500/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-amber-500/5" : "")}>
+              <tr key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : "")}>
                 {fmeaType === "PROCESS" && (
                   <td className="px-2 py-1.5">
                     {canEdit ? (
@@ -206,7 +206,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                       <span className="text-foreground">{row.detection}</span>
                     )}
                   </td>
-                <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-red-400" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-amber-400" : "text-emerald-400")}>
+                <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-destructive" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-destructive" : "text-foreground")}>
                   {Number.isFinite(row.rpn) ? row.rpn : "—"}
                 </td>
                 <td className="px-2 py-1.5">
@@ -220,7 +220,7 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                   {canEdit ? (
                     <ActionStatusSelect value={row.actionStatus} onChange={v => updateRow(row.id, "actionStatus", v)} />
                   ) : (
-                    <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-semibold", row.actionStatus === "COMPLETED" ? "bg-emerald-500/10 text-emerald-400" : row.actionStatus === "IN_PROGRESS" ? "bg-amber-500/10 text-amber-400" : row.actionStatus === "CANCELLED" ? "bg-muted text-muted-foreground" : "bg-muted text-muted-foreground")}>
+                    <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-semibold", row.actionStatus === "COMPLETED" ? "bg-muted text-muted-foreground" : row.actionStatus === "IN_PROGRESS" ? "bg-destructive/10 text-destructive" : row.actionStatus === "CANCELLED" ? "bg-muted text-muted-foreground" : "bg-muted text-muted-foreground")}>
                       {row.actionStatus?.replaceAll("_", " ") ?? "OPEN"}
                     </span>
                   )}

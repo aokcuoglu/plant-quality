@@ -12,7 +12,7 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
     return (
       <section className="rounded-lg border bg-card p-4">
         <h2 className="mb-3 text-sm font-medium text-foreground flex items-center gap-2">
-          <Clock className="size-4 text-emerald-500" /> SLA & Delay Status
+          <Clock className="size-4 text-foreground" /> SLA & Delay Status
         </h2>
         <p className="text-sm text-muted-foreground">
           {summary.slaStatus === "CANCELLED" ? "Order cancelled — no active SLA tracking." : "Order delivered — no active SLA tracking."}
@@ -25,7 +25,7 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
     return (
       <section className="rounded-lg border bg-card p-4">
         <h2 className="mb-3 text-sm font-medium text-foreground flex items-center gap-2">
-          <Clock className="size-4 text-emerald-500" /> SLA & Delay Status
+          <Clock className="size-4 text-foreground" /> SLA & Delay Status
         </h2>
         <div className="flex items-center gap-3">
           <SlaStatusBadge status={summary.slaStatus} />
@@ -47,7 +47,7 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
   return (
     <section className="rounded-lg border bg-card p-4">
       <h2 className="mb-3 text-sm font-medium text-foreground flex items-center gap-2">
-        <AlertTriangle className="size-4 text-amber-500" /> SLA & Delay Status
+        <AlertTriangle className="size-4 text-destructive" /> SLA & Delay Status
       </h2>
 
         <div className="space-y-4">
@@ -63,17 +63,17 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
             <span className="text-sm text-muted-foreground">No target date</span>
           )}
           {summary.daysUntilOrOverdue !== null && summary.daysUntilOrOverdue !== 0 && (
-            <span className={`text-sm font-medium ${summary.daysUntilOrOverdue < 0 ? "text-destructive" : "text-amber-600"}`}>
+            <span className={`text-sm font-medium ${summary.daysUntilOrOverdue < 0 ? "text-destructive" : "text-destructive"}`}>
               {formatDaysValue(summary.daysUntilOrOverdue)}
             </span>
           )}
           {summary.daysUntilOrOverdue === 0 && (
-            <span className="text-sm font-medium text-amber-600">Due today</span>
+            <span className="text-sm font-medium text-destructive">Due today</span>
           )}
         </div>
 
         {summary.currentBlockingStage && (
-          <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-3">
+          <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3">
             <div className="flex items-center gap-2 text-sm font-medium text-destructive">
               <ShieldAlert className="size-4" />
               Blocked: {summary.currentBlockingStage}
@@ -115,10 +115,10 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
             </h3>
             <div className="space-y-2">
               {summary.milestoneDelays.map((ms) => (
-                <div key={ms.milestoneId} className={`rounded-lg border p-2.5 ${ms.blocked ? "border-red-500/30 bg-red-500/5" : "border-amber-500/30 bg-amber-500/5"}`}>
+                <div key={ms.milestoneId} className={`rounded-lg border p-2.5 ${ms.blocked ? "border-destructive/20 bg-destructive/5" : "border-destructive/20 bg-destructive/5"}`}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-foreground">{ms.title}</span>
-                    <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase ${ms.blocked ? "bg-red-500/10 text-red-600" : "bg-amber-500/10 text-amber-600"}`}>
+                    <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase ${ms.blocked ? "bg-destructive/10 text-destructive" : "bg-destructive/10 text-destructive"}`}>
                       {ms.qualityHold ? "Q-Hold" : ms.status}
                     </span>
                   </div>
@@ -128,7 +128,7 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
                       {ms.overdue && <span className="text-destructive ml-1">({ms.daysOverdue}d overdue)</span>}
                     </p>
                   )}
-                  {ms.delayReason && <p className="text-xs text-amber-600 mt-0.5">Reason: {ms.delayReason}</p>}
+                  {ms.delayReason && <p className="text-xs text-destructive mt-0.5">Reason: {ms.delayReason}</p>}
                   {ms.responsibleDepartment && <p className="text-xs text-muted-foreground mt-0.5">Dept: {ms.responsibleDepartment}</p>}
                 </div>
               ))}
@@ -137,8 +137,8 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
         )}
 
         {summary.yardDelay && summary.yardDelay.blockedForDispatch && (
-          <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
-            <div className="flex items-center gap-2 text-sm font-medium text-amber-600">
+          <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3">
+            <div className="flex items-center gap-2 text-sm font-medium text-destructive">
               <MapPin className="size-4" />
               Yard: Dispatch blocked
               {summary.yardDelay.blockReason && <span className="font-normal text-muted-foreground">— {summary.yardDelay.blockReason}</span>}
@@ -156,7 +156,7 @@ export function DelayRiskPanel({ summary }: { summary: OrderSlaSummary }) {
             </h3>
             <div className="space-y-2">
               {summary.dispatchDelays.filter((d) => d.loadingOverdue || d.etaOverdue).map((d) => (
-                <div key={d.dispatchId} className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-2.5">
+                <div key={d.dispatchId} className="rounded-lg border border-destructive/20 bg-destructive/5 p-2.5">
                   <div className="flex items-center gap-2 text-sm">
                     <span className="font-medium text-foreground">Dispatch</span>
                     <span className="inline-flex items-center rounded-full bg-muted px-1.5 py-0.5 text-[9px] font-semibold text-muted-foreground">

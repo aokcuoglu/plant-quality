@@ -89,7 +89,13 @@ export const ModelName = {
   PlantLogisticOrderEvent: 'PlantLogisticOrderEvent',
   PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone',
   PlantLogisticYardStatus: 'PlantLogisticYardStatus',
-  PlantLogisticDispatch: 'PlantLogisticDispatch'
+  CustomFieldDefinition: 'CustomFieldDefinition',
+  PlantLogisticDispatch: 'PlantLogisticDispatch',
+  PlantLogisticOrderComment: 'PlantLogisticOrderComment',
+  PlantLogisticPlanSheet: 'PlantLogisticPlanSheet',
+  PlantLogisticPlanSheetLine: 'PlantLogisticPlanSheetLine',
+  PlantLogisticPlanSheetEvent: 'PlantLogisticPlanSheetEvent',
+  SupplierScorecardConfig: 'SupplierScorecardConfig'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -117,6 +123,7 @@ export const CompanyScalarFieldEnum = {
   planStartedAt: 'planStartedAt',
   trialEndsAt: 'trialEndsAt',
   taxNumber: 'taxNumber',
+  primaryOemId: 'primaryOemId',
   createdAt: 'createdAt'
 } as const
 
@@ -194,6 +201,7 @@ export const DefectScalarFieldEnum = {
   escalatedAt: 'escalatedAt',
   escalatedById: 'escalatedById',
   escalationReason: 'escalationReason',
+  customFields: 'customFields',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   resolvedAt: 'resolvedAt'
@@ -304,6 +312,7 @@ export const PpapSubmissionScalarFieldEnum = {
   requirements: 'requirements',
   notes: 'notes',
   supplierNotes: 'supplierNotes',
+  customFields: 'customFields',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -393,6 +402,7 @@ export const IqcReportScalarFieldEnum = {
   measurements: 'measurements',
   nonconformities: 'nonconformities',
   dispositionNotes: 'dispositionNotes',
+  customFields: 'customFields',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -455,6 +465,7 @@ export const FmeaScalarFieldEnum = {
   rejectionReason: 'rejectionReason',
   revisionNo: 'revisionNo',
   notes: 'notes',
+  customFields: 'customFields',
   createdById: 'createdById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -524,6 +535,7 @@ export const FieldDefectScalarFieldEnum = {
   escalatedAt: 'escalatedAt',
   escalatedById: 'escalatedById',
   escalationReason: 'escalationReason',
+  customFields: 'customFields',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   closedAt: 'closedAt',
@@ -783,10 +795,13 @@ export const PlantLogisticOrderScalarFieldEnum = {
   distributorCompanyId: 'distributorCompanyId',
   createdById: 'createdById',
   updatedById: 'updatedById',
+  customFields: 'customFields',
   approvedAt: 'approvedAt',
   rejectedAt: 'rejectedAt',
   deliveredAt: 'deliveredAt',
   closedAt: 'closedAt',
+  planSheetId: 'planSheetId',
+  planSheetLineId: 'planSheetLineId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -856,6 +871,31 @@ export const PlantLogisticYardStatusScalarFieldEnum = {
 export type PlantLogisticYardStatusScalarFieldEnum = (typeof PlantLogisticYardStatusScalarFieldEnum)[keyof typeof PlantLogisticYardStatusScalarFieldEnum]
 
 
+export const CustomFieldDefinitionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  entity: 'entity',
+  fieldName: 'fieldName',
+  label: 'label',
+  placeholder: 'placeholder',
+  fieldType: 'fieldType',
+  section: 'section',
+  isBuiltIn: 'isBuiltIn',
+  visible: 'visible',
+  required: 'required',
+  options: 'options',
+  defaultValue: 'defaultValue',
+  validation: 'validation',
+  visibleInList: 'visibleInList',
+  order: 'order',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomFieldDefinitionScalarFieldEnum = (typeof CustomFieldDefinitionScalarFieldEnum)[keyof typeof CustomFieldDefinitionScalarFieldEnum]
+
+
 export const PlantLogisticDispatchScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
@@ -881,6 +921,112 @@ export const PlantLogisticDispatchScalarFieldEnum = {
 } as const
 
 export type PlantLogisticDispatchScalarFieldEnum = (typeof PlantLogisticDispatchScalarFieldEnum)[keyof typeof PlantLogisticDispatchScalarFieldEnum]
+
+
+export const PlantLogisticOrderCommentScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  authorId: 'authorId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type PlantLogisticOrderCommentScalarFieldEnum = (typeof PlantLogisticOrderCommentScalarFieldEnum)[keyof typeof PlantLogisticOrderCommentScalarFieldEnum]
+
+
+export const PlantLogisticPlanSheetScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  planNumber: 'planNumber',
+  title: 'title',
+  periodMonth: 'periodMonth',
+  channel: 'channel',
+  status: 'status',
+  notes: 'notes',
+  createdById: 'createdById',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
+  approvedAt: 'approvedAt',
+  approvedById: 'approvedById',
+  rejectedAt: 'rejectedAt',
+  closedAt: 'closedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticPlanSheetScalarFieldEnum = (typeof PlantLogisticPlanSheetScalarFieldEnum)[keyof typeof PlantLogisticPlanSheetScalarFieldEnum]
+
+
+export const PlantLogisticPlanSheetLineScalarFieldEnum = {
+  id: 'id',
+  planSheetId: 'planSheetId',
+  companyId: 'companyId',
+  sequence: 'sequence',
+  customerName: 'customerName',
+  customerType: 'customerType',
+  country: 'country',
+  market: 'market',
+  dealerName: 'dealerName',
+  distributorName: 'distributorName',
+  vehicleModel: 'vehicleModel',
+  vehicleVariant: 'vehicleVariant',
+  vehicleType: 'vehicleType',
+  powertrain: 'powertrain',
+  quantity: 'quantity',
+  priority: 'priority',
+  chassisNumber: 'chassisNumber',
+  vin: 'vin',
+  requestedDeliveryDate: 'requestedDeliveryDate',
+  forecastDispatchDate: 'forecastDispatchDate',
+  status: 'status',
+  remark: 'remark',
+  orderId: 'orderId',
+  generatedAt: 'generatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlantLogisticPlanSheetLineScalarFieldEnum = (typeof PlantLogisticPlanSheetLineScalarFieldEnum)[keyof typeof PlantLogisticPlanSheetLineScalarFieldEnum]
+
+
+export const PlantLogisticPlanSheetEventScalarFieldEnum = {
+  id: 'id',
+  planSheetId: 'planSheetId',
+  companyId: 'companyId',
+  eventType: 'eventType',
+  actorId: 'actorId',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type PlantLogisticPlanSheetEventScalarFieldEnum = (typeof PlantLogisticPlanSheetEventScalarFieldEnum)[keyof typeof PlantLogisticPlanSheetEventScalarFieldEnum]
+
+
+export const SupplierScorecardConfigScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  fieldDefectPerItem: 'fieldDefectPerItem',
+  fieldDefectCap: 'fieldDefectCap',
+  repeatIssuePerItem: 'repeatIssuePerItem',
+  repeatIssueCap: 'repeatIssueCap',
+  iqcRejectedPerItem: 'iqcRejectedPerItem',
+  iqcRejectedCap: 'iqcRejectedCap',
+  openOverdue8dPerItem: 'openOverdue8dPerItem',
+  openOverdue8dCap: 'openOverdue8dCap',
+  slaBreachPerItem: 'slaBreachPerItem',
+  slaBreachCap: 'slaBreachCap',
+  ppapWithIssuesPerItem: 'ppapWithIssuesPerItem',
+  ppapWithIssuesCap: 'ppapWithIssuesCap',
+  fmeaGapPerItem: 'fmeaGapPerItem',
+  fmeaGapCap: 'fmeaGapCap',
+  execRiskPerItem: 'execRiskPerItem',
+  execRiskCap: 'execRiskCap',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierScorecardConfigScalarFieldEnum = (typeof SupplierScorecardConfigScalarFieldEnum)[keyof typeof SupplierScorecardConfigScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -37,7 +37,7 @@ export function PpapReviewCommentForm({
     <div className="rounded-lg border bg-card p-4 space-y-3">
       <h2 className="text-sm font-medium text-foreground">Add Review Comment</h2>
       {error && (
-        <div className="rounded border border-red-500/20 bg-red-500/5 px-3 py-2 text-xs text-red-400">
+        <div className="rounded border border-destructive/20 bg-destructive/5 px-3 py-2 text-xs text-destructive">
           {error}
         </div>
       )}

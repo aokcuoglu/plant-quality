@@ -46,19 +46,19 @@ export function SupplierFmeaActions({ fmeaId, status, rows }: SupplierFmeaAction
   return (
     <div className="space-y-3">
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-400">{error}</div>
+        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
-      <Button onClick={handleSubmit} disabled={submitting || !canSubmit} className="bg-emerald-500 hover:bg-emerald-600 text-white disabled:opacity-50">
+      <Button onClick={handleSubmit} disabled={submitting || !canSubmit} className="bg-foreground text-background hover:bg-foreground/90 text-white disabled:opacity-50">
         {submitting ? "Submitting..." : "Submit for Review"}
       </Button>
       {!hasRows && (
         <p className="text-xs text-muted-foreground">At least one valid FMEA row is required before submitting for review.</p>
       )}
       {hasRows && !allRowsValid && (
-        <p className="text-xs text-amber-400">All rows must have a failure mode and valid severity, occurrence, and detection values (1–10).</p>
+        <p className="text-xs text-destructive">All rows must have a failure mode and valid severity, occurrence, and detection values (1–10).</p>
       )}
       {status === "REVISION_REQUIRED" && (
-        <p className="text-xs text-amber-400">Revision has been requested. Please update your FMEA and resubmit.</p>
+        <p className="text-xs text-destructive">Revision has been requested. Please update your FMEA and resubmit.</p>
       )}
     </div>
   )

@@ -256,7 +256,7 @@ export default async function QualityIntelligencePage() {
             <h2 className="text-lg font-semibold text-foreground pt-2">Risk Intelligence</h2>
             <p className="text-xs text-muted-foreground mt-0.5">Deterministic risk scoring based on cross-module quality signals. No AI or LLM is used — every score is explainable from its contributing factors.</p>
           </div>
-          <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
             <DashboardCard
               title="High Risk"
               value={data.intelligenceSummary.highRiskCount}
@@ -372,13 +372,13 @@ export default async function QualityIntelligencePage() {
                         <div className="text-xs text-muted-foreground mt-1">
                           {s.hasRelatedFmea ? (
                             <>
-                              <span className="text-amber-500">Partial coverage</span>
+                              <span className="text-destructive">Partial coverage</span>
                               {s.fmeaHref && (
-                                <> · <Link href={s.fmeaHref} className="text-emerald-500 hover:underline">View FMEA</Link></>
+                                <> · <Link href={s.fmeaHref} className="text-foreground hover:underline">View FMEA</Link></>
                               )}
                             </>
                           ) : (
-                            <span className="text-red-500">No FMEA exists</span>
+                            <span className="text-destructive">No FMEA exists</span>
                           )}
                         </div>
                         <p className="text-xs text-muted-foreground mt-0.5">{s.gapReason}</p>
@@ -407,7 +407,7 @@ export default async function QualityIntelligencePage() {
                         </div>
                         {s.partName && <div className="text-xs text-muted-foreground">{s.partName}</div>}
                         <div className="flex items-center gap-2 mt-1.5">
-                          <span className="inline-flex items-center rounded-md border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] text-red-500">
+                          <span className="inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] text-destructive">
                             {s.rejectionCount} rejection{s.rejectionCount !== 1 ? "s" : ""}
                           </span>
                           <span className="text-xs text-muted-foreground">
@@ -463,7 +463,7 @@ export default async function QualityIntelligencePage() {
                         </div>
                         <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                           {s.fieldDefectCount > 0 && (
-                            <span className="inline-flex items-center rounded-md border border-amber-500/20 bg-amber-500/10 px-1.5 py-0.5 text-[10px] text-amber-500">
+                            <span className="inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] text-destructive">
                               {s.fieldDefectCount} field defect{s.fieldDefectCount !== 1 ? "s" : ""}
                             </span>
                           )}
@@ -473,12 +473,12 @@ export default async function QualityIntelligencePage() {
                             </span>
                           )}
                           {s.iqcIssueCount > 0 && (
-                            <span className="inline-flex items-center rounded-md border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] text-red-500">
+                            <span className="inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] text-destructive">
                               {s.iqcIssueCount} IQC issue{s.iqcIssueCount !== 1 ? "s" : ""}
                             </span>
                           )}
                           {s.linkedByManualLink && (
-                            <span className="inline-flex items-center rounded-md border border-foreground/20 bg-foreground/10 px-1.5 py-0.5 text-[10px] text-foreground">
+                            <span className="inline-flex items-center rounded-md border border-foreground/20 bg-muted px-1.5 py-0.5 text-[10px] text-foreground">
                               Manual link
                             </span>
                           )}
@@ -548,7 +548,7 @@ export default async function QualityIntelligencePage() {
         <h2 className="text-lg font-semibold text-foreground pt-2">Top Categories & Subcategories</h2>
       )}
       {data.totalDefects > 0 && (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           <RankingTable
             title="Top Categories"
             items={data.topCategories}
@@ -569,7 +569,7 @@ export default async function QualityIntelligencePage() {
       )}
 
       {data.totalDefects > 0 && (
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <RankingTable
             title="Top Vehicle Models"
             items={data.topVehicleModels}

@@ -95,10 +95,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: user.email,
           name: user.name,
           role: user.role,
-          plan: user.company?.plan ?? user.plan,
+          plan: (user.company?.plan ?? user.plan) as Plan,
           companyId: user.companyId ?? undefined,
-          companyName: user.company?.name ?? undefined,
-          companyType: user.company?.type ?? undefined,
+          companyName: (user.company?.name as string) ?? undefined,
+          companyType: (user.company?.type as CompanyType) ?? undefined,
         } as NextAuthUser
       },
     }),
@@ -144,9 +144,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.id = dbUser?.id ?? user.id
         token.role = dbUser?.role ?? user.role
         token.plan = dbUser?.company?.plan ?? dbUser?.plan ?? user.plan
-        token.companyId = dbUser?.companyId ?? user.companyId
-        token.companyName = dbUser?.company?.name ?? user.companyName
-        token.companyType = dbUser?.company?.type ?? user.companyType
+        token.companyId = dbUser?.companyId ?? user.companyId ?? ""
+        token.companyName = dbUser?.company?.name ?? user.companyName ?? ""
+        token.companyType = dbUser?.company?.type ?? user.companyType ?? "OEM"
       }
       return token
     },
@@ -155,9 +155,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         session.user.id = token.id as string
         session.user.role = token.role as Role
         session.user.plan = token.plan as Plan
-        session.user.companyId = token.companyId as string
-        session.user.companyName = token.companyName as string
-        session.user.companyType = token.companyType as CompanyType
+        session.user.companyId = (token.companyId as string) ?? ""
+        session.user.companyName = (token.companyName as string) ?? ""
+        session.user.companyType = (token.companyType as CompanyType) ?? "OEM"
       }
       return session
     },

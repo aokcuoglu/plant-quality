@@ -31,7 +31,7 @@ export default async function OemNotificationsPage() {
             <div
               key={n.id}
               className={`flex items-start gap-3 rounded-lg border bg-card p-4 transition-colors ${
-                !n.isRead ? "border-l-2 border-l-emerald-500 bg-emerald-500/5" : ""
+                !n.isRead ? "border-l-2 border-l-border bg-foreground/5" : ""
               }`}
             >
               <div className="flex-1 min-w-0">

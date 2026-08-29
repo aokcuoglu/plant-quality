@@ -40,7 +40,7 @@ export function CreateDefectFromHoldButton({
     return (
       <a
         href={`/quality/oem/defects/${linkedDefectId}`}
-        className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+        className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium bg-muted text-muted-foreground hover:bg-foreground/20 transition-colors"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -80,17 +80,17 @@ export function CreateDefectFromHoldButton({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded px-2 py-0.5 text-xs font-medium bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 transition-colors"
+        className="rounded px-2 py-0.5 text-xs font-medium bg-muted text-muted-foreground hover:bg-accent transition-colors"
       >
         Create Defect
       </button>
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setOpen(false)} />
+          <div className="fixed inset-0 bg-background/80" onClick={() => setOpen(false)} />
           <div className="relative z-50 w-full max-w-md rounded-lg border bg-card p-6 shadow-lg">
             <div className="flex items-center gap-2 mb-4">
-              <BugIcon className="size-4 text-emerald-400" />
+              <BugIcon className="size-4 text-foreground" />
               <h2 className="text-sm font-semibold text-foreground">Create Defect from Quality Hold</h2>
             </div>
 
@@ -100,7 +100,7 @@ export function CreateDefectFromHoldButton({
                 <select
                   value={supplierId}
                   onChange={(e) => setSupplierId(e.target.value)}
-                  className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
                 >
                   <option value="">Select supplier...</option>
                   {suppliers.map((s) => (
@@ -116,7 +116,7 @@ export function CreateDefectFromHoldButton({
                   value={partNumber}
                   onChange={(e) => setPartNumber(e.target.value)}
                   placeholder="e.g. BR-5500-ASSY"
-                  className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
                 />
               </div>
 
@@ -129,7 +129,7 @@ export function CreateDefectFromHoldButton({
                   type="button"
                   onClick={handleCreate}
                   disabled={loading}
-                  className="flex-1 rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-emerald-600 transition-colors disabled:opacity-50"
+                  className="flex-1 rounded-md bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors disabled:opacity-50"
                 >
                   {loading ? <Loader2Icon className="size-4 animate-spin mx-auto" /> : "Create Defect"}
                 </button>

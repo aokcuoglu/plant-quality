@@ -15,15 +15,15 @@ export const EXTERNAL_STATUS_LABELS: Record<ExternalOrderStatus, string> = {
 }
 
 export const EXTERNAL_STATUS_COLORS: Record<ExternalOrderStatus, string> = {
-  ORDER_RECEIVED: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-  PRODUCTION_PLANNED: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-  IN_PRODUCTION: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  QUALITY_CHECK: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
-  READY_FOR_DISPATCH: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  DISPATCHED: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  IN_TRANSIT: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
-  DELIVERED: "bg-green-500/10 text-green-600 dark:text-green-400",
-  ON_HOLD: "bg-red-500/10 text-red-600 dark:text-red-400",
+  ORDER_RECEIVED: "bg-accent text-accent-foreground",
+  PRODUCTION_PLANNED: "bg-accent text-accent-foreground",
+  IN_PRODUCTION: "bg-muted text-muted-foreground",
+  QUALITY_CHECK: "bg-muted text-muted-foreground",
+  READY_FOR_DISPATCH: "bg-muted text-muted-foreground",
+  DISPATCHED: "bg-muted text-muted-foreground",
+  IN_TRANSIT: "bg-accent text-accent-foreground",
+  DELIVERED: "bg-muted text-muted-foreground",
+  ON_HOLD: "bg-destructive/10 text-destructive",
 }
 
 export function mapToExternalStatus(

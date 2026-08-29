@@ -6,9 +6,11 @@ export async function getOemSupplierName(
 ): Promise<string | null> {
   const supplier = await prisma.company.findFirst({
     where: { id: supplierId, type: "SUPPLIER" },
-    select: { id: true, name: true },
+    select: { id: true, name: true, primaryOemId: true },
   })
   if (!supplier) return null
+
+  if (supplier.primaryOemId === oemId) return supplier.name
 
   const hasRelation = await prisma.defect.findFirst({
     where: { oemId, supplierId },

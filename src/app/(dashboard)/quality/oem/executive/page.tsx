@@ -35,9 +35,9 @@ function RiskBadge({ level }: { level: string }) {
 
 function PriorityBadge({ priority }: { priority: ActionPriority }) {
   const config: Record<ActionPriority, { label: string; className: string }> = {
-    critical: { label: "Critical", className: "bg-red-500/10 text-red-500 border-red-500/20" },
-    high: { label: "High", className: "bg-orange-500/10 text-orange-500 border-orange-500/20" },
-    medium: { label: "Medium", className: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
+    critical: { label: "Critical", className: "bg-destructive/10 text-destructive border-destructive/20" },
+    high: { label: "High", className: "bg-destructive/10 text-destructive border-destructive/20" },
+    medium: { label: "Medium", className: "bg-muted text-muted-foreground border-border" },
   }
   const c = config[priority] ?? config.medium
   return (
@@ -50,9 +50,9 @@ function PriorityBadge({ priority }: { priority: ActionPriority }) {
 function SlaStatusBadge({ status }: { status: string }) {
   const config: Record<string, { label: string; className: string }> = {
     overdue: { label: "Overdue", className: "bg-destructive/10 text-destructive border-destructive/20" },
-    "due-soon": { label: "Due Soon", className: "bg-amber-500/10 text-amber-500 border-amber-500/20" },
-    escalated: { label: "Escalated", className: "bg-orange-500/10 text-orange-500 border-orange-500/20" },
-    "on-track": { label: "On Track", className: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" },
+    "due-soon": { label: "Due Soon", className: "bg-muted text-muted-foreground border-border" },
+    escalated: { label: "Escalated", className: "bg-destructive/10 text-destructive border-destructive/20" },
+    "on-track": { label: "On Track", className: "bg-muted text-muted-foreground border-border" },
   }
   const c = config[status] ?? config["on-track"]
   return (
@@ -98,7 +98,7 @@ export default async function ExecutiveCockpitPage() {
         description="Leadership-ready quality performance, risk, and action insights"
       />
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <DashboardCard
           title="Critical / High Field Issues"
           value={data.kpis.criticalHighFieldIssues}
@@ -168,7 +168,7 @@ export default async function ExecutiveCockpitPage() {
               <div key={item.id} className="px-4 py-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <PriorityBadge priority={item.priority} />
                       <span className="text-xs text-muted-foreground">{item.reason}</span>
                     </div>
@@ -189,7 +189,7 @@ export default async function ExecutiveCockpitPage() {
 
       {data.topRisks.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Top Risk Supplier + Part Combinations</h2>
+          <h2 className="text-lg font-semibold tracking-tight text-foreground">Top Risk Supplier + Part Combinations</h2>
           <p className="text-xs text-muted-foreground mt-0.5">Sorted by risk score. Each score is derived from deterministic quality signal points, capped at 150.</p>
         </div>
       )}
@@ -210,12 +210,12 @@ export default async function ExecutiveCockpitPage() {
                 <tr className="border-b border-border bg-muted/50">
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-12">#</th>
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part Number</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden sm:table-cell">Part Number</th>
                   <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Score</th>
-                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Level</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Main Signals</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Latest Activity</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Action</th>
+                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground hidden md:table-cell">Level</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Main Signals</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Latest Activity</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden xl:table-cell">Action</th>
                   <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-16"></th>
                 </tr>
               </thead>
@@ -223,14 +223,17 @@ export default async function ExecutiveCockpitPage() {
                 {data.topRisks.map((r) => (
                   <tr key={`${r.supplierId}-${r.partNumber}`} className="hover:bg-muted/30">
                     <td className="px-4 py-3 text-muted-foreground">{r.rank}</td>
-                    <td className="px-4 py-3 text-foreground">{r.supplierName}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-foreground">
+                      <span className="font-medium">{r.supplierName}</span>
+                      <span className="text-xs text-muted-foreground sm:hidden block font-mono">{r.partNumber}</span>
+                    </td>
+                    <td className="px-4 py-3 hidden sm:table-cell">
                       <div className="text-foreground font-mono text-xs">{r.partNumber}</div>
                       {r.partName && <div className="text-xs text-muted-foreground">{r.partName}</div>}
                     </td>
                     <td className="px-4 py-3 text-center font-bold text-foreground">{r.riskScore}</td>
-                    <td className="px-4 py-3 text-center"><RiskBadge level={r.riskLevel} /></td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-center hidden md:table-cell"><RiskBadge level={r.riskLevel} /></td>
+                    <td className="px-4 py-3 hidden lg:table-cell">
                       <div className="flex flex-wrap gap-1">
                         {r.mainSignals.map((s, i) => (
                           <span key={i} className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
@@ -239,10 +242,10 @@ export default async function ExecutiveCockpitPage() {
                         ))}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                    <td className="px-4 py-3 text-xs text-muted-foreground hidden lg:table-cell">
                       {r.latestActivity ? new Date(r.latestActivity).toLocaleDateString() : "—"}
                     </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground">{r.recommendedAction}</td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground hidden xl:table-cell">{r.recommendedAction}</td>
                     <td className="px-4 py-3">
                       <Link href="/quality/oem/quality-intelligence" className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
                         <EyeIcon className="h-3 w-3" />
@@ -256,7 +259,7 @@ export default async function ExecutiveCockpitPage() {
         </div>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-2">
         <div className="rounded-lg border bg-card">
           <div className="px-4 py-3 border-b border-border flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -280,14 +283,12 @@ export default async function ExecutiveCockpitPage() {
                 <div key={s.supplierId} className="px-4 py-3">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-sm font-medium text-foreground">{s.supplierName}</span>
                         <RiskBadge level={s.highestRiskLevel} />
                       </div>
-                      <div className="text-xs text-muted-foreground mt-0.5">
-                        {s.topAffectedParts.slice(0, 3).map((p) => (
-                          <span key={p} className="font-mono">{p}</span>
-                        )).reduce((acc, el, i) => i === 0 ? [el] : [...acc, <span key={`sep-${i}`}> · </span>, el], [] as React.ReactNode[])}
+                      <div className="text-xs text-muted-foreground mt-0.5 font-mono break-all">
+                        {s.topAffectedParts.slice(0, 3).join(" · ")}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">{s.recommendedAction}</p>
                     </div>
@@ -368,7 +369,7 @@ export default async function ExecutiveCockpitPage() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-2">
         <div className="rounded-lg border bg-card">
           <div className="px-4 py-3 border-b border-border flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -398,10 +399,10 @@ export default async function ExecutiveCockpitPage() {
                       <div className="text-xs text-muted-foreground mt-0.5">
                         {s.supplierName} / {s.partNumber}
                       </div>
-                      <div className="flex items-center gap-2 mt-1.5">
+                      <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                         <span className="text-xs text-muted-foreground">{s.issueCount} related issue(s)</span>
                         <span className="text-xs text-muted-foreground">·</span>
-                        <div className="flex gap-1">
+                        <div className="flex gap-1 flex-wrap">
                           {s.issueTypes.map((t) => (
                             <span key={t} className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
                               {t.replace(/_/g, " ").toLowerCase()}
@@ -461,13 +462,13 @@ export default async function ExecutiveCockpitPage() {
                       <div className="text-xs text-muted-foreground mt-1">
                         {s.hasRelatedFmea ? (
                           <>
-                            <span className="text-amber-500">Potential coverage gap</span>
+                            <span className="text-muted-foreground">Potential coverage gap</span>
                             {s.fmeaHref && (
-                              <> · <Link href={s.fmeaHref} className="text-emerald-500 hover:underline">View FMEA</Link></>
+                              <> · <Link href={s.fmeaHref} className="text-foreground hover:underline">View FMEA</Link></>
                             )}
                           </>
                         ) : (
-                          <span className="text-red-500">No FMEA exists</span>
+                          <span className="text-destructive">No FMEA exists</span>
                         )}
                       </div>
                       <p className="text-xs text-muted-foreground mt-0.5 italic">Potential coverage gap</p>
@@ -508,7 +509,7 @@ export default async function ExecutiveCockpitPage() {
                     </div>
                     <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                       {c.fieldDefectCount > 0 && (
-                        <span className="inline-flex items-center rounded-md border border-amber-500/20 bg-amber-500/10 px-1.5 py-0.5 text-[10px] text-amber-500">
+                        <span className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
                           {c.fieldDefectCount} field defect{c.fieldDefectCount !== 1 ? "s" : ""}
                         </span>
                       )}
@@ -518,7 +519,7 @@ export default async function ExecutiveCockpitPage() {
                         </span>
                       )}
                       {c.iqcCount > 0 && (
-                        <span className="inline-flex items-center rounded-md border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] text-red-500">
+                        <span className="inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] text-destructive">
                           {c.iqcCount} IQC issue{c.iqcCount !== 1 ? "s" : ""}
                         </span>
                       )}
@@ -543,10 +544,10 @@ export default async function ExecutiveCockpitPage() {
 
       {data.kpis.criticalHighFieldIssues === 0 && data.kpis.openDefects8d === 0 && data.kpis.overdueActions === 0 && data.kpis.highRiskSupplierParts === 0 && data.kpis.repeatIssues === 0 && data.kpis.ppapApprovedWithIssues === 0 && data.kpis.fmeaCoverageGaps === 0 && (
         <div className="rounded-lg border border-dashed bg-card p-12 text-center">
-          <CheckCircleIcon className="h-10 w-10 text-emerald-500/50 mx-auto mb-3" />
+          <CheckCircleIcon className="h-10 w-10 text-muted-foreground/30 mx-auto mb-3" />
           <h3 className="text-lg font-semibold text-foreground">All Clear</h3>
           <p className="text-sm text-muted-foreground mt-1">No critical quality risks, overdue actions, high-risk combinations, repeat issues, or coverage gaps detected at this time. The cockpit will update as new signals emerge.</p>
-          <p className="text-xs text-muted-foreground mt-2">All KPIs are derived from deterministic data — no AI-generated content.</p>
+          <p className="text-xs text-muted-foreground mt-2">All KPIs are derived from deterministic data — no data from AI.</p>
         </div>
       )}
     </div>

@@ -36,7 +36,7 @@ export default async function WarRoomPage() {
         description="Active escalations and SLA alerts requiring immediate attention"
       />
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         <DashboardCard title="Level 3 (Critical)" value={criticalCount} icon={AlertTriangleIcon} />
         <DashboardCard title="Level 2 (High)" value={highCount} icon={AlertCircleIcon} />
         <DashboardCard title="Level 1 (Medium)" value={mediumCount} icon={AlertTriangleIcon} />
@@ -109,7 +109,7 @@ export default async function WarRoomPage() {
           {overdue.length > 0 && (
             <div className="space-y-3">
               <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                <ClockIcon className="h-5 w-5 text-amber-500" />
+                <ClockIcon className="h-5 w-5 text-destructive" />
                 SLA Alerts
               </h2>
               <div className="rounded-lg border bg-card overflow-x-auto">

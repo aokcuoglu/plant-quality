@@ -34,7 +34,7 @@ export function UpgradeModal({
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <SparklesIcon className="h-5 w-5 text-amber-500" />
+              <SparklesIcon className="h-5 w-5 text-destructive" />
               Upgrade to PRO
             </DialogTitle>
             <DialogDescription>
@@ -60,22 +60,22 @@ export function UpgradeModal({
                   <div key={row.label} className="grid grid-cols-3 gap-0 text-sm">
                     <div className="p-3 text-muted-foreground">{row.label}</div>
                     <div className="flex items-center justify-center p-3">
-                      {row.basic ? <CheckIcon className="h-4 w-4 text-green-600" /> : <XIcon className="h-4 w-4 text-muted-foreground/50" />}
+                      {row.basic ? <CheckIcon className="h-4 w-4 text-foreground" /> : <XIcon className="h-4 w-4 text-muted-foreground/50" />}
                     </div>
                     <div className="flex items-center justify-center p-3">
-                      <CheckIcon className="h-4 w-4 text-green-600" />
+                      <CheckIcon className="h-4 w-4 text-foreground" />
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-3 rounded-lg border bg-amber-50/50 p-4 dark:bg-amber-950/10">
+            <div className="space-y-3 rounded-lg border bg-destructive/5 p-4 dark:bg-amber-950/10">
               <h4 className="text-sm font-semibold">PRO Features</h4>
               <ul className="space-y-2">
                 {PRO_FEATURES.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <SparklesIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-500" />
+                    <SparklesIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-destructive" />
                     {f}
                   </li>
                 ))}

@@ -57,7 +57,7 @@ export default async function SupplierDevelopmentPage() {
                       <td className="px-4 py-3">
                         <div className="font-medium text-foreground truncate max-w-[200px]">{plan.title}</div>
                         {needsAction && (
-                          <span className="text-xs text-amber-600 font-semibold mt-0.5 block">Action required</span>
+                          <span className="text-xs text-destructive font-semibold mt-0.5 block">Action required</span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -88,7 +88,7 @@ export default async function SupplierDevelopmentPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <Link href={`/quality/supplier/development/${plan.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-emerald-500 transition-colors">
+                        <Link href={`/quality/supplier/development/${plan.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground transition-colors">
                           View <ArrowRightIcon className="h-3 w-3" />
                         </Link>
                       </td>

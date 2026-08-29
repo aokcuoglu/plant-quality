@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils"
 export type DiagramNodeType = Node<DiagramNodeData, "diagramNode">
 
 const DEPTH_COLORS = [
-  { border: "border-emerald-400", bg: "bg-emerald-50", ring: "ring-emerald-400/30", text: "text-emerald-700" },
+  { border: "border-border", bg: "bg-blue-50", ring: "ring-border", text: "text-foreground" },
   { border: "border-sky-400", bg: "bg-sky-50", ring: "ring-sky-400/30", text: "text-sky-700" },
-  { border: "border-amber-400", bg: "bg-amber-50", ring: "ring-amber-400/30", text: "text-amber-700" },
-  { border: "border-rose-400", bg: "bg-rose-50", ring: "ring-rose-400/30", text: "text-rose-700" },
+  { border: "border-amber-400", bg: "bg-amber-50", ring: "ring-amber-400/30", text: "text-destructive" },
+  { border: "border-rose-400", bg: "bg-muted", ring: "ring-rose-400/30", text: "text-destructive" },
   { border: "border-violet-400", bg: "bg-violet-50", ring: "ring-violet-400/30", text: "text-violet-700" },
 ]
 
@@ -53,7 +53,7 @@ export function DiagramNode({ id, data }: NodeProps<DiagramNodeType>) {
           type="button"
           onClick={(e) => { e.stopPropagation(); data.onAddChild(id) }}
           className={cn(
-            "absolute -bottom-3 left-1/2 -translate-x-1/2 flex size-6 items-center justify-center rounded-full border-2 border-border bg-card shadow-sm transition-all hover:scale-110 hover:border-emerald-400 hover:bg-emerald-50",
+            "absolute -bottom-3 left-1/2 -translate-x-1/2 flex size-6 items-center justify-center rounded-full border-2 border-border bg-card shadow-sm transition-all hover:scale-110 hover:border-border hover:bg-muted",
             colors.ring,
           )}
           title="Add Why?"

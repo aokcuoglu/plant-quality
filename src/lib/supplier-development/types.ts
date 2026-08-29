@@ -103,28 +103,28 @@ export interface DevPlanListSummary {
 
 export const PRIORITY_CONFIG: Record<DevPlanPriority, { label: string; className: string }> = {
   LOW: { label: "Low", className: "bg-muted text-muted-foreground border-border" },
-  MEDIUM: { label: "Medium", className: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
-  HIGH: { label: "High", className: "bg-orange-500/10 text-orange-600 border-orange-500/20" },
-  CRITICAL: { label: "Critical", className: "bg-red-500/10 text-red-600 border-red-500/20" },
+  MEDIUM: { label: "Medium", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  HIGH: { label: "High", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  CRITICAL: { label: "Critical", className: "bg-destructive/10 text-destructive border-destructive/20" },
 }
 
 export const STATUS_CONFIG: Record<DevPlanStatus, { label: string; className: string }> = {
   DRAFT: { label: "Draft", className: "bg-muted text-muted-foreground border-border" },
-  OPEN: { label: "Open", className: "bg-blue-500/10 text-blue-600 border-blue-500/20" },
-  SUPPLIER_ACTION_REQUIRED: { label: "Supplier Action", className: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
+  OPEN: { label: "Open", className: "bg-muted text-muted-foreground border-border" },
+  SUPPLIER_ACTION_REQUIRED: { label: "Supplier Action", className: "bg-destructive/10 text-destructive border-destructive/20" },
   OEM_REVIEW: { label: "OEM Review", className: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
-  REVISION_REQUIRED: { label: "Revision Required", className: "bg-orange-500/10 text-orange-600 border-orange-500/20" },
-  COMPLETED: { label: "Completed", className: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
+  REVISION_REQUIRED: { label: "Revision Required", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  COMPLETED: { label: "Completed", className: "bg-muted text-muted-foreground border-border" },
   CANCELLED: { label: "Cancelled", className: "bg-muted text-muted-foreground border-border" },
 }
 
 export const ACTION_STATUS_CONFIG: Record<DevActionStatus, { label: string; className: string }> = {
   OPEN: { label: "Open", className: "bg-muted text-muted-foreground border-border" },
-  IN_PROGRESS: { label: "In Progress", className: "bg-blue-500/10 text-blue-600 border-blue-500/20" },
+  IN_PROGRESS: { label: "In Progress", className: "bg-muted text-muted-foreground border-border" },
   SUBMITTED: { label: "Submitted", className: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
-  ACCEPTED: { label: "Accepted", className: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
-  REJECTED: { label: "Rejected", className: "bg-red-500/10 text-red-600 border-red-500/20" },
-  COMPLETED: { label: "Completed", className: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
+  ACCEPTED: { label: "Accepted", className: "bg-muted text-muted-foreground border-border" },
+  REJECTED: { label: "Rejected", className: "bg-destructive/10 text-destructive border-destructive/20" },
+  COMPLETED: { label: "Completed", className: "bg-muted text-muted-foreground border-border" },
   CANCELLED: { label: "Cancelled", className: "bg-muted text-muted-foreground border-border" },
 }
 

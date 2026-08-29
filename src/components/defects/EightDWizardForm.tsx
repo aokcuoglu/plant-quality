@@ -623,8 +623,8 @@ export function EightDWizardForm({
           <span className={cn(
             "rounded-full px-2 py-1 text-xs font-medium",
             isRequiredMissing
-              ? "bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"
-              : "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300",
+              ? "bg-amber-100 text-destructive bg-destructive/20 text-muted-foreground"
+              : "bg-muted text-foreground dark:bg-muted/50 text-muted-foreground",
           )}>
             {sectionFiles.length} files
           </span>
@@ -707,8 +707,8 @@ export function EightDWizardForm({
   if (success) {
     return (
       <div className="mx-auto max-w-lg py-20 text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 dark:bg-green-950">
-          <CheckIcon className="h-8 w-8 text-green-600 dark:text-green-400" />
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-muted bg-muted/50">
+          <CheckIcon className="h-8 w-8 text-foreground text-muted-foreground" />
         </div>
         <h2 className="text-xl font-semibold tracking-tight">Report Submitted Successfully</h2>
         <p className="mt-2 text-sm text-muted-foreground">Your 8D report has been sent to the customer for review.</p>
@@ -745,8 +745,8 @@ export function EightDWizardForm({
       </div>
 
       {currentComments.length > 0 && (
-        <div className="space-y-2 rounded-lg border border-red-200 bg-red-50/50 p-4 dark:border-red-900 dark:bg-red-950/10">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-red-700 dark:text-red-400">
+        <div className="space-y-2 rounded-lg border border-destructive/20 bg-destructive/5 p-4 dark:border-red-900 dark:bg-red-950/10">
+          <div className="flex items-center gap-1.5 text-xs font-medium text-destructive dark:text-destructive">
             <MessageSquareIcon className="h-3.5 w-3.5" /> Customer Review Comments
           </div>
           {currentComments.map((c) => (
@@ -756,8 +756,8 @@ export function EightDWizardForm({
                 <span className={cn(
                   "rounded-full px-2 py-0.5 text-[10px] font-medium",
                   c.status === "OPEN"
-                    ? "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-300"
-                    : "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300",
+                    ? "bg-red-100 text-destructive bg-destructive/30 text-muted-foreground"
+                    : "bg-muted text-foreground dark:bg-muted/50 text-muted-foreground",
                 )}>
                   {c.status === "OPEN" ? "Open" : "Resolved"}
                 </span>
@@ -1140,12 +1140,12 @@ export function EightDWizardForm({
 
       {/* Final review summary */}
       {step === 5 && (
-        <div className={cn("rounded-xl border p-5", allFilled ? "border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20" : "border-amber-200 bg-amber-50/50 dark:border-amber-900 dark:bg-amber-950/20")}>
+        <div className={cn("rounded-xl border p-5", allFilled ? "border-border bg-muted/50 border-border dark:bg-muted/30" : "border-destructive/20 bg-destructive/5 dark:border-amber-900 dark:bg-amber-950/20")}>
           <div className="flex items-start gap-3">
             {allFilled ? (
-              <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-green-600" />
+              <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
             ) : (
-              <AlertTriangleIcon className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+              <AlertTriangleIcon className="mt-0.5 h-5 w-5 shrink-0 text-destructive" />
             )}
             <div>
               <p className="text-sm font-medium">{allFilled ? "All required fields completed" : "Some required fields are missing"}</p>
@@ -1160,9 +1160,9 @@ export function EightDWizardForm({
                   ["Required Evidence (D5, D6, D7)", evidenceReady],
                 ].map(([label, done]) => (
                   <li key={label as string} className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className={cn("h-1.5 w-1.5 rounded-full", done ? "bg-green-500" : "bg-amber-400")} />
-                    <span className={done ? "text-green-700 dark:text-green-400" : "text-amber-700 dark:text-amber-400"}>{label as string}</span>
-                    {done && <CheckIcon className="h-3 w-3 text-green-500" />}
+                    <span className={cn("h-1.5 w-1.5 rounded-full", done ? "bg-foreground" : "bg-amber-400")} />
+                    <span className={done ? "text-foreground text-muted-foreground" : "text-destructive dark:text-destructive"}>{label as string}</span>
+                    {done && <CheckIcon className="h-3 w-3 text-foreground" />}
                   </li>
                 ))}
               </ul>
@@ -1175,7 +1175,7 @@ export function EightDWizardForm({
       <div className="flex items-center justify-between rounded-xl border bg-card px-4 py-3">
         <div className="flex items-center gap-2">
           {savedText && (
-            <span className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+            <span className="flex items-center gap-1.5 text-xs text-foreground">
               <CheckIcon className="h-3.5 w-3.5" />
               {savedText}
             </span>

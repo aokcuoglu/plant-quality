@@ -45,6 +45,7 @@ export async function getFieldDefects(
       { description: { contains: search, mode: "insensitive" } },
       { vin: { contains: search, mode: "insensitive" } },
       { partNumber: { contains: search, mode: "insensitive" } },
+      { customFields: { path: [], string_contains: search } },
     ]
   }
 
@@ -77,6 +78,7 @@ export async function getFieldDefects(
     category: d.category,
     subcategory: d.subcategory,
     probableArea: d.probableArea,
+    customFields: d.customFields as Record<string, unknown> | null,
   }))
 
   let filtered = rows
@@ -172,6 +174,15 @@ export async function getSuppliersForField() {
     select: { supplierId: true },
     distinct: ["supplierId"],
   })
+  const devPlanSupplierIds = await prisma.supplierDevelopmentPlan.findMany({
+    where: { oemId: session.user.companyId },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+  const primaryLinkedSupplierIds = await prisma.company.findMany({
+    where: { primaryOemId: session.user.companyId, type: "SUPPLIER" },
+    select: { id: true },
+  })
 
   const supplierIds = new Set<string>([
     ...linkedSupplierIds.map((d) => d.supplierId),
@@ -179,6 +190,8 @@ export async function getSuppliersForField() {
     ...ppapSupplierIds.map((d) => d.supplierId),
     ...fmeaSupplierIds.map((d) => d.supplierId).filter((s): s is string => s !== null),
     ...iqcSupplierIds.map((d) => d.supplierId),
+    ...devPlanSupplierIds.map((d) => d.supplierId),
+    ...primaryLinkedSupplierIds.map((d) => d.id),
   ])
 
   return prisma.company.findMany({

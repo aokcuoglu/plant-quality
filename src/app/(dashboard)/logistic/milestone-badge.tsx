@@ -4,11 +4,11 @@ import { labelForGate } from "@/lib/logistic/milestone-types"
 
 const STATUS_COLORS: Record<ProductionMilestoneStatus, string> = {
   NOT_STARTED: "bg-muted text-muted-foreground",
-  PLANNED: "bg-blue-500/10 text-blue-500",
-  IN_PROGRESS: "bg-cyan-500/10 text-cyan-500",
-  BLOCKED: "bg-amber-500/10 text-amber-500",
+  PLANNED: "bg-accent text-accent-foreground",
+  IN_PROGRESS: "bg-accent text-accent-foreground",
+  BLOCKED: "bg-muted text-muted-foreground",
   QUALITY_HOLD: "bg-destructive/10 text-destructive",
-  COMPLETED: "bg-emerald-500/10 text-emerald-500",
+  COMPLETED: "bg-muted text-muted-foreground",
   SKIPPED: "bg-muted text-muted-foreground line-through",
   CANCELLED: "bg-muted text-muted-foreground line-through",
 }
@@ -25,15 +25,15 @@ export function MilestoneStatusBadge({ status }: { status: ProductionMilestoneSt
 
 export function MilestoneGateBadge({ gate }: { gate: string }) {
   const gateColors: Record<string, string> = {
-    BODY: "bg-orange-500/10 text-orange-500",
-    PAINT: "bg-purple-500/10 text-purple-500",
-    ASSEMBLY: "bg-blue-500/10 text-blue-500",
-    ELECTRICAL: "bg-yellow-500/10 text-yellow-500",
-    POWERTRAIN: "bg-red-500/10 text-red-500",
-    EOL_TEST: "bg-cyan-500/10 text-cyan-500",
-    PDI: "bg-emerald-500/10 text-emerald-500",
-    FINAL_QUALITY: "bg-emerald-500/10 text-emerald-700",
-    YARD_READY: "bg-green-500/10 text-green-500",
+    BODY: "bg-muted text-muted-foreground",
+    PAINT: "bg-accent text-accent-foreground",
+    ASSEMBLY: "bg-accent text-accent-foreground",
+    ELECTRICAL: "bg-muted text-muted-foreground",
+    POWERTRAIN: "bg-muted text-muted-foreground",
+    EOL_TEST: "bg-accent text-accent-foreground",
+    PDI: "bg-muted text-muted-foreground",
+    FINAL_QUALITY: "bg-muted text-muted-foreground",
+    YARD_READY: "bg-muted text-muted-foreground",
     OTHER: "bg-muted text-muted-foreground",
   }
   const colorClass = gateColors[gate] ?? "bg-muted text-muted-foreground"

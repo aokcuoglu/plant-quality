@@ -72,7 +72,7 @@ export function PpapDocumentReview({
       {isReviewable && (
         <div className="border-t border-border pt-2 space-y-2">
           {error && (
-            <div className="rounded border border-red-500/20 bg-red-500/5 px-2 py-1 text-xs text-red-400">
+            <div className="rounded border border-destructive/20 bg-destructive/5 px-2 py-1 text-xs text-destructive">
               {error}
             </div>
           )}
@@ -87,21 +87,21 @@ export function PpapDocumentReview({
             <button
               onClick={() => handleReview("APPROVED")}
               disabled={loading}
-              className="rounded px-2 py-0.5 text-xs font-medium bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+              className="rounded px-2 py-0.5 text-xs font-medium bg-muted text-muted-foreground hover:bg-foreground/20 transition-colors"
             >
               Approve
             </button>
             <button
               onClick={() => handleReview("REVISION_REQUIRED")}
               disabled={loading}
-              className="rounded px-2 py-0.5 text-xs font-medium bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-colors"
+              className="rounded px-2 py-0.5 text-xs font-medium bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors"
             >
               Request Revision
             </button>
             <button
               onClick={() => handleReview("REJECTED")}
               disabled={loading}
-              className="rounded px-2 py-0.5 text-xs font-medium bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+              className="rounded px-2 py-0.5 text-xs font-medium bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors"
             >
               Reject
             </button>

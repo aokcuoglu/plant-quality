@@ -7,6 +7,10 @@ import { SearchInput } from "@/components/ui/search-input"
 import { formatDueDate, getActionOwnerLabel, isDefectOverdue, getActiveDueDate, isDueSoon } from "@/lib/sla"
 import { hasRequiredSubmissionEvidence } from "@/lib/evidence"
 import Link from "next/link"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
+import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
+import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
+import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { EightDSection } from "@/generated/prisma/client"
 
 const PAGE_SIZE = 20
@@ -35,6 +39,7 @@ export default async function SupplierDefectsPage({
     where.OR = [
       { partNumber: { contains: search, mode: "insensitive" } },
       { description: { contains: search, mode: "insensitive" } },
+      { customFields: { path: [], string_contains: search } },
     ]
   }
 
@@ -55,6 +60,7 @@ export default async function SupplierDefectsPage({
       isOverdue: isDefectOverdue(d),
       supplierAssigneeName: d.supplierAssignee?.name ?? d.supplierAssignee?.email ?? null,
       evidenceReady: getEvidenceReady(d.evidences),
+      customFields: d.customFields as Record<string, unknown> | null,
     }))
     .filter((d) => {
       if (filter === "open") return d.status === "OPEN"
@@ -73,6 +79,18 @@ export default async function SupplierDefectsPage({
   const start = (page - 1) * PAGE_SIZE
   const paginated = rows.slice(start, start + PAGE_SIZE)
 
+  let fieldConfig: ResolvedFields
+  try {
+    if (session.user.plan === "ENTERPRISE") {
+      fieldConfig = await resolveFieldConfig(session.user.companyId, "DEFECT")
+    } else {
+      fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+    }
+  } catch {
+    fieldConfig = { all: [], visible: [], builtIn: [], custom: [] }
+  }
+  const listVisibleFields = getListVisibleFields(fieldConfig.all)
+
   function buildUrl(params: { filter?: string; q?: string; page?: number }) {
     const sp = new URLSearchParams()
     if (params.filter && params.filter !== "all") sp.set("filter", params.filter)
@@ -89,7 +107,26 @@ export default async function SupplierDefectsPage({
         description="Quality defect reports from your customers"
       />
 
-      <SearchInput placeholder="Search by part number or description…" />
+      <div className="flex items-center gap-3">
+        <SearchInput placeholder="Search by part number or description…" />
+        {paginated.length > 0 && (
+          <ExportCsvButton
+            fileName="defects.csv"
+            headers={[
+              { key: "partNumber", label: "Part Number" },
+              { key: "description", label: "Description" },
+              { key: "status", label: "Status" },
+              { key: "createdAt", label: "Received" },
+            ]}
+            rows={paginated.map((d) => ({
+              ...d,
+              createdAt: d.createdAt.toISOString(),
+              status: String(d.status),
+            }))}
+            listVisibleFields={listVisibleFields}
+          />
+        )}
+      </div>
 
       <div className="flex flex-wrap gap-2">
         {[
@@ -129,6 +166,7 @@ export default async function SupplierDefectsPage({
               <Th>Evidence</Th>
               <Th>Status</Th>
               <Th>Received</Th>
+              <CustomFieldsTableHeaders fields={listVisibleFields} />
             </tr>
           </thead>
           <tbody>
@@ -146,12 +184,12 @@ export default async function SupplierDefectsPage({
                 <Td className="text-muted-foreground">{d.supplierAssigneeName ?? "Unassigned"}</Td>
                 <Td className="text-muted-foreground">{getActionOwnerLabel(d)}</Td>
                 <Td>
-                  <span className={d.isOverdue ? "inline-block max-w-[140px] truncate rounded-full bg-red-50 px-2 py-1 text-xs font-medium text-red-700 dark:bg-red-950/30 dark:text-red-300" : "inline-block max-w-[120px] truncate text-muted-foreground"}>
+                  <span className={d.isOverdue ? "inline-block max-w-[140px] truncate rounded-full bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive bg-destructive/20 text-muted-foreground" : "inline-block max-w-[120px] truncate text-muted-foreground"}>
                     {d.isOverdue ? `Overdue · ${formatDueDate(d.activeDueDate)}` : formatDueDate(d.activeDueDate)}
                   </span>
                 </Td>
                 <Td>
-                  <span className={d.evidenceReady ? "inline-block rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300" : "inline-block rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 dark:bg-amber-950/30 dark:text-amber-300"}>
+                  <span className={d.evidenceReady ? "inline-block rounded-full bg-muted px-2 py-1 text-xs font-medium text-foreground dark:bg-muted/50 text-muted-foreground" : "inline-block rounded-full bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive bg-destructive/20 text-muted-foreground"}>
                     {d.evidenceReady ? "Ready" : "Missing"}
                   </span>
                 </Td>
@@ -161,6 +199,7 @@ export default async function SupplierDefectsPage({
                 <Td className="text-muted-foreground">
                   {d.createdAt.toLocaleDateString()}
                 </Td>
+                <CustomFieldsTableCells fields={listVisibleFields} customFields={d.customFields ?? null} />
               </tr>
             ))}
             {paginated.length === 0 && (

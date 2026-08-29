@@ -15,6 +15,7 @@ enum CompanyType {
 }
 
 enum Role {
+  SUPER_ADMIN
   ADMIN
   QUALITY_ENGINEER
   VIEWER
@@ -264,6 +265,28 @@ enum DispatchTransportMode {
   OTHER
 }
 
+enum PlanSheetChannel {
+  EXPORT
+  DOMESTIC
+}
+
+enum PlanSheetStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum PlanSheetLineStatus {
+  PENDING
+  SUBMITTED
+  CONFIRMED
+  REJECTED
+  GENERATED
+}
+
 enum DispatchStatus {
   NOT_PLANNED
   PLANNED
@@ -295,6 +318,7 @@ enum ProductionMilestoneGate {
   ELECTRICAL
   POWERTRAIN
   EOL_TEST
+  WASH
   PDI
   FINAL_QUALITY
   YARD_READY
@@ -552,6 +576,9 @@ model Company {
   planStartedAt   DateTime?     @map("plan_started_at")
   trialEndsAt     DateTime?     @map("trial_ends_at")
   taxNumber       String?
+  primaryOemId    String?        @map("primary_oem_id")
+  primaryOem      Company?       @relation("SupplierPrimaryOem", fields: [primaryOemId], references: [id])
+  linkedSuppliers Company[]      @relation("SupplierPrimaryOem")
   users           User[]
   defectsAsOem    Defect[]       @relation("OemDefects")
   defectsAsSup    Defect[]       @relation("SupplierDefects")
@@ -579,7 +606,11 @@ model Company {
   dispatches          PlantLogisticDispatch[]    @relation("DispatchCompany")
   logisticOrdersAsDealer     PlantLogisticOrder[] @relation("LogisticOrdersDealer")
   logisticOrdersAsDistributor PlantLogisticOrder[] @relation("LogisticOrdersDistributor")
+  planSheets        PlantLogisticPlanSheet[]  @relation("PlanSheetCompany")
+  planSheetLines    PlantLogisticPlanSheetLine[] @relation("PlanSheetLineCompany")
+  planSheetEvents   PlantLogisticPlanSheetEvent[] @relation("PlanSheetEventCompany")
   customFieldDefinitions CustomFieldDefinition[]
+  scorecardConfig       SupplierScorecardConfig?
   createdAt       DateTime      @default(now())
 
   @@map("companies")
@@ -658,6 +689,11 @@ model User {
   updatedYardStatuses     PlantLogisticYardStatus[]  @relation("YardStatusUpdatedBy")
   createdDispatches       PlantLogisticDispatch[]    @relation("DispatchCreatedBy")
   updatedDispatches       PlantLogisticDispatch[]    @relation("DispatchUpdatedBy")
+  portalOrderComments     PlantLogisticOrderComment[] @relation("PortalOrderCommentAuthor")
+  createdPlanSheets       PlantLogisticPlanSheet[]   @relation("PlanSheetCreatedBy")
+  reviewedPlanSheets      PlantLogisticPlanSheet[]   @relation("PlanSheetReviewedBy")
+  approvedPlanSheets      PlantLogisticPlanSheet[]   @relation("PlanSheetApprovedBy")
+  planSheetEvents         PlantLogisticPlanSheetEvent[] @relation("PlanSheetEventActor")
   createdAt      DateTime        @default(now())
 
   @@map("users")
@@ -1494,6 +1530,11 @@ model PlantLogisticOrder {
   milestones            PlantLogisticProductionMilestone[] @relation("OrderMilestones")
   yardStatus            PlantLogisticYardStatus?           @relation("OrderYardStatus")
   dispatches            PlantLogisticDispatch[]            @relation("OrderDispatch")
+  comments              PlantLogisticOrderComment[]         @relation("OrderComments")
+  planSheetId           String?                  @map("plan_sheet_id")
+  planSheet             PlantLogisticPlanSheet? @relation("PlanSheetOrders", fields: [planSheetId], references: [id])
+  planSheetLineId       String?                  @unique @map("plan_sheet_line_id")
+  planSheetLine         PlantLogisticPlanSheetLine? @relation("PlanSheetLineOrder", fields: [planSheetLineId], references: [id])
   createdAt             DateTime                 @default(now()) @map("created_at")
   updatedAt             DateTime                 @updatedAt @map("updated_at")
 
@@ -1505,6 +1546,7 @@ model PlantLogisticOrder {
   @@index([companyId, vin])
   @@index([companyId, chassisNumber])
   @@index([companyId, externalVisible])
+  @@index([companyId, planSheetId])
   @@index([dealerCompanyId, externalVisible])
   @@index([distributorCompanyId, externalVisible])
   @@map("plant_logistic_orders")
@@ -1673,4 +1715,130 @@ model PlantLogisticDispatch {
   @@index([companyId, plannedLoadingDate])
   @@index([companyId, estimatedArrivalDate])
   @@map("plant_logistic_dispatches")
+}
+
+model PlantLogisticOrderComment {
+  id        String             @id @default(uuid())
+  orderId   String             @map("order_id")
+  order     PlantLogisticOrder @relation("OrderComments", fields: [orderId], references: [id], onDelete: Cascade)
+  authorId  String             @map("author_id")
+  author    User               @relation("PortalOrderCommentAuthor", fields: [authorId], references: [id])
+  content   String
+  createdAt DateTime           @default(now()) @map("created_at")
+
+  @@index([orderId, createdAt])
+  @@map("plant_logistic_order_comments")
+}
+
+model PlantLogisticPlanSheet {
+  id                 String            @id @default(uuid())
+  companyId          String            @map("company_id")
+  company            Company           @relation("PlanSheetCompany", fields: [companyId], references: [id])
+  planNumber         String            @unique @map("plan_number")
+  title              String
+  periodMonth        String            @map("period_month")
+  channel            PlanSheetChannel
+  status             PlanSheetStatus   @default(DRAFT)
+  notes              String?
+  createdById        String            @map("created_by_id")
+  createdBy          User              @relation("PlanSheetCreatedBy", fields: [createdById], references: [id])
+  submittedAt        DateTime?         @map("submitted_at")
+  reviewedAt         DateTime?         @map("reviewed_at")
+  reviewedById       String?           @map("reviewed_by_id")
+  reviewedBy         User?             @relation("PlanSheetReviewedBy", fields: [reviewedById], references: [id])
+  approvedAt         DateTime?         @map("approved_at")
+  approvedById       String?           @map("approved_by_id")
+  approvedBy         User?             @relation("PlanSheetApprovedBy", fields: [approvedById], references: [id])
+  rejectedAt         DateTime?         @map("rejected_at")
+  closedAt           DateTime?         @map("closed_at")
+  lines              PlantLogisticPlanSheetLine[]
+  orders             PlantLogisticOrder[]          @relation("PlanSheetOrders")
+  events             PlantLogisticPlanSheetEvent[]
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+
+  @@index([companyId, status])
+  @@index([companyId, periodMonth])
+  @@index([companyId, channel])
+  @@map("plant_logistic_plan_sheets")
+}
+
+model PlantLogisticPlanSheetLine {
+  id                 String               @id @default(uuid())
+  planSheetId        String               @map("plan_sheet_id")
+  planSheet          PlantLogisticPlanSheet @relation(fields: [planSheetId], references: [id], onDelete: Cascade)
+  companyId          String               @map("company_id")
+  company            Company              @relation("PlanSheetLineCompany", fields: [companyId], references: [id])
+  sequence           Int                  @default(1)
+  customerName       String               @map("customer_name")
+  customerType       LogisticOrderCustomerType @default(CUSTOMER) @map("customer_type")
+  country            String?              @map("country")
+  market             String?              @map("market")
+  dealerName         String?              @map("dealer_name")
+  distributorName    String?              @map("distributor_name")
+  vehicleModel       String               @map("vehicle_model")
+  vehicleVariant     String?              @map("vehicle_variant")
+  vehicleType        LogisticOrderVehicleType @default(BUS) @map("vehicle_type")
+  powertrain         LogisticOrderPowertrain? @default(DIESEL) @map("powertrain")
+  quantity           Int                  @default(1)
+  priority           LogisticOrderPriority @default(NORMAL)
+  chassisNumber      String?              @map("chassis_number")
+  vin                String?              @map("vin")
+  requestedDeliveryDate DateTime?          @map("requested_delivery_date")
+  forecastDispatchDate DateTime?          @map("forecast_dispatch_date")
+  status             PlanSheetLineStatus  @default(PENDING)
+  remark             String?
+  orderId            String?              @unique @map("order_id")
+  order              PlantLogisticOrder?  @relation("PlanSheetLineOrder")
+  generatedAt        DateTime?            @map("generated_at")
+  createdAt          DateTime             @default(now()) @map("created_at")
+  updatedAt          DateTime             @updatedAt @map("updated_at")
+
+  @@index([planSheetId, sequence])
+  @@index([companyId, status])
+  @@index([orderId])
+  @@map("plant_logistic_plan_sheet_lines")
+}
+
+model PlantLogisticPlanSheetEvent {
+  id           String             @id @default(uuid())
+  planSheetId  String             @map("plan_sheet_id")
+  planSheet    PlantLogisticPlanSheet @relation(fields: [planSheetId], references: [id], onDelete: Cascade)
+  companyId    String             @map("company_id")
+  company      Company            @relation("PlanSheetEventCompany", fields: [companyId], references: [id])
+  eventType    LogisticOrderEventType
+  actorId      String?            @map("actor_id")
+  actor        User?              @relation("PlanSheetEventActor", fields: [actorId], references: [id])
+  message      String?
+  createdAt    DateTime           @default(now()) @map("created_at")
+
+  @@index([planSheetId, createdAt])
+  @@index([companyId, createdAt])
+  @@map("plant_logistic_plan_sheet_events")
+}
+
+model SupplierScorecardConfig {
+  id                    String   @id @default(uuid())
+  companyId             String   @unique @map("company_id")
+  company               Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  fieldDefectPerItem    Int      @default(10) @map("field_defect_per_item")
+  fieldDefectCap        Int      @default(30) @map("field_defect_cap")
+  repeatIssuePerItem    Int      @default(15) @map("repeat_issue_per_item")
+  repeatIssueCap        Int      @default(30) @map("repeat_issue_cap")
+  iqcRejectedPerItem    Int      @default(8)  @map("iqc_rejected_per_item")
+  iqcRejectedCap        Int      @default(25) @map("iqc_rejected_cap")
+  openOverdue8dPerItem  Int      @default(10) @map("open_overdue_8d_per_item")
+  openOverdue8dCap      Int      @default(30) @map("open_overdue_8d_cap")
+  slaBreachPerItem      Int      @default(10) @map("sla_breach_per_item")
+  slaBreachCap          Int      @default(25) @map("sla_breach_cap")
+  ppapWithIssuesPerItem Int      @default(8)  @map("ppap_with_issues_per_item")
+  ppapWithIssuesCap     Int      @default(20) @map("ppap_with_issues_cap")
+  fmeaGapPerItem        Int      @default(8)  @map("fmea_gap_per_item")
+  fmeaGapCap            Int      @default(20) @map("fmea_gap_cap")
+  execRiskPerItem       Int      @default(5)  @map("exec_risk_per_item")
+  execRiskCap           Int      @default(15) @map("exec_risk_cap")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@map("supplier_scorecard_configs")
 }

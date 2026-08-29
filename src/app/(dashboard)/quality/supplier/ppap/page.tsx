@@ -58,7 +58,7 @@ export default async function SupplierPpapPage() {
                   return (
                     <tr key={s.id} className="transition-colors hover:bg-muted/50">
                       <td className="px-4 py-3">
-                        <Link href={`/quality/supplier/ppap/${s.id}`} className="font-medium text-foreground hover:text-emerald-400">
+                        <Link href={`/quality/supplier/ppap/${s.id}`} className="font-medium text-foreground hover:text-foreground">
                           {s.requestNumber}
                         </Link>
                       </td>
@@ -76,7 +76,7 @@ export default async function SupplierPpapPage() {
                       </td>
                       <td className="px-4 py-3">
                         {overdue ? (
-                          <span className="text-xs font-medium text-red-400">Overdue</span>
+                          <span className="text-xs font-medium text-destructive">Overdue</span>
                         ) : (
                           <span className="text-muted-foreground">{s.dueDate?.toLocaleDateString() ?? "—"}</span>
                         )}

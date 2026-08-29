@@ -18,6 +18,7 @@ export interface DefectRow {
   isOverdue: boolean
   evidenceReady: boolean
   createdAt: Date
+  customFields: Record<string, unknown> | null
 }
 
 function getEvidenceReady(evidences: { section: EightDSection }[]) {
@@ -47,6 +48,7 @@ export async function getDefects(
     where.OR = [
       { partNumber: { contains: search, mode: "insensitive" } },
       { description: { contains: search, mode: "insensitive" } },
+      { customFields: { path: [], string_contains: search } },
     ]
   }
 
@@ -75,6 +77,7 @@ export async function getDefects(
     isOverdue: isDefectOverdue(d),
     evidenceReady: getEvidenceReady(d.evidences),
     createdAt: d.createdAt,
+    customFields: d.customFields as Record<string, unknown> | null,
   }))
 
   let filtered = rows
@@ -135,6 +138,15 @@ export async function getSuppliers() {
     select: { supplierId: true },
     distinct: ["supplierId"],
   })
+  const devPlanSupplierIds = await prisma.supplierDevelopmentPlan.findMany({
+    where: { oemId: session.user.companyId },
+    select: { supplierId: true },
+    distinct: ["supplierId"],
+  })
+  const primaryLinkedSupplierIds = await prisma.company.findMany({
+    where: { primaryOemId: session.user.companyId, type: "SUPPLIER" },
+    select: { id: true },
+  })
 
   const supplierIds = new Set<string>([
     ...linkedSupplierIds.map((d) => d.supplierId),
@@ -142,6 +154,8 @@ export async function getSuppliers() {
     ...ppapSupplierIds.map((d) => d.supplierId),
     ...fmeaSupplierIds.map((d) => d.supplierId).filter((s): s is string => s !== null),
     ...iqcSupplierIds.map((d) => d.supplierId),
+    ...devPlanSupplierIds.map((d) => d.supplierId),
+    ...primaryLinkedSupplierIds.map((d) => d.id),
   ])
 
   const suppliers = await prisma.company.findMany({

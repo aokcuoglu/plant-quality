@@ -8,7 +8,7 @@ export default function SupplierScorecardLoading() {
         <div className="h-4 w-64 bg-muted/60 rounded animate-pulse mt-1" />
       </div>
 
-      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-4">
+      <div className="grid gap-4 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border bg-card p-4">
           <div className="flex items-center gap-2">
             <UsersIcon className="h-4 w-4 text-muted-foreground" />

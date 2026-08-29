@@ -154,13 +154,13 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                   className="flex items-center gap-3 rounded-lg px-2 py-2.5 cursor-default"
                   render={<Link href={portalHref} />}
                 >
-                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/30">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground ring-1 ring-blue-600/30">
                     <Icon className="size-4" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium text-foreground">{app.name}</span>
-                      <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">Active</Badge>
+                      <Badge className="h-4 rounded-full border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">Active</Badge>
                     </div>
                     <p className="truncate text-xs text-muted-foreground">Order Tracking Portal</p>
                   </div>
@@ -199,9 +199,9 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                   className={cn(
                     "flex size-8 shrink-0 items-center justify-center rounded-lg",
                     isActive
-                      ? "bg-emerald-500/10 text-emerald-500 ring-1 ring-emerald-500/30"
+                      ? "bg-muted text-muted-foreground ring-1 ring-blue-600/30"
                       : isLive
-                        ? "bg-emerald-500/10 text-emerald-500"
+                        ? "bg-muted text-muted-foreground"
                         : isLocked
                           ? "bg-muted text-muted-foreground"
                           : "bg-muted text-muted-foreground/50"
@@ -220,11 +220,11 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                       {app.name}
                     </span>
                     {isActive ? (
-                      <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">
+                      <Badge className="h-4 rounded-full border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">
                         Active
                       </Badge>
                     ) : isLive ? (
-                      <Badge className="h-4 rounded-full border-emerald-400/30 bg-emerald-400/10 px-1.5 text-[9px] font-semibold tracking-wider text-emerald-500 uppercase">
+                      <Badge className="h-4 rounded-full border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">
                         Live
                       </Badge>
                     ) : isLocked ? (

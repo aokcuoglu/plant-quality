@@ -111,7 +111,7 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-400">{error}</div>
+        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
 
       <div className="overflow-x-auto rounded-lg border bg-card">
@@ -141,7 +141,7 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
           </thead>
           <tbody className="divide-y divide-border">
             {rows.map(row => (
-              <tr key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-red-500/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-amber-500/5" : "")}>
+              <tr key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : "")}>
                 {fmeaType === "PROCESS" && (
                   <td className="px-2 py-1.5">
                     <Input className="h-7 text-xs" value={row.processStep ?? ""} onChange={e => updateRow(row.id, "processStep", e.target.value)} />
@@ -171,7 +171,7 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
                 <td className="px-2 py-1.5 text-center">
                   <SodSelect value={row.detection} onChange={v => updateRow(row.id, "detection", v)} label="Detection" />
                 </td>
-                <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-red-400" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-amber-400" : "text-emerald-400")}>
+                <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-destructive" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-destructive" : "text-foreground")}>
                   {Number.isFinite(row.rpn) ? row.rpn : "—"}
                 </td>
                 <td className="px-2 py-1.5">
@@ -189,7 +189,7 @@ export function SupplierFmeaRowEditor({ fmeaId, initialRows, fmeaType }: Supplie
                 <td className="px-2 py-1.5 text-center">
                   <SodSelectNullable value={row.revisedDetection} onChange={v => updateRow(row.id, "revisedDetection", v ?? "")} label="Revised Detection" />
                 </td>
-                <td className={cn("px-2 py-1.5 text-center font-bold", (row.revisedRpn ?? 0) >= 200 ? "text-red-400" : (row.revisedRpn ?? 0) >= 100 ? "text-amber-400" : row.revisedRpn != null ? "text-emerald-400" : "")}>
+                <td className={cn("px-2 py-1.5 text-center font-bold", (row.revisedRpn ?? 0) >= 200 ? "text-destructive" : (row.revisedRpn ?? 0) >= 100 ? "text-destructive" : row.revisedRpn != null ? "text-foreground" : "")}>
                   {row.revisedRpn ?? "—"}
                 </td>
                 <td className="px-2 py-1.5">

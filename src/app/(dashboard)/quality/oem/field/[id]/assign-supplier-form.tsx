@@ -49,7 +49,7 @@ export function AssignSupplierForm({ fieldDefectId, currentSupplierId }: { field
         <button
           onClick={() => startTransition(handleAssign)}
           disabled={isPending}
-          className="w-full rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 transition-colors disabled:opacity-50"
+          className="w-full rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-foreground/90 transition-colors disabled:opacity-50"
         >
           {isPending ? "Assigning..." : "Assign Supplier"}
         </button>

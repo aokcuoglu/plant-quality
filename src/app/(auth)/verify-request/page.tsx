@@ -6,7 +6,7 @@ export default function VerifyRequestPage() {
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute top-1/2 left-1/2 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/[0.05] blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.05] blur-[120px]" />
         <div className="absolute top-1/3 right-1/4 size-[400px] rounded-full bg-blue-500/[0.04] blur-[100px]" />
       </div>
 
@@ -21,7 +21,7 @@ export default function VerifyRequestPage() {
 
       <div className="w-full max-w-sm space-y-6 px-4 text-center">
         <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-card border border-border">
-          <MailCheck className="size-7 text-emerald-400" />
+          <MailCheck className="size-7 text-foreground" />
         </div>
 
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Check your email</h1>

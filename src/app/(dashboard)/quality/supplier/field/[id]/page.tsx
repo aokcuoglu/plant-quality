@@ -82,7 +82,7 @@ export default async function SupplierFieldDetailPage({
                 fd.category ? (
                   <span className="text-sm text-foreground">
                     {fd.category}{fd.subcategory ? ` / ${fd.subcategory}` : ""}
-                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-emerald-500">(AI)</span>}
+                    {fd.aiCategoryApplied && <span className="ml-2 text-xs font-medium text-foreground">(AI)</span>}
                   </span>
                 ) : (
                   <span className="text-sm italic text-muted-foreground">Uncategorized</span>
@@ -140,12 +140,12 @@ export default async function SupplierFieldDetailPage({
           )}
 
           {fd.linkedDefectId && fd.linkedDefect && (
-            <div className="rounded-lg border bg-emerald-500/10">
-              <div className="px-4 py-3 border-b border-emerald-500/20">
-                <h2 className="text-sm font-semibold text-emerald-400">Linked to 8D Report</h2>
+            <div className="rounded-lg border bg-muted">
+              <div className="px-4 py-3 border-b border-border">
+                <h2 className="text-sm font-semibold text-foreground">Linked to 8D Report</h2>
               </div>
               <div className="px-4 py-3">
-                <Link href={`/quality/supplier/defects/${fd.linkedDefect.id}`} className="text-sm text-emerald-400 hover:underline">
+                <Link href={`/quality/supplier/defects/${fd.linkedDefect.id}`} className="text-sm text-foreground hover:underline">
                   View 8D Report → (Defect #{fd.linkedDefect.partNumber})
                 </Link>
               </div>

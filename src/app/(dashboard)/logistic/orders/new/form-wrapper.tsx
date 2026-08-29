@@ -6,6 +6,7 @@ import { DynamicCustomFields } from "@/components/custom-fields/DynamicCustomFie
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 import type { CustomFieldsData } from "@/lib/custom-fields/types"
 import { CUSTOMER_TYPE_OPTIONS, VEHICLE_TYPE_OPTIONS, POWERTRAIN_OPTIONS, PRIORITY_OPTIONS } from "@/lib/logistic/types"
+import { DatePicker } from "@/components/ui/date-picker"
 
 export function LogisticOrderFormWrapper({
   fieldConfig,
@@ -156,11 +157,7 @@ export function LogisticOrderFormWrapper({
 
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">Requested Delivery Date</label>
-          <input
-            name="requestedDeliveryDate"
-            type="date"
-            className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          />
+          <DatePicker name="requestedDeliveryDate" placeholder="mm / dd / yyyy" />
         </div>
 
         <div className="space-y-2">

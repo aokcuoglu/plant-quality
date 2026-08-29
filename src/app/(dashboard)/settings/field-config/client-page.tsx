@@ -349,7 +349,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
       </div>
 
       {message && (
-        <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-sm text-emerald-500">
+        <div className="rounded-lg border border-border bg-muted px-4 py-2.5 text-sm text-foreground">
           {message}
         </div>
       )}

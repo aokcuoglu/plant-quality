@@ -36,43 +36,43 @@ export function NotificationBell({
       case "NEW_DEFECT":
         return <AlertTriangleIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "SLA_DUE_SOON":
-        return <ClockIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+        return <ClockIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "SLA_ESCALATION":
-        return <AlertTriangleIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
+        return <AlertTriangleIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "REVISION":
-        return <GitPullRequestIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+        return <GitPullRequestIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "PPAP_REQUIRED":
-        return <FileTextIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+        return <FileTextIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
       case "PPAP_SUBMITTED":
-        return <FileTextIcon className="h-3.5 w-3.5 text-green-500 shrink-0" />
+        return <FileTextIcon className="h-3.5 w-3.5 text-foreground shrink-0" />
       case "PPAP_APPROVED":
-        return <FileTextIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+        return <FileTextIcon className="h-3.5 w-3.5 text-foreground shrink-0" />
       case "PPAP_REJECTED":
-        return <XCircleIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
+        return <XCircleIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "IQC_FAILED":
-        return <ClipboardCheckIcon className="h-3.5 w-3.5 text-red-500 shrink-0" />
+        return <ClipboardCheckIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "FMEA_HIGH_RPN":
-        return <ShieldAlertIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+        return <ShieldAlertIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "FIELD_DEFECT_CREATED":
-        return <BugIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+        return <BugIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
       case "FIELD_DEFECT_ASSIGNED":
-        return <InfoIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+        return <InfoIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
       case "FIELD_DEFECT_CONVERTED_TO_8D":
-        return <TrendingUpIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+        return <TrendingUpIcon className="h-3.5 w-3.5 text-foreground shrink-0" />
       case "FIELD_DEFECT_OVERDUE":
         return <ClockIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "FIELD_DEFECT_ESCALATED":
-        return <AlertTriangleIcon className="h-3.5 w-3.5 text-orange-500 shrink-0" />
+        return <AlertTriangleIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "FIELD_DEFECT_STATUS_CHANGED":
         return <InfoIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
       case "EIGHT_D_OVERDUE":
         return <ClockIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "EIGHT_D_ESCALATED":
-        return <AlertTriangleIcon className="h-3.5 w-3.5 text-orange-500 shrink-0" />
+        return <AlertTriangleIcon className="h-3.5 w-3.5 text-destructive shrink-0" />
       case "COMMENT_ADDED":
-        return <MessageSquareIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+        return <MessageSquareIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
       default:
-        return <InfoIcon className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+        return <InfoIcon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
     }
   }
 
@@ -156,7 +156,7 @@ export function NotificationBell({
                 <button
                   onClick={handleMarkAllRead}
                   disabled={markingAll}
-                  className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 disabled:opacity-50 transition-colors"
+                  className="flex items-center gap-1 text-xs text-foreground hover:text-foreground dark:text-foreground dark:hover:text-muted-foreground disabled:opacity-50 transition-colors"
                 >
                   <CheckCheckIcon className="h-3 w-3" />
                   {markingAll ? "Marking..." : "Mark all read"}

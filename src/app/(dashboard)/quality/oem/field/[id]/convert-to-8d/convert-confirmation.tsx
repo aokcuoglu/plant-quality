@@ -34,7 +34,7 @@ export function ConvertTo8DConfirmation({ fieldDefectId }: { fieldDefectId: stri
         <button
           onClick={() => startTransition(handleConvert)}
           disabled={isPending}
-          className="rounded-lg bg-emerald-500 px-6 py-2.5 text-sm font-medium text-white hover:bg-emerald-600 transition-colors disabled:opacity-50"
+          className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-medium text-white hover:bg-foreground/90 transition-colors disabled:opacity-50"
         >
           {isPending ? "Converting..." : "Convert to 8D"}
         </button>

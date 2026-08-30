@@ -1,0 +1,2112 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CompanyType {
+  OEM
+  SUPPLIER
+  DEALER
+  DISTRIBUTOR
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum Plan {
+  BASIC
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum OrgUnitType {
+  DIRECTORATE
+  MUDURLUK
+}
+
+enum NotificationType {
+  INFO
+  REVISION
+  NEW_DEFECT
+  SLA_DUE_SOON
+  SLA_ESCALATION
+  PPAP_REQUIRED
+  PPAP_SUBMITTED
+  PPAP_APPROVED
+  PPAP_REJECTED
+  IQC_FAILED
+  IQC_COMPLETED_FOR_SUPPLIER
+  IQC_RESULT_SET
+  FMEA_HIGH_RPN
+  FMEA_REVIEW_REQUESTED
+  FMEA_STATUS_CHANGED
+  FIELD_DEFECT_CREATED
+  FIELD_DEFECT_ASSIGNED
+  FIELD_DEFECT_CONVERTED_TO_8D
+  FIELD_DEFECT_OVERDUE
+  FIELD_DEFECT_ESCALATED
+  FIELD_DEFECT_STATUS_CHANGED
+  EIGHT_D_OVERDUE
+  EIGHT_D_ESCALATED
+  COMMENT_ADDED
+  DEV_PLAN_CREATED
+  DEV_PLAN_ACTION_REQUIRED
+  DEV_PLAN_REVISION_REQUESTED
+  DEV_PLAN_COMPLETED
+  DEV_PLAN_CANCELLED
+}
+
+enum ReviewCommentStatus {
+  OPEN
+  RESOLVED
+}
+
+enum AiSuggestionType {
+  CLASSIFICATION
+  SIMILAR_ISSUES
+}
+
+enum Ai8dReviewStatus {
+  GENERATED
+  REVIEWED
+  REJECTED
+  EXPIRED
+}
+
+enum AiSuggestionStatus {
+  GENERATED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum UpgradeRequestStatus {
+  OPEN
+  CONTACTED
+  APPROVED
+  REJECTED
+  CLOSED
+}
+
+enum QualityRecordType {
+  FIELD_DEFECT
+  DEFECT
+  EIGHT_D
+  PPAP
+  IQC
+  FMEA
+  LOGISTIC_ORDER
+}
+
+enum QualityLinkType {
+  SAME_PART
+  SAME_SUPPLIER
+  SAME_FAILURE_MODE
+  SAME_VEHICLE
+  IQC_TO_DEFECT
+  FIELD_TO_8D
+  PPAP_REFERENCE
+  FMEA_COVERAGE
+  MANUAL
+  RELATED_HISTORY
+  IQC_REJECTION
+  SAME_SUPPLIER_ONLY
+  LOGISTIC_QUALITY_HOLD
+  ORDER_TO_DEFECT
+}
+
+enum DevPlanSourceType {
+  SCORECARD
+  FIELD_DEFECT
+  DEFECT_8D
+  IQC
+  PPAP
+  FMEA
+  EXECUTIVE_COCKPIT
+  MANUAL
+}
+
+enum DevPlanPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum DevPlanStatus {
+  DRAFT
+  OPEN
+  SUPPLIER_ACTION_REQUIRED
+  OEM_REVIEW
+  REVISION_REQUIRED
+  COMPLETED
+  CANCELLED
+}
+
+enum DevActionOwnerType {
+  OEM
+  SUPPLIER
+}
+
+enum DevActionStatus {
+  OPEN
+  IN_PROGRESS
+  SUBMITTED
+  ACCEPTED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum DevPlanEventType {
+  PLAN_CREATED
+  PLAN_OPENED
+  PLAN_SENT_TO_SUPPLIER
+  PLAN_SUBMITTED_FOR_REVIEW
+  PLAN_REVISION_REQUESTED
+  PLAN_COMPLETED
+  PLAN_CANCELLED
+  ACTION_ITEM_ADDED
+  ACTION_ITEM_UPDATED
+  ACTION_ITEM_STATUS_CHANGED
+  ACTION_ITEM_RESPONSE_ADDED
+  COMMENT_ADDED
+}
+
+enum LogisticOrderCustomerType {
+  CUSTOMER
+  DEALER
+  DISTRIBUTOR
+  INTERNAL
+}
+
+enum LogisticOrderVehicleType {
+  BUS
+  MIDIBUS
+  TRUCK
+  LIGHT_TRUCK
+  OTHER
+}
+
+enum LogisticOrderPowertrain {
+  DIESEL
+  CNG
+  ELECTRIC
+  HYBRID
+  OTHER
+}
+
+enum LogisticOrderPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum LogisticProcessType {
+  OPERATION
+  QUALITY_CONTROL
+  WAITING
+  STORAGE_YARD
+  DISPATCH
+  TRANSPORT
+  DELIVERY
+  OTHER
+}
+
+enum LogisticFlowVersionStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum LogisticFlowNodeKind {
+  START
+  PROCESS
+  END
+}
+
+enum LogisticVehicleFlowStatus {
+  WAITING_FOR_FLOW
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum LogisticTransitionType {
+  START
+  ADVANCE
+  ADMIN_OVERRIDE
+  COMPLETE
+}
+
+enum LogisticOrderStatus {
+  DRAFT
+  SUBMITTED
+  COMMERCIAL_REVIEW
+  APPROVED
+  REJECTED
+  WAITING_PRODUCTION_PLAN
+  PLANNED
+  IN_PRODUCTION
+  QUALITY_HOLD
+  READY_FOR_DISPATCH
+  DISPATCHED
+  DELIVERED
+  CLOSED
+  CANCELLED
+}
+
+enum LogisticOrderEventType {
+  ORDER_CREATED
+  ORDER_UPDATED
+  STATUS_CHANGED
+  PLANNING_UPDATED
+  VIN_ASSIGNED
+  CHASSIS_ASSIGNED
+  COMMENT_ADDED
+  ORDER_CANCELLED
+  ORDER_APPROVED
+  ORDER_REJECTED
+  ORDER_CLOSED
+  MILESTONES_CREATED
+  MILESTONE_STARTED
+  MILESTONE_COMPLETED
+  MILESTONE_BLOCKED
+  MILESTONE_QUALITY_HOLD
+  YARD_STATUS_UPDATED
+  YARD_READY_FOR_DISPATCH
+  YARD_BLOCKED
+  YARD_UNBLOCKED
+  DISPATCH_CREATED
+  DISPATCH_STATUS_CHANGED
+  DISPATCH_CARRIER_ASSIGNED
+  DISPATCH_LOADING_PLANNED
+  DISPATCH_LOADED
+  DISPATCH_IN_TRANSIT
+  DISPATCH_ARRIVED
+  DISPATCH_DELIVERED
+  DISPATCH_CANCELLED
+}
+
+enum DispatchTransportMode {
+  ROAD
+  SEA
+  RAIL
+  AIR
+  MULTIMODAL
+  OTHER
+}
+
+enum PlanSheetChannel {
+  EXPORT
+  DOMESTIC
+}
+
+enum PlanSheetStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum PlanSheetLineStatus {
+  PENDING
+  SUBMITTED
+  CONFIRMED
+  REJECTED
+  GENERATED
+}
+
+enum DispatchStatus {
+  NOT_PLANNED
+  PLANNED
+  CARRIER_ASSIGNED
+  LOADING_PLANNED
+  LOADED
+  IN_TRANSIT
+  ARRIVED
+  DELIVERED
+  CANCELLED
+}
+
+enum ExternalOrderStatus {
+  ORDER_RECEIVED
+  PRODUCTION_PLANNED
+  IN_PRODUCTION
+  QUALITY_CHECK
+  READY_FOR_DISPATCH
+  DISPATCHED
+  IN_TRANSIT
+  DELIVERED
+  ON_HOLD
+}
+
+enum ProductionMilestoneGate {
+  BODY
+  PAINT
+  ASSEMBLY
+  ELECTRICAL
+  POWERTRAIN
+  EOL_TEST
+  WASH
+  PDI
+  FINAL_QUALITY
+  YARD_READY
+  OTHER
+}
+
+enum ProductionMilestoneStatus {
+  NOT_STARTED
+  PLANNED
+  IN_PROGRESS
+  BLOCKED
+  QUALITY_HOLD
+  COMPLETED
+  SKIPPED
+  CANCELLED
+}
+
+enum DefectEventType {
+  CREATED
+  EIGHT_D_STARTED
+  EIGHT_D_STEP_SAVED
+  EIGHT_D_SUBMITTED
+  REVIEW_COMMENT_ADDED
+  REVIEW_COMMENT_RESPONDED
+  REVIEW_COMMENT_RESOLVED
+  REVIEW_COMMENT_REOPENED
+  REVISION_REQUESTED
+  APPROVED
+  OWNER_CHANGED
+  SUPPLIER_ASSIGNEE_CHANGED
+  DUE_DATE_CHANGED
+  EVIDENCE_ADDED
+  EVIDENCE_REMOVED
+  PPAP_CREATED
+  PPAP_SUBMITTED
+  PPAP_APPROVED
+  PPAP_REJECTED
+  PPAP_REVISION_REQUESTED
+  PPAP_CANCELLED
+  PPAP_DOCUMENT_UPLOADED
+  PPAP_DOCUMENT_APPROVED
+  PPAP_DOCUMENT_REJECTED
+  PPAP_DOCUMENT_REVISION_REQUESTED
+  IQC_CREATED
+  IQC_COMPLETED
+  IQC_FAILED
+  IQC_CHECKLIST_UPDATED
+  IQC_CANCELLED
+  IQC_RESULT_SET
+  FMEA_CREATED
+  FMEA_UPDATED
+  FMEA_SUBMITTED
+  FMEA_APPROVED
+  FMEA_REJECTED
+  FMEA_REVISION_REQUESTED
+  FMEA_CANCELLED
+  FIELD_DEFECT_CREATED
+  FIELD_DEFECT_STATUS_CHANGED
+  FIELD_DEFECT_SUPPLIER_ASSIGNED
+  FIELD_DEFECT_CONVERTED_TO_8D
+  FIELD_DEFECT_COMMENT_ADDED
+  FIELD_DEFECT_ATTACHMENT_ADDED
+  FIELD_DEFECT_ATTACHMENT_REMOVED
+  FIELD_DEFECT_CLOSED
+  FIELD_DEFECT_CANCELLED
+  FIELD_DEFECT_ESCALATED
+  FIELD_DEFECT_SLA_UPDATED
+  FIELD_DEFECT_CATEGORY_UPDATED
+  AI_CLASSIFICATION_GENERATED
+  AI_SUGGESTION_ACCEPTED
+  AI_SUGGESTION_REJECTED
+  AI_8D_REVIEW_GENERATED
+  AI_8D_REVIEW_MARKED_REVIEWED
+  AI_8D_REVIEW_REJECTED
+  AI_ROOT_CAUSE_SUGGESTED
+}
+
+enum DefectStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_APPROVAL
+  RESOLVED
+  REJECTED
+}
+
+enum ActionOwner {
+  OEM
+  SUPPLIER
+  NONE
+}
+
+enum EightDSection {
+  D3
+  D5
+  D6
+  D7
+}
+
+enum PpapLevel {
+  LEVEL_1
+  LEVEL_2
+  LEVEL_3
+  LEVEL_4
+  LEVEL_5
+}
+
+enum PpapReasonForSubmission {
+  NEW_PART
+  ENGINEERING_CHANGE
+  SUPPLIER_CHANGE
+  PROCESS_CHANGE
+  TOOLING_CHANGE
+  ANNUAL_REVALIDATION
+  CORRECTIVE_ACTION_FOLLOW_UP
+  OTHER
+}
+
+enum PpapDocumentStatus {
+  MISSING
+  UPLOADED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  REVISION_REQUIRED
+}
+
+enum PpapStatus {
+  DRAFT
+  REQUESTED
+  SUPPLIER_IN_PROGRESS
+  SUBMITTED
+  UNDER_REVIEW
+  REVISION_REQUIRED
+  APPROVED
+  REJECTED
+  CANCELLED
+  EXPIRED
+}
+
+enum PpapSubmissionRequirement {
+  DESIGN_RECORDS
+  ENGINEERING_CHANGE_DOCUMENTS
+  CUSTOMER_ENGINEERING_APPROVAL
+  DESIGN_FMEA
+  PROCESS_FLOW_DIAGRAM
+  PROCESS_FMEA
+  CONTROL_PLAN
+  MEASUREMENT_SYSTEM_ANALYSIS
+  DIMENSIONAL_RESULTS
+  MATERIAL_PERFORMANCE_RESULTS
+  INITIAL_PROCESS_STUDY
+  QUALIFIED_LABORATORY_DOCUMENTATION
+  APPEARANCE_APPROVAL_REPORT
+  SAMPLE_PRODUCTION_PARTS
+  MASTER_SAMPLE
+  CHECKING_ASSIST
+  CUSTOMER_SPECIFIC_REQUIREMENTS
+  PART_SUBMISSION_WARRANT
+}
+
+enum IqcStatus {
+  DRAFT
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum IqcResult {
+  ACCEPTED
+  CONDITIONAL_ACCEPTED
+  REJECTED
+  ON_HOLD
+  REWORK_REQUIRED
+  SORTING_REQUIRED
+}
+
+enum IqcInspectionType {
+  RECEIVING_INSPECTION
+  FIRST_ARTICLE_INSPECTION
+  CONTAINMENT_INSPECTION
+  RE_INSPECTION
+  DOCK_AUDIT
+}
+
+enum IqcChecklistResult {
+  PENDING
+  OK
+  NOK
+  NA
+}
+
+enum FmeaStatus {
+  DRAFT
+  REQUESTED
+  SUPPLIER_IN_PROGRESS
+  SUBMITTED
+  UNDER_REVIEW
+  REVISION_REQUIRED
+  APPROVED
+  REJECTED
+  ARCHIVED
+  CANCELLED
+}
+
+enum FmeaType {
+  DESIGN
+  PROCESS
+}
+
+enum FmeaActionStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum FieldDefectSource {
+  FIELD
+  SERVICE
+  CUSTOMER
+  DEALER
+  INTERNAL
+}
+
+enum FieldDefectSeverity {
+  MINOR
+  MAJOR
+  CRITICAL
+}
+
+enum FieldDefectStatus {
+  DRAFT
+  OPEN
+  UNDER_REVIEW
+  SUPPLIER_ASSIGNED
+  LINKED_TO_8D
+  CLOSED
+  CANCELLED
+}
+
+enum EscalationLevel {
+  NONE
+  LEVEL_1
+  LEVEL_2
+  LEVEL_3
+}
+
+model OrganizationUnit {
+  id        String             @id @default(uuid())
+  name      String
+  type      OrgUnitType
+  companyId String
+  company   Company            @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  parentId  String?
+  parent    OrganizationUnit?  @relation("OrgTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  OrganizationUnit[] @relation("OrgTree")
+  users     User[]
+  sortOrder Int                @default(0)
+  createdAt DateTime           @default(now())
+
+  @@index([companyId, parentId])
+  @@map("organization_units")
+}
+
+model Company {
+  id                          String                             @id @default(uuid())
+  name                        String
+  type                        CompanyType
+  plan                        Plan                               @default(FREE)
+  modules                     String[]                           @default([])
+  ssoEnabled                  Boolean                            @default(false) @map("sso_enabled")
+  microsoftTenantIds          String[]                           @default([]) @map("microsoft_tenant_ids")
+  ssoAllowedDomains           String[]                           @default([]) @map("sso_allowed_domains")
+  planStatus                  String?                            @map("plan_status")
+  planStartedAt               DateTime?                          @map("plan_started_at")
+  trialEndsAt                 DateTime?                          @map("trial_ends_at")
+  taxNumber                   String?
+  primaryOemId                String?                            @map("primary_oem_id")
+  primaryOem                  Company?                           @relation("SupplierPrimaryOem", fields: [primaryOemId], references: [id])
+  linkedSuppliers             Company[]                          @relation("SupplierPrimaryOem")
+  users                       User[]
+  orgUnits                    OrganizationUnit[]
+  defectsAsOem                Defect[]                           @relation("OemDefects")
+  defectsAsSup                Defect[]                           @relation("SupplierDefects")
+  ppapAsOem                   PpapSubmission[]                   @relation("OemPpapSubmissions")
+  ppapAsSup                   PpapSubmission[]                   @relation("SupplierPpapSubmissions")
+  iqcAsOem                    IqcReport[]                        @relation("OemIqcReports")
+  iqcAsSup                    IqcReport[]                        @relation("SupplierIqcReports")
+  fmeaAsOem                   Fmea[]                             @relation("OemFmeas")
+  fmeaAsSup                   Fmea[]                             @relation("SupplierFmeas")
+  fieldDefectsAsOem           FieldDefect[]                      @relation("FieldDefectOem")
+  fieldDefectsAsSup           FieldDefect[]                      @relation("FieldDefectSupplier")
+  aiSuggestions               AiSuggestion[]
+  notifications               Notification[]
+  escalationHistory           EscalationHistory[]
+  ai8dReviews                 Ai8dReview[]
+  usageCounters               UsageCounter[]
+  upgradeRequests             UpgradeRequest[]
+  qualityRecordLinks          QualityRecordLink[]
+  devPlansAsOem               SupplierDevelopmentPlan[]          @relation("DevPlansAsOem")
+  devPlansAsSupplier          SupplierDevelopmentPlan[]          @relation("DevPlansAsSupplier")
+  logisticOrders              PlantLogisticOrder[]               @relation("LogisticOrdersOem")
+  logisticOrderEvents         PlantLogisticOrderEvent[]          @relation("LogisticOrderEventsOem")
+  productionMilestones        PlantLogisticProductionMilestone[] @relation("MilestoneCompany")
+  yardStatuses                PlantLogisticYardStatus[]          @relation("YardStatusCompany")
+  dispatches                  PlantLogisticDispatch[]            @relation("DispatchCompany")
+  logisticOrdersAsDealer      PlantLogisticOrder[]               @relation("LogisticOrdersDealer")
+  logisticOrdersAsDistributor PlantLogisticOrder[]               @relation("LogisticOrdersDistributor")
+  planSheets                  PlantLogisticPlanSheet[]           @relation("PlanSheetCompany")
+  planSheetLines              PlantLogisticPlanSheetLine[]       @relation("PlanSheetLineCompany")
+  planSheetEvents             PlantLogisticPlanSheetEvent[]      @relation("PlanSheetEventCompany")
+  vehicleGroups               LogisticVehicleGroup[]
+  vehicleModels               LogisticVehicleModel[]
+  logisticProcesses           LogisticProcess[]
+  logisticFlowVersions        LogisticFlowVersion[]
+  logisticOrderLines          LogisticOrderLine[]
+  logisticVehicleUnits        LogisticVehicleUnit[]
+  logisticVehicleVisits       LogisticVehicleProcessVisit[]
+  customFieldDefinitions      CustomFieldDefinition[]
+  scorecardConfig             SupplierScorecardConfig?
+  createdAt                   DateTime                           @default(now())
+
+  @@map("companies")
+}
+
+model User {
+  id                      String                             @id @default(uuid())
+  email                   String                             @unique
+  name                    String?
+  emailVerified           DateTime?
+  image                   String?
+  role                    Role                               @default(VIEWER)
+  plan                    Plan                               @default(BASIC)
+  modules                 String[]                           @default([])
+  microsoftId             String?                            @map("microsoft_id")
+  graphDepartment         String?                            @map("graph_department")
+  graphJobTitle           String?                            @map("graph_job_title")
+  graphManagerEmail       String?                            @map("graph_manager_email")
+  companyId               String?
+  company                 Company?                           @relation(fields: [companyId], references: [id])
+  orgUnitId               String?                            @map("org_unit_id")
+  orgUnit                 OrganizationUnit?                  @relation(fields: [orgUnitId], references: [id], onDelete: SetNull)
+  accounts                Account[]
+  sessions                Session[]
+  reviewComments          ReviewComment[]
+  resolvedReviewComments  ReviewComment[]                    @relation("ReviewCommentResolvedBy")
+  approvedReports         EightDReport[]                     @relation("EightDApprovedBy")
+  rejectedReports         EightDReport[]                     @relation("EightDRejectedBy")
+  ownedDefects            Defect[]                           @relation("DefectOemOwner")
+  assignedDefects         Defect[]                           @relation("DefectSupplierAssignee")
+  escalatedDefects        Defect[]                           @relation("DefectEscalatedBy")
+  defectEvents            DefectEvent[]                      @relation("DefectEventActor")
+  uploadedEvidence        DefectEvidence[]                   @relation("DefectEvidenceUploadedBy")
+  notifications           Notification[]
+  ownedPpaps              PpapSubmission[]                   @relation("PpapOemOwner")
+  assignedPpaps           PpapSubmission[]                   @relation("PpapSupplierAssignee")
+  approvedPpaps           PpapSubmission[]                   @relation("PpapApprovedBy")
+  rejectedPpaps           PpapSubmission[]                   @relation("PpapRejectedBy")
+  reviewedPpaps           PpapSubmission[]                   @relation("PpapReviewedBy")
+  ppapEvidenceUploads     PpapEvidence[]                     @relation("PpapEvidenceUploadedBy")
+  ppapEvidenceReviewed    PpapEvidence[]                     @relation("PpapEvidenceReviewedBy")
+  ppapCommentResolved     PpapReviewComment[]                @relation("PpapCommentResolvedBy")
+  ppapCommentAuthored     PpapReviewComment[]                @relation("PpapCommentAuthor")
+  ppapEventActors         PpapEvent[]                        @relation("PpapEventActor")
+  iqcInspections          IqcReport[]                        @relation("IqcInspector")
+  iqcCreatedReports       IqcReport[]                        @relation("IqcCreatedBy")
+  iqcCompletedReports     IqcReport[]                        @relation("IqcCompletedBy")
+  iqcEventActors          IqcEvent[]                         @relation("IqcEventActor")
+  fmeaResponsible         Fmea[]                             @relation("FmeaResponsible")
+  fmeaApprovedBy          Fmea[]                             @relation("FmeaApprovedBy")
+  fmeaReviewedBy          Fmea[]                             @relation("FmeaReviewedBy")
+  fmeaCreatedBy           Fmea[]                             @relation("FmeaCreatedBy")
+  fmeaEventActors         FmeaEvent[]                        @relation("FmeaEventActor")
+  createdFieldDefects     FieldDefect[]                      @relation("FieldDefectCreatedBy")
+  updatedFieldDefects     FieldDefect[]                      @relation("FieldDefectUpdatedBy")
+  convertedFieldDefects   FieldDefect[]                      @relation("FieldDefectConvertedBy")
+  escalatedFieldDefects   FieldDefect[]                      @relation("FieldDefectEscalatedBy")
+  escalationHistories     EscalationHistory[]
+  createdUpgradeRequests  UpgradeRequest[]                   @relation("UpgradeRequestCreatedBy")
+  resolvedUpgradeRequests UpgradeRequest[]                   @relation("UpgradeRequestResolvedBy")
+  createdAiSuggestions    AiSuggestion[]                     @relation("AiSuggestionCreatedBy")
+  acceptedAiSuggestions   AiSuggestion[]                     @relation("AiSuggestionAcceptedBy")
+  rejectedAiSuggestions   AiSuggestion[]                     @relation("AiSuggestionRejectedBy")
+  fieldDefectAttachments  FieldDefectAttachment[]            @relation("FieldDefectAttachmentUploadedBy")
+  fieldDefectComments     FieldDefectComment[]               @relation("FieldDefectCommentAuthor")
+  fieldDefectEvents       FieldDefectEvent[]                 @relation("FieldDefectEventActor")
+  aiCategoryAppliedByFor  FieldDefect[]                      @relation("FieldDefectAiCategoryAppliedBy")
+  createdAi8dReviews      Ai8dReview[]                       @relation("Ai8dReviewCreatedBy")
+  reviewedAi8dReviews     Ai8dReview[]                       @relation("Ai8dReviewReviewedBy")
+  rejectedAi8dReviews     Ai8dReview[]                       @relation("Ai8dReviewRejectedBy")
+  createdQualityLinks     QualityRecordLink[]
+  ownedDevPlans           SupplierDevelopmentPlan[]          @relation("DevPlanOwner")
+  createdDevPlans         SupplierDevelopmentPlan[]          @relation("DevPlanCreatedBy")
+  completedDevPlans       SupplierDevelopmentPlan[]          @relation("DevPlanCompletedBy")
+  ownedDevActionItems     SupplierDevelopmentActionItem[]    @relation("DevActionItemOwner")
+  devPlanEvents           SupplierDevelopmentEvent[]         @relation("DevPlanEventActor")
+  createdLogisticOrders   PlantLogisticOrder[]               @relation("LogisticOrderCreatedBy")
+  updatedLogisticOrders   PlantLogisticOrder[]               @relation("LogisticOrderUpdatedBy")
+  logisticOrderEvents     PlantLogisticOrderEvent[]          @relation("LogisticOrderEventActor")
+  createdMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneCreatedBy")
+  updatedMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneUpdatedBy")
+  createdYardStatuses     PlantLogisticYardStatus[]          @relation("YardStatusCreatedBy")
+  updatedYardStatuses     PlantLogisticYardStatus[]          @relation("YardStatusUpdatedBy")
+  createdDispatches       PlantLogisticDispatch[]            @relation("DispatchCreatedBy")
+  updatedDispatches       PlantLogisticDispatch[]            @relation("DispatchUpdatedBy")
+  portalOrderComments     PlantLogisticOrderComment[]        @relation("PortalOrderCommentAuthor")
+  createdPlanSheets       PlantLogisticPlanSheet[]           @relation("PlanSheetCreatedBy")
+  reviewedPlanSheets      PlantLogisticPlanSheet[]           @relation("PlanSheetReviewedBy")
+  approvedPlanSheets      PlantLogisticPlanSheet[]           @relation("PlanSheetApprovedBy")
+  planSheetEvents         PlantLogisticPlanSheetEvent[]      @relation("PlanSheetEventActor")
+  createdAt               DateTime                           @default(now())
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Defect {
+  id                    String                             @id @default(uuid())
+  oemId                 String
+  oem                   Company                            @relation("OemDefects", fields: [oemId], references: [id])
+  supplierId            String
+  supplier              Company                            @relation("SupplierDefects", fields: [supplierId], references: [id])
+  partNumber            String
+  description           String
+  status                DefectStatus                       @default(OPEN)
+  imageUrls             String[]
+  oemOwnerId            String?                            @map("oem_owner_id")
+  oemOwner              User?                              @relation("DefectOemOwner", fields: [oemOwnerId], references: [id])
+  supplierAssigneeId    String?                            @map("supplier_assignee_id")
+  supplierAssignee      User?                              @relation("DefectSupplierAssignee", fields: [supplierAssigneeId], references: [id])
+  supplierResponseDueAt DateTime?                          @map("supplier_response_due_at")
+  eightDSubmissionDueAt DateTime?                          @map("eight_d_submission_due_at")
+  oemReviewDueAt        DateTime?                          @map("oem_review_due_at")
+  revisionDueAt         DateTime?                          @map("revision_due_at")
+  currentActionOwner    ActionOwner                        @default(SUPPLIER) @map("current_action_owner")
+  escalationLevel       EscalationLevel                    @default(NONE) @map("escalation_level")
+  escalatedAt           DateTime?                          @map("escalated_at")
+  escalatedById         String?                            @map("escalated_by_id")
+  escalatedBy           User?                              @relation("DefectEscalatedBy", fields: [escalatedById], references: [id])
+  escalationReason      String?                            @map("escalation_reason")
+  customFields          Json?                              @map("custom_fields")
+  eightDReport          EightDReport?
+  events                DefectEvent[]
+  evidences             DefectEvidence[]
+  ppap                  PpapSubmission?
+  fmea                  Fmea?
+  linkedFieldDefect     FieldDefect?
+  logisticMilestones    PlantLogisticProductionMilestone[] @relation("MilestoneDefect")
+  iqcReport             IqcReport?
+  createdAt             DateTime                           @default(now())
+  updatedAt             DateTime                           @updatedAt
+  resolvedAt            DateTime?
+
+  @@map("defects")
+}
+
+model EightDReport {
+  id              String          @id @default(uuid())
+  defectId        String          @unique
+  defect          Defect          @relation(fields: [defectId], references: [id])
+  d2_problem      String?
+  d4_rootCause    String?
+  d5_d6_action    String?
+  d8_recognition  String?
+  submittedAt     DateTime?
+  lastSubmittedAt DateTime?       @map("last_submitted_at")
+  lastReviewedAt  DateTime?       @map("last_reviewed_at")
+  approvedAt      DateTime?       @map("approved_at")
+  approvedById    String?         @map("approved_by_id")
+  approvedBy      User?           @relation("EightDApprovedBy", fields: [approvedById], references: [id])
+  rejectedAt      DateTime?       @map("rejected_at")
+  rejectedById    String?         @map("rejected_by_id")
+  rejectedBy      User?           @relation("EightDRejectedBy", fields: [rejectedById], references: [id])
+  revisionNo      Int             @default(0) @map("revision_no")
+  updatedAt       DateTime        @updatedAt
+  reviewComments  ReviewComment[]
+
+  // Structured JSONB fields (IATF 16949)
+  team               Json?        @map("d1_team")
+  containmentActions Json?        @map("d3_containment")
+  d5Actions          Json?        @map("d5_actions")
+  d6Actions          Json?        @map("d6_actions")
+  d7Impacts          Json?        @map("d7_impacts")
+  d7Preventive       String?      @map("d7_preventive")
+  ai8dReviews        Ai8dReview[]
+
+  @@map("eight_d_reports")
+}
+
+model ReviewComment {
+  id               String              @id @default(uuid())
+  reportId         String              @map("report_id")
+  report           EightDReport        @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  stepId           String              @map("step_id")
+  comment          String
+  status           ReviewCommentStatus @default(OPEN)
+  supplierResponse String?             @map("supplier_response")
+  resolvedAt       DateTime?           @map("resolved_at")
+  resolvedById     String?             @map("resolved_by_id")
+  resolvedBy       User?               @relation("ReviewCommentResolvedBy", fields: [resolvedById], references: [id])
+  authorId         String              @map("author_id")
+  author           User                @relation(fields: [authorId], references: [id])
+  createdAt        DateTime            @default(now()) @map("created_at")
+
+  @@map("review_comments")
+}
+
+model DefectEvent {
+  id        String          @id @default(uuid())
+  defectId  String          @map("defect_id")
+  defect    Defect          @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?         @map("actor_id")
+  actor     User?           @relation("DefectEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  @@index([defectId, createdAt])
+  @@map("defect_events")
+}
+
+model DefectEvidence {
+  id           String        @id @default(cuid())
+  defectId     String        @map("defect_id")
+  defect       Defect        @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  section      EightDSection
+  storageKey   String        @map("storage_key")
+  fileName     String        @map("file_name")
+  mimeType     String        @map("mime_type")
+  sizeBytes    Int           @map("size_bytes")
+  uploadedById String        @map("uploaded_by_id")
+  uploadedBy   User          @relation("DefectEvidenceUploadedBy", fields: [uploadedById], references: [id])
+  companyId    String        @map("company_id")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  deletedAt    DateTime?     @map("deleted_at")
+
+  @@index([defectId, section])
+  @@index([companyId, createdAt])
+  @@map("defect_evidence")
+}
+
+model PpapSubmission {
+  id                  String                  @id @default(uuid())
+  requestNumber       String                  @unique @map("request_number")
+  partNumber          String                  @map("part_number")
+  partName            String                  @map("part_name")
+  projectName         String?                 @map("project_name")
+  vehicleModel        String?                 @map("vehicle_model")
+  revisionLevel       String?                 @map("revision_level")
+  drawingNumber       String?                 @map("drawing_number")
+  revision            String                  @default("A") @map("revision")
+  level               PpapLevel               @default(LEVEL_3) @map("level")
+  reasonForSubmission PpapReasonForSubmission @default(NEW_PART) @map("reason_for_submission")
+  status              PpapStatus              @default(DRAFT)
+  oemId               String                  @map("oem_id")
+  oem                 Company                 @relation("OemPpapSubmissions", fields: [oemId], references: [id])
+  supplierId          String                  @map("supplier_id")
+  supplier            Company                 @relation("SupplierPpapSubmissions", fields: [supplierId], references: [id])
+  oemOwnerId          String?                 @map("oem_owner_id")
+  oemOwner            User?                   @relation("PpapOemOwner", fields: [oemOwnerId], references: [id])
+  supplierAssigneeId  String?                 @map("supplier_assignee_id")
+  supplierAssignee    User?                   @relation("PpapSupplierAssignee", fields: [supplierAssigneeId], references: [id])
+  defectId            String?                 @unique @map("defect_id")
+  defect              Defect?                 @relation(fields: [defectId], references: [id])
+  submittedAt         DateTime?               @map("submitted_at")
+  reviewedAt          DateTime?               @map("reviewed_at")
+  reviewedById        String?                 @map("reviewed_by_id")
+  reviewedBy          User?                   @relation("PpapReviewedBy", fields: [reviewedById], references: [id])
+  approvedAt          DateTime?               @map("approved_at")
+  rejectedAt          DateTime?               @map("rejected_at")
+  approvedById        String?                 @map("approved_by_id")
+  approvedBy          User?                   @relation("PpapApprovedBy", fields: [approvedById], references: [id])
+  rejectedById        String?                 @map("rejected_by_id")
+  rejectedBy          User?                   @relation("PpapRejectedBy", fields: [rejectedById], references: [id])
+  rejectionReason     String?                 @map("rejection_reason")
+  dueDate             DateTime?               @map("due_date")
+  requirements        Json?                   @map("requirements")
+  notes               String?                 @map("notes")
+  supplierNotes       String?                 @map("supplier_notes")
+  customFields        Json?                   @map("custom_fields")
+  evidences           PpapEvidence[]
+  reviewComments      PpapReviewComment[]
+  events              PpapEvent[]
+  createdAt           DateTime                @default(now()) @map("created_at")
+  updatedAt           DateTime                @updatedAt @map("updated_at")
+
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([defectId])
+  @@map("ppap_submissions")
+}
+
+model PpapEvidence {
+  id              String                    @id @default(cuid())
+  ppapId          String                    @map("ppap_id")
+  ppap            PpapSubmission            @relation(fields: [ppapId], references: [id], onDelete: Cascade)
+  requirement     PpapSubmissionRequirement
+  status          PpapDocumentStatus        @default(MISSING) @map("status")
+  storageKey      String?                   @map("storage_key")
+  fileName        String?                   @map("file_name")
+  mimeType        String?                   @map("mime_type")
+  sizeBytes       Int?                      @map("size_bytes")
+  uploadedById    String?                   @map("uploaded_by_id")
+  uploadedBy      User?                     @relation("PpapEvidenceUploadedBy", fields: [uploadedById], references: [id])
+  supplierComment String?                   @map("supplier_comment")
+  oemComment      String?                   @map("oem_comment")
+  reviewedById    String?                   @map("reviewed_by_id")
+  reviewedBy      User?                     @relation("PpapEvidenceReviewedBy", fields: [reviewedById], references: [id])
+  reviewedAt      DateTime?                 @map("reviewed_at")
+  companyId       String                    @map("company_id")
+  createdAt       DateTime                  @default(now()) @map("created_at")
+  updatedAt       DateTime                  @updatedAt @map("updated_at")
+  deletedAt       DateTime?                 @map("deleted_at")
+
+  @@index([ppapId, requirement])
+  @@index([ppapId, status])
+  @@index([companyId, createdAt])
+  @@map("ppap_evidence")
+}
+
+model PpapReviewComment {
+  id               String                    @id @default(uuid())
+  ppapId           String                    @map("ppap_id")
+  ppap             PpapSubmission            @relation(fields: [ppapId], references: [id], onDelete: Cascade)
+  requirement      PpapSubmissionRequirement
+  comment          String
+  status           ReviewCommentStatus       @default(OPEN)
+  supplierResponse String?                   @map("supplier_response")
+  resolvedAt       DateTime?                 @map("resolved_at")
+  resolvedById     String?                   @map("resolved_by_id")
+  resolvedBy       User?                     @relation("PpapCommentResolvedBy", fields: [resolvedById], references: [id])
+  authorId         String                    @map("author_id")
+  author           User                      @relation("PpapCommentAuthor", fields: [authorId], references: [id])
+  createdAt        DateTime                  @default(now()) @map("created_at")
+
+  @@index([ppapId, status])
+  @@map("ppap_review_comments")
+}
+
+model PpapEvent {
+  id        String          @id @default(uuid())
+  ppapId    String          @map("ppap_id")
+  ppap      PpapSubmission  @relation(fields: [ppapId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?         @map("actor_id")
+  actor     User?           @relation("PpapEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  @@index([ppapId, createdAt])
+  @@map("ppap_events")
+}
+
+model IqcReport {
+  id                 String             @id @default(uuid())
+  inspectionNumber   String             @unique @map("inspection_number")
+  partNumber         String             @map("part_number")
+  partName           String?            @map("part_name")
+  purchaseOrder      String?            @map("purchase_order")
+  deliveryNote       String?            @map("delivery_note")
+  lotNumber          String?            @map("lot_number")
+  batchNumber        String?            @map("batch_number")
+  quantityReceived   Int                @default(0) @map("quantity_received")
+  inspectionQuantity Int                @default(0) @map("inspection_quantity")
+  vehicleModel       String?            @map("vehicle_model")
+  projectName        String?            @map("project_name")
+  oemId              String             @map("oem_id")
+  oem                Company            @relation("OemIqcReports", fields: [oemId], references: [id])
+  supplierId         String             @map("supplier_id")
+  supplier           Company            @relation("SupplierIqcReports", fields: [supplierId], references: [id])
+  inspectorId        String?            @map("inspector_id")
+  inspector          User?              @relation("IqcInspector", fields: [inspectorId], references: [id])
+  inspectionDate     DateTime?          @map("inspection_date")
+  inspectionType     IqcInspectionType  @default(RECEIVING_INSPECTION) @map("inspection_type")
+  samplingPlan       String?            @map("sampling_plan")
+  status             IqcStatus          @default(PLANNED)
+  result             IqcResult?
+  notes              String?
+  linkedDefectId     String?            @unique @map("linked_defect_id")
+  linkedDefect       Defect?            @relation(fields: [linkedDefectId], references: [id])
+  createdById        String             @map("created_by_id")
+  createdBy          User               @relation("IqcCreatedBy", fields: [createdById], references: [id])
+  completedAt        DateTime?          @map("completed_at")
+  completedById      String?            @map("completed_by_id")
+  completedBy        User?              @relation("IqcCompletedBy", fields: [completedById], references: [id])
+  quantityAccepted   Int                @default(0) @map("quantity_accepted")
+  quantityRejected   Int                @default(0) @map("quantity_rejected")
+  measurements       Json?              @map("measurements")
+  nonconformities    Json?              @map("nonconformities")
+  dispositionNotes   String?            @map("disposition_notes")
+  customFields       Json?              @map("custom_fields")
+  checklistItems     IqcChecklistItem[]
+  events             IqcEvent[]
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+
+  @@index([oemId, supplierId])
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([oemId, result])
+  @@index([oemId, createdAt])
+  @@map("iqc_reports")
+}
+
+model IqcChecklistItem {
+  id                 String             @id @default(uuid())
+  iqcInspectionId    String             @map("iqc_inspection_id")
+  iqcInspection      IqcReport          @relation(fields: [iqcInspectionId], references: [id], onDelete: Cascade)
+  itemName           String             @map("item_name")
+  requirement        String?
+  result             IqcChecklistResult @default(PENDING)
+  measuredValue      String?            @map("measured_value")
+  comment            String?
+  evidenceFileName   String?            @map("evidence_file_name")
+  evidenceStorageKey String?            @map("evidence_storage_key")
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+
+  @@index([iqcInspectionId, result])
+  @@map("iqc_checklist_items")
+}
+
+model IqcEvent {
+  id        String          @id @default(uuid())
+  reportId  String          @map("report_id")
+  report    IqcReport       @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?         @map("actor_id")
+  actor     User?           @relation("IqcEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  @@index([reportId, createdAt])
+  @@map("iqc_events")
+}
+
+model Fmea {
+  id              String      @id @default(uuid())
+  fmeaNumber      String      @unique @map("fmea_number")
+  title           String
+  fmeaType        FmeaType    @default(PROCESS) @map("fmea_type")
+  status          FmeaStatus  @default(DRAFT)
+  partNumber      String      @map("part_number")
+  partName        String?     @map("part_name")
+  processName     String?     @map("process_name")
+  projectName     String?     @map("project_name")
+  vehicleModel    String?     @map("vehicle_model")
+  revision        String?     @map("revision")
+  oemId           String      @map("oem_id")
+  oem             Company     @relation("OemFmeas", fields: [oemId], references: [id])
+  supplierId      String?     @map("supplier_id")
+  supplier        Company?    @relation("SupplierFmeas", fields: [supplierId], references: [id])
+  responsibleId   String?     @map("responsible_id")
+  responsible     User?       @relation("FmeaResponsible", fields: [responsibleId], references: [id])
+  dueDate         DateTime?   @map("due_date")
+  defectId        String?     @unique @map("defect_id")
+  defect          Defect?     @relation(fields: [defectId], references: [id])
+  rows            Json?       @map("rows")
+  submittedAt     DateTime?   @map("submitted_at")
+  reviewedAt      DateTime?   @map("reviewed_at")
+  reviewedById    String?     @map("reviewed_by_id")
+  reviewedBy      User?       @relation("FmeaReviewedBy", fields: [reviewedById], references: [id])
+  approvedAt      DateTime?   @map("approved_at")
+  approvedById    String?     @map("approved_by_id")
+  approvedBy      User?       @relation("FmeaApprovedBy", fields: [approvedById], references: [id])
+  rejectionReason String?     @map("rejection_reason")
+  revisionNo      Int         @default(0) @map("revision_no")
+  notes           String?     @map("notes")
+  customFields    Json?       @map("custom_fields")
+  createdById     String      @map("created_by_id")
+  createdBy       User        @relation("FmeaCreatedBy", fields: [createdById], references: [id])
+  events          FmeaEvent[]
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@index([oemId, status])
+  @@index([oemId, supplierId])
+  @@index([supplierId, status])
+  @@index([oemId, createdAt])
+  @@index([defectId])
+  @@map("fmeas")
+}
+
+model FmeaEvent {
+  id        String          @id @default(uuid())
+  fmeaId    String          @map("fmea_id")
+  fmea      Fmea            @relation(fields: [fmeaId], references: [id], onDelete: Cascade)
+  type      DefectEventType
+  actorId   String?         @map("actor_id")
+  actor     User?           @relation("FmeaEventActor", fields: [actorId], references: [id])
+  metadata  Json?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  @@index([fmeaId, createdAt])
+  @@map("fmea_events")
+}
+
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String
+  module    String
+  createdAt DateTime @default(now())
+
+  @@unique([email, module])
+  @@map("waitlist")
+}
+
+model FieldDefect {
+  id                    String                  @id @default(uuid())
+  title                 String
+  description           String
+  source                FieldDefectSource       @default(FIELD)
+  status                FieldDefectStatus       @default(DRAFT)
+  severity              FieldDefectSeverity     @default(MAJOR)
+  safetyImpact          Boolean                 @default(false) @map("safety_impact")
+  vehicleDown           Boolean                 @default(false) @map("vehicle_down")
+  repeatIssue           Boolean                 @default(false) @map("repeat_issue")
+  vin                   String?                 @map("vin")
+  vehicleModel          String?                 @map("vehicle_model")
+  vehicleVariant        String?                 @map("vehicle_variant")
+  mileage               Int?                    @map("mileage")
+  failureDate           DateTime?               @map("failure_date")
+  reportDate            DateTime                @default(now()) @map("report_date")
+  location              String?                 @map("location")
+  partNumber            String?                 @map("part_number")
+  partName              String?                 @map("part_name")
+  category              String?                 @map("category")
+  subcategory           String?                 @map("subcategory")
+  probableArea          String?                 @map("probable_area")
+  aiCategoryApplied     Boolean                 @default(false) @map("ai_category_applied")
+  aiCategoryAppliedAt   DateTime?               @map("ai_category_applied_at")
+  aiCategoryAppliedById String?                 @map("ai_category_applied_by_id")
+  aiCategoryAppliedBy   User?                   @relation("FieldDefectAiCategoryAppliedBy", fields: [aiCategoryAppliedById], references: [id])
+  supplierId            String?                 @map("supplier_id")
+  supplier              Company?                @relation("FieldDefectSupplier", fields: [supplierId], references: [id])
+  supplierNameSnapshot  String?                 @map("supplier_name_snapshot")
+  oemId                 String                  @map("oem_id")
+  oem                   Company                 @relation("FieldDefectOem", fields: [oemId], references: [id])
+  createdById           String                  @map("created_by_id")
+  createdBy             User                    @relation("FieldDefectCreatedBy", fields: [createdById], references: [id])
+  updatedById           String?                 @map("updated_by_id")
+  updatedBy             User?                   @relation("FieldDefectUpdatedBy", fields: [updatedById], references: [id])
+  linkedDefectId        String?                 @unique @map("linked_defect_id")
+  linkedDefect          Defect?                 @relation(fields: [linkedDefectId], references: [id])
+  convertedTo8DAt       DateTime?               @map("converted_to_8d_at")
+  convertedById         String?                 @map("converted_by_id")
+  convertedBy           User?                   @relation("FieldDefectConvertedBy", fields: [convertedById], references: [id])
+  responseDueAt         DateTime?               @map("response_due_at")
+  resolutionDueAt       DateTime?               @map("resolution_due_at")
+  escalationLevel       EscalationLevel         @default(NONE) @map("escalation_level")
+  escalatedAt           DateTime?               @map("escalated_at")
+  escalatedById         String?                 @map("escalated_by_id")
+  escalatedBy           User?                   @relation("FieldDefectEscalatedBy", fields: [escalatedById], references: [id])
+  escalationReason      String?                 @map("escalation_reason")
+  customFields          Json?                   @map("custom_fields")
+  attachments           FieldDefectAttachment[]
+  events                FieldDefectEvent[]
+  comments              FieldDefectComment[]
+  aiSuggestions         AiSuggestion[]
+  createdAt             DateTime                @default(now()) @map("created_at")
+  updatedAt             DateTime                @updatedAt @map("updated_at")
+  closedAt              DateTime?               @map("closed_at")
+  deletedAt             DateTime?               @map("deleted_at")
+
+  @@index([oemId, status])
+  @@index([oemId, category])
+  @@index([oemId, subcategory])
+  @@index([oemId, probableArea])
+  @@index([oemId, createdAt])
+  @@index([oemId, supplierId])
+  @@index([oemId, vehicleModel])
+  @@index([oemId, partNumber])
+  @@index([supplierId, status])
+  @@index([severity])
+  @@index([vin])
+  @@index([createdAt])
+  @@index([linkedDefectId])
+  @@index([escalationLevel])
+  @@index([responseDueAt])
+  @@index([resolutionDueAt])
+  @@map("field_defects")
+}
+
+model FieldDefectAttachment {
+  id            String      @id @default(cuid())
+  fieldDefectId String      @map("field_defect_id")
+  fieldDefect   FieldDefect @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  storageKey    String      @map("storage_key")
+  fileName      String      @map("file_name")
+  mimeType      String      @map("mime_type")
+  fileSize      Int         @map("file_size")
+  uploadedById  String      @map("uploaded_by_id")
+  uploadedBy    User        @relation("FieldDefectAttachmentUploadedBy", fields: [uploadedById], references: [id])
+  companyId     String      @map("company_id")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  deletedAt     DateTime?   @map("deleted_at")
+
+  @@index([fieldDefectId])
+  @@index([companyId, createdAt])
+  @@map("field_defect_attachments")
+}
+
+model FieldDefectComment {
+  id            String      @id @default(uuid())
+  fieldDefectId String      @map("field_defect_id")
+  fieldDefect   FieldDefect @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  authorId      String      @map("author_id")
+  author        User        @relation("FieldDefectCommentAuthor", fields: [authorId], references: [id])
+  content       String
+  createdAt     DateTime    @default(now()) @map("created_at")
+
+  @@index([fieldDefectId, createdAt])
+  @@map("field_defect_comments")
+}
+
+model FieldDefectEvent {
+  id            String          @id @default(uuid())
+  fieldDefectId String          @map("field_defect_id")
+  fieldDefect   FieldDefect     @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  type          DefectEventType
+  actorId       String?         @map("actor_id")
+  actor         User?           @relation("FieldDefectEventActor", fields: [actorId], references: [id])
+  metadata      Json?
+  createdAt     DateTime        @default(now()) @map("created_at")
+
+  @@index([fieldDefectId, createdAt])
+  @@map("field_defect_events")
+}
+
+model Notification {
+  id                  String           @id @default(uuid())
+  userId              String?
+  user                User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId           String?          @map("company_id")
+  company             Company?         @relation(fields: [companyId], references: [id])
+  recipientSupplierId String?          @map("recipient_supplier_id")
+  type                NotificationType
+  title               String?
+  message             String
+  entityType          String?          @map("entity_type")
+  entityId            String?          @map("entity_id")
+  link                String?
+  isRead              Boolean          @default(false)
+  readAt              DateTime?        @map("read_at")
+  createdAt           DateTime         @default(now())
+
+  @@index([companyId, isRead])
+  @@index([userId, isRead])
+  @@index([recipientSupplierId])
+  @@index([entityType, entityId])
+  @@map("notifications")
+}
+
+model EscalationHistory {
+  id            String          @id @default(uuid())
+  companyId     String          @map("company_id")
+  company       Company         @relation(fields: [companyId], references: [id])
+  entityType    String          @map("entity_type")
+  entityId      String          @map("entity_id")
+  previousLevel EscalationLevel @map("previous_level")
+  newLevel      EscalationLevel @map("new_level")
+  reason        String
+  createdById   String          @map("created_by_id")
+  createdBy     User            @relation(fields: [createdById], references: [id])
+  createdAt     DateTime        @default(now()) @map("created_at")
+
+  @@index([companyId, entityType])
+  @@index([entityType, entityId])
+  @@index([companyId, newLevel])
+  @@map("escalation_history")
+}
+
+model AiSuggestion {
+  id             String             @id @default(uuid())
+  companyId      String             @map("company_id")
+  company        Company            @relation(fields: [companyId], references: [id])
+  fieldDefectId  String             @map("field_defect_id")
+  fieldDefect    FieldDefect        @relation(fields: [fieldDefectId], references: [id], onDelete: Cascade)
+  suggestionType AiSuggestionType   @map("suggestion_type")
+  inputHash      String?            @map("input_hash")
+  resultJson     Json               @map("result_json")
+  status         AiSuggestionStatus @default(GENERATED)
+  confidence     Float?             @map("confidence")
+  createdById    String             @map("created_by_id")
+  createdBy      User               @relation("AiSuggestionCreatedBy", fields: [createdById], references: [id])
+  createdAt      DateTime           @default(now()) @map("created_at")
+  acceptedById   String?            @map("accepted_by_id")
+  acceptedBy     User?              @relation("AiSuggestionAcceptedBy", fields: [acceptedById], references: [id])
+  acceptedAt     DateTime?          @map("accepted_at")
+  rejectedById   String?            @map("rejected_by_id")
+  rejectedBy     User?              @relation("AiSuggestionRejectedBy", fields: [rejectedById], references: [id])
+  rejectedAt     DateTime?          @map("rejected_at")
+
+  @@index([companyId, fieldDefectId])
+  @@index([companyId, suggestionType])
+  @@index([fieldDefectId, suggestionType, status])
+  @@index([companyId, createdAt])
+  @@map("ai_suggestions")
+}
+
+model Ai8dReview {
+  id                  String           @id @default(uuid())
+  companyId           String           @map("company_id")
+  company             Company          @relation(fields: [companyId], references: [id])
+  eightDId            String           @map("eight_d_id")
+  eightDReport        EightDReport     @relation(fields: [eightDId], references: [id], onDelete: Cascade)
+  linkedFieldDefectId String?          @map("linked_field_defect_id")
+  resultJson          Json             @map("result_json")
+  status              Ai8dReviewStatus @default(GENERATED)
+  score               Int?             @map("score")
+  createdById         String           @map("created_by_id")
+  createdBy           User             @relation("Ai8dReviewCreatedBy", fields: [createdById], references: [id])
+  createdAt           DateTime         @default(now()) @map("created_at")
+  reviewedById        String?          @map("reviewed_by_id")
+  reviewedBy          User?            @relation("Ai8dReviewReviewedBy", fields: [reviewedById], references: [id])
+  reviewedAt          DateTime?        @map("reviewed_at")
+  rejectedById        String?          @map("rejected_by_id")
+  rejectedBy          User?            @relation("Ai8dReviewRejectedBy", fields: [rejectedById], references: [id])
+  rejectedAt          DateTime?        @map("rejected_at")
+
+  @@index([companyId, eightDId])
+  @@index([companyId, status])
+  @@index([companyId, createdAt])
+  @@index([eightDId, status])
+  @@map("ai_8d_reviews")
+}
+
+model UsageCounter {
+  id          String   @id @default(cuid())
+  companyId   String   @map("company_id")
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  usageKey    String   @map("usage_key")
+  periodStart DateTime @map("period_start")
+  periodEnd   DateTime @map("period_end")
+  count       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([companyId, usageKey, periodStart, periodEnd])
+  @@index([companyId, usageKey, periodStart])
+  @@map("usage_counters")
+}
+
+model UpgradeRequest {
+  id            String               @id @default(uuid())
+  companyId     String               @map("company_id")
+  company       Company              @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  requestedById String               @map("requested_by_id")
+  requestedBy   User                 @relation("UpgradeRequestCreatedBy", fields: [requestedById], references: [id])
+  currentPlan   String               @map("current_plan")
+  requestedPlan String               @map("requested_plan")
+  sourceFeature String?              @map("source_feature")
+  message       String?
+  status        UpgradeRequestStatus @default(OPEN)
+  adminNote     String?              @map("admin_note")
+  resolvedAt    DateTime?            @map("resolved_at")
+  resolvedById  String?              @map("resolved_by_id")
+  resolvedBy    User?                @relation("UpgradeRequestResolvedBy", fields: [resolvedById], references: [id])
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
+
+  @@index([companyId, status])
+  @@index([companyId, createdAt])
+  @@index([requestedById])
+  @@index([requestedPlan])
+  @@map("upgrade_requests")
+}
+
+model QualityRecordLink {
+  id          String            @id @default(uuid())
+  companyId   String            @map("company_id")
+  company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  sourceType  QualityRecordType @map("source_type")
+  sourceId    String            @map("source_id")
+  targetType  QualityRecordType @map("target_type")
+  targetId    String            @map("target_id")
+  linkType    QualityLinkType   @map("link_type")
+  reason      String?
+  createdById String            @map("created_by_id")
+  createdBy   User              @relation(fields: [createdById], references: [id])
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  @@unique([sourceType, sourceId, targetType, targetId, linkType])
+  @@index([companyId, sourceType, sourceId])
+  @@index([companyId, targetType, targetId])
+  @@index([companyId, linkType])
+  @@index([companyId, createdAt])
+  @@map("quality_record_links")
+}
+
+model SupplierDevelopmentPlan {
+  id            String                          @id @default(uuid())
+  oemId         String                          @map("oem_id")
+  oem           Company                         @relation("DevPlansAsOem", fields: [oemId], references: [id])
+  supplierId    String                          @map("supplier_id")
+  supplier      Company                         @relation("DevPlansAsSupplier", fields: [supplierId], references: [id])
+  title         String
+  description   String?
+  sourceType    DevPlanSourceType?              @map("source_type")
+  sourceId      String?                         @map("source_id")
+  priority      DevPlanPriority                 @default(MEDIUM)
+  status        DevPlanStatus                   @default(DRAFT)
+  dueDate       DateTime?                       @map("due_date")
+  ownerId       String?                         @map("owner_id")
+  owner         User?                           @relation("DevPlanOwner", fields: [ownerId], references: [id])
+  createdById   String                          @map("created_by_id")
+  createdBy     User                            @relation("DevPlanCreatedBy", fields: [createdById], references: [id])
+  completedAt   DateTime?                       @map("completed_at")
+  completedById String?                         @map("completed_by_id")
+  completedBy   User?                           @relation("DevPlanCompletedBy", fields: [completedById], references: [id])
+  actionItems   SupplierDevelopmentActionItem[]
+  events        SupplierDevelopmentEvent[]
+  createdAt     DateTime                        @default(now()) @map("created_at")
+  updatedAt     DateTime                        @updatedAt @map("updated_at")
+
+  @@index([oemId, supplierId])
+  @@index([oemId, status])
+  @@index([supplierId, status])
+  @@index([oemId, priority])
+  @@index([oemId, dueDate])
+  @@map("supplier_development_plans")
+}
+
+model SupplierDevelopmentActionItem {
+  id               String                  @id @default(uuid())
+  planId           String                  @map("plan_id")
+  plan             SupplierDevelopmentPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title            String
+  description      String?
+  ownerType        DevActionOwnerType      @default(OEM) @map("owner_type")
+  ownerId          String?                 @map("owner_id")
+  owner            User?                   @relation("DevActionItemOwner", fields: [ownerId], references: [id])
+  status           DevActionStatus         @default(OPEN)
+  dueDate          DateTime?               @map("due_date")
+  supplierResponse String?                 @map("supplier_response")
+  oemComment       String?                 @map("oem_comment")
+  completedAt      DateTime?               @map("completed_at")
+  createdAt        DateTime                @default(now()) @map("created_at")
+  updatedAt        DateTime                @updatedAt @map("updated_at")
+
+  @@index([planId, status])
+  @@map("supplier_development_action_items")
+}
+
+model SupplierDevelopmentEvent {
+  id        String                  @id @default(uuid())
+  planId    String                  @map("plan_id")
+  plan      SupplierDevelopmentPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  actorId   String?                 @map("actor_id")
+  actor     User?                   @relation("DevPlanEventActor", fields: [actorId], references: [id])
+  type      DevPlanEventType
+  message   String
+  metadata  Json?
+  createdAt DateTime                @default(now()) @map("created_at")
+
+  @@index([planId, createdAt])
+  @@map("supplier_development_events")
+}
+
+model PlantLogisticOrder {
+  id                    String                             @id @default(uuid())
+  companyId             String                             @map("company_id")
+  company               Company                            @relation("LogisticOrdersOem", fields: [companyId], references: [id])
+  orderNumber           String                             @unique @map("order_number")
+  requestNumber         String?                            @map("request_number")
+  customerName          String                             @map("customer_name")
+  customerType          LogisticOrderCustomerType          @default(CUSTOMER) @map("customer_type")
+  dealerName            String?                            @map("dealer_name")
+  distributorName       String?                            @map("distributor_name")
+  country               String?
+  market                String?
+  vehicleModel          String                             @map("vehicle_model")
+  vehicleVariant        String?                            @map("vehicle_variant")
+  vehicleType           LogisticOrderVehicleType           @default(BUS) @map("vehicle_type")
+  powertrain            LogisticOrderPowertrain?           @default(DIESEL)
+  quantity              Int                                @default(1)
+  priority              LogisticOrderPriority              @default(NORMAL)
+  status                LogisticOrderStatus                @default(DRAFT)
+  requestedDeliveryDate DateTime?                          @map("requested_delivery_date")
+  plannedProductionDate DateTime?                          @map("planned_production_date")
+  plannedProductionWeek String?                            @map("planned_production_week")
+  plannedDeliveryDate   DateTime?                          @map("planned_delivery_date")
+  vin                   String?
+  chassisNumber         String?                            @map("chassis_number")
+  productionOrderNo     String?                            @map("production_order_no")
+  salesOrderNo          String?                            @map("sales_order_no")
+  notes                 String?
+  externalVisible       Boolean                            @default(false) @map("external_visible")
+  externalStatus        ExternalOrderStatus?               @map("external_status")
+  externalStatusNote    String?                            @map("external_status_note")
+  dealerCompanyId       String?                            @map("dealer_company_id")
+  dealerCompany         Company?                           @relation("LogisticOrdersDealer", fields: [dealerCompanyId], references: [id])
+  distributorCompanyId  String?                            @map("distributor_company_id")
+  distributorCompany    Company?                           @relation("LogisticOrdersDistributor", fields: [distributorCompanyId], references: [id])
+  createdById           String                             @map("created_by_id")
+  createdBy             User                               @relation("LogisticOrderCreatedBy", fields: [createdById], references: [id])
+  updatedById           String?                            @map("updated_by_id")
+  updatedBy             User?                              @relation("LogisticOrderUpdatedBy", fields: [updatedById], references: [id])
+  customFields          Json?                              @map("custom_fields")
+  approvedAt            DateTime?                          @map("approved_at")
+  rejectedAt            DateTime?                          @map("rejected_at")
+  deliveredAt           DateTime?                          @map("delivered_at")
+  closedAt              DateTime?                          @map("closed_at")
+  events                PlantLogisticOrderEvent[]
+  milestones            PlantLogisticProductionMilestone[] @relation("OrderMilestones")
+  yardStatus            PlantLogisticYardStatus?           @relation("OrderYardStatus")
+  dispatches            PlantLogisticDispatch[]            @relation("OrderDispatch")
+  comments              PlantLogisticOrderComment[]        @relation("OrderComments")
+  lines                 LogisticOrderLine[]
+  planSheetId           String?                            @map("plan_sheet_id")
+  planSheet             PlantLogisticPlanSheet?            @relation("PlanSheetOrders", fields: [planSheetId], references: [id])
+  planSheetLineId       String?                            @unique @map("plan_sheet_line_id")
+  planSheetLine         PlantLogisticPlanSheetLine?        @relation("PlanSheetLineOrder", fields: [planSheetLineId], references: [id])
+  createdAt             DateTime                           @default(now()) @map("created_at")
+  updatedAt             DateTime                           @updatedAt @map("updated_at")
+
+  @@index([companyId, status])
+  @@index([companyId, createdAt])
+  @@index([companyId, plannedDeliveryDate])
+  @@index([companyId, orderNumber])
+  @@index([companyId, customerName])
+  @@index([companyId, vin])
+  @@index([companyId, chassisNumber])
+  @@index([companyId, externalVisible])
+  @@index([companyId, planSheetId])
+  @@index([dealerCompanyId, externalVisible])
+  @@index([distributorCompanyId, externalVisible])
+  @@map("plant_logistic_orders")
+}
+
+model LogisticVehicleGroup {
+  id           String                 @id @default(uuid())
+  companyId    String                 @map("company_id")
+  company      Company                @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  code         String
+  name         String
+  description  String?
+  active       Boolean                @default(true)
+  models       LogisticVehicleModel[]
+  flowVersions LogisticFlowVersion[]
+  createdAt    DateTime               @default(now()) @map("created_at")
+  updatedAt    DateTime               @updatedAt @map("updated_at")
+
+  @@unique([companyId, code])
+  @@index([companyId, active])
+  @@map("logistic_vehicle_groups")
+}
+
+model LogisticVehicleModel {
+  id           String                @id @default(uuid())
+  companyId    String                @map("company_id")
+  company      Company               @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  groupId      String                @map("group_id")
+  group        LogisticVehicleGroup  @relation(fields: [groupId], references: [id], onDelete: Restrict)
+  code         String
+  name         String
+  active       Boolean               @default(true)
+  orderLines   LogisticOrderLine[]
+  vehicleUnits LogisticVehicleUnit[]
+  createdAt    DateTime              @default(now()) @map("created_at")
+  updatedAt    DateTime              @updatedAt @map("updated_at")
+
+  @@unique([companyId, code])
+  @@index([companyId, groupId, active])
+  @@map("logistic_vehicle_models")
+}
+
+model LogisticProcess {
+  id                    String              @id @default(uuid())
+  companyId             String              @map("company_id")
+  company               Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name                  String
+  type                  LogisticProcessType
+  description           String?
+  organizationUnitId    String?             @map("organization_unit_id")
+  targetDurationMinutes Int?                @map("target_duration_minutes")
+  active                Boolean             @default(true)
+  flowNodes             LogisticFlowNode[]
+  createdAt             DateTime            @default(now()) @map("created_at")
+  updatedAt             DateTime            @updatedAt @map("updated_at")
+
+  @@unique([companyId, name])
+  @@index([companyId, active])
+  @@map("logistic_processes")
+}
+
+model LogisticFlowVersion {
+  id            String                    @id @default(uuid())
+  companyId     String                    @map("company_id")
+  company       Company                   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  groupId       String                    @map("group_id")
+  group         LogisticVehicleGroup      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  version       Int
+  name          String
+  status        LogisticFlowVersionStatus @default(DRAFT)
+  publishedAt   DateTime?                 @map("published_at")
+  publishedById String?                   @map("published_by_id")
+  nodes         LogisticFlowNode[]
+  edges         LogisticFlowEdge[]
+  vehicleUnits  LogisticVehicleUnit[]
+  createdAt     DateTime                  @default(now()) @map("created_at")
+  updatedAt     DateTime                  @updatedAt @map("updated_at")
+
+  @@unique([groupId, version])
+  @@index([companyId, groupId, status])
+  @@map("logistic_flow_versions")
+}
+
+model LogisticFlowNode {
+  id                            String                        @id @default(uuid())
+  flowVersionId                 String                        @map("flow_version_id")
+  flowVersion                   LogisticFlowVersion           @relation(fields: [flowVersionId], references: [id], onDelete: Cascade)
+  processId                     String?                       @map("process_id")
+  process                       LogisticProcess?              @relation(fields: [processId], references: [id], onDelete: SetNull)
+  clientId                      String                        @map("client_id")
+  kind                          LogisticFlowNodeKind
+  sequence                      Int
+  positionX                     Float                         @default(0) @map("position_x")
+  positionY                     Float                         @default(0) @map("position_y")
+  inputCount                    Int                           @default(1) @map("input_count")
+  outputCount                   Int                           @default(1) @map("output_count")
+  nameSnapshot                  String                        @map("name_snapshot")
+  typeSnapshot                  LogisticProcessType?          @map("type_snapshot")
+  descriptionSnapshot           String?                       @map("description_snapshot")
+  organizationUnitIdSnapshot    String?                       @map("organization_unit_id_snapshot")
+  responsibleUserId             String?                       @map("responsible_user_id")
+  targetDurationMinutesSnapshot Int?                          @map("target_duration_minutes_snapshot")
+  visits                        LogisticVehicleProcessVisit[]
+  activeVehicles                LogisticVehicleUnit[]         @relation("VehicleCurrentNode")
+
+  @@unique([flowVersionId, clientId])
+  @@unique([flowVersionId, sequence])
+  @@map("logistic_flow_nodes")
+}
+
+model LogisticFlowEdge {
+  id             String              @id @default(uuid())
+  flowVersionId  String              @map("flow_version_id")
+  flowVersion    LogisticFlowVersion @relation(fields: [flowVersionId], references: [id], onDelete: Cascade)
+  sourceClientId String              @map("source_client_id")
+  targetClientId String              @map("target_client_id")
+  sourceHandle   String              @default("out-0") @map("source_handle")
+  targetHandle   String              @default("in-0") @map("target_handle")
+
+  @@unique([flowVersionId, sourceClientId, sourceHandle, targetClientId, targetHandle])
+  @@map("logistic_flow_edges")
+}
+
+model LogisticOrderLine {
+  id             String                   @id @default(uuid())
+  companyId      String                   @map("company_id")
+  company        Company                  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  orderId        String                   @map("order_id")
+  order          PlantLogisticOrder       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  vehicleModelId String                   @map("vehicle_model_id")
+  vehicleModel   LogisticVehicleModel     @relation(fields: [vehicleModelId], references: [id], onDelete: Restrict)
+  sequence       Int
+  quantity       Int
+  variant        String?
+  powertrain     LogisticOrderPowertrain?
+  priority       LogisticOrderPriority    @default(NORMAL)
+  units          LogisticVehicleUnit[]
+  createdAt      DateTime                 @default(now()) @map("created_at")
+  updatedAt      DateTime                 @updatedAt @map("updated_at")
+
+  @@unique([orderId, sequence])
+  @@index([companyId, vehicleModelId])
+  @@map("logistic_order_lines")
+}
+
+model LogisticVehicleUnit {
+  id                String                        @id @default(uuid())
+  companyId         String                        @map("company_id")
+  company           Company                       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  orderLineId       String                        @map("order_line_id")
+  orderLine         LogisticOrderLine             @relation(fields: [orderLineId], references: [id], onDelete: Cascade)
+  vehicleModelId    String                        @map("vehicle_model_id")
+  vehicleModel      LogisticVehicleModel          @relation(fields: [vehicleModelId], references: [id], onDelete: Restrict)
+  temporaryUnitCode String                        @map("temporary_unit_code")
+  vin               String?
+  chassisNumber     String?                       @map("chassis_number")
+  flowVersionId     String?                       @map("flow_version_id")
+  flowVersion       LogisticFlowVersion?          @relation(fields: [flowVersionId], references: [id], onDelete: Restrict)
+  currentNodeId     String?                       @map("current_node_id")
+  currentNode       LogisticFlowNode?             @relation("VehicleCurrentNode", fields: [currentNodeId], references: [id], onDelete: Restrict)
+  flowStatus        LogisticVehicleFlowStatus     @default(WAITING_FOR_FLOW) @map("flow_status")
+  revision          Int                           @default(0)
+  startedAt         DateTime?                     @map("started_at")
+  completedAt       DateTime?                     @map("completed_at")
+  visits            LogisticVehicleProcessVisit[]
+  createdAt         DateTime                      @default(now()) @map("created_at")
+  updatedAt         DateTime                      @updatedAt @map("updated_at")
+
+  @@unique([companyId, temporaryUnitCode])
+  @@unique([companyId, vin])
+  @@unique([companyId, chassisNumber])
+  @@index([companyId, flowVersionId, currentNodeId])
+  @@index([companyId, flowStatus])
+  @@map("logistic_vehicle_units")
+}
+
+model LogisticVehicleProcessVisit {
+  id             String                 @id @default(uuid())
+  companyId      String                 @map("company_id")
+  company        Company                @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  vehicleUnitId  String                 @map("vehicle_unit_id")
+  vehicleUnit    LogisticVehicleUnit    @relation(fields: [vehicleUnitId], references: [id], onDelete: Cascade)
+  nodeId         String                 @map("node_id")
+  node           LogisticFlowNode       @relation(fields: [nodeId], references: [id], onDelete: Restrict)
+  enteredAt      DateTime               @default(now()) @map("entered_at")
+  exitedAt       DateTime?              @map("exited_at")
+  actorId        String?                @map("actor_id")
+  transitionType LogisticTransitionType @map("transition_type")
+  overrideReason String?                @map("override_reason")
+
+  @@index([companyId, vehicleUnitId, enteredAt])
+  @@map("logistic_vehicle_process_visits")
+}
+
+model PlantLogisticOrderEvent {
+  id         String                 @id @default(uuid())
+  orderId    String                 @map("order_id")
+  order      PlantLogisticOrder     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  companyId  String                 @map("company_id")
+  company    Company                @relation("LogisticOrderEventsOem", fields: [companyId], references: [id])
+  actorId    String?                @map("actor_id")
+  actor      User?                  @relation("LogisticOrderEventActor", fields: [actorId], references: [id])
+  eventType  LogisticOrderEventType
+  fromStatus LogisticOrderStatus?   @map("from_status")
+  toStatus   LogisticOrderStatus?   @map("to_status")
+  message    String?
+  createdAt  DateTime               @default(now()) @map("created_at")
+
+  @@index([orderId, createdAt])
+  @@index([companyId, createdAt])
+  @@map("plant_logistic_order_events")
+}
+
+model PlantLogisticProductionMilestone {
+  id                    String                    @id @default(uuid())
+  orderId               String                    @map("order_id")
+  order                 PlantLogisticOrder        @relation("OrderMilestones", fields: [orderId], references: [id], onDelete: Cascade)
+  companyId             String                    @map("company_id")
+  company               Company                   @relation("MilestoneCompany", fields: [companyId], references: [id])
+  sequence              Int
+  gate                  ProductionMilestoneGate
+  title                 String
+  description           String?
+  status                ProductionMilestoneStatus @default(NOT_STARTED)
+  plannedStart          DateTime?                 @map("planned_start")
+  plannedFinish         DateTime?                 @map("planned_finish")
+  actualStart           DateTime?                 @map("actual_start")
+  actualFinish          DateTime?                 @map("actual_finish")
+  responsibleDepartment String?                   @map("responsible_department")
+  delayReason           String?                   @map("delay_reason")
+  qualityHold           Boolean                   @default(false) @map("quality_hold")
+  linkedDefectId        String?                   @map("linked_defect_id")
+  linkedDefect          Defect?                   @relation("MilestoneDefect", fields: [linkedDefectId], references: [id])
+  notes                 String?
+  createdById           String?                   @map("created_by_id")
+  createdBy             User?                     @relation("MilestoneCreatedBy", fields: [createdById], references: [id])
+  updatedById           String?                   @map("updated_by_id")
+  updatedBy             User?                     @relation("MilestoneUpdatedBy", fields: [updatedById], references: [id])
+  createdAt             DateTime                  @default(now()) @map("created_at")
+  updatedAt             DateTime                  @updatedAt @map("updated_at")
+
+  @@index([companyId, orderId])
+  @@index([companyId, status])
+  @@index([companyId, gate])
+  @@index([companyId, plannedFinish])
+  @@index([orderId, sequence])
+  @@map("plant_logistic_production_milestones")
+}
+
+model PlantLogisticYardStatus {
+  id                 String             @id @default(uuid())
+  orderId            String             @unique @map("order_id")
+  order              PlantLogisticOrder @relation("OrderYardStatus", fields: [orderId], references: [id], onDelete: Cascade)
+  companyId          String             @map("company_id")
+  company            Company            @relation("YardStatusCompany", fields: [companyId], references: [id])
+  yardLocation       String?            @map("yard_location")
+  parkingSlot        String?            @map("parking_slot")
+  readyForDispatch   Boolean            @default(false) @map("ready_for_dispatch")
+  blockedForDispatch Boolean            @default(false) @map("blocked_for_dispatch")
+  blockReason        String?            @map("block_reason")
+  lastMovementAt     DateTime?          @map("last_movement_at")
+  notes              String?
+  createdById        String?            @map("created_by_id")
+  createdBy          User?              @relation("YardStatusCreatedBy", fields: [createdById], references: [id])
+  updatedById        String?            @map("updated_by_id")
+  updatedBy          User?              @relation("YardStatusUpdatedBy", fields: [updatedById], references: [id])
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+
+  @@index([companyId, orderId])
+  @@index([companyId, readyForDispatch])
+  @@index([companyId, blockedForDispatch])
+  @@map("plant_logistic_yard_statuses")
+}
+
+model CustomFieldDefinition {
+  id            String            @id @default(uuid())
+  companyId     String            @map("company_id")
+  company       Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  entity        CustomFieldEntity @map("entity_type")
+  fieldName     String            @map("field_name")
+  label         String?           @map("label")
+  placeholder   String?           @map("placeholder")
+  fieldType     CustomFieldType   @map("field_type")
+  section       String?           @map("section")
+  isBuiltIn     Boolean           @default(false) @map("is_built_in")
+  visible       Boolean           @default(true) @map("visible")
+  required      Boolean           @default(false) @map("required")
+  options       Json?             @map("options")
+  defaultValue  Json?             @map("default_value")
+  validation    Json?             @map("validation")
+  visibleInList Boolean           @default(false) @map("visible_in_list")
+  order         Int               @default(0) @map("sort_order")
+  active        Boolean           @default(true) @map("active")
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+
+  @@unique([companyId, entity, fieldName])
+  @@index([companyId, entity, active])
+  @@index([companyId, entity, order])
+  @@map("custom_field_definitions")
+}
+
+enum CustomFieldEntity {
+  DEFECT
+  FIELD_DEFECT
+  PPAP_SUBMISSION
+  IQC_REPORT
+  FMEA
+  LOGISTIC_ORDER
+}
+
+enum CustomFieldType {
+  TEXT
+  TEXTAREA
+  NUMBER
+  DATE
+  SELECT
+  MULTI_SELECT
+  CHECKBOX
+  URL
+  EMAIL
+  USER
+}
+
+model PlantLogisticDispatch {
+  id                      String                @id @default(uuid())
+  orderId                 String                @map("order_id")
+  order                   PlantLogisticOrder    @relation("OrderDispatch", fields: [orderId], references: [id], onDelete: Cascade)
+  companyId               String                @map("company_id")
+  company                 Company               @relation("DispatchCompany", fields: [companyId], references: [id])
+  dispatchBatchNo         String?               @map("dispatch_batch_no")
+  carrierName             String?               @map("carrier_name")
+  transportMode           DispatchTransportMode @default(ROAD) @map("transport_mode")
+  status                  DispatchStatus        @default(NOT_PLANNED) @map("status")
+  plannedLoadingDate      DateTime?             @map("planned_loading_date")
+  actualLoadingDate       DateTime?             @map("actual_loading_date")
+  estimatedArrivalDate    DateTime?             @map("estimated_arrival_date")
+  actualArrivalDate       DateTime?             @map("actual_arrival_date")
+  deliveredAt             DateTime?             @map("delivered_at")
+  destinationCountry      String?               @map("destination_country")
+  destinationCity         String?               @map("destination_city")
+  dealerOrDistributorName String?               @map("dealer_or_distributor_name")
+  trackingReference       String?               @map("tracking_reference")
+  notes                   String?
+  createdById             String?               @map("created_by_id")
+  createdBy               User?                 @relation("DispatchCreatedBy", fields: [createdById], references: [id])
+  updatedById             String?               @map("updated_by_id")
+  updatedBy               User?                 @relation("DispatchUpdatedBy", fields: [updatedById], references: [id])
+  createdAt               DateTime              @default(now()) @map("created_at")
+  updatedAt               DateTime              @updatedAt @map("updated_at")
+
+  @@index([companyId, orderId])
+  @@index([companyId, status])
+  @@index([companyId, plannedLoadingDate])
+  @@index([companyId, estimatedArrivalDate])
+  @@map("plant_logistic_dispatches")
+}
+
+model PlantLogisticOrderComment {
+  id        String             @id @default(uuid())
+  orderId   String             @map("order_id")
+  order     PlantLogisticOrder @relation("OrderComments", fields: [orderId], references: [id], onDelete: Cascade)
+  authorId  String             @map("author_id")
+  author    User               @relation("PortalOrderCommentAuthor", fields: [authorId], references: [id])
+  content   String
+  createdAt DateTime           @default(now()) @map("created_at")
+
+  @@index([orderId, createdAt])
+  @@map("plant_logistic_order_comments")
+}
+
+model PlantLogisticPlanSheet {
+  id           String                        @id @default(uuid())
+  companyId    String                        @map("company_id")
+  company      Company                       @relation("PlanSheetCompany", fields: [companyId], references: [id])
+  planNumber   String                        @unique @map("plan_number")
+  title        String
+  periodMonth  String                        @map("period_month")
+  channel      PlanSheetChannel
+  status       PlanSheetStatus               @default(DRAFT)
+  notes        String?
+  createdById  String                        @map("created_by_id")
+  createdBy    User                          @relation("PlanSheetCreatedBy", fields: [createdById], references: [id])
+  submittedAt  DateTime?                     @map("submitted_at")
+  reviewedAt   DateTime?                     @map("reviewed_at")
+  reviewedById String?                       @map("reviewed_by_id")
+  reviewedBy   User?                         @relation("PlanSheetReviewedBy", fields: [reviewedById], references: [id])
+  approvedAt   DateTime?                     @map("approved_at")
+  approvedById String?                       @map("approved_by_id")
+  approvedBy   User?                         @relation("PlanSheetApprovedBy", fields: [approvedById], references: [id])
+  rejectedAt   DateTime?                     @map("rejected_at")
+  closedAt     DateTime?                     @map("closed_at")
+  lines        PlantLogisticPlanSheetLine[]
+  orders       PlantLogisticOrder[]          @relation("PlanSheetOrders")
+  events       PlantLogisticPlanSheetEvent[]
+  createdAt    DateTime                      @default(now()) @map("created_at")
+  updatedAt    DateTime                      @updatedAt @map("updated_at")
+
+  @@index([companyId, status])
+  @@index([companyId, periodMonth])
+  @@index([companyId, channel])
+  @@map("plant_logistic_plan_sheets")
+}
+
+model PlantLogisticPlanSheetLine {
+  id                    String                    @id @default(uuid())
+  planSheetId           String                    @map("plan_sheet_id")
+  planSheet             PlantLogisticPlanSheet    @relation(fields: [planSheetId], references: [id], onDelete: Cascade)
+  companyId             String                    @map("company_id")
+  company               Company                   @relation("PlanSheetLineCompany", fields: [companyId], references: [id])
+  sequence              Int                       @default(1)
+  customerName          String                    @map("customer_name")
+  customerType          LogisticOrderCustomerType @default(CUSTOMER) @map("customer_type")
+  country               String?                   @map("country")
+  market                String?                   @map("market")
+  dealerName            String?                   @map("dealer_name")
+  distributorName       String?                   @map("distributor_name")
+  vehicleModel          String                    @map("vehicle_model")
+  vehicleVariant        String?                   @map("vehicle_variant")
+  vehicleType           LogisticOrderVehicleType  @default(BUS) @map("vehicle_type")
+  powertrain            LogisticOrderPowertrain?  @default(DIESEL) @map("powertrain")
+  quantity              Int                       @default(1)
+  priority              LogisticOrderPriority     @default(NORMAL)
+  chassisNumber         String?                   @map("chassis_number")
+  vin                   String?                   @map("vin")
+  requestedDeliveryDate DateTime?                 @map("requested_delivery_date")
+  forecastDispatchDate  DateTime?                 @map("forecast_dispatch_date")
+  status                PlanSheetLineStatus       @default(PENDING)
+  remark                String?
+  orderId               String?                   @unique @map("order_id")
+  order                 PlantLogisticOrder?       @relation("PlanSheetLineOrder")
+  generatedAt           DateTime?                 @map("generated_at")
+  createdAt             DateTime                  @default(now()) @map("created_at")
+  updatedAt             DateTime                  @updatedAt @map("updated_at")
+
+  @@index([planSheetId, sequence])
+  @@index([companyId, status])
+  @@index([orderId])
+  @@map("plant_logistic_plan_sheet_lines")
+}
+
+model PlantLogisticPlanSheetEvent {
+  id          String                 @id @default(uuid())
+  planSheetId String                 @map("plan_sheet_id")
+  planSheet   PlantLogisticPlanSheet @relation(fields: [planSheetId], references: [id], onDelete: Cascade)
+  companyId   String                 @map("company_id")
+  company     Company                @relation("PlanSheetEventCompany", fields: [companyId], references: [id])
+  eventType   LogisticOrderEventType
+  actorId     String?                @map("actor_id")
+  actor       User?                  @relation("PlanSheetEventActor", fields: [actorId], references: [id])
+  message     String?
+  createdAt   DateTime               @default(now()) @map("created_at")
+
+  @@index([planSheetId, createdAt])
+  @@index([companyId, createdAt])
+  @@map("plant_logistic_plan_sheet_events")
+}
+
+model SupplierScorecardConfig {
+  id                    String   @id @default(uuid())
+  companyId             String   @unique @map("company_id")
+  company               Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  fieldDefectPerItem    Int      @default(10) @map("field_defect_per_item")
+  fieldDefectCap        Int      @default(30) @map("field_defect_cap")
+  repeatIssuePerItem    Int      @default(15) @map("repeat_issue_per_item")
+  repeatIssueCap        Int      @default(30) @map("repeat_issue_cap")
+  iqcRejectedPerItem    Int      @default(8) @map("iqc_rejected_per_item")
+  iqcRejectedCap        Int      @default(25) @map("iqc_rejected_cap")
+  openOverdue8dPerItem  Int      @default(10) @map("open_overdue_8d_per_item")
+  openOverdue8dCap      Int      @default(30) @map("open_overdue_8d_cap")
+  slaBreachPerItem      Int      @default(10) @map("sla_breach_per_item")
+  slaBreachCap          Int      @default(25) @map("sla_breach_cap")
+  ppapWithIssuesPerItem Int      @default(8) @map("ppap_with_issues_per_item")
+  ppapWithIssuesCap     Int      @default(20) @map("ppap_with_issues_cap")
+  fmeaGapPerItem        Int      @default(8) @map("fmea_gap_per_item")
+  fmeaGapCap            Int      @default(20) @map("fmea_gap_cap")
+  execRiskPerItem       Int      @default(5) @map("exec_risk_per_item")
+  execRiskCap           Int      @default(15) @map("exec_risk_cap")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@map("supplier_scorecard_configs")
+}

@@ -46,6 +46,26 @@ services:
     networks:
       - plantx
 
+  postgres:
+    image: postgres:17-alpine
+    container_name: plantx-postgres-local
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: plantx
+    volumes:
+      - plantx_postgres_data:/var/lib/postgresql/data
+    networks:
+      - plantx
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d plantx"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   app:
     build:
       context: .
@@ -57,10 +77,12 @@ services:
     depends_on:
       minio:
         condition: service_healthy
+      postgres:
+        condition: service_healthy
     env_file:
       - .env.docker
     environment:
-      POSTGRES_HOST: localhost
+      POSTGRES_HOST: host.docker.internal
       POSTGRES_PORT: 5432
     networks:
       - plantx
@@ -72,3 +94,5 @@ networks:
 volumes:
   minio_data:
     name: plantx_minio_data
+  plantx_postgres_data:
+    name: plantx-postgres-data

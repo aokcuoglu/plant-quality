@@ -1,8 +1,13 @@
 node_modules
+**/node_modules
 .next
+**/.next
 out
+**/out
 dist
+**/dist
 build
+**/build
 coverage
 *.log
 *.tsbuildinfo
@@ -12,4 +17,7 @@ coverage
 .env.*.local
 .vercel
 .turbo
+**/.turbo
 .cursor
+minio_data
+desktop

@@ -1,24 +1,47 @@
 # PlantX — Agent Reference
 
-> Last updated: 2026-08-28
+> Last updated: 2026-08-29
 ## Development Environment
 
-This project runs locally via Orbstack (macOS). PostgreSQL is provided by Orbstack's local database; other services run via Docker Compose.
+This project runs entirely via Docker Compose on Orbstack (macOS). PostgreSQL runs as the `postgres` service in the compose stack (`plantx-postgres-local`, port `5432`). A cross-platform **desktop build** (Electron) is also available — see [Desktop (Electron) App](#desktop-electron-app) below.
+
+### Repository Structure (npm workspaces monorepo)
+
+```
+plantx/
+├── apps/
+│   ├── web/            # Next.js 16 app (quality + logistic route groups)
+│   └── desktop/        # Electron wrapper (2 modules, one window)
+├── packages/
+│   └── db/             # Prisma schema + generated client + seed + migrations (@plantx/db)
+├── scripts/            # desktop-build.mjs + db/desktop orchestration
+├── docker/             # entrypoint.sh
+├── Dockerfile          # builds apps/web standalone (runner keeps .next/node_modules symlinks intact)
+├── docker-compose.yml  # app + postgres + minio + mailpit
+├── turbo.json
+└── package.json        # workspace root
+```
+
+- The web app is built from `apps/web` (`@plantx/web`); the Prisma schema/client/seed live in `packages/db` (`@plantx/db`).
+- Module boundaries: `apps/web/src/app/(dashboard)/quality/**` and `.../logistic/**` must not import each other (enforced in Faz B via `eslint import/no-restricted-paths`); shared code goes to `packages/`.
+- Vercel project Root Directory must be set to `apps/web`.
+- Next standalone in a monorepo nests the app under `apps/web/` — do NOT flatten it (relative symlinks in `.next/node_modules` break); server.js runs in place (`docker/entrypoint.sh` and `apps/desktop/electron/main.ts` handle this).
 
 ### Architecture
 
 | Service    | Image                 | Host Port   | Purpose                  |
 |------------|----------------------|-------------|--------------------------|
-| `app`      | `plant-quality-app`  | `3000`      | Next.js 16 application   |
+| `app`      | `plantx-app`         | `3000`      | Next.js 16 application   |
+| `postgres` | `postgres:17-alpine` | `5432`      | PostgreSQL database      |
 | `minio`    | `minio/minio`        | `9000/9001` | S3-compatible storage    |
 | `mailpit`  | `axllent/mailpit`    | `1025/8025` | SMTP catcher + web UI    |
 
-PostgreSQL runs locally via Orbstack on `localhost:5432`.
+All services run via Docker Compose. PostgreSQL data persists in the `plantx-postgres-data` volume.
 
 ### Quick Start
 
 ```bash
-docker-compose up -d          # Start everything (app, minio, mailpit)
+docker-compose up -d          # Start everything (app, postgres, minio, mailpit)
 docker-compose logs -f app  # Tail app logs
 docker-compose down -v      # Stop + remove volumes
 ```
@@ -54,7 +77,7 @@ docker-compose down -v      # Stop + remove volumes
 docker-compose up -d --build app
 ```
 
-This single command rebuilds the app image and restarts the container. Other services (minio, mailpit) are unaffected.
+This single command rebuilds the app image and restarts the container. Other services (postgres, minio, mailpit) are unaffected.
 
 If only the database schema changed (Prisma migrations), a simpler restart suffices:
 
@@ -75,27 +98,29 @@ Two login methods are available:
 
 ### Database
 
-PostgreSQL runs in a dedicated Orbstack container `plantx-postgres-local` (port `5432`).
+PostgreSQL runs as the `postgres` service in the compose stack (`plantx-postgres-local`, port `5432`). It starts automatically with `docker-compose up -d`; data persists in the `plantx-postgres-data` volume.
 
 ```bash
+# Start just the database (usually unnecessary — compose starts it)
+docker-compose up -d postgres
+
 # Connect from host
 PGPASSWORD=postgres psql -h localhost -p 5432 -U postgres -d plantx
-
-# Start the container if not running
-docker start plantx-postgres-local
 ```
 
 Make sure the `plantx` database exists:
 
 ```bash
-docker exec plantx-postgres-local psql -U postgres -c "CREATE DATABASE plantx;"
+docker-compose exec postgres psql -U postgres -c "CREATE DATABASE plantx;"
 ```
+
+The app connects via `DATABASE_URL` (`postgresql://postgres:postgres@host.docker.internal:5432/plantx`).
 
 ### Troubleshooting
 
 | Issue                              | Fix                                                  |
 |------------------------------------|------------------------------------------------------|
-| Connection refused (PostgreSQL)    | Ensure Orbstack PostgreSQL is running on `localhost:5432` |
+| Connection refused (PostgreSQL)    | Ensure `plantx-postgres-local` is healthy — `docker-compose ps` (or `docker-compose up -d postgres`) |
 | CSRF errors during login           | `trustHost: true` is set in `src/lib/auth.ts`        |
 | `Missing env: R2_ACCOUNT_ID` build | `.env.docker` is injected during build stage         |
 | Verification link fails            | Check `AUTH_URL` matches actual host:port          |
@@ -124,7 +149,7 @@ Do NOT use `.env.docker` in production. Replace with:
 - Previously used Supabase PostgreSQL directly during dev
 - Previously ran `npm run dev` on host machine
 - Previously used Docker Compose `postgres:16-alpine` container for local DB
-- Now uses Orbstack local PostgreSQL; Docker Compose handles app, minio, mailpit only
+- Now runs the full stack (app, postgres, minio, mailpit) via Docker Compose on Orbstack
 - Now fully containerized for clean, reproducible local stacks
 
 ---
@@ -292,9 +317,11 @@ Dashboard (any page under /app/(dashboard)):
 │                       ├──────────────────┤
 │ bg-sidebar            │ Main Content     │
 │ border-r              │ bg-background    │
-│                       │ p-6              │
-│ ThemeToggle           │                  │
-│ Sign Out              │                  │
+│ (nav menu only)       │ p-6              │
+│                       │ AppSwitcher      │
+│                       │ NotificationBell │
+│                       │ ThemeToggle      │
+│                       │ UserMenu (SignOut) │
 └───────────────────────┴──────────────────┘
 ```
 
@@ -325,7 +352,8 @@ Dashboard (any page under /app/(dashboard)):
 ### Existing Components — REUSE BEFORE REBUILD
 
 **Layout**
-- `Sidebar` — collapsible, theme-aware, includes `ThemeToggle` + `SignOutButton`
+- `Sidebar` — collapsible, nav menu only (theme + user moved to header)
+- `UserMenu` — header avatar dropdown with company info + sign out
 - `DashboardLayout` — sidebar + header + main content
 - `PageHeader` — title + description + optional actions slot
 
@@ -418,3 +446,146 @@ After ANY code change touching UI, verify:
 > **Design Rule for PlantQuality:** If you are writing a color class, and it is not `bg-background`, `bg-card`, `bg-sidebar`, `bg-muted`, `bg-popover`, `text-foreground`, `text-muted-foreground`, `text-sidebar-foreground`, `border-border`, `border-sidebar-border`, or an emerald brand accent — **you are probably breaking the design system.**
 
 (End of Design System Agent Prompt)
+---
+
+## Internationalization (i18n)
+
+> **Rule:** The app is bilingual (**Turkish `tr` = default, `en` = English**). Every user-facing string MUST go through the i18n layer. Never hardcode UI text. **Any new development MUST add both `tr` and `en` translations** — a PR/change is incomplete if either locale is missing a key.
+
+### Architecture
+
+Custom, dependency-free, fully **type-safe** i18n (no URL prefix; locale is stored in a cookie). All message keys are autocompleted and checked at compile time by TypeScript. Files live in `apps/web/src/i18n/`:
+
+| File | Purpose |
+|------|---------|
+| `config.ts` | `locales`, `DEFAULT_LOCALE = "tr"`, `LOCALE_COOKIE = "plantx_locale"`, `isLocale()` |
+| `messages/en.ts` | English dictionary. **Source of truth** — defines the `Messages` shape (`as const`). |
+| `messages/tr.ts` | Turkish dictionary. Must satisfy `Messages` (typechecked — a missing key fails the build). |
+| `messages/index.ts` | `getMessages(locale)` resolver (bundles both dicts; client can resolve at runtime). |
+| `types.ts` | `MessageKey` (derived dotted-path union), `Translator`, `TranslationValues`. |
+| `translate.ts` | `createTranslator()` — typed dotted lookup + `{param}` interpolation. |
+| `server.ts` | **Server only**: `getLocale()`, `getTranslations()`, `getMessagesByLocale()`. |
+| `context.tsx` | **Client only**: `LocaleProvider`, `useLocale()`, `useTranslations()`, `useLocaleSwitcher()`. |
+| `set-locale.ts` | `setLocaleCookie()` / `readLocaleCookie()` (writes `document.cookie`). |
+| `LanguageSwitcher.tsx` | Dropdown to switch `tr`/`en`; sets cookie + `setLocale` + `router.refresh()`. |
+
+### How to use
+
+**Server Components / Server Actions / Route Handlers (async):**
+```ts
+import { getTranslations } from "@/i18n/server"
+
+export default async function MyPage() {
+  const t = await getTranslations()
+  return <h1>{t("dashboard.quality.oem.title")}</h1>
+}
+```
+
+**Client Components:**
+```ts
+"use client"
+import { useTranslations } from "@/i18n/context"
+
+export function MyCard() {
+  const t = useTranslations()
+  return <p>{t("common.save")}</p>
+}
+```
+
+**With interpolation** (`{param}` placeholders):
+```ts
+t("dashboard.quality.oem.welcome", { name: "Ada" })
+```
+
+### Adding a message key
+
+1. Add to **both** `messages/en.ts` **and** `messages/tr.ts` under the right namespace. `tr.ts` is typed against `Messages` — the build fails if it diverges.
+2. Use the full dotted key in code (e.g. `t("nav.defects")`). Keys are namespace-first: `common`, `nav`, `shell`, `landing`, `auth`, `quality`, `dashboard.*`.
+3. Prefer existing keys (`common.save`, `nav.defects`) over inventing near-duplicates.
+
+### Conventions
+
+- **No hardcoded UI text.** If you can see a string through the UI, it belongs in the message bundle.
+- **Nouns first**: group keys by namespace (`dashboard.quality.oem.*`).
+- **Interpolation** uses `{param}`; provide params as the 2nd arg to `t`.
+- **Dates/numbers**: pass through `toLocaleString`/`toLocaleDateString` for locale-aware output.
+- **DB-stored strings** (notification titles, defect names) are data, not UI — do not translate; translate the surrounding chrome.
+- **Language switcher**: already wired in the landing header, login page, and dashboard header. Never rebuild it.
+
+### Rendering note
+
+Because the locale is read from a cookie at request time, pages that call `getTranslations()`/`getLocale()` are **dynamically rendered** (they opt out of static caching). This is expected for the cookie-based, no-URL-prefix approach.
+
+---
+
+## Component & Variant Conventions
+
+> **Rule:** Build UI as small, composable, presentational components — never inline the same card/row markup in multiple pages. Variations are driven by a `variant` prop, not scattered conditionals.
+
+### Principles
+
+1. **Component-first**: If a UI block is reused (or likely to be reused) across pages, extract it to `src/components/<domain>/<Name>.tsx` and use `<Name />` everywhere. Pages become thin compositions of components + data.
+2. **Named exports only**: `export function ModuleCard(...)` (no default exports). This keeps IDE/rename discoverability and matches the existing convention (`DashboardCard`, `StatusDonut`, `Sidebar`).
+3. **`variant` prop controls variation**: For visual variations of the same structure, expose a `variant` prop typed as a string-literal union (e.g. `type ModuleCardVariant = "live" | "locked" | "soon"`). Map status → variant once (e.g. `STATUS_VARIANT: Record<Status, Variant>`), and keep a single `VARIANT_META` table driving badges/colors/footers. Do NOT fork the markup per state.
+4. **Compose with prop-drilling slots**: Allow slotting content via `children` (e.g. `ModuleCard` accepts a KPI row as `children`) so the same shell fits different contexts. Optional `ctaLabel`/`href` override defaults.
+5. **Semantic tokens only**: Every class is a design token (`bg-card`, `text-foreground`, `border-border`, emerald brand accents). No hex/slate/`dark:` overrides (see Design System section).
+6. **Server Components by default**: Presentational components should be server-safe (no hooks/`window`). Add `"use client"` only if truly interactive; if a component needs interactivity (e.g. a request-access form), keep that sub-part client-side.
+7. **Reuse before rebuild**: Check `src/components/ui/` (shadcn) and existing domain components first. Don't build a second `ModuleCard` if one (e.g. `ModuleCatalogCard`) already covers the case; extend or create a distinct, clearly-named one.
+
+### Reference pattern — `ModuleCard`
+
+- Location: `src/components/dashboard/ModuleCard.tsx` (company/ecosystem module shell, landing-page glass/bento style).
+- `variant` union: `"live" | "locked" | "soon"`.
+- Used by `(company)/dashboard/modules` (catalog) and `(company)/dashboard` (overview, KPIs via `children`). `ModuleCatalogCard` (billing/plan list-row with request-access) remains a separate concern.
+- Build steps for any new reusable component:
+  1. Define prop types + a `variant` union (if variations).
+  2. One `VARIANT_META`/status map for badges/colors.
+  3. Render with `cn(...)` merging base + variant classes.
+  4. Verify `tsc --noEmit` passes and no forbidden color classes (see Post-Build Design Checklist).
+
+---
+
+## Desktop (Electron) App
+
+A cross-platform desktop build wraps the Next.js standalone server. It runs on **macOS and Windows** with zero external services:
+
+- **Runtime:** Electron main process (`apps/desktop/electron/main.ts`)
+- **Database:** embedded PostgreSQL (`embedded-postgres`, `@embedded-postgres/<platform>` binaries) at `127.0.0.1:<free-port>` under `userData/data/pg`
+- **Storage:** local filesystem adapter in `src/lib/s3.ts` (`STORAGE_MODE=local`), files at `userData/data/storage`. Presigned URLs resolve to `/api/storage/<key>` (`src/app/api/storage/[...key]/route.ts`)
+- **First run:** `prisma db push --accept-data-loss` → `tsx prisma/seed.ts` (guarded by a `.db-ready` marker in `userData/data`)
+- **Data location:** `~/Library/Application Support/plantquality-desktop/data` (macOS) / `%APPDATA%/plantquality-desktop/data` (Windows)
+
+### Commands
+
+```bash
+npm run desktop:build    # next build → assemble desktop/dist (app bundle + electron main/preload)
+npm run desktop:dev      # desktop:build + launch electron against apps/desktop/dist
+npm run desktop:dist     # electron-builder → desktop/release (dmg/zip on macOS, nsis on Windows)
+npm run desktop:release  # desktop:build + package installers
+```
+
+### Architecture Notes
+
+- The Next server runs with `ELECTRON_RUN_AS_NODE=1` (Electron binary acts as Node.js). Bind: `127.0.0.1:<random free port>`.
+- `scripts/desktop-build.mjs` runs `next build` in `apps/web`, then copies the standalone output plus `packages/db/prisma`, `packages/db/src/generated/`, and the prisma CLI closure (`node_modules/{prisma,@prisma,effect,fast-check,pure-rand,pathe,c12,deepmerge-ts,empathic,tsx,dotenv}`) into `apps/desktop/dist/app`.
+- npm 11 gates install scripts (`allow-scripts`). The build script re-runs `@embedded-postgres/<platform>/scripts/hydrate-symlinks.js` so Postgres binaries stay executable.
+- Electron-builder: `asarUnpack` for `node_modules/embedded-postgres` + `node_modules/@embedded-postgres`; the Next app ships as an unpacked `extraResources` dir (`resources/app`).
+- **Mode switching:** `userData/data/config.json` supports `dbMode: "embedded" | "remote"`. `embedded` is the default; `remote` (AWS RDS) only needs a `remoteDatabaseUrl` + shared S3 creds later — the app reads `DATABASE_URL`/storage env at runtime, no code change required.
+
+### Code Changes
+
+**After changing Next.js source, you MUST rebuild the desktop bundle:**
+
+```bash
+npm run desktop:build
+```
+
+(The Electron main process is compiled from `apps/desktop/electron/main.ts` via esbuild — recompile with `npx esbuild apps/desktop/electron/main.ts --bundle --platform=node --format=cjs --external:electron --external:embedded-postgres --outfile=apps/desktop/dist/main.js`.)
+
+### Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| "postmaster.pid already exists" on launch | A previous run left an orphaned Postgres. `apps/desktop/electron/main.ts` removes stale locks automatically; otherwise `pkill -f "<userData>/data/pg"`. |
+| Login dropdown empty | Seeding runs once; delete `userData/data/.db-ready` and relaunch to re-seed. |
+| Dev-mode login on desktop | Use the seeded users (e.g. `admin@anadoluisuzu.com`). Magic link email is unused in desktop mode. |

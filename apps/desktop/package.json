@@ -1,0 +1,12 @@
+{
+  "name": "@plantx/desktop",
+  "version": "3.7.0",
+  "private": true,
+  "main": "dist/main.js",
+  "dependencies": {
+    "embedded-postgres": "^18.4.0-beta.17"
+  },
+  "scripts": {
+    "run": "electron dist"
+  }
+}

@@ -3,6 +3,7 @@ node_modules/
 
 # framework output
 .next/
+.next-desktop/
 out/
 dist/
 build/
@@ -21,6 +22,10 @@ build/
 coverage/
 .vercel/
 .turbo/
+
+# Desktop (Electron) build output
+apps/desktop/dist/
+apps/desktop/release/
 
 # Docker volumes & data
 

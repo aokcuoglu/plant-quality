@@ -1,0 +1,25 @@
+{
+  "name": "@plantx/db",
+  "version": "3.7.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./client": "./src/generated/prisma/client.ts"
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "seed": "tsx prisma/seed.ts",
+    "backfill:logistic-flows": "tsx prisma/backfill-dynamic-logistic.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^16.4.5",
+    "prisma": "^7.8.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  }
+}

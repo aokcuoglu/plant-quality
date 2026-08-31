@@ -1,5 +1,17 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
+
 import { useEffect, useMemo, useRef, useState, useTransition } from "react"
 import { createPortal } from "react-dom"
 import { useRouter } from "next/navigation"
@@ -328,13 +340,13 @@ function CountryCombobox({ value, onChange }: { value: string; onChange: (value:
 
   const filtered = countries.filter((country) => `${country.name} ${country.code}`.toLocaleLowerCase().includes(query.toLocaleLowerCase())).slice(0, 80)
   return <div ref={rootRef} className="relative min-w-36">
-    <button type="button" className="w-full truncate bg-transparent px-2 py-2 text-left text-sm text-foreground outline-none hover:bg-muted/40" onClick={() => { setRect(rootRef.current?.getBoundingClientRect() ?? null); setOpen((current) => !current) }}>
+    <Button type="button" className="w-full truncate bg-transparent px-2 py-2 text-left text-sm text-foreground outline-none hover:bg-muted/40" onClick={() => { setRect(rootRef.current?.getBoundingClientRect() ?? null); setOpen((current) => !current) }}>
       {countries.find((country) => country.code === value)?.name ?? (value || t("logistic.dynamicFlow.planSheetSelectCountry"))}
-    </button>
+    </Button>
     {open && rect && typeof document !== "undefined" && createPortal(
       <div ref={popupRef} className="z-50 w-64 rounded-lg border border-border bg-popover p-2 text-popover-foreground shadow-md" style={{ position: "fixed", top: rect.bottom + 4, left: rect.left }}>
-        <input autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t("logistic.dynamicFlow.planSheetSearchCountry")} className="mb-2 w-full rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground outline-none" />
-        <div className="max-h-56 overflow-y-auto">{filtered.map((country) => <button type="button" key={country.code} className="block w-full rounded px-2 py-1.5 text-left text-sm hover:bg-muted" onClick={() => { onChange(country.code); setOpen(false); setQuery("") }}>{country.name} ({country.code})</button>)}{filtered.length === 0 && <p className="px-2 py-2 text-sm text-muted-foreground">{t("logistic.dynamicFlow.planSheetCountryNotFound")}</p>}</div>
+        <Input autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t("logistic.dynamicFlow.planSheetSearchCountry")} className="mb-2 w-full rounded border border-border bg-background px-2 py-1.5 text-sm text-foreground outline-none" />
+        <div className="max-h-56 overflow-y-auto">{filtered.map((country) => <Button type="button" variant="ghost" key={country.code} className="block w-full rounded px-2 py-1.5 text-left text-sm hover:bg-muted" onClick={() => { onChange(country.code); setOpen(false); setQuery("") }}>{country.name} ({country.code})</Button>)}{filtered.length === 0 && <p className="px-2 py-2 text-sm text-muted-foreground">{t("logistic.dynamicFlow.planSheetCountryNotFound")}</p>}</div>
       </div>, document.body,
     )}
   </div>
@@ -423,7 +435,13 @@ export function PlanSheetForm({ defaultMonth, catalog }: { defaultMonth: string;
     startTransition(async () => {
       const res = await createPlanSheet(formData)
       if (res?.error) {
-        setAlertMessage(res.error)
+        setAlertMessage(
+          res.error === "WORKFLOW_NOT_PUBLISHED"
+            ? t("logistic.workflow.errors.notPublished")
+            : res.error === "WORKFLOW_START_FAILED"
+              ? t("logistic.workflow.errors.startFailed")
+              : res.error,
+        )
         return
       }
       router.push("/logistic/plan-sheets")
@@ -448,23 +466,23 @@ export function PlanSheetForm({ defaultMonth, catalog }: { defaultMonth: string;
       <div className="rounded-lg border bg-card p-4">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <label className={labelCls}>Başlık</label>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="örn. Eylül 2026 İhracat Programı" className={inputCls} />
+            <Label className={labelCls}>Başlık</Label>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="örn. Eylül 2026 İhracat Programı" className={inputCls} />
           </div>
           <div>
-            <label className={labelCls}>Dönem Ayı</label>
-            <input type="month" value={periodMonth} onChange={(e) => setPeriodMonth(e.target.value)} className={inputCls} />
+            <Label className={labelCls}>Dönem Ayı</Label>
+            <Input type="month" value={periodMonth} onChange={(e) => setPeriodMonth(e.target.value)} className={inputCls} />
           </div>
           <div>
-            <label className={labelCls}>Kanal</label>
-            <select value={channel} onChange={(e) => setChannel(e.target.value as "EXPORT" | "DOMESTIC")} className={inputCls}>
-              <option value="EXPORT">İhracat</option>
-              <option value="DOMESTIC">Yurtiçi</option>
-            </select>
+            <Label className={labelCls}>Kanal</Label>
+            <NativeSelect value={channel} onChange={(e) => setChannel(e.target.value as "EXPORT" | "DOMESTIC")} className={inputCls}>
+              <NativeSelectOption value="EXPORT">İhracat</NativeSelectOption>
+              <NativeSelectOption value="DOMESTIC">Yurtiçi</NativeSelectOption>
+            </NativeSelect>
           </div>
           <div className="sm:col-span-2 lg:col-span-4">
-            <label className={labelCls}>Not</label>
-            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className={inputCls} placeholder="Opsiyonel açıklama..." />
+            <Label className={labelCls}>Not</Label>
+            <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className={inputCls} placeholder="Opsiyonel açıklama..." />
           </div>
         </div>
       </div>
@@ -473,94 +491,93 @@ export function PlanSheetForm({ defaultMonth, catalog }: { defaultMonth: string;
         <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-sm font-medium text-foreground">Araç Satırları ({lines.length})</h2>
           <div className="flex flex-wrap items-center gap-2">
-            <input
+            <Input
               ref={fileInputRef}
               type="file"
               accept=".csv,text/csv"
               onChange={handleFilePicked}
               className="hidden"
             />
-            <button
+            <Button
               onClick={() => fileInputRef.current?.click()}
               className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted"
             >
               <Upload className="size-3.5" /> CSV Yükle
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={downloadCsv}
               className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-muted"
             >
               <FileDown className="size-3.5" /> Şablon
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => addLine()}
               className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-foreground hover:bg-foreground/20"
             >
               <Plus className="size-3.5" /> Satır Ekle
-            </button>
+            </Button>
           </div>
         </div>
 
         <div className="overflow-x-auto rounded-lg border bg-card">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/40">
-                <th className="w-10 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">#</th>
-                <th className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Araç Modeli *</th>
-                <th className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Bayi/Dist. Adı *</th>
-                <th className="min-w-32 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Ülke</th>
-                <th className="min-w-40 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Müşteri Tipi</th>
-                <th className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">VIN</th>
-                <th className="min-w-36 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Araç Grubu</th>
-                <th className="min-w-32 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Öncelik</th>
-                <th className="min-w-44 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Talep Teslim Tarihi</th>
-                <th className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Açıklama</th>
-                <th className="w-10 px-1 py-2" />
-              </tr>
-            </thead>
-            <tbody>
+          <Table className="w-full border-collapse text-sm">
+            <TableHeader>
+              <TableRow className="border-b border-border bg-muted/40">
+                <TableHead className="w-10 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">#</TableHead>
+                <TableHead className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Araç Modeli *</TableHead>
+                <TableHead className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Bayi/Dist. Adı *</TableHead>
+                <TableHead className="min-w-32 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Ülke</TableHead>
+                <TableHead className="min-w-40 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Müşteri Tipi</TableHead>
+                <TableHead className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">VIN</TableHead>
+                <TableHead className="min-w-36 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Araç Grubu</TableHead>
+                <TableHead className="min-w-32 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Öncelik</TableHead>
+                <TableHead className="min-w-44 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Talep Teslim Tarihi</TableHead>
+                <TableHead className="min-w-48 border-r border-border px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Açıklama</TableHead>
+                <TableHead className="w-10 px-1 py-2" />
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {lines.map((line, index) => (
-                <tr key={index} className="border-b border-border/60 last:border-b-0 hover:bg-muted/20">
-                  <td className="border-r border-border px-2 py-1 text-center text-xs text-muted-foreground">{index + 1}</td>
-                  <td className="border-r border-border p-0">
-                    <select value={line.vehicleModel} onChange={(e) => { const model = catalogModels.find((item) => item.name === e.target.value); setLine(index, { vehicleModel: e.target.value, vehicleType: model?.groupCode ?? line.vehicleType }) }} className="w-full bg-transparent px-2 py-2 text-sm text-foreground outline-none focus:bg-muted/40">
-                      <option value="">{t("logistic.dynamicFlow.planSheetSelectModel")}</option>
-                      {catalog.map((group) => <optgroup key={group.code} label={`${group.name} (${group.code})`}>{group.models.map((model) => <option key={model.name} value={model.name}>{model.name}</option>)}</optgroup>)}
-                    </select>
-                  </td>
-                  <td className="border-r border-border p-0">
-                    <input
+                <TableRow key={index} className="border-b border-border/60 last:border-b-0 hover:bg-muted/20">
+                  <TableCell className="border-r border-border px-2 py-1 text-center text-xs text-muted-foreground">{index + 1}</TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <NativeSelect value={line.vehicleModel} onChange={(e) => { const model = catalogModels.find((item) => item.name === e.target.value); setLine(index, { vehicleModel: e.target.value, vehicleType: model?.groupCode ?? line.vehicleType }) }} className="w-full">
+                      <NativeSelectOption value="">{t("logistic.dynamicFlow.planSheetSelectModel")}</NativeSelectOption>
+                      {catalog.map((group) => <optgroup key={group.code} label={`${group.name} (${group.code})`}>{group.models.map((model) => <NativeSelectOption key={model.name} value={model.name}>{model.name}</NativeSelectOption>)}</optgroup>)}
+                    </NativeSelect>
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <Input
                       ref={(el) => { cellRefs.current[`${index}-customerName`] = el }}
                       value={line.customerName}
                       onChange={(e) => setLine(index, { customerName: e.target.value })}
                       onKeyDown={handleCellKeyDown(index, "customerName")}
                       className="w-full bg-transparent px-2 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:bg-muted/40"
                     />
-                  </td>
-                  <td className="border-r border-border p-0"><CountryCombobox value={line.country} onChange={(country) => setLine(index, { country })} /></td>
-                  <td className="border-r border-border p-0">
-                    <select
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0"><CountryCombobox value={line.country} onChange={(country) => setLine(index, { country })} /></TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <NativeSelect
                       ref={(el) => { cellRefs.current[`${index}-customerType`] = el }}
                       value={line.customerType}
-                      onChange={(e) => setLine(index, { customerType: e.target.value })}
-                      className="w-full bg-transparent px-2 py-2 text-sm text-foreground outline-none focus:bg-muted/40"
+                      onChange={(e) => setLine(index, { customerType: e.target.value })} className="w-full"
                     >
                       {CUSTOMER_TYPE_OPTIONS.map((o) => (
-                        <option key={o.value} value={o.value}>{o.label}</option>
+                        <NativeSelectOption key={o.value} value={o.value}>{o.label}</NativeSelectOption>
                       ))}
-                    </select>
-                  </td>
-                  <td className="border-r border-border p-0">
-                    <input
+                    </NativeSelect>
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <Input
                       ref={(el) => { cellRefs.current[`${index}-vin`] = el }}
                       value={line.vin}
                       onChange={(e) => setLine(index, { vin: e.target.value })}
                       onKeyDown={handleCellKeyDown(index, "vin")}
                       className="w-full bg-transparent px-2 py-2 font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground focus:bg-muted/40"
                     />
-                  </td>
-                  <td className="border-r border-border p-0">
-                    <select
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <NativeSelect
                       ref={(el) => { cellRefs.current[`${index}-vehicleType`] = el }}
                       value={line.vehicleType}
                       onChange={(e) => {
@@ -570,25 +587,23 @@ export function PlanSheetForm({ defaultMonth, catalog }: { defaultMonth: string;
                           vehicleType: groupCode,
                           vehicleModel: model && model.groupCode !== groupCode ? "" : line.vehicleModel,
                         })
-                      }}
-                      className="w-full bg-transparent px-2 py-2 text-sm text-foreground outline-none focus:bg-muted/40"
+                      }} className="w-full"
                     >
-                      {catalog.map((group) => <option key={group.code} value={group.code}>{group.name}</option>)}
-                    </select>
-                  </td>
-                  <td className="border-r border-border p-0">
-                    <select
+                      {catalog.map((group) => <NativeSelectOption key={group.code} value={group.code}>{group.name}</NativeSelectOption>)}
+                    </NativeSelect>
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <NativeSelect
                       ref={(el) => { cellRefs.current[`${index}-priority`] = el }}
                       value={line.priority}
-                      onChange={(e) => setLine(index, { priority: e.target.value })}
-                      className="w-full bg-transparent px-2 py-2 text-sm text-foreground outline-none focus:bg-muted/40"
+                      onChange={(e) => setLine(index, { priority: e.target.value })} className="w-full"
                     >
                       {PRIORITY_OPTIONS.map((o) => (
-                        <option key={o.value} value={o.value}>{o.label}</option>
+                        <NativeSelectOption key={o.value} value={o.value}>{o.label}</NativeSelectOption>
                       ))}
-                    </select>
-                  </td>
-                  <td className="border-r border-border p-0">
+                    </NativeSelect>
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0">
                     <DatePicker
                       value={line.requestedDeliveryDate}
                       onChange={(d) => setLine(index, { requestedDeliveryDate: d })}
@@ -597,45 +612,45 @@ export function PlanSheetForm({ defaultMonth, catalog }: { defaultMonth: string;
                       placeholder="mm / dd / yyyy"
                       variant="table"
                     />
-                  </td>
-                  <td className="border-r border-border p-0">
-                    <input
+                  </TableCell>
+                  <TableCell className="border-r border-border p-0">
+                    <Input
                       ref={(el) => { cellRefs.current[`${index}-remark`] = el }}
                       value={line.remark}
                       onChange={(e) => setLine(index, { remark: e.target.value })}
                       onKeyDown={handleCellKeyDown(index, "remark")}
                       className="w-full bg-transparent px-2 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:bg-muted/40"
                     />
-                  </td>
-                  <td className="px-1 py-1">
+                  </TableCell>
+                  <TableCell className="px-1 py-1">
                     {lines.length > 1 && (
-                      <button onClick={() => removeLine(index)} className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-destructive" title="Satırı sil">
+                      <Button variant="ghost" onClick={() => removeLine(index)} className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-destructive" title="Satırı sil">
                         <Trash2 className="size-3.5" />
-                      </button>
+                      </Button>
                     )}
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
 
       <div className="flex items-center gap-2">
-        <button
+        <Button
           onClick={handleSubmit}
           disabled={isPending}
           className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50"
         >
           {isPending ? "Kaydediliyor..." : "Listeyi Oluştur"}
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => router.push("/logistic/plan-sheets")}
           disabled={isPending}
           className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted"
         >
           İptal
-        </button>
+        </Button>
       </div>
       </div>
     </>

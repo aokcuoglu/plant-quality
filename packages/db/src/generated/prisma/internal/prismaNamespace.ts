@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.8.0
- * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
+ * Prisma Client JS version: 7.10.0
+ * Query Engine version: 0edf323efd1d98336f3f0a68684b56f689b900d3
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.8.0",
-  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
+  client: "7.10.0",
+  engine: "0edf323efd1d98336f3f0a68684b56f689b900d3"
 }
 
 /**
@@ -156,6 +156,19 @@ export type Subset<T, U> = {
 };
 
 /**
+ * Resolved type of the argument passed to the `PrismaClient` constructor.
+ *
+ * When called without a narrower options type (the common case), this resolves
+ * to `PrismaClientOptions` directly, which produces a clear TypeScript error
+ * message (`not assignable to parameter of type 'PrismaClientOptions'`) when
+ * the argument is missing or incomplete. When the user supplies a narrower
+ * options type (e.g. via a literal), it falls back to `Subset` to keep
+ * filtering out unknown properties.
+ */
+export type PrismaClientConstructorArgs<Options extends PrismaClientOptions> =
+  [PrismaClientOptions] extends [Options] ? PrismaClientOptions : Subset<Options, PrismaClientOptions>;
+
+/**
  * SelectSubset
  * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
  * Additionally, it validates, if both select and include are present. If the case, it errors.
@@ -187,7 +200,7 @@ type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> =
   T extends object ?
   U extends object ?
-    (Without<T, U> & U) | (Without<U, T> & T)
+    ((Without<T, U> & U) | (Without<U, T> & T)) & object
   : U : T
 
 
@@ -429,6 +442,13 @@ export const ModelName = {
   LogisticOrderLine: 'LogisticOrderLine',
   LogisticVehicleUnit: 'LogisticVehicleUnit',
   LogisticVehicleProcessVisit: 'LogisticVehicleProcessVisit',
+  LogisticWorkflowDefinition: 'LogisticWorkflowDefinition',
+  LogisticWorkflowVersion: 'LogisticWorkflowVersion',
+  LogisticWorkflowNode: 'LogisticWorkflowNode',
+  LogisticWorkflowEdge: 'LogisticWorkflowEdge',
+  LogisticWorkflowInstance: 'LogisticWorkflowInstance',
+  LogisticWorkflowTask: 'LogisticWorkflowTask',
+  LogisticWorkflowEvent: 'LogisticWorkflowEvent',
   PlantLogisticOrderEvent: 'PlantLogisticOrderEvent',
   PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone',
   PlantLogisticYardStatus: 'PlantLogisticYardStatus',
@@ -454,7 +474,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "organizationUnit" | "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink" | "supplierDevelopmentPlan" | "supplierDevelopmentActionItem" | "supplierDevelopmentEvent" | "plantLogisticOrder" | "logisticVehicleGroup" | "logisticVehicleModel" | "logisticProcess" | "logisticFlowVersion" | "logisticFlowNode" | "logisticFlowEdge" | "logisticOrderLine" | "logisticVehicleUnit" | "logisticVehicleProcessVisit" | "plantLogisticOrderEvent" | "plantLogisticProductionMilestone" | "plantLogisticYardStatus" | "customFieldDefinition" | "plantLogisticDispatch" | "plantLogisticOrderComment" | "plantLogisticPlanSheet" | "plantLogisticPlanSheetLine" | "plantLogisticPlanSheetEvent" | "supplierScorecardConfig"
+    modelProps: "organizationUnit" | "company" | "user" | "account" | "session" | "verificationToken" | "defect" | "eightDReport" | "reviewComment" | "defectEvent" | "defectEvidence" | "ppapSubmission" | "ppapEvidence" | "ppapReviewComment" | "ppapEvent" | "iqcReport" | "iqcChecklistItem" | "iqcEvent" | "fmea" | "fmeaEvent" | "waitlist" | "fieldDefect" | "fieldDefectAttachment" | "fieldDefectComment" | "fieldDefectEvent" | "notification" | "escalationHistory" | "aiSuggestion" | "ai8dReview" | "usageCounter" | "upgradeRequest" | "qualityRecordLink" | "supplierDevelopmentPlan" | "supplierDevelopmentActionItem" | "supplierDevelopmentEvent" | "plantLogisticOrder" | "logisticVehicleGroup" | "logisticVehicleModel" | "logisticProcess" | "logisticFlowVersion" | "logisticFlowNode" | "logisticFlowEdge" | "logisticOrderLine" | "logisticVehicleUnit" | "logisticVehicleProcessVisit" | "logisticWorkflowDefinition" | "logisticWorkflowVersion" | "logisticWorkflowNode" | "logisticWorkflowEdge" | "logisticWorkflowInstance" | "logisticWorkflowTask" | "logisticWorkflowEvent" | "plantLogisticOrderEvent" | "plantLogisticProductionMilestone" | "plantLogisticYardStatus" | "customFieldDefinition" | "plantLogisticDispatch" | "plantLogisticOrderComment" | "plantLogisticPlanSheet" | "plantLogisticPlanSheetLine" | "plantLogisticPlanSheetEvent" | "supplierScorecardConfig"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3788,6 +3808,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LogisticWorkflowDefinition: {
+      payload: Prisma.$LogisticWorkflowDefinitionPayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowDefinitionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowDefinitionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowDefinitionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowDefinitionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowDefinitionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowDefinitionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowDefinitionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowDefinitionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowDefinitionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowDefinitionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowDefinitionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowDefinitionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowDefinitionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowDefinitionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowDefinitionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowDefinitionPayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowDefinitionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowDefinition>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowDefinitionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowDefinitionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowDefinitionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowDefinitionCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogisticWorkflowVersion: {
+      payload: Prisma.$LogisticWorkflowVersionPayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowVersionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowVersionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowVersionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowVersionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowVersionPayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowVersion>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowVersionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowVersionCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogisticWorkflowNode: {
+      payload: Prisma.$LogisticWorkflowNodePayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowNodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowNodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowNodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowNodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowNodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowNodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowNodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowNodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowNodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowNodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowNodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowNodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowNodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowNodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowNodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowNodePayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowNodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowNode>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowNodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowNodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowNodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowNodeCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogisticWorkflowEdge: {
+      payload: Prisma.$LogisticWorkflowEdgePayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowEdgeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowEdgeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowEdgeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowEdgeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowEdgeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowEdgeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowEdgeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowEdgeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowEdgeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowEdgeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowEdgeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowEdgeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowEdgeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowEdgeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowEdgeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEdgePayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowEdgeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowEdge>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowEdgeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowEdgeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowEdgeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowEdgeCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogisticWorkflowInstance: {
+      payload: Prisma.$LogisticWorkflowInstancePayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowInstanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowInstanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowInstanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowInstanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowInstanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowInstanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowInstanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowInstanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowInstanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowInstanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowInstanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowInstanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowInstanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowInstanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowInstanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowInstancePayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowInstanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowInstance>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowInstanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowInstanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowInstanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowInstanceCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogisticWorkflowTask: {
+      payload: Prisma.$LogisticWorkflowTaskPayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowTaskFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowTaskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowTaskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowTaskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowTaskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowTaskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowTaskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowTaskCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowTaskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowTaskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowTaskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowTaskDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowTaskUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowTaskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowTaskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowTaskPayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowTaskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowTask>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowTaskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowTaskGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowTaskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowTaskCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogisticWorkflowEvent: {
+      payload: Prisma.$LogisticWorkflowEventPayload<ExtArgs>
+      fields: Prisma.LogisticWorkflowEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogisticWorkflowEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogisticWorkflowEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>
+        }
+        findFirst: {
+          args: Prisma.LogisticWorkflowEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogisticWorkflowEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>
+        }
+        findMany: {
+          args: Prisma.LogisticWorkflowEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>[]
+        }
+        create: {
+          args: Prisma.LogisticWorkflowEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>
+        }
+        createMany: {
+          args: Prisma.LogisticWorkflowEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogisticWorkflowEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>[]
+        }
+        delete: {
+          args: Prisma.LogisticWorkflowEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>
+        }
+        update: {
+          args: Prisma.LogisticWorkflowEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.LogisticWorkflowEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogisticWorkflowEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogisticWorkflowEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.LogisticWorkflowEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogisticWorkflowEventPayload>
+        }
+        aggregate: {
+          args: Prisma.LogisticWorkflowEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogisticWorkflowEvent>
+        }
+        groupBy: {
+          args: Prisma.LogisticWorkflowEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogisticWorkflowEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogisticWorkflowEventCountAggregateOutputType> | number
+        }
+      }
+    }
     PlantLogisticOrderEvent: {
       payload: Prisma.$PlantLogisticOrderEventPayload<ExtArgs>
       fields: Prisma.PlantLogisticOrderEventFieldRefs
@@ -5432,6 +5970,126 @@ export const LogisticVehicleProcessVisitScalarFieldEnum = {
 export type LogisticVehicleProcessVisitScalarFieldEnum = (typeof LogisticVehicleProcessVisitScalarFieldEnum)[keyof typeof LogisticVehicleProcessVisitScalarFieldEnum]
 
 
+export const LogisticWorkflowDefinitionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  subjectType: 'subjectType',
+  active: 'active',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LogisticWorkflowDefinitionScalarFieldEnum = (typeof LogisticWorkflowDefinitionScalarFieldEnum)[keyof typeof LogisticWorkflowDefinitionScalarFieldEnum]
+
+
+export const LogisticWorkflowVersionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  definitionId: 'definitionId',
+  version: 'version',
+  status: 'status',
+  publishedAt: 'publishedAt',
+  publishedById: 'publishedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LogisticWorkflowVersionScalarFieldEnum = (typeof LogisticWorkflowVersionScalarFieldEnum)[keyof typeof LogisticWorkflowVersionScalarFieldEnum]
+
+
+export const LogisticWorkflowNodeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  workflowVersionId: 'workflowVersionId',
+  clientId: 'clientId',
+  kind: 'kind',
+  sequence: 'sequence',
+  positionX: 'positionX',
+  positionY: 'positionY',
+  name: 'name',
+  description: 'description',
+  assignmentStrategy: 'assignmentStrategy',
+  organizationUnitId: 'organizationUnitId',
+  responsibleUserId: 'responsibleUserId',
+  taskScope: 'taskScope',
+  allowedActions: 'allowedActions',
+  automationActionKey: 'automationActionKey',
+  targetDurationMinutes: 'targetDurationMinutes',
+  configuration: 'configuration'
+} as const
+
+export type LogisticWorkflowNodeScalarFieldEnum = (typeof LogisticWorkflowNodeScalarFieldEnum)[keyof typeof LogisticWorkflowNodeScalarFieldEnum]
+
+
+export const LogisticWorkflowEdgeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  workflowVersionId: 'workflowVersionId',
+  sourceClientId: 'sourceClientId',
+  targetClientId: 'targetClientId',
+  actionKey: 'actionKey',
+  label: 'label'
+} as const
+
+export type LogisticWorkflowEdgeScalarFieldEnum = (typeof LogisticWorkflowEdgeScalarFieldEnum)[keyof typeof LogisticWorkflowEdgeScalarFieldEnum]
+
+
+export const LogisticWorkflowInstanceScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  definitionId: 'definitionId',
+  workflowVersionId: 'workflowVersionId',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  currentNodeId: 'currentNodeId',
+  status: 'status',
+  revision: 'revision',
+  context: 'context',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt'
+} as const
+
+export type LogisticWorkflowInstanceScalarFieldEnum = (typeof LogisticWorkflowInstanceScalarFieldEnum)[keyof typeof LogisticWorkflowInstanceScalarFieldEnum]
+
+
+export const LogisticWorkflowTaskScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  instanceId: 'instanceId',
+  nodeId: 'nodeId',
+  scopeKey: 'scopeKey',
+  status: 'status',
+  assignedUserId: 'assignedUserId',
+  assignedOrganizationUnitId: 'assignedOrganizationUnitId',
+  allowedActions: 'allowedActions',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  completedById: 'completedById',
+  resolution: 'resolution'
+} as const
+
+export type LogisticWorkflowTaskScalarFieldEnum = (typeof LogisticWorkflowTaskScalarFieldEnum)[keyof typeof LogisticWorkflowTaskScalarFieldEnum]
+
+
+export const LogisticWorkflowEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  instanceId: 'instanceId',
+  fromNodeId: 'fromNodeId',
+  toNodeId: 'toNodeId',
+  actionKey: 'actionKey',
+  actorId: 'actorId',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type LogisticWorkflowEventScalarFieldEnum = (typeof LogisticWorkflowEventScalarFieldEnum)[keyof typeof LogisticWorkflowEventScalarFieldEnum]
+
+
 export const PlantLogisticOrderEventScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
@@ -6456,6 +7114,90 @@ export type ListEnumLogisticTransitionTypeFieldRefInput<$PrismaModel> = FieldRef
 
 
 /**
+ * Reference to a field of type 'LogisticWorkflowSubjectType'
+ */
+export type EnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowSubjectType'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowSubjectType[]'
+ */
+export type ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowSubjectType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowNodeKind'
+ */
+export type EnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowNodeKind'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowNodeKind[]'
+ */
+export type ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowNodeKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowAssignmentStrategy'
+ */
+export type EnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowAssignmentStrategy'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowAssignmentStrategy[]'
+ */
+export type ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowAssignmentStrategy[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowTaskScope'
+ */
+export type EnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowTaskScope'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowTaskScope[]'
+ */
+export type ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowTaskScope[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowInstanceStatus'
+ */
+export type EnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowInstanceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowInstanceStatus[]'
+ */
+export type ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowInstanceStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowTaskStatus'
+ */
+export type EnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowTaskStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LogisticWorkflowTaskStatus[]'
+ */
+export type ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticWorkflowTaskStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'LogisticOrderEventType'
  */
 export type EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogisticOrderEventType'>
@@ -6604,19 +7346,10 @@ export type BatchPayload = {
 export const defineExtension = runtime.Extensions.defineExtension as unknown as runtime.Types.Extensions.ExtendsHook<"define", TypeMapCb, runtime.Types.Extensions.DefaultArgs>
 export type DefaultPrismaClient = PrismaClient
 export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
-export type PrismaClientOptions = ({
-  /**
-   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
-   */
-  adapter: runtime.SqlDriverAdapterFactory
-  accelerateUrl?: never
-} | {
-  /**
-   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-   */
-  accelerateUrl: string
-  adapter?: never
-}) & {
+/**
+ * Options common to all variants of `PrismaClientOptions`, regardless of whether you connect to your database through a driver adapter or through Prisma Accelerate.
+ */
+export interface PrismaClientBaseOptions {
   /**
    * @default "colorless"
    */
@@ -6703,6 +7436,56 @@ export type PrismaClientOptions = ({
    */
   queryPlanCacheMaxSize?: number
 }
+
+/**
+ * `PrismaClient` options for connecting to your database through Prisma Accelerate instead of a driver adapter.
+ * 
+ * Learn more: https://pris.ly/d/accelerate
+ */
+export interface PrismaClientOptionsWithAccelerateUrl extends PrismaClientBaseOptions {
+  /**
+   * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
+   * 
+   * Learn more: https://pris.ly/d/accelerate
+   */
+  accelerateUrl: string
+  adapter?: never
+}
+
+/**
+ * `PrismaClient` options for connecting to your database through a driver adapter. This is the common case in Prisma 7.
+ * 
+ * Learn more: https://pris.ly/d/driver-adapters
+ */
+export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions {
+  /**
+   * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
+   * 
+   * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
+   * 
+   * Learn more: https://pris.ly/d/driver-adapters
+   * 
+   * @example
+   * ```ts
+   * import { PrismaPg } from '@prisma/adapter-pg'
+   * import { PrismaClient } from './generated/prisma/client'
+   * 
+   * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * const prisma = new PrismaClient({ adapter })
+   * ```
+   */
+  adapter: runtime.SqlDriverAdapterFactory
+  accelerateUrl?: never
+}
+
+/**
+ * Options passed to the `PrismaClient` constructor.
+ * 
+ * A driver adapter (or, alternatively, a Prisma Accelerate URL) is **required**. See {@link PrismaClientOptionsWithAdapter} and {@link PrismaClientOptionsWithAccelerateUrl} for the two variants. All other properties live in {@link PrismaClientBaseOptions} and are optional.
+ * 
+ * Learn more about driver adapters: https://pris.ly/d/driver-adapters
+ */
+export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   organizationUnit?: Prisma.OrganizationUnitOmit
   company?: Prisma.CompanyOmit
@@ -6749,6 +7532,13 @@ export type GlobalOmitConfig = {
   logisticOrderLine?: Prisma.LogisticOrderLineOmit
   logisticVehicleUnit?: Prisma.LogisticVehicleUnitOmit
   logisticVehicleProcessVisit?: Prisma.LogisticVehicleProcessVisitOmit
+  logisticWorkflowDefinition?: Prisma.LogisticWorkflowDefinitionOmit
+  logisticWorkflowVersion?: Prisma.LogisticWorkflowVersionOmit
+  logisticWorkflowNode?: Prisma.LogisticWorkflowNodeOmit
+  logisticWorkflowEdge?: Prisma.LogisticWorkflowEdgeOmit
+  logisticWorkflowInstance?: Prisma.LogisticWorkflowInstanceOmit
+  logisticWorkflowTask?: Prisma.LogisticWorkflowTaskOmit
+  logisticWorkflowEvent?: Prisma.LogisticWorkflowEventOmit
   plantLogisticOrderEvent?: Prisma.PlantLogisticOrderEventOmit
   plantLogisticProductionMilestone?: Prisma.PlantLogisticProductionMilestoneOmit
   plantLogisticYardStatus?: Prisma.PlantLogisticYardStatusOmit

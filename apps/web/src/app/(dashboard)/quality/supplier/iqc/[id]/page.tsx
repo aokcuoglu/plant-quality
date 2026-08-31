@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
@@ -126,32 +127,32 @@ export default async function SupplierIqcDetailPage({ params }: { params: Promis
                 <span>{checklistSummary.na} N/A</span>
               </div>
             </div>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Item</th>
-                  <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Requirement</th>
-                  <th className="px-2 py-2 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground w-20">Result</th>
-                  <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-24">Value</th>
-                  <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-32">Comment</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
+            <Table className="w-full text-sm">
+              <TableHeader>
+                <TableRow className="border-b border-border">
+                  <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Item</TableHead>
+                  <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Requirement</TableHead>
+                  <TableHead className="px-2 py-2 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground w-20">Result</TableHead>
+                  <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-24">Value</TableHead>
+                  <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-32">Comment</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y divide-border">
                 {report.checklistItems.map((item) => (
-                  <tr key={item.id} className="transition-colors">
-                    <td className="px-2 py-2 text-foreground">{item.itemName}</td>
-                    <td className="px-2 py-2 text-muted-foreground text-xs max-w-[200px] truncate">{item.requirement ?? "—"}</td>
-                    <td className="px-2 py-2 text-center">
+                  <TableRow key={item.id} className="transition-colors">
+                    <TableCell className="px-2 py-2 text-foreground">{item.itemName}</TableCell>
+                    <TableCell className="px-2 py-2 text-muted-foreground text-xs max-w-[200px] truncate">{item.requirement ?? "—"}</TableCell>
+                    <TableCell className="px-2 py-2 text-center">
                       <span className={`inline-flex items-center justify-center size-6 rounded-full text-xs font-bold ${getIqcChecklistResultColor(item.result)}`}>
                         {getIqcChecklistResultIcon(item.result)}
                       </span>
-                    </td>
-                    <td className="px-2 py-2 text-foreground text-xs">{item.measuredValue ?? "—"}</td>
-                    <td className="px-2 py-2 text-muted-foreground text-xs max-w-[150px] truncate">{item.comment ?? "—"}</td>
-                  </tr>
+                    </TableCell>
+                    <TableCell className="px-2 py-2 text-foreground text-xs">{item.measuredValue ?? "—"}</TableCell>
+                    <TableCell className="px-2 py-2 text-muted-foreground text-xs max-w-[150px] truncate">{item.comment ?? "—"}</TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
 
           {report.linkedDefect && (

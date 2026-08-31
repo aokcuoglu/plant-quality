@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { seedDefaultMilestonesForOrder } from "@/app/(dashboard)/logistic/milestone-actions"
 import { useRouter } from "next/navigation"
@@ -27,14 +29,14 @@ export function SeedMilestonesButton({ orderId }: { orderId: string }) {
 
   return (
     <div className="mt-3 flex flex-col items-center gap-2">
-      <button
+      <Button
         onClick={handleSeed}
         disabled={loading}
         className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-foreground/90 disabled:opacity-50"
       >
         <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
         Create Default Milestones
-      </button>
+      </Button>
       {error && <span className="text-xs text-destructive">{error}</span>}
     </div>
   )

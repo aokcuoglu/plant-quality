@@ -1,5 +1,7 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -76,30 +78,30 @@ export function FmeaDetailActions({ fmeaId, status, canReview, canCancel }: Fmea
   return (
     <div className="space-y-4">
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
 
       {canReview && reviewableStatuses.includes(status) && (
         <div className="space-y-3">
           <h3 className="text-sm font-medium text-foreground">Review Actions</h3>
           <div className="flex flex-wrap items-center gap-2">
-            <Button onClick={handleApprove} disabled={approving} className="bg-foreground text-background hover:bg-foreground/90 text-white">
+            <Button onClick={handleApprove} disabled={approving} className="bg-foreground text-background hover:bg-foreground/90 text-primary-foreground">
               {approving ? "Approving..." : "Approve"}
             </Button>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Reject with Reason</label>
+            <Label className="text-sm font-medium text-foreground">Reject with Reason</Label>
             <Textarea value={rejectReason} onChange={e => setRejectReason(e.target.value)} placeholder="Reason for rejection..." rows={2} />
-            <Button variant="outline" onClick={handleReject} disabled={rejecting} className="text-destructive border-red-500/50 hover:bg-destructive/10">
+            <Button variant="outline" onClick={handleReject} disabled={rejecting} className="text-destructive border-destructive/50 hover:bg-destructive/10">
               {rejecting ? "Rejecting..." : "Reject"}
             </Button>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Request Revision</label>
+            <Label className="text-sm font-medium text-foreground">Request Revision</Label>
             <Textarea value={revisionReason} onChange={e => setRevisionReason(e.target.value)} placeholder="What needs to be revised..." rows={2} />
-            <Button variant="outline" onClick={handleRequestRevision} disabled={revisioning} className="text-destructive border-amber-500/50 hover:bg-destructive/10">
+            <Button variant="outline" onClick={handleRequestRevision} disabled={revisioning} className="text-destructive border-destructive/50 hover:bg-destructive/10">
               {revisioning ? "Requesting..." : "Request Revision"}
             </Button>
           </div>

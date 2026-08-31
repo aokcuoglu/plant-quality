@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
@@ -10,7 +11,6 @@ import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
 import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
-import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
 
 export default async function OemIqcPage({
@@ -84,37 +84,37 @@ export default async function OemIqcPage({
         </div>
       ) : (
         <div className="rounded-lg border bg-card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Inspection #</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Type</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Result</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</th>
+          <Table className="w-full text-sm">
+            <TableHeader>
+              <TableRow className="border-b border-border">
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Inspection #</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Type</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Result</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</TableHead>
                 <CustomFieldsTableHeaders fields={listVisibleFields} />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
+              </TableRow>
+            </TableHeader>
+            <TableBody className="divide-y divide-border">
               {reports.map((r) => (
-                <tr key={r.id} className="transition-colors hover:bg-muted/50">
-                  <td className="px-4 py-3">
+                <TableRow key={r.id} className="transition-colors hover:bg-muted/50">
+                  <TableCell className="px-4 py-3">
                     <Link href={`/quality/oem/iqc/${r.id}`} className="font-medium text-foreground hover:text-foreground truncate block max-w-[200px]">{r.inspectionNumber}</Link>
-                  </td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
                     <div className="truncate max-w-[180px] text-muted-foreground">{r.partNumber}</div>
                     {r.partName && <div className="truncate max-w-[180px] text-xs text-muted-foreground">{r.partName}</div>}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{r.supplier.name}</td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{IQC_INSPECTION_TYPE_LABELS[r.inspectionType] ?? r.inspectionType.replace(/_/g, " ")}</td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{r.supplier.name}</TableCell>
+                  <TableCell className="px-4 py-3 text-muted-foreground text-xs">{IQC_INSPECTION_TYPE_LABELS[r.inspectionType] ?? r.inspectionType.replace(/_/g, " ")}</TableCell>
+                  <TableCell className="px-4 py-3">
                     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getIqcStatusColor(r.status)}`}>
                       {IQC_STATUS_LABELS[r.status] ?? r.status.replace(/_/g, " ")}
                     </span>
-                  </td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
                     {r.result ? (
                       <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getIqcResultColor(r.result)}`}>
                         {IQC_RESULT_LABELS[r.result] ?? r.result.replace(/_/g, " ")}
@@ -122,13 +122,13 @@ export default async function OemIqcPage({
                     ) : (
                       <span className="text-xs text-muted-foreground">—</span>
                     )}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{r.inspectionDate?.toLocaleDateString() ?? "—"}</td>
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-muted-foreground text-xs">{r.inspectionDate?.toLocaleDateString() ?? "—"}</TableCell>
                   <CustomFieldsTableCells fields={listVisibleFields} customFields={r.customFields as Record<string, unknown> | null} />
-                </tr>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>

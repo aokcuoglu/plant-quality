@@ -1,5 +1,9 @@
 "use client"
 
+import { Textarea } from "@/components/ui/textarea"
+
+import { Button } from "@/components/ui/button"
+
 import { updateSupplierActionItem } from "@/app/(dashboard)/quality/supplier/development/actions/plan"
 import type { DevActionItemDetail } from "@/lib/supplier-development/client"
 import { ACTION_STATUS_CONFIG, isActionItemOverdue } from "@/lib/supplier-development/client"
@@ -71,7 +75,7 @@ export function SupplierActionItemCard({ item, planId, isReadOnly, canActOnItems
 
       {canActOnItems && !isTerminalStatus && (
         <div className="mt-2 space-y-2">
-          <textarea
+          <Textarea
             value={supplierResponse}
             onChange={(e) => setSupplierResponse(e.target.value)}
             rows={2}
@@ -80,23 +84,23 @@ export function SupplierActionItemCard({ item, planId, isReadOnly, canActOnItems
           />
           <div className="flex gap-2">
             {item.status === "OPEN" && (
-              <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
+              <Button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} variant="outline" className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
                 Start Work
-              </button>
+              </Button>
             )}
             {item.status === "IN_PROGRESS" && canSubmit && (
-              <button onClick={() => handleStatusUpdate("SUBMITTED")} disabled={isSubmitting} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
+              <Button onClick={() => handleStatusUpdate("SUBMITTED")} disabled={isSubmitting} variant="outline" className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
                 Submit
-              </button>
+              </Button>
             )}
             {item.status === "REJECTED" && (
-              <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
+              <Button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting} variant="outline" className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
                 Re-work
-              </button>
+              </Button>
             )}
-            <button onClick={handleResponseUpdate} disabled={isSubmitting || !supplierResponse.trim()} className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
+            <Button onClick={handleResponseUpdate} disabled={isSubmitting || !supplierResponse.trim()} variant="outline" className="text-xs text-foreground hover:text-foreground px-2 py-1 rounded border border-border hover:border-border transition-colors disabled:opacity-50">
               Save Response
-            </button>
+            </Button>
           </div>
         </div>
       )}

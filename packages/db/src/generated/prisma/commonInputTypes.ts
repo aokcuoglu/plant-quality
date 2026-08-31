@@ -1191,6 +1191,108 @@ export type EnumLogisticTransitionTypeWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumLogisticTransitionTypeFilter<$PrismaModel>
 }
 
+export type EnumLogisticWorkflowSubjectTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowSubjectType | Prisma.EnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel> | $Enums.LogisticWorkflowSubjectType
+}
+
+export type EnumLogisticWorkflowSubjectTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowSubjectType | Prisma.EnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowSubjectTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowSubjectType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel>
+}
+
+export type EnumLogisticWorkflowNodeKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowNodeKind | Prisma.EnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel> | $Enums.LogisticWorkflowNodeKind
+}
+
+export type EnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowAssignmentStrategy | Prisma.EnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel> | $Enums.LogisticWorkflowAssignmentStrategy
+}
+
+export type EnumLogisticWorkflowTaskScopeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskScope | Prisma.EnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskScope
+}
+
+export type EnumLogisticWorkflowNodeKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowNodeKind | Prisma.EnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowNodeKindWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowNodeKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel>
+}
+
+export type EnumLogisticWorkflowAssignmentStrategyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowAssignmentStrategy | Prisma.EnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowAssignmentStrategy
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel>
+}
+
+export type EnumLogisticWorkflowTaskScopeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskScope | Prisma.EnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskScopeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskScope
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel>
+}
+
+export type EnumLogisticWorkflowInstanceStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowInstanceStatus | Prisma.EnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel> | $Enums.LogisticWorkflowInstanceStatus
+}
+
+export type EnumLogisticWorkflowInstanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowInstanceStatus | Prisma.EnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowInstanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowInstanceStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel>
+}
+
+export type EnumLogisticWorkflowTaskStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskStatus | Prisma.EnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskStatus
+}
+
+export type EnumLogisticWorkflowTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskStatus | Prisma.EnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel>
+}
+
 export type EnumLogisticOrderEventTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.LogisticOrderEventType | Prisma.EnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
   in?: $Enums.LogisticOrderEventType[] | Prisma.ListEnumLogisticOrderEventTypeFieldRefInput<$PrismaModel>
@@ -2490,6 +2592,108 @@ export type NestedEnumLogisticTransitionTypeWithAggregatesFilter<$PrismaModel = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLogisticTransitionTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLogisticTransitionTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowSubjectType | Prisma.EnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel> | $Enums.LogisticWorkflowSubjectType
+}
+
+export type NestedEnumLogisticWorkflowSubjectTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowSubjectType | Prisma.EnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowSubjectType[] | Prisma.ListEnumLogisticWorkflowSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowSubjectTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowSubjectType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowSubjectTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowNodeKind | Prisma.EnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel> | $Enums.LogisticWorkflowNodeKind
+}
+
+export type NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowAssignmentStrategy | Prisma.EnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel> | $Enums.LogisticWorkflowAssignmentStrategy
+}
+
+export type NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskScope | Prisma.EnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskScope
+}
+
+export type NestedEnumLogisticWorkflowNodeKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowNodeKind | Prisma.EnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowNodeKind[] | Prisma.ListEnumLogisticWorkflowNodeKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowNodeKindWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowNodeKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowNodeKindFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticWorkflowAssignmentStrategyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowAssignmentStrategy | Prisma.EnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowAssignmentStrategy[] | Prisma.ListEnumLogisticWorkflowAssignmentStrategyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowAssignmentStrategy
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowAssignmentStrategyFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticWorkflowTaskScopeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskScope | Prisma.EnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskScope[] | Prisma.ListEnumLogisticWorkflowTaskScopeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskScopeWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskScope
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowTaskScopeFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowInstanceStatus | Prisma.EnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel> | $Enums.LogisticWorkflowInstanceStatus
+}
+
+export type NestedEnumLogisticWorkflowInstanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowInstanceStatus | Prisma.EnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowInstanceStatus[] | Prisma.ListEnumLogisticWorkflowInstanceStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowInstanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowInstanceStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowInstanceStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskStatus | Prisma.EnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskStatus
+}
+
+export type NestedEnumLogisticWorkflowTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LogisticWorkflowTaskStatus | Prisma.EnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LogisticWorkflowTaskStatus[] | Prisma.ListEnumLogisticWorkflowTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLogisticWorkflowTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.LogisticWorkflowTaskStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLogisticWorkflowTaskStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumLogisticOrderEventTypeFilter<$PrismaModel = never> = {

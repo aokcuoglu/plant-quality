@@ -1,5 +1,13 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
 import { useState, useCallback, useTransition, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import {
@@ -623,8 +631,8 @@ export function EightDWizardForm({
           <span className={cn(
             "rounded-full px-2 py-1 text-xs font-medium",
             isRequiredMissing
-              ? "bg-amber-100 text-destructive bg-destructive/20 text-muted-foreground"
-              : "bg-muted text-foreground dark:bg-muted/50 text-muted-foreground",
+              ? "bg-destructive text-destructive bg-destructive/20 text-muted-foreground"
+              : "bg-muted text-foreground  text-muted-foreground",
           )}>
             {sectionFiles.length} files
           </span>
@@ -632,10 +640,10 @@ export function EightDWizardForm({
 
         {canManageEvidence && (
           <div className="mb-3">
-            <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground">
+            <Label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground">
               <UploadIcon className="h-3.5 w-3.5" />
               {uploadingSection === section ? "Uploading..." : "Upload File"}
-              <input
+              <Input
                 type="file"
                 className="sr-only"
                 accept=".pdf,image/png,image/jpeg,image/webp"
@@ -646,7 +654,7 @@ export function EightDWizardForm({
                   event.target.value = ""
                 }}
               />
-            </label>
+            </Label>
           </div>
         )}
 
@@ -681,8 +689,9 @@ export function EightDWizardForm({
                     <DownloadIcon className="h-3.5 w-3.5" />
                   </a>
                   {item.canRemove && canManageEvidence && (
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
                       onClick={() => handleEvidenceRemove(item.id)}
                       disabled={removingEvidenceId === item.id}
                       className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-destructive/30 text-destructive hover:bg-destructive/10 disabled:opacity-50"
@@ -693,7 +702,7 @@ export function EightDWizardForm({
                       ) : (
                         <Trash2Icon className="h-3.5 w-3.5" />
                       )}
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>
@@ -729,7 +738,7 @@ export function EightDWizardForm({
             const isDone = i < step
             const isCurrent = i === step
             return (
-              <button key={s.id} type="button" onClick={() => setStep(i)}
+              <Button key={s.id} type="button" variant="ghost" onClick={() => setStep(i)}
                 className={cn("flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-2 text-xs font-medium transition-all",
                   isCurrent && "bg-primary/10 text-primary ring-1 ring-primary/20",
                   isDone && "text-primary",
@@ -738,15 +747,15 @@ export function EightDWizardForm({
                 <s.icon className="h-4 w-4" />
                 <span className="hidden sm:inline">{s.label}</span>
                 {isDone && <CheckIcon className="h-3 w-3 text-primary" />}
-              </button>
+              </Button>
             )
           })}
         </div>
       </div>
 
       {currentComments.length > 0 && (
-        <div className="space-y-2 rounded-lg border border-destructive/20 bg-destructive/5 p-4 dark:border-red-900 dark:bg-red-950/10">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-destructive dark:text-destructive">
+        <div className="space-y-2 rounded-lg border border-destructive/20 bg-destructive/5 p-4  ">
+          <div className="flex items-center gap-1.5 text-xs font-medium text-destructive ">
             <MessageSquareIcon className="h-3.5 w-3.5" /> Customer Review Comments
           </div>
           {currentComments.map((c) => (
@@ -756,8 +765,8 @@ export function EightDWizardForm({
                 <span className={cn(
                   "rounded-full px-2 py-0.5 text-[10px] font-medium",
                   c.status === "OPEN"
-                    ? "bg-red-100 text-destructive bg-destructive/30 text-muted-foreground"
-                    : "bg-muted text-foreground dark:bg-muted/50 text-muted-foreground",
+                    ? "bg-destructive text-destructive bg-destructive/30 text-muted-foreground"
+                    : "bg-muted text-foreground  text-muted-foreground",
                 )}>
                   {c.status === "OPEN" ? "Open" : "Resolved"}
                 </span>
@@ -770,20 +779,20 @@ export function EightDWizardForm({
                 </div>
               ) : c.status === "OPEN" ? (
                 <div className="mt-2 flex gap-2">
-                  <input
+                  <Input
                     value={commentResponses[c.id] ?? ""}
                     onChange={(e) => setCommentResponses((prev) => ({ ...prev, [c.id]: e.target.value }))}
                     placeholder="Respond to this review comment..."
                     className="min-w-0 flex-1 rounded-md border border-input bg-background px-2 py-1 text-xs"
                   />
-                  <button
+                  <Button
                     type="button"
                     onClick={() => handleCommentResponse(c.id)}
                     disabled={saving || !commentResponses[c.id]?.trim()}
                     className="rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground disabled:opacity-50"
                   >
                     Reply
-                  </button>
+                  </Button>
                 </div>
               ) : null}
             </div>
@@ -803,7 +812,7 @@ export function EightDWizardForm({
               {teamMembers.map((member, idx) => (
                 <div key={member.id} className="flex items-center gap-3 rounded-lg border p-3">
                   <div className="flex-1 space-y-1.5 min-w-0">
-                    <label className="text-xs font-medium">Team Member</label>
+                    <Label className="text-xs font-medium">Team Member</Label>
                     <UserSearchSelect
                       value={member.userId}
                       onSelect={(userId, userName) => setTeamMembers((prev) => { const n = [...prev]; n[idx] = { ...n[idx], userId, userName }; return n })}
@@ -813,7 +822,7 @@ export function EightDWizardForm({
                     />
                   </div>
                   <div className="w-36 shrink-0 space-y-1.5">
-                    <label className="text-xs font-medium">Role</label>
+                    <Label className="text-xs font-medium">Role</Label>
                     <Select value={member.role} onValueChange={(val) => setTeamMembers((prev) => { const n = [...prev]; n[idx] = { ...n[idx], role: val as "champion" | "teamLeader" | "member" }; return n })}>
                       <SelectTrigger className="h-9 text-xs"><SelectValue placeholder="Select role">{ROLE_LABELS[member.role]}</SelectValue></SelectTrigger>
                       <SelectContent>
@@ -841,22 +850,22 @@ export function EightDWizardForm({
                 <p className="text-sm text-muted-foreground">Describe the problem in detail</p>
               </div>
               <div className="space-y-2">
-                <textarea value={d2Problem} onChange={(e) => setD2Problem(e.target.value)} rows={6}
+                <Textarea value={d2Problem} onChange={(e) => setD2Problem(e.target.value)} rows={6}
                   placeholder="What is the problem? Where was it found? When? How many affected? What is the defect rate?"
                   className="w-full rounded-lg border border-input bg-background p-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 />
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" onClick={() => isPro ? handleSuggest("d2_problem") : setShowUpgradeModal(true)} disabled={suggesting === "d2_problem"}
+                  <Button type="button" onClick={() => isPro ? handleSuggest("d2_problem") : setShowUpgradeModal(true)} disabled={suggesting === "d2_problem"}
                     className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                     {suggesting === "d2_problem" ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
                     {suggesting === "d2_problem" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to Pro"}
-                  </button>
+                  </Button>
                   {imageUrls && imageUrls.length > 0 && imageUrls.map((url, imgIdx) => (
-                    <button key={`${url}-${imgIdx}`} type="button" onClick={() => isPro ? handleVisionAnalyze(url) : setShowUpgradeModal(true)} disabled={analyzing === url}
+                    <Button key={`${url}-${imgIdx}`} type="button" onClick={() => isPro ? handleVisionAnalyze(url) : setShowUpgradeModal(true)} disabled={analyzing === url}
                       className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                       {analyzing === url ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
                       {analyzing === url ? "Analyzing..." : isPro ? `Analyze Photo ${imgIdx + 1}` : `Analyze Photo ${imgIdx + 1} — Upgrade to Pro`}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>
@@ -887,7 +896,7 @@ export function EightDWizardForm({
                   {containmentActions.map((action, idx) => (
                     <TableRow key={action.id}>
                       <TableCell>
-                        <input value={action.description} onChange={(e) => setContainmentActions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], description: e.target.value }; return n })}
+                        <Input value={action.description} onChange={(e) => setContainmentActions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], description: e.target.value }; return n })}
                           placeholder="Describe the containment action..." className="w-full rounded border border-input bg-background px-2 py-1 text-xs" />
                       </TableCell>
                       <TableCell>
@@ -895,7 +904,7 @@ export function EightDWizardForm({
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1">
-                          <input type="number" min={0} max={100} value={action.effectiveness}
+                          <Input type="number" min={0} max={100} value={action.effectiveness}
                             onChange={(e) => setContainmentActions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], effectiveness: Math.min(100, Math.max(0, Number(e.target.value) || 0)) }; return n })}
                             className="w-16 rounded border border-input bg-background px-2 py-1 text-xs" />
                           <span className="text-xs text-muted-foreground">%</span>
@@ -919,11 +928,11 @@ export function EightDWizardForm({
               <Button type="button" variant="outline" size="sm" onClick={() => setContainmentActions((prev) => [...prev, { id: genId(), description: "", responsibleUserId: "", responsibleName: "", effectiveness: 100, targetDate: "", actualDate: "" }])}>
                 <PlusIcon className="mr-1 h-3.5 w-3.5" /> Add Containment Action
               </Button>
-              <button type="button" onClick={() => isPro ? handleSuggest("d3_containment") : setShowUpgradeModal(true)} disabled={suggesting === "d3_containment"}
+              <Button type="button" onClick={() => isPro ? handleSuggest("d3_containment") : setShowUpgradeModal(true)} disabled={suggesting === "d3_containment"}
                 className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                 {suggesting === "d3_containment" ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
                 {suggesting === "d3_containment" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to Pro"}
-              </button>
+              </Button>
             </div>
             {renderEvidenceSection("D3")}
           </div>
@@ -970,16 +979,16 @@ export function EightDWizardForm({
                   {d5Actions.map((a, idx) => (
                     <TableRow key={a.id}>
                       <TableCell>
-                        <input value={a.action} onChange={(e) => setD5Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], action: e.target.value }; return n })}
+                        <Input value={a.action} onChange={(e) => setD5Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], action: e.target.value }; return n })}
                           placeholder="Describe the corrective action..." className="w-full rounded border border-input bg-background px-2 py-1 text-xs" />
                       </TableCell>
                       <TableCell>
-                        <input value={a.verificationMethod} onChange={(e) => setD5Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], verificationMethod: e.target.value }; return n })}
+                        <Input value={a.verificationMethod} onChange={(e) => setD5Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], verificationMethod: e.target.value }; return n })}
                           placeholder="How will effectiveness be verified?" className="w-full rounded border border-input bg-background px-2 py-1 text-xs" />
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1">
-                          <input type="number" min={0} max={100} value={a.effectiveness}
+                          <Input type="number" min={0} max={100} value={a.effectiveness}
                             onChange={(e) => setD5Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], effectiveness: Math.min(100, Math.max(0, Number(e.target.value) || 0)) }; return n })}
                             className="w-16 rounded border border-input bg-background px-2 py-1 text-xs" />
                           <span className="text-xs text-muted-foreground">%</span>
@@ -1022,17 +1031,16 @@ export function EightDWizardForm({
                     {d6Actions.map((a, idx) => (
                       <TableRow key={a.id}>
                         <TableCell>
-                          <select value={a.actionId} onChange={(e) => {
+                          <NativeSelect value={a.actionId} onChange={(e) => {
                             const selectedId = e.target.value
                             const desc = d5ActionMap[selectedId] || ""
                             setD6Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], actionId: selectedId, actionDescription: desc }; return n })
-                          }}
-                            className="w-full rounded border border-input bg-background px-2 py-1 text-xs">
-                            <option value="">Select D5 action...</option>
+                          }} className="w-full">
+                            <NativeSelectOption value="">Select D5 action...</NativeSelectOption>
                             {d5Actions.map((d5) => (
-                              <option key={d5.id} value={d5.id}>{d5.action || "(unnamed)"}</option>
+                              <NativeSelectOption key={d5.id} value={d5.id}>{d5.action || "(unnamed)"}</NativeSelectOption>
                             ))}
-                          </select>
+                          </NativeSelect>
                         </TableCell>
                         <TableCell><DatePicker value={a.targetDate} onChange={(d) => setD6Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], targetDate: d }; return n })} placeholder="Target" /></TableCell>
                         <TableCell><DatePicker value={a.actualDate} onChange={(d) => setD6Actions((prev) => { const n = [...prev]; n[idx] = { ...n[idx], actualDate: d }; return n })} placeholder="Actual" /></TableCell>
@@ -1069,7 +1077,7 @@ export function EightDWizardForm({
               <p className="text-sm text-muted-foreground">Prevent recurrence through systemic changes</p>
             </div>
             <div className="space-y-3">
-              <label className="text-sm font-medium">Impacted Documents / Processes</label>
+              <Label className="text-sm font-medium">Impacted Documents / Processes</Label>
               <div className="space-y-2">
                 {IMPACTED_DOCUMENTS.map((doc) => {
                   const isChecked = d7Impacts.some((i) => i.documentType === doc.value)
@@ -1086,7 +1094,7 @@ export function EightDWizardForm({
                           }
                         }}
                       />
-                      <label htmlFor={`doc-${doc.value}`} className="text-sm cursor-pointer">{doc.label}</label>
+                      <Label htmlFor={`doc-${doc.value}`} className="text-sm cursor-pointer">{doc.label}</Label>
                     </div>
                   )
                 })}
@@ -1094,13 +1102,13 @@ export function EightDWizardForm({
             </div>
             {d7Impacts.length > 0 && (
               <div className="space-y-2">
-                <label className="text-sm font-medium">Specific Document Revision Numbers</label>
+                <Label className="text-sm font-medium">Specific Document Revision Numbers</Label>
                 {d7Impacts.map((impact, idx) => {
                   const docLabel = IMPACTED_DOCUMENTS.find((d) => d.value === impact.documentType)?.label || impact.documentType
                   return (
                     <div key={impact.id} className="flex items-center gap-2">
                       <span className="w-40 text-xs text-muted-foreground">{docLabel}:</span>
-                      <input value={impact.revisionNo} onChange={(e) => setD7Impacts((prev) => { const n = [...prev]; n[idx] = { ...n[idx], revisionNo: e.target.value }; return n })}
+                      <Input value={impact.revisionNo} onChange={(e) => setD7Impacts((prev) => { const n = [...prev]; n[idx] = { ...n[idx], revisionNo: e.target.value }; return n })}
                         placeholder="Revision No." className="flex-1 rounded border border-input bg-background px-2 py-1 text-xs" />
                     </div>
                   )
@@ -1108,16 +1116,16 @@ export function EightDWizardForm({
               </div>
             )}
             <div className="space-y-2 pt-2">
-              <label className="text-sm font-medium">Preventive Actions Description <span className="text-destructive">*</span></label>
-              <textarea value={d7Preventive} onChange={(e) => setD7Preventive(e.target.value)} rows={5}
+              <Label className="text-sm font-medium">Preventive Actions Description <span className="text-destructive">*</span></Label>
+              <Textarea value={d7Preventive} onChange={(e) => setD7Preventive(e.target.value)} rows={5}
                 placeholder="Describe the preventive actions taken to prevent recurrence across all similar products..."
                 className="w-full rounded-lg border border-input bg-background p-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               />
-              <button type="button" onClick={() => isPro ? handleSuggest("d7_preventive") : setShowUpgradeModal(true)} disabled={suggesting === "d7_preventive"}
+              <Button type="button" onClick={() => isPro ? handleSuggest("d7_preventive") : setShowUpgradeModal(true)} disabled={suggesting === "d7_preventive"}
                 className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50">
                 {suggesting === "d7_preventive" ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : isPro ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
                 {suggesting === "d7_preventive" ? "Brainstorming..." : isPro ? "AI Brainstorm" : "AI Brainstorm — Upgrade to Pro"}
-              </button>
+              </Button>
             </div>
             {renderEvidenceSection("D7")}
           </div>
@@ -1130,7 +1138,7 @@ export function EightDWizardForm({
               <h2 className="text-lg font-semibold">D8 — Recognition & Closure</h2>
               <p className="text-sm text-muted-foreground">Final review, lessons learned, and team recognition</p>
             </div>
-            <textarea value={d8Recognition} onChange={(e) => setD8Recognition(e.target.value)} rows={8}
+            <Textarea value={d8Recognition} onChange={(e) => setD8Recognition(e.target.value)} rows={8}
               placeholder="Document lessons learned, management review conclusions, and team recognition..."
               className="w-full rounded-lg border border-input bg-background p-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
@@ -1140,7 +1148,7 @@ export function EightDWizardForm({
 
       {/* Final review summary */}
       {step === 5 && (
-        <div className={cn("rounded-xl border p-5", allFilled ? "border-border bg-muted/50 border-border dark:bg-muted/30" : "border-destructive/20 bg-destructive/5 dark:border-amber-900 dark:bg-amber-950/20")}>
+        <div className={cn("rounded-xl border p-5", allFilled ? "border-border bg-muted/50 border-border " : "border-destructive/20 bg-destructive/5  ")}>
           <div className="flex items-start gap-3">
             {allFilled ? (
               <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-foreground" />
@@ -1160,8 +1168,8 @@ export function EightDWizardForm({
                   ["Required Evidence (D5, D6, D7)", evidenceReady],
                 ].map(([label, done]) => (
                   <li key={label as string} className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className={cn("h-1.5 w-1.5 rounded-full", done ? "bg-foreground" : "bg-amber-400")} />
-                    <span className={done ? "text-foreground text-muted-foreground" : "text-destructive dark:text-destructive"}>{label as string}</span>
+                    <span className={cn("h-1.5 w-1.5 rounded-full", done ? "bg-foreground" : "bg-destructive")} />
+                    <span className={done ? "text-foreground text-muted-foreground" : "text-destructive "}>{label as string}</span>
                     {done && <CheckIcon className="h-3 w-3 text-foreground" />}
                   </li>
                 ))}

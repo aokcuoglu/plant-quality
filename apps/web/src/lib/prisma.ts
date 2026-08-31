@@ -5,7 +5,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
  * Bump when Prisma schema fields change so the Next.js global singleton
  * does not keep an outdated client after `prisma generate` + HMR.
  */
-const PRISMA_CLIENT_REVISION = 2;
+const PRISMA_CLIENT_REVISION = 3;
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;

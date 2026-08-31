@@ -17,8 +17,18 @@ type ActionResult<T = undefined> = { success: true; data?: T } | { success: fals
 async function context(adminOnly = false) {
   const session = await auth()
   if (!session?.user?.id || !session.user.companyId || session.user.companyType !== "OEM") return null
-  if (adminOnly && session.user.role !== "ADMIN" && session.user.role !== "SUPER_ADMIN") return null
-  return { companyId: session.user.companyId, userId: session.user.id, role: session.user.role }
+  const user = await prisma.user.findFirst({
+    where: { id: session.user.id, companyId: session.user.companyId },
+    select: { id: true, role: true, orgUnitId: true },
+  })
+  if (!user) return null
+  if (adminOnly && user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") return null
+  return {
+    companyId: session.user.companyId,
+    userId: user.id,
+    role: user.role,
+    organizationUnitId: user.orgUnitId,
+  }
 }
 
 function value(formData: FormData, key: string) {
@@ -218,6 +228,122 @@ export async function ensureDraft(groupId: string): Promise<ActionResult<{ id: s
   return { success: true, data: { id: draft.id } }
 }
 
+async function flowDraftIsInUse(flowVersionId: string, companyId: string) {
+  const [vehicleCount, visitCount] = await Promise.all([
+    prisma.logisticVehicleUnit.count({
+      where: { companyId, flowVersionId },
+    }),
+    prisma.logisticVehicleProcessVisit.count({
+      where: { companyId, node: { flowVersionId } },
+    }),
+  ])
+  return vehicleCount > 0 || visitCount > 0
+}
+
+export async function deleteFlowDraft(flowVersionId: string): Promise<ActionResult> {
+  const actor = await context(true)
+  if (!actor) return { success: false, error: "FORBIDDEN" }
+  const draft = await prisma.logisticFlowVersion.findFirst({
+    where: { id: flowVersionId, companyId: actor.companyId, status: "DRAFT" },
+    select: { id: true },
+  })
+  if (!draft) return { success: false, error: "DRAFT_NOT_FOUND" }
+  if (await flowDraftIsInUse(draft.id, actor.companyId)) {
+    return { success: false, error: "DRAFT_IN_USE" }
+  }
+  try {
+    await prisma.logisticFlowVersion.delete({ where: { id: draft.id } })
+  } catch (error) {
+    if (typeof error === "object" && error !== null && "code" in error && error.code === "P2003") {
+      return { success: false, error: "DRAFT_IN_USE" }
+    }
+    return { success: false, error: "UNKNOWN" }
+  }
+  revalidatePath("/logistic/flows")
+  return { success: true }
+}
+
+export async function restoreFlowVersion(sourceVersionId: string): Promise<ActionResult<{ id: string }>> {
+  const actor = await context(true)
+  if (!actor) return { success: false, error: "FORBIDDEN" }
+  const source = await prisma.logisticFlowVersion.findFirst({
+    where: {
+      id: sourceVersionId,
+      companyId: actor.companyId,
+      status: { in: ["PUBLISHED", "ARCHIVED"] },
+    },
+    include: { group: { select: { name: true } }, nodes: true, edges: true },
+  })
+  if (!source) return { success: false, error: "VERSION_NOT_FOUND" }
+  const existingDraft = await prisma.logisticFlowVersion.findFirst({
+    where: { companyId: actor.companyId, groupId: source.groupId, status: "DRAFT" },
+    select: { id: true, version: true },
+  })
+  if (existingDraft && await flowDraftIsInUse(existingDraft.id, actor.companyId)) {
+    return { success: false, error: "DRAFT_IN_USE" }
+  }
+
+  const draftId = await prisma.$transaction(async (tx) => {
+    let target = existingDraft
+    if (!target) {
+      const last = await tx.logisticFlowVersion.findFirst({
+        where: { companyId: actor.companyId, groupId: source.groupId },
+        orderBy: { version: "desc" },
+        select: { version: true },
+      })
+      target = await tx.logisticFlowVersion.create({
+        data: {
+          companyId: actor.companyId,
+          groupId: source.groupId,
+          version: (last?.version ?? 0) + 1,
+          name: `${source.group.name} v${(last?.version ?? 0) + 1}`,
+        },
+        select: { id: true, version: true },
+      })
+    } else {
+      await tx.logisticFlowEdge.deleteMany({ where: { flowVersionId: target.id } })
+      await tx.logisticFlowNode.deleteMany({ where: { flowVersionId: target.id } })
+      await tx.logisticFlowVersion.update({
+        where: { id: target.id },
+        data: { name: `${source.group.name} v${target.version}` },
+      })
+    }
+
+    await tx.logisticFlowNode.createMany({
+      data: source.nodes.map((node) => ({
+        flowVersionId: target.id,
+        processId: node.processId,
+        clientId: node.clientId,
+        kind: node.kind,
+        sequence: node.sequence,
+        positionX: node.positionX,
+        positionY: node.positionY,
+        inputCount: node.inputCount,
+        outputCount: node.outputCount,
+        nameSnapshot: node.nameSnapshot,
+        typeSnapshot: node.typeSnapshot,
+        descriptionSnapshot: node.descriptionSnapshot,
+        organizationUnitIdSnapshot: node.organizationUnitIdSnapshot,
+        responsibleUserId: node.responsibleUserId,
+        targetDurationMinutesSnapshot: node.targetDurationMinutesSnapshot,
+      })),
+    })
+    await tx.logisticFlowEdge.createMany({
+      data: source.edges.map((edge) => ({
+        flowVersionId: target.id,
+        sourceClientId: edge.sourceClientId,
+        targetClientId: edge.targetClientId,
+        sourceHandle: edge.sourceHandle,
+        targetHandle: edge.targetHandle,
+      })),
+    })
+    return target.id
+  })
+
+  revalidatePath("/logistic/flows")
+  return { success: true, data: { id: draftId } }
+}
+
 interface DraftNodeInput extends FlowGraphNode {
   processId?: string
   position: { x: number; y: number }
@@ -392,12 +518,19 @@ export async function moveVehicleUnit(unitId: string, targetNodeId: string, expe
   )
   const isLegalNext = legalClientTargets.has(target.clientId)
   const isAdmin = actor.role === "ADMIN" || actor.role === "SUPER_ADMIN"
+  const isAssignedOperator = unit.currentNode.responsibleUserId
+    ? unit.currentNode.responsibleUserId === actor.userId
+    : unit.currentNode.organizationUnitIdSnapshot
+      ? unit.currentNode.organizationUnitIdSnapshot === actor.organizationUnitId
+      : false
+  if (!isAdmin && !isAssignedOperator) return { success: false, error: "NODE_OWNER_ONLY" }
   if (!isAdmin && !isLegalNext) return { success: false, error: "NEXT_STEP_ONLY" }
-  if (isAdmin && !isLegalNext && !overrideReason?.trim()) return { success: false, error: "OVERRIDE_REASON_REQUIRED" }
+  const isAdminOverride = isAdmin && (!isLegalNext || !isAssignedOperator)
+  if (isAdminOverride && !overrideReason?.trim()) return { success: false, error: "OVERRIDE_REASON_REQUIRED" }
   // Ensure override target exists in this flow version
   if (!nodesByClientId.has(target.clientId)) return { success: false, error: "INVALID_TARGET" }
 
-  const transitionType = isAdmin && !isLegalNext ? "ADMIN_OVERRIDE" : target.kind === "END" ? "COMPLETE" : "ADVANCE"
+  const transitionType = isAdminOverride ? "ADMIN_OVERRIDE" : target.kind === "END" ? "COMPLETE" : "ADVANCE"
   const result = await prisma.$transaction(async (tx) => {
     const updated = await tx.logisticVehicleUnit.updateMany({
       where: { id: unit.id, companyId: actor.companyId, currentNodeId, revision: expectedRevision },

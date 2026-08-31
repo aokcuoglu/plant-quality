@@ -3,6 +3,7 @@ import { ArrowRight, Lock, Sparkles } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { getTranslations } from "@/i18n/server"
 
@@ -68,7 +69,7 @@ export async function ModuleCard({
   const FooterIcon = variant === "live" ? Sparkles : variant === "locked" ? Lock : null
 
   return (
-    <div
+    <Card
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-2xl border bg-card/60 p-6 backdrop-blur-md transition-all",
         variant === "live"
@@ -107,7 +108,7 @@ export async function ModuleCard({
           <Link href={href as string} className="block">
             <Button
               size="sm"
-              className="w-full gap-1.5 bg-foreground font-semibold text-background shadow-md shadow-black/5 hover:bg-foreground/80"
+              className="w-full gap-1.5 bg-foreground font-semibold text-background shadow-md shadow-foreground/5 hover:bg-foreground/80"
             >
               {ctaLabel ?? t("dashboard.company.moduleCard.open")} <ArrowRight className="size-3.5" />
             </Button>
@@ -118,6 +119,6 @@ export async function ModuleCard({
           <p className="text-[11px] text-muted-foreground">{t("dashboard.company.moduleCard.comingSoon")}</p>
         )}
       </div>
-    </div>
+    </Card>
   )
 }

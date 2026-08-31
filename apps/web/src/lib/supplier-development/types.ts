@@ -112,7 +112,7 @@ export const STATUS_CONFIG: Record<DevPlanStatus, { label: string; className: st
   DRAFT: { label: "Draft", className: "bg-muted text-muted-foreground border-border" },
   OPEN: { label: "Open", className: "bg-muted text-muted-foreground border-border" },
   SUPPLIER_ACTION_REQUIRED: { label: "Supplier Action", className: "bg-destructive/10 text-destructive border-destructive/20" },
-  OEM_REVIEW: { label: "OEM Review", className: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
+  OEM_REVIEW: { label: "OEM Review", className: "bg-brand/10 text-brand border-brand/20" },
   REVISION_REQUIRED: { label: "Revision Required", className: "bg-destructive/10 text-destructive border-destructive/20" },
   COMPLETED: { label: "Completed", className: "bg-muted text-muted-foreground border-border" },
   CANCELLED: { label: "Cancelled", className: "bg-muted text-muted-foreground border-border" },
@@ -121,7 +121,7 @@ export const STATUS_CONFIG: Record<DevPlanStatus, { label: string; className: st
 export const ACTION_STATUS_CONFIG: Record<DevActionStatus, { label: string; className: string }> = {
   OPEN: { label: "Open", className: "bg-muted text-muted-foreground border-border" },
   IN_PROGRESS: { label: "In Progress", className: "bg-muted text-muted-foreground border-border" },
-  SUBMITTED: { label: "Submitted", className: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
+  SUBMITTED: { label: "Submitted", className: "bg-brand/10 text-brand border-brand/20" },
   ACCEPTED: { label: "Accepted", className: "bg-muted text-muted-foreground border-border" },
   REJECTED: { label: "Rejected", className: "bg-destructive/10 text-destructive border-destructive/20" },
   COMPLETED: { label: "Completed", className: "bg-muted text-muted-foreground border-border" },

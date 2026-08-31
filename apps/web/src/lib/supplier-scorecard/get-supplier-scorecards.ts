@@ -10,7 +10,7 @@ import { isDefectOverdue } from "@/lib/sla"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
 import type { IqcResult } from "@plantx/db/client"
 import type { SupplierScorecard, SupplierScorecardSummary, SignalDetail } from "./types"
-import { computeScore, getGrade, getRiskLevel, applyPenalty, getRecommendedAction, PENALTY_CONFIG } from "./scoring"
+import { computeScore, getGrade, getRiskLevel, applyPenalty, getRecommendedAction } from "./scoring"
 import { getScorecardConfig } from "./config"
 
 const NEGATIVE_IQC_RESULTS: IqcResult[] = ["REJECTED", "ON_HOLD", "REWORK_REQUIRED", "SORTING_REQUIRED"]
@@ -376,8 +376,6 @@ export async function getSupplierSelfScorecard(
   })
 
   if (!company) return null
-
-  const now = new Date()
 
   const [fieldDefects, defects, iqcReports, escalations] = await Promise.all([
     prisma.fieldDefect.findMany({

@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { submitPlanForReview } from "@/app/(dashboard)/quality/supplier/development/actions/plan"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -32,13 +34,13 @@ export function SubmitForReviewButton({ planId }: { planId: string }) {
           {error}
         </div>
       )}
-      <button
+      <Button
         onClick={handleSubmit}
         disabled={isSubmitting}
         className="w-full rounded-md bg-foreground px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50 transition-colors"
       >
         {isSubmitting ? "Submitting..." : "Submit for OEM Review"}
-      </button>
+      </Button>
     </div>
   )
 }

@@ -1,5 +1,9 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { reviewPpapDocument } from "../actions/review"
@@ -76,7 +80,7 @@ export function PpapDocumentReview({
               {error}
             </div>
           )}
-          <input
+          <Input
             type="text"
             value={oemComment}
             onChange={(e) => setOemComment(e.target.value)}
@@ -84,27 +88,27 @@ export function PpapDocumentReview({
             className="flex w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           />
           <div className="flex gap-1.5">
-            <button
+            <Button
               onClick={() => handleReview("APPROVED")}
               disabled={loading}
               className="rounded px-2 py-0.5 text-xs font-medium bg-muted text-muted-foreground hover:bg-foreground/20 transition-colors"
             >
               Approve
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => handleReview("REVISION_REQUIRED")}
               disabled={loading}
               className="rounded px-2 py-0.5 text-xs font-medium bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors"
             >
               Request Revision
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => handleReview("REJECTED")}
               disabled={loading}
               className="rounded px-2 py-0.5 text-xs font-medium bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors"
             >
               Reject
-            </button>
+            </Button>
           </div>
         </div>
       )}

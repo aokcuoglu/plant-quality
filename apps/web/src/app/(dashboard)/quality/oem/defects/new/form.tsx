@@ -1,5 +1,13 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
 import { useRef, useState } from "react"
 import Link from "next/link"
 import { createDefect } from "../actions"
@@ -33,50 +41,48 @@ export function NewDefectForm({
       className="space-y-5"
     >
       <div className="space-y-2">
-        <label htmlFor="supplierId" className="text-sm font-medium">
+        <Label htmlFor="supplierId" className="text-sm font-medium">
           Supplier
-        </label>
-        <select
+        </Label>
+        <NativeSelect
           id="supplierId"
           name="supplierId"
           required
           value={supplierId}
-          onChange={(e) => setSupplierId(e.target.value)}
-          className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          onChange={(e) => setSupplierId(e.target.value)} className="w-full"
         >
-          <option value="">Select a supplier...</option>
+          <NativeSelectOption value="">Select a supplier...</NativeSelectOption>
           {suppliers.map((s) => (
-            <option key={s.id} value={s.id}>
+            <NativeSelectOption key={s.id} value={s.id}>
               {s.name}
-            </option>
+            </NativeSelectOption>
           ))}
-        </select>
+        </NativeSelect>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="supplierAssigneeId" className="text-sm font-medium">
+        <Label htmlFor="supplierAssigneeId" className="text-sm font-medium">
           Supplier Assignee
-        </label>
-        <select
+        </Label>
+        <NativeSelect
           id="supplierAssigneeId"
           name="supplierAssigneeId"
-          disabled={!selectedSupplier}
-          className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          disabled={!selectedSupplier} className="w-full"
         >
-          <option value="">Unassigned</option>
+          <NativeSelectOption value="">Unassigned</NativeSelectOption>
           {selectedSupplier?.users.map((user) => (
-            <option key={user.id} value={user.id}>
+            <NativeSelectOption key={user.id} value={user.id}>
               {user.name ?? user.email}
-            </option>
+            </NativeSelectOption>
           ))}
-        </select>
+        </NativeSelect>
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="partNumber" className="text-sm font-medium">
+        <Label htmlFor="partNumber" className="text-sm font-medium">
           Part Number
-        </label>
-        <input
+        </Label>
+        <Input
           id="partNumber"
           name="partNumber"
           type="text"
@@ -87,10 +93,10 @@ export function NewDefectForm({
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="description" className="text-sm font-medium">
+        <Label htmlFor="description" className="text-sm font-medium">
           Defect Description
-        </label>
-        <textarea
+        </Label>
+        <Textarea
           id="description"
           name="description"
           required

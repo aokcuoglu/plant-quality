@@ -1,5 +1,7 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import {
@@ -101,9 +103,9 @@ export function UpgradeRequestDialog({
               )}
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-foreground">
+              <Label className="text-sm font-medium text-foreground">
                 Message (optional)
-              </label>
+              </Label>
               <Textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

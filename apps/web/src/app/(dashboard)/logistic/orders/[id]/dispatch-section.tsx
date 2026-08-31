@@ -1,5 +1,15 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { Plus, Pencil, Truck, Ship, Train, Plane } from "lucide-react"
@@ -8,6 +18,7 @@ import { DispatchStatusBadge } from "../../dispatch-status-badge"
 import { getNextDispatchStatuses, DISPATCH_STATUS_LABELS, TRANSPORT_MODE_OPTIONS, labelForTransportMode } from "@/lib/logistic/dispatch-status"
 import { createOrUpdateDispatch, changeDispatchStatus } from "../../dispatch-actions"
 import { DatePicker } from "@/components/ui/date-picker"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
 
 function TransportIcon({ mode }: { mode: string }) {
   switch (mode) {
@@ -41,6 +52,7 @@ export function DispatchSection({
   }[]
   orderId: string
 }) {
+  const { showAlert } = useAppAlertDialog()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [showCreateForm, setShowCreateForm] = useState(false)
@@ -87,7 +99,10 @@ export function DispatchSection({
         plannedLoadingDate: form.plannedLoadingDate || null,
         estimatedArrivalDate: form.estimatedArrivalDate || null,
       })
-      if (result?.error) { alert(result.error); return }
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       setShowCreateForm(false)
       resetForm()
       router.refresh()
@@ -97,7 +112,10 @@ export function DispatchSection({
   function handleStatusChange(dispatchId: string, newStatus: DispatchStatus) {
     startTransition(async () => {
       const result = await changeDispatchStatus(dispatchId, newStatus)
-      if (result?.error) alert(result.error)
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       router.refresh()
     })
   }
@@ -133,7 +151,10 @@ export function DispatchSection({
         plannedLoadingDate: form.plannedLoadingDate || null,
         estimatedArrivalDate: form.estimatedArrivalDate || null,
       })
-      if (result?.error) { alert(result.error); return }
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       setEditingId(null)
       resetForm()
       router.refresh()
@@ -147,20 +168,20 @@ export function DispatchSection({
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-sm font-medium text-foreground">Dispatch Plan</h2>
         {!showCreateForm && dispatches.length === 0 && (
-          <button
+          <Button
             onClick={() => { resetForm(); setShowCreateForm(true) }}
             className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-foreground hover:bg-foreground/20"
           >
             <Plus className="size-3.5" /> Add Dispatch
-          </button>
+          </Button>
         )}
         {!showCreateForm && dispatches.length > 0 && (
-          <button
+          <Button
             onClick={() => { resetForm(); setShowCreateForm(true) }}
             className="inline-flex items-center gap-1 rounded-lg bg-muted px-2 py-1 text-xs font-medium text-foreground hover:bg-foreground/20"
           >
             <Plus className="size-3" /> Add
-          </button>
+          </Button>
         )}
       </div>
 
@@ -169,55 +190,55 @@ export function DispatchSection({
           <h3 className="text-sm font-medium text-foreground">New Dispatch</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Batch No</label>
-              <input type="text" value={form.dispatchBatchNo} onChange={(e) => setForm(f => ({ ...f, dispatchBatchNo: e.target.value }))} placeholder="DIS-2026-001" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
+              <Label className="mb-1 block text-xs text-muted-foreground">Batch No</Label>
+              <Input type="text" value={form.dispatchBatchNo} onChange={(e) => setForm(f => ({ ...f, dispatchBatchNo: e.target.value }))} placeholder="DIS-2026-001" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Carrier Name</label>
-              <input type="text" value={form.carrierName} onChange={(e) => setForm(f => ({ ...f, carrierName: e.target.value }))} placeholder="Global Transport Co." className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
+              <Label className="mb-1 block text-xs text-muted-foreground">Carrier Name</Label>
+              <Input type="text" value={form.carrierName} onChange={(e) => setForm(f => ({ ...f, carrierName: e.target.value }))} placeholder="Global Transport Co." className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Transport Mode</label>
-              <select value={form.transportMode} onChange={(e) => setForm(f => ({ ...f, transportMode: e.target.value as DispatchTransportMode }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground">
-                {TRANSPORT_MODE_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
+              <Label className="mb-1 block text-xs text-muted-foreground">Transport Mode</Label>
+              <NativeSelect value={form.transportMode} onChange={(e) => setForm(f => ({ ...f, transportMode: e.target.value as DispatchTransportMode }))} className="w-full">
+                {TRANSPORT_MODE_OPTIONS.map(o => <NativeSelectOption key={o.value} value={o.value}>{o.label}</NativeSelectOption>)}
+              </NativeSelect>
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Destination Country</label>
-              <input type="text" value={form.destinationCountry} onChange={(e) => setForm(f => ({ ...f, destinationCountry: e.target.value }))} placeholder="Germany" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
+              <Label className="mb-1 block text-xs text-muted-foreground">Destination Country</Label>
+              <Input type="text" value={form.destinationCountry} onChange={(e) => setForm(f => ({ ...f, destinationCountry: e.target.value }))} placeholder="Germany" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Destination City</label>
-              <input type="text" value={form.destinationCity} onChange={(e) => setForm(f => ({ ...f, destinationCity: e.target.value }))} placeholder="Munich" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
+              <Label className="mb-1 block text-xs text-muted-foreground">Destination City</Label>
+              <Input type="text" value={form.destinationCity} onChange={(e) => setForm(f => ({ ...f, destinationCity: e.target.value }))} placeholder="Munich" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Dealer / Distributor</label>
-              <input type="text" value={form.dealerOrDistributorName} onChange={(e) => setForm(f => ({ ...f, dealerOrDistributorName: e.target.value }))} placeholder="AutoBahn Dealers" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
+              <Label className="mb-1 block text-xs text-muted-foreground">Dealer / Distributor</Label>
+              <Input type="text" value={form.dealerOrDistributorName} onChange={(e) => setForm(f => ({ ...f, dealerOrDistributorName: e.target.value }))} placeholder="AutoBahn Dealers" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Tracking Reference</label>
-              <input type="text" value={form.trackingReference} onChange={(e) => setForm(f => ({ ...f, trackingReference: e.target.value }))} placeholder="TRK-12345" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
+              <Label className="mb-1 block text-xs text-muted-foreground">Tracking Reference</Label>
+              <Input type="text" value={form.trackingReference} onChange={(e) => setForm(f => ({ ...f, trackingReference: e.target.value }))} placeholder="TRK-12345" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Planned Loading Date</label>
+              <Label className="mb-1 block text-xs text-muted-foreground">Planned Loading Date</Label>
               <DatePicker value={form.plannedLoadingDate} onChange={(d) => setForm(f => ({ ...f, plannedLoadingDate: d }))} placeholder="mm / dd / yyyy" />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Estimated Arrival</label>
+              <Label className="mb-1 block text-xs text-muted-foreground">Estimated Arrival</Label>
               <DatePicker value={form.estimatedArrivalDate} onChange={(d) => setForm(f => ({ ...f, estimatedArrivalDate: d }))} placeholder="mm / dd / yyyy" />
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-muted-foreground">Notes</label>
-            <textarea value={form.notes} onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" placeholder="Dispatch notes..." />
+            <Label className="mb-1 block text-xs text-muted-foreground">Notes</Label>
+            <Textarea value={form.notes} onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground" placeholder="Dispatch notes..." />
           </div>
           <div className="flex gap-2">
-            <button onClick={handleCreate} disabled={isPending} className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
+            <Button onClick={handleCreate} disabled={isPending} className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
               {isPending ? "Creating..." : "Create Dispatch"}
-            </button>
-            <button onClick={() => { setShowCreateForm(false); resetForm() }} className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
+            </Button>
+            <Button onClick={() => { setShowCreateForm(false); resetForm() }} className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -238,55 +259,55 @@ export function DispatchSection({
                   <div className="space-y-3">
                     <div className="grid gap-3 sm:grid-cols-2">
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Batch No</label>
-                        <input type="text" value={form.dispatchBatchNo} onChange={(e) => setForm(f => ({ ...f, dispatchBatchNo: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <Label className="mb-1 block text-xs text-muted-foreground">Batch No</Label>
+                        <Input type="text" value={form.dispatchBatchNo} onChange={(e) => setForm(f => ({ ...f, dispatchBatchNo: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Carrier Name</label>
-                        <input type="text" value={form.carrierName} onChange={(e) => setForm(f => ({ ...f, carrierName: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <Label className="mb-1 block text-xs text-muted-foreground">Carrier Name</Label>
+                        <Input type="text" value={form.carrierName} onChange={(e) => setForm(f => ({ ...f, carrierName: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Transport Mode</label>
-                        <select value={form.transportMode} onChange={(e) => setForm(f => ({ ...f, transportMode: e.target.value as DispatchTransportMode }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground">
-                          {TRANSPORT_MODE_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                        </select>
+                        <Label className="mb-1 block text-xs text-muted-foreground">Transport Mode</Label>
+                        <NativeSelect value={form.transportMode} onChange={(e) => setForm(f => ({ ...f, transportMode: e.target.value as DispatchTransportMode }))} className="w-full">
+                          {TRANSPORT_MODE_OPTIONS.map(o => <NativeSelectOption key={o.value} value={o.value}>{o.label}</NativeSelectOption>)}
+                        </NativeSelect>
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Destination Country</label>
-                        <input type="text" value={form.destinationCountry} onChange={(e) => setForm(f => ({ ...f, destinationCountry: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <Label className="mb-1 block text-xs text-muted-foreground">Destination Country</Label>
+                        <Input type="text" value={form.destinationCountry} onChange={(e) => setForm(f => ({ ...f, destinationCountry: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Destination City</label>
-                        <input type="text" value={form.destinationCity} onChange={(e) => setForm(f => ({ ...f, destinationCity: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <Label className="mb-1 block text-xs text-muted-foreground">Destination City</Label>
+                        <Input type="text" value={form.destinationCity} onChange={(e) => setForm(f => ({ ...f, destinationCity: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Dealer / Distributor</label>
-                        <input type="text" value={form.dealerOrDistributorName} onChange={(e) => setForm(f => ({ ...f, dealerOrDistributorName: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <Label className="mb-1 block text-xs text-muted-foreground">Dealer / Distributor</Label>
+                        <Input type="text" value={form.dealerOrDistributorName} onChange={(e) => setForm(f => ({ ...f, dealerOrDistributorName: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Tracking Reference</label>
-                        <input type="text" value={form.trackingReference} onChange={(e) => setForm(f => ({ ...f, trackingReference: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                        <Label className="mb-1 block text-xs text-muted-foreground">Tracking Reference</Label>
+                        <Input type="text" value={form.trackingReference} onChange={(e) => setForm(f => ({ ...f, trackingReference: e.target.value }))} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Planned Loading Date</label>
+                        <Label className="mb-1 block text-xs text-muted-foreground">Planned Loading Date</Label>
                         <DatePicker value={form.plannedLoadingDate} onChange={(d) => setForm(f => ({ ...f, plannedLoadingDate: d }))} placeholder="mm / dd / yyyy" />
                       </div>
                       <div>
-                        <label className="mb-1 block text-xs text-muted-foreground">Estimated Arrival</label>
+                        <Label className="mb-1 block text-xs text-muted-foreground">Estimated Arrival</Label>
                         <DatePicker value={form.estimatedArrivalDate} onChange={(d) => setForm(f => ({ ...f, estimatedArrivalDate: d }))} placeholder="mm / dd / yyyy" />
                       </div>
                     </div>
                     <div>
-                      <label className="mb-1 block text-xs text-muted-foreground">Notes</label>
-                      <textarea value={form.notes} onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
+                      <Label className="mb-1 block text-xs text-muted-foreground">Notes</Label>
+                      <Textarea value={form.notes} onChange={(e) => setForm(f => ({ ...f, notes: e.target.value }))} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground" />
                     </div>
                     <div className="flex gap-2">
-                      <button onClick={handleUpdate} disabled={isPending} className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
+                      <Button onClick={handleUpdate} disabled={isPending} className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
                         {isPending ? "Updating..." : "Update"}
-                      </button>
-                      <button onClick={() => { setEditingId(null); resetForm() }} className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
+                      </Button>
+                      <Button onClick={() => { setEditingId(null); resetForm() }} className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted">
                         Cancel
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 ) : (
@@ -300,9 +321,9 @@ export function DispatchSection({
                         <DispatchStatusBadge status={d.status as DispatchStatus} />
                       </div>
                       {!isTerminal && (
-                        <button onClick={() => startEdit(d)} className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground">
+                        <Button variant="ghost" onClick={() => startEdit(d)} className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground">
                           <Pencil className="size-3.5" />
-                        </button>
+                        </Button>
                       )}
                     </div>
                     <dl className="grid gap-2 text-sm sm:grid-cols-2">
@@ -366,7 +387,7 @@ export function DispatchSection({
                     {!isTerminal && nextStatuses.length > 0 && (
                       <div className="mt-2 flex flex-wrap gap-2">
                         {nextStatuses.map((ns) => (
-                          <button
+                          <Button
                             key={ns}
                             onClick={() => handleStatusChange(d.id, ns)}
                             disabled={isPending}
@@ -377,7 +398,7 @@ export function DispatchSection({
                             }`}
                           >
                             {DISPATCH_STATUS_LABELS[ns]}
-                          </button>
+                          </Button>
                         ))}
                       </div>
                     )}

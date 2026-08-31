@@ -1,5 +1,13 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
@@ -95,7 +103,7 @@ function LoginContent() {
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-background" />
         <div className="absolute top-1/2 left-1/2 size-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.05] blur-[120px]" />
-        <div className="absolute top-1/3 right-1/4 size-[500px] rounded-full bg-blue-500/[0.04] blur-[100px]" />
+        <div className="absolute top-1/3 right-1/4 size-[500px] rounded-full bg-brand/[0.04] blur-[100px]" />
       </div>
 
       <Link href="/" className="absolute top-6 left-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
@@ -109,13 +117,13 @@ function LoginContent() {
       <div className="w-full max-w-sm space-y-8 px-4">
         <div className="text-center">
           <div className="mb-5 flex items-center justify-center">
-            <div className="relative flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-xl shadow-foreground/10">
+            <div className="relative flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-brand shadow-xl shadow-foreground/10">
               <Factory className="size-7 text-foreground" strokeWidth={2.5} />
             </div>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             {t("auth.loginTitle")}
-            <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">{t("auth.loginTitleHighlight")}</span>
+            <span className="bg-gradient-to-r from-brand via-brand to-brand bg-clip-text text-transparent">{t("auth.loginTitleHighlight")}</span>
           </h1>
         </div>
 
@@ -123,7 +131,7 @@ function LoginContent() {
           <div className="flex items-center gap-1.5 rounded-full border border-border bg-foreground/5 px-3 py-1 text-[10px] font-medium tracking-wider uppercase text-foreground">
             <ShieldCheck className="size-3" /> {t("auth.secure")}
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-border bg-blue-500/5 px-3 py-1 text-[10px] font-medium tracking-wider uppercase text-muted-foreground">
+          <div className="flex items-center gap-1.5 rounded-full border border-border bg-brand/5 px-3 py-1 text-[10px] font-medium tracking-wider uppercase text-muted-foreground">
             <Zap className="size-3" /> {t("auth.passwordless")}
           </div>
         </div>
@@ -151,20 +159,20 @@ function LoginContent() {
             {/* Microsoft (Entra ID) Sign-in — only shown when configured */}
             {microsoftEnabled && (
               <>
-                <button
+                <Button
                   type="button"
                   onClick={() => signIn("microsoft-entra-id", { callbackUrl })}
                   disabled={loading}
                   className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-semibold text-background shadow-lg shadow-foreground/10 transition-all hover:bg-foreground/80 active:translate-y-px disabled:opacity-50"
                 >
-                  <svg className="size-4" viewBox="0 0 23 23" aria-hidden="true">
-                    <rect x="1" y="1" width="10" height="10" fill="#f25022" />
-                    <rect x="12" y="1" width="10" height="10" fill="#7fba00" />
-                    <rect x="1" y="12" width="10" height="10" fill="#00a4ef" />
-                    <rect x="12" y="12" width="10" height="10" fill="#ffb900" />
+                  <svg className="size-4 fill-current" viewBox="0 0 23 23" aria-hidden="true">
+                    <rect x="1" y="1" width="10" height="10" />
+                    <rect x="12" y="1" width="10" height="10" />
+                    <rect x="1" y="12" width="10" height="10" />
+                    <rect x="12" y="12" width="10" height="10" />
                   </svg>
                   {loading ? t("auth.microsoft.signingIn") : t("auth.microsoft.continueWith")}
-                </button>
+                </Button>
 
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border" /></div>
@@ -183,27 +191,26 @@ function LoginContent() {
                 </div>
               )}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground flex items-center gap-2">
+                <Label className="text-sm font-medium text-foreground flex items-center gap-2">
                   <Terminal className="size-4 text-destructive" /> {t("auth.devLogin")}
-                </label>
-                <select
+                </Label>
+                <NativeSelect
                   value={devEmail}
-                  onChange={(e) => setDevEmail(e.target.value)}
-                  className="flex h-11 w-full rounded-xl border border-border bg-muted px-4 py-2 text-sm text-foreground outline-none ring-offset-background transition-all focus-visible:ring-2 focus-visible:ring-amber-500/40 focus-visible:border-amber-500/40 hover:border-border"
+                  onChange={(e) => setDevEmail(e.target.value)} className="w-full"
                 >
                   {accounts.map((acc) => (
-                    <option key={acc.email} value={acc.email}>{acc.label}</option>
+                    <NativeSelectOption key={acc.email} value={acc.email}>{acc.label}</NativeSelectOption>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
-              <button
+              <Button
                 type="submit"
                 disabled={accounts.length === 0 || loading}
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-black shadow-lg shadow-amber-500/15 transition-all hover:bg-amber-400 active:translate-y-px disabled:opacity-50"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-destructive px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-destructive/15 transition-all hover:bg-destructive/90 active:translate-y-px disabled:opacity-50"
               >
                 {loading ? t("auth.microsoft.signingIn") : t("auth.signInDev")}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+              </Button>
             </form>
 
             <div className="relative">
@@ -215,10 +222,10 @@ function LoginContent() {
 
             <form onSubmit={handleMagicLink} className="space-y-5" noValidate>
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-foreground">{t("auth.workEmail")}</label>
+                <Label htmlFor="email" className="text-sm font-medium text-foreground">{t("auth.workEmail")}</Label>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                  <input
+                  <Input
                     id="email"
                     type="email"
                     placeholder={t("auth.emailPlaceholder")}
@@ -234,14 +241,14 @@ function LoginContent() {
                 </div>
                 <FieldError message={magicError} />
               </div>
-              <button
+              <Button
                 type="submit"
                 disabled={loading}
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-semibold text-background shadow-lg shadow-foreground/10 transition-all hover:bg-foreground/80 active:translate-y-px disabled:opacity-50"
               >
                 {loading ? t("auth.sending") : t("auth.sendMagicLink")}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+              </Button>
             </form>
           </div>
         )}

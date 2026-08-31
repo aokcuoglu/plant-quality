@@ -96,6 +96,13 @@ export const ModelName = {
   LogisticOrderLine: 'LogisticOrderLine',
   LogisticVehicleUnit: 'LogisticVehicleUnit',
   LogisticVehicleProcessVisit: 'LogisticVehicleProcessVisit',
+  LogisticWorkflowDefinition: 'LogisticWorkflowDefinition',
+  LogisticWorkflowVersion: 'LogisticWorkflowVersion',
+  LogisticWorkflowNode: 'LogisticWorkflowNode',
+  LogisticWorkflowEdge: 'LogisticWorkflowEdge',
+  LogisticWorkflowInstance: 'LogisticWorkflowInstance',
+  LogisticWorkflowTask: 'LogisticWorkflowTask',
+  LogisticWorkflowEvent: 'LogisticWorkflowEvent',
   PlantLogisticOrderEvent: 'PlantLogisticOrderEvent',
   PlantLogisticProductionMilestone: 'PlantLogisticProductionMilestone',
   PlantLogisticYardStatus: 'PlantLogisticYardStatus',
@@ -987,6 +994,126 @@ export const LogisticVehicleProcessVisitScalarFieldEnum = {
 } as const
 
 export type LogisticVehicleProcessVisitScalarFieldEnum = (typeof LogisticVehicleProcessVisitScalarFieldEnum)[keyof typeof LogisticVehicleProcessVisitScalarFieldEnum]
+
+
+export const LogisticWorkflowDefinitionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  subjectType: 'subjectType',
+  active: 'active',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LogisticWorkflowDefinitionScalarFieldEnum = (typeof LogisticWorkflowDefinitionScalarFieldEnum)[keyof typeof LogisticWorkflowDefinitionScalarFieldEnum]
+
+
+export const LogisticWorkflowVersionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  definitionId: 'definitionId',
+  version: 'version',
+  status: 'status',
+  publishedAt: 'publishedAt',
+  publishedById: 'publishedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LogisticWorkflowVersionScalarFieldEnum = (typeof LogisticWorkflowVersionScalarFieldEnum)[keyof typeof LogisticWorkflowVersionScalarFieldEnum]
+
+
+export const LogisticWorkflowNodeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  workflowVersionId: 'workflowVersionId',
+  clientId: 'clientId',
+  kind: 'kind',
+  sequence: 'sequence',
+  positionX: 'positionX',
+  positionY: 'positionY',
+  name: 'name',
+  description: 'description',
+  assignmentStrategy: 'assignmentStrategy',
+  organizationUnitId: 'organizationUnitId',
+  responsibleUserId: 'responsibleUserId',
+  taskScope: 'taskScope',
+  allowedActions: 'allowedActions',
+  automationActionKey: 'automationActionKey',
+  targetDurationMinutes: 'targetDurationMinutes',
+  configuration: 'configuration'
+} as const
+
+export type LogisticWorkflowNodeScalarFieldEnum = (typeof LogisticWorkflowNodeScalarFieldEnum)[keyof typeof LogisticWorkflowNodeScalarFieldEnum]
+
+
+export const LogisticWorkflowEdgeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  workflowVersionId: 'workflowVersionId',
+  sourceClientId: 'sourceClientId',
+  targetClientId: 'targetClientId',
+  actionKey: 'actionKey',
+  label: 'label'
+} as const
+
+export type LogisticWorkflowEdgeScalarFieldEnum = (typeof LogisticWorkflowEdgeScalarFieldEnum)[keyof typeof LogisticWorkflowEdgeScalarFieldEnum]
+
+
+export const LogisticWorkflowInstanceScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  definitionId: 'definitionId',
+  workflowVersionId: 'workflowVersionId',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  currentNodeId: 'currentNodeId',
+  status: 'status',
+  revision: 'revision',
+  context: 'context',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt'
+} as const
+
+export type LogisticWorkflowInstanceScalarFieldEnum = (typeof LogisticWorkflowInstanceScalarFieldEnum)[keyof typeof LogisticWorkflowInstanceScalarFieldEnum]
+
+
+export const LogisticWorkflowTaskScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  instanceId: 'instanceId',
+  nodeId: 'nodeId',
+  scopeKey: 'scopeKey',
+  status: 'status',
+  assignedUserId: 'assignedUserId',
+  assignedOrganizationUnitId: 'assignedOrganizationUnitId',
+  allowedActions: 'allowedActions',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  completedById: 'completedById',
+  resolution: 'resolution'
+} as const
+
+export type LogisticWorkflowTaskScalarFieldEnum = (typeof LogisticWorkflowTaskScalarFieldEnum)[keyof typeof LogisticWorkflowTaskScalarFieldEnum]
+
+
+export const LogisticWorkflowEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  instanceId: 'instanceId',
+  fromNodeId: 'fromNodeId',
+  toNodeId: 'toNodeId',
+  actionKey: 'actionKey',
+  actorId: 'actorId',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type LogisticWorkflowEventScalarFieldEnum = (typeof LogisticWorkflowEventScalarFieldEnum)[keyof typeof LogisticWorkflowEventScalarFieldEnum]
 
 
 export const PlantLogisticOrderEventScalarFieldEnum = {

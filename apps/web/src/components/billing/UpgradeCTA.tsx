@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { normalizePlan, type PlanKey, PLAN_LABELS, isPlanAtLeast } from "@/lib/billing/plans"
 import { cn } from "@/lib/utils"
@@ -35,13 +37,14 @@ export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, cla
   if (compact) {
     return (
       <>
-        <button
+        <Button
           type="button"
+          variant="ghost"
           onClick={() => setDialogOpen(true)}
           className={cn("text-xs text-foreground hover:underline cursor-pointer", className)}
         >
           Requires {PLAN_LABELS[targetPlan]}
-        </button>
+        </Button>
         <UpgradeRequestDialog
           open={dialogOpen}
           onOpenChange={setDialogOpen}
@@ -67,13 +70,13 @@ export function UpgradeCTA({ currentPlan, featureName, minPlan, companyType, cla
             ? "Enterprise plans are handled by custom quote. Please contact PlantX sales or your system administrator."
             : "This feature requires a Pro plan or higher. Billing integration is not enabled yet — please contact PlantX sales or your system administrator to upgrade."}
         </p>
-        <button
+        <Button
           type="button"
           onClick={() => setDialogOpen(true)}
           className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
         >
           Request {PLAN_LABELS[targetPlan]}
-        </button>
+        </Button>
       </div>
       <UpgradeRequestDialog
         open={dialogOpen}

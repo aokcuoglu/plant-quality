@@ -1,5 +1,9 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { getSuppliersForField, assignSupplier } from "@/app/(dashboard)/field/actions"
@@ -36,23 +40,22 @@ export function AssignSupplierForm({ fieldDefectId, currentSupplierId }: { field
         <h2 className="text-sm font-semibold">Assign Supplier</h2>
       </div>
       <div className="px-4 py-3 space-y-3">
-        <select
+        <NativeSelect
           value={selectedSupplier}
-          onChange={(e) => setSelectedSupplier(e.target.value)}
-          className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          onChange={(e) => setSelectedSupplier(e.target.value)} className="w-full"
         >
-          <option value="">No supplier assigned</option>
+          <NativeSelectOption value="">No supplier assigned</NativeSelectOption>
           {suppliers.map((s) => (
-            <option key={s.id} value={s.id}>{s.name}</option>
+            <NativeSelectOption key={s.id} value={s.id}>{s.name}</NativeSelectOption>
           ))}
-        </select>
-        <button
+        </NativeSelect>
+        <Button
           onClick={() => startTransition(handleAssign)}
           disabled={isPending}
-          className="w-full rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-foreground/90 transition-colors disabled:opacity-50"
+          className="w-full rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors disabled:opacity-50"
         >
           {isPending ? "Assigning..." : "Assign Supplier"}
-        </button>
+        </Button>
         {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
     </div>

@@ -35,7 +35,7 @@ export function CancelInspectionButton({ inspectionId }: { inspectionId: string 
       <Button
         type="button"
         variant="outline"
-        className="w-full text-destructive border-red-400/30 hover:bg-destructive/10"
+        className="w-full text-destructive border-destructive/30 hover:bg-destructive/10"
         onClick={() => setOpen(true)}
       >
         Cancel Inspection
@@ -58,7 +58,7 @@ export function CancelInspectionButton({ inspectionId }: { inspectionId: string 
             <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={isPending}>
               Keep Inspection
             </Button>
-            <Button type="button" className="bg-destructive/10 text-destructive border border-red-400/30 hover:bg-destructive/20" onClick={handleConfirm} disabled={isPending}>
+            <Button type="button" className="bg-destructive/10 text-destructive border border-destructive/30 hover:bg-destructive/20" onClick={handleConfirm} disabled={isPending}>
               {isPending ? "Cancelling..." : "Confirm Cancel"}
             </Button>
           </DialogFooter>

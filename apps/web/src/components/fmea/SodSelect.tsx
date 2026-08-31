@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { cn } from "@/lib/utils"
 
 interface SodSelectProps {
@@ -26,7 +28,7 @@ const SOD_LABELS: Record<number, string> = {
 
 export function SodSelect({ value, onChange, className, label }: SodSelectProps) {
   return (
-    <select
+    <NativeSelect
       value={value}
       onChange={e => onChange(Number(e.target.value))}
       aria-label={label}
@@ -38,9 +40,9 @@ export function SodSelect({ value, onChange, className, label }: SodSelectProps)
       )}
     >
       {SOD_OPTIONS.map(n => (
-        <option key={n} value={n}>{SOD_LABELS[n]}</option>
+        <NativeSelectOption key={n} value={n}>{SOD_LABELS[n]}</NativeSelectOption>
       ))}
-    </select>
+    </NativeSelect>
   )
 }
 
@@ -53,7 +55,7 @@ interface SodSelectNullableProps {
 
 export function SodSelectNullable({ value, onChange, className, label }: SodSelectNullableProps) {
   return (
-    <select
+    <NativeSelect
       value={value ?? ""}
       onChange={e => {
         const v = e.target.value
@@ -68,10 +70,10 @@ export function SodSelectNullable({ value, onChange, className, label }: SodSele
         className
       )}
     >
-      <option value="">—</option>
+      <NativeSelectOption value="">—</NativeSelectOption>
       {SOD_OPTIONS.map(n => (
-        <option key={n} value={n}>{SOD_LABELS[n]}</option>
+        <NativeSelectOption key={n} value={n}>{SOD_LABELS[n]}</NativeSelectOption>
       ))}
-    </select>
+    </NativeSelect>
   )
 }

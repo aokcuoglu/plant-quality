@@ -1,5 +1,9 @@
 "use client"
 
+import { Textarea } from "@/components/ui/textarea"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { createUpgradeRequest } from "@/app/(dashboard)/_actions/upgrade-requests"
@@ -51,13 +55,13 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
         <p className="text-xs text-muted-foreground">
           Billing integration is not enabled yet. Please contact PlantX sales or your system administrator. Enterprise plans are handled by custom quote.
         </p>
-        <button
+        <Button
           type="button"
           onClick={() => setSuccess(null)}
-          className="text-xs text-muted-foreground hover:text-foreground underline"
+          variant="ghost" className="text-xs text-muted-foreground hover:text-foreground underline"
         >
           Dismiss
-        </button>
+        </Button>
       </div>
     )
   }
@@ -68,7 +72,7 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
         <p className="text-sm text-foreground font-medium">
           Request upgrade to {PLAN_LABELS[selectedPlan]}
         </p>
-        <textarea
+        <Textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell us why you need this upgrade (optional)"
@@ -77,22 +81,23 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
           disabled={isPending}
         />
         <div className="flex gap-2">
-          <button
+          <Button
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-white hover:bg-foreground/90 transition-colors disabled:opacity-50"
+            className="rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-foreground/90 transition-colors disabled:opacity-50"
           >
             {isPending ? "Submitting..." : "Submit Request"}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="outline"
             onClick={() => { setSelectedPlan(null); setMessage(""); setError(null) }}
             disabled={isPending}
             className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors disabled:opacity-50"
           >
             Cancel
-          </button>
+          </Button>
         </div>
         {error && <p className="text-xs text-destructive">{error}</p>}
         <p className="text-xs text-muted-foreground">
@@ -106,22 +111,22 @@ export function UpgradeRequestForm({ currentPlan }: UpgradeRequestFormProps) {
     <div className="space-y-2">
       <div className="flex gap-2">
         {currentPlan === "FREE" && (
-          <button
+          <Button
             type="button"
             onClick={() => handleRequest("PRO")}
-            className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-white hover:bg-foreground/90 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
           >
             Request Pro
-          </button>
+          </Button>
         )}
         {currentPlan !== "ENTERPRISE" && (
-          <button
+          <Button
             type="button"
             onClick={() => handleRequest("ENTERPRISE")}
             className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground hover:bg-foreground/20 transition-colors"
           >
             Request Enterprise
-          </button>
+          </Button>
         )}
       </div>
       <p className="text-xs text-muted-foreground">

@@ -34,12 +34,12 @@ export function TrendArea({ data }: { data: RawItem[] }) {
         <AreaChart data={chartData} margin={{ left: 0, right: 8, top: 4, bottom: 4 }}>
           <defs>
             <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
+              <stop offset="0%" stopColor="var(--chart-3)" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="var(--chart-3)" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="hsl(var(--muted-foreground))" axisLine={false} />
-          <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke="hsl(var(--muted-foreground))" axisLine={false} />
+          <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" axisLine={false} />
+          <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" axisLine={false} />
           <Tooltip
             content={({ active, payload, label }) => {
               if (!active || !payload?.length) return null
@@ -53,11 +53,11 @@ export function TrendArea({ data }: { data: RawItem[] }) {
           <Area
             type="monotone"
             dataKey="defects"
-            stroke="#3b82f6"
+            stroke="var(--chart-3)"
             strokeWidth={2}
             fill="url(#trendGradient)"
-            dot={{ fill: "#3b82f6", strokeWidth: 0, r: 4 }}
-            activeDot={{ fill: "#3b82f6", strokeWidth: 2, stroke: "#fff", r: 5 }}
+            dot={{ fill: "var(--chart-3)", strokeWidth: 0, r: 4 }}
+            activeDot={{ fill: "var(--chart-3)", strokeWidth: 2, stroke: "var(--background)", r: 5 }}
           />
         </AreaChart>
       </ResponsiveContainer>

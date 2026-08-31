@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -205,35 +206,35 @@ export default async function ExecutiveCockpitPage() {
       {data.topRisks.length > 0 && (
         <div className="rounded-lg border bg-card overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-muted/50">
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-12">#</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden sm:table-cell">Part Number</th>
-                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Score</th>
-                  <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground hidden md:table-cell">Level</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Main Signals</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Latest Activity</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden xl:table-cell">Action</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-16"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table className="w-full text-sm">
+              <TableHeader>
+                <TableRow className="border-b border-border bg-muted/50">
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-12">#</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden sm:table-cell">Part Number</TableHead>
+                  <TableHead className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Score</TableHead>
+                  <TableHead className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground hidden md:table-cell">Level</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Main Signals</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden lg:table-cell">Latest Activity</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hidden xl:table-cell">Action</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-16"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {data.topRisks.map((r) => (
-                  <tr key={`${r.supplierId}-${r.partNumber}`} className="hover:bg-muted/30">
-                    <td className="px-4 py-3 text-muted-foreground">{r.rank}</td>
-                    <td className="px-4 py-3 text-foreground">
+                  <TableRow key={`${r.supplierId}-${r.partNumber}`} className="hover:bg-muted/30">
+                    <TableCell className="px-4 py-3 text-muted-foreground">{r.rank}</TableCell>
+                    <TableCell className="px-4 py-3 text-foreground">
                       <span className="font-medium">{r.supplierName}</span>
                       <span className="text-xs text-muted-foreground sm:hidden block font-mono">{r.partNumber}</span>
-                    </td>
-                    <td className="px-4 py-3 hidden sm:table-cell">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 hidden sm:table-cell">
                       <div className="text-foreground font-mono text-xs">{r.partNumber}</div>
                       {r.partName && <div className="text-xs text-muted-foreground">{r.partName}</div>}
-                    </td>
-                    <td className="px-4 py-3 text-center font-bold text-foreground">{r.riskScore}</td>
-                    <td className="px-4 py-3 text-center hidden md:table-cell"><RiskBadge level={r.riskLevel} /></td>
-                    <td className="px-4 py-3 hidden lg:table-cell">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-center font-bold text-foreground">{r.riskScore}</TableCell>
+                    <TableCell className="px-4 py-3 text-center hidden md:table-cell"><RiskBadge level={r.riskLevel} /></TableCell>
+                    <TableCell className="px-4 py-3 hidden lg:table-cell">
                       <div className="flex flex-wrap gap-1">
                         {r.mainSignals.map((s, i) => (
                           <span key={i} className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
@@ -241,20 +242,20 @@ export default async function ExecutiveCockpitPage() {
                           </span>
                         ))}
                       </div>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground hidden lg:table-cell">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-xs text-muted-foreground hidden lg:table-cell">
                       {r.latestActivity ? new Date(r.latestActivity).toLocaleDateString() : "—"}
-                    </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground hidden xl:table-cell">{r.recommendedAction}</td>
-                    <td className="px-4 py-3">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-xs text-muted-foreground hidden xl:table-cell">{r.recommendedAction}</TableCell>
+                    <TableCell className="px-4 py-3">
                       <Link href="/quality/oem/quality-intelligence" className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
                         <EyeIcon className="h-3 w-3" />
                       </Link>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

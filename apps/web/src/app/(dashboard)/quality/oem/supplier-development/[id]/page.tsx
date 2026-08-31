@@ -146,7 +146,7 @@ export default async function DevPlanDetailPage({ params }: { params: Promise<{ 
                             <span>Due: {item.dueDate ? (itemOverdue ? <span className="text-destructive font-semibold">{new Date(item.dueDate).toLocaleDateString()}</span> : new Date(item.dueDate).toLocaleDateString()) : "None"}</span>
                           </div>
                           {item.supplierResponse && (
-                            <div className="mt-2 rounded-md bg-destructive/5 border border-amber-500/10 p-2">
+                            <div className="mt-2 rounded-md bg-destructive/5 border border-destructive/10 p-2">
                               <p className="text-xs font-medium text-destructive">Supplier Response:</p>
                               <p className="text-xs text-foreground mt-0.5">{item.supplierResponse}</p>
                             </div>

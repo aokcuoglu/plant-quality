@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { isEditorRole } from "@/lib/roles"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
@@ -131,61 +132,61 @@ export default async function OemFmeaDetailPage({ params }: { params: Promise<{ 
               <FmeaRowEditor fmeaId={fmea.id} initialRows={rows} fmeaType={fmea.fmeaType} canEdit={canEdit} />
             ) : (
               <div className="overflow-x-auto rounded-lg border bg-card">
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-border bg-muted/50">
-                      {fmea.fmeaType === "PROCESS" && <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Step</th>}
-                      <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Failure Mode</th>
-                      <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Effect</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Sev</th>
-                      <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Cause</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Occ</th>
-                      <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Ctrl</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Det</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">RPN</th>
-                      <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Action</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-20">Status</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Sev</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Occ</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Det</th>
-                      <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">R-RPN</th>
-                      <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">OEM Comment</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
+                <Table className="w-full text-xs">
+                  <TableHeader>
+                    <TableRow className="border-b border-border bg-muted/50">
+                      {fmea.fmeaType === "PROCESS" && <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Step</TableHead>}
+                      <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Failure Mode</TableHead>
+                      <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Effect</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Sev</TableHead>
+                      <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Cause</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Occ</TableHead>
+                      <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Ctrl</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Det</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">RPN</TableHead>
+                      <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Action</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-20">Status</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Sev</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Occ</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">R-Det</TableHead>
+                      <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">R-RPN</TableHead>
+                      <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">OEM Comment</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody className="divide-y divide-border">
                     {rows.map((row, i) => (
-                      <tr key={row.id ?? i} className={Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : ""}>
-                        {fmea.fmeaType === "PROCESS" && <td className="px-2 py-2 text-foreground">{row.processStep ?? "—"}</td>}
-                        <td className="max-w-[200px] truncate px-2 py-2 text-foreground">{row.failureMode || "—"}</td>
-                        <td className="max-w-[200px] truncate px-2 py-2 text-muted-foreground">{row.failureEffect || "—"}</td>
-                        <td className="px-2 py-2 text-center text-foreground">{row.severity}</td>
-                        <td className="px-2 py-2 text-muted-foreground">{row.failureCause || "—"}</td>
-                        <td className="px-2 py-2 text-center text-foreground">{row.occurrence}</td>
-                        <td className="px-2 py-2 text-muted-foreground">{(row.preventionControl ?? row.currentControl) || "—"}</td>
-                        <td className="px-2 py-2 text-center text-foreground">{row.detection}</td>
-                        <td className={`px-2 py-2 text-center font-semibold ${row.rpn >= 200 ? "text-destructive" : row.rpn >= 100 ? "text-destructive" : "text-foreground"}`}>{row.rpn}</td>
-                        <td className="px-2 py-2 text-muted-foreground">{row.recommendedAction || "—"}</td>
-                        <td className="px-2 py-2">
+                      <TableRow key={row.id ?? i} className={Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : ""}>
+                        {fmea.fmeaType === "PROCESS" && <TableCell className="px-2 py-2 text-foreground">{row.processStep ?? "—"}</TableCell>}
+                        <TableCell className="max-w-[200px] truncate px-2 py-2 text-foreground">{row.failureMode || "—"}</TableCell>
+                        <TableCell className="max-w-[200px] truncate px-2 py-2 text-muted-foreground">{row.failureEffect || "—"}</TableCell>
+                        <TableCell className="px-2 py-2 text-center text-foreground">{row.severity}</TableCell>
+                        <TableCell className="px-2 py-2 text-muted-foreground">{row.failureCause || "—"}</TableCell>
+                        <TableCell className="px-2 py-2 text-center text-foreground">{row.occurrence}</TableCell>
+                        <TableCell className="px-2 py-2 text-muted-foreground">{(row.preventionControl ?? row.currentControl) || "—"}</TableCell>
+                        <TableCell className="px-2 py-2 text-center text-foreground">{row.detection}</TableCell>
+                        <TableCell className={`px-2 py-2 text-center font-semibold ${row.rpn >= 200 ? "text-destructive" : row.rpn >= 100 ? "text-destructive" : "text-foreground"}`}>{row.rpn}</TableCell>
+                        <TableCell className="px-2 py-2 text-muted-foreground">{row.recommendedAction || "—"}</TableCell>
+                        <TableCell className="px-2 py-2">
                           <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${getActionStatusColor((row.actionStatus ?? "OPEN") as FmeaActionStatus)}`}>
                             {(row.actionStatus ?? "OPEN").replaceAll("_", " ")}
                           </span>
-                        </td>
-                        <td className="px-2 py-2 text-center text-foreground">{row.revisedSeverity ?? "—"}</td>
-                        <td className="px-2 py-2 text-center text-foreground">{row.revisedOccurrence ?? "—"}</td>
-                        <td className="px-2 py-2 text-center text-foreground">{row.revisedDetection ?? "—"}</td>
-                        <td className={`px-2 py-2 text-center font-semibold ${(row.revisedRpn ?? 0) >= 200 ? "text-destructive" : (row.revisedRpn ?? 0) >= 100 ? "text-destructive" : row.revisedRpn != null ? "text-foreground" : ""}`}>{row.revisedRpn ?? "—"}</td>
-                        <td className="max-w-[150px] truncate px-2 py-2 text-muted-foreground">{row.oemComment || "—"}</td>
-                      </tr>
+                        </TableCell>
+                        <TableCell className="px-2 py-2 text-center text-foreground">{row.revisedSeverity ?? "—"}</TableCell>
+                        <TableCell className="px-2 py-2 text-center text-foreground">{row.revisedOccurrence ?? "—"}</TableCell>
+                        <TableCell className="px-2 py-2 text-center text-foreground">{row.revisedDetection ?? "—"}</TableCell>
+                        <TableCell className={`px-2 py-2 text-center font-semibold ${(row.revisedRpn ?? 0) >= 200 ? "text-destructive" : (row.revisedRpn ?? 0) >= 100 ? "text-destructive" : row.revisedRpn != null ? "text-foreground" : ""}`}>{row.revisedRpn ?? "—"}</TableCell>
+                        <TableCell className="max-w-[150px] truncate px-2 py-2 text-muted-foreground">{row.oemComment || "—"}</TableCell>
+                      </TableRow>
                     ))}
                     {rows.length === 0 && (
-                      <tr>
-                        <td colSpan={fmea.fmeaType === "PROCESS" ? 16 : 15} className="px-4 py-8 text-center text-sm text-muted-foreground">
+                      <TableRow>
+                        <TableCell colSpan={fmea.fmeaType === "PROCESS" ? 16 : 15} className="px-4 py-8 text-center text-sm text-muted-foreground">
                           No rows added yet
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     )}
-                  </tbody>
-                </table>
+                  </TableBody>
+                </Table>
               </div>
             )}
           </div>

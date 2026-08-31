@@ -1,5 +1,9 @@
 "use client"
 
+import { Textarea } from "@/components/ui/textarea"
+
+import { Button } from "@/components/ui/button"
+
 import { addDevPlanComment } from "@/app/(dashboard)/quality/oem/supplier-development/actions/plan"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -37,7 +41,7 @@ export function AddCommentForm({ planId }: { planId: string }) {
           {error}
         </div>
       )}
-      <textarea
+      <Textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         rows={3}
@@ -45,13 +49,13 @@ export function AddCommentForm({ planId }: { planId: string }) {
         placeholder="Add a comment or note..."
       />
       <div className="mt-2 flex justify-end">
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting || !message.trim()}
           className="rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50"
         >
           {isSubmitting ? "Adding..." : "Add Comment"}
-        </button>
+        </Button>
       </div>
     </form>
   )

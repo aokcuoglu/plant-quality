@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -16,11 +17,10 @@ import { FIELD_DEFECT_PAGE_SIZE } from "@/lib/field-defect-types"
 import { getFieldDefectSlaStatus } from "@/lib/sla-field-defect"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
-import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
 import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
 import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
-import type { ResolvedField } from "@/lib/custom-fields/types"
 
 const STATUS_FILTERS: { value: string; label: string }[] = [
   { value: "active", label: "Active" },
@@ -46,14 +46,14 @@ const SLA_FILTERS: { value: string; label: string }[] = [
 
 function Th({ children }: { children: React.ReactNode }) {
   return (
-    <th className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+    <TableHead className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
       {children}
-    </th>
+    </TableHead>
   )
 }
 
 function Td({ children }: { children: React.ReactNode }) {
-  return <td className="p-3 align-middle">{children}</td>
+  return <TableCell className="p-3 align-middle">{children}</TableCell>
 }
 
 export default async function OemFieldPage({
@@ -260,9 +260,9 @@ export default async function OemFieldPage({
         </div>
       ) : (
         <div className="rounded-lg border bg-card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b">
-              <tr>
+          <Table className="w-full text-sm">
+            <TableHeader className="border-b">
+              <TableRow>
                 <Th>Title</Th>
                 <Th>Status</Th>
                 <Th>Severity</Th>
@@ -277,11 +277,11 @@ export default async function OemFieldPage({
                 <Th>Report Date</Th>
                 <Th>Created</Th>
                 <CustomFieldsTableHeaders fields={listVisibleFields} />
-              </tr>
-            </thead>
-            <tbody>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {fieldDefects.map((fd) => (
-                <tr key={fd.id} className="border-b transition-colors hover:bg-muted/50">
+                <TableRow key={fd.id} className="border-b transition-colors hover:bg-muted/50">
                   <Td>
                     <Link href={`/quality/oem/field/${fd.id}`} className="font-medium text-foreground hover:underline">
                       {fd.title.length > 40 ? fd.title.slice(0, 40) + "…" : fd.title}
@@ -341,10 +341,10 @@ export default async function OemFieldPage({
                     </span>
                   </Td>
                   <CustomFieldsTableCells fields={listVisibleFields} customFields={fd.customFields ?? null} />
-                </tr>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
 

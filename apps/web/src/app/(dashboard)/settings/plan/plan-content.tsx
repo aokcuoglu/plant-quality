@@ -177,7 +177,7 @@ export async function PlanAndUsageContent({ moduleContext }: PlanAndUsageContent
                       {entitlement.label}
                     </span>
                     {hasModule ? (
-                      <span className="inline-flex items-center rounded-full border border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-foreground">
+                      <span className="inline-flex items-center rounded-full border border-border bg-brand/10 px-1.5 text-[9px] font-semibold uppercase tracking-wider text-foreground">
                         Active
                       </span>
                     ) : (

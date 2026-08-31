@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
@@ -11,7 +12,7 @@ import { PlusIcon } from "lucide-react"
 import { formatDueDate, getActionOwnerLabel } from "@/lib/sla"
 import { getOemSupplierName } from "@/lib/get-oem-supplier-name"
 import { SupplierFilterBadge } from "@/components/supplier-filter-badge"
-import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
+import { resolveFieldConfig } from "@/lib/custom-fields/resolver"
 import { getListVisibleFields, CustomFieldsTableHeaders, CustomFieldsTableCells } from "@/components/custom-fields/CustomFieldsTableColumns"
 import { ExportCsvButton } from "@/components/custom-fields/ExportCsvButton"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
@@ -131,9 +132,9 @@ export default async function DefectsPage({
       </div>
 
       <div className="rounded-lg border bg-card overflow-x-auto">
-        <table className="w-full caption-bottom text-sm">
-          <thead>
-            <tr className="border-b">
+        <Table className="w-full caption-bottom text-sm">
+          <TableHeader>
+            <TableRow className="border-b">
               <Th>Part Number</Th>
               <Th>Description</Th>
               <Th>Supplier</Th>
@@ -145,11 +146,11 @@ export default async function DefectsPage({
               <Th>Status</Th>
               <Th>Created</Th>
               <CustomFieldsTableHeaders fields={listVisibleFields} />
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {defects.map((d) => (
-              <tr key={d.id} className="border-b transition-colors hover:bg-muted/50 cursor-pointer">
+              <TableRow key={d.id} className="border-b transition-colors hover:bg-muted/50 cursor-pointer">
                 <Td className="font-mono text-xs">
                   <a href={`/quality/oem/defects/${d.id}`} className="text-foreground hover:text-primary transition-colors">{d.partNumber}</a>
                 </Td>
@@ -168,7 +169,7 @@ export default async function DefectsPage({
                   </span>
                 </Td>
                 <Td>
-                  <span className={d.evidenceReady ? "inline-block rounded-md bg-muted px-2 py-1 text-xs font-medium text-foreground" : "inline-block rounded-md bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive dark:text-destructive"}>
+                  <span className={d.evidenceReady ? "inline-block rounded-md bg-muted px-2 py-1 text-xs font-medium text-foreground" : "inline-block rounded-md bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive "}>
                     {d.evidenceReady ? "Ready" : "Missing"}
                   </span>
                 </Td>
@@ -179,10 +180,10 @@ export default async function DefectsPage({
                   {d.createdAt.toLocaleDateString()}
                 </Td>
                 <CustomFieldsTableCells fields={listVisibleFields} customFields={d.customFields ?? null} />
-              </tr>
+              </TableRow>
             ))}
             {defects.length === 0 && (
-              <tr>
+              <TableRow>
                 <Td colSpan={10} className="py-16 text-center text-muted-foreground">
                   <div className="flex flex-col items-center gap-2">
                     <p className="text-sm">No defects reported yet.</p>
@@ -191,10 +192,10 @@ export default async function DefectsPage({
                     </Link>
                   </div>
                 </Td>
-              </tr>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
 
       {totalCount > PAGE_SIZE && (
@@ -224,16 +225,16 @@ export default async function DefectsPage({
 
 function Th({ children }: { children: React.ReactNode }) {
   return (
-    <th className="h-11 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider text-muted-foreground">
+    <TableHead className="h-11 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider text-muted-foreground">
       {children}
-    </th>
+    </TableHead>
   )
 }
 
 function Td({ children, className, colSpan }: { children: React.ReactNode; className?: string; colSpan?: number }) {
   return (
-    <td className={`p-3 align-middle ${className ?? ""}`} colSpan={colSpan}>
+    <TableCell className={`p-3 align-middle ${className ?? ""}`} colSpan={colSpan}>
       {children}
-    </td>
+    </TableCell>
   )
 }

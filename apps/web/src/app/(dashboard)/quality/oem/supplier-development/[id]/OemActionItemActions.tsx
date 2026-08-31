@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { updateActionItem } from "@/app/(dashboard)/quality/oem/supplier-development/actions/plan"
@@ -30,29 +32,29 @@ export function OemActionItemActions({ itemId, planId, status, ownerType }: { it
   return (
     <div className="flex flex-wrap gap-1">
       {canMarkComplete && status === "OPEN" && (
-        <button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
+        <Button onClick={() => handleStatusUpdate("IN_PROGRESS")} disabled={isSubmitting !== null} variant="outline" className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
           Start
-        </button>
+        </Button>
       )}
       {canMarkComplete && (
-        <button onClick={() => handleStatusUpdate("COMPLETED")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
+        <Button onClick={() => handleStatusUpdate("COMPLETED")} disabled={isSubmitting !== null} variant="outline" className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
           Complete
-        </button>
+        </Button>
       )}
       {canAccept && (
-        <button onClick={() => handleStatusUpdate("ACCEPTED")} disabled={isSubmitting !== null} className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
+        <Button onClick={() => handleStatusUpdate("ACCEPTED")} disabled={isSubmitting !== null} variant="outline" className="text-xs text-foreground hover:text-foreground transition-colors px-1.5 py-0.5 rounded border border-border hover:border-border disabled:opacity-50">
           Accept
-        </button>
+        </Button>
       )}
       {canReject && (
-        <button onClick={() => handleStatusUpdate("REJECTED")} disabled={isSubmitting !== null} className="text-xs text-destructive hover:text-destructive/80 transition-colors px-1.5 py-0.5 rounded border border-destructive/20 hover:border-destructive/40 disabled:opacity-50">
+        <Button onClick={() => handleStatusUpdate("REJECTED")} disabled={isSubmitting !== null} variant="outline" className="text-xs text-destructive hover:text-destructive/80 transition-colors px-1.5 py-0.5 rounded border border-destructive/20 hover:border-destructive/40 disabled:opacity-50">
           Reject
-        </button>
+        </Button>
       )}
       {status !== "CANCELLED" && status !== "COMPLETED" && status !== "ACCEPTED" && (
-        <button onClick={() => handleStatusUpdate("CANCELLED")} disabled={isSubmitting !== null} className="text-xs text-muted-foreground hover:text-destructive transition-colors px-1.5 py-0.5 disabled:opacity-50">
+        <Button onClick={() => handleStatusUpdate("CANCELLED")} disabled={isSubmitting !== null} variant="destructive" className="text-xs text-muted-foreground hover:text-destructive transition-colors px-1.5 py-0.5 disabled:opacity-50">
           Cancel
-        </button>
+        </Button>
       )}
     </div>
   )

@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { convertTo8D } from "@/app/(dashboard)/field/actions"
@@ -31,13 +33,13 @@ export function ConvertTo8DConfirmation({ fieldDefectId }: { fieldDefectId: stri
         </div>
       )}
       <div className="flex items-center gap-3">
-        <button
+        <Button
           onClick={() => startTransition(handleConvert)}
           disabled={isPending}
-          className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-medium text-white hover:bg-foreground/90 transition-colors disabled:opacity-50"
+          className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 transition-colors disabled:opacity-50"
         >
           {isPending ? "Converting..." : "Convert to 8D"}
-        </button>
+        </Button>
         <a
           href={`/quality/oem/field/${fieldDefectId}`}
           className="rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"

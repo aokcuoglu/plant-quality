@@ -9,8 +9,8 @@ const statusConfig: Record<string, { dot: string; bg: string; label: string }> =
     label: "Open",
   },
   IN_PROGRESS: {
-    dot: "bg-amber-500",
-    bg: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    dot: "bg-destructive",
+    bg: "bg-destructive/10 text-destructive ",
     label: "In Progress",
   },
   WAITING_APPROVAL: {
@@ -19,8 +19,8 @@ const statusConfig: Record<string, { dot: string; bg: string; label: string }> =
     label: "Waiting Approval",
   },
   RESOLVED: {
-    dot: "bg-blue-600",
-    bg: "bg-blue-600/10 text-blue-700 dark:text-blue-500",
+    dot: "bg-brand",
+    bg: "bg-brand/10 text-brand ",
     label: "Resolved",
   },
   REJECTED: {

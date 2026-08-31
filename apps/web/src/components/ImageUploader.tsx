@@ -1,5 +1,11 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useCallback, useState, useRef, type DragEvent } from "react"
 import { ImageIcon, Loader2, XIcon, UploadIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -104,7 +110,7 @@ export function ImageUploader({
 
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium">Images</label>
+      <Label className="text-sm font-medium">Images</Label>
 
       {images.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -116,13 +122,13 @@ export function ImageUploader({
                 alt=""
                 className="h-20 w-20 rounded-md border object-cover"
               />
-              <button
+              <Button
                 type="button"
                 onClick={() => removeImage(img.key)}
-                className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
+                variant="destructive" className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
               >
                 <XIcon className="h-3 w-3" />
-              </button>
+              </Button>
             </div>
           ))}
         </div>
@@ -149,7 +155,7 @@ export function ImageUploader({
             {dragOver ? "Drop images here" : "Click or drag & drop images"}
           </>
         )}
-        <input
+        <Input
           ref={inputRef}
           type="file"
           accept="image/*"

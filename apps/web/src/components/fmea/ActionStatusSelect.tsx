@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { cn } from "@/lib/utils"
 import type { FmeaActionStatusValue } from "@/lib/fmea/types"
 
@@ -18,7 +20,7 @@ const ACTION_OPTIONS: { value: FmeaActionStatusValue; label: string }[] = [
 
 export function ActionStatusSelect({ value, onChange, className }: ActionStatusSelectProps) {
   return (
-    <select
+    <NativeSelect
       value={value}
       onChange={e => onChange(e.target.value as FmeaActionStatusValue)}
       className={cn(
@@ -29,8 +31,8 @@ export function ActionStatusSelect({ value, onChange, className }: ActionStatusS
       )}
     >
       {ACTION_OPTIONS.map(opt => (
-        <option key={opt.value} value={opt.value}>{opt.label}</option>
+        <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
       ))}
-    </select>
+    </NativeSelect>
   )
 }

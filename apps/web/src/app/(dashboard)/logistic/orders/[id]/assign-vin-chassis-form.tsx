@@ -1,9 +1,19 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
+import { useTranslations } from "@/i18n/context"
 
 export function AssignVinChassisForm({ order }: { order: { id: string; vin: string | null; chassisNumber: string | null } }) {
+  const t = useTranslations()
+  const { showAlert } = useAppAlertDialog()
   const [loading, setLoading] = useState(false)
   const [editing, setEditing] = useState(false)
   const router = useRouter()
@@ -13,11 +23,14 @@ export function AssignVinChassisForm({ order }: { order: { id: string; vin: stri
     try {
       const { assignVinChassis } = await import("../../actions")
       const result = await assignVinChassis(order.id, formData)
-      if (result?.error) alert(result.error)
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       setEditing(false)
       router.refresh()
     } catch {
-      alert("Failed to assign VIN/chassis")
+      showAlert(t("logistic.actionErrors.assignVinChassis"))
     } finally {
       setLoading(false)
     }
@@ -34,12 +47,13 @@ export function AssignVinChassisForm({ order }: { order: { id: string; vin: stri
           <dt className="text-muted-foreground">Chassis Number</dt>
           <dd className="font-mono text-foreground">{order.chassisNumber ?? "—"}</dd>
         </div>
-        <button
+        <Button
+          variant="outline"
           onClick={() => setEditing(true)}
           className="mt-2 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           Assign VIN / Chassis
-        </button>
+        </Button>
       </dl>
     )
   }
@@ -47,8 +61,8 @@ export function AssignVinChassisForm({ order }: { order: { id: string; vin: stri
   return (
     <form action={handleSave} className="space-y-3">
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">VIN</label>
-        <input
+        <Label className="text-xs text-muted-foreground">VIN</Label>
+        <Input
           type="text"
           name="vin"
           defaultValue={order.vin ?? ""}
@@ -57,8 +71,8 @@ export function AssignVinChassisForm({ order }: { order: { id: string; vin: stri
         />
       </div>
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">Chassis Number</label>
-        <input
+        <Label className="text-xs text-muted-foreground">Chassis Number</Label>
+        <Input
           type="text"
           name="chassisNumber"
           defaultValue={order.chassisNumber ?? ""}
@@ -67,20 +81,21 @@ export function AssignVinChassisForm({ order }: { order: { id: string; vin: stri
         />
       </div>
       <div className="flex items-center gap-2">
-        <button
+        <Button
           type="submit"
           disabled={loading}
           className="rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-foreground/90 disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save"}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           onClick={() => setEditing(false)}
           className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   )

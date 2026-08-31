@@ -1,6 +1,7 @@
+import { Skeleton } from "@/components/ui/skeleton"
 export default function Loading() {
   return (
-    <div className="space-y-6 animate-pulse">
+    <Skeleton className="space-y-6 ">
       <div className="h-6 w-48 rounded bg-muted" />
       <div className="h-4 w-64 rounded bg-muted/60" />
       <div className="rounded-lg border bg-card p-6 space-y-4">
@@ -13,6 +14,6 @@ export default function Loading() {
         <div className="h-4 w-full rounded bg-muted/60" />
         <div className="h-4 w-2/3 rounded bg-muted/60" />
       </div>
-    </div>
+    </Skeleton>
   )
 }

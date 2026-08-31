@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { changeFieldDefectStatus } from "@/app/(dashboard)/field/actions"
@@ -50,14 +52,15 @@ export function ChangeStatusForm({ fieldDefectId, currentStatus }: { fieldDefect
       </div>
       <div className="px-4 py-3 space-y-2">
         {nextStatuses.map((status) => (
-          <button
+          <Button
             key={status}
+            variant="outline"
             onClick={() => handleStatusChange(status)}
             disabled={isPending}
             className="w-full rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted transition-colors disabled:opacity-50 text-left"
           >
             {FIELD_DEFECT_STATUS_LABELS[status]}
-          </button>
+          </Button>
         ))}
         {error && <p className="text-xs text-destructive">{error}</p>}
       </div>

@@ -1,6 +1,8 @@
 "use client"
 
-import { useState, useCallback, useEffect, useRef } from "react"
+import { Button } from "@/components/ui/button"
+
+import { useState, useCallback, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { BellIcon, InfoIcon, AlertTriangleIcon, GitPullRequestIcon, ClockIcon, FileTextIcon, ClipboardCheckIcon, ShieldAlertIcon, XCircleIcon, BugIcon, MessageSquareIcon, TrendingUpIcon, CheckCheckIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -8,6 +10,12 @@ import { cn } from "@/lib/utils"
 import type { NotificationType } from "@plantx/db/client"
 import { useTranslations } from "@/i18n/context"
 import type { Translator } from "@/i18n/types"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type Notification = {
   id: string
@@ -31,7 +39,6 @@ export function NotificationBell({
   const [unreadCount, setUnreadCount] = useState(initialUnreadCount ?? 0)
   const [markingAll, setMarkingAll] = useState(false)
   const router = useRouter()
-  const ref = useRef<HTMLDivElement>(null)
   const t = useTranslations()
 
   const typeIcon = (type: NotificationType) => {
@@ -120,24 +127,17 @@ export function NotificationBell({
     }
   }, [initialNotifications])
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setOpen(false)
-      }
-    }
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside)
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [open])
-
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="relative flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-        aria-label={t("shell.notifications.title")}
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative text-muted-foreground"
+            aria-label={t("shell.notifications.title")}
+          />
+        }
       >
         <BellIcon className="h-4 w-4" />
         {unreadCount > 0 && (
@@ -148,22 +148,21 @@ export function NotificationBell({
             {unreadCount > 9 ? "9+" : unreadCount}
           </Badge>
         )}
-      </button>
+      </DropdownMenuTrigger>
 
-      {open && (
-        <div className="absolute right-0 top-full mt-2 z-50 w-80 rounded-lg border bg-popover text-popover-foreground shadow-lg">
+      <DropdownMenuContent align="end" sideOffset={8} className="w-80 p-0">
           <div className="flex items-center justify-between border-b px-4 py-2.5">
             <span className="text-sm font-medium">{t("shell.notifications.title")}</span>
             <div className="flex items-center gap-2">
               {unreadCount > 0 && (
-                <button
+                <Button
                   onClick={handleMarkAllRead}
                   disabled={markingAll}
-                  className="flex items-center gap-1 text-xs text-foreground hover:text-foreground dark:text-foreground dark:hover:text-muted-foreground disabled:opacity-50 transition-colors"
+                  variant="ghost" className="flex items-center gap-1 text-xs text-foreground hover:text-foreground   disabled:opacity-50 transition-colors"
                 >
                   <CheckCheckIcon className="h-3 w-3" />
                   {markingAll ? t("shell.notifications.marking") : t("shell.notifications.markAllRead")}
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -176,11 +175,11 @@ export function NotificationBell({
               </div>
             ) : (
               notifications.map((notification) => (
-                <button
+                <DropdownMenuItem
                   key={notification.id}
-                  onClick={() => handleClick(notification)}
+                  onClick={() => void handleClick(notification)}
                   className={cn(
-                    "flex w-full gap-3 px-4 py-3 text-left text-sm transition-colors hover:bg-accent cursor-pointer",
+                    "flex w-full cursor-pointer items-start gap-3 rounded-none px-4 py-3 text-left text-sm",
                     !notification.isRead && "bg-accent/50"
                   )}
                 >
@@ -206,13 +205,12 @@ export function NotificationBell({
                       {formatRelativeTime(notification.createdAt, t)}
                     </p>
                   </div>
-                </button>
+                </DropdownMenuItem>
               ))
             )}
           </div>
-        </div>
-      )}
-    </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

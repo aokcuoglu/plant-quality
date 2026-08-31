@@ -1,10 +1,13 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
 import { useState, useEffect, useRef, useCallback } from "react"
 import { createPortal } from "react-dom"
 import { CheckIcon, ChevronsUpDownIcon, Loader2Icon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "@/i18n/context"
 
 interface UserOption {
   id: string
@@ -25,6 +28,7 @@ export function UserSearchSelect({
   excludeIds?: string[]
   selectedName?: string
 }) {
+  const t = useTranslations()
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState<UserOption[]>([])
   const [loading, setLoading] = useState(false)
@@ -113,11 +117,11 @@ export function UserSearchSelect({
       {open && createPortal(
         <div style={{ ...dropdownStyle, minWidth: "240px", width: "auto" }} className="rounded-md border bg-popover shadow-md">
           <div className="border-b p-1.5">
-            <input
+            <Input
               autoFocus
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search users..."
+              placeholder={t("common.searchUsers")}
               className="w-full rounded-md bg-transparent px-2 py-1 text-xs outline-none placeholder:text-muted-foreground"
             />
           </div>
@@ -127,14 +131,15 @@ export function UserSearchSelect({
                 <Loader2Icon className="h-4 w-4 animate-spin text-muted-foreground" />
               </div>
             ) : filtered.length === 0 ? (
-              <p className="py-2 text-center text-xs text-muted-foreground">No users found</p>
+              <p className="py-2 text-center text-xs text-muted-foreground">{t("common.noUsersFound")}</p>
             ) : (
               filtered.map((user) => (
-                <button
+                <Button
                   key={user.id}
                   type="button"
+                  variant="ghost"
                   className={cn(
-                    "flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-xs hover:bg-accent",
+                    "h-auto w-full justify-start gap-2 rounded-sm px-2 py-1.5 text-xs",
                     value === user.id && "bg-accent",
                   )}
                   onClick={() => {
@@ -150,7 +155,7 @@ export function UserSearchSelect({
                     <span>{user.name}</span>
                     <span className="text-[10px] text-muted-foreground">{user.email}</span>
                   </div>
-                </button>
+                </Button>
               ))
             )}
           </div>

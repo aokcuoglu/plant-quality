@@ -1,5 +1,7 @@
 "use client"
 
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
+
 import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { Plus, Trash2, UserCog, ShieldCheck, Boxes, Check } from "lucide-react"
@@ -220,24 +222,24 @@ export function UsersClient({
         <CardContent>
           <div className="rounded-lg border bg-card">
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    <th className="px-4 py-3 text-left">Kullanıcı</th>
-                    <th className="px-4 py-3 text-left">Rol</th>
-                    <th className="px-4 py-3 text-left">Modüller</th>
-                    <th className="px-4 py-3 text-left">Ekleme</th>
-                    <th className="px-4 py-3 text-left">İşlemler</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y">
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    <TableHead className="px-4 py-3 text-left">Kullanıcı</TableHead>
+                    <TableHead className="px-4 py-3 text-left">Rol</TableHead>
+                    <TableHead className="px-4 py-3 text-left">Modüller</TableHead>
+                    <TableHead className="px-4 py-3 text-left">Ekleme</TableHead>
+                    <TableHead className="px-4 py-3 text-left">İşlemler</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody className="divide-y">
                   {users.map((u) => (
-                    <tr key={u.id} className="hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={u.id} className="hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <div className="text-sm font-medium text-foreground">{u.name ?? u.email}</div>
                         <div className="text-xs text-muted-foreground">{u.email}</div>
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         <Select
                           value={u.role}
                           onValueChange={(v) => run(() => updateUserRole(u.id, v as never))}
@@ -254,11 +256,11 @@ export function UsersClient({
                             ))}
                           </SelectContent>
                         </Select>
-                      </td>
-                      <td className="px-4 py-3 text-xs text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-xs text-muted-foreground">
                         {ROLE_DESCRIPTIONS[u.role] ?? u.role}
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {u.role === "ADMIN" ? (
                           <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
                             <ShieldCheck className="size-3" /> Tümü (Admin)
@@ -266,13 +268,13 @@ export function UsersClient({
                         ) : editingModules === u.id ? (
                           <div className="flex items-center gap-2">
                             {availableModules.map((m) => (
-                              <label key={m.value} className="flex items-center gap-1.5 text-xs">
+                              <Label key={m.value} className="flex items-center gap-1.5 text-xs">
                                 <Checkbox
                                   checked={editModules.includes(m.value)}
                                   onCheckedChange={() => setEditModules((prev) => toggleModule(prev, m.value))}
                                 />
                                 {m.label}
-                              </label>
+                              </Label>
                             ))}
                             <Button
                               size="sm"
@@ -312,21 +314,21 @@ export function UsersClient({
                             )}
                           </div>
                         )}
-                        <button
+                        <Button
                           onClick={() => {
                             setEditingModules(u.id)
                             setEditModules(u.modules)
                           }}
                           disabled={isPending || u.role === "ADMIN"}
-                          className="mt-1 text-[10px] font-medium text-foreground hover:underline disabled:opacity-50"
+                          variant="ghost" className="mt-1 text-[10px] font-medium text-foreground hover:underline disabled:opacity-50"
                         >
                           Modül erişimini düzenle
-                        </button>
-                      </td>
-                      <td className="px-4 py-3 text-xs text-muted-foreground">
+                        </Button>
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-xs text-muted-foreground">
                         {new Date(u.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {u.role === "ADMIN" ? (
                           <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
                             <ShieldCheck className="size-3" /> Admin
@@ -342,11 +344,11 @@ export function UsersClient({
                             <Trash2 className="size-3.5" /> Sil
                           </Button>
                         )}
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           </div>
         </CardContent>
@@ -455,7 +457,7 @@ export function UsersClient({
               <Label>Modül Erişimi</Label>
               <div className="grid gap-2">
                 {availableModules.map((m) => (
-                  <label
+                  <Label
                     key={m.value}
                     className="flex items-center gap-3 rounded-lg border border-border bg-background p-3 text-sm hover:bg-muted/40"
                   >
@@ -469,7 +471,7 @@ export function UsersClient({
                       </div>
                       <div className="text-xs text-muted-foreground">{m.hint}</div>
                     </div>
-                  </label>
+                  </Label>
                 ))}
               </div>
               <p className="text-[11px] text-muted-foreground">

@@ -43,12 +43,12 @@ export const SLA_STATUS_CONFIG: Record<SlaStatus, { label: string; dotClass: str
   "due-soon": {
     label: "Due Soon",
     dotClass: "bg-destructive",
-    bgClass: "bg-destructive/10 text-destructive dark:text-destructive",
+    bgClass: "bg-destructive/10 text-destructive ",
   },
   "on-track": {
     label: "On Track",
     dotClass: "bg-foreground",
-    bgClass: "bg-muted text-muted-foreground dark:text-foreground",
+    bgClass: "bg-muted text-muted-foreground ",
   },
   "no-sla": {
     label: "No SLA",
@@ -58,6 +58,6 @@ export const SLA_STATUS_CONFIG: Record<SlaStatus, { label: string; dotClass: str
   completed: {
     label: "Completed",
     dotClass: "bg-foreground",
-    bgClass: "bg-muted text-muted-foreground dark:text-foreground",
+    bgClass: "bg-muted text-muted-foreground ",
   },
 }

@@ -1,3 +1,7 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
@@ -68,28 +72,27 @@ export default async function PlanSheetsPage({
       </div>
 
       <form className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <select
+        <NativeSelect
           name="status"
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
           defaultValue={statusFilter}
         >
-          <option value="">Tüm durumlar</option>
+          <NativeSelectOption value="">Tüm durumlar</NativeSelectOption>
           {statusOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
           ))}
-        </select>
-        <input
+        </NativeSelect>
+        <Input
           type="month"
           name="periodMonth"
           defaultValue={periodFilter}
           className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
         />
-        <button
+        <Button
           type="submit"
           className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
         >
           Filtrele
-        </button>
+        </Button>
       </form>
 
       {sheets.length === 0 ? (
@@ -103,44 +106,44 @@ export default async function PlanSheetsPage({
       ) : (
         <div className="rounded-lg border bg-card">
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  <th className="px-4 py-3 text-left">Plan #</th>
-                  <th className="px-4 py-3 text-left">Başlık</th>
-                  <th className="px-4 py-3 text-left">Dönem</th>
-                  <th className="px-4 py-3 text-left">Kanal</th>
-                  <th className="px-4 py-3 text-left">Durum</th>
-                  <th className="px-4 py-3 text-left">Satır</th>
-                  <th className="px-4 py-3 text-left">Sipariş</th>
-                  <th className="px-4 py-3 text-left">Oluşturan</th>
-                  <th className="px-4 py-3 text-left">Oluşturma</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <TableHead className="px-4 py-3 text-left">Plan #</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Başlık</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Dönem</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Kanal</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Durum</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Satır</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Sipariş</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Oluşturan</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Oluşturma</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {sheets.map((sheet) => (
-                  <tr key={sheet.id} className="group hover:bg-muted/50">
-                    <td className="px-4 py-3">
+                  <TableRow key={sheet.id} className="group hover:bg-muted/50">
+                    <TableCell className="px-4 py-3">
                       <Link href={`/logistic/plan-sheets/${sheet.id}`} className="text-sm font-medium text-foreground hover:text-foreground">
                         {sheet.planNumber}
                       </Link>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{sheet.title}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{sheet.periodMonth}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{PLAN_SHEET_CHANNEL[sheet.channel]}</td>
-                    <td className="px-4 py-3">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{sheet.title}</TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{sheet.periodMonth}</TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{PLAN_SHEET_CHANNEL[sheet.channel]}</TableCell>
+                    <TableCell className="px-4 py-3">
                       <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${PLAN_SHEET_STATUS_COLOR[sheet.status]}`}>
                         {PLAN_SHEET_STATUS[sheet.status]}
                       </span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{sheet._count.lines}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{sheet._count.orders}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{sheet.createdBy?.name ?? "—"}</td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">{sheet.createdAt.toLocaleDateString()}</td>
-                  </tr>
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{sheet._count.lines}</TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{sheet._count.orders}</TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{sheet.createdBy?.name ?? "—"}</TableCell>
+                    <TableCell className="px-4 py-3 text-sm text-muted-foreground">{sheet.createdAt.toLocaleDateString()}</TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

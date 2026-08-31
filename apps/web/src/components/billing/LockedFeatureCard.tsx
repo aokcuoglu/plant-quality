@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { normalizePlan, type PlanKey } from "@/lib/billing/plans"
 import { checkFeatureAccess, type FeatureKey } from "@/lib/billing/features"
@@ -64,13 +66,13 @@ export function LockedFeatureCard({ featureKey, currentPlan, companyType, title,
               Billing integration is not enabled yet. Please contact PlantX sales or your system administrator to upgrade.
             </p>
           </div>
-          <button
+          <Button
             type="button"
             onClick={() => setDialogOpen(true)}
             className="shrink-0 rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-primary-foreground hover:bg-foreground/90 transition-colors"
           >
             Upgrade
-          </button>
+          </Button>
         </div>
       </div>
       <UpgradeRequestDialog

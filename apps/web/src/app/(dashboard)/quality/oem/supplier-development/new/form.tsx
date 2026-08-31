@@ -1,5 +1,14 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -127,8 +136,8 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Title *</label>
-              <input
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Title *</Label>
+              <Input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -139,70 +148,66 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Supplier *</label>
-              <select
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Supplier *</Label>
+              <NativeSelect
                 value={supplierId}
-                onChange={(e) => setSupplierId(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
+                onChange={(e) => setSupplierId(e.target.value)} className="w-full"
                 required
               >
-                <option value="">Select supplier</option>
+                <NativeSelectOption value="">Select supplier</NativeSelectOption>
                 {suppliers.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
+                  <NativeSelectOption key={s.id} value={s.id}>{s.name}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Priority</label>
-              <select
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Priority</Label>
+              <NativeSelect
                 value={priority}
-                onChange={(e) => setPriority(e.target.value as DevPlanPriority)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
+                onChange={(e) => setPriority(e.target.value as DevPlanPriority)} className="w-full"
               >
-                <option value="LOW">Low</option>
-                <option value="MEDIUM">Medium</option>
-                <option value="HIGH">High</option>
-                <option value="CRITICAL">Critical</option>
-              </select>
+                <NativeSelectOption value="LOW">Low</NativeSelectOption>
+                <NativeSelectOption value="MEDIUM">Medium</NativeSelectOption>
+                <NativeSelectOption value="HIGH">High</NativeSelectOption>
+                <NativeSelectOption value="CRITICAL">Critical</NativeSelectOption>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Due Date</label>
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Due Date</Label>
               <DatePicker value={dueDate} onChange={setDueDate} placeholder="mm / dd / yyyy" />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Source Type</label>
-              <select
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Source Type</Label>
+              <NativeSelect
                 value={sourceType}
-                onChange={(e) => setSourceType(e.target.value as DevPlanSourceType | "")}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
+                onChange={(e) => setSourceType(e.target.value as DevPlanSourceType | "")} className="w-full"
               >
-                <option value="">None</option>
+                <NativeSelectOption value="">None</NativeSelectOption>
                 {Object.entries(SOURCE_TYPE_LABELS).map(([key, label]) => (
-                  <option key={key} value={key}>{label}</option>
+                  <NativeSelectOption key={key} value={key}>{label}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Owner</label>
-              <select
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Owner</Label>
+              <NativeSelect
                 value={ownerId}
-                onChange={(e) => setOwnerId(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 focus:border-foreground"
+                onChange={(e) => setOwnerId(e.target.value)} className="w-full"
               >
-                <option value="">Unassigned</option>
+                <NativeSelectOption value="">Unassigned</NativeSelectOption>
                 {oemUsers.map((u) => (
-                  <option key={u.id} value={u.id}>{u.name || u.id}</option>
+                  <NativeSelectOption key={u.id} value={u.id}>{u.name || u.id}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 sm:col-span-2">
-              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</label>
-              <textarea
+              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Description</Label>
+              <Textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
@@ -213,17 +218,22 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Initial Status</label>
-            <div className="flex gap-3">
-              <label className="flex items-center gap-2 text-sm text-foreground">
-                <input type="radio" name="initialStatus" value="DRAFT" checked={status === "DRAFT"} onChange={() => setStatus("DRAFT")} className="accent-blue-600" />
+            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Initial Status</Label>
+            <RadioGroup
+              name="initialStatus"
+              value={status}
+              onValueChange={(value) => setStatus(value as "DRAFT" | "OPEN")}
+              className="flex gap-3"
+            >
+              <Label className="flex items-center gap-2 text-sm text-foreground">
+                <RadioGroupItem value="DRAFT" />
                 Draft
-              </label>
-              <label className="flex items-center gap-2 text-sm text-foreground">
-                <input type="radio" name="initialStatus" value="OPEN" checked={status === "OPEN"} onChange={() => setStatus("OPEN")} className="accent-blue-600" />
+              </Label>
+              <Label className="flex items-center gap-2 text-sm text-foreground">
+                <RadioGroupItem value="OPEN" />
                 Open (visible to supplier immediately)
-              </label>
-            </div>
+              </Label>
+            </RadioGroup>
           </div>
         </div>
 
@@ -243,13 +253,13 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
                 <div key={item.id} className="rounded-md border border-border p-3 space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-muted-foreground">Item {idx + 1}</span>
-                    <button type="button" onClick={() => removeActionItem(item.id)} className="text-muted-foreground hover:text-destructive transition-colors">
+                    <Button type="button" onClick={() => removeActionItem(item.id)} variant="destructive" className="text-muted-foreground hover:text-destructive transition-colors">
                       <TrashIcon className="h-4 w-4" />
-                    </button>
+                    </Button>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div>
-                      <input
+                      <Input
                         type="text"
                         value={item.title}
                         onChange={(e) => updateActionItem(item.id, "title", e.target.value)}
@@ -258,18 +268,17 @@ export function CreateDevPlanForm({ suppliers, oemUsers, prefillSupplierId, pref
                       />
                     </div>
                     <div className="flex gap-3">
-                      <select
+                      <NativeSelect
                         value={item.ownerType}
                         onChange={(e) => updateActionItem(item.id, "ownerType", e.target.value)}
-                        className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
                       >
-                        <option value="OEM">OEM</option>
-                        <option value="SUPPLIER">Supplier</option>
-                      </select>
+                        <NativeSelectOption value="OEM">OEM</NativeSelectOption>
+                        <NativeSelectOption value="SUPPLIER">Supplier</NativeSelectOption>
+                      </NativeSelect>
                       <DatePicker value={item.dueDate} onChange={(d) => updateActionItem(item.id, "dueDate", d)} placeholder="mm / dd / yyyy" />
                     </div>
                     <div className="sm:col-span-2">
-                      <input
+                      <Input
                         type="text"
                         value={item.description}
                         onChange={(e) => updateActionItem(item.id, "description", e.target.value)}

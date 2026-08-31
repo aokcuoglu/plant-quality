@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import * as Sentry from "@sentry/nextjs"
 import { useEffect } from "react"
 
@@ -25,12 +27,12 @@ export default function GlobalError({
             <p className="text-sm text-muted-foreground">
               An unexpected error occurred. Our team has been notified.
             </p>
-            <button
+            <Button
               onClick={reset}
-              className="inline-flex items-center justify-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-foreground/90"
+              className="inline-flex items-center justify-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-foreground/90"
             >
               Try again
-            </button>
+            </Button>
           </div>
         </div>
       </body>

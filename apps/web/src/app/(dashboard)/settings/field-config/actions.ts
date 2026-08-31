@@ -15,11 +15,6 @@ function jsonValue(value: unknown): Prisma.InputJsonValue | undefined {
   return value as Prisma.InputJsonValue
 }
 
-function requireEnterprise() {
-  const session = auth
-  return session
-}
-
 export async function getFieldConfig(
   entity: CustomFieldEntity
 ): Promise<{ resolved: ResolvedFields | null; error?: string }> {

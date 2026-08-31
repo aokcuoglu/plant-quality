@@ -136,11 +136,11 @@
 
 @layer base {
   :root {
-    --brand: oklch(0.62 0.19 254);
-    --brand-foreground: oklch(0.98 0 0);
+    --brand: oklch(0.696 0.17 162.5);
+    --brand-foreground: oklch(0.145 0 0);
   }
   .dark {
-    --brand: oklch(0.62 0.19 254);
+    --brand: oklch(0.696 0.17 162.5);
     --brand-foreground: oklch(0.145 0 0);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "plantx",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "private": true,
   "packageManager": "npm@11.16.0",
   "workspaces": [
@@ -22,6 +22,12 @@
     "desktop:dev": "node scripts/desktop-build.mjs && electron apps/desktop/dist",
     "desktop:dist": "electron-builder --config electron-builder.yml",
     "desktop:release": "node scripts/desktop-build.mjs && electron-builder --config electron-builder.yml"
+  },
+  "dependencies": {
+    "nodemailer": "9.0.6"
+  },
+  "overrides": {
+    "nodemailer": "9.0.6"
   },
   "devDependencies": {
     "@types/node": "^20",

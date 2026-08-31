@@ -1,5 +1,7 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { completeIqcInspection } from "../actions/report"
@@ -7,6 +9,7 @@ import type { IqcResult } from "@plantx/db/client"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 
 const RESULT_OPTIONS: { value: IqcResult; label: string; group: "positive" | "conditional" | "negative" }[] = [
@@ -89,12 +92,17 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Result <span className="text-destructive">*</span></label>
-              <div className="space-y-1">
+              <Label className="text-sm font-medium text-foreground">Result <span className="text-destructive">*</span></Label>
+              <RadioGroup
+                name="iqc-result"
+                value={result}
+                onValueChange={(value) => setResult(value as IqcResult)}
+                className="space-y-1"
+              >
                 {RESULT_OPTIONS.map((opt) => {
                   const isDisabled = opt.value === "ACCEPTED" && acceptedDisabled
                   return (
-                    <label
+                    <Label
                       key={opt.value}
                       className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm cursor-pointer transition-colors ${
                         isDisabled
@@ -104,20 +112,15 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
                             : "border-border bg-background text-foreground hover:bg-muted/50"
                       }`}
                     >
-                      <input
-                        type="radio"
-                        name="iqc-result"
+                      <RadioGroupItem
                         value={opt.value}
-                        checked={result === opt.value}
-                        onChange={() => !isDisabled && setResult(opt.value)}
                         disabled={isDisabled}
-                        className="accent-blue-600"
                       />
                       <span className={isDisabled ? "line-through" : ""}>{opt.label}</span>
-                    </label>
+                    </Label>
                   )
                 })}
-              </div>
+              </RadioGroup>
               {acceptedDisabled && (
                 <p className="text-xs text-muted-foreground">Accepted is unavailable while checklist contains NOK items.</p>
               )}
@@ -125,7 +128,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Quantity Accepted</label>
+                <Label className="text-sm font-medium text-foreground">Quantity Accepted</Label>
                 <Input
                   type="number"
                   min="0"
@@ -135,7 +138,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Quantity Rejected</label>
+                <Label className="text-sm font-medium text-foreground">Quantity Rejected</Label>
                 <Input
                   type="number"
                   min="0"
@@ -147,7 +150,7 @@ export function CompleteInspectionDialog({ inspectionId, hasNokItems }: { inspec
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Disposition Notes</label>
+              <Label className="text-sm font-medium text-foreground">Disposition Notes</Label>
               <Textarea
                 value={dispositionNotes}
                 onChange={(e) => setDispositionNotes(e.target.value)}

@@ -1,5 +1,9 @@
 "use client"
 
+import { Textarea } from "@/components/ui/textarea"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { addFieldDefectComment } from "@/app/(dashboard)/field/actions"
@@ -66,20 +70,20 @@ export function SupplierCommentSection({
       </div>
       {canComment && (
         <form onSubmit={handleSubmit} className="px-4 py-3 border-t border-border space-y-2">
-          <textarea
+          <Textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Add a comment..."
             rows={2}
             className="flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           />
-          <button
+          <Button
             type="submit"
             disabled={submitting || !newComment.trim()}
             className="rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
           >
             {submitting ? "Adding..." : "Add Comment"}
-          </button>
+          </Button>
           {error && <p className="text-xs text-destructive">{error}</p>}
         </form>
       )}

@@ -21,11 +21,11 @@ export const ESCALATION_COLORS: Record<EscalationLevel, { dot: string; bg: strin
   },
   LEVEL_1: {
     dot: "bg-destructive",
-    bg: "bg-destructive/10 text-destructive dark:text-destructive",
+    bg: "bg-destructive/10 text-destructive ",
   },
   LEVEL_2: {
     dot: "bg-destructive/60",
-    bg: "bg-destructive/10 text-destructive dark:text-destructive",
+    bg: "bg-destructive/10 text-destructive ",
   },
   LEVEL_3: {
     dot: "bg-destructive",

@@ -70,7 +70,7 @@ export function UpgradeModal({
               </div>
             </div>
 
-            <div className="space-y-3 rounded-lg border bg-destructive/5 p-4 dark:bg-amber-950/10">
+            <div className="space-y-3 rounded-lg border bg-destructive/5 p-4 ">
               <h4 className="text-sm font-semibold">PRO Features</h4>
               <ul className="space-y-2">
                 {PRO_FEATURES.map((f) => (

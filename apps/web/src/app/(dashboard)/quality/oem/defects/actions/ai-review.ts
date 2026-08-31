@@ -3,8 +3,8 @@
 import { isEditorRole } from "@/lib/roles"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import { reviewEightD, type Ai8dReviewResult, type EightDCompletenessResult } from "@/lib/ai/review-8d"
-import { suggestRootCause, type RootCauseSuggestion } from "@/lib/ai/root-cause-suggestion"
+import { reviewEightD } from "@/lib/ai/review-8d"
+import { suggestRootCause } from "@/lib/ai/root-cause-suggestion"
 import { isAiEnabled } from "@/lib/ai/provider"
 import { validateEightDCompleteness } from "@/lib/ai/validate-8d-completeness"
 import { requireFeature } from "@/lib/billing"
@@ -346,4 +346,3 @@ export async function getLatestAi8dReview(defectId: string) {
 
   return latestReview
 }
-

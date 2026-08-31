@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { createIqcInspection } from "../actions/report"
@@ -57,17 +59,16 @@ export function IqcCreateForm({
           <Label htmlFor="supplierId">
             Supplier <span className="text-destructive">*</span>
           </Label>
-          <select
+          <NativeSelect
             id="supplierId"
             name="supplierId"
-            required
-            className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            required className="w-full"
           >
-            <option value="">Select a supplier...</option>
+            <NativeSelectOption value="">Select a supplier...</NativeSelectOption>
             {suppliers.map((s) => (
-              <option key={s.id} value={s.id}>{s.name}</option>
+              <NativeSelectOption key={s.id} value={s.id}>{s.name}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div className="space-y-2">
@@ -84,15 +85,14 @@ export function IqcCreateForm({
 
         <div className="space-y-2">
           <Label htmlFor="inspectionType">Inspection Type</Label>
-          <select
+          <NativeSelect
             id="inspectionType"
-            name="inspectionType"
-            className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            name="inspectionType" className="w-full"
           >
             {IQC_INSPECTION_TYPES.map((t) => (
-              <option key={t.value} value={t.value}>{t.label}</option>
+              <NativeSelectOption key={t.value} value={t.value}>{t.label}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div className="space-y-2">

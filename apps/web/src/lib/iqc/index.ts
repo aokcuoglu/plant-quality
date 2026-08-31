@@ -62,7 +62,7 @@ export function getIqcStatusColor(status: string): string {
     case "IN_PROGRESS":
       return "bg-muted text-muted-foreground"
     case "PLANNED":
-      return "bg-cyan-500/10 text-cyan-400"
+      return "bg-brand/10 text-brand"
     case "DRAFT":
       return "bg-muted text-muted-foreground"
     default:
@@ -83,7 +83,7 @@ export function getIqcResultColor(result: string | null): string {
     case "REWORK_REQUIRED":
       return "bg-destructive/10 text-destructive"
     case "SORTING_REQUIRED":
-      return "bg-yellow-500/10 text-yellow-400"
+      return "bg-destructive/10 text-destructive"
     default:
       return "bg-muted text-muted-foreground"
   }

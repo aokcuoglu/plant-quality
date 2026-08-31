@@ -1,5 +1,11 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useEffect } from "react"
 import { signIn } from "next-auth/react"
 import { ArrowRight, Terminal } from "lucide-react"
@@ -39,31 +45,30 @@ export function DevLoginForm({ redirectTo }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground flex items-center gap-2">
+        <Label className="text-sm font-medium text-foreground flex items-center gap-2">
           <Terminal className="size-4 text-foreground" />
           Development Login
-        </label>
-        <select
+        </Label>
+        <NativeSelect
           name="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="flex h-11 w-full rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground outline-none ring-offset-background transition-all focus-visible:ring-2 focus-visible:ring-foreground/20 focus-visible:border-foreground/20 hover:border-accent"
+          onChange={(e) => setEmail(e.target.value)} className="w-full"
         >
           {accounts.map((acc) => (
-            <option key={acc.email} value={acc.email}>
+            <NativeSelectOption key={acc.email} value={acc.email}>
               {acc.label}
-            </option>
+            </NativeSelectOption>
           ))}
-        </select>
+        </NativeSelect>
       </div>
-      <button
+      <Button
         type="submit"
         disabled={!ready || loading}
         className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-foreground px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-foreground/10 transition-all hover:bg-foreground/80 hover:shadow-foreground/15 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? "Signing in..." : "Sign In (Dev Mode)"}
         <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-      </button>
+      </Button>
     </form>
   )
 }

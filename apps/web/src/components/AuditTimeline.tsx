@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { EVENT_META, type EventMeta } from "@/lib/event-labels"
 import type { DefectEventType } from "@plantx/db/client"
@@ -151,13 +153,13 @@ export function AuditTimeline({ events, initialLimit = DEFAULT_LIMIT }: AuditTim
         })}
       </div>
       {grouped.length > initialLimit && (
-        <button
+        <Button
           type="button"
           onClick={() => setShowAll(!showAll)}
-          className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+          variant="ghost" className="text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
           {showAll ? "Show less" : `Show all ${grouped.length} events`}
-        </button>
+        </Button>
       )}
     </div>
   )

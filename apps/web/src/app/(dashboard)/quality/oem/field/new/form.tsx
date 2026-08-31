@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useRef, useState, useTransition } from "react"
 import Link from "next/link"
 import { createFieldDefect } from "@/app/(dashboard)/field/actions"
@@ -84,45 +86,43 @@ export function NewFieldDefectForm({
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="source">Source</Label>
-              <select
+              <NativeSelect
                 id="source"
                 name="source"
-                defaultValue="FIELD"
-                className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                defaultValue="FIELD" className="w-full"
               >
                 {sourceOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="severity">Severity</Label>
-              <select
+              <NativeSelect
                 id="severity"
                 name="severity"
-                defaultValue="MAJOR"
-                className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                defaultValue="MAJOR" className="w-full"
               >
                 {severityOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
           </div>
 
           <div className="flex gap-6 pt-1">
-            <label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2">
               <Checkbox name="safetyImpact" />
               <span className="text-sm">Safety Impact</span>
-            </label>
-            <label className="flex items-center gap-2">
+            </Label>
+            <Label className="flex items-center gap-2">
               <Checkbox name="vehicleDown" />
               <span className="text-sm">Vehicle Down</span>
-            </label>
-            <label className="flex items-center gap-2">
+            </Label>
+            <Label className="flex items-center gap-2">
               <Checkbox name="repeatIssue" />
               <span className="text-sm">Repeat Issue</span>
-            </label>
+            </Label>
           </div>
         </div>
 
@@ -173,18 +173,17 @@ export function NewFieldDefectForm({
             </div>
             <div className="sm:col-span-2 space-y-1.5">
               <Label htmlFor="supplierId">Supplier</Label>
-              <select
+              <NativeSelect
                 id="supplierId"
                 name="supplierId"
                 value={supplierId}
-                onChange={(e) => setSupplierId(e.target.value)}
-                className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+                onChange={(e) => setSupplierId(e.target.value)} className="w-full"
               >
-                <option value="">Select a supplier (optional)...</option>
+                <NativeSelectOption value="">Select a supplier (optional)...</NativeSelectOption>
                 {suppliers.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
+                  <NativeSelectOption key={s.id} value={s.id}>{s.name}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
           </div>
         </div>

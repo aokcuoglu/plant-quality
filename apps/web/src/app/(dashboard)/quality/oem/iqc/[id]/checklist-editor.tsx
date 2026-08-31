@@ -1,5 +1,11 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Button } from "@/components/ui/button"
+
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { updateIqcChecklistItem } from "../actions/report"
@@ -95,39 +101,38 @@ export function IqcChecklistEditor({
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Item</th>
-              <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Requirement</th>
-              <th className="px-2 py-2 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground w-28">Result</th>
-              <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-28">Value</th>
-              <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-36">Comment</th>
-              {editable && <th className="px-2 py-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground w-16">Actions</th>}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+        <Table className="w-full text-sm">
+          <TableHeader>
+            <TableRow className="border-b border-border">
+              <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Item</TableHead>
+              <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Requirement</TableHead>
+              <TableHead className="px-2 py-2 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground w-28">Result</TableHead>
+              <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-28">Value</TableHead>
+              <TableHead className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground w-36">Comment</TableHead>
+              {editable && <TableHead className="px-2 py-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground w-16">Actions</TableHead>}
+            </TableRow>
+          </TableHeader>
+          <TableBody className="divide-y divide-border">
             {items.map((item) => {
               const isEditing = editingItem === item.id
               return (
-                <tr key={item.id} className="transition-colors hover:bg-muted/50">
-                  <td className="px-2 py-2 text-foreground">{item.itemName}</td>
-                  <td className="px-2 py-2 text-muted-foreground text-xs max-w-[200px] truncate">{item.requirement ?? "—"}</td>
+                <TableRow key={item.id} className="transition-colors hover:bg-muted/50">
+                  <TableCell className="px-2 py-2 text-foreground">{item.itemName}</TableCell>
+                  <TableCell className="px-2 py-2 text-muted-foreground text-xs max-w-[200px] truncate">{item.requirement ?? "—"}</TableCell>
                   {isEditing ? (
                     <>
-                      <td className="px-2 py-2">
-                        <select
+                      <TableCell className="px-2 py-2">
+                        <NativeSelect
                           value={editData.result ?? item.result}
                           onChange={(e) => setEditData((prev) => ({ ...prev, result: e.target.value as ChecklistResultType }))}
-                          disabled={isPending}
-                          className="flex h-8 w-full rounded-lg border border-input bg-background px-2 py-1 text-xs ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          disabled={isPending} className="w-full"
                         >
                           {RESULT_OPTIONS.map((opt) => (
-                            <option key={opt} value={opt}>{IQC_CHECKLIST_RESULT_LABELS[opt] ?? opt}</option>
+                            <NativeSelectOption key={opt} value={opt}>{IQC_CHECKLIST_RESULT_LABELS[opt] ?? opt}</NativeSelectOption>
                           ))}
-                        </select>
-                      </td>
-                      <td className="px-2 py-2">
+                        </NativeSelect>
+                      </TableCell>
+                      <TableCell className="px-2 py-2">
                         <Input
                           value={editData.measuredValue ?? ""}
                           onChange={(e) => setEditData((prev) => ({ ...prev, measuredValue: e.target.value }))}
@@ -135,8 +140,8 @@ export function IqcChecklistEditor({
                           placeholder="—"
                           className="h-8 text-xs"
                         />
-                      </td>
-                      <td className="px-2 py-2">
+                      </TableCell>
+                      <TableCell className="px-2 py-2">
                         <Textarea
                           value={editData.comment ?? ""}
                           onChange={(e) => setEditData((prev) => ({ ...prev, comment: e.target.value }))}
@@ -145,55 +150,57 @@ export function IqcChecklistEditor({
                           rows={1}
                           className="min-h-0 text-xs resize-none"
                         />
-                      </td>
-                      <td className="px-2 py-2 text-right">
+                      </TableCell>
+                      <TableCell className="px-2 py-2 text-right">
                         <div className="flex items-center justify-end gap-1">
-                          <button
+                          <Button
                             type="button"
                             onClick={() => saveEdit(item.id)}
                             disabled={isPending}
                             className="inline-flex h-7 items-center justify-center rounded-md bg-muted px-2 text-xs font-medium text-foreground hover:bg-foreground/20 disabled:opacity-50"
                           >
                             {isPending ? "..." : "Save"}
-                          </button>
-                          <button
+                          </Button>
+                          <Button
                             type="button"
+                            variant="ghost"
                             onClick={cancelEdit}
                             disabled={isPending}
                             className="inline-flex h-7 items-center justify-center rounded-md px-2 text-xs font-medium text-muted-foreground hover:bg-muted disabled:opacity-50"
                           >
                             Cancel
-                          </button>
+                          </Button>
                         </div>
-                      </td>
+                      </TableCell>
                     </>
                   ) : (
                     <>
-                      <td className="px-2 py-2 text-center">
+                      <TableCell className="px-2 py-2 text-center">
                         <span className={`inline-flex items-center justify-center size-6 rounded-full text-xs font-bold ${getIqcChecklistResultColor(item.result)}`}>
                           {getIqcChecklistResultIcon(item.result)}
                         </span>
-                      </td>
-                      <td className="px-2 py-2 text-foreground text-xs">{item.measuredValue ?? "—"}</td>
-                      <td className="px-2 py-2 text-muted-foreground text-xs max-w-[150px] truncate">{item.comment ?? "—"}</td>
+                      </TableCell>
+                      <TableCell className="px-2 py-2 text-foreground text-xs">{item.measuredValue ?? "—"}</TableCell>
+                      <TableCell className="px-2 py-2 text-muted-foreground text-xs max-w-[150px] truncate">{item.comment ?? "—"}</TableCell>
                       {editable && (
-                        <td className="px-2 py-2 text-right">
-                          <button
+                        <TableCell className="px-2 py-2 text-right">
+                          <Button
                             type="button"
+                            variant="ghost"
                             onClick={() => startEdit(item)}
                             className="inline-flex h-7 items-center justify-center rounded-md px-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
                           >
                             Edit
-                          </button>
-                        </td>
+                          </Button>
+                        </TableCell>
                       )}
                     </>
                   )}
-                </tr>
+                </TableRow>
               )
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   )

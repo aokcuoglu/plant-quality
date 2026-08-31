@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -29,6 +31,8 @@ import { addSupplier, removeSupplier } from "./actions"
 import { Badge } from "@/components/ui/badge"
 import { addSupplierAdminSchema } from "@/lib/validation"
 import { FieldError } from "@/components/ui/field-error"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
+import { useTranslations } from "@/i18n/context"
 
 interface Supplier {
   id: string
@@ -46,6 +50,8 @@ interface OEM {
 }
 
 export function SupplierListClient({ suppliers: initialSuppliers, oems }: { suppliers: Supplier[]; oems: OEM[] }) {
+  const t = useTranslations()
+  const { showConfirm } = useAppAlertDialog()
   const [suppliers, setSuppliers] = useState<Supplier[]>(initialSuppliers)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -54,6 +60,8 @@ export function SupplierListClient({ suppliers: initialSuppliers, oems }: { supp
   const router = useRouter()
 
   useEffect(() => {
+    // Keep local optimistic state aligned after a server refresh replaces the supplier list.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSuppliers(initialSuppliers)
   }, [initialSuppliers])
 
@@ -106,7 +114,13 @@ export function SupplierListClient({ suppliers: initialSuppliers, oems }: { supp
   }, [router])
 
   async function handleRemove(id: string) {
-    if (!confirm("Are you sure you want to remove this supplier? This cannot be undone.")) return
+    const confirmed = await showConfirm({
+      title: t("admin.suppliers.removeSupplierTitle"),
+      description: t("admin.suppliers.removeSupplierDescription"),
+      actionLabel: t("common.remove"),
+      variant: "destructive",
+    })
+    if (!confirmed) return
     setError(null)
     try {
       await removeSupplier(id)
@@ -145,17 +159,16 @@ export function SupplierListClient({ suppliers: initialSuppliers, oems }: { supp
 
               <div className="space-y-2">
                 <Label htmlFor="oemId">Assign to OEM</Label>
-                <select
+                <NativeSelect
                   name="oemId"
                   required
-                  aria-invalid={!!fieldErrors.oemId}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-invalid={!!fieldErrors.oemId} className="w-full"
                 >
-                  <option value="">Select an OEM...</option>
+                  <NativeSelectOption value="">Select an OEM...</NativeSelectOption>
                   {oems.map((oem) => (
-                    <option key={oem.id} value={oem.id}>{oem.name}</option>
+                    <NativeSelectOption key={oem.id} value={oem.id}>{oem.name}</NativeSelectOption>
                   ))}
-                </select>
+                </NativeSelect>
                 <FieldError message={fieldErrors.oemId} />
               </div>
 
@@ -229,7 +242,7 @@ export function SupplierListClient({ suppliers: initialSuppliers, oems }: { supp
           <CardContent className="flex flex-col items-center justify-center py-12 text-center">
             <Building2Icon className="size-10 text-muted-foreground/30 mb-3" />
             <p className="text-sm text-muted-foreground">No suppliers registered yet.</p>
-            <p className="text-xs text-muted-foreground mt-1">Click "Add Supplier" to onboard the first one.</p>
+            <p className="text-xs text-muted-foreground mt-1">Click &quot;Add Supplier&quot; to onboard the first one.</p>
           </CardContent>
         </Card>
       ) : (

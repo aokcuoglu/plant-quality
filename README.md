@@ -1,162 +1,165 @@
-# PlantX — PlantQuality
+# PlantX — Industrial Operations Platform
 
-PlantQuality is the supplier quality management module of the PlantX ecosystem. It helps heavy commercial vehicle OEMs and suppliers manage defect reports, 8D problem-solving workflows, review cycles, image evidence, notifications, and AI-assisted quality analysis in one lightweight web application.
+[![Latest Release](https://img.shields.io/github/v/release/aokcuoglu/plantx?display_name=tag&sort=semver)](https://github.com/aokcuoglu/plantx/releases/latest)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Docker](https://img.shields.io/badge/runtime-Docker%20Compose-2496ED?logo=docker&logoColor=white)
+![License](https://img.shields.io/badge/license-proprietary-555555)
 
-## PlantX Ecosystem
+PlantX is a modular, multi-tenant industrial operations platform for OEMs, suppliers, dealers, distributors, and internal operations teams. The current platform combines supplier quality management, vehicle logistics, configurable business workflows, analytics, and a self-contained desktop runtime in one TypeScript monorepo.
 
-PlantX is a modular industrial platform. Each module targets a specific operational domain:
+## Latest Update — v3.8.0
+
+Released on **31 August 2026**, v3.8.0 introduces enterprise workflow orchestration for PlantLogistic and completes a platform-wide UI, localization, and authorization hardening pass.
+
+### Added
+
+- Visual, versioned business workflow designer with draft, publish, archive, restore, and default-workflow management.
+- Configurable workflow steps, transitions, action routing, user/organization-unit assignments, task ownership, and execution timelines.
+- Tenant-scoped workflow definitions, versions, nodes, edges, instances, tasks, and event history backed by a production migration and seed/backfill path.
+- Workflow-aware plan-sheet lifecycle with active-task visibility, assignee guidance, line review, forecast controls, and automatic order generation.
+- Dedicated workflow graph, assignment, runtime, and plan-sheet validation tests.
+- New reusable shadcn/ui primitives and expanded Turkish/English message coverage.
+
+### Improved and fixed
+
+- Enforced company scoping and active-workflow authorization across plan-sheet reads and mutations.
+- Prevented stale or unauthorized vehicle moves with graph-aware routing, station ownership checks, revision guards, and audited admin overrides.
+- Blocked missing, invalid, or past forecast dates; locked completed rows; and required rejection reasons before review transitions.
+- Reworked the logistics board with optimistic drag-and-drop, clear recovery on errors, process ownership context, and responsive controls.
+- Replaced native browser confirmations and raw form/table elements with consistent, accessible application primitives.
+- Standardized semantic theme tokens, emerald brand accents, loading states, dialogs, and feedback across Quality, Logistic, settings, billing, and admin surfaces.
+- Updated Next.js, Auth.js, Nodemailer, Prisma, and PDF dependencies to current patched release lines.
+- Self-hosted the Geist font family and made Auth/Nodemailer workspace resolution deterministic for offline Docker and desktop builds.
+
+[Read the full changelog](./CHANGELOG.md) · [View the GitHub release](https://github.com/aokcuoglu/plantx/releases/tag/v3.8.0)
+
+![PlantLogistic workflow designer](./images/flows-final.png)
+
+## Platform Modules
 
 | Module | Purpose | Status |
-|--------|---------|--------|
-| **PlantQuality** | Supplier Quality Management (8D, Defects, PPAP, IQC, FMEA) | **Live** |
-| **PlantDock** | Warehouse Gate & Logistics | Upcoming |
-| **PlantQuote** | RFQ & Supplier Bidding | Upcoming |
-| **PlantTrace** | Traceability & Carbon Footprint | Planned |
-| **PlantAudit** | Digital Auditing (LPA, VDA) | Planned |
-| **PlantAsset** | Machinery Maintenance & OEE | Planned |
-| **PlantFlow** | Internal Material Flow & RFID | Planned |
-| **PlantStaff** | Skill Matrix & HSE Compliance | Planned |
+| --- | --- | --- |
+| **PlantQuality** | Supplier quality, 8D, defects, PPAP, IQC, FMEA, field quality, scorecards | **Live** |
+| **PlantLogistic** | Vehicle orders, plan sheets, process flows, dispatch, yard and dealer operations | **Live** |
+| **Workflow Engine** | Versioned visual workflows, assignment rules, task routing and event history | **Live** |
+| **Desktop** | Cross-platform Electron distribution with embedded PostgreSQL and local storage | **Live** |
+| **PlantQuote** | RFQ and supplier bidding | Planned |
+| **PlantTrace** | Traceability and carbon footprint | Planned |
+| **PlantAudit** | Digital auditing, LPA and VDA | Planned |
+| **PlantAsset** | Machinery maintenance and OEE | Planned |
 
-## Product Scope
+## Product Capabilities
 
-- OEM users create supplier defect reports with images and part-level context.
-- Supplier users complete a structured 8D report: team, problem description, containment, root cause, corrective actions, implementation, prevention, and closure.
-- OEM quality teams review submitted 8D reports, add section-level comments, request revisions, or approve closure.
-- Activity timeline tracks all defect and 8D workflow events.
-- Search and pagination across defect lists with real-time filtering.
-- Confirmation dialogs for critical actions (approve, reject).
-- SLA reminder notifications via cron endpoint.
-- PDF export of 8D reports.
-- Company-scoped access keeps OEM and supplier data isolated.
-- PRO-plan users can use AI brainstorming and image-based defect analysis.
+### PlantQuality
 
-## Tech Stack
+- Supplier defect reporting with image evidence, part context, ownership, SLA, and escalation.
+- Structured 8D problem solving from containment and root cause through corrective action and closure.
+- OEM review cycles, section-level comments, approval/revision controls, notifications, and audit timelines.
+- PPAP, incoming quality (IQC), FMEA, field defects, supplier development, scorecards, and executive intelligence.
+- PDF reporting plus PRO-gated AI brainstorming, review, and image-based defect analysis.
+
+### PlantLogistic
+
+- OEM, supplier, dealer, and distributor order flows with vehicle model and chassis/VIN management.
+- Monthly plan sheets, production review, forecast dispatch dates, order generation, and complete timelines.
+- Visual vehicle flow and business workflow designers with versioning and publication controls.
+- Live operational board, dispatch queue, yard status, milestones, external visibility, and delay intelligence.
+- Role-, task-, organization-, and company-scoped actions with audited operational overrides.
+
+### Platform
+
+- Turkish (`tr`, default) and English (`en`) localization without URL prefixes.
+- Auth.js JWT sessions, development credentials, magic links, and Microsoft tenant-ready SSO fields.
+- Multi-tenant PostgreSQL data model with Prisma 7 and server-side authorization boundaries.
+- Cloud/S3-compatible storage for web deployments and local filesystem storage for desktop deployments.
+- Light, dark, and system themes built on semantic design tokens and shared shadcn/ui primitives.
+
+## Architecture
 
 | Area | Technology |
 | --- | --- |
-| App framework | Next.js 16 App Router |
-| Language | TypeScript (strict) |
-| UI | Tailwind CSS, shadcn/ui primitives, lucide-react |
-| Database | PostgreSQL (JSONB) |
-| ORM | Prisma 7 with generated client in `src/generated/prisma` |
-| Auth | Auth.js / NextAuth v5, Nodemailer magic links, JWT sessions |
-| Storage | Cloudflare R2 / S3-compatible presigned uploads |
-| AI | OpenAI-compatible client, DeepSeek defaults |
-| PDF | jsPDF (server-side generation) |
-| Deployment | Docker Compose (Orbstack) / Vercel |
-
-## Repository Layout
+| Web | Next.js 16 App Router, React 19, TypeScript strict |
+| UI | Tailwind CSS 4, shadcn/ui, Base UI, Lucide, Recharts, XYFlow |
+| Database | PostgreSQL 17, Prisma 7, JSONB |
+| Auth | Auth.js v5, JWT sessions, Nodemailer magic links |
+| Storage | Cloudflare R2 / S3-compatible storage, MinIO, local desktop adapter |
+| Desktop | Electron, embedded PostgreSQL, local storage |
+| Infrastructure | npm workspaces, Turborepo, Docker Compose, Orbstack |
 
 ```text
-src/app                 Next.js routes, server actions, API routes
-src/components          Shared UI, dashboard, defect and 8D components
-src/lib                 Auth, Prisma, storage, SLA notifications, event labels
-src/generated/prisma    Generated Prisma client
-prisma                  Schema, migrations and seed data
-public                  Static assets
+plantx/
+├── apps/
+│   ├── web/             Next.js application (@plantx/web)
+│   └── desktop/         Electron runtime and packaging
+├── packages/
+│   └── db/              Prisma schema, migrations, seed and generated client
+├── scripts/             Desktop and database orchestration
+├── docker/              Container entrypoint
+├── docker-compose.yml   App, PostgreSQL, MinIO and Mailpit
+└── package.json         Workspace commands
 ```
 
-## Getting Started
+## Quick Start
 
-### Docker (Recommended)
+Prerequisites: Docker Desktop or Orbstack with Docker Compose support.
 
 ```bash
 docker-compose up -d --build
 ```
 
-The application runs at [http://localhost:3000](http://localhost:3000).
+| Service | URL |
+| --- | --- |
+| Application | http://localhost:3000 |
+| MinIO Console | http://localhost:9001 |
+| Mailpit | http://localhost:8025 |
+| PostgreSQL | localhost:5432 |
 
-See `AGENTS.md` for full Docker development environment details.
+The local seed creates an Anadolu Isuzu OEM tenant, enterprise admin accounts, organization units, and a published default plan-sheet workflow. Development login includes `admin@anadoluisuzu.com`; `superadmin@isuzu.com` is available for platform administration.
 
-### Local Development
+See [AGENTS.md](./AGENTS.md) for complete environment, architecture, review, i18n, design-system, and Electron guidance.
 
-Prerequisites: Node.js 22+, PostgreSQL, Cloudflare R2 or compatible S3 bucket.
+## Development Commands
 
 ```bash
 npm install
-cp .env.example .env
-npm run db:generate
-npm run db:push
-npm run seed
-npm run dev
-```
-
-Magic link URLs are printed to the dev server console when no real SMTP service is configured.
-
-### Useful Scripts
-
-```bash
-npm run dev          # Start local development server
-npm run build        # Build production bundle
-npm run lint         # Run ESLint
-npm run typecheck    # Run TypeScript without emitting files
-npm run db:generate  # Regenerate Prisma client
-npm run db:push      # Push Prisma schema to the database
-npm run db:migrate   # Create and apply a local migration
-npm run seed         # Seed sample companies, users and defects
-```
-
-## Environment Variables
-
-Use `.env.example` as the source of truth for local configuration.
-
-Required for core app:
-
-- `DATABASE_URL`
-- `AUTH_SECRET`
-- `AUTH_URL`
-
-Required for image upload and retrieval:
-
-- `R2_ACCOUNT_ID`
-- `R2_ACCESS_KEY_ID`
-- `R2_SECRET_ACCESS_KEY`
-- `R2_BUCKET_NAME`
-
-Required for AI features:
-
-- `AI_API_KEY`
-- `AI_BASE_URL`
-- `AI_MODEL`
-
-Required for SLA cron endpoint:
-
-- `CRON_SECRET`
-
-## Demo Data
-
-`npm run seed` creates:
-
-- 1 OEM company (PlantX Automotive)
-- 2 supplier companies (Precision Parts Inc., SteelForged Co.)
-- 6 users
-- 4 sample defects with 8D reports
-
-Sample login emails include `admin@oem.com`, `quality@oem.com`, `admin@supplier.com`, and `engineer@supplier.com`.
-
-## Development Notes
-
-- Prefer Server Components for reads and Server Actions for mutations.
-- Scope every database query by `session.user.companyId` when reading tenant data.
-- The 8D JSON fields use Prisma `Json?` fields mapped to JSONB columns. After schema changes, run `npm run db:push` and `npm run db:generate`.
-- Portal-based popovers are used inside table cells to avoid clipping issues.
-- After any code change, rebuild the Docker container: `docker-compose up -d --build app`
-
-## Quality Gates
-
-Before opening a pull request, run:
-
-```bash
 npm run lint
 npm run typecheck
 npm run build
+npm run db:generate
+npm run db:migrate
+npm run seed
+npm run desktop:build
 ```
 
-## Documentation
+After every web code change, rebuild and restart the production-mode container:
 
-- `AGENTS.md` — Agent reference, Docker setup, code review guidelines, design system
-- `PRD.md` — Product requirements, database schema, 8D wizard details, auth architecture
-- `CONTRIBUTING.md` — Contribution guidelines, security expectations
+```bash
+docker-compose up -d --build app
+```
+
+## Environment
+
+Copy the relevant example file for your deployment target. Never commit real credentials.
+
+- Core: `DATABASE_URL`, `AUTH_SECRET`, `AUTH_URL`
+- Object storage: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`
+- AI: `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL`
+- Notifications: `EMAIL_SERVER`, `EMAIL_FROM`
+- Scheduled SLA processing: `CRON_SECRET`
+
+Local Docker Compose provides PostgreSQL, MinIO, and Mailpit. Production deployments can use Supabase/PostgreSQL, Cloudflare R2, and Resend-compatible SMTP. The desktop application requires no external service in embedded mode.
+
+## Quality and Security Rules
+
+- Every tenant read and mutation must be scoped to the authenticated `companyId`.
+- Server Actions must verify the actor, role, company type, and workflow/task ownership as applicable.
+- Server Components are the default; client components are limited to interactive browser behavior.
+- Every user-facing message must exist in both Turkish and English dictionaries.
+- UI surfaces use semantic tokens and shared primitives; critical operations use application dialogs.
+- Prisma schema changes require a migration, regenerated client, and a rebuilt application container.
+
+Before contributing, read [CONTRIBUTING.md](./CONTRIBUTING.md), [PRD.md](./PRD.md), and the mandatory project rules in [AGENTS.md](./AGENTS.md).
 
 ## License
 

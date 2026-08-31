@@ -1,5 +1,7 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
 import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { format } from "date-fns"
@@ -20,6 +22,8 @@ export function DatePicker({
   onKeyDown,
   inputRef,
   disabled,
+  minDate,
+  clearable = true,
 }: {
   value?: string
   onChange?: (date: string) => void
@@ -32,6 +36,8 @@ export function DatePicker({
   onKeyDown?: (e: React.KeyboardEvent) => void
   inputRef?: (el: HTMLButtonElement | null) => void
   disabled?: boolean
+  minDate?: string
+  clearable?: boolean
 }) {
   const controlled = value !== undefined
   const [internal, setInternal] = useState(defaultValue ?? "")
@@ -54,11 +60,12 @@ export function DatePicker({
         setOpen(false)
       }
     }
-    document.addEventListener("mousedown", handleClick)
-    return () => document.removeEventListener("mousedown", handleClick)
+    document.addEventListener("click", handleClick)
+    return () => document.removeEventListener("click", handleClick)
   }, [])
 
   const date = resolved ? new Date(resolved) : undefined
+  const minimumDate = minDate ? new Date(`${minDate}T00:00:00`) : undefined
   const updateDropdownPosition = useCallback(() => {
     if (!buttonRef.current) return
 
@@ -99,7 +106,7 @@ export function DatePicker({
 
   return (
     <div ref={ref} className="relative">
-      {name && <input type="hidden" name={name} value={resolved} />}
+      {name && <Input type="hidden" name={name} value={resolved} />}
       <Button
         ref={(el) => {
           buttonRef.current = el
@@ -137,15 +144,17 @@ export function DatePicker({
             mode="single"
             className="w-full"
             selected={date}
+            disabled={minimumDate ? { before: minimumDate } : undefined}
             onSelect={(d) => {
               commit(d ? format(d, "yyyy-MM-dd") : "")
               setOpen(false)
             }}
             autoFocus
           />
-          <div className="border-t px-3 py-2">
-            <button
+          {clearable && <div className="border-t px-3 py-2">
+            <Button
               type="button"
+              variant="ghost"
               className="w-full rounded-md px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted"
               onClick={() => {
                 commit("")
@@ -153,8 +162,8 @@ export function DatePicker({
               }}
             >
               Clear
-            </button>
-          </div>
+            </Button>
+          </div>}
         </div>,
         document.body
       )}

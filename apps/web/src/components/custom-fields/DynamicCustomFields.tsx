@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -159,18 +161,17 @@ function FieldInput({
           <Label>
             {label} {required && <span className="text-destructive">*</span>}
           </Label>
-          <select
-            className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+          <NativeSelect className="w-full"
             value={(value as string) ?? ""}
             onChange={(e) => onChange(e.target.value || null)}
           >
-            <option value="">{placeholder ?? "Select..."}</option>
+            <NativeSelectOption value="">{placeholder ?? "Select..."}</NativeSelectOption>
             {field.options?.map((opt) => (
-              <option key={opt.value} value={opt.value}>
+              <NativeSelectOption key={opt.value} value={opt.value}>
                 {opt.label}
-              </option>
+              </NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
           {error && <p className="text-xs text-destructive">{error}</p>}
         </div>
       )
@@ -185,22 +186,20 @@ function FieldInput({
             {field.options?.map((opt) => {
               const selected = Array.isArray(value) ? value.includes(opt.value) : false
               return (
-                <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
+                <Label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                  <Checkbox
                     checked={selected}
-                    onChange={(e) => {
+                    onCheckedChange={(checked) => {
                       const current = Array.isArray(value) ? [...value] : []
-                      if (e.target.checked) {
+                      if (checked) {
                         onChange([...current, opt.value])
                       } else {
                         onChange(current.filter((v: string) => v !== opt.value))
                       }
                     }}
-                    className="rounded border-input"
                   />
                   <span className="text-sm">{opt.label}</span>
-                </label>
+                </Label>
               )
             })}
           </div>
@@ -211,7 +210,7 @@ function FieldInput({
     case "CHECKBOX":
       return (
         <div className="space-y-1.5">
-          <label className="flex items-center gap-2 cursor-pointer">
+          <Label className="flex items-center gap-2 cursor-pointer">
             <Checkbox
               checked={Boolean(value)}
               onCheckedChange={(checked) => onChange(checked === true ? true : null)}
@@ -219,7 +218,7 @@ function FieldInput({
             <span className="text-sm">
               {label} {required && <span className="text-destructive">*</span>}
             </span>
-          </label>
+          </Label>
           {error && <p className="text-xs text-destructive">{error}</p>}
         </div>
       )

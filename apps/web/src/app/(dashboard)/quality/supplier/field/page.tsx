@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -29,14 +30,14 @@ const STATUS_FILTERS = [
 
 function Th({ children }: { children: React.ReactNode }) {
   return (
-    <th className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
+    <TableHead className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
       {children}
-    </th>
+    </TableHead>
   )
 }
 
 function Td({ children }: { children: React.ReactNode }) {
-  return <td className="p-3 align-middle">{children}</td>
+  return <TableCell className="p-3 align-middle">{children}</TableCell>
 }
 
 export default async function SupplierFieldPage({
@@ -140,9 +141,9 @@ export default async function SupplierFieldPage({
         </div>
       ) : (
         <div className="rounded-lg border bg-card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b">
-              <tr>
+          <Table className="w-full text-sm">
+            <TableHeader className="border-b">
+              <TableRow>
                 <Th>Title</Th>
                 <Th>Status</Th>
                 <Th>Severity</Th>
@@ -154,11 +155,11 @@ export default async function SupplierFieldPage({
                 <Th>Part #</Th>
                 <Th>Report Date</Th>
                 <CustomFieldsTableHeaders fields={listVisibleFields} />
-              </tr>
-            </thead>
-            <tbody>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {fieldDefects.map((fd) => (
-                <tr key={fd.id} className="border-b transition-colors hover:bg-muted/50">
+                <TableRow key={fd.id} className="border-b transition-colors hover:bg-muted/50">
                   <Td>
                     <Link href={`/quality/supplier/field/${fd.id}`} className="font-medium text-foreground hover:underline">
                       {fd.title.length > 40 ? fd.title.slice(0, 40) + "…" : fd.title}
@@ -184,10 +185,10 @@ export default async function SupplierFieldPage({
                     </span>
                   </Td>
                   <CustomFieldsTableCells fields={listVisibleFields} customFields={fd.customFields ?? null} />
-                </tr>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
 

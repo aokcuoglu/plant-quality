@@ -41,7 +41,7 @@ export const FIELD_DEFECT_SEVERITY_COLORS: Record<
   },
   MAJOR: {
     dot: "bg-destructive",
-    bg: "bg-destructive/10 text-destructive dark:text-destructive",
+    bg: "bg-destructive/10 text-destructive ",
   },
   CRITICAL: {
     dot: "bg-destructive",
@@ -63,7 +63,7 @@ export const FIELD_DEFECT_STATUS_COLORS: Record<
   },
   UNDER_REVIEW: {
     dot: "bg-destructive",
-    bg: "bg-destructive/10 text-destructive dark:text-destructive",
+    bg: "bg-destructive/10 text-destructive ",
   },
   SUPPLIER_ASSIGNED: {
     dot: "bg-primary",
@@ -71,11 +71,11 @@ export const FIELD_DEFECT_STATUS_COLORS: Record<
   },
   LINKED_TO_8D: {
     dot: "bg-foreground",
-    bg: "bg-muted text-muted-foreground dark:text-foreground",
+    bg: "bg-muted text-muted-foreground ",
   },
   CLOSED: {
     dot: "bg-foreground",
-    bg: "bg-muted text-muted-foreground dark:text-foreground",
+    bg: "bg-muted text-muted-foreground ",
   },
   CANCELLED: {
     dot: "bg-muted-foreground",

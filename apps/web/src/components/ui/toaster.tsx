@@ -14,7 +14,7 @@ export function Toaster() {
           className={cn(
             "flex items-start gap-3 rounded-lg border bg-popover px-4 py-3 text-sm text-popover-foreground shadow-lg animate-in slide-in-from-right",
             t.type === "destructive" && "border-destructive/50 bg-destructive/5 text-destructive",
-            t.type === "info" && "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950/20",
+            t.type === "info" && "border-brand bg-brand  ",
           )}
         >
           <div className="flex-1 min-w-0">

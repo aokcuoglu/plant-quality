@@ -32,12 +32,12 @@ export function SupplierBar({ data }: { data: RawItem[] }) {
     <div className="h-[250px] w-full">
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={chartData} layout="vertical" margin={{ left: 0, right: 8, top: 4, bottom: 4 }}>
-          <XAxis type="number" tick={{ fontSize: 11 }} stroke="hsl(var(--muted-foreground))" axisLine={false} />
+          <XAxis type="number" tick={{ fontSize: 11 }} stroke="var(--muted-foreground)" axisLine={false} />
           <YAxis
             type="category"
             dataKey="name"
             tick={{ fontSize: 11 }}
-            stroke="hsl(var(--muted-foreground))"
+            stroke="var(--muted-foreground)"
             width={100}
             axisLine={false}
           />
@@ -52,7 +52,7 @@ export function SupplierBar({ data }: { data: RawItem[] }) {
               )
             }}
           />
-          <Bar dataKey="defects" fill="#f87171" activeBar={{ fill: "#e06363" }} radius={[0, 4, 4, 0]} maxBarSize={20} />
+          <Bar dataKey="defects" fill="var(--chart-4)" activeBar={{ fill: "var(--chart-3)" }} radius={[0, 4, 4, 0]} maxBarSize={20} />
         </BarChart>
       </ResponsiveContainer>
     </div>

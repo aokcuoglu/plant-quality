@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
@@ -7,11 +9,8 @@ import { cn } from "@/lib/utils"
 import {
   LayoutDashboardIcon,
   Building2Icon,
-  UsersIcon,
-  CreditCardIcon,
   LogOutIcon,
   ShieldIcon,
-  ChevronRight,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
 import { useSession } from "@/hooks/useSession"
@@ -48,7 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex h-screen">
       <aside className="flex w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar">
         <div className="flex h-14 shrink-0 items-center gap-2.5 border-b border-sidebar-border px-5">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-blue-600 text-primary-foreground">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-brand text-primary-foreground">
             <ShieldIcon className="size-4" strokeWidth={2.5} />
           </div>
           <span className="whitespace-nowrap">
@@ -80,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <div className="border-t border-sidebar-border p-3">
           <div className="flex items-center gap-3 rounded-lg px-2 py-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600/20 text-xs font-semibold text-blue-500">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/20 text-xs font-semibold text-brand">
               {session.user.email?.charAt(0).toUpperCase() ?? "S"}
             </div>
             <div className="min-w-0 flex-1">
@@ -90,13 +89,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <div className="mt-1 space-y-1">
             <ThemeToggle collapsed={false} />
-            <button
+            <Button
+              variant="ghost"
               onClick={() => signOut({ callbackUrl: "/login" })}
               className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
             >
                 <LogOutIcon className="size-3.5 shrink-0" />
                 <span>Sign out</span>
-              </button>
+              </Button>
           </div>
         </div>
       </aside>
@@ -108,7 +108,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <div className="flex items-center gap-1.5">
             <LanguageSwitcher />
-            <span className="rounded-full bg-blue-600/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-blue-500">
+            <span className="rounded-full bg-brand/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
               Super Admin
             </span>
           </div>

@@ -194,7 +194,7 @@ export default async function OemFieldDetailPage({
               )}
               <DetailRow label="Safety Impact" value={fd.safetyImpact ? <span className="text-destructive font-medium">Yes</span> : "No"} />
               <DetailRow label="Vehicle Down" value={fd.vehicleDown ? <span className="text-destructive font-medium">Yes</span> : "No"} />
-              <DetailRow label="Repeat Issue" value={fd.repeatIssue ? <span className="text-destructive font-medium dark:text-destructive">Yes</span> : "No"} />
+              <DetailRow label="Repeat Issue" value={fd.repeatIssue ? <span className="text-destructive font-medium ">Yes</span> : "No"} />
             </div>
           </div>
 

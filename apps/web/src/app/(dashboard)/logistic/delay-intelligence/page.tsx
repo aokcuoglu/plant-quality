@@ -1,3 +1,6 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+import { Button } from "@/components/ui/button"
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
@@ -168,32 +171,30 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
       </div>
 
       <form className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <select
+        <NativeSelect
           name="risk"
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
           defaultValue={riskFilter}
         >
-          <option value="">All risk levels</option>
+          <NativeSelectOption value="">All risk levels</NativeSelectOption>
           {riskOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
           ))}
-        </select>
-        <select
+        </NativeSelect>
+        <NativeSelect
           name="category"
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
           defaultValue={categoryFilter}
         >
-          <option value="">All categories</option>
+          <NativeSelectOption value="">All categories</NativeSelectOption>
           {categoryOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
           ))}
-        </select>
-        <button
+        </NativeSelect>
+        <Button
           type="submit"
           className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
         >
           Apply filters
-        </button>
+        </Button>
       </form>
 
       {filteredSummaries.length === 0 ? (
@@ -204,51 +205,51 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
       ) : (
         <div className="rounded-lg border bg-card">
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  <th className="px-4 py-3 text-left">Order</th>
-                  <th className="px-4 py-3 text-left">Customer</th>
-                  <th className="px-4 py-3 text-left">Vehicle</th>
-                  <th className="px-4 py-3 text-left">Order Status</th>
-                  <th className="px-4 py-3 text-left">SLA Status</th>
-                  <th className="px-4 py-3 text-left">Risk</th>
-                  <th className="px-4 py-3 text-left">Target Date</th>
-                  <th className="px-4 py-3 text-left">Days</th>
-                  <th className="px-4 py-3 text-left">Category</th>
-                  <th className="px-4 py-3 text-left">Blocking</th>
-                  <th className="px-4 py-3 text-left">Department</th>
-                  <th className="px-4 py-3 text-left">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <TableHead className="px-4 py-3 text-left">Order</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Customer</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Vehicle</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Order Status</TableHead>
+                  <TableHead className="px-4 py-3 text-left">SLA Status</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Risk</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Target Date</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Days</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Category</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Blocking</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Department</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {filteredSummaries.map((summary) => {
                   const order = orders.find((o) => o.id === summary.orderId)
                   return (
-                    <tr key={summary.orderId} className="group hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={summary.orderId} className="group hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <Link href={`/logistic/orders/${summary.orderId}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground">
                           {summary.orderNumber}
                           <ArrowUpRight className="size-3" />
                         </Link>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{order?.customerName ?? "—"}</td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{order?.vehicleModel ?? "—"}</td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{order?.customerName ?? "—"}</TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{order?.vehicleModel ?? "—"}</TableCell>
+                      <TableCell className="px-4 py-3">
                         <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
                           {order?.status ? (STATUS_LABELS[order.status as keyof typeof STATUS_LABELS] ?? order.status) : "—"}
                         </span>
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         <SlaStatusBadge status={summary.slaStatus} />
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         <RiskLevelBadge level={summary.riskLevel} />
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {formatSlaDate(summary.targetDate)}
-                      </td>
-                      <td className="px-4 py-3 text-sm">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm">
                         {summary.daysUntilOrOverdue !== null ? (
                           <span className={summary.daysUntilOrOverdue < 0 ? "text-destructive" : summary.daysUntilOrOverdue <= 7 ? "text-destructive" : "text-muted-foreground"}>
                             {formatDaysValue(summary.daysUntilOrOverdue)}
@@ -256,26 +257,26 @@ export default async function DelayIntelligencePage({ searchParams }: { searchPa
                         ) : (
                           <span className="text-muted-foreground">—</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {DELAY_CATEGORY_LABELS[summary.delayCategory]}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {summary.currentBlockingStage ?? "—"}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {summary.responsibleDepartment ?? "—"}
-                      </td>
-                      <td className="px-4 py-3 text-sm" title={summary.suggestedAction ?? undefined}>
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm" title={summary.suggestedAction ?? undefined}>
                         {summary.suggestedAction ? (
                           <span className="text-muted-foreground">{summary.suggestedAction.length > 30 ? summary.suggestedAction.slice(0, 30) + "…" : summary.suggestedAction}</span>
                         ) : "—"}
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

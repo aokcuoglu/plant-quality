@@ -236,6 +236,8 @@ export type OrganizationUnitWhereInput = {
   parent?: Prisma.XOR<Prisma.OrganizationUnitNullableScalarRelationFilter, Prisma.OrganizationUnitWhereInput> | null
   children?: Prisma.OrganizationUnitListRelationFilter
   users?: Prisma.UserListRelationFilter
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeListRelationFilter
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskListRelationFilter
 }
 
 export type OrganizationUnitOrderByWithRelationInput = {
@@ -250,6 +252,8 @@ export type OrganizationUnitOrderByWithRelationInput = {
   parent?: Prisma.OrganizationUnitOrderByWithRelationInput
   children?: Prisma.OrganizationUnitOrderByRelationAggregateInput
   users?: Prisma.UserOrderByRelationAggregateInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeOrderByRelationAggregateInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskOrderByRelationAggregateInput
 }
 
 export type OrganizationUnitWhereUniqueInput = Prisma.AtLeast<{
@@ -267,6 +271,8 @@ export type OrganizationUnitWhereUniqueInput = Prisma.AtLeast<{
   parent?: Prisma.XOR<Prisma.OrganizationUnitNullableScalarRelationFilter, Prisma.OrganizationUnitWhereInput> | null
   children?: Prisma.OrganizationUnitListRelationFilter
   users?: Prisma.UserListRelationFilter
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeListRelationFilter
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskListRelationFilter
 }, "id">
 
 export type OrganizationUnitOrderByWithAggregationInput = {
@@ -307,6 +313,8 @@ export type OrganizationUnitCreateInput = {
   parent?: Prisma.OrganizationUnitCreateNestedOneWithoutChildrenInput
   children?: Prisma.OrganizationUnitCreateNestedManyWithoutParentInput
   users?: Prisma.UserCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitUncheckedCreateInput = {
@@ -319,6 +327,8 @@ export type OrganizationUnitUncheckedCreateInput = {
   createdAt?: Date | string
   children?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutParentInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitUpdateInput = {
@@ -331,6 +341,8 @@ export type OrganizationUnitUpdateInput = {
   parent?: Prisma.OrganizationUnitUpdateOneWithoutChildrenNestedInput
   children?: Prisma.OrganizationUnitUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateInput = {
@@ -343,6 +355,8 @@ export type OrganizationUnitUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitCreateManyInput = {
@@ -566,6 +580,38 @@ export type OrganizationUnitUpdateOneWithoutUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUnitUpdateToOneWithWhereWithoutUsersInput, Prisma.OrganizationUnitUpdateWithoutUsersInput>, Prisma.OrganizationUnitUncheckedUpdateWithoutUsersInput>
 }
 
+export type OrganizationUnitCreateNestedOneWithoutLogisticWorkflowNodesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowNodesInput>
+  connectOrCreate?: Prisma.OrganizationUnitCreateOrConnectWithoutLogisticWorkflowNodesInput
+  connect?: Prisma.OrganizationUnitWhereUniqueInput
+}
+
+export type OrganizationUnitUpdateOneWithoutLogisticWorkflowNodesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowNodesInput>
+  connectOrCreate?: Prisma.OrganizationUnitCreateOrConnectWithoutLogisticWorkflowNodesInput
+  upsert?: Prisma.OrganizationUnitUpsertWithoutLogisticWorkflowNodesInput
+  disconnect?: Prisma.OrganizationUnitWhereInput | boolean
+  delete?: Prisma.OrganizationUnitWhereInput | boolean
+  connect?: Prisma.OrganizationUnitWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUnitUpdateToOneWithWhereWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUpdateWithoutLogisticWorkflowNodesInput>, Prisma.OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowNodesInput>
+}
+
+export type OrganizationUnitCreateNestedOneWithoutLogisticWorkflowTasksInput = {
+  create?: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowTasksInput>
+  connectOrCreate?: Prisma.OrganizationUnitCreateOrConnectWithoutLogisticWorkflowTasksInput
+  connect?: Prisma.OrganizationUnitWhereUniqueInput
+}
+
+export type OrganizationUnitUpdateOneWithoutLogisticWorkflowTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowTasksInput>
+  connectOrCreate?: Prisma.OrganizationUnitCreateOrConnectWithoutLogisticWorkflowTasksInput
+  upsert?: Prisma.OrganizationUnitUpsertWithoutLogisticWorkflowTasksInput
+  disconnect?: Prisma.OrganizationUnitWhereInput | boolean
+  delete?: Prisma.OrganizationUnitWhereInput | boolean
+  connect?: Prisma.OrganizationUnitWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUnitUpdateToOneWithWhereWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUpdateWithoutLogisticWorkflowTasksInput>, Prisma.OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowTasksInput>
+}
+
 export type OrganizationUnitCreateWithoutChildrenInput = {
   id?: string
   name: string
@@ -575,6 +621,8 @@ export type OrganizationUnitCreateWithoutChildrenInput = {
   company: Prisma.CompanyCreateNestedOneWithoutOrgUnitsInput
   parent?: Prisma.OrganizationUnitCreateNestedOneWithoutChildrenInput
   users?: Prisma.UserCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitUncheckedCreateWithoutChildrenInput = {
@@ -586,6 +634,8 @@ export type OrganizationUnitUncheckedCreateWithoutChildrenInput = {
   sortOrder?: number
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitCreateOrConnectWithoutChildrenInput = {
@@ -602,6 +652,8 @@ export type OrganizationUnitCreateWithoutParentInput = {
   company: Prisma.CompanyCreateNestedOneWithoutOrgUnitsInput
   children?: Prisma.OrganizationUnitCreateNestedManyWithoutParentInput
   users?: Prisma.UserCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitUncheckedCreateWithoutParentInput = {
@@ -613,6 +665,8 @@ export type OrganizationUnitUncheckedCreateWithoutParentInput = {
   createdAt?: Date | string
   children?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutParentInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitCreateOrConnectWithoutParentInput = {
@@ -645,6 +699,8 @@ export type OrganizationUnitUpdateWithoutChildrenInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutOrgUnitsNestedInput
   parent?: Prisma.OrganizationUnitUpdateOneWithoutChildrenNestedInput
   users?: Prisma.UserUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateWithoutChildrenInput = {
@@ -656,6 +712,8 @@ export type OrganizationUnitUncheckedUpdateWithoutChildrenInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUpsertWithWhereUniqueWithoutParentInput = {
@@ -696,6 +754,8 @@ export type OrganizationUnitCreateWithoutCompanyInput = {
   parent?: Prisma.OrganizationUnitCreateNestedOneWithoutChildrenInput
   children?: Prisma.OrganizationUnitCreateNestedManyWithoutParentInput
   users?: Prisma.UserCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitUncheckedCreateWithoutCompanyInput = {
@@ -707,6 +767,8 @@ export type OrganizationUnitUncheckedCreateWithoutCompanyInput = {
   createdAt?: Date | string
   children?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutParentInput
   users?: Prisma.UserUncheckedCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitCreateOrConnectWithoutCompanyInput = {
@@ -744,6 +806,8 @@ export type OrganizationUnitCreateWithoutUsersInput = {
   company: Prisma.CompanyCreateNestedOneWithoutOrgUnitsInput
   parent?: Prisma.OrganizationUnitCreateNestedOneWithoutChildrenInput
   children?: Prisma.OrganizationUnitCreateNestedManyWithoutParentInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitUncheckedCreateWithoutUsersInput = {
@@ -755,6 +819,8 @@ export type OrganizationUnitUncheckedCreateWithoutUsersInput = {
   sortOrder?: number
   createdAt?: Date | string
   children?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutParentInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutOrganizationUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutAssignedOrganizationUnitInput
 }
 
 export type OrganizationUnitCreateOrConnectWithoutUsersInput = {
@@ -782,6 +848,8 @@ export type OrganizationUnitUpdateWithoutUsersInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutOrgUnitsNestedInput
   parent?: Prisma.OrganizationUnitUpdateOneWithoutChildrenNestedInput
   children?: Prisma.OrganizationUnitUpdateManyWithoutParentNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateWithoutUsersInput = {
@@ -793,6 +861,144 @@ export type OrganizationUnitUncheckedUpdateWithoutUsersInput = {
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutParentNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutAssignedOrganizationUnitNestedInput
+}
+
+export type OrganizationUnitCreateWithoutLogisticWorkflowNodesInput = {
+  id?: string
+  name: string
+  type: $Enums.OrgUnitType
+  sortOrder?: number
+  createdAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutOrgUnitsInput
+  parent?: Prisma.OrganizationUnitCreateNestedOneWithoutChildrenInput
+  children?: Prisma.OrganizationUnitCreateNestedManyWithoutParentInput
+  users?: Prisma.UserCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutAssignedOrganizationUnitInput
+}
+
+export type OrganizationUnitUncheckedCreateWithoutLogisticWorkflowNodesInput = {
+  id?: string
+  name: string
+  type: $Enums.OrgUnitType
+  companyId: string
+  parentId?: string | null
+  sortOrder?: number
+  createdAt?: Date | string
+  children?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutParentInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutAssignedOrganizationUnitInput
+}
+
+export type OrganizationUnitCreateOrConnectWithoutLogisticWorkflowNodesInput = {
+  where: Prisma.OrganizationUnitWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowNodesInput>
+}
+
+export type OrganizationUnitUpsertWithoutLogisticWorkflowNodesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUnitUpdateWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowNodesInput>
+  create: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowNodesInput>
+  where?: Prisma.OrganizationUnitWhereInput
+}
+
+export type OrganizationUnitUpdateToOneWithWhereWithoutLogisticWorkflowNodesInput = {
+  where?: Prisma.OrganizationUnitWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUnitUpdateWithoutLogisticWorkflowNodesInput, Prisma.OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowNodesInput>
+}
+
+export type OrganizationUnitUpdateWithoutLogisticWorkflowNodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrgUnitTypeFieldUpdateOperationsInput | $Enums.OrgUnitType
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutOrgUnitsNestedInput
+  parent?: Prisma.OrganizationUnitUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.OrganizationUnitUpdateManyWithoutParentNestedInput
+  users?: Prisma.UserUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutAssignedOrganizationUnitNestedInput
+}
+
+export type OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowNodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrgUnitTypeFieldUpdateOperationsInput | $Enums.OrgUnitType
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutParentNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutAssignedOrganizationUnitNestedInput
+}
+
+export type OrganizationUnitCreateWithoutLogisticWorkflowTasksInput = {
+  id?: string
+  name: string
+  type: $Enums.OrgUnitType
+  sortOrder?: number
+  createdAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutOrgUnitsInput
+  parent?: Prisma.OrganizationUnitCreateNestedOneWithoutChildrenInput
+  children?: Prisma.OrganizationUnitCreateNestedManyWithoutParentInput
+  users?: Prisma.UserCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutOrganizationUnitInput
+}
+
+export type OrganizationUnitUncheckedCreateWithoutLogisticWorkflowTasksInput = {
+  id?: string
+  name: string
+  type: $Enums.OrgUnitType
+  companyId: string
+  parentId?: string | null
+  sortOrder?: number
+  createdAt?: Date | string
+  children?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutParentInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutOrgUnitInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutOrganizationUnitInput
+}
+
+export type OrganizationUnitCreateOrConnectWithoutLogisticWorkflowTasksInput = {
+  where: Prisma.OrganizationUnitWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowTasksInput>
+}
+
+export type OrganizationUnitUpsertWithoutLogisticWorkflowTasksInput = {
+  update: Prisma.XOR<Prisma.OrganizationUnitUpdateWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowTasksInput>
+  create: Prisma.XOR<Prisma.OrganizationUnitCreateWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUncheckedCreateWithoutLogisticWorkflowTasksInput>
+  where?: Prisma.OrganizationUnitWhereInput
+}
+
+export type OrganizationUnitUpdateToOneWithWhereWithoutLogisticWorkflowTasksInput = {
+  where?: Prisma.OrganizationUnitWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUnitUpdateWithoutLogisticWorkflowTasksInput, Prisma.OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowTasksInput>
+}
+
+export type OrganizationUnitUpdateWithoutLogisticWorkflowTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrgUnitTypeFieldUpdateOperationsInput | $Enums.OrgUnitType
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutOrgUnitsNestedInput
+  parent?: Prisma.OrganizationUnitUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.OrganizationUnitUpdateManyWithoutParentNestedInput
+  users?: Prisma.UserUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutOrganizationUnitNestedInput
+}
+
+export type OrganizationUnitUncheckedUpdateWithoutLogisticWorkflowTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumOrgUnitTypeFieldUpdateOperationsInput | $Enums.OrgUnitType
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  children?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutParentNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitCreateManyParentInput = {
@@ -813,6 +1019,8 @@ export type OrganizationUnitUpdateWithoutParentInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutOrgUnitsNestedInput
   children?: Prisma.OrganizationUnitUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateWithoutParentInput = {
@@ -824,6 +1032,8 @@ export type OrganizationUnitUncheckedUpdateWithoutParentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateManyWithoutParentInput = {
@@ -853,6 +1063,8 @@ export type OrganizationUnitUpdateWithoutCompanyInput = {
   parent?: Prisma.OrganizationUnitUpdateOneWithoutChildrenNestedInput
   children?: Prisma.OrganizationUnitUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateWithoutCompanyInput = {
@@ -864,6 +1076,8 @@ export type OrganizationUnitUncheckedUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutParentNestedInput
   users?: Prisma.UserUncheckedUpdateManyWithoutOrgUnitNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutOrganizationUnitNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutAssignedOrganizationUnitNestedInput
 }
 
 export type OrganizationUnitUncheckedUpdateManyWithoutCompanyInput = {
@@ -883,11 +1097,15 @@ export type OrganizationUnitUncheckedUpdateManyWithoutCompanyInput = {
 export type OrganizationUnitCountOutputType = {
   children: number
   users: number
+  logisticWorkflowNodes: number
+  logisticWorkflowTasks: number
 }
 
 export type OrganizationUnitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   children?: boolean | OrganizationUnitCountOutputTypeCountChildrenArgs
   users?: boolean | OrganizationUnitCountOutputTypeCountUsersArgs
+  logisticWorkflowNodes?: boolean | OrganizationUnitCountOutputTypeCountLogisticWorkflowNodesArgs
+  logisticWorkflowTasks?: boolean | OrganizationUnitCountOutputTypeCountLogisticWorkflowTasksArgs
 }
 
 /**
@@ -914,6 +1132,20 @@ export type OrganizationUnitCountOutputTypeCountUsersArgs<ExtArgs extends runtim
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * OrganizationUnitCountOutputType without action
+ */
+export type OrganizationUnitCountOutputTypeCountLogisticWorkflowNodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowNodeWhereInput
+}
+
+/**
+ * OrganizationUnitCountOutputType without action
+ */
+export type OrganizationUnitCountOutputTypeCountLogisticWorkflowTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowTaskWhereInput
+}
+
 
 export type OrganizationUnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -927,6 +1159,8 @@ export type OrganizationUnitSelect<ExtArgs extends runtime.Types.Extensions.Inte
   parent?: boolean | Prisma.OrganizationUnit$parentArgs<ExtArgs>
   children?: boolean | Prisma.OrganizationUnit$childrenArgs<ExtArgs>
   users?: boolean | Prisma.OrganizationUnit$usersArgs<ExtArgs>
+  logisticWorkflowNodes?: boolean | Prisma.OrganizationUnit$logisticWorkflowNodesArgs<ExtArgs>
+  logisticWorkflowTasks?: boolean | Prisma.OrganizationUnit$logisticWorkflowTasksArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationUnitCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organizationUnit"]>
 
@@ -970,6 +1204,8 @@ export type OrganizationUnitInclude<ExtArgs extends runtime.Types.Extensions.Int
   parent?: boolean | Prisma.OrganizationUnit$parentArgs<ExtArgs>
   children?: boolean | Prisma.OrganizationUnit$childrenArgs<ExtArgs>
   users?: boolean | Prisma.OrganizationUnit$usersArgs<ExtArgs>
+  logisticWorkflowNodes?: boolean | Prisma.OrganizationUnit$logisticWorkflowNodesArgs<ExtArgs>
+  logisticWorkflowTasks?: boolean | Prisma.OrganizationUnit$logisticWorkflowTasksArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationUnitCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationUnitIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -988,6 +1224,8 @@ export type $OrganizationUnitPayload<ExtArgs extends runtime.Types.Extensions.In
     parent: Prisma.$OrganizationUnitPayload<ExtArgs> | null
     children: Prisma.$OrganizationUnitPayload<ExtArgs>[]
     users: Prisma.$UserPayload<ExtArgs>[]
+    logisticWorkflowNodes: Prisma.$LogisticWorkflowNodePayload<ExtArgs>[]
+    logisticWorkflowTasks: Prisma.$LogisticWorkflowTaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1395,6 +1633,8 @@ export interface Prisma__OrganizationUnitClient<T, Null = never, ExtArgs extends
   parent<T extends Prisma.OrganizationUnit$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationUnit$parentArgs<ExtArgs>>): Prisma.Prisma__OrganizationUnitClient<runtime.Types.Result.GetResult<Prisma.$OrganizationUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.OrganizationUnit$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationUnit$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   users<T extends Prisma.OrganizationUnit$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationUnit$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowNodes<T extends Prisma.OrganizationUnit$logisticWorkflowNodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationUnit$logisticWorkflowNodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowNodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowTasks<T extends Prisma.OrganizationUnit$logisticWorkflowTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationUnit$logisticWorkflowTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1896,6 +2136,54 @@ export type OrganizationUnit$usersArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * OrganizationUnit.logisticWorkflowNodes
+ */
+export type OrganizationUnit$logisticWorkflowNodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowNode
+   */
+  select?: Prisma.LogisticWorkflowNodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowNode
+   */
+  omit?: Prisma.LogisticWorkflowNodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowNodeInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowNodeWhereInput
+  orderBy?: Prisma.LogisticWorkflowNodeOrderByWithRelationInput | Prisma.LogisticWorkflowNodeOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowNodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowNodeScalarFieldEnum | Prisma.LogisticWorkflowNodeScalarFieldEnum[]
+}
+
+/**
+ * OrganizationUnit.logisticWorkflowTasks
+ */
+export type OrganizationUnit$logisticWorkflowTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowTask
+   */
+  select?: Prisma.LogisticWorkflowTaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowTask
+   */
+  omit?: Prisma.LogisticWorkflowTaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowTaskInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowTaskWhereInput
+  orderBy?: Prisma.LogisticWorkflowTaskOrderByWithRelationInput | Prisma.LogisticWorkflowTaskOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowTaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowTaskScalarFieldEnum | Prisma.LogisticWorkflowTaskScalarFieldEnum[]
 }
 
 /**

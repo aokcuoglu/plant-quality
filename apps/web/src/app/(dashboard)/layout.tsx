@@ -176,13 +176,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-sidebar px-6">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-sidebar px-3 sm:px-6">
+          <div className="min-w-0 flex items-center gap-2 text-sm text-muted-foreground">
             <span className="hidden text-muted-foreground sm:inline">Plant{moduleConfig.name}</span>
             <ChevronRight className="hidden size-3 text-muted-foreground/50 sm:block" />
             <span className="flex items-center gap-1.5 font-medium text-foreground">
               <Building2Icon className="size-3.5 text-muted-foreground" />
-              {session.user.companyName}
+              <span className="hidden truncate sm:inline">
+                {session.user.companyName}
+              </span>
             </span>
           </div>
           <div className="flex items-center gap-1.5">

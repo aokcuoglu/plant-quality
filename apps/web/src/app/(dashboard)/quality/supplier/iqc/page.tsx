@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
@@ -35,34 +36,34 @@ export default async function SupplierIqcPage() {
         </div>
       ) : (
         <div className="rounded-lg border bg-card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Inspection #</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">OEM</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Result</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
+          <Table className="w-full text-sm">
+            <TableHeader>
+              <TableRow className="border-b border-border">
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Inspection #</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">OEM</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Result</TableHead>
+                <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="divide-y divide-border">
               {reports.map((r) => (
-                <tr key={r.id} className="transition-colors hover:bg-muted/50">
-                  <td className="px-4 py-3">
+                <TableRow key={r.id} className="transition-colors hover:bg-muted/50">
+                  <TableCell className="px-4 py-3">
                     <Link href={`/quality/supplier/iqc/${r.id}`} className="font-medium text-foreground hover:text-foreground truncate block max-w-[200px]">{r.inspectionNumber}</Link>
-                  </td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
                     <div className="truncate max-w-[180px] text-muted-foreground">{r.partNumber}</div>
                     {r.partName && <div className="truncate max-w-[180px] text-xs text-muted-foreground">{r.partName}</div>}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{r.oem.name}</td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{r.oem.name}</TableCell>
+                  <TableCell className="px-4 py-3">
                     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getIqcStatusColor(r.status)}`}>
                       {IQC_STATUS_LABELS[r.status] ?? r.status.replace(/_/g, " ")}
                     </span>
-                  </td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
                     {r.result ? (
                       <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getIqcResultColor(r.result)}`}>
                         {IQC_RESULT_LABELS[r.result] ?? r.result.replace(/_/g, " ")}
@@ -70,12 +71,12 @@ export default async function SupplierIqcPage() {
                     ) : (
                       <span className="text-xs text-muted-foreground">—</span>
                     )}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{r.inspectionDate?.toLocaleDateString() ?? "—"}</td>
-                </tr>
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-muted-foreground text-xs">{r.inspectionDate?.toLocaleDateString() ?? "—"}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>

@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { updateUpgradeRequestStatus } from "@/app/(dashboard)/_actions/upgrade-requests"
@@ -92,8 +94,9 @@ export function UpgradeRequestList({ requests }: { requests: UpgradeRequestRow[]
 
         return (
           <div key={req.id} className="rounded-lg border bg-card">
-            <button
+            <Button
               type="button"
+              variant="ghost"
               onClick={() => setExpandedId(isExpanded ? null : req.id)}
               className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-muted/50 transition-colors"
             >
@@ -119,7 +122,7 @@ export function UpgradeRequestList({ requests }: { requests: UpgradeRequestRow[]
                   {new Date(req.createdAt).toLocaleDateString()}
                 </span>
               </div>
-            </button>
+            </Button>
             {isExpanded && (
               <div className="border-t border-border px-4 py-3 space-y-2">
                 <div className="grid gap-2 text-sm sm:grid-cols-2">
@@ -155,15 +158,16 @@ export function UpgradeRequestList({ requests }: { requests: UpgradeRequestRow[]
                 {nextActions.length > 0 && (
                   <div className="flex flex-wrap gap-2 pt-1">
                     {nextActions.map((action) => (
-                      <button
+                      <Button
                         key={action}
                         type="button"
+                        variant="outline"
                         onClick={() => handleStatusChange(req.id, action)}
                         disabled={isPending}
                         className="rounded-md border border-border px-2.5 py-1 text-xs font-medium hover:bg-muted transition-colors disabled:opacity-50"
                       >
                         Mark {STATUS_LABELS[action]}
-                      </button>
+                      </Button>
                     ))}
                   </div>
                 )}

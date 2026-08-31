@@ -1,5 +1,7 @@
 "use client"
 
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -116,107 +118,107 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
 
       <div className="overflow-x-auto rounded-lg border bg-card">
-        <table className="w-full text-xs">
-          <thead>
-            <tr className="border-b border-border bg-muted/50">
-              {fmeaType === "PROCESS" && <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Process Step</th>}
-              <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Failure Mode</th>
-              <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Effect</th>
-              <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Sev</th>
-              <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Cause</th>
-              <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Occ</th>
-              <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Prevention Ctrl</th>
-              <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Detection Ctrl</th>
-              <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Det</th>
-              <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">RPN</th>
-              <th className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Action</th>
-              <th className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-20">Status</th>
-              {canEdit && <th className="px-2 py-2 w-8" />}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
+        <Table className="w-full text-xs">
+          <TableHeader>
+            <TableRow className="border-b border-border bg-muted/50">
+              {fmeaType === "PROCESS" && <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Process Step</TableHead>}
+              <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Failure Mode</TableHead>
+              <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Effect</TableHead>
+              <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Sev</TableHead>
+              <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Cause</TableHead>
+              <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Occ</TableHead>
+              <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Prevention Ctrl</TableHead>
+              <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[100px]">Detection Ctrl</TableHead>
+              <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-12">Det</TableHead>
+              <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-14">RPN</TableHead>
+              <TableHead className="px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wider text-muted-foreground min-w-[120px]">Action</TableHead>
+              <TableHead className="px-2 py-2 text-center text-[10px] font-medium uppercase tracking-wider text-muted-foreground w-20">Status</TableHead>
+              {canEdit && <TableHead className="px-2 py-2 w-8" />}
+            </TableRow>
+          </TableHeader>
+          <TableBody className="divide-y divide-border">
             {rows.map(row => (
-              <tr key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : "")}>
+              <TableRow key={row.id} className={cn("hover:bg-muted/30", Number.isFinite(row.rpn) && row.rpn >= 200 ? "bg-destructive/5" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "bg-destructive/5" : "")}>
                 {fmeaType === "PROCESS" && (
-                  <td className="px-2 py-1.5">
+                  <TableCell className="px-2 py-1.5">
                     {canEdit ? (
                       <Input className="h-7 text-xs" value={row.processStep ?? ""} onChange={e => updateRow(row.id, "processStep", e.target.value)} />
                     ) : (
                       <span className="text-foreground">{row.processStep ?? "—"}</span>
                     )}
-                  </td>
+                  </TableCell>
                 )}
-                <td className="px-2 py-1.5">
+                <TableCell className="px-2 py-1.5">
                   {canEdit ? (
                     <Input className="h-7 text-xs" value={row.failureMode} onChange={e => updateRow(row.id, "failureMode", e.target.value)} />
                   ) : (
                     <span className="text-foreground">{row.failureMode || "—"}</span>
                   )}
-                </td>
-                <td className="px-2 py-1.5">
+                </TableCell>
+                <TableCell className="px-2 py-1.5">
                   {canEdit ? (
                     <Input className="h-7 text-xs" value={row.failureEffect} onChange={e => updateRow(row.id, "failureEffect", e.target.value)} />
                   ) : (
                     <span className="text-muted-foreground">{row.failureEffect || "—"}</span>
                   )}
-                </td>
-                <td className="px-2 py-1.5 text-center">
+                </TableCell>
+                <TableCell className="px-2 py-1.5 text-center">
                     {canEdit ? (
                       <SodSelect value={row.severity} onChange={v => updateRow(row.id, "severity", v)} label="Severity" />
                     ) : (
                       <span className="text-foreground">{row.severity}</span>
                     )}
-                  </td>
-                  <td className="px-2 py-1.5">
+                  </TableCell>
+                  <TableCell className="px-2 py-1.5">
                     {canEdit ? (
                       <Input className="h-7 text-xs" value={row.failureCause ?? ""} onChange={e => updateRow(row.id, "failureCause", e.target.value)} />
                     ) : (
                       <span className="text-muted-foreground">{row.failureCause || "—"}</span>
                     )}
-                  </td>
-                  <td className="px-2 py-1.5 text-center">
+                  </TableCell>
+                  <TableCell className="px-2 py-1.5 text-center">
                     {canEdit ? (
                       <SodSelect value={row.occurrence} onChange={v => updateRow(row.id, "occurrence", v)} label="Occurrence" />
                     ) : (
                       <span className="text-foreground">{row.occurrence}</span>
                     )}
-                  </td>
-                  <td className="px-2 py-1.5">
+                  </TableCell>
+                  <TableCell className="px-2 py-1.5">
                     {canEdit ? (
                       <Input className="h-7 text-xs" value={row.preventionControl ?? ""} onChange={e => updateRow(row.id, "preventionControl", e.target.value)} />
                     ) : (
                       <span className="text-muted-foreground">{row.preventionControl || "—"}</span>
                     )}
-                  </td>
-                  <td className="px-2 py-1.5">
+                  </TableCell>
+                  <TableCell className="px-2 py-1.5">
                     {canEdit ? (
                       <Input className="h-7 text-xs" value={row.detectionControl ?? ""} onChange={e => updateRow(row.id, "detectionControl", e.target.value)} />
                     ) : (
                       <span className="text-muted-foreground">{row.detectionControl || "—"}</span>
                     )}
-                  </td>
-                  <td className="px-2 py-1.5 text-center">
+                  </TableCell>
+                  <TableCell className="px-2 py-1.5 text-center">
                     {canEdit ? (
                       <SodSelect value={row.detection} onChange={v => updateRow(row.id, "detection", v)} label="Detection" />
                     ) : (
                       <span className="text-foreground">{row.detection}</span>
                     )}
-                  </td>
-                <td className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-destructive" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-destructive" : "text-foreground")}>
+                  </TableCell>
+                <TableCell className={cn("px-2 py-1.5 text-center font-bold", Number.isFinite(row.rpn) && row.rpn >= 200 ? "text-destructive" : Number.isFinite(row.rpn) && row.rpn >= 100 ? "text-destructive" : "text-foreground")}>
                   {Number.isFinite(row.rpn) ? row.rpn : "—"}
-                </td>
-                <td className="px-2 py-1.5">
+                </TableCell>
+                <TableCell className="px-2 py-1.5">
                   {canEdit ? (
                     <Input className="h-7 text-xs" value={row.recommendedAction ?? ""} onChange={e => updateRow(row.id, "recommendedAction", e.target.value)} />
                   ) : (
                     <span className="text-muted-foreground">{row.recommendedAction || "—"}</span>
                   )}
-                </td>
-                <td className="px-2 py-1.5">
+                </TableCell>
+                <TableCell className="px-2 py-1.5">
                   {canEdit ? (
                     <ActionStatusSelect value={row.actionStatus} onChange={v => updateRow(row.id, "actionStatus", v)} />
                   ) : (
@@ -224,25 +226,25 @@ export function FmeaRowEditor({ fmeaId, initialRows, fmeaType, canEdit }: FmeaRo
                       {row.actionStatus?.replaceAll("_", " ") ?? "OPEN"}
                     </span>
                   )}
-                </td>
+                </TableCell>
                 {canEdit && (
-                  <td className="px-1 py-1.5">
-                    <button onClick={() => handleRemoveRow(row.id)} disabled={saving} className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50">
+                  <TableCell className="px-1 py-1.5">
+                    <Button onClick={() => handleRemoveRow(row.id)} disabled={saving} variant="destructive" className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50">
                       &times;
-                    </button>
-                  </td>
+                    </Button>
+                  </TableCell>
                 )}
-              </tr>
+              </TableRow>
             ))}
             {rows.length === 0 && (
-              <tr>
-                <td colSpan={fmeaType === "PROCESS" ? 12 : 11} className="px-4 py-8 text-center text-sm text-muted-foreground">
+              <TableRow>
+                <TableCell colSpan={fmeaType === "PROCESS" ? 12 : 11} className="px-4 py-8 text-center text-sm text-muted-foreground">
                   No failure modes added yet. Click &quot;Add Row&quot; to begin.
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   )

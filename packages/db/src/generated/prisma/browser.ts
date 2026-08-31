@@ -243,6 +243,41 @@ export type LogisticVehicleUnit = Prisma.LogisticVehicleUnitModel
  */
 export type LogisticVehicleProcessVisit = Prisma.LogisticVehicleProcessVisitModel
 /**
+ * Model LogisticWorkflowDefinition
+ * 
+ */
+export type LogisticWorkflowDefinition = Prisma.LogisticWorkflowDefinitionModel
+/**
+ * Model LogisticWorkflowVersion
+ * 
+ */
+export type LogisticWorkflowVersion = Prisma.LogisticWorkflowVersionModel
+/**
+ * Model LogisticWorkflowNode
+ * 
+ */
+export type LogisticWorkflowNode = Prisma.LogisticWorkflowNodeModel
+/**
+ * Model LogisticWorkflowEdge
+ * 
+ */
+export type LogisticWorkflowEdge = Prisma.LogisticWorkflowEdgeModel
+/**
+ * Model LogisticWorkflowInstance
+ * 
+ */
+export type LogisticWorkflowInstance = Prisma.LogisticWorkflowInstanceModel
+/**
+ * Model LogisticWorkflowTask
+ * 
+ */
+export type LogisticWorkflowTask = Prisma.LogisticWorkflowTaskModel
+/**
+ * Model LogisticWorkflowEvent
+ * 
+ */
+export type LogisticWorkflowEvent = Prisma.LogisticWorkflowEventModel
+/**
  * Model PlantLogisticOrderEvent
  * 
  */

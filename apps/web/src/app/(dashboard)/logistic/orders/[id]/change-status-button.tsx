@@ -1,10 +1,14 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import type { LogisticOrderStatus } from "@plantx/db/client"
 import { STATUS_LABELS } from "@/lib/logistic/status"
 import { changeLogisticOrderStatus } from "../../actions"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
+import { useTranslations } from "@/i18n/context"
 
 export function ChangeStatusButton({
   orderId,
@@ -14,6 +18,8 @@ export function ChangeStatusButton({
   newStatus: LogisticOrderStatus
   currentStatus: LogisticOrderStatus
 }) {
+  const t = useTranslations()
+  const { showAlert } = useAppAlertDialog()
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
@@ -22,11 +28,12 @@ export function ChangeStatusButton({
     try {
       const result = await changeLogisticOrderStatus(orderId, newStatus)
       if (result?.error) {
-        alert(result.error)
+        showAlert(result.error)
+        return
       }
       router.refresh()
     } catch {
-      alert("Failed to change status")
+      showAlert(t("logistic.actionErrors.changeStatus"))
     } finally {
       setLoading(false)
     }
@@ -37,7 +44,7 @@ export function ChangeStatusButton({
   const isReject = newStatus === "REJECTED"
 
   return (
-    <button
+    <Button
       onClick={handleAction}
       disabled={loading}
       className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:opacity-50 ${
@@ -47,6 +54,6 @@ export function ChangeStatusButton({
       }`}
     >
       {loading ? "..." : label}
-    </button>
+    </Button>
   )
 }

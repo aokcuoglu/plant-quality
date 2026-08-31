@@ -126,7 +126,7 @@ export function getPpapStatusColor(status: string): string {
     case "REVISED":
       return "bg-destructive/10 text-destructive"
     case "REQUESTED":
-      return "bg-cyan-500/10 text-cyan-400"
+      return "bg-brand/10 text-brand"
     default:
       return "bg-muted text-muted-foreground"
   }

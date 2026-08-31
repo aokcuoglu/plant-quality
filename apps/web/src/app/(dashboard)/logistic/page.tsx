@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
@@ -372,36 +373,38 @@ export default async function LogisticDashboardPage() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  <th className="px-4 py-3 text-left">{t("logistic.common.orderNumber")}</th>
-                  <th className="px-4 py-3 text-left">{t("logistic.common.customer")}</th>
-                  <th className="px-4 py-3 text-left">{t("logistic.common.vehicle")}</th>
-                  <th className="px-4 py-3 text-left">{t("common.status")}</th>
-                  <th className="px-4 py-3 text-left">{t("logistic.common.production")}</th>
-                  <th className="px-4 py-3 text-left">{t("logistic.common.yard")}</th>
-                  <th className="px-4 py-3 text-left">{t("logistic.common.dispatch")}</th>
-                  <th className="px-4 py-3 text-left">{t("logistic.common.created")}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.orderNumber")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.customer")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.vehicle")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("common.status")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.production")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.yard")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.dispatch")}</TableHead>
+                  <TableHead className="px-4 py-3 text-left">{t("logistic.common.created")}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {recentOrders.map((order) => {
                    const progress = calculateProductionProgress(order.milestones)
                    return (
-                    <tr key={order.id} className="group hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={order.id} className="group hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-foreground">
                           {order.orderNumber}
                         </Link>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.vehicleModel}
                         {order.vehicleVariant ? ` (${order.vehicleVariant})` : ""}
-                      </td>
-                      <td className="px-4 py-3"><StatusBadge status={order.status} /></td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
+                        <StatusBadge status={order.status} label={t(`logistic.statuses.${order.status}`)} />
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {order.milestones.length > 0 ? (
                           <div className="flex items-center gap-1.5">
                             <div className="h-1.5 w-16 rounded-full bg-muted">
@@ -415,8 +418,8 @@ export default async function LogisticDashboardPage() {
                         ) : (
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.yardStatus ? (
                           <div className="flex flex-col">
                             <span>{order.yardStatus.yardLocation || "—"}</span>
@@ -426,8 +429,8 @@ export default async function LogisticDashboardPage() {
                         ) : (
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.dispatches.length > 0 ? (
                           <div className="flex flex-col">
                             <span className="text-xs">{DISPATCH_STATUS_LABELS[order.dispatches[0].status as keyof typeof DISPATCH_STATUS_LABELS] ?? order.dispatches[0].status}</span>
@@ -436,15 +439,15 @@ export default async function LogisticDashboardPage() {
                         ) : (
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.createdAt.toLocaleDateString()}
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         )}
       </div>

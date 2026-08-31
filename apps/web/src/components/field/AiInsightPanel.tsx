@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { SparklesIcon, CheckIcon, XIcon, RefreshCwIcon } from "lucide-react"
@@ -41,7 +43,7 @@ interface AiInsightPanelProps {
 
 const severityColors: Record<string, string> = {
   MINOR: "bg-primary/10 text-primary",
-  MAJOR: "bg-destructive/10 text-destructive dark:text-destructive",
+  MAJOR: "bg-destructive/10 text-destructive ",
   CRITICAL: "bg-destructive/10 text-destructive",
 }
 
@@ -59,8 +61,8 @@ const statusLabels: Record<string, string> = {
 }
 
 const statusColors: Record<string, string> = {
-  GENERATED: "bg-destructive/10 text-destructive dark:text-destructive",
-  ACCEPTED: "bg-muted text-muted-foreground dark:text-foreground",
+  GENERATED: "bg-destructive/10 text-destructive ",
+  ACCEPTED: "bg-muted text-muted-foreground ",
   REJECTED: "bg-destructive/10 text-destructive",
   EXPIRED: "bg-muted text-muted-foreground",
 }
@@ -175,15 +177,16 @@ export function AiInsightPanel({
           <div className="text-center py-4">
             <p className="text-sm text-muted-foreground mb-3">No AI classification yet.</p>
             {canManage && (
-              <button
+              <Button
                 onClick={handleGenerate}
+                variant="outline"
                 disabled={isPending}
                 aria-label="Generate AI classification"
                 className="inline-flex items-center gap-2 rounded-lg bg-muted text-muted-foreground px-3 py-2 text-sm font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <SparklesIcon className="h-4 w-4" />
                 Generate Classification
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -281,7 +284,7 @@ export function AiInsightPanel({
                   </p>
                 )}
                 <div className="flex gap-2">
-                  <button
+                  <Button
                     onClick={() => handleAction(latestSuggestion.id, "accept")}
                     disabled={isPending}
                     aria-label="Accept AI suggestion"
@@ -289,8 +292,8 @@ export function AiInsightPanel({
                   >
                     <CheckIcon className="h-4 w-4" />
                     Accept
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => handleAction(latestSuggestion.id, "reject")}
                     disabled={isPending}
                     aria-label="Reject AI suggestion"
@@ -298,21 +301,22 @@ export function AiInsightPanel({
                   >
                     <XIcon className="h-4 w-4" />
                     Reject
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
 
             {latestSuggestion?.status !== "GENERATED" && canManage && (
-              <button
+              <Button
                 onClick={handleGenerate}
+                variant="outline"
                 disabled={isPending}
                 aria-label="Re-generate AI classification"
                 className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <RefreshCwIcon className="h-3.5 w-3.5" />
                 Re-generate
-              </button>
+              </Button>
             )}
           </>
         )}

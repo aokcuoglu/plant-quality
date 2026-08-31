@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -58,47 +59,47 @@ export default async function OemEscalationsPage({
         </div>
       ) : (
         <div className="rounded-lg border bg-card overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b">
-              <tr>
-                <th className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Field Defect</th>
-                <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">From → To</th>
-                <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Reason</th>
-                <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Escalated By</th>
-                <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table className="w-full text-sm">
+            <TableHeader className="border-b">
+              <TableRow>
+                <TableHead className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Field Defect</TableHead>
+                <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">From → To</TableHead>
+                <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Reason</TableHead>
+                <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Escalated By</TableHead>
+                <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {escalations.map((esc) => (
-                <tr key={esc.id} className="border-b transition-colors hover:bg-muted/50">
-                  <td className="p-3 align-middle">
+                <TableRow key={esc.id} className="border-b transition-colors hover:bg-muted/50">
+                  <TableCell className="p-3 align-middle">
                     <Link href={`/quality/oem/field/${esc.entityId}`} className="font-medium text-foreground hover:underline">
                       {esc.fieldDefectTitle}
                     </Link>
                     {esc.partNumber && (
                       <span className="ml-2 font-mono text-xs text-muted-foreground">({esc.partNumber})</span>
                     )}
-                  </td>
-                  <td className="p-3 align-middle">
+                  </TableCell>
+                  <TableCell className="p-3 align-middle">
                     <div className="flex items-center gap-1">
                       <EscalationBadge level={esc.previousLevel} />
                       <span className="text-muted-foreground">→</span>
                       <EscalationBadge level={esc.newLevel} />
                     </div>
-                  </td>
-                  <td className="p-3 align-middle max-w-xs truncate text-muted-foreground">
+                  </TableCell>
+                  <TableCell className="p-3 align-middle max-w-xs truncate text-muted-foreground">
                     {esc.reason}
-                  </td>
-                  <td className="p-3 align-middle text-muted-foreground">
+                  </TableCell>
+                  <TableCell className="p-3 align-middle text-muted-foreground">
                     {esc.createdByName}
-                  </td>
-                  <td className="p-3 align-middle text-xs text-muted-foreground">
+                  </TableCell>
+                  <TableCell className="p-3 align-middle text-xs text-muted-foreground">
                     {new Date(esc.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>

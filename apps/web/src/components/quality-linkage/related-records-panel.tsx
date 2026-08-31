@@ -1,5 +1,13 @@
 "use client"
 
+import { Skeleton } from "@/components/ui/skeleton"
+
+import { Label } from "@/components/ui/label"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import {
@@ -138,7 +146,7 @@ export function RelatedQualityRecordsPanel({
         {loading && (
           <div className="space-y-2">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-12 bg-muted animate-pulse rounded" />
+              <Skeleton key={i} className="h-12 bg-muted  rounded" />
             ))}
           </div>
         )}
@@ -352,24 +360,23 @@ function LinkRecordDialog({
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Record Type
-            </label>
-            <select
+            </Label>
+            <NativeSelect
               value={targetType}
-              onChange={(e) => setTargetType(e.target.value as QualityRecordType)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground"
+              onChange={(e) => setTargetType(e.target.value as QualityRecordType)} className="w-full"
             >
               {(Object.entries(QUALITY_RECORD_TYPE_LABELS) as [QualityRecordType, string][]).map(([k, v]) => (
-                <option key={k} value={k}>{v}</option>
+                <NativeSelectOption key={k} value={k}>{v}</NativeSelectOption>
               ))}
-            </select>
+            </NativeSelect>
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Record ID
-            </label>
-            <input
+            </Label>
+            <Input
               value={targetId}
               onChange={(e) => setTargetId(e.target.value)}
               placeholder="Paste the record ID"
@@ -377,13 +384,12 @@ function LinkRecordDialog({
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Link Type
-            </label>
-            <select
+            </Label>
+            <NativeSelect
               value={linkType}
-              onChange={(e) => setLinkType(e.target.value as QualityLinkType)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground"
+              onChange={(e) => setLinkType(e.target.value as QualityLinkType)} className="w-full"
             >
               {([
                 ["MANUAL", "Manual"],
@@ -398,15 +404,15 @@ function LinkRecordDialog({
                 ["ORDER_TO_DEFECT", "Order → Defect"],
                 ["LOGISTIC_QUALITY_HOLD", "Quality Hold → Logistic"],
               ] as [QualityLinkType, string][]).map(([k, v]) => (
-                <option key={k} value={k}>{v}</option>
+                <NativeSelectOption key={k} value={k}>{v}</NativeSelectOption>
               ))}
-            </select>
+            </NativeSelect>
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Reason (optional)
-            </label>
-            <input
+            </Label>
+            <Input
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder="Why are these records related?"

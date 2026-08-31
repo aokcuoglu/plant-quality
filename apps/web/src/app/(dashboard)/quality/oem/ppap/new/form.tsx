@@ -1,5 +1,14 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+
 import { useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { createPpapRequest } from "../actions/review"
@@ -68,27 +77,26 @@ export function PpapCreateForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label htmlFor="supplierId" className="text-sm font-medium text-foreground">
+          <Label htmlFor="supplierId" className="text-sm font-medium text-foreground">
             Supplier <span className="text-destructive">*</span>
-          </label>
-          <select
+          </Label>
+          <NativeSelect
             id="supplierId"
             name="supplierId"
-            required
-            className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            required className="w-full"
           >
-            <option value="">Select a supplier...</option>
+            <NativeSelectOption value="">Select a supplier...</NativeSelectOption>
             {suppliers.map((s) => (
-              <option key={s.id} value={s.id}>{s.name}</option>
+              <NativeSelectOption key={s.id} value={s.id}>{s.name}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="partNumber" className="text-sm font-medium text-foreground">
+          <Label htmlFor="partNumber" className="text-sm font-medium text-foreground">
             Part Number <span className="text-destructive">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             id="partNumber"
             name="partNumber"
             type="text"
@@ -99,10 +107,10 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="partName" className="text-sm font-medium text-foreground">
+          <Label htmlFor="partName" className="text-sm font-medium text-foreground">
             Part Name <span className="text-destructive">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             id="partName"
             name="partName"
             type="text"
@@ -113,10 +121,10 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="revision" className="text-sm font-medium text-foreground">
+          <Label htmlFor="revision" className="text-sm font-medium text-foreground">
             Revision
-          </label>
-          <input
+          </Label>
+          <Input
             id="revision"
             name="revision"
             type="text"
@@ -127,10 +135,10 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="projectName" className="text-sm font-medium text-foreground">
+          <Label htmlFor="projectName" className="text-sm font-medium text-foreground">
             Project Name
-          </label>
-          <input
+          </Label>
+          <Input
             id="projectName"
             name="projectName"
             type="text"
@@ -140,10 +148,10 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="vehicleModel" className="text-sm font-medium text-foreground">
+          <Label htmlFor="vehicleModel" className="text-sm font-medium text-foreground">
             Vehicle Model
-          </label>
-          <input
+          </Label>
+          <Input
             id="vehicleModel"
             name="vehicleModel"
             type="text"
@@ -153,10 +161,10 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="revisionLevel" className="text-sm font-medium text-foreground">
+          <Label htmlFor="revisionLevel" className="text-sm font-medium text-foreground">
             Revision Level
-          </label>
-          <input
+          </Label>
+          <Input
             id="revisionLevel"
             name="revisionLevel"
             type="text"
@@ -166,10 +174,10 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="drawingNumber" className="text-sm font-medium text-foreground">
+          <Label htmlFor="drawingNumber" className="text-sm font-medium text-foreground">
             Drawing Number
-          </label>
-          <input
+          </Label>
+          <Input
             id="drawingNumber"
             name="drawingNumber"
             type="text"
@@ -179,49 +187,47 @@ export function PpapCreateForm({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="level" className="text-sm font-medium text-foreground">
+          <Label htmlFor="level" className="text-sm font-medium text-foreground">
             PPAP Level <span className="text-destructive">*</span>
-          </label>
-          <select
+          </Label>
+          <NativeSelect
             id="level"
             name="level"
             value={level}
-            onChange={(e) => handleLevelChange(e.target.value as PpapLevel)}
-            className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            onChange={(e) => handleLevelChange(e.target.value as PpapLevel)} className="w-full"
           >
             {PPAP_LEVELS.map((l) => (
-              <option key={l.value} value={l.value}>{l.label} — {l.description}</option>
+              <NativeSelectOption key={l.value} value={l.value}>{l.label} — {l.description}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="reasonForSubmission" className="text-sm font-medium text-foreground">
+          <Label htmlFor="reasonForSubmission" className="text-sm font-medium text-foreground">
             Reason for Submission
-          </label>
-          <select
+          </Label>
+          <NativeSelect
             id="reasonForSubmission"
-            name="reasonForSubmission"
-            className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            name="reasonForSubmission" className="w-full"
           >
             {PPAP_REASONS.map((r) => (
-              <option key={r.value} value={r.value}>{r.label}</option>
+              <NativeSelectOption key={r.value} value={r.value}>{r.label}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div className="space-y-2 sm:col-span-2">
-          <label htmlFor="dueDate" className="text-sm font-medium text-foreground">
+          <Label htmlFor="dueDate" className="text-sm font-medium text-foreground">
             Due Date
-          </label>
+          </Label>
           <DatePicker name="dueDate" placeholder="mm / dd / yyyy" />
         </div>
 
         <div className="space-y-2 sm:col-span-2">
-          <label htmlFor="notes" className="text-sm font-medium text-foreground">
+          <Label htmlFor="notes" className="text-sm font-medium text-foreground">
             Notes
-          </label>
-          <textarea
+          </Label>
+          <Textarea
             id="notes"
             name="notes"
             rows={3}
@@ -238,18 +244,17 @@ export function PpapCreateForm({
         </p>
         <div className="grid gap-2 sm:grid-cols-2">
           {PPAP_REQUIREMENTS.map((r) => (
-            <label key={r.key} className="flex items-start gap-2 rounded-lg border border-border bg-card px-3 py-2 cursor-pointer hover:bg-muted/50 transition-colors">
-              <input
-                type="checkbox"
+            <Label key={r.key} className="flex items-start gap-2 rounded-lg border border-border bg-card px-3 py-2 cursor-pointer hover:bg-muted/50 transition-colors">
+              <Checkbox
                 checked={requirements[r.key] ?? false}
-                onChange={() => toggleRequirement(r.key)}
-                className="mt-0.5 rounded border-border"
+                onCheckedChange={() => toggleRequirement(r.key)}
+                className="mt-0.5"
               />
               <div className="min-w-0">
                 <span className="text-sm text-foreground">{r.label}</span>
                 <p className="text-xs text-muted-foreground">{r.description}</p>
               </div>
-            </label>
+            </Label>
           ))}
         </div>
       </div>
@@ -268,13 +273,13 @@ export function PpapCreateForm({
         <Button type="submit" disabled={saving}>
           {saving ? "Creating..." : "Create PPAP Request"}
         </Button>
-        <button
+        <Button
           type="button"
           onClick={() => router.push("/quality/oem/ppap")}
           className="inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
         >
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   )

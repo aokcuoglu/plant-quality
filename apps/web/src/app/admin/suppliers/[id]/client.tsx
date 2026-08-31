@@ -30,6 +30,8 @@ import { addSupplierUser, removeSupplierUser, updateSupplierPlan } from "../acti
 import { Badge } from "@/components/ui/badge"
 import { addSupplierUserSchema } from "@/lib/validation"
 import { FieldError } from "@/components/ui/field-error"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
+import { useTranslations } from "@/i18n/context"
 
 interface Supplier {
   id: string
@@ -42,6 +44,8 @@ interface Supplier {
 }
 
 export function SupplierDetailClient({ supplier: initial }: { supplier: Supplier }) {
+  const t = useTranslations()
+  const { showConfirm } = useAppAlertDialog()
   const [supplier, setSupplier] = useState(initial)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -50,6 +54,8 @@ export function SupplierDetailClient({ supplier: initial }: { supplier: Supplier
   const router = useRouter()
 
   useEffect(() => {
+    // Keep local optimistic state aligned after a server refresh replaces the supplier prop.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSupplier(initial)
   }, [initial])
 
@@ -100,7 +106,16 @@ export function SupplierDetailClient({ supplier: initial }: { supplier: Supplier
   }, [supplier.id, router])
 
   async function handleRemoveUser(userId: string, userName: string | null) {
-    if (!confirm(`Remove "${userName || "this user"}" from ${supplier.name}?`)) return
+    const confirmed = await showConfirm({
+      title: t("admin.suppliers.removeUserTitle"),
+      description: t("admin.suppliers.removeUserDescription", {
+        user: userName || t("admin.suppliers.unnamedUser"),
+        supplier: supplier.name,
+      }),
+      actionLabel: t("common.remove"),
+      variant: "destructive",
+    })
+    if (!confirmed) return
     setError(null)
     try {
       await removeSupplierUser(userId, supplier.id)
@@ -285,7 +300,7 @@ export function SupplierDetailClient({ supplier: initial }: { supplier: Supplier
             {supplier.users.length === 0 && (
               <TableRow>
                 <TableCell colSpan={5} className="text-center py-8 text-sm text-muted-foreground">
-                  No users yet. Click "Add User" to create one.
+                  No users yet. Click &quot;Add User&quot; to create one.
                 </TableCell>
               </TableRow>
             )}

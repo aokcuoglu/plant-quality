@@ -9,11 +9,11 @@ import {
 } from "recharts"
 
 const COLORS: Record<string, string> = {
-  OPEN: "#f87171",
-  IN_PROGRESS: "#fbbf24",
-  WAITING_APPROVAL: "#60a5fa",
-  RESOLVED: "#34d399",
-  REJECTED: "#a78bfa",
+  OPEN: "var(--chart-5)",
+  IN_PROGRESS: "var(--chart-4)",
+  WAITING_APPROVAL: "var(--chart-3)",
+  RESOLVED: "var(--chart-2)",
+  REJECTED: "var(--chart-1)",
 }
 
 const LABELS: Record<string, string> = {
@@ -35,7 +35,7 @@ export function StatusDonut({ data, total }: { data: RawItem[]; total: number })
     .map((d) => ({
       name: LABELS[d.status] ?? d.status,
       value: d._count,
-      color: COLORS[d.status] ?? "#6b7280",
+      color: COLORS[d.status] ?? "var(--muted-foreground)",
     }))
 
   if (chartData.length === 0) {

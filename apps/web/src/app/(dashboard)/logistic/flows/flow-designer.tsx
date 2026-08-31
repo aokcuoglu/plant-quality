@@ -1,7 +1,10 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
 import {
   Background,
   Controls,
@@ -18,8 +21,27 @@ import {
   type Node,
   type NodeProps,
 } from "@xyflow/react"
-import { Minus, Plus, Trash2 } from "lucide-react"
+import { History, Minus, Plus, RotateCcw, Trash2 } from "lucide-react"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { toast } from "@/components/ui/use-toast"
 import { useTranslations } from "@/i18n/context"
 import {
@@ -27,15 +49,24 @@ import {
   validateFlowGraph,
   type FlowNodeKind,
 } from "@/lib/logistic/flow-graph"
-import { ensureDraft, publishFlow, saveFlowDraft } from "../flow-actions"
+import {
+  deleteFlowDraft,
+  ensureDraft,
+  publishFlow,
+  restoreFlowVersion,
+  saveFlowDraft,
+} from "../flow-actions"
 import {
   ProcessPackageSidebar,
   type CatalogProcess,
 } from "./process-package-sidebar"
+import { FlowDesignerToolbar } from "./flow-designer-toolbar"
+import { isProcessType, type ProcessType } from "./process-types"
 
 interface DesignerNodeData extends Record<string, unknown> {
   kind: FlowNodeKind
   processId?: string
+  processType?: ProcessType
   name: string
   inputCount: number
   outputCount: number
@@ -43,18 +74,58 @@ interface DesignerNodeData extends Record<string, unknown> {
 
 type DesignerNode = Node<DesignerNodeData>
 
+type FlowVersionStatus = "DRAFT" | "PUBLISHED" | "ARCHIVED"
+
+interface FlowVersionOption {
+  id: string
+  version: number
+  status: FlowVersionStatus
+}
+
+interface FlowGraphData {
+  nodes: {
+    id: string
+    kind: FlowNodeKind
+    processId: string | null
+    name: string
+    position: { x: number; y: number }
+    inputCount: number
+    outputCount: number
+  }[]
+  edges: Edge[]
+}
+
+interface FlowDraftData extends FlowGraphData {
+  id: string
+  version: number
+}
+
 function handleTop(index: number, total: number) {
   if (total <= 1) return "50%"
   return `${((index + 1) / (total + 1)) * 100}%`
 }
 
 function ProcessNode({ data, selected }: NodeProps<DesignerNode>) {
+  const t = useTranslations()
   const inputs = Math.max(0, data.inputCount)
   const outputs = Math.max(0, data.outputCount)
+  const displayName =
+    data.kind === "START"
+      ? t("logistic.dynamicFlow.nodeKinds.START")
+      : data.kind === "END"
+        ? t("logistic.dynamicFlow.nodeKinds.END")
+        : data.name
+  const kindLabel = data.kind === "PROCESS" && data.processType
+    ? isProcessType(data.processType)
+      ? t(`logistic.dynamicFlow.types.${data.processType}`)
+      : data.processType
+    : t(`logistic.dynamicFlow.nodeKinds.${data.kind}`)
   return (
     <div
-      className={`relative min-w-44 rounded-lg border bg-card px-4 py-3 shadow-sm ${
-        selected ? "border-emerald-500" : "border-border"
+      className={`relative min-w-44 rounded-xl border bg-card px-4 py-3 shadow-sm transition-shadow ${
+        selected
+          ? "border-emerald-500 shadow-md ring-2 ring-emerald-500/20"
+          : "border-border"
       }`}
     >
       {Array.from({ length: inputs }).map((_, index) => (
@@ -67,11 +138,19 @@ function ProcessNode({ data, selected }: NodeProps<DesignerNode>) {
           style={{ top: handleTop(index, inputs) }}
         />
       ))}
-      <p className="text-xs font-semibold text-foreground">{data.name}</p>
-      <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{data.kind}</p>
-      <p className="mt-1 text-[10px] text-muted-foreground">
-        {inputs} in · {outputs} out
+      <p className="text-xs font-semibold text-foreground">{displayName}</p>
+      <p className="mt-1 inline-flex rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-medium text-foreground">
+        {kindLabel}
       </p>
+      <div className="mt-2 flex items-center gap-2 text-[10px] text-muted-foreground">
+        <span>
+          {inputs} {t("logistic.dynamicFlow.inputs")}
+        </span>
+        <span aria-hidden="true">·</span>
+        <span>
+          {outputs} {t("logistic.dynamicFlow.outputs")}
+        </span>
+      </div>
       {Array.from({ length: outputs }).map((_, index) => (
         <Handle
           key={`out-${index}`}
@@ -129,34 +208,94 @@ function toDraftEdges(edges: Edge[]) {
   }))
 }
 
+function createFlowSnapshot(
+  nodes: ReturnType<typeof toDraftNodes>,
+  edges: ReturnType<typeof toDraftEdges>,
+) {
+  const canonicalNodes = nodes
+    .map((node) => ({
+      id: node.id,
+      kind: node.kind,
+      processId: node.processId ?? null,
+      position: { x: node.position.x, y: node.position.y },
+      inputCount: node.inputCount,
+      outputCount: node.outputCount,
+    }))
+    .sort((left, right) => left.id.localeCompare(right.id))
+  const canonicalEdges = edges
+    .map((edge) => ({
+      source: edge.source,
+      target: edge.target,
+      sourceHandle: edge.sourceHandle ?? "out-0",
+      targetHandle: edge.targetHandle ?? "in-0",
+    }))
+    .sort((left, right) =>
+      `${left.source}:${left.sourceHandle}:${left.target}:${left.targetHandle}`.localeCompare(
+        `${right.source}:${right.sourceHandle}:${right.target}:${right.targetHandle}`,
+      ),
+    )
+  return JSON.stringify({ nodes: canonicalNodes, edges: canonicalEdges })
+}
+
+function graphDataSnapshot(graph: FlowGraphData) {
+  return createFlowSnapshot(
+    graph.nodes.map((node) => ({
+      id: node.id,
+      kind: node.kind,
+      processId: node.processId ?? undefined,
+      position: node.position,
+      inputCount: node.inputCount,
+      outputCount: node.outputCount,
+    })),
+    toDraftEdges(graph.edges),
+  )
+}
+
+const EMPTY_FLOW_SNAPSHOT = createFlowSnapshot(
+  [
+    {
+      id: "start",
+      kind: "START",
+      processId: undefined,
+      position: { x: 80, y: 180 },
+      inputCount: 0,
+      outputCount: 1,
+    },
+    {
+      id: "end",
+      kind: "END",
+      processId: undefined,
+      position: { x: 680, y: 180 },
+      inputCount: 1,
+      outputCount: 0,
+    },
+  ],
+  [],
+)
+
 function FlowDesignerInner({
   groups,
   selectedGroupId,
   draft,
+  published,
   processes,
   canManage,
 }: {
-  groups: { id: string; name: string; versions: { id: string; version: number; status: string }[] }[]
+  groups: { id: string; name: string; versions: FlowVersionOption[] }[]
   selectedGroupId: string | null
-  draft: {
-    id: string
-    nodes: {
-      id: string
-      kind: FlowNodeKind
-      processId: string | null
-      name: string
-      position: { x: number; y: number }
-      inputCount: number
-      outputCount: number
-    }[]
-    edges: Edge[]
-  } | null
+  draft: FlowDraftData | null
+  published: FlowGraphData | null
   processes: CatalogProcess[]
   canManage: boolean
 }) {
   const t = useTranslations()
+  const { resolvedTheme } = useTheme()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
+  const processById = useMemo(
+    () => new Map(processes.map((process) => [process.id, process])),
+    [processes],
+  )
   const initialNodes = useMemo<DesignerNode[]>(() => {
     if (!draft) return []
     return ensureTerminalNodes(
@@ -169,6 +308,7 @@ function FlowDesignerInner({
           data: {
             kind: node.kind,
             processId: node.processId ?? undefined,
+            processType: node.processId ? processById.get(node.processId)?.type : undefined,
             name: node.name,
             inputCount: node.inputCount ?? defaults.inputCount,
             outputCount: node.outputCount ?? defaults.outputCount,
@@ -176,17 +316,38 @@ function FlowDesignerInner({
         }
       }),
     )
-  }, [draft])
+  }, [draft, processById])
+  const initialDraftSnapshot = useMemo(
+    () => (draft ? graphDataSnapshot(draft) : ""),
+    [draft],
+  )
+  const publishedSnapshot = useMemo(
+    () => (published ? graphDataSnapshot(published) : EMPTY_FLOW_SNAPSHOT),
+    [published],
+  )
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(draft?.edges ?? [])
+  const [savedSnapshot, setSavedSnapshot] = useState(initialDraftSnapshot)
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [packageExpanded, setPackageExpanded] = useState(true)
+  const [restoreVersion, setRestoreVersion] = useState<FlowVersionOption | null>(null)
+  const [deleteDraftOpen, setDeleteDraftOpen] = useState(false)
 
+  /* eslint-disable react-hooks/set-state-in-effect -- the editor must reset atomically when a different saved draft is loaded */
   useEffect(() => {
     setNodes(initialNodes)
     setEdges(draft?.edges ?? [])
+    setSavedSnapshot(initialDraftSnapshot)
     setSelectedId(null)
-  }, [draft?.id, initialNodes, draft?.edges, setNodes, setEdges])
+  }, [draft?.id, initialNodes, draft?.edges, initialDraftSnapshot, setNodes, setEdges])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const currentSnapshot = useMemo(
+    () => createFlowSnapshot(toDraftNodes(nodes), toDraftEdges(edges)),
+    [nodes, edges],
+  )
+  const hasUnsavedChanges = Boolean(draft && currentSnapshot !== savedSnapshot)
+  const hasUnpublishedChanges = Boolean(draft && currentSnapshot !== publishedSnapshot)
+  const selectedGroup = groups.find((group) => group.id === selectedGroupId)
 
   const validation = validateFlowGraph(
     nodes.map((node) => ({ id: node.id, kind: node.data.kind })),
@@ -209,6 +370,13 @@ function FlowDesignerInner({
     [setEdges],
   )
   const selectedNode = nodes.find((node) => node.id === selectedId)
+  const selectedNodeName = selectedNode
+    ? selectedNode.data.kind === "START"
+      ? t("logistic.dynamicFlow.nodeKinds.START")
+      : selectedNode.data.kind === "END"
+        ? t("logistic.dynamicFlow.nodeKinds.END")
+        : selectedNode.data.name
+    : null
 
   function addProcess(process: CatalogProcess) {
     const id = `process-${process.id}-${crypto.randomUUID()}`
@@ -222,6 +390,7 @@ function FlowDesignerInner({
         data: {
           kind: "PROCESS",
           processId: process.id,
+          processType: process.type,
           name: process.name,
           inputCount: defaults.inputCount,
           outputCount: defaults.outputCount,
@@ -241,7 +410,6 @@ function FlowDesignerInner({
     )
     if (delta < 0) {
       const nextCount = Math.max(1, selectedNode.data[field] + delta)
-      const prefix = field === "inputCount" ? "in-" : "out-"
       setEdges((current) =>
         current.filter((edge) => {
           if (field === "inputCount" && edge.target === selectedNode.id) {
@@ -277,6 +445,9 @@ function FlowDesignerInner({
       "UNKNOWN",
       "INVALID_FLOW",
       "PROCESS_REQUIRED",
+      "DRAFT_IN_USE",
+      "DRAFT_NOT_FOUND",
+      "VERSION_NOT_FOUND",
       "OVERRIDE_REASON_REQUIRED",
       "NEXT_STEP_ONLY",
       "STALE_REVISION",
@@ -309,66 +480,118 @@ function FlowDesignerInner({
 
   return (
     <div className="-m-6 flex h-[calc(100%+3rem)] min-h-[calc(100dvh-3.5rem)] flex-col overflow-hidden bg-background">
-      <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-2">
-        <div className="mr-2 hidden min-w-0 flex-1 flex-col sm:flex">
-          <h1 className="truncate text-sm font-semibold tracking-tight text-foreground">
-            {t("logistic.dynamicFlow.flowsTitle")}
-          </h1>
-          <p className="truncate text-xs text-muted-foreground">
-            {t("logistic.dynamicFlow.flowsDescription")}
-          </p>
-        </div>
-        <div className="ml-auto flex shrink-0 items-center gap-2">
-          <select
+      <FlowDesignerToolbar
+        title={t("logistic.dynamicFlow.flowsTitle")}
+        description={t("logistic.dynamicFlow.flowsDescription")}
+        activeType="vehicle"
+      >
+          <NativeSelect
             value={selectedGroupId ?? ""}
-            onChange={(event) => router.push(`/logistic/flows?group=${event.target.value}`)}
-            className="h-9 min-w-48 rounded-md border border-border bg-background px-3 text-sm text-foreground"
+            onChange={(event) =>
+              router.push(`/logistic/flows?type=vehicle&group=${event.target.value}`)
+            }
+            size="sm"
+            className="w-full min-w-0 sm:w-48"
           >
-            <option value="">{t("logistic.dynamicFlow.selectGroup")}</option>
+            <NativeSelectOption value="">{t("logistic.dynamicFlow.selectGroup")}</NativeSelectOption>
             {groups.map((group) => (
-              <option key={group.id} value={group.id}>
+              <NativeSelectOption key={group.id} value={group.id}>
                 {group.name}
-              </option>
+              </NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
+          {selectedGroup && selectedGroup.versions.length > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline" size="sm" />}>
+                <History />
+                {t("logistic.dynamicFlow.versionHistory")}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-60">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>
+                    {t("logistic.dynamicFlow.versionHistory")}
+                  </DropdownMenuLabel>
+                  {selectedGroup.versions.map((version) => {
+                    const statusLabel =
+                      version.status === "DRAFT"
+                        ? t("logistic.dynamicFlow.draft")
+                        : version.status === "PUBLISHED"
+                          ? t("logistic.dynamicFlow.published")
+                          : t("logistic.dynamicFlow.archived")
+                    return (
+                      <DropdownMenuItem
+                        key={version.id}
+                        disabled={!canManage || version.status === "DRAFT"}
+                        onClick={() => setRestoreVersion(version)}
+                      >
+                        {version.status === "DRAFT" ? <History /> : <RotateCcw />}
+                        v{version.version}
+                        <DropdownMenuShortcut>{statusLabel}</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    )
+                  })}
+                </DropdownMenuGroup>
+                {canManage && draft && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      variant="destructive"
+                      onClick={() => setDeleteDraftOpen(true)}
+                    >
+                      <Trash2 />
+                      {t("logistic.dynamicFlow.deleteDraft")}
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
           {selectedGroupId && canManage && !draft && (
             <Button
+              size="sm"
+              className="bg-emerald-500 text-primary-foreground hover:bg-emerald-500/90"
               disabled={isPending}
               onClick={() =>
                 run(() => ensureDraft(selectedGroupId), {
-                  successTitle: t("logistic.dynamicFlow.draftOpened"),
-                  onSuccess: () => router.push(`/logistic/flows?group=${selectedGroupId}`),
+                  successTitle: t("logistic.dynamicFlow.flowLoaded"),
+                  onSuccess: () => router.push(`/logistic/flows?type=vehicle&group=${selectedGroupId}`),
                 })
               }
             >
-              {t("logistic.dynamicFlow.createDraft")}
+              {t("logistic.dynamicFlow.loadFlow")}
             </Button>
           )}
           {draft && canManage && (
             <>
               <Button
                 variant="outline"
-                disabled={isPending}
+                size="sm"
+                disabled={isPending || !hasUnsavedChanges}
                 onClick={() =>
                   run(() => saveFlowDraft(draft.id, toDraftNodes(nodes), toDraftEdges(edges)), {
                     successTitle: t("logistic.dynamicFlow.draftSaved"),
+                    onSuccess: () => setSavedSnapshot(currentSnapshot),
                   })
                 }
               >
                 {t("logistic.dynamicFlow.saveDraft")}
               </Button>
               <Button
+                size="sm"
                 className="bg-emerald-500 text-primary-foreground hover:bg-emerald-500/90"
-                disabled={isPending || !validation.valid}
+                disabled={isPending || !validation.valid || !hasUnpublishedChanges}
                 onClick={() =>
                   run(
                     async () => {
-                      const saved = await saveFlowDraft(
-                        draft.id,
-                        toDraftNodes(nodes),
-                        toDraftEdges(edges),
-                      )
-                      return saved.success ? publishFlow(draft.id) : saved
+                      if (hasUnsavedChanges) {
+                        const saved = await saveFlowDraft(
+                          draft.id,
+                          toDraftNodes(nodes),
+                          toDraftEdges(edges),
+                        )
+                        if (!saved.success) return saved
+                      }
+                      return publishFlow(draft.id)
                     },
                     { successTitle: t("logistic.dynamicFlow.publishSuccess") },
                   )
@@ -378,16 +601,13 @@ function FlowDesignerInner({
               </Button>
             </>
           )}
-        </div>
-      </div>
+      </FlowDesignerToolbar>
 
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <ProcessPackageSidebar
           processes={processes}
           canManage={canManage}
           canAddToFlow={Boolean(draft)}
-          expanded={packageExpanded}
-          onExpandedChange={setPackageExpanded}
           onAddToFlow={addProcess}
         />
 
@@ -404,6 +624,7 @@ function FlowDesignerInner({
                 onNodeClick={(_, node) => setSelectedId(node.id)}
                 onPaneClick={() => setSelectedId(null)}
                 fitView
+                colorMode={resolvedTheme === "dark" ? "dark" : "light"}
                 proOptions={{ hideAttribution: true }}
                 className="h-full w-full"
               >
@@ -419,8 +640,10 @@ function FlowDesignerInner({
               </h2>
               {selectedNode ? (
                 <div className="mt-4 space-y-3">
-                  <p className="text-sm text-foreground">{selectedNode.data.name}</p>
-                  <p className="text-xs text-muted-foreground">{selectedNode.data.kind}</p>
+                  <p className="text-sm font-medium text-foreground">{selectedNodeName}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t(`logistic.dynamicFlow.nodeKinds.${selectedNode.data.kind}`)}
+                  </p>
                   {selectedNode.data.kind === "PROCESS" && canManage && (
                     <>
                       <div className="space-y-2 rounded-md border border-border p-3">
@@ -513,31 +736,93 @@ function FlowDesignerInner({
         ) : (
           <div className="flex min-w-0 flex-1 items-center justify-center p-16 text-center text-sm text-muted-foreground">
             {groups.length
-              ? t("logistic.dynamicFlow.createDraft")
+              ? t("logistic.dynamicFlow.loadFlowHint")
               : t("logistic.dynamicFlow.noGroups")}
           </div>
         )}
       </div>
+
+      <AlertDialog
+        open={restoreVersion !== null}
+        onOpenChange={(open) => !open && setRestoreVersion(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {t("logistic.dynamicFlow.restoreVersionTitle", {
+                version: restoreVersion?.version ?? 0,
+              })}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {draft
+                ? t("logistic.dynamicFlow.restoreVersionWithDraftDescription")
+                : t("logistic.dynamicFlow.restoreVersionDescription")}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <Button variant="outline" onClick={() => setRestoreVersion(null)}>
+              {t("common.cancel")}
+            </Button>
+            <AlertDialogAction
+              className="bg-emerald-500 text-primary-foreground hover:bg-emerald-500/90"
+              disabled={isPending || !restoreVersion}
+              onClick={() => {
+                if (!restoreVersion) return
+                run(() => restoreFlowVersion(restoreVersion.id), {
+                  successTitle: t("logistic.dynamicFlow.restoreSuccess", {
+                    version: restoreVersion.version,
+                  }),
+                })
+              }}
+            >
+              <RotateCcw />
+              {t("logistic.dynamicFlow.restoreVersion")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={deleteDraftOpen} onOpenChange={setDeleteDraftOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("logistic.dynamicFlow.deleteDraftTitle")}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t("logistic.dynamicFlow.deleteDraftDescription", {
+                group: selectedGroup?.name ?? "",
+              })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <Button variant="outline" onClick={() => setDeleteDraftOpen(false)}>
+              {t("common.cancel")}
+            </Button>
+            <AlertDialogAction
+              className="bg-destructive text-primary-foreground hover:bg-destructive/90"
+              disabled={isPending || !draft}
+              onClick={() => {
+                if (!draft || !selectedGroupId) return
+                run(() => deleteFlowDraft(draft.id), {
+                  successTitle: t("logistic.dynamicFlow.deleteDraftSuccess"),
+                  onSuccess: () =>
+                    router.push(`/logistic/flows?type=vehicle&group=${selectedGroupId}`),
+                })
+              }}
+            >
+              <Trash2 />
+              {t("logistic.dynamicFlow.deleteDraft")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
 
 export function FlowDesigner(props: {
-  groups: { id: string; name: string; versions: { id: string; version: number; status: string }[] }[]
+  groups: { id: string; name: string; versions: FlowVersionOption[] }[]
   selectedGroupId: string | null
-  draft: {
-    id: string
-    nodes: {
-      id: string
-      kind: FlowNodeKind
-      processId: string | null
-      name: string
-      position: { x: number; y: number }
-      inputCount: number
-      outputCount: number
-    }[]
-    edges: Edge[]
-  } | null
+  draft: FlowDraftData | null
+  published: FlowGraphData | null
   processes: CatalogProcess[]
   canManage: boolean
 }) {

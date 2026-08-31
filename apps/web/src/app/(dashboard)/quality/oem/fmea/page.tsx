@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
@@ -81,56 +82,56 @@ export default async function OemFmeaPage({
       ) : (
         <div className="rounded-lg border bg-card overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-muted/50">
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Number</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Type</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Max RPN</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Due</th>
-                 <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Created</th>
+            <Table className="w-full text-sm">
+              <TableHeader>
+                <TableRow className="border-b border-border bg-muted/50">
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Number</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Type</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Max RPN</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Due</TableHead>
+                 <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Created</TableHead>
                  <CustomFieldsTableHeaders fields={listVisibleFields} />
-               </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
+               </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y divide-border">
                 {fmeas.map((f) => {
                   const rows = (f.rows as Array<Record<string, unknown>>) ?? []
                   const maxRpn = rows.length > 0 ? Math.max(...rows.map(r => Number(r.rpn) || 0)) : 0
                   const overdue = isFmeaOverdue(f.dueDate, f.status as FmeaStatus)
                   return (
-                    <tr key={f.id} className="transition-colors hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={f.id} className="transition-colors hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <Link href={`/quality/oem/fmea/${f.id}`} className="font-medium text-foreground hover:text-foreground">{f.fmeaNumber}</Link>
-                      </td>
-                      <td className="max-w-[200px] truncate px-4 py-3 text-muted-foreground">{f.title}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{FMEA_TYPE_LABELS[f.fmeaType] ?? f.fmeaType}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{f.partNumber}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{f.supplier?.name ?? "—"}</td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="max-w-[200px] truncate px-4 py-3 text-muted-foreground">{f.title}</TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">{FMEA_TYPE_LABELS[f.fmeaType] ?? f.fmeaType}</TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">{f.partNumber}</TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">{f.supplier?.name ?? "—"}</TableCell>
+                      <TableCell className="px-4 py-3">
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getFmeaStatusColor(f.status as FmeaStatus)}`}>
                           {FMEA_STATUS_LABELS[f.status as FmeaStatus] ?? f.status.replaceAll("_", " ")}
                         </span>
-                      </td>
-                      <td className={`px-4 py-3 font-semibold ${getRpnColor(maxRpn)}`}>{maxRpn || "—"}</td>
-                      <td className="px-4 py-3 text-muted-foreground">
+                      </TableCell>
+                      <TableCell className={`px-4 py-3 font-semibold ${getRpnColor(maxRpn)}`}>{maxRpn || "—"}</TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">
                         {f.dueDate ? (
                           <span className={overdue ? "text-destructive" : ""}>
                             {f.dueDate.toLocaleDateString()}
                             {overdue && " (Overdue)"}
                           </span>
                         ) : "—"}
-                      </td>
-                      <td className="px-4 py-3 text-muted-foreground">{f.createdAt.toLocaleDateString()}</td>
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">{f.createdAt.toLocaleDateString()}</TableCell>
                       <CustomFieldsTableCells fields={listVisibleFields} customFields={f.customFields as Record<string, unknown> | null} />
-                    </tr>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

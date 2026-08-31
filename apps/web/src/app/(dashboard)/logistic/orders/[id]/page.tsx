@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect, notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
@@ -23,10 +24,12 @@ import { DelayRiskPanel } from "./delay-risk-panel"
 import { CreateDefectFromHoldButton } from "./create-defect-from-hold"
 import Link from "next/link"
 import { ArrowLeft, Factory, AlertTriangle } from "lucide-react"
+import { getTranslations } from "@/i18n/server"
 
 export const dynamic = "force-dynamic"
 
 export default async function LogisticOrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = await getTranslations()
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
   if (session.user.companyType !== "OEM") redirect("/quality/supplier")
@@ -150,7 +153,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <h1 className="text-xl font-semibold tracking-tight text-foreground">{order.orderNumber}</h1>
-            <StatusBadge status={order.status} />
+            <StatusBadge status={order.status} label={t(`logistic.statuses.${order.status}`)} />
             {(slaSummary.slaStatus === "DELAYED" || slaSummary.slaStatus === "BLOCKED") && (
               <span className="inline-flex items-center rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-destructive">
                 Delivery Risk
@@ -342,9 +345,9 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
                     <p className="text-sm text-muted-foreground">{event.message}</p>
                     {event.fromStatus && event.toStatus && (
                       <div className="mt-1 flex items-center gap-1 text-xs">
-                        <StatusBadge status={event.fromStatus} />
+                        <StatusBadge status={event.fromStatus} label={t(`logistic.statuses.${event.fromStatus}`)} />
                         <span className="text-muted-foreground">→</span>
-                        <StatusBadge status={event.toStatus} />
+                        <StatusBadge status={event.toStatus} label={t(`logistic.statuses.${event.toStatus}`)} />
                       </div>
                     )}
                   </div>
@@ -384,7 +387,7 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
               </div>
               {currentMilestone && (
                 <div className="flex items-center gap-1 text-xs">
-                  <Factory className="size-3 text-cyan-500" />
+                  <Factory className="size-3 text-brand" />
                   <span className="text-muted-foreground">Current:</span>
                   <span className="font-medium text-foreground">{labelForGate(currentMilestone.gate)}</span>
                 </div>
@@ -413,57 +416,57 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
 
         {hasMilestones ? (
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  <th className="px-3 py-2 text-left">#</th>
-                  <th className="px-3 py-2 text-left">Gate</th>
-                  <th className="px-3 py-2 text-left">Title</th>
-                  <th className="px-3 py-2 text-left">Status</th>
-                  <th className="px-3 py-2 text-left">Planned Start</th>
-                  <th className="px-3 py-2 text-left">Planned Finish</th>
-                  <th className="px-3 py-2 text-left">Actual Start</th>
-                  <th className="px-3 py-2 text-left">Actual Finish</th>
-                  <th className="px-3 py-2 text-left">Department</th>
-                  <th className="px-3 py-2 text-left">Delay Reason</th>
-                  <th className="px-3 py-2 text-left">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <TableHead className="px-3 py-2 text-left">#</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Gate</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Title</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Status</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Planned Start</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Planned Finish</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Actual Start</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Actual Finish</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Department</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Delay Reason</TableHead>
+                  <TableHead className="px-3 py-2 text-left">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {order.milestones.map((milestone) => {
                   const isDelayed = milestone.plannedFinish && !["COMPLETED", "SKIPPED", "CANCELLED"].includes(milestone.status) && new Date(milestone.plannedFinish) < new Date()
                   return (
-                    <tr key={milestone.id} className={`group ${milestone.qualityHold ? "bg-destructive/5" : ""}`}>
-                      <td className="px-3 py-2 text-sm text-muted-foreground">{milestone.sequence}</td>
-                      <td className="px-3 py-2"><MilestoneGateBadge gate={milestone.gate} /></td>
-                      <td className="px-3 py-2 text-sm font-medium text-foreground">
+                    <TableRow key={milestone.id} className={`group ${milestone.qualityHold ? "bg-destructive/5" : ""}`}>
+                      <TableCell className="px-3 py-2 text-sm text-muted-foreground">{milestone.sequence}</TableCell>
+                      <TableCell className="px-3 py-2"><MilestoneGateBadge gate={milestone.gate} /></TableCell>
+                      <TableCell className="px-3 py-2 text-sm font-medium text-foreground">
                         {milestone.title}
                         {milestone.qualityHold && (
                           <span className="ml-1 inline-flex items-center rounded-full bg-destructive/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-destructive">
                             Q-Hold
                           </span>
                         )}
-                      </td>
-                      <td className="px-3 py-2"><MilestoneStatusBadge status={milestone.status} /></td>
-                      <td className={`px-3 py-2 text-sm ${isDelayed ? "text-destructive" : "text-muted-foreground"}`}>
+                      </TableCell>
+                      <TableCell className="px-3 py-2"><MilestoneStatusBadge status={milestone.status} /></TableCell>
+                      <TableCell className={`px-3 py-2 text-sm ${isDelayed ? "text-destructive" : "text-muted-foreground"}`}>
                         {milestone.plannedStart ? new Date(milestone.plannedStart).toLocaleDateString() : "—"}
-                      </td>
-                      <td className={`px-3 py-2 text-sm ${isDelayed ? "font-medium text-destructive" : "text-muted-foreground"}`}>
+                      </TableCell>
+                      <TableCell className={`px-3 py-2 text-sm ${isDelayed ? "font-medium text-destructive" : "text-muted-foreground"}`}>
                         {milestone.plannedFinish ? new Date(milestone.plannedFinish).toLocaleDateString() : "—"}
-                      </td>
-                      <td className="px-3 py-2 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-3 py-2 text-sm text-muted-foreground">
                         {milestone.actualStart ? new Date(milestone.actualStart).toLocaleDateString() : "—"}
-                      </td>
-                      <td className="px-3 py-2 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-3 py-2 text-sm text-muted-foreground">
                         {milestone.actualFinish ? new Date(milestone.actualFinish).toLocaleDateString() : "—"}
-                      </td>
-                      <td className="px-3 py-2 text-sm text-muted-foreground">{milestone.responsibleDepartment ?? "—"}</td>
-                      <td className="px-3 py-2 text-sm">
+                      </TableCell>
+                      <TableCell className="px-3 py-2 text-sm text-muted-foreground">{milestone.responsibleDepartment ?? "—"}</TableCell>
+                      <TableCell className="px-3 py-2 text-sm">
                         {milestone.delayReason ? (
                           <span className="text-destructive">{milestone.delayReason}</span>
                         ) : "—"}
-                      </td>
-                      <td className="px-3 py-2">
+                      </TableCell>
+                      <TableCell className="px-3 py-2">
                         <div className="flex items-center gap-1">
                           {(milestone.gate === "PDI" ? isPdi : isProduction) && (
                             <MilestoneActions
@@ -481,12 +484,12 @@ export default async function LogisticOrderDetailPage({ params }: { params: Prom
                             />
                           )}
                         </div>
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">

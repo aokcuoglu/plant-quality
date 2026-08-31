@@ -1,5 +1,9 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useRef, useCallback } from "react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import { SearchIcon, XIcon } from "lucide-react"
@@ -48,7 +52,7 @@ export function SearchInput({ placeholder = "Search…", preserveParams = ["filt
   return (
     <div className="relative">
       <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-      <input
+      <Input
         ref={inputRef}
         type="search"
         defaultValue={currentSearch}
@@ -57,13 +61,13 @@ export function SearchInput({ placeholder = "Search…", preserveParams = ["filt
         className="h-9 w-full rounded-md border bg-transparent pl-9 pr-9 text-sm outline-none focus:ring-2 focus:ring-ring"
       />
       {currentSearch && (
-        <button
+        <Button
           type="button"
           onClick={handleClear}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          variant="ghost" className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
         >
           <XIcon className="h-4 w-4" />
-        </button>
+        </Button>
       )}
     </div>
   )

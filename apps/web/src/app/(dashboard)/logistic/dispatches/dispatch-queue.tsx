@@ -1,5 +1,11 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { Plus, Ship, Check } from "lucide-react"
@@ -7,6 +13,7 @@ import { STAGE_META, type VehicleStage } from "@/lib/logistic/stage"
 import { getNextDispatchStatuses, DISPATCH_STATUS_LABELS } from "@/lib/logistic/dispatch-status"
 import { createOrUpdateDispatch, changeDispatchStatus } from "../dispatch-actions"
 import { DatePicker } from "@/components/ui/date-picker"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
 
 export interface QueueItem {
   id: string
@@ -35,11 +42,12 @@ export interface QueueItem {
 const PRIORITY_BADGE: Record<QueueItem["priority"], string> = {
   LOW: "bg-muted text-muted-foreground",
   NORMAL: "bg-muted text-foreground",
-  HIGH: "bg-amber-500/10 text-amber-600",
+  HIGH: "bg-destructive/10 text-destructive",
   URGENT: "bg-destructive/10 text-destructive",
 }
 
 export function DispatchQueue({ items, canManage }: { items: QueueItem[]; canManage: boolean }) {
+  const { showAlert } = useAppAlertDialog()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [filter, setFilter] = useState<"all" | "no_dispatch" | "ready" | "intransit">("all")
@@ -49,7 +57,10 @@ export function DispatchQueue({ items, canManage }: { items: QueueItem[]; canMan
   function run(fn: () => Promise<{ error?: string }>) {
     startTransition(async () => {
       const res = await fn()
-      if (res?.error) alert(res.error)
+      if (res?.error) {
+        showAlert(res.error)
+        return
+      }
       router.refresh()
     })
   }
@@ -72,7 +83,7 @@ export function DispatchQueue({ items, canManage }: { items: QueueItem[]; canMan
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
         {filterOptions.map((o) => (
-          <button
+          <Button
             key={o.value}
             onClick={() => setFilter(o.value)}
             className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
@@ -82,27 +93,27 @@ export function DispatchQueue({ items, canManage }: { items: QueueItem[]; canMan
             }`}
           >
             {o.label}
-          </button>
+          </Button>
         ))}
         <span className="ml-auto text-xs text-muted-foreground">{filtered.length} araç</span>
       </div>
 
       <div className="rounded-lg border bg-card">
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                <th className="px-4 py-3 text-left">Araç</th>
-                <th className="px-4 py-3 text-left">Müşteri</th>
-                <th className="px-4 py-3 text-left">Konum</th>
-                <th className="px-4 py-3 text-left">Sevk Durumu</th>
-                <th className="px-4 py-3 text-left">Taşıyıcı</th>
-                <th className="px-4 py-3 text-left">Yükleme Planı</th>
-                <th className="px-4 py-3 text-left">ETA</th>
-                <th className="px-4 py-3 text-left">İşlemler</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
+          <Table className="w-full">
+            <TableHeader>
+              <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <TableHead className="px-4 py-3 text-left">Araç</TableHead>
+                <TableHead className="px-4 py-3 text-left">Müşteri</TableHead>
+                <TableHead className="px-4 py-3 text-left">Konum</TableHead>
+                <TableHead className="px-4 py-3 text-left">Sevk Durumu</TableHead>
+                <TableHead className="px-4 py-3 text-left">Taşıyıcı</TableHead>
+                <TableHead className="px-4 py-3 text-left">Yükleme Planı</TableHead>
+                <TableHead className="px-4 py-3 text-left">ETA</TableHead>
+                <TableHead className="px-4 py-3 text-left">İşlemler</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="divide-y">
               {filtered.map((it) => (
                 <QueueRow
                   key={it.id}
@@ -131,8 +142,8 @@ export function DispatchQueue({ items, canManage }: { items: QueueItem[]; canMan
                   }
                 />
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>
@@ -169,8 +180,8 @@ function QueueRow({
   const stageMeta = STAGE_META[item.stage]
 
   return (
-    <tr className="hover:bg-muted/50">
-      <td className="px-4 py-3">
+    <TableRow className="hover:bg-muted/50">
+      <TableCell className="px-4 py-3">
         <div className="flex items-center gap-2">
           <span className={`size-2 rounded-full ${stageMeta.dotColor}`} />
           <div className="min-w-0">
@@ -187,24 +198,24 @@ function QueueRow({
             {item.priority}
           </span>
         </div>
-      </td>
-      <td className="px-4 py-3 text-sm text-muted-foreground">{item.customerName}</td>
-      <td className="px-4 py-3 text-sm text-muted-foreground">
+      </TableCell>
+      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{item.customerName}</TableCell>
+      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
         <div className="text-xs">{stageMeta.label}</div>
         {item.yardLocation && <div className="text-[10px] text-muted-foreground">{item.yardLocation}{item.parkingSlot ? ` / ${item.parkingSlot}` : ""}</div>}
         {item.blockedForDispatch && <div className="text-[10px] text-destructive">Sevk engelli</div>}
-      </td>
-      <td className="px-4 py-3">
+      </TableCell>
+      <TableCell className="px-4 py-3">
         {dispatch ? (
           <span className="text-xs text-foreground">{dispatch.statusLabel}</span>
         ) : (
           <span className="text-xs text-muted-foreground">Talep yok</span>
         )}
-      </td>
-      <td className="px-4 py-3">
+      </TableCell>
+      <TableCell className="px-4 py-3">
         {dispatch ? (
           <div className="flex items-center gap-1">
-            <input
+            <Input
               value={carrierInput}
               onChange={(e) => onCarrierChange(e.target.value)}
               placeholder="Taşıyıcı"
@@ -212,16 +223,16 @@ function QueueRow({
               className="w-32 rounded-lg border border-border bg-background px-2 py-1 text-xs text-foreground placeholder:text-muted-foreground"
             />
             {carrierInput !== (dispatch.carrierName ?? "") && (
-              <button onClick={onSaveCarrier} disabled={isPending} className="rounded p-1 text-foreground hover:bg-muted">
+              <Button variant="ghost" onClick={onSaveCarrier} disabled={isPending} className="rounded p-1 text-foreground hover:bg-muted">
                 <Check className="size-3.5" />
-              </button>
+              </Button>
             )}
           </div>
         ) : (
           <span className="text-xs text-muted-foreground">—</span>
         )}
-      </td>
-      <td className="px-4 py-3">
+      </TableCell>
+      <TableCell className="px-4 py-3">
         {dispatch ? (
           <div className="flex items-center gap-1">
             <DatePicker
@@ -232,35 +243,35 @@ function QueueRow({
               className="w-40 rounded-lg border border-border bg-background px-2 py-1 text-xs text-foreground"
             />
             {loadingDate !== (dispatch.plannedLoadingDate ?? "") && (
-              <button onClick={onSaveLoadingDate} disabled={isPending} className="rounded p-1 text-foreground hover:bg-muted">
+              <Button variant="ghost" onClick={onSaveLoadingDate} disabled={isPending} className="rounded p-1 text-foreground hover:bg-muted">
                 <Check className="size-3.5" />
-              </button>
+              </Button>
             )}
           </div>
         ) : (
           <span className="text-xs text-muted-foreground">—</span>
         )}
-      </td>
-      <td className="px-4 py-3 text-xs text-muted-foreground">
+      </TableCell>
+      <TableCell className="px-4 py-3 text-xs text-muted-foreground">
         {dispatch?.estimatedArrivalDate ? new Date(dispatch.estimatedArrivalDate).toLocaleDateString() : "—"}
-      </td>
-      <td className="px-4 py-3">
+      </TableCell>
+      <TableCell className="px-4 py-3">
         {!dispatch ? (
           canManage ? (
-            <button
+            <Button
               onClick={onRequest}
               disabled={isPending || item.blockedForDispatch}
               className="inline-flex items-center gap-1 rounded-lg bg-foreground px-2.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50"
             >
               <Plus className="size-3.5" /> Talep Oluştur
-            </button>
+            </Button>
           ) : (
             <span className="text-xs text-muted-foreground">—</span>
           )
         ) : canManage ? (
           <div className="flex flex-wrap items-center gap-1">
             {nextStatuses.map((ns) => (
-              <button
+              <Button
                 key={ns}
                 onClick={() => onAdvance(ns)}
                 disabled={isPending}
@@ -272,13 +283,13 @@ function QueueRow({
               >
                 <Ship className="size-3" />
                 {DISPATCH_STATUS_LABELS[ns as keyof typeof DISPATCH_STATUS_LABELS]}
-              </button>
+              </Button>
             ))}
           </div>
         ) : (
           <span className="text-xs text-muted-foreground">—</span>
         )}
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   )
 }

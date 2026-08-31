@@ -1,5 +1,9 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { uploadPpapDocument } from "../actions/submit"
@@ -143,7 +147,7 @@ export function SupplierDocumentUpload({
       {canUploadThis && (
         <div className="border-t border-border pt-2 space-y-2">
           <div className="flex items-center gap-2">
-            <input
+            <Input
               ref={fileInputRef}
               type="file"
               onChange={handleFileChange}
@@ -153,7 +157,7 @@ export function SupplierDocumentUpload({
           </div>
           {selectedFile && (
             <div className="space-y-2">
-              <input
+              <Input
                 type="text"
                 value={supplierComment}
                 onChange={(e) => setSupplierComment(e.target.value)}
@@ -161,13 +165,13 @@ export function SupplierDocumentUpload({
                 disabled={uploading}
                 className="flex w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:opacity-50"
               />
-              <button
+              <Button
                 onClick={handleUpload}
                 disabled={uploading}
-                className="rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-white hover:bg-foreground/90 disabled:opacity-50"
+                className="rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50"
               >
                 {uploading ? "Uploading..." : "Upload"}
-              </button>
+              </Button>
             </div>
           )}
         </div>

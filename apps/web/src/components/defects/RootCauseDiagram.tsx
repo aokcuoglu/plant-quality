@@ -1,5 +1,7 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
 import { useState, useCallback, useMemo } from "react"
 import {
   SparklesIcon,
@@ -105,14 +107,14 @@ export function RootCauseDiagram({
               <TableRow key={rc.id}>
                 <TableCell className="text-center text-xs text-muted-foreground">{idx + 1}</TableCell>
                 <TableCell>
-                  <input value={rc.cause} onChange={(e) => {
+                  <Input value={rc.cause} onChange={(e) => {
                     const updated = initialRootCauses.map((r, i) => i === idx ? { ...r, cause: e.target.value } : r)
                     onRootCausesChange(updated)
                   }} placeholder={idx === 0 ? "Direct cause..." : `Why ${idx + 1}...`} className="w-full rounded border border-input bg-background px-2 py-1 text-xs" />
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-1">
-                    <input type="number" min={0} max={100} value={rc.contribution}
+                    <Input type="number" min={0} max={100} value={rc.contribution}
                       onChange={(e) => {
                         const updated = initialRootCauses.map((r, i) => i === idx
                           ? { ...r, contribution: Math.min(100, Math.max(0, Number(e.target.value) || 0)) } : r)
@@ -123,10 +125,11 @@ export function RootCauseDiagram({
                 </TableCell>
                 <TableCell>
                   {initialRootCauses.length > 1 && (
-                    <button type="button" onClick={() => onRootCausesChange(initialRootCauses.filter((_, i) => i !== idx))}
+                    <Button type="button" onClick={() => onRootCausesChange(initialRootCauses.filter((_, i) => i !== idx))}
+                      variant="ghost"
                       className="inline-flex items-center justify-center rounded-md p-1 text-destructive hover:bg-destructive/10 transition-colors">
                       <Trash2Icon className="h-3.5 w-3.5" />
-                    </button>
+                    </Button>
                   )}
                 </TableCell>
               </TableRow>
@@ -137,13 +140,13 @@ export function RootCauseDiagram({
 
       {totalContribution !== 100 && initialRootCauses.length > 0 && (
         <div className={cn("flex items-center gap-2 rounded-lg border px-3 py-2 text-xs",
-          totalContribution > 100 ? "border-destructive/20 bg-destructive/10 text-destructive dark:border-red-900 dark:bg-red-950/20 dark:text-destructive" : "border-destructive/20 bg-destructive/10 text-destructive dark:border-amber-900 dark:bg-amber-950/20 dark:text-destructive")}>
+          totalContribution > 100 ? "border-destructive/20 bg-destructive/10 text-destructive   " : "border-destructive/20 bg-destructive/10 text-destructive   ")}>
           <AlertTriangleIcon className="h-3.5 w-3.5 shrink-0" />
           Total contribution: {totalContribution}% {totalContribution > 100 ? "(exceeds 100%)" : "(ideally should equal 100%)"}
         </div>
       )}
       {totalContribution === 100 && initialRootCauses.length > 0 && (
-        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground border-border dark:bg-muted/30 text-muted-foreground">
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground border-border  text-muted-foreground">
           <CheckIcon className="h-3.5 w-3.5 shrink-0" /> Total contribution: 100% — validated
         </div>
       )}
@@ -153,12 +156,12 @@ export function RootCauseDiagram({
           onClick={() => onRootCausesChange([...initialRootCauses, { id: genId(), cause: "", contribution: 0 }])}>
           <PlusIcon className="mr-1 h-3.5 w-3.5" /> Add Root Cause
         </Button>
-        <button type="button" onClick={() => canUseRootCause ? handleAi() : onShowUpgradeModal()} disabled={aiLoading}
+        <Button type="button" onClick={() => canUseRootCause ? handleAi() : onShowUpgradeModal()} disabled={aiLoading}
           className="inline-flex items-center gap-1.5 rounded-md border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-50"
         >
           {aiLoading ? <Loader2Icon className="h-3.5 w-3.5 animate-spin" /> : canUseRootCause ? <SparklesIcon className="h-3.5 w-3.5" /> : <LockIcon className="h-3.5 w-3.5" />}
           {aiLoading ? "Brainstorming..." : canUseRootCause ? "AI Brainstorm Root Causes" : "AI Brainstorm — Upgrade to Enterprise"}
-        </button>
+        </Button>
       </div>
     </div>
   )

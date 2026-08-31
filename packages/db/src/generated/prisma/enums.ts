@@ -322,6 +322,68 @@ export const LogisticVehicleFlowStatus = {
 export type LogisticVehicleFlowStatus = (typeof LogisticVehicleFlowStatus)[keyof typeof LogisticVehicleFlowStatus]
 
 
+export const LogisticWorkflowSubjectType = {
+  PLAN_SHEET: 'PLAN_SHEET',
+  ORDER: 'ORDER',
+  VEHICLE_UNIT: 'VEHICLE_UNIT',
+  YARD_RECORD: 'YARD_RECORD',
+  DISPATCH: 'DISPATCH'
+} as const
+
+export type LogisticWorkflowSubjectType = (typeof LogisticWorkflowSubjectType)[keyof typeof LogisticWorkflowSubjectType]
+
+
+export const LogisticWorkflowNodeKind = {
+  START: 'START',
+  TASK: 'TASK',
+  APPROVAL: 'APPROVAL',
+  DECISION: 'DECISION',
+  AUTOMATION: 'AUTOMATION',
+  WAIT: 'WAIT',
+  END: 'END'
+} as const
+
+export type LogisticWorkflowNodeKind = (typeof LogisticWorkflowNodeKind)[keyof typeof LogisticWorkflowNodeKind]
+
+
+export const LogisticWorkflowAssignmentStrategy = {
+  NONE: 'NONE',
+  ACTOR: 'ACTOR',
+  USER: 'USER',
+  ORGANIZATION_UNIT: 'ORGANIZATION_UNIT'
+} as const
+
+export type LogisticWorkflowAssignmentStrategy = (typeof LogisticWorkflowAssignmentStrategy)[keyof typeof LogisticWorkflowAssignmentStrategy]
+
+
+export const LogisticWorkflowTaskScope = {
+  INSTANCE: 'INSTANCE',
+  EACH_LINE: 'EACH_LINE',
+  EACH_VEHICLE_GROUP: 'EACH_VEHICLE_GROUP'
+} as const
+
+export type LogisticWorkflowTaskScope = (typeof LogisticWorkflowTaskScope)[keyof typeof LogisticWorkflowTaskScope]
+
+
+export const LogisticWorkflowInstanceStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type LogisticWorkflowInstanceStatus = (typeof LogisticWorkflowInstanceStatus)[keyof typeof LogisticWorkflowInstanceStatus]
+
+
+export const LogisticWorkflowTaskStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type LogisticWorkflowTaskStatus = (typeof LogisticWorkflowTaskStatus)[keyof typeof LogisticWorkflowTaskStatus]
+
+
 export const LogisticTransitionType = {
   START: 'START',
   ADVANCE: 'ADVANCE',

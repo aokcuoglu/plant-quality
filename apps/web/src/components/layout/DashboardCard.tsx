@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { LucideIcon } from "lucide-react"
+import { Card } from "@/components/ui/card"
 
 export function DashboardCard({
   title,
@@ -15,7 +16,7 @@ export function DashboardCard({
   href?: string
 }) {
   const card = (
-    <div className="relative overflow-hidden rounded-lg border bg-card p-5 text-card-foreground shadow-sm">
+    <Card className="relative p-5 shadow-sm">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{title}</p>
@@ -28,7 +29,7 @@ export function DashboardCard({
           <Icon className="h-4 w-4" />
         </div>
       </div>
-    </div>
+    </Card>
   )
 
   if (href) {

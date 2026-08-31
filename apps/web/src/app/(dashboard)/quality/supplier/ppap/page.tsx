@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
@@ -38,54 +39,54 @@ export default async function SupplierPpapPage() {
       ) : (
         <div className="rounded-lg border bg-card">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Request #</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Level</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">OEM</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Docs</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Due Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
+            <Table className="w-full text-sm">
+              <TableHeader>
+                <TableRow className="border-b border-border">
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Request #</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Level</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">OEM</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Docs</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                  <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Due Date</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y divide-border">
                 {submissions.map((s) => {
                   const total = s.evidences.length
                   const uploaded = s.evidences.filter((e) => e.status !== "MISSING").length
                   const overdue = isPpapOverdue(s.dueDate, s.status)
                   return (
-                    <tr key={s.id} className="transition-colors hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={s.id} className="transition-colors hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <Link href={`/quality/supplier/ppap/${s.id}`} className="font-medium text-foreground hover:text-foreground">
                           {s.requestNumber}
                         </Link>
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         <div className="text-foreground">{s.partNumber}</div>
                         <div className="text-xs text-muted-foreground truncate max-w-[200px]">{s.partName}</div>
-                      </td>
-                      <td className="px-4 py-3 text-muted-foreground">{s.level.replace("LEVEL_", "Level ")}</td>
-                      <td className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{s.oem.name}</td>
-                      <td className="px-4 py-3 text-muted-foreground">{uploaded}/{total}</td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">{s.level.replace("LEVEL_", "Level ")}</TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground truncate max-w-[150px]">{s.oem.name}</TableCell>
+                      <TableCell className="px-4 py-3 text-muted-foreground">{uploaded}/{total}</TableCell>
+                      <TableCell className="px-4 py-3">
                         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getPpapStatusColor(s.status)}`}>
                           {PPAP_STATUS_LABELS[s.status] ?? s.status.replace("_", " ")}
                         </span>
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {overdue ? (
                           <span className="text-xs font-medium text-destructive">Overdue</span>
                         ) : (
                           <span className="text-muted-foreground">{s.dueDate?.toLocaleDateString() ?? "—"}</span>
                         )}
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

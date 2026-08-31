@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { isPortalUser } from "@/lib/logistic/portal-access"
@@ -29,54 +30,54 @@ export default async function PortalOrdersPage() {
       ) : (
         <div className="rounded-lg border bg-card overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b bg-muted/50">
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Order No</th>
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Vehicle</th>
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Qty</th>
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Delivery ETA</th>
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Dispatch</th>
-                  <th className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Last Updated</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table className="w-full text-sm">
+              <TableHeader>
+                <TableRow className="border-b bg-muted/50">
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Order No</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Vehicle</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Qty</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Delivery ETA</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Dispatch</TableHead>
+                  <TableHead className="whitespace-nowrap px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Last Updated</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {orders.map((order) => (
-                  <tr key={order.id} className="transition-colors hover:bg-muted/30">
-                    <td className="whitespace-nowrap px-4 py-3">
+                  <TableRow key={order.id} className="transition-colors hover:bg-muted/30">
+                    <TableCell className="whitespace-nowrap px-4 py-3">
                       <Link href={`/logistic/portal/orders/${order.id}`} className="font-medium text-foreground hover:text-foreground transition-colors">
                         {order.orderNumber}
                       </Link>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                       {order.vehicleModel}{order.vehicleVariant ? ` ${order.vehicleVariant}` : ""}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">{order.quantity}</td>
-                    <td className="whitespace-nowrap px-4 py-3">
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3 text-muted-foreground">{order.quantity}</TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3">
                       <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${colorForExternalStatus(order.externalStatus)}`}>
                         {labelForExternalStatus(order.externalStatus)}
                       </span>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                       {order.plannedDeliveryDate
                         ? new Date(order.plannedDeliveryDate).toLocaleDateString()
                         : order.latestDispatch?.estimatedArrivalDate
                           ? new Date(order.latestDispatch.estimatedArrivalDate).toLocaleDateString()
                           : "—"}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                       {order.latestDispatch
                         ? labelForExternalDispatchStatus(order.latestDispatch.status)
                         : "—"}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                       {new Date(order.updatedAt).toLocaleDateString()}
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

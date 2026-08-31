@@ -467,27 +467,28 @@ function DirectorateCard({
   return (
     <Card className="overflow-hidden">
       <CardHeader className="border-b pb-3">
-        <div className="flex items-center gap-3">
-          <button
+        <div className="flex min-w-0 items-center gap-3">
+          <Button
             type="button"
             onClick={onToggle}
             aria-label={expanded ? t("dashboard.company.organization.collapse") : t("dashboard.company.organization.expand")}
             className="inline-flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-muted/40 text-muted-foreground transition-colors hover:bg-muted"
           >
             {expanded ? <Minus className="size-3.5" /> : <Plus className="size-3.5" />}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
             onClick={onToggle}
-            className="flex flex-1 items-center gap-1.5 text-left"
+            className="min-w-0 flex-1 shrink justify-start gap-1.5 text-left"
           >
             <span className="inline-flex size-8 items-center justify-center rounded-lg bg-brand/10 text-brand">
               <Building2 className="size-4" />
             </span>
-            <span className="font-heading text-base font-medium text-foreground">
+            <span className="min-w-0 truncate font-heading text-base font-medium text-foreground">
               {directorate.name}
             </span>
-          </button>
+          </Button>
           <Badge variant="outline" className="border-border bg-foreground/5 text-[10px] font-medium text-muted-foreground">
             {t("dashboard.company.organization.userCount", { count: userCount })}
           </Badge>
@@ -592,8 +593,9 @@ function CardAction({
   const t = useTranslations()
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" />}>
-        <span className="sr-only">{t("common.actions")}</span>
+      <DropdownMenuTrigger
+        render={<Button variant="ghost" size="icon-sm" aria-label={t("common.actions")} />}
+      >
         <span className="size-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
@@ -635,28 +637,29 @@ function MudurlukCard({
   return (
     <div className="rounded-lg border border-border bg-card">
       <div className="flex items-center justify-between gap-2 border-b px-3 py-2">
-        <div className="flex items-center gap-2">
-          <button
+        <div className="flex min-w-0 items-center gap-2">
+          <Button
             type="button"
             onClick={onToggle}
             aria-label={expanded ? t("dashboard.company.organization.collapse") : t("dashboard.company.organization.expand")}
             className="inline-flex size-6 shrink-0 items-center justify-center rounded-full border border-border bg-muted/40 text-muted-foreground transition-colors hover:bg-muted"
           >
             {expanded ? <Minus className="size-3" /> : <Plus className="size-3" />}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="ghost"
             onClick={onToggle}
-            className="flex items-center gap-1.5 text-left"
+            className="min-w-0 shrink justify-start gap-1.5 text-left"
           >
             <span className="inline-flex size-6 items-center justify-center rounded bg-muted text-muted-foreground">
               <FolderTree className="size-3.5" />
             </span>
-            <span className="text-sm font-medium text-foreground">{unit.name}</span>
+            <span className="min-w-0 truncate text-sm font-medium text-foreground">{unit.name}</span>
             <Badge variant="outline" className="border-border bg-foreground/5 text-[9px] font-medium text-muted-foreground">
               {t("dashboard.company.organization.userCount", { count: unit.users.length })}
             </Badge>
-          </button>
+          </Button>
         </div>
         <div className="flex items-center gap-0.5">
           <Button size="xs" variant="ghost" onClick={() => onAddUserToUnit(unit.id)} className="text-muted-foreground">

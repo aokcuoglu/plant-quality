@@ -1,3 +1,7 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
@@ -106,18 +110,17 @@ export default async function LogisticOrdersPage({
       </div>
 
       <form className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <select
+        <NativeSelect
           name="status"
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
           defaultValue={statusFilter}
         >
-          <option value="">{t("logistic.dynamicFlow.allStatuses")}</option>
+          <NativeSelectOption value="">{t("logistic.dynamicFlow.allStatuses")}</NativeSelectOption>
           {statusOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>
           ))}
-        </select>
+        </NativeSelect>
         <div className="flex flex-1 items-center gap-2 sm:max-w-xs">
-          <input
+          <Input
             type="text"
             name="search"
             placeholder={t("logistic.dynamicFlow.searchOrders")}
@@ -125,12 +128,12 @@ export default async function LogisticOrdersPage({
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
           />
         </div>
-        <button
+        <Button
           type="submit"
           className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
         >
           {t("logistic.dynamicFlow.applyFilters")}
-        </button>
+        </Button>
       </form>
 
       {orders.length === 0 ? (
@@ -147,14 +150,14 @@ export default async function LogisticOrdersPage({
       ) : (
         <div className="rounded-lg border bg-card">
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  {(["order", "customer", "type", "vehicle", "quantityShort", "priorityShort", "status", "production", "currentGate", "yard", "dispatch", "deliveryTarget", "sla", "created"] as const).map((key) => <th key={key} className="px-4 py-3 text-left">{t(`logistic.dynamicFlow.${key}` as "logistic.dynamicFlow.order")}</th>)}
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {(["order", "customer", "type", "vehicle", "quantityShort", "priorityShort", "status", "production", "currentGate", "yard", "dispatch", "deliveryTarget", "sla", "created"] as const).map((key) => <TableHead key={key} className="px-4 py-3 text-left">{t(`logistic.dynamicFlow.${key}` as "logistic.dynamicFlow.order")}</TableHead>)}
                   <CustomFieldsTableHeaders fields={listVisibleFields} />
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y">
                 {orders.map((order) => {
                    const progress = calculateProductionProgress(order.milestones)
                    const currentMs = order.milestones.find(m => m.status === "IN_PROGRESS" || m.status === "BLOCKED" || m.status === "QUALITY_HOLD")
@@ -198,22 +201,24 @@ export default async function LogisticOrdersPage({
                    }
                    const sla = getOrderSlaSummary(slaInput)
                    return (
-                    <tr key={order.id} className="group hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={order.id} className="group hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <Link href={`/logistic/orders/${order.id}`} className="text-sm font-medium text-foreground hover:text-foreground">
                           {order.orderNumber}
                         </Link>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{t(`logistic.dynamicFlow.customerTypes.${order.customerType}` as "logistic.dynamicFlow.customerTypes.CUSTOMER")}</td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{order.customerName}</TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{t(`logistic.dynamicFlow.customerTypes.${order.customerType}` as "logistic.dynamicFlow.customerTypes.CUSTOMER")}</TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.vehicleModel}
                         {order.vehicleVariant ? ` (${order.vehicleVariant})` : ""}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.quantity}</td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{t(`logistic.dynamicFlow.priorities.${order.priority}` as "logistic.dynamicFlow.priorities.NORMAL")}</td>
-                      <td className="px-4 py-3"><StatusBadge status={order.status} /></td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{order.quantity}</TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{t(`logistic.dynamicFlow.priorities.${order.priority}` as "logistic.dynamicFlow.priorities.NORMAL")}</TableCell>
+                      <TableCell className="px-4 py-3">
+                        <StatusBadge status={order.status} label={t(`logistic.statuses.${order.status}`)} />
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {order.milestones.length > 0 ? (
                           <div className="flex items-center gap-1.5">
                             <div className="h-1.5 w-16 rounded-full bg-muted">
@@ -227,11 +232,11 @@ export default async function LogisticOrdersPage({
                         ) : (
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {currentMs ? t(`logistic.dynamicFlow.gates.${currentMs.gate}` as "logistic.dynamicFlow.gates.OTHER") : milestonesCompleted ? t("logistic.dynamicFlow.completed") : "—"}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.yardStatus ? (
                           <div className="flex flex-col">
                             <span>{order.yardStatus.yardLocation || "—"}{order.yardStatus.parkingSlot ? ` / ${order.yardStatus.parkingSlot}` : ""}</span>
@@ -239,33 +244,33 @@ export default async function LogisticOrdersPage({
                             {order.yardStatus.blockedForDispatch && <span className="text-[10px] text-destructive">{t("logistic.dynamicFlow.blocked")}</span>}
                           </div>
                         ) : "—"}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {order.dispatches.length > 0 ? (
                           <div className="flex flex-col">
                             <span className="text-xs">{t(`logistic.dynamicFlow.dispatchStatuses.${order.dispatches[0].status}` as "logistic.dynamicFlow.dispatchStatuses.NOT_PLANNED")}</span>
                             {order.dispatches[0].carrierName && <span className="text-[10px] text-muted-foreground">{order.dispatches[0].carrierName}</span>}
                           </div>
                         ) : "—"}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                         {formatSlaDate(order.requestedDeliveryDate ?? order.plannedDeliveryDate)}
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         <SlaStatusBadge status={sla.slaStatus} />
                         {sla.daysUntilOrOverdue !== null && sla.slaStatus !== "DELIVERED" && sla.slaStatus !== "CANCELLED" && (
                           <span className={`ml-1 text-[10px] ${sla.daysUntilOrOverdue < 0 ? "text-destructive" : "text-destructive"}`}>
                             {formatDaysValue(sla.daysUntilOrOverdue)}
                           </span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-muted-foreground">{order.createdAt.toLocaleDateString()}</td>
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-sm text-muted-foreground">{order.createdAt.toLocaleDateString()}</TableCell>
                       <CustomFieldsTableCells fields={listVisibleFields} customFields={order.customFields as Record<string, unknown> | null} />
-                    </tr>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

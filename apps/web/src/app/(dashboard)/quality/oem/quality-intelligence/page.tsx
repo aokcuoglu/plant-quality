@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -84,29 +85,29 @@ function RiskTable({ signals }: { signals: { supplierId: string; supplierName: s
   return (
     <div className="rounded-lg border bg-card overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border bg-muted/50">
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part Number</th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Score</th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Level</th>
-              <th className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Signals</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Contributing Factors</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
+        <Table className="w-full text-sm">
+          <TableHeader>
+            <TableRow className="border-b border-border bg-muted/50">
+              <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</TableHead>
+              <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part Number</TableHead>
+              <TableHead className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Score</TableHead>
+              <TableHead className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Level</TableHead>
+              <TableHead className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Signals</TableHead>
+              <TableHead className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Contributing Factors</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody className="divide-y">
             {signals.map((s) => (
-              <tr key={`${s.supplierId}-${s.partNumber}`} className="hover:bg-muted/30">
-                <td className="px-4 py-3 text-foreground">{s.supplierName}</td>
-                <td className="px-4 py-3">
+              <TableRow key={`${s.supplierId}-${s.partNumber}`} className="hover:bg-muted/30">
+                <TableCell className="px-4 py-3 text-foreground">{s.supplierName}</TableCell>
+                <TableCell className="px-4 py-3">
                   <div className="text-foreground font-mono text-xs">{s.partNumber}</div>
                   {s.partName && <div className="text-xs text-muted-foreground">{s.partName}</div>}
-                </td>
-                <td className="px-4 py-3 text-center font-bold text-foreground">{s.riskScore}</td>
-                <td className="px-4 py-3 text-center"><RiskBadge level={s.riskLevel} /></td>
-                <td className="px-4 py-3 text-center text-muted-foreground">{s.signalCount}</td>
-                <td className="px-4 py-3">
+                </TableCell>
+                <TableCell className="px-4 py-3 text-center font-bold text-foreground">{s.riskScore}</TableCell>
+                <TableCell className="px-4 py-3 text-center"><RiskBadge level={s.riskLevel} /></TableCell>
+                <TableCell className="px-4 py-3 text-center text-muted-foreground">{s.signalCount}</TableCell>
+                <TableCell className="px-4 py-3">
                   <div className="flex flex-wrap gap-1">
                     {s.contributors.slice(0, 3).map((c, i) => (
                       <span key={i} className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
@@ -117,11 +118,11 @@ function RiskTable({ signals }: { signals: { supplierId: string; supplierName: s
                       <span className="text-[10px] text-muted-foreground">+{s.contributors.length - 3} more</span>
                     )}
                   </div>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   )

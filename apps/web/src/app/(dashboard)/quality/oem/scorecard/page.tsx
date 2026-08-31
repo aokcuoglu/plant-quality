@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -156,24 +157,24 @@ export default async function SupplierScorecardPage() {
           </span>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                <th className="px-4 py-3 text-left">Supplier</th>
-                <th className="px-4 py-3 text-left">Score</th>
-                <th className="px-4 py-3 text-center">Grade</th>
-                <th className="px-4 py-3 text-center">Risk</th>
-                <th className="px-4 py-3 text-left">Top Signals</th>
-                <th className="px-4 py-3 text-left">Recommendation</th>
-                <th className="px-4 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
+          <Table className="w-full">
+            <TableHeader>
+              <TableRow className="border-b border-border text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <TableHead className="px-4 py-3 text-left">Supplier</TableHead>
+                <TableHead className="px-4 py-3 text-left">Score</TableHead>
+                <TableHead className="px-4 py-3 text-center">Grade</TableHead>
+                <TableHead className="px-4 py-3 text-center">Risk</TableHead>
+                <TableHead className="px-4 py-3 text-left">Top Signals</TableHead>
+                <TableHead className="px-4 py-3 text-left">Recommendation</TableHead>
+                <TableHead className="px-4 py-3 text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody className="divide-y divide-border">
               {data.suppliers.map((supplier) => (
                 <SupplierRow key={supplier.supplierId} supplier={supplier} />
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>
@@ -184,23 +185,23 @@ function SupplierRow({ supplier }: { supplier: SupplierScorecard }) {
   const detailHref = `/quality/oem/scorecard/${supplier.supplierId}`
 
   return (
-    <tr className="group hover:bg-muted/50">
-      <td className="px-4 py-3">
+    <TableRow className="group hover:bg-muted/50">
+      <TableCell className="px-4 py-3">
         <div className="font-medium text-foreground truncate max-w-[200px]">{supplier.supplierName}</div>
         <div className="text-xs text-muted-foreground mt-0.5">
           {supplier.openIssuesCount} open issue{supplier.openIssuesCount !== 1 ? "s" : ""}
         </div>
-      </td>
-      <td className="px-4 py-3 min-w-[140px]">
+      </TableCell>
+      <TableCell className="px-4 py-3 min-w-[140px]">
         <ScoreBar score={supplier.overallScore} />
-      </td>
-      <td className="px-4 py-3 text-center">
+      </TableCell>
+      <TableCell className="px-4 py-3 text-center">
         <GradeBadge grade={supplier.grade} />
-      </td>
-      <td className="px-4 py-3 text-center">
+      </TableCell>
+      <TableCell className="px-4 py-3 text-center">
         <RiskBadge level={supplier.riskLevel} />
-      </td>
-      <td className="px-4 py-3">
+      </TableCell>
+      <TableCell className="px-4 py-3">
         <div className="flex flex-wrap gap-1">
           {supplier.keySignals.length > 0 ? (
             supplier.keySignals.slice(0, 3).map((signal, idx) => (
@@ -210,15 +211,15 @@ function SupplierRow({ supplier }: { supplier: SupplierScorecard }) {
             <span className="text-xs text-muted-foreground">No signals</span>
           )}
         </div>
-      </td>
-      <td className="px-4 py-3">
+      </TableCell>
+      <TableCell className="px-4 py-3">
         <span className="text-sm text-muted-foreground">{supplier.recommendedAction}</span>
-      </td>
-      <td className="px-4 py-3 text-right">
+      </TableCell>
+      <TableCell className="px-4 py-3 text-right">
         <Link href={detailHref} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground transition-colors">
           Detail <ArrowRightIcon className="h-3 w-3" />
         </Link>
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   )
 }

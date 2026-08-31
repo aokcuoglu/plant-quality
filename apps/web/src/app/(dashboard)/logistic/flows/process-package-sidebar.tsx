@@ -1,48 +1,36 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
-import { PanelLeftClose, PanelLeft, Plus, Trash2 } from "lucide-react"
+import { MapPin, Plus, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
 import { useTranslations } from "@/i18n/context"
 import { createProcess, deleteProcess } from "../flow-actions"
-
-const PROCESS_TYPES = [
-  "OPERATION",
-  "QUALITY_CONTROL",
-  "WAITING",
-  "STORAGE_YARD",
-  "DISPATCH",
-  "TRANSPORT",
-  "DELIVERY",
-  "OTHER",
-] as const
+import { PROCESS_TYPES, type ProcessType } from "./process-types"
 
 export type CatalogProcess = {
   id: string
   name: string
-  type: string
+  type: ProcessType
   description: string | null
   targetDurationMinutes: number | null
-  usedInGroups: string[]
+  isUsed: boolean
 }
 
 export function ProcessPackageSidebar({
   processes,
   canManage,
   canAddToFlow,
-  expanded,
-  onExpandedChange,
   onAddToFlow,
 }: {
   processes: CatalogProcess[]
   canManage: boolean
   canAddToFlow: boolean
-  expanded: boolean
-  onExpandedChange: (expanded: boolean) => void
   onAddToFlow: (process: CatalogProcess) => void
 }) {
   const t = useTranslations()
@@ -79,7 +67,7 @@ export function ProcessPackageSidebar({
   }
 
   function remove(process: CatalogProcess) {
-    if (process.usedInGroups.length) return
+    if (process.isUsed) return
     startTransition(async () => {
       const result = await deleteProcess(process.id)
       if (!result.success) {
@@ -91,130 +79,50 @@ export function ProcessPackageSidebar({
     })
   }
 
-  if (!expanded) {
-    return (
-      <aside className="flex w-10 shrink-0 flex-col items-center border-r border-border bg-card py-3">
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          className="h-8 w-8 p-0"
-          onClick={() => onExpandedChange(true)}
-          aria-label={t("logistic.dynamicFlow.expandPackage")}
-        >
-          <PanelLeft className="size-4" />
-        </Button>
-        <span
-          className="mt-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground"
-          style={{ writingMode: "vertical-rl" }}
-        >
-          {t("logistic.dynamicFlow.processPackage")}
-        </span>
-        <span className="mt-2 text-[10px] text-muted-foreground">({processes.length})</span>
-      </aside>
-    )
-  }
-
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-border bg-card lg:w-72">
-      <div className="flex items-center gap-2 border-b border-border px-3 py-2.5">
-        <h2 className="min-w-0 flex-1 truncate text-sm font-semibold text-foreground">
+    <aside className="flex w-52 shrink-0 flex-col border-r border-border bg-sidebar">
+      <div className="shrink-0 px-3 pt-3">
+        <h2 className="truncate text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           {t("logistic.dynamicFlow.processPackage")}{" "}
           <span className="font-normal text-muted-foreground">({processes.length})</span>
         </h2>
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          className="h-8 w-8 shrink-0 p-0"
-          onClick={() => onExpandedChange(false)}
-          aria-label={t("logistic.dynamicFlow.collapsePackage")}
-        >
-          <PanelLeftClose className="size-4" />
-        </Button>
       </div>
 
       <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
         {processes.length ? (
           processes.map((process) => {
-            const unused = process.usedInGroups.length === 0
-            const typeLabel = PROCESS_TYPES.includes(
-              process.type as (typeof PROCESS_TYPES)[number],
-            )
-              ? t(`logistic.dynamicFlow.types.${process.type as (typeof PROCESS_TYPES)[number]}`)
-              : process.type
+            const unused = !process.isUsed
             return (
-              <div
-                key={process.id}
-                className="rounded-md border border-border bg-background p-2"
-              >
-                <div className="flex items-start gap-1">
-                  <button
+              <div key={process.id} className="flex gap-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={!canManage || !canAddToFlow || pending}
+                  onClick={() => onAddToFlow(process)}
+                  className="min-w-0 flex-1 justify-start"
+                  title={
+                    canAddToFlow
+                      ? t("logistic.dynamicFlow.addToFlow")
+                      : t("logistic.dynamicFlow.createDraft")
+                  }
+                >
+                  <MapPin className="size-3.5 text-muted-foreground" />
+                  <span className="truncate">{process.name}</span>
+                  {canAddToFlow && canManage && <Plus className="ml-auto size-3.5" />}
+                </Button>
+                {canManage && unused && (
+                  <Button
                     type="button"
-                    disabled={!canManage || !canAddToFlow || pending}
-                    onClick={() => onAddToFlow(process)}
-                    className="min-w-0 flex-1 rounded-sm text-left hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
-                    title={
-                      canAddToFlow
-                        ? t("logistic.dynamicFlow.addToFlow")
-                        : t("logistic.dynamicFlow.createDraft")
-                    }
+                    variant="outline"
+                    size="icon"
+                    className="text-muted-foreground hover:text-destructive"
+                    disabled={pending}
+                    onClick={() => remove(process)}
+                    aria-label={t("common.delete")}
                   >
-                    <span className="block truncate text-xs font-medium text-foreground">
-                      {process.name}
-                    </span>
-                    <span className="mt-0.5 block text-[10px] text-muted-foreground">
-                      {typeLabel}
-                      {process.targetDurationMinutes != null
-                        ? ` · ${t("logistic.dynamicFlow.minutes", {
-                            count: process.targetDurationMinutes,
-                          })}`
-                        : ""}
-                    </span>
-                  </button>
-                  {canAddToFlow && canManage && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="h-7 w-7 shrink-0 p-0"
-                      disabled={pending}
-                      onClick={() => onAddToFlow(process)}
-                      aria-label={t("logistic.dynamicFlow.addToFlow")}
-                    >
-                      <Plus className="size-3.5" />
-                    </Button>
-                  )}
-                  {canManage && unused && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="h-7 w-7 shrink-0 p-0 text-muted-foreground hover:text-destructive"
-                      disabled={pending}
-                      onClick={() => remove(process)}
-                      aria-label={t("common.delete")}
-                    >
-                      <Trash2 className="size-3.5" />
-                    </Button>
-                  )}
-                </div>
-                <div className="mt-1.5 flex flex-wrap gap-1">
-                  {unused ? (
-                    <span className="text-[10px] text-muted-foreground">
-                      {t("logistic.dynamicFlow.unusedProcess")}
-                    </span>
-                  ) : (
-                    process.usedInGroups.map((group) => (
-                      <span
-                        key={group}
-                        className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-400"
-                      >
-                        {group}
-                      </span>
-                    ))
-                  )}
-                </div>
+                    <Trash2 className="size-3.5" />
+                  </Button>
+                )}
               </div>
             )
           })
@@ -233,18 +141,18 @@ export function ProcessPackageSidebar({
                 disabled={pending}
                 placeholder={t("logistic.dynamicFlow.name")}
               />
-              <select
+              <NativeSelect
                 name="type"
                 disabled={pending}
-                className="h-9 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground"
+                className="w-full"
                 aria-label={t("logistic.dynamicFlow.processType")}
               >
                 {PROCESS_TYPES.map((type) => (
-                  <option key={type} value={type}>
+                  <NativeSelectOption key={type} value={type}>
                     {t(`logistic.dynamicFlow.types.${type}`)}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
               <Input
                 name="targetDurationMinutes"
                 type="number"

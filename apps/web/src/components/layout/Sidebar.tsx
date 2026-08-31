@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useEffect, useState, useSyncExternalStore } from "react"
 import {
   LayoutDashboardIcon,
@@ -99,11 +101,25 @@ interface SidebarProps {
 }
 
 const noop = () => () => {}
+const subscribeCompactViewport = (callback: () => void) => {
+  const mediaQuery = window.matchMedia("(max-width: 639px)")
+  mediaQuery.addEventListener("change", callback)
+  return () => mediaQuery.removeEventListener("change", callback)
+}
+const getCompactViewportSnapshot = () =>
+  window.matchMedia("(max-width: 639px)").matches
+const getCompactViewportServerSnapshot = () => false
 
 export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, usersNavItem, moduleName = "Quality", moduleIcon: ModuleIcon = Factory, user }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const isClient = useSyncExternalStore(noop, () => true, () => false)
+  const isCompactViewport = useSyncExternalStore(
+    subscribeCompactViewport,
+    getCompactViewportSnapshot,
+    getCompactViewportServerSnapshot,
+  )
   const t = useTranslations()
+  const visuallyCollapsed = isCollapsed || isCompactViewport
 
   const normalizedPlan = (user.plan ?? "FREE") as PlanKey
 
@@ -136,14 +152,14 @@ export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, usersNavIte
         className={cn(
           "relative flex shrink-0 flex-col border-r border-sidebar-border bg-sidebar",
           isClient && "transition-[width] duration-300 ease-in-out",
-          isCollapsed ? "w-16" : "w-64"
+          visuallyCollapsed ? "w-16" : "w-64"
         )}
       >
         <div className="flex h-14 shrink-0 items-center border-b border-sidebar-border overflow-hidden bg-sidebar">
           <div
             className={cn(
               "flex h-full items-center transition-all duration-300",
-              isCollapsed ? "justify-center w-full" : "gap-2.5 px-5"
+              visuallyCollapsed ? "justify-center w-full" : "gap-2.5 px-5"
             )}
           >
             <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
@@ -152,7 +168,7 @@ export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, usersNavIte
             <span
               className={cn(
                 "whitespace-nowrap overflow-hidden transition-all duration-300",
-                isCollapsed
+                visuallyCollapsed
                   ? "hidden"
                   : "max-w-40 opacity-100"
               )}
@@ -167,7 +183,7 @@ export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, usersNavIte
           </div>
         </div>
 
-        <nav className={cn("flex-1 space-y-1 overflow-hidden", isCollapsed ? "p-2" : "p-3")}>
+        <nav className={cn("flex-1 space-y-1 overflow-hidden", visuallyCollapsed ? "p-2" : "p-3")}>
           {allNavItems.map((item) => {
             const gated = item.gate
             const access = gated ? checkFeatureAccess(normalizedPlan, user.companyType, gated, user.companyId, user.companyModules) : { allowed: true, reason: null }
@@ -182,7 +198,7 @@ export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, usersNavIte
                 <LockedSidebarLink
                   key={item.href}
                   item={item}
-                  isCollapsed={isCollapsed}
+                  isCollapsed={visuallyCollapsed}
                   reason={access.reason}
                 />
               )
@@ -192,23 +208,23 @@ export function Sidebar({ navItems, planNavItem, fieldConfigNavItem, usersNavIte
               <SidebarLink
                 key={item.href}
                 item={item}
-                isCollapsed={isCollapsed}
+                isCollapsed={visuallyCollapsed}
               />
             )
           })}
         </nav>
 
-        <button
+        <Button
           onClick={handleToggle}
-          className="absolute -right-3 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-sidebar-border bg-sidebar shadow-md shadow-black/20 transition-all duration-200 hover:bg-sidebar-accent hover:border-sidebar-ring"
-          aria-label={isCollapsed ? t("shell.expandSidebar") : t("shell.collapseSidebar")}
+          className="absolute -right-3 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-sidebar-border bg-sidebar shadow-md shadow-foreground/20 transition-all duration-200 hover:border-sidebar-ring hover:bg-sidebar-accent max-sm:hidden"
+          aria-label={visuallyCollapsed ? t("shell.expandSidebar") : t("shell.collapseSidebar")}
         >
-          {isCollapsed ? (
+          {visuallyCollapsed ? (
             <ChevronRight className="size-3 text-muted-foreground" />
           ) : (
             <ChevronLeft className="size-3 text-muted-foreground" />
           )}
-        </button>
+        </Button>
       </aside>
     </TooltipProvider>
   )

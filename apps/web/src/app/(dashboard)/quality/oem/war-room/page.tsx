@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -56,52 +57,52 @@ export default async function WarRoomPage() {
             <div className="space-y-3">
               <h2 className="text-lg font-semibold text-foreground">Escalated Field Defects</h2>
               <div className="rounded-lg border bg-card overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="border-b">
-                    <tr>
-                      <th className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part #</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Severity</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Escalation</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Response Due</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Reason</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <Table className="w-full text-sm">
+                  <TableHeader className="border-b">
+                    <TableRow>
+                      <TableHead className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part #</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Severity</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Escalation</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Response Due</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Reason</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
                     {escalated.map((esc) => (
-                      <tr key={esc.id} className="border-b transition-colors hover:bg-muted/50">
-                        <td className="p-3 align-middle">
+                      <TableRow key={esc.id} className="border-b transition-colors hover:bg-muted/50">
+                        <TableCell className="p-3 align-middle">
                           <Link href={`/quality/oem/field/${esc.id}`} className="font-medium text-foreground hover:underline">
                             {esc.title.length > 35 ? esc.title.slice(0, 35) + "…" : esc.title}
                           </Link>
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <span className="font-mono text-xs">{esc.partNumber ?? "—"}</span>
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <FieldDefectSeverityBadge severity={esc.severity as "MINOR" | "MAJOR" | "CRITICAL"} />
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <FieldDefectStatusBadge status={esc.status as "DRAFT" | "OPEN" | "UNDER_REVIEW" | "SUPPLIER_ASSIGNED" | "LINKED_TO_8D" | "CLOSED" | "CANCELLED"} />
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <EscalationBadge level={esc.escalationLevel as EscalationLevel} />
-                        </td>
-                        <td className="p-3 align-middle text-muted-foreground">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle text-muted-foreground">
                           {esc.supplierName ?? "—"}
-                        </td>
-                        <td className="p-3 align-middle text-xs">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle text-xs">
                           {formatDueDate(esc.responseDueAt)}
-                        </td>
-                        <td className="p-3 align-middle max-w-xs truncate text-muted-foreground">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle max-w-xs truncate text-muted-foreground">
                           {esc.escalationReason ?? "—"}
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
+                  </TableBody>
+                </Table>
               </div>
             </div>
           )}
@@ -113,52 +114,52 @@ export default async function WarRoomPage() {
                 SLA Alerts
               </h2>
               <div className="rounded-lg border bg-card overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="border-b">
-                    <tr>
-                      <th className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part #</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Severity</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">SLA</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Response Due</th>
-                      <th className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Resolution Due</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <Table className="w-full text-sm">
+                  <TableHeader className="border-b">
+                    <TableRow>
+                      <TableHead className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Title</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Part #</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Severity</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Status</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">SLA</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Supplier</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Response Due</TableHead>
+                      <TableHead className="px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Resolution Due</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
                     {overdue.map((item) => (
-                      <tr key={item.id} className="border-b transition-colors hover:bg-muted/50">
-                        <td className="p-3 align-middle">
+                      <TableRow key={item.id} className="border-b transition-colors hover:bg-muted/50">
+                        <TableCell className="p-3 align-middle">
                           <Link href={`/quality/oem/field/${item.id}`} className="font-medium text-foreground hover:underline">
                             {item.title.length > 35 ? item.title.slice(0, 35) + "…" : item.title}
                           </Link>
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <span className="font-mono text-xs">{item.partNumber ?? "—"}</span>
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <FieldDefectSeverityBadge severity={item.severity as "MINOR" | "MAJOR" | "CRITICAL"} />
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <FieldDefectStatusBadge status={item.status as "DRAFT" | "OPEN" | "UNDER_REVIEW" | "SUPPLIER_ASSIGNED" | "LINKED_TO_8D" | "CLOSED" | "CANCELLED"} />
-                        </td>
-                        <td className="p-3 align-middle">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle">
                           <SlaStatusBadge status={item.slaStatus as "overdue" | "due-soon" | "on-track" | "no-sla" | "completed"} />
-                        </td>
-                        <td className="p-3 align-middle text-muted-foreground">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle text-muted-foreground">
                           {item.supplierName ?? "—"}
-                        </td>
-                        <td className="p-3 align-middle text-xs">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle text-xs">
                           {formatDueDate(item.responseDueAt)}
-                        </td>
-                        <td className="p-3 align-middle text-xs">
+                        </TableCell>
+                        <TableCell className="p-3 align-middle text-xs">
                           {formatDueDate(item.resolutionDueAt)}
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
+                  </TableBody>
+                </Table>
               </div>
             </div>
           )}

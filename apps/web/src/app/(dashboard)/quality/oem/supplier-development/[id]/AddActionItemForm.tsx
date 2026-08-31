@@ -1,5 +1,11 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { addActionItem } from "@/app/(dashboard)/quality/oem/supplier-development/actions/plan"
 import type { DevActionOwnerType } from "@/lib/supplier-development/client"
 import { PlusCircleIcon } from "lucide-react"
@@ -41,13 +47,13 @@ export function AddActionItemForm({ planId }: { planId: string }) {
 
   if (!isOpen) {
     return (
-      <button
+      <Button
         onClick={() => setIsOpen(true)}
-        className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        variant="ghost" className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
         <PlusCircleIcon className="h-4 w-4" />
         Add action item
-      </button>
+      </Button>
     )
   }
 
@@ -59,7 +65,7 @@ export function AddActionItemForm({ planId }: { planId: string }) {
         </div>
       )}
       <div className="grid gap-3 sm:grid-cols-2">
-        <input
+        <Input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -68,17 +74,16 @@ export function AddActionItemForm({ planId }: { planId: string }) {
           required
         />
         <div className="flex gap-2">
-          <select
+          <NativeSelect
             value={ownerType}
             onChange={(e) => setOwnerType(e.target.value as DevActionOwnerType)}
-            className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground"
           >
-            <option value="OEM">OEM</option>
-            <option value="SUPPLIER">Supplier</option>
-          </select>
+            <NativeSelectOption value="OEM">OEM</NativeSelectOption>
+            <NativeSelectOption value="SUPPLIER">Supplier</NativeSelectOption>
+          </NativeSelect>
           <DatePicker value={dueDate} onChange={setDueDate} placeholder="Due date" className="rounded-md border border-border bg-background px-3 py-1.5 text-sm text-foreground" />
         </div>
-        <input
+        <Input
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -87,12 +92,12 @@ export function AddActionItemForm({ planId }: { planId: string }) {
         />
       </div>
       <div className="flex gap-2">
-        <button type="submit" disabled={isSubmitting} className="rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
+        <Button type="submit" disabled={isSubmitting} className="rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50">
           {isSubmitting ? "Adding..." : "Add"}
-        </button>
-        <button type="button" onClick={() => { setIsOpen(false); setTitle(""); setDescription(""); setDueDate(""); setError(null) }} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">
+        </Button>
+        <Button type="button" variant="outline" onClick={() => { setIsOpen(false); setTitle(""); setDescription(""); setDueDate(""); setError(null) }} className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   )

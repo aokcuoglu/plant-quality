@@ -1,9 +1,18 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { CheckCircle2, Ban, Pencil } from "lucide-react"
 import { upsertYardStatus, markReadyForDispatch, blockDispatch, unblockDispatch } from "../../yard-actions"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
 
 export function YardStatusSection({ yardStatus, orderId }: {
   yardStatus: {
@@ -19,6 +28,7 @@ export function YardStatusSection({ yardStatus, orderId }: {
   } | null
   orderId: string
 }) {
+  const { showAlert } = useAppAlertDialog()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [editing, setEditing] = useState(false)
@@ -37,7 +47,10 @@ export function YardStatusSection({ yardStatus, orderId }: {
         parkingSlot: parkingSlot || null,
         notes: notes || null,
       })
-      if (result?.error) { alert(result.error); return }
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       setEditing(false)
       router.refresh()
     })
@@ -46,7 +59,10 @@ export function YardStatusSection({ yardStatus, orderId }: {
   function handleMarkReady() {
     startTransition(async () => {
       const result = await markReadyForDispatch(orderId)
-      if (result?.error) { alert(result.error); return }
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       router.refresh()
     })
   }
@@ -55,7 +71,10 @@ export function YardStatusSection({ yardStatus, orderId }: {
     if (!blockReasonInput.trim()) return
     startTransition(async () => {
       const result = await blockDispatch(orderId, blockReasonInput.trim())
-      if (result?.error) { alert(result.error); return }
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       setShowBlockDialog(false)
       setBlockReasonInput("")
       router.refresh()
@@ -65,7 +84,10 @@ export function YardStatusSection({ yardStatus, orderId }: {
   function handleUnblock() {
     startTransition(async () => {
       const result = await unblockDispatch(orderId)
-      if (result?.error) { alert(result.error); return }
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       router.refresh()
     })
   }
@@ -85,12 +107,13 @@ export function YardStatusSection({ yardStatus, orderId }: {
               <Ban className="size-3" /> Blocked
             </span>
           )}
-          <button
+          <Button
+            variant="ghost"
             onClick={() => setEditing(!editing)}
             className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
           >
             <Pencil className="size-3.5" />
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -98,8 +121,8 @@ export function YardStatusSection({ yardStatus, orderId }: {
         <div className="space-y-3">
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Yard Location</label>
-              <input
+              <Label className="mb-1 block text-xs text-muted-foreground">Yard Location</Label>
+              <Input
                 type="text"
                 value={yardLocation}
                 onChange={(e) => setYardLocation(e.target.value)}
@@ -108,8 +131,8 @@ export function YardStatusSection({ yardStatus, orderId }: {
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-muted-foreground">Parking Slot</label>
-              <input
+              <Label className="mb-1 block text-xs text-muted-foreground">Parking Slot</Label>
+              <Input
                 type="text"
                 value={parkingSlot}
                 onChange={(e) => setParkingSlot(e.target.value)}
@@ -119,8 +142,8 @@ export function YardStatusSection({ yardStatus, orderId }: {
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-muted-foreground">Notes</label>
-            <textarea
+            <Label className="mb-1 block text-xs text-muted-foreground">Notes</Label>
+            <Textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={2}
@@ -129,19 +152,19 @@ export function YardStatusSection({ yardStatus, orderId }: {
             />
           </div>
           <div className="flex gap-2">
-            <button
+            <Button
               onClick={handleSave}
               disabled={isPending}
               className="rounded-lg bg-foreground px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-foreground/90 disabled:opacity-50"
             >
               {isPending ? "Saving..." : "Save"}
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setEditing(false)}
               className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       ) : (
@@ -187,38 +210,38 @@ export function YardStatusSection({ yardStatus, orderId }: {
 
       <div className="mt-3 flex flex-wrap gap-2">
         {(!yardStatus || !yardStatus.readyForDispatch) && !yardStatus?.blockedForDispatch && (
-          <button
+          <Button
             onClick={handleMarkReady}
             disabled={isPending}
             className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-foreground hover:bg-foreground/20 disabled:opacity-50"
           >
             <CheckCircle2 className="size-3.5" /> Mark Ready
-          </button>
+          </Button>
         )}
         {!yardStatus?.blockedForDispatch && (
-          <button
+          <Button
             onClick={() => setShowBlockDialog(true)}
             disabled={isPending}
             className="inline-flex items-center gap-1 rounded-lg bg-destructive/10 px-3 py-1.5 text-sm font-medium text-destructive hover:bg-destructive/20 disabled:opacity-50"
           >
             <Ban className="size-3.5" /> Block Dispatch
-          </button>
+          </Button>
         )}
         {yardStatus?.blockedForDispatch && (
-          <button
+          <Button
             onClick={handleUnblock}
             disabled={isPending}
             className="inline-flex items-center gap-1 rounded-lg bg-muted px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-accent disabled:opacity-50"
           >
             Unblock Dispatch
-          </button>
+          </Button>
         )}
       </div>
 
       {showBlockDialog && (
         <div className="mt-3 rounded-lg border border-border bg-background p-3">
-          <label className="mb-1 block text-xs text-muted-foreground">Block Reason</label>
-          <input
+          <Label className="mb-1 block text-xs text-muted-foreground">Block Reason</Label>
+          <Input
             type="text"
             value={blockReasonInput}
             onChange={(e) => setBlockReasonInput(e.target.value)}
@@ -226,19 +249,19 @@ export function YardStatusSection({ yardStatus, orderId }: {
             className="mb-2 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground"
           />
           <div className="flex gap-2">
-            <button
+            <Button
               onClick={handleBlock}
               disabled={isPending || !blockReasonInput.trim()}
               className="rounded-lg bg-destructive px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-destructive/90 disabled:opacity-50"
             >
               {isPending ? "Blocking..." : "Block"}
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => { setShowBlockDialog(false); setBlockReasonInput("") }}
               className="rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -242,6 +242,50 @@ enum LogisticVehicleFlowStatus {
   CANCELLED
 }
 
+enum LogisticWorkflowSubjectType {
+  PLAN_SHEET
+  ORDER
+  VEHICLE_UNIT
+  YARD_RECORD
+  DISPATCH
+}
+
+enum LogisticWorkflowNodeKind {
+  START
+  TASK
+  APPROVAL
+  DECISION
+  AUTOMATION
+  WAIT
+  END
+}
+
+enum LogisticWorkflowAssignmentStrategy {
+  NONE
+  ACTOR
+  USER
+  ORGANIZATION_UNIT
+}
+
+enum LogisticWorkflowTaskScope {
+  INSTANCE
+  EACH_LINE
+  EACH_VEHICLE_GROUP
+}
+
+enum LogisticWorkflowInstanceStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  SUSPENDED
+}
+
+enum LogisticWorkflowTaskStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
 enum LogisticTransitionType {
   START
   ADVANCE
@@ -610,17 +654,19 @@ enum EscalationLevel {
 }
 
 model OrganizationUnit {
-  id        String             @id @default(uuid())
-  name      String
-  type      OrgUnitType
-  companyId String
-  company   Company            @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  parentId  String?
-  parent    OrganizationUnit?  @relation("OrgTree", fields: [parentId], references: [id], onDelete: SetNull)
-  children  OrganizationUnit[] @relation("OrgTree")
-  users     User[]
-  sortOrder Int                @default(0)
-  createdAt DateTime           @default(now())
+  id                    String                 @id @default(uuid())
+  name                  String
+  type                  OrgUnitType
+  companyId             String
+  company               Company                @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  parentId              String?
+  parent                OrganizationUnit?      @relation("OrgTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children              OrganizationUnit[]     @relation("OrgTree")
+  users                 User[]
+  logisticWorkflowNodes LogisticWorkflowNode[] @relation("WorkflowNodeOrganizationUnit")
+  logisticWorkflowTasks LogisticWorkflowTask[] @relation("WorkflowTaskOrganizationUnit")
+  sortOrder             Int                    @default(0)
+  createdAt             DateTime               @default(now())
 
   @@index([companyId, parentId])
   @@map("organization_units")
@@ -680,6 +726,13 @@ model Company {
   logisticOrderLines          LogisticOrderLine[]
   logisticVehicleUnits        LogisticVehicleUnit[]
   logisticVehicleVisits       LogisticVehicleProcessVisit[]
+  logisticWorkflowDefinitions LogisticWorkflowDefinition[]
+  logisticWorkflowVersions    LogisticWorkflowVersion[]
+  logisticWorkflowNodes       LogisticWorkflowNode[]
+  logisticWorkflowEdges       LogisticWorkflowEdge[]
+  logisticWorkflowInstances   LogisticWorkflowInstance[]
+  logisticWorkflowTasks       LogisticWorkflowTask[]
+  logisticWorkflowEvents      LogisticWorkflowEvent[]
   customFieldDefinitions      CustomFieldDefinition[]
   scorecardConfig             SupplierScorecardConfig?
   createdAt                   DateTime                           @default(now())
@@ -688,91 +741,96 @@ model Company {
 }
 
 model User {
-  id                      String                             @id @default(uuid())
-  email                   String                             @unique
-  name                    String?
-  emailVerified           DateTime?
-  image                   String?
-  role                    Role                               @default(VIEWER)
-  plan                    Plan                               @default(BASIC)
-  modules                 String[]                           @default([])
-  microsoftId             String?                            @map("microsoft_id")
-  graphDepartment         String?                            @map("graph_department")
-  graphJobTitle           String?                            @map("graph_job_title")
-  graphManagerEmail       String?                            @map("graph_manager_email")
-  companyId               String?
-  company                 Company?                           @relation(fields: [companyId], references: [id])
-  orgUnitId               String?                            @map("org_unit_id")
-  orgUnit                 OrganizationUnit?                  @relation(fields: [orgUnitId], references: [id], onDelete: SetNull)
-  accounts                Account[]
-  sessions                Session[]
-  reviewComments          ReviewComment[]
-  resolvedReviewComments  ReviewComment[]                    @relation("ReviewCommentResolvedBy")
-  approvedReports         EightDReport[]                     @relation("EightDApprovedBy")
-  rejectedReports         EightDReport[]                     @relation("EightDRejectedBy")
-  ownedDefects            Defect[]                           @relation("DefectOemOwner")
-  assignedDefects         Defect[]                           @relation("DefectSupplierAssignee")
-  escalatedDefects        Defect[]                           @relation("DefectEscalatedBy")
-  defectEvents            DefectEvent[]                      @relation("DefectEventActor")
-  uploadedEvidence        DefectEvidence[]                   @relation("DefectEvidenceUploadedBy")
-  notifications           Notification[]
-  ownedPpaps              PpapSubmission[]                   @relation("PpapOemOwner")
-  assignedPpaps           PpapSubmission[]                   @relation("PpapSupplierAssignee")
-  approvedPpaps           PpapSubmission[]                   @relation("PpapApprovedBy")
-  rejectedPpaps           PpapSubmission[]                   @relation("PpapRejectedBy")
-  reviewedPpaps           PpapSubmission[]                   @relation("PpapReviewedBy")
-  ppapEvidenceUploads     PpapEvidence[]                     @relation("PpapEvidenceUploadedBy")
-  ppapEvidenceReviewed    PpapEvidence[]                     @relation("PpapEvidenceReviewedBy")
-  ppapCommentResolved     PpapReviewComment[]                @relation("PpapCommentResolvedBy")
-  ppapCommentAuthored     PpapReviewComment[]                @relation("PpapCommentAuthor")
-  ppapEventActors         PpapEvent[]                        @relation("PpapEventActor")
-  iqcInspections          IqcReport[]                        @relation("IqcInspector")
-  iqcCreatedReports       IqcReport[]                        @relation("IqcCreatedBy")
-  iqcCompletedReports     IqcReport[]                        @relation("IqcCompletedBy")
-  iqcEventActors          IqcEvent[]                         @relation("IqcEventActor")
-  fmeaResponsible         Fmea[]                             @relation("FmeaResponsible")
-  fmeaApprovedBy          Fmea[]                             @relation("FmeaApprovedBy")
-  fmeaReviewedBy          Fmea[]                             @relation("FmeaReviewedBy")
-  fmeaCreatedBy           Fmea[]                             @relation("FmeaCreatedBy")
-  fmeaEventActors         FmeaEvent[]                        @relation("FmeaEventActor")
-  createdFieldDefects     FieldDefect[]                      @relation("FieldDefectCreatedBy")
-  updatedFieldDefects     FieldDefect[]                      @relation("FieldDefectUpdatedBy")
-  convertedFieldDefects   FieldDefect[]                      @relation("FieldDefectConvertedBy")
-  escalatedFieldDefects   FieldDefect[]                      @relation("FieldDefectEscalatedBy")
-  escalationHistories     EscalationHistory[]
-  createdUpgradeRequests  UpgradeRequest[]                   @relation("UpgradeRequestCreatedBy")
-  resolvedUpgradeRequests UpgradeRequest[]                   @relation("UpgradeRequestResolvedBy")
-  createdAiSuggestions    AiSuggestion[]                     @relation("AiSuggestionCreatedBy")
-  acceptedAiSuggestions   AiSuggestion[]                     @relation("AiSuggestionAcceptedBy")
-  rejectedAiSuggestions   AiSuggestion[]                     @relation("AiSuggestionRejectedBy")
-  fieldDefectAttachments  FieldDefectAttachment[]            @relation("FieldDefectAttachmentUploadedBy")
-  fieldDefectComments     FieldDefectComment[]               @relation("FieldDefectCommentAuthor")
-  fieldDefectEvents       FieldDefectEvent[]                 @relation("FieldDefectEventActor")
-  aiCategoryAppliedByFor  FieldDefect[]                      @relation("FieldDefectAiCategoryAppliedBy")
-  createdAi8dReviews      Ai8dReview[]                       @relation("Ai8dReviewCreatedBy")
-  reviewedAi8dReviews     Ai8dReview[]                       @relation("Ai8dReviewReviewedBy")
-  rejectedAi8dReviews     Ai8dReview[]                       @relation("Ai8dReviewRejectedBy")
-  createdQualityLinks     QualityRecordLink[]
-  ownedDevPlans           SupplierDevelopmentPlan[]          @relation("DevPlanOwner")
-  createdDevPlans         SupplierDevelopmentPlan[]          @relation("DevPlanCreatedBy")
-  completedDevPlans       SupplierDevelopmentPlan[]          @relation("DevPlanCompletedBy")
-  ownedDevActionItems     SupplierDevelopmentActionItem[]    @relation("DevActionItemOwner")
-  devPlanEvents           SupplierDevelopmentEvent[]         @relation("DevPlanEventActor")
-  createdLogisticOrders   PlantLogisticOrder[]               @relation("LogisticOrderCreatedBy")
-  updatedLogisticOrders   PlantLogisticOrder[]               @relation("LogisticOrderUpdatedBy")
-  logisticOrderEvents     PlantLogisticOrderEvent[]          @relation("LogisticOrderEventActor")
-  createdMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneCreatedBy")
-  updatedMilestones       PlantLogisticProductionMilestone[] @relation("MilestoneUpdatedBy")
-  createdYardStatuses     PlantLogisticYardStatus[]          @relation("YardStatusCreatedBy")
-  updatedYardStatuses     PlantLogisticYardStatus[]          @relation("YardStatusUpdatedBy")
-  createdDispatches       PlantLogisticDispatch[]            @relation("DispatchCreatedBy")
-  updatedDispatches       PlantLogisticDispatch[]            @relation("DispatchUpdatedBy")
-  portalOrderComments     PlantLogisticOrderComment[]        @relation("PortalOrderCommentAuthor")
-  createdPlanSheets       PlantLogisticPlanSheet[]           @relation("PlanSheetCreatedBy")
-  reviewedPlanSheets      PlantLogisticPlanSheet[]           @relation("PlanSheetReviewedBy")
-  approvedPlanSheets      PlantLogisticPlanSheet[]           @relation("PlanSheetApprovedBy")
-  planSheetEvents         PlantLogisticPlanSheetEvent[]      @relation("PlanSheetEventActor")
-  createdAt               DateTime                           @default(now())
+  id                        String                             @id @default(uuid())
+  email                     String                             @unique
+  name                      String?
+  emailVerified             DateTime?
+  image                     String?
+  role                      Role                               @default(VIEWER)
+  plan                      Plan                               @default(BASIC)
+  modules                   String[]                           @default([])
+  microsoftId               String?                            @map("microsoft_id")
+  graphDepartment           String?                            @map("graph_department")
+  graphJobTitle             String?                            @map("graph_job_title")
+  graphManagerEmail         String?                            @map("graph_manager_email")
+  companyId                 String?
+  company                   Company?                           @relation(fields: [companyId], references: [id])
+  orgUnitId                 String?                            @map("org_unit_id")
+  orgUnit                   OrganizationUnit?                  @relation(fields: [orgUnitId], references: [id], onDelete: SetNull)
+  accounts                  Account[]
+  sessions                  Session[]
+  reviewComments            ReviewComment[]
+  resolvedReviewComments    ReviewComment[]                    @relation("ReviewCommentResolvedBy")
+  approvedReports           EightDReport[]                     @relation("EightDApprovedBy")
+  rejectedReports           EightDReport[]                     @relation("EightDRejectedBy")
+  ownedDefects              Defect[]                           @relation("DefectOemOwner")
+  assignedDefects           Defect[]                           @relation("DefectSupplierAssignee")
+  escalatedDefects          Defect[]                           @relation("DefectEscalatedBy")
+  defectEvents              DefectEvent[]                      @relation("DefectEventActor")
+  uploadedEvidence          DefectEvidence[]                   @relation("DefectEvidenceUploadedBy")
+  notifications             Notification[]
+  ownedPpaps                PpapSubmission[]                   @relation("PpapOemOwner")
+  assignedPpaps             PpapSubmission[]                   @relation("PpapSupplierAssignee")
+  approvedPpaps             PpapSubmission[]                   @relation("PpapApprovedBy")
+  rejectedPpaps             PpapSubmission[]                   @relation("PpapRejectedBy")
+  reviewedPpaps             PpapSubmission[]                   @relation("PpapReviewedBy")
+  ppapEvidenceUploads       PpapEvidence[]                     @relation("PpapEvidenceUploadedBy")
+  ppapEvidenceReviewed      PpapEvidence[]                     @relation("PpapEvidenceReviewedBy")
+  ppapCommentResolved       PpapReviewComment[]                @relation("PpapCommentResolvedBy")
+  ppapCommentAuthored       PpapReviewComment[]                @relation("PpapCommentAuthor")
+  ppapEventActors           PpapEvent[]                        @relation("PpapEventActor")
+  iqcInspections            IqcReport[]                        @relation("IqcInspector")
+  iqcCreatedReports         IqcReport[]                        @relation("IqcCreatedBy")
+  iqcCompletedReports       IqcReport[]                        @relation("IqcCompletedBy")
+  iqcEventActors            IqcEvent[]                         @relation("IqcEventActor")
+  fmeaResponsible           Fmea[]                             @relation("FmeaResponsible")
+  fmeaApprovedBy            Fmea[]                             @relation("FmeaApprovedBy")
+  fmeaReviewedBy            Fmea[]                             @relation("FmeaReviewedBy")
+  fmeaCreatedBy             Fmea[]                             @relation("FmeaCreatedBy")
+  fmeaEventActors           FmeaEvent[]                        @relation("FmeaEventActor")
+  createdFieldDefects       FieldDefect[]                      @relation("FieldDefectCreatedBy")
+  updatedFieldDefects       FieldDefect[]                      @relation("FieldDefectUpdatedBy")
+  convertedFieldDefects     FieldDefect[]                      @relation("FieldDefectConvertedBy")
+  escalatedFieldDefects     FieldDefect[]                      @relation("FieldDefectEscalatedBy")
+  escalationHistories       EscalationHistory[]
+  createdUpgradeRequests    UpgradeRequest[]                   @relation("UpgradeRequestCreatedBy")
+  resolvedUpgradeRequests   UpgradeRequest[]                   @relation("UpgradeRequestResolvedBy")
+  createdAiSuggestions      AiSuggestion[]                     @relation("AiSuggestionCreatedBy")
+  acceptedAiSuggestions     AiSuggestion[]                     @relation("AiSuggestionAcceptedBy")
+  rejectedAiSuggestions     AiSuggestion[]                     @relation("AiSuggestionRejectedBy")
+  fieldDefectAttachments    FieldDefectAttachment[]            @relation("FieldDefectAttachmentUploadedBy")
+  fieldDefectComments       FieldDefectComment[]               @relation("FieldDefectCommentAuthor")
+  fieldDefectEvents         FieldDefectEvent[]                 @relation("FieldDefectEventActor")
+  aiCategoryAppliedByFor    FieldDefect[]                      @relation("FieldDefectAiCategoryAppliedBy")
+  createdAi8dReviews        Ai8dReview[]                       @relation("Ai8dReviewCreatedBy")
+  reviewedAi8dReviews       Ai8dReview[]                       @relation("Ai8dReviewReviewedBy")
+  rejectedAi8dReviews       Ai8dReview[]                       @relation("Ai8dReviewRejectedBy")
+  createdQualityLinks       QualityRecordLink[]
+  ownedDevPlans             SupplierDevelopmentPlan[]          @relation("DevPlanOwner")
+  createdDevPlans           SupplierDevelopmentPlan[]          @relation("DevPlanCreatedBy")
+  completedDevPlans         SupplierDevelopmentPlan[]          @relation("DevPlanCompletedBy")
+  ownedDevActionItems       SupplierDevelopmentActionItem[]    @relation("DevActionItemOwner")
+  devPlanEvents             SupplierDevelopmentEvent[]         @relation("DevPlanEventActor")
+  createdLogisticOrders     PlantLogisticOrder[]               @relation("LogisticOrderCreatedBy")
+  updatedLogisticOrders     PlantLogisticOrder[]               @relation("LogisticOrderUpdatedBy")
+  logisticOrderEvents       PlantLogisticOrderEvent[]          @relation("LogisticOrderEventActor")
+  createdMilestones         PlantLogisticProductionMilestone[] @relation("MilestoneCreatedBy")
+  updatedMilestones         PlantLogisticProductionMilestone[] @relation("MilestoneUpdatedBy")
+  createdYardStatuses       PlantLogisticYardStatus[]          @relation("YardStatusCreatedBy")
+  updatedYardStatuses       PlantLogisticYardStatus[]          @relation("YardStatusUpdatedBy")
+  createdDispatches         PlantLogisticDispatch[]            @relation("DispatchCreatedBy")
+  updatedDispatches         PlantLogisticDispatch[]            @relation("DispatchUpdatedBy")
+  portalOrderComments       PlantLogisticOrderComment[]        @relation("PortalOrderCommentAuthor")
+  createdPlanSheets         PlantLogisticPlanSheet[]           @relation("PlanSheetCreatedBy")
+  reviewedPlanSheets        PlantLogisticPlanSheet[]           @relation("PlanSheetReviewedBy")
+  approvedPlanSheets        PlantLogisticPlanSheet[]           @relation("PlanSheetApprovedBy")
+  planSheetEvents           PlantLogisticPlanSheetEvent[]      @relation("PlanSheetEventActor")
+  publishedWorkflowVersions LogisticWorkflowVersion[]          @relation("WorkflowVersionPublishedBy")
+  responsibleWorkflowNodes  LogisticWorkflowNode[]             @relation("WorkflowNodeResponsibleUser")
+  assignedWorkflowTasks     LogisticWorkflowTask[]             @relation("WorkflowTaskAssignedUser")
+  completedWorkflowTasks    LogisticWorkflowTask[]             @relation("WorkflowTaskCompletedBy")
+  logisticWorkflowEvents    LogisticWorkflowEvent[]            @relation("WorkflowEventActor")
+  createdAt                 DateTime                           @default(now())
 
   @@map("users")
 }
@@ -1818,6 +1876,171 @@ model LogisticVehicleProcessVisit {
 
   @@index([companyId, vehicleUnitId, enteredAt])
   @@map("logistic_vehicle_process_visits")
+}
+
+model LogisticWorkflowDefinition {
+  id          String                      @id @default(uuid())
+  companyId   String                      @map("company_id")
+  company     Company                     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  code        String
+  name        String
+  description String?
+  subjectType LogisticWorkflowSubjectType @map("subject_type")
+  active      Boolean                     @default(true)
+  isDefault   Boolean                     @default(false) @map("is_default")
+  versions    LogisticWorkflowVersion[]
+  instances   LogisticWorkflowInstance[]
+  createdAt   DateTime                    @default(now()) @map("created_at")
+  updatedAt   DateTime                    @updatedAt @map("updated_at")
+
+  @@unique([companyId, code])
+  @@index([companyId, subjectType, active])
+  @@map("logistic_workflow_definitions")
+}
+
+model LogisticWorkflowVersion {
+  id            String                     @id @default(uuid())
+  companyId     String                     @map("company_id")
+  company       Company                    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  definitionId  String                     @map("definition_id")
+  definition    LogisticWorkflowDefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  version       Int
+  status        LogisticFlowVersionStatus  @default(DRAFT)
+  publishedAt   DateTime?                  @map("published_at")
+  publishedById String?                    @map("published_by_id")
+  publishedBy   User?                      @relation("WorkflowVersionPublishedBy", fields: [publishedById], references: [id], onDelete: SetNull)
+  nodes         LogisticWorkflowNode[]
+  edges         LogisticWorkflowEdge[]
+  instances     LogisticWorkflowInstance[]
+  createdAt     DateTime                   @default(now()) @map("created_at")
+  updatedAt     DateTime                   @updatedAt @map("updated_at")
+
+  @@unique([definitionId, version])
+  @@index([companyId, definitionId, status])
+  @@map("logistic_workflow_versions")
+}
+
+model LogisticWorkflowNode {
+  id                    String                             @id @default(uuid())
+  companyId             String                             @map("company_id")
+  company               Company                            @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  workflowVersionId     String                             @map("workflow_version_id")
+  workflowVersion       LogisticWorkflowVersion            @relation(fields: [workflowVersionId], references: [id], onDelete: Cascade)
+  clientId              String                             @map("client_id")
+  kind                  LogisticWorkflowNodeKind
+  sequence              Int
+  positionX             Float                              @default(0) @map("position_x")
+  positionY             Float                              @default(0) @map("position_y")
+  name                  String
+  description           String?
+  assignmentStrategy    LogisticWorkflowAssignmentStrategy @default(NONE) @map("assignment_strategy")
+  organizationUnitId    String?                            @map("organization_unit_id")
+  organizationUnit      OrganizationUnit?                  @relation("WorkflowNodeOrganizationUnit", fields: [organizationUnitId], references: [id], onDelete: SetNull)
+  responsibleUserId     String?                            @map("responsible_user_id")
+  responsibleUser       User?                              @relation("WorkflowNodeResponsibleUser", fields: [responsibleUserId], references: [id], onDelete: SetNull)
+  taskScope             LogisticWorkflowTaskScope          @default(INSTANCE) @map("task_scope")
+  allowedActions        String[]                           @default([]) @map("allowed_actions")
+  automationActionKey   String?                            @map("automation_action_key")
+  targetDurationMinutes Int?                               @map("target_duration_minutes")
+  configuration         Json?
+  currentInstances      LogisticWorkflowInstance[]         @relation("WorkflowInstanceCurrentNode")
+  tasks                 LogisticWorkflowTask[]
+  eventsFrom            LogisticWorkflowEvent[]            @relation("WorkflowEventFromNode")
+  eventsTo              LogisticWorkflowEvent[]            @relation("WorkflowEventToNode")
+
+  @@unique([workflowVersionId, clientId])
+  @@unique([workflowVersionId, sequence])
+  @@index([companyId, kind])
+  @@map("logistic_workflow_nodes")
+}
+
+model LogisticWorkflowEdge {
+  id                String                  @id @default(uuid())
+  companyId         String                  @map("company_id")
+  company           Company                 @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  workflowVersionId String                  @map("workflow_version_id")
+  workflowVersion   LogisticWorkflowVersion @relation(fields: [workflowVersionId], references: [id], onDelete: Cascade)
+  sourceClientId    String                  @map("source_client_id")
+  targetClientId    String                  @map("target_client_id")
+  actionKey         String?                 @map("action_key")
+  label             String?
+
+  @@unique([workflowVersionId, sourceClientId, targetClientId, actionKey])
+  @@index([companyId, workflowVersionId])
+  @@map("logistic_workflow_edges")
+}
+
+model LogisticWorkflowInstance {
+  id                String                         @id @default(uuid())
+  companyId         String                         @map("company_id")
+  company           Company                        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  definitionId      String                         @map("definition_id")
+  definition        LogisticWorkflowDefinition     @relation(fields: [definitionId], references: [id], onDelete: Restrict)
+  workflowVersionId String                         @map("workflow_version_id")
+  workflowVersion   LogisticWorkflowVersion        @relation(fields: [workflowVersionId], references: [id], onDelete: Restrict)
+  subjectType       LogisticWorkflowSubjectType    @map("subject_type")
+  subjectId         String                         @map("subject_id")
+  currentNodeId     String?                        @map("current_node_id")
+  currentNode       LogisticWorkflowNode?          @relation("WorkflowInstanceCurrentNode", fields: [currentNodeId], references: [id], onDelete: Restrict)
+  status            LogisticWorkflowInstanceStatus @default(ACTIVE)
+  revision          Int                            @default(0)
+  context           Json?
+  startedAt         DateTime                       @default(now()) @map("started_at")
+  completedAt       DateTime?                      @map("completed_at")
+  tasks             LogisticWorkflowTask[]
+  events            LogisticWorkflowEvent[]
+
+  @@unique([companyId, definitionId, subjectType, subjectId])
+  @@index([companyId, subjectType, subjectId, status])
+  @@index([companyId, currentNodeId, status])
+  @@map("logistic_workflow_instances")
+}
+
+model LogisticWorkflowTask {
+  id                         String                     @id @default(uuid())
+  companyId                  String                     @map("company_id")
+  company                    Company                    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  instanceId                 String                     @map("instance_id")
+  instance                   LogisticWorkflowInstance   @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  nodeId                     String                     @map("node_id")
+  node                       LogisticWorkflowNode       @relation(fields: [nodeId], references: [id], onDelete: Restrict)
+  scopeKey                   String                     @default("INSTANCE") @map("scope_key")
+  status                     LogisticWorkflowTaskStatus @default(ACTIVE)
+  assignedUserId             String?                    @map("assigned_user_id")
+  assignedUser               User?                      @relation("WorkflowTaskAssignedUser", fields: [assignedUserId], references: [id], onDelete: SetNull)
+  assignedOrganizationUnitId String?                    @map("assigned_organization_unit_id")
+  assignedOrganizationUnit   OrganizationUnit?          @relation("WorkflowTaskOrganizationUnit", fields: [assignedOrganizationUnitId], references: [id], onDelete: SetNull)
+  allowedActions             String[]                   @default([]) @map("allowed_actions")
+  startedAt                  DateTime                   @default(now()) @map("started_at")
+  completedAt                DateTime?                  @map("completed_at")
+  completedById              String?                    @map("completed_by_id")
+  completedBy                User?                      @relation("WorkflowTaskCompletedBy", fields: [completedById], references: [id], onDelete: SetNull)
+  resolution                 String?
+
+  @@index([instanceId, nodeId, scopeKey, status])
+  @@index([companyId, status, assignedUserId])
+  @@index([companyId, status, assignedOrganizationUnitId])
+  @@map("logistic_workflow_tasks")
+}
+
+model LogisticWorkflowEvent {
+  id         String                   @id @default(uuid())
+  companyId  String                   @map("company_id")
+  company    Company                  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  instanceId String                   @map("instance_id")
+  instance   LogisticWorkflowInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  fromNodeId String?                  @map("from_node_id")
+  fromNode   LogisticWorkflowNode?    @relation("WorkflowEventFromNode", fields: [fromNodeId], references: [id], onDelete: SetNull)
+  toNodeId   String?                  @map("to_node_id")
+  toNode     LogisticWorkflowNode?    @relation("WorkflowEventToNode", fields: [toNodeId], references: [id], onDelete: SetNull)
+  actionKey  String?                  @map("action_key")
+  actorId    String?                  @map("actor_id")
+  actor      User?                    @relation("WorkflowEventActor", fields: [actorId], references: [id], onDelete: SetNull)
+  message    String?
+  createdAt  DateTime                 @default(now()) @map("created_at")
+
+  @@index([companyId, instanceId, createdAt])
+  @@map("logistic_workflow_events")
 }
 
 model PlantLogisticOrderEvent {

@@ -86,7 +86,7 @@ export default async function LogisticBoardPage({
         .filter((id): id is string => Boolean(id)),
     ),
   ];
-  const [organizationUnits, ownerUsers] = await Promise.all([
+  const [organizationUnits, ownerUsers, currentUser] = await Promise.all([
     prisma.organizationUnit.findMany({
       where: { companyId: session.user.companyId },
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
@@ -98,14 +98,19 @@ export default async function LogisticBoardPage({
           select: { id: true, name: true, email: true },
         })
       : Promise.resolve([]),
+    prisma.user.findFirst({
+      where: { id: session.user.id, companyId: session.user.companyId },
+      select: { id: true, role: true, orgUnitId: true },
+    }),
   ]);
   const unitNameById = new Map(organizationUnits.map((unit) => [unit.id, unit.name]));
   const userLabelById = new Map(
     ownerUsers.map((user) => [user.id, user.name?.trim() || user.email]),
   );
+  if (!currentUser) redirect("/login");
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           {t("logistic.dynamicFlow.boardTitle")}
@@ -174,7 +179,11 @@ export default async function LogisticBoardPage({
               }
             : null
         }
-        role={session.user.role}
+        actor={{
+          id: currentUser.id,
+          role: currentUser.role,
+          organizationUnitId: currentUser.orgUnitId,
+        }}
       />
     </div>
   );

@@ -282,6 +282,13 @@ export type CompanyWhereInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineListRelationFilter
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitListRelationFilter
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitListRelationFilter
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionListRelationFilter
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionListRelationFilter
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeListRelationFilter
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeListRelationFilter
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceListRelationFilter
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskListRelationFilter
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventListRelationFilter
   customFieldDefinitions?: Prisma.CustomFieldDefinitionListRelationFilter
   scorecardConfig?: Prisma.XOR<Prisma.SupplierScorecardConfigNullableScalarRelationFilter, Prisma.SupplierScorecardConfigWhereInput> | null
 }
@@ -341,6 +348,13 @@ export type CompanyOrderByWithRelationInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineOrderByRelationAggregateInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitOrderByRelationAggregateInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitOrderByRelationAggregateInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionOrderByRelationAggregateInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionOrderByRelationAggregateInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeOrderByRelationAggregateInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeOrderByRelationAggregateInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceOrderByRelationAggregateInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskOrderByRelationAggregateInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventOrderByRelationAggregateInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionOrderByRelationAggregateInput
   scorecardConfig?: Prisma.SupplierScorecardConfigOrderByWithRelationInput
 }
@@ -403,6 +417,13 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   logisticOrderLines?: Prisma.LogisticOrderLineListRelationFilter
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitListRelationFilter
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitListRelationFilter
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionListRelationFilter
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionListRelationFilter
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeListRelationFilter
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeListRelationFilter
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceListRelationFilter
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskListRelationFilter
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventListRelationFilter
   customFieldDefinitions?: Prisma.CustomFieldDefinitionListRelationFilter
   scorecardConfig?: Prisma.XOR<Prisma.SupplierScorecardConfigNullableScalarRelationFilter, Prisma.SupplierScorecardConfigWhereInput> | null
 }, "id">
@@ -501,6 +522,13 @@ export type CompanyCreateInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -559,6 +587,13 @@ export type CompanyUncheckedCreateInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -617,6 +652,13 @@ export type CompanyUpdateInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -675,6 +717,13 @@ export type CompanyUncheckedUpdateInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -1349,6 +1398,104 @@ export type CompanyUpdateOneRequiredWithoutLogisticVehicleVisitsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticVehicleVisitsInput, Prisma.CompanyUpdateWithoutLogisticVehicleVisitsInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticVehicleVisitsInput>
 }
 
+export type CompanyCreateNestedOneWithoutLogisticWorkflowDefinitionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowDefinitionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowDefinitionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowDefinitionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowDefinitionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowDefinitionsInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowDefinitionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUpdateWithoutLogisticWorkflowDefinitionsInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowDefinitionsInput>
+}
+
+export type CompanyCreateNestedOneWithoutLogisticWorkflowVersionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowVersionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowVersionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowVersionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowVersionsInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowVersionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUpdateWithoutLogisticWorkflowVersionsInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowVersionsInput>
+}
+
+export type CompanyCreateNestedOneWithoutLogisticWorkflowNodesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowNodesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowNodesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowNodesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowNodesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowNodesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowNodesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowNodesInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowNodesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowNodesInput, Prisma.CompanyUpdateWithoutLogisticWorkflowNodesInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowNodesInput>
+}
+
+export type CompanyCreateNestedOneWithoutLogisticWorkflowEdgesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEdgesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowEdgesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowEdgesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEdgesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowEdgesInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowEdgesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUpdateWithoutLogisticWorkflowEdgesInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowEdgesInput>
+}
+
+export type CompanyCreateNestedOneWithoutLogisticWorkflowInstancesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowInstancesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowInstancesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowInstancesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowInstancesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowInstancesInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowInstancesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUpdateWithoutLogisticWorkflowInstancesInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowInstancesInput>
+}
+
+export type CompanyCreateNestedOneWithoutLogisticWorkflowTasksInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowTasksInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowTasksInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowTasksInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowTasksInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowTasksInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowTasksInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowTasksInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowTasksInput, Prisma.CompanyUpdateWithoutLogisticWorkflowTasksInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowTasksInput>
+}
+
+export type CompanyCreateNestedOneWithoutLogisticWorkflowEventsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEventsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEventsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowEventsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutLogisticWorkflowEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEventsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEventsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticWorkflowEventsInput
+  upsert?: Prisma.CompanyUpsertWithoutLogisticWorkflowEventsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutLogisticWorkflowEventsInput, Prisma.CompanyUpdateWithoutLogisticWorkflowEventsInput>, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowEventsInput>
+}
+
 export type CompanyCreateNestedOneWithoutLogisticOrderEventsInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticOrderEventsInput, Prisma.CompanyUncheckedCreateWithoutLogisticOrderEventsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutLogisticOrderEventsInput
@@ -1528,6 +1675,13 @@ export type CompanyCreateWithoutOrgUnitsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -1585,6 +1739,13 @@ export type CompanyUncheckedCreateWithoutOrgUnitsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -1658,6 +1819,13 @@ export type CompanyUpdateWithoutOrgUnitsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -1715,6 +1883,13 @@ export type CompanyUncheckedUpdateWithoutOrgUnitsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -1772,6 +1947,13 @@ export type CompanyCreateWithoutLinkedSuppliersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -1829,6 +2011,13 @@ export type CompanyUncheckedCreateWithoutLinkedSuppliersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -1891,6 +2080,13 @@ export type CompanyCreateWithoutPrimaryOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -1948,6 +2144,13 @@ export type CompanyUncheckedCreateWithoutPrimaryOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -2026,6 +2229,13 @@ export type CompanyUpdateWithoutLinkedSuppliersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -2083,6 +2293,13 @@ export type CompanyUncheckedUpdateWithoutLinkedSuppliersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -2176,6 +2393,13 @@ export type CompanyCreateWithoutUsersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -2233,6 +2457,13 @@ export type CompanyUncheckedCreateWithoutUsersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -2306,6 +2537,13 @@ export type CompanyUpdateWithoutUsersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -2363,6 +2601,13 @@ export type CompanyUncheckedUpdateWithoutUsersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -2420,6 +2665,13 @@ export type CompanyCreateWithoutDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -2477,6 +2729,13 @@ export type CompanyUncheckedCreateWithoutDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -2539,6 +2798,13 @@ export type CompanyCreateWithoutDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -2596,6 +2862,13 @@ export type CompanyUncheckedCreateWithoutDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -2669,6 +2942,13 @@ export type CompanyUpdateWithoutDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -2726,6 +3006,13 @@ export type CompanyUncheckedUpdateWithoutDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -2794,6 +3081,13 @@ export type CompanyUpdateWithoutDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -2851,6 +3145,13 @@ export type CompanyUncheckedUpdateWithoutDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -2908,6 +3209,13 @@ export type CompanyCreateWithoutPpapAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -2965,6 +3273,13 @@ export type CompanyUncheckedCreateWithoutPpapAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -3027,6 +3342,13 @@ export type CompanyCreateWithoutPpapAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -3084,6 +3406,13 @@ export type CompanyUncheckedCreateWithoutPpapAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -3157,6 +3486,13 @@ export type CompanyUpdateWithoutPpapAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -3214,6 +3550,13 @@ export type CompanyUncheckedUpdateWithoutPpapAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -3282,6 +3625,13 @@ export type CompanyUpdateWithoutPpapAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -3339,6 +3689,13 @@ export type CompanyUncheckedUpdateWithoutPpapAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -3396,6 +3753,13 @@ export type CompanyCreateWithoutIqcAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -3453,6 +3817,13 @@ export type CompanyUncheckedCreateWithoutIqcAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -3515,6 +3886,13 @@ export type CompanyCreateWithoutIqcAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -3572,6 +3950,13 @@ export type CompanyUncheckedCreateWithoutIqcAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -3645,6 +4030,13 @@ export type CompanyUpdateWithoutIqcAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -3702,6 +4094,13 @@ export type CompanyUncheckedUpdateWithoutIqcAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -3770,6 +4169,13 @@ export type CompanyUpdateWithoutIqcAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -3827,6 +4233,13 @@ export type CompanyUncheckedUpdateWithoutIqcAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -3884,6 +4297,13 @@ export type CompanyCreateWithoutFmeaAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -3941,6 +4361,13 @@ export type CompanyUncheckedCreateWithoutFmeaAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -4003,6 +4430,13 @@ export type CompanyCreateWithoutFmeaAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -4060,6 +4494,13 @@ export type CompanyUncheckedCreateWithoutFmeaAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -4133,6 +4574,13 @@ export type CompanyUpdateWithoutFmeaAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -4190,6 +4638,13 @@ export type CompanyUncheckedUpdateWithoutFmeaAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -4258,6 +4713,13 @@ export type CompanyUpdateWithoutFmeaAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -4315,6 +4777,13 @@ export type CompanyUncheckedUpdateWithoutFmeaAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -4372,6 +4841,13 @@ export type CompanyCreateWithoutFieldDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -4429,6 +4905,13 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -4491,6 +4974,13 @@ export type CompanyCreateWithoutFieldDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -4548,6 +5038,13 @@ export type CompanyUncheckedCreateWithoutFieldDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -4621,6 +5118,13 @@ export type CompanyUpdateWithoutFieldDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -4678,6 +5182,13 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsSupInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -4746,6 +5257,13 @@ export type CompanyUpdateWithoutFieldDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -4803,6 +5321,13 @@ export type CompanyUncheckedUpdateWithoutFieldDefectsAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -4860,6 +5385,13 @@ export type CompanyCreateWithoutNotificationsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -4917,6 +5449,13 @@ export type CompanyUncheckedCreateWithoutNotificationsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -4990,6 +5529,13 @@ export type CompanyUpdateWithoutNotificationsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -5047,6 +5593,13 @@ export type CompanyUncheckedUpdateWithoutNotificationsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -5104,6 +5657,13 @@ export type CompanyCreateWithoutEscalationHistoryInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -5161,6 +5721,13 @@ export type CompanyUncheckedCreateWithoutEscalationHistoryInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -5234,6 +5801,13 @@ export type CompanyUpdateWithoutEscalationHistoryInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -5291,6 +5865,13 @@ export type CompanyUncheckedUpdateWithoutEscalationHistoryInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -5348,6 +5929,13 @@ export type CompanyCreateWithoutAiSuggestionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -5405,6 +5993,13 @@ export type CompanyUncheckedCreateWithoutAiSuggestionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -5478,6 +6073,13 @@ export type CompanyUpdateWithoutAiSuggestionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -5535,6 +6137,13 @@ export type CompanyUncheckedUpdateWithoutAiSuggestionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -5592,6 +6201,13 @@ export type CompanyCreateWithoutAi8dReviewsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -5649,6 +6265,13 @@ export type CompanyUncheckedCreateWithoutAi8dReviewsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -5722,6 +6345,13 @@ export type CompanyUpdateWithoutAi8dReviewsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -5779,6 +6409,13 @@ export type CompanyUncheckedUpdateWithoutAi8dReviewsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -5836,6 +6473,13 @@ export type CompanyCreateWithoutUsageCountersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -5893,6 +6537,13 @@ export type CompanyUncheckedCreateWithoutUsageCountersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -5966,6 +6617,13 @@ export type CompanyUpdateWithoutUsageCountersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -6023,6 +6681,13 @@ export type CompanyUncheckedUpdateWithoutUsageCountersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -6080,6 +6745,13 @@ export type CompanyCreateWithoutUpgradeRequestsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -6137,6 +6809,13 @@ export type CompanyUncheckedCreateWithoutUpgradeRequestsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -6210,6 +6889,13 @@ export type CompanyUpdateWithoutUpgradeRequestsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -6267,6 +6953,13 @@ export type CompanyUncheckedUpdateWithoutUpgradeRequestsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -6324,6 +7017,13 @@ export type CompanyCreateWithoutQualityRecordLinksInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -6381,6 +7081,13 @@ export type CompanyUncheckedCreateWithoutQualityRecordLinksInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -6454,6 +7161,13 @@ export type CompanyUpdateWithoutQualityRecordLinksInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -6511,6 +7225,13 @@ export type CompanyUncheckedUpdateWithoutQualityRecordLinksInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -6568,6 +7289,13 @@ export type CompanyCreateWithoutDevPlansAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -6625,6 +7353,13 @@ export type CompanyUncheckedCreateWithoutDevPlansAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -6687,6 +7422,13 @@ export type CompanyCreateWithoutDevPlansAsSupplierInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -6744,6 +7486,13 @@ export type CompanyUncheckedCreateWithoutDevPlansAsSupplierInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -6817,6 +7566,13 @@ export type CompanyUpdateWithoutDevPlansAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -6874,6 +7630,13 @@ export type CompanyUncheckedUpdateWithoutDevPlansAsOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -6942,6 +7705,13 @@ export type CompanyUpdateWithoutDevPlansAsSupplierInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -6999,6 +7769,13 @@ export type CompanyUncheckedUpdateWithoutDevPlansAsSupplierInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -7056,6 +7833,13 @@ export type CompanyCreateWithoutLogisticOrdersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -7113,6 +7897,13 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -7175,6 +7966,13 @@ export type CompanyCreateWithoutLogisticOrdersAsDealerInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -7232,6 +8030,13 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersAsDealerInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -7294,6 +8099,13 @@ export type CompanyCreateWithoutLogisticOrdersAsDistributorInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -7351,6 +8163,13 @@ export type CompanyUncheckedCreateWithoutLogisticOrdersAsDistributorInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -7424,6 +8243,13 @@ export type CompanyUpdateWithoutLogisticOrdersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -7481,6 +8307,13 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -7549,6 +8382,13 @@ export type CompanyUpdateWithoutLogisticOrdersAsDealerInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -7606,6 +8446,13 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDealerInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -7674,6 +8521,13 @@ export type CompanyUpdateWithoutLogisticOrdersAsDistributorInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -7731,6 +8585,13 @@ export type CompanyUncheckedUpdateWithoutLogisticOrdersAsDistributorInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -7788,6 +8649,13 @@ export type CompanyCreateWithoutVehicleGroupsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -7845,6 +8713,13 @@ export type CompanyUncheckedCreateWithoutVehicleGroupsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -7918,6 +8793,13 @@ export type CompanyUpdateWithoutVehicleGroupsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -7975,6 +8857,13 @@ export type CompanyUncheckedUpdateWithoutVehicleGroupsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -8032,6 +8921,13 @@ export type CompanyCreateWithoutVehicleModelsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -8089,6 +8985,13 @@ export type CompanyUncheckedCreateWithoutVehicleModelsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -8162,6 +9065,13 @@ export type CompanyUpdateWithoutVehicleModelsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -8219,6 +9129,13 @@ export type CompanyUncheckedUpdateWithoutVehicleModelsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -8276,6 +9193,13 @@ export type CompanyCreateWithoutLogisticProcessesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -8333,6 +9257,13 @@ export type CompanyUncheckedCreateWithoutLogisticProcessesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -8406,6 +9337,13 @@ export type CompanyUpdateWithoutLogisticProcessesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -8463,6 +9401,13 @@ export type CompanyUncheckedUpdateWithoutLogisticProcessesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -8520,6 +9465,13 @@ export type CompanyCreateWithoutLogisticFlowVersionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -8577,6 +9529,13 @@ export type CompanyUncheckedCreateWithoutLogisticFlowVersionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -8650,6 +9609,13 @@ export type CompanyUpdateWithoutLogisticFlowVersionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -8707,6 +9673,13 @@ export type CompanyUncheckedUpdateWithoutLogisticFlowVersionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -8764,6 +9737,13 @@ export type CompanyCreateWithoutLogisticOrderLinesInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -8821,6 +9801,13 @@ export type CompanyUncheckedCreateWithoutLogisticOrderLinesInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -8894,6 +9881,13 @@ export type CompanyUpdateWithoutLogisticOrderLinesInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -8951,6 +9945,13 @@ export type CompanyUncheckedUpdateWithoutLogisticOrderLinesInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -9008,6 +10009,13 @@ export type CompanyCreateWithoutLogisticVehicleUnitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -9065,6 +10073,13 @@ export type CompanyUncheckedCreateWithoutLogisticVehicleUnitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -9138,6 +10153,13 @@ export type CompanyUpdateWithoutLogisticVehicleUnitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -9195,6 +10217,13 @@ export type CompanyUncheckedUpdateWithoutLogisticVehicleUnitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -9252,6 +10281,13 @@ export type CompanyCreateWithoutLogisticVehicleVisitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -9309,6 +10345,13 @@ export type CompanyUncheckedCreateWithoutLogisticVehicleVisitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -9382,6 +10425,13 @@ export type CompanyUpdateWithoutLogisticVehicleVisitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -9439,6 +10489,1917 @@ export type CompanyUncheckedUpdateWithoutLogisticVehicleVisitsInput = {
   logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowDefinitionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowDefinitionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowDefinitionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowDefinitionsInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowDefinitionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowDefinitionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowDefinitionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowDefinitionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowDefinitionsInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowDefinitionsInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowDefinitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowDefinitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowVersionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowVersionsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowVersionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowVersionsInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowVersionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowVersionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowVersionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowVersionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowVersionsInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowVersionsInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowNodesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowNodesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowNodesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowNodesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowNodesInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowNodesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowNodesInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowNodesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowNodesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowNodesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowNodesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowNodesInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowNodesInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowNodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowNodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowEdgesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowEdgesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowEdgesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEdgesInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowEdgesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowEdgesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEdgesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowEdgesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowEdgesInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowEdgesInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowEdgesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowEdgesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowInstancesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowInstancesInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowInstancesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowInstancesInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowInstancesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowInstancesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowInstancesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowInstancesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowInstancesInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowInstancesInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowInstancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowInstancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowTasksInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowTasksInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowTasksInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowTasksInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowTasksInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowTasksInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowTasksInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowTasksInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowTasksInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowTasksInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowTasksInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowTasksInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowTasksInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutLogisticWorkflowEventsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  createdAt?: Date | string
+  primaryOem?: Prisma.CompanyCreateNestedOneWithoutLinkedSuppliersInput
+  linkedSuppliers?: Prisma.CompanyCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutLogisticWorkflowEventsInput = {
+  id?: string
+  name: string
+  type: $Enums.CompanyType
+  plan?: $Enums.Plan
+  modules?: Prisma.CompanyCreatemodulesInput | string[]
+  ssoEnabled?: boolean
+  microsoftTenantIds?: Prisma.CompanyCreatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyCreatessoAllowedDomainsInput | string[]
+  planStatus?: string | null
+  planStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  taxNumber?: string | null
+  primaryOemId?: string | null
+  createdAt?: Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedCreateNestedManyWithoutPrimaryOemInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutCompanyInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedCreateNestedManyWithoutCompanyInput
+  defectsAsOem?: Prisma.DefectUncheckedCreateNestedManyWithoutOemInput
+  defectsAsSup?: Prisma.DefectUncheckedCreateNestedManyWithoutSupplierInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutOemInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedCreateNestedManyWithoutSupplierInput
+  iqcAsOem?: Prisma.IqcReportUncheckedCreateNestedManyWithoutOemInput
+  iqcAsSup?: Prisma.IqcReportUncheckedCreateNestedManyWithoutSupplierInput
+  fmeaAsOem?: Prisma.FmeaUncheckedCreateNestedManyWithoutOemInput
+  fmeaAsSup?: Prisma.FmeaUncheckedCreateNestedManyWithoutSupplierInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutOemInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedCreateNestedManyWithoutSupplierInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedCreateNestedManyWithoutCompanyInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCompanyInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedCreateNestedManyWithoutCompanyInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedCreateNestedManyWithoutCompanyInput
+  usageCounters?: Prisma.UsageCounterUncheckedCreateNestedManyWithoutCompanyInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedCreateNestedManyWithoutCompanyInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedCreateNestedManyWithoutCompanyInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutOemInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedCreateNestedManyWithoutSupplierInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedCreateNestedManyWithoutCompanyInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedCreateNestedManyWithoutCompanyInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedCreateNestedManyWithoutCompanyInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDealerCompanyInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedCreateNestedManyWithoutDistributorCompanyInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedCreateNestedManyWithoutCompanyInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedCreateNestedManyWithoutCompanyInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedCreateNestedManyWithoutCompanyInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedCreateNestedManyWithoutCompanyInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutLogisticWorkflowEventsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEventsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEventsInput>
+}
+
+export type CompanyUpsertWithoutLogisticWorkflowEventsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowEventsInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowEventsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutLogisticWorkflowEventsInput, Prisma.CompanyUncheckedCreateWithoutLogisticWorkflowEventsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutLogisticWorkflowEventsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutLogisticWorkflowEventsInput, Prisma.CompanyUncheckedUpdateWithoutLogisticWorkflowEventsInput>
+}
+
+export type CompanyUpdateWithoutLogisticWorkflowEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryOem?: Prisma.CompanyUpdateOneWithoutLinkedSuppliersNestedInput
+  linkedSuppliers?: Prisma.CompanyUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
+  scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutLogisticWorkflowEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCompanyTypeFieldUpdateOperationsInput | $Enums.CompanyType
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  modules?: Prisma.CompanyUpdatemodulesInput | string[]
+  ssoEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  microsoftTenantIds?: Prisma.CompanyUpdatemicrosoftTenantIdsInput | string[]
+  ssoAllowedDomains?: Prisma.CompanyUpdatessoAllowedDomainsInput | string[]
+  planStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  planStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  taxNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primaryOemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedSuppliers?: Prisma.CompanyUncheckedUpdateManyWithoutPrimaryOemNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutCompanyNestedInput
+  orgUnits?: Prisma.OrganizationUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  defectsAsOem?: Prisma.DefectUncheckedUpdateManyWithoutOemNestedInput
+  defectsAsSup?: Prisma.DefectUncheckedUpdateManyWithoutSupplierNestedInput
+  ppapAsOem?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutOemNestedInput
+  ppapAsSup?: Prisma.PpapSubmissionUncheckedUpdateManyWithoutSupplierNestedInput
+  iqcAsOem?: Prisma.IqcReportUncheckedUpdateManyWithoutOemNestedInput
+  iqcAsSup?: Prisma.IqcReportUncheckedUpdateManyWithoutSupplierNestedInput
+  fmeaAsOem?: Prisma.FmeaUncheckedUpdateManyWithoutOemNestedInput
+  fmeaAsSup?: Prisma.FmeaUncheckedUpdateManyWithoutSupplierNestedInput
+  fieldDefectsAsOem?: Prisma.FieldDefectUncheckedUpdateManyWithoutOemNestedInput
+  fieldDefectsAsSup?: Prisma.FieldDefectUncheckedUpdateManyWithoutSupplierNestedInput
+  aiSuggestions?: Prisma.AiSuggestionUncheckedUpdateManyWithoutCompanyNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCompanyNestedInput
+  escalationHistory?: Prisma.EscalationHistoryUncheckedUpdateManyWithoutCompanyNestedInput
+  ai8dReviews?: Prisma.Ai8dReviewUncheckedUpdateManyWithoutCompanyNestedInput
+  usageCounters?: Prisma.UsageCounterUncheckedUpdateManyWithoutCompanyNestedInput
+  upgradeRequests?: Prisma.UpgradeRequestUncheckedUpdateManyWithoutCompanyNestedInput
+  qualityRecordLinks?: Prisma.QualityRecordLinkUncheckedUpdateManyWithoutCompanyNestedInput
+  devPlansAsOem?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutOemNestedInput
+  devPlansAsSupplier?: Prisma.SupplierDevelopmentPlanUncheckedUpdateManyWithoutSupplierNestedInput
+  logisticOrders?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderEvents?: Prisma.PlantLogisticOrderEventUncheckedUpdateManyWithoutCompanyNestedInput
+  productionMilestones?: Prisma.PlantLogisticProductionMilestoneUncheckedUpdateManyWithoutCompanyNestedInput
+  yardStatuses?: Prisma.PlantLogisticYardStatusUncheckedUpdateManyWithoutCompanyNestedInput
+  dispatches?: Prisma.PlantLogisticDispatchUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrdersAsDealer?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDealerCompanyNestedInput
+  logisticOrdersAsDistributor?: Prisma.PlantLogisticOrderUncheckedUpdateManyWithoutDistributorCompanyNestedInput
+  planSheets?: Prisma.PlantLogisticPlanSheetUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetLines?: Prisma.PlantLogisticPlanSheetLineUncheckedUpdateManyWithoutCompanyNestedInput
+  planSheetEvents?: Prisma.PlantLogisticPlanSheetEventUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleGroups?: Prisma.LogisticVehicleGroupUncheckedUpdateManyWithoutCompanyNestedInput
+  vehicleModels?: Prisma.LogisticVehicleModelUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticProcesses?: Prisma.LogisticProcessUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticFlowVersions?: Prisma.LogisticFlowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -9496,6 +12457,13 @@ export type CompanyCreateWithoutLogisticOrderEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -9553,6 +12521,13 @@ export type CompanyUncheckedCreateWithoutLogisticOrderEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -9626,6 +12601,13 @@ export type CompanyUpdateWithoutLogisticOrderEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -9683,6 +12665,13 @@ export type CompanyUncheckedUpdateWithoutLogisticOrderEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -9740,6 +12729,13 @@ export type CompanyCreateWithoutProductionMilestonesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -9797,6 +12793,13 @@ export type CompanyUncheckedCreateWithoutProductionMilestonesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -9870,6 +12873,13 @@ export type CompanyUpdateWithoutProductionMilestonesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -9927,6 +12937,13 @@ export type CompanyUncheckedUpdateWithoutProductionMilestonesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -9984,6 +13001,13 @@ export type CompanyCreateWithoutYardStatusesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -10041,6 +13065,13 @@ export type CompanyUncheckedCreateWithoutYardStatusesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -10114,6 +13145,13 @@ export type CompanyUpdateWithoutYardStatusesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -10171,6 +13209,13 @@ export type CompanyUncheckedUpdateWithoutYardStatusesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -10229,6 +13274,13 @@ export type CompanyCreateWithoutCustomFieldDefinitionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
 
@@ -10286,6 +13338,13 @@ export type CompanyUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
 
@@ -10359,6 +13418,13 @@ export type CompanyUpdateWithoutCustomFieldDefinitionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
 
@@ -10416,6 +13482,13 @@ export type CompanyUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
 
@@ -10472,6 +13545,13 @@ export type CompanyCreateWithoutDispatchesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -10529,6 +13609,13 @@ export type CompanyUncheckedCreateWithoutDispatchesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -10602,6 +13689,13 @@ export type CompanyUpdateWithoutDispatchesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -10659,6 +13753,13 @@ export type CompanyUncheckedUpdateWithoutDispatchesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -10716,6 +13817,13 @@ export type CompanyCreateWithoutPlanSheetsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -10773,6 +13881,13 @@ export type CompanyUncheckedCreateWithoutPlanSheetsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -10846,6 +13961,13 @@ export type CompanyUpdateWithoutPlanSheetsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -10903,6 +14025,13 @@ export type CompanyUncheckedUpdateWithoutPlanSheetsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -10960,6 +14089,13 @@ export type CompanyCreateWithoutPlanSheetLinesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -11017,6 +14153,13 @@ export type CompanyUncheckedCreateWithoutPlanSheetLinesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -11090,6 +14233,13 @@ export type CompanyUpdateWithoutPlanSheetLinesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -11147,6 +14297,13 @@ export type CompanyUncheckedUpdateWithoutPlanSheetLinesInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -11204,6 +14361,13 @@ export type CompanyCreateWithoutPlanSheetEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigCreateNestedOneWithoutCompanyInput
 }
@@ -11261,6 +14425,13 @@ export type CompanyUncheckedCreateWithoutPlanSheetEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedCreateNestedOneWithoutCompanyInput
 }
@@ -11334,6 +14505,13 @@ export type CompanyUpdateWithoutPlanSheetEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -11391,6 +14569,13 @@ export type CompanyUncheckedUpdateWithoutPlanSheetEventsInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -11449,6 +14634,13 @@ export type CompanyCreateWithoutScorecardConfigInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutCompanyInput
 }
 
@@ -11506,6 +14698,13 @@ export type CompanyUncheckedCreateWithoutScorecardConfigInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedCreateNestedManyWithoutCompanyInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedCreateNestedManyWithoutCompanyInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedCreateNestedManyWithoutCompanyInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -11579,6 +14778,13 @@ export type CompanyUpdateWithoutScorecardConfigInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11636,6 +14842,13 @@ export type CompanyUncheckedUpdateWithoutScorecardConfigInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -11708,6 +14921,13 @@ export type CompanyUpdateWithoutPrimaryOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUpdateOneWithoutCompanyNestedInput
 }
@@ -11765,6 +14985,13 @@ export type CompanyUncheckedUpdateWithoutPrimaryOemInput = {
   logisticOrderLines?: Prisma.LogisticOrderLineUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleUnits?: Prisma.LogisticVehicleUnitUncheckedUpdateManyWithoutCompanyNestedInput
   logisticVehicleVisits?: Prisma.LogisticVehicleProcessVisitUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowDefinitions?: Prisma.LogisticWorkflowDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowVersions?: Prisma.LogisticWorkflowVersionUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowNodes?: Prisma.LogisticWorkflowNodeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEdges?: Prisma.LogisticWorkflowEdgeUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowInstances?: Prisma.LogisticWorkflowInstanceUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowTasks?: Prisma.LogisticWorkflowTaskUncheckedUpdateManyWithoutCompanyNestedInput
+  logisticWorkflowEvents?: Prisma.LogisticWorkflowEventUncheckedUpdateManyWithoutCompanyNestedInput
   customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutCompanyNestedInput
   scorecardConfig?: Prisma.SupplierScorecardConfigUncheckedUpdateOneWithoutCompanyNestedInput
 }
@@ -11830,6 +15057,13 @@ export type CompanyCountOutputType = {
   logisticOrderLines: number
   logisticVehicleUnits: number
   logisticVehicleVisits: number
+  logisticWorkflowDefinitions: number
+  logisticWorkflowVersions: number
+  logisticWorkflowNodes: number
+  logisticWorkflowEdges: number
+  logisticWorkflowInstances: number
+  logisticWorkflowTasks: number
+  logisticWorkflowEvents: number
   customFieldDefinitions: number
 }
 
@@ -11873,6 +15107,13 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   logisticOrderLines?: boolean | CompanyCountOutputTypeCountLogisticOrderLinesArgs
   logisticVehicleUnits?: boolean | CompanyCountOutputTypeCountLogisticVehicleUnitsArgs
   logisticVehicleVisits?: boolean | CompanyCountOutputTypeCountLogisticVehicleVisitsArgs
+  logisticWorkflowDefinitions?: boolean | CompanyCountOutputTypeCountLogisticWorkflowDefinitionsArgs
+  logisticWorkflowVersions?: boolean | CompanyCountOutputTypeCountLogisticWorkflowVersionsArgs
+  logisticWorkflowNodes?: boolean | CompanyCountOutputTypeCountLogisticWorkflowNodesArgs
+  logisticWorkflowEdges?: boolean | CompanyCountOutputTypeCountLogisticWorkflowEdgesArgs
+  logisticWorkflowInstances?: boolean | CompanyCountOutputTypeCountLogisticWorkflowInstancesArgs
+  logisticWorkflowTasks?: boolean | CompanyCountOutputTypeCountLogisticWorkflowTasksArgs
+  logisticWorkflowEvents?: boolean | CompanyCountOutputTypeCountLogisticWorkflowEventsArgs
   customFieldDefinitions?: boolean | CompanyCountOutputTypeCountCustomFieldDefinitionsArgs
 }
 
@@ -12162,6 +15403,55 @@ export type CompanyCountOutputTypeCountLogisticVehicleVisitsArgs<ExtArgs extends
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountLogisticWorkflowDefinitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowDefinitionWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLogisticWorkflowVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowVersionWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLogisticWorkflowNodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowNodeWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLogisticWorkflowEdgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowEdgeWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLogisticWorkflowInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowInstanceWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLogisticWorkflowTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowTaskWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountLogisticWorkflowEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogisticWorkflowEventWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountCustomFieldDefinitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CustomFieldDefinitionWhereInput
 }
@@ -12222,6 +15512,13 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   logisticOrderLines?: boolean | Prisma.Company$logisticOrderLinesArgs<ExtArgs>
   logisticVehicleUnits?: boolean | Prisma.Company$logisticVehicleUnitsArgs<ExtArgs>
   logisticVehicleVisits?: boolean | Prisma.Company$logisticVehicleVisitsArgs<ExtArgs>
+  logisticWorkflowDefinitions?: boolean | Prisma.Company$logisticWorkflowDefinitionsArgs<ExtArgs>
+  logisticWorkflowVersions?: boolean | Prisma.Company$logisticWorkflowVersionsArgs<ExtArgs>
+  logisticWorkflowNodes?: boolean | Prisma.Company$logisticWorkflowNodesArgs<ExtArgs>
+  logisticWorkflowEdges?: boolean | Prisma.Company$logisticWorkflowEdgesArgs<ExtArgs>
+  logisticWorkflowInstances?: boolean | Prisma.Company$logisticWorkflowInstancesArgs<ExtArgs>
+  logisticWorkflowTasks?: boolean | Prisma.Company$logisticWorkflowTasksArgs<ExtArgs>
+  logisticWorkflowEvents?: boolean | Prisma.Company$logisticWorkflowEventsArgs<ExtArgs>
   customFieldDefinitions?: boolean | Prisma.Company$customFieldDefinitionsArgs<ExtArgs>
   scorecardConfig?: boolean | Prisma.Company$scorecardConfigArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -12322,6 +15619,13 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   logisticOrderLines?: boolean | Prisma.Company$logisticOrderLinesArgs<ExtArgs>
   logisticVehicleUnits?: boolean | Prisma.Company$logisticVehicleUnitsArgs<ExtArgs>
   logisticVehicleVisits?: boolean | Prisma.Company$logisticVehicleVisitsArgs<ExtArgs>
+  logisticWorkflowDefinitions?: boolean | Prisma.Company$logisticWorkflowDefinitionsArgs<ExtArgs>
+  logisticWorkflowVersions?: boolean | Prisma.Company$logisticWorkflowVersionsArgs<ExtArgs>
+  logisticWorkflowNodes?: boolean | Prisma.Company$logisticWorkflowNodesArgs<ExtArgs>
+  logisticWorkflowEdges?: boolean | Prisma.Company$logisticWorkflowEdgesArgs<ExtArgs>
+  logisticWorkflowInstances?: boolean | Prisma.Company$logisticWorkflowInstancesArgs<ExtArgs>
+  logisticWorkflowTasks?: boolean | Prisma.Company$logisticWorkflowTasksArgs<ExtArgs>
+  logisticWorkflowEvents?: boolean | Prisma.Company$logisticWorkflowEventsArgs<ExtArgs>
   customFieldDefinitions?: boolean | Prisma.Company$customFieldDefinitionsArgs<ExtArgs>
   scorecardConfig?: boolean | Prisma.Company$scorecardConfigArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -12376,6 +15680,13 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     logisticOrderLines: Prisma.$LogisticOrderLinePayload<ExtArgs>[]
     logisticVehicleUnits: Prisma.$LogisticVehicleUnitPayload<ExtArgs>[]
     logisticVehicleVisits: Prisma.$LogisticVehicleProcessVisitPayload<ExtArgs>[]
+    logisticWorkflowDefinitions: Prisma.$LogisticWorkflowDefinitionPayload<ExtArgs>[]
+    logisticWorkflowVersions: Prisma.$LogisticWorkflowVersionPayload<ExtArgs>[]
+    logisticWorkflowNodes: Prisma.$LogisticWorkflowNodePayload<ExtArgs>[]
+    logisticWorkflowEdges: Prisma.$LogisticWorkflowEdgePayload<ExtArgs>[]
+    logisticWorkflowInstances: Prisma.$LogisticWorkflowInstancePayload<ExtArgs>[]
+    logisticWorkflowTasks: Prisma.$LogisticWorkflowTaskPayload<ExtArgs>[]
+    logisticWorkflowEvents: Prisma.$LogisticWorkflowEventPayload<ExtArgs>[]
     customFieldDefinitions: Prisma.$CustomFieldDefinitionPayload<ExtArgs>[]
     scorecardConfig: Prisma.$SupplierScorecardConfigPayload<ExtArgs> | null
   }
@@ -12828,6 +16139,13 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   logisticOrderLines<T extends Prisma.Company$logisticOrderLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticOrderLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticOrderLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   logisticVehicleUnits<T extends Prisma.Company$logisticVehicleUnitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticVehicleUnitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticVehicleUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   logisticVehicleVisits<T extends Prisma.Company$logisticVehicleVisitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticVehicleVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticVehicleProcessVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowDefinitions<T extends Prisma.Company$logisticWorkflowDefinitionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowDefinitionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowDefinitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowVersions<T extends Prisma.Company$logisticWorkflowVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowNodes<T extends Prisma.Company$logisticWorkflowNodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowNodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowNodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowEdges<T extends Prisma.Company$logisticWorkflowEdgesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowEdgesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowEdgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowInstances<T extends Prisma.Company$logisticWorkflowInstancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowTasks<T extends Prisma.Company$logisticWorkflowTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  logisticWorkflowEvents<T extends Prisma.Company$logisticWorkflowEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$logisticWorkflowEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogisticWorkflowEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customFieldDefinitions<T extends Prisma.Company$customFieldDefinitionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$customFieldDefinitionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomFieldDefinitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scorecardConfig<T extends Prisma.Company$scorecardConfigArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$scorecardConfigArgs<ExtArgs>>): Prisma.Prisma__SupplierScorecardConfigClient<runtime.Types.Result.GetResult<Prisma.$SupplierScorecardConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -14226,6 +17544,174 @@ export type Company$logisticVehicleVisitsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.LogisticVehicleProcessVisitScalarFieldEnum | Prisma.LogisticVehicleProcessVisitScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowDefinitions
+ */
+export type Company$logisticWorkflowDefinitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowDefinition
+   */
+  select?: Prisma.LogisticWorkflowDefinitionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowDefinition
+   */
+  omit?: Prisma.LogisticWorkflowDefinitionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowDefinitionInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowDefinitionWhereInput
+  orderBy?: Prisma.LogisticWorkflowDefinitionOrderByWithRelationInput | Prisma.LogisticWorkflowDefinitionOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowDefinitionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowDefinitionScalarFieldEnum | Prisma.LogisticWorkflowDefinitionScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowVersions
+ */
+export type Company$logisticWorkflowVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowVersion
+   */
+  select?: Prisma.LogisticWorkflowVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowVersion
+   */
+  omit?: Prisma.LogisticWorkflowVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowVersionInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowVersionWhereInput
+  orderBy?: Prisma.LogisticWorkflowVersionOrderByWithRelationInput | Prisma.LogisticWorkflowVersionOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowVersionScalarFieldEnum | Prisma.LogisticWorkflowVersionScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowNodes
+ */
+export type Company$logisticWorkflowNodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowNode
+   */
+  select?: Prisma.LogisticWorkflowNodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowNode
+   */
+  omit?: Prisma.LogisticWorkflowNodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowNodeInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowNodeWhereInput
+  orderBy?: Prisma.LogisticWorkflowNodeOrderByWithRelationInput | Prisma.LogisticWorkflowNodeOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowNodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowNodeScalarFieldEnum | Prisma.LogisticWorkflowNodeScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowEdges
+ */
+export type Company$logisticWorkflowEdgesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowEdge
+   */
+  select?: Prisma.LogisticWorkflowEdgeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowEdge
+   */
+  omit?: Prisma.LogisticWorkflowEdgeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowEdgeInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowEdgeWhereInput
+  orderBy?: Prisma.LogisticWorkflowEdgeOrderByWithRelationInput | Prisma.LogisticWorkflowEdgeOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowEdgeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowEdgeScalarFieldEnum | Prisma.LogisticWorkflowEdgeScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowInstances
+ */
+export type Company$logisticWorkflowInstancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowInstance
+   */
+  select?: Prisma.LogisticWorkflowInstanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowInstance
+   */
+  omit?: Prisma.LogisticWorkflowInstanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowInstanceInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowInstanceWhereInput
+  orderBy?: Prisma.LogisticWorkflowInstanceOrderByWithRelationInput | Prisma.LogisticWorkflowInstanceOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowInstanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowInstanceScalarFieldEnum | Prisma.LogisticWorkflowInstanceScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowTasks
+ */
+export type Company$logisticWorkflowTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowTask
+   */
+  select?: Prisma.LogisticWorkflowTaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowTask
+   */
+  omit?: Prisma.LogisticWorkflowTaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowTaskInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowTaskWhereInput
+  orderBy?: Prisma.LogisticWorkflowTaskOrderByWithRelationInput | Prisma.LogisticWorkflowTaskOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowTaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowTaskScalarFieldEnum | Prisma.LogisticWorkflowTaskScalarFieldEnum[]
+}
+
+/**
+ * Company.logisticWorkflowEvents
+ */
+export type Company$logisticWorkflowEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LogisticWorkflowEvent
+   */
+  select?: Prisma.LogisticWorkflowEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LogisticWorkflowEvent
+   */
+  omit?: Prisma.LogisticWorkflowEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LogisticWorkflowEventInclude<ExtArgs> | null
+  where?: Prisma.LogisticWorkflowEventWhereInput
+  orderBy?: Prisma.LogisticWorkflowEventOrderByWithRelationInput | Prisma.LogisticWorkflowEventOrderByWithRelationInput[]
+  cursor?: Prisma.LogisticWorkflowEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LogisticWorkflowEventScalarFieldEnum | Prisma.LogisticWorkflowEventScalarFieldEnum[]
 }
 
 /**

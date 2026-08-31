@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import {
@@ -51,8 +53,8 @@ interface Ai8dReviewPanelProps {
 }
 
 const reviewStatusColors: Record<string, string> = {
-  STRONG: "bg-muted text-muted-foreground dark:text-foreground",
-  NEEDS_IMPROVEMENT: "bg-destructive/10 text-destructive dark:text-destructive",
+  STRONG: "bg-muted text-muted-foreground ",
+  NEEDS_IMPROVEMENT: "bg-destructive/10 text-destructive ",
   INCOMPLETE: "bg-destructive/10 text-destructive",
   RISKY: "bg-destructive/10 text-destructive",
 }
@@ -65,8 +67,8 @@ const reviewStatusLabel: Record<string, string> = {
 }
 
 const statusColors: Record<string, string> = {
-  GENERATED: "bg-destructive/10 text-destructive dark:text-destructive",
-  REVIEWED: "bg-muted text-muted-foreground dark:text-foreground",
+  GENERATED: "bg-destructive/10 text-destructive ",
+  REVIEWED: "bg-muted text-muted-foreground ",
   REJECTED: "bg-destructive/10 text-destructive",
   EXPIRED: "bg-muted text-muted-foreground",
 }
@@ -174,13 +176,13 @@ function SuggestionList({ items, icon }: { items: string[]; icon: React.ReactNod
         ))}
       </div>
       {items.length > 3 && !expanded && (
-        <button
+        <Button
           type="button"
           onClick={() => setExpanded(true)}
-          className="mt-1 text-xs text-muted-foreground hover:text-foreground"
+          variant="ghost" className="mt-1 text-xs text-muted-foreground hover:text-foreground"
         >
           +{items.length - 3} more
-        </button>
+        </Button>
       )}
     </div>
   )
@@ -362,15 +364,16 @@ export function Ai8dReviewPanel({
           <div className="text-center py-4">
             <p className="text-sm text-muted-foreground mb-3">No AI review generated yet.</p>
             {canManage && canUseAi8d && (
-              <button
+              <Button
                 onClick={handleGenerate}
+                variant="outline"
                 disabled={isPending}
                 aria-label="Generate AI 8D review"
                 className="inline-flex items-center gap-2 rounded-lg bg-muted text-muted-foreground px-3 py-2 text-sm font-medium hover:bg-foreground/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <SparklesIcon className="h-4 w-4" />
                 Generate AI Review
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -520,7 +523,7 @@ export function Ai8dReviewPanel({
                   AI review is advisory only. You decide the outcome.
                 </p>
                 <div className="flex gap-2">
-                  <button
+                  <Button
                     onClick={handleMarkReviewed}
                     disabled={isPending}
                     aria-label="Mark AI review as reviewed"
@@ -528,8 +531,8 @@ export function Ai8dReviewPanel({
                   >
                     <CheckIcon className="h-4 w-4" />
                     Mark Reviewed
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={handleReject}
                     disabled={isPending}
                     aria-label="Reject AI review"
@@ -537,36 +540,38 @@ export function Ai8dReviewPanel({
                   >
                     <XIcon className="h-4 w-4" />
                     Reject
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
 
             {canManage && canUseAi8d && reviewStatus !== "GENERATED" && (
-              <button
+              <Button
                 onClick={handleGenerate}
+                variant="outline"
                 disabled={isPending}
                 aria-label="Regenerate AI review"
                 className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <RefreshCwIcon className="h-3.5 w-3.5" />
                 Regenerate Review
-              </button>
+              </Button>
             )}
           </>
         )}
 
         {hasMalformedReview && canManage && canUseAi8d && !isPending && (
           <div className="border-t pt-3">
-            <button
+            <Button
               onClick={handleGenerate}
+              variant="outline"
               disabled={isPending}
               aria-label="Regenerate AI review"
               className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <RefreshCwIcon className="h-3.5 w-3.5" />
               Regenerate Review
-            </button>
+            </Button>
           </div>
         )}
 
@@ -579,17 +584,17 @@ export function Ai8dReviewPanel({
 
         {canManage && canUseRootCause && (
           <div className="border-t pt-3">
-            <button
+            <Button
               onClick={() => setShowRootCause(!showRootCause)}
               type="button"
-              className="w-full flex items-center justify-between text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+              variant="ghost" className="w-full flex items-center justify-between text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               <span className="flex items-center gap-1.5">
                 <LightbulbIcon className="h-3.5 w-3.5" />
                 Root Cause Suggestion
               </span>
               {showRootCause ? <ChevronUpIcon className="h-3.5 w-3.5" /> : <ChevronDownIcon className="h-3.5 w-3.5" />}
-            </button>
+            </Button>
 
             {showRootCause && !rootCauseResult && !rootCausePending && (
               <div className="mt-3 text-center">
@@ -598,15 +603,16 @@ export function Ai8dReviewPanel({
                     {rootCauseError}
                   </div>
                 )}
-                <button
+                <Button
                   onClick={handleRootCause}
+                  variant="outline"
                   disabled={rootCausePending}
                   aria-label="Generate root cause suggestion"
                   className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <SparklesIcon className="h-4 w-4" />
                   Suggest Root Causes
-                </button>
+                </Button>
               </div>
             )}
 
@@ -677,15 +683,16 @@ export function Ai8dReviewPanel({
                   <span className="text-xs text-muted-foreground">{rootCauseResult.confidence}%</span>
                 </div>
 
-                <button
+                <Button
                   onClick={handleRootCause}
+                  variant="outline"
                   disabled={rootCausePending}
                   aria-label="Regenerate root cause suggestion"
                   className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <RefreshCwIcon className="h-3 w-3" />
                   Regenerate
-                </button>
+                </Button>
               </div>
             )}
           </div>

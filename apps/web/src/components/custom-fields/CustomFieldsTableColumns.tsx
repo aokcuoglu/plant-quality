@@ -1,3 +1,4 @@
+import { TableCell, TableHead } from "@/components/ui/table"
 import type { ResolvedField } from "@/lib/custom-fields/types"
 import type { CustomFieldType } from "@/lib/custom-fields/constants"
 
@@ -11,12 +12,12 @@ export function CustomFieldsTableHeaders({ fields }: { fields: ResolvedField[] }
   return (
     <>
       {fields.map((field) => (
-        <th
+        <TableHead
           key={field.fieldName}
           className="h-11 px-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground"
         >
           {field.label}
-        </th>
+        </TableHead>
       ))}
     </>
   )
@@ -34,9 +35,9 @@ export function CustomFieldsTableCells({
   return (
     <>
       {fields.map((field) => (
-        <td key={field.fieldName} className="p-3 align-middle text-sm">
+        <TableCell key={field.fieldName} className="p-3 align-middle text-sm">
           {formatValue(field.fieldType, customFields?.[field.fieldName])}
-        </td>
+        </TableCell>
       ))}
     </>
   )

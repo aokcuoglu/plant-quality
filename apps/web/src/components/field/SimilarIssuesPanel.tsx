@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useTransition } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -64,7 +66,7 @@ export function SimilarIssuesPanel({
           Similar Issues
         </h2>
         {canManage && canUseSimilar && (
-          <button
+          <Button
             onClick={handleFindSimilar}
             disabled={isPending}
             aria-label="Search for similar issues"
@@ -76,7 +78,7 @@ export function SimilarIssuesPanel({
               <SearchIcon className="h-3.5 w-3.5" />
             )}
             Refresh
-          </button>
+          </Button>
         )}
       </div>
 

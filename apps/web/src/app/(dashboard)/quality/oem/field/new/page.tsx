@@ -4,7 +4,6 @@ import { redirect } from "next/navigation"
 import { getSuppliersForField } from "@/app/(dashboard)/field/actions"
 import { resolveFieldConfig, resolveFieldConfigSync } from "@/lib/custom-fields/resolver"
 import type { ResolvedFields } from "@/lib/custom-fields/resolver"
-import type { ResolvedField } from "@/lib/custom-fields/types"
 import { NewFieldDefectForm } from "./form"
 
 export default async function NewFieldDefectPage() {

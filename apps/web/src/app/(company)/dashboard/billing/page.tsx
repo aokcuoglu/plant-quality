@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
@@ -105,38 +106,38 @@ export default async function CompanyBillingPage() {
             <p className="text-sm text-muted-foreground">{t("dashboard.company.billing.noHistory")}</p>
           ) : (
             <div className="overflow-x-auto rounded-lg border border-border">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    <th className="px-4 py-3 text-left">{t("dashboard.company.billing.date")}</th>
-                    <th className="px-4 py-3 text-left">{t("dashboard.company.billing.currentPlan")}</th>
-                    <th className="px-4 py-3 text-left">{t("dashboard.company.billing.request")}</th>
-                    <th className="px-4 py-3 text-left">{t("dashboard.company.billing.status")}</th>
-                    <th className="px-4 py-3 text-left">{t("dashboard.company.billing.note")}</th>
-                    <th className="px-4 py-3 text-left">{t("dashboard.company.billing.requestedBy")}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y">
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow className="border-b text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    <TableHead className="px-4 py-3 text-left">{t("dashboard.company.billing.date")}</TableHead>
+                    <TableHead className="px-4 py-3 text-left">{t("dashboard.company.billing.currentPlan")}</TableHead>
+                    <TableHead className="px-4 py-3 text-left">{t("dashboard.company.billing.request")}</TableHead>
+                    <TableHead className="px-4 py-3 text-left">{t("dashboard.company.billing.status")}</TableHead>
+                    <TableHead className="px-4 py-3 text-left">{t("dashboard.company.billing.note")}</TableHead>
+                    <TableHead className="px-4 py-3 text-left">{t("dashboard.company.billing.requestedBy")}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody className="divide-y">
                   {requests.map((r) => {
                     const statusLabel = t(`dashboard.company.billing.statuses.${r.status}` as "dashboard.company.billing.statuses.OPEN")
                     const statusClassName = STATUS_CLASSES[r.status] ?? "bg-muted text-muted-foreground border-border"
                     return (
-                      <tr key={r.id} className="hover:bg-muted/50">
-                        <td className="px-4 py-3 text-xs text-muted-foreground">{formatDate(r.createdAt, locale)}</td>
-                        <td className="px-4 py-3 text-sm text-foreground">{r.currentPlan}</td>
-                        <td className="px-4 py-3 text-sm font-medium text-foreground">{r.requestedPlan}</td>
-                        <td className="px-4 py-3">
+                      <TableRow key={r.id} className="hover:bg-muted/50">
+                        <TableCell className="px-4 py-3 text-xs text-muted-foreground">{formatDate(r.createdAt, locale)}</TableCell>
+                        <TableCell className="px-4 py-3 text-sm text-foreground">{r.currentPlan}</TableCell>
+                        <TableCell className="px-4 py-3 text-sm font-medium text-foreground">{r.requestedPlan}</TableCell>
+                        <TableCell className="px-4 py-3">
                           <Badge variant="outline" className={`px-2 text-[10px] font-semibold uppercase tracking-wider ${statusClassName}`}>
                             {statusLabel}
                           </Badge>
-                        </td>
-                        <td className="px-4 py-3 text-xs text-muted-foreground">{r.message ?? "—"}</td>
-                        <td className="px-4 py-3 text-xs text-muted-foreground">{r.requestedBy?.name ?? r.requestedBy?.email ?? "—"}</td>
-                      </tr>
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-xs text-muted-foreground">{r.message ?? "—"}</TableCell>
+                        <TableCell className="px-4 py-3 text-xs text-muted-foreground">{r.requestedBy?.name ?? r.requestedBy?.email ?? "—"}</TableCell>
+                      </TableRow>
                     )
                   })}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           )}
         </CardContent>

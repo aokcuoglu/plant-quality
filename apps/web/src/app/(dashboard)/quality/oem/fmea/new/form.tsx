@@ -71,7 +71,7 @@ export function FmeaCreateForm({ suppliers, fieldConfig }: { suppliers: Supplier
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-500/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</div>
       )}
 
       <div className="space-y-4 rounded-lg border bg-card p-6">

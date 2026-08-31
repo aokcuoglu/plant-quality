@@ -17,10 +17,24 @@ import type {
   Role,
   PlantLogisticPlanSheetLine,
 } from "@plantx/db/client"
-import { PLAN_SHEET_ALLOWED } from "@/lib/logistic/plan-sheet"
-import { canSalesExport, canProduction } from "@/lib/logistic/roles"
+import {
+  hasForecastDispatchDate,
+  isForecastDispatchDateCurrentOrFuture,
+  PLAN_SHEET_ALLOWED,
+  PLAN_SHEET_FORECAST_IN_PAST,
+  PLAN_SHEET_FORECAST_REQUIRED,
+  PLAN_SHEET_LINE_ALLOWED,
+  PLAN_SHEET_LINE_LOCKED,
+  PLAN_SHEET_REJECTION_COMMENT_REQUIRED,
+} from "@/lib/logistic/plan-sheet"
+import { canSalesExport } from "@/lib/logistic/roles"
 import { nextVehicleGroupCode, vehicleGroupCodeBase } from "@/lib/logistic/catalog-code"
 import { normalizeVehicleType } from "@/lib/logistic/types"
+import {
+  assertWorkflowActionAllowed,
+  startWorkflowInstance,
+  transitionWorkflowAction,
+} from "@/lib/logistic/workflow-runtime"
 
 interface ActionResult {
   success: boolean
@@ -46,16 +60,37 @@ async function authGate() {
   const { allowed } = requireFeature(session, "PLANT_LOGISTIC")
   if (!allowed) redirect("/quality/oem")
 
+  const user = await prisma.user.findFirst({
+    where: { id: session.user.id, companyId: session.user.companyId },
+    select: { id: true, role: true },
+  })
+  if (!user) redirect("/login")
+
   return {
     companyId: session.user.companyId as string,
-    userId: session.user.id as string,
-    role: session.user.role as Role,
+    userId: user.id,
+    role: user.role as Role,
   }
 }
 
 function allowedOrDeny(role: Role, can: (r: Role) => boolean): ActionResult {
   if (!can(role)) return { success: false, error: "Bu işlem için yetkiniz yok" }
   return { success: true }
+}
+
+async function workflowGate(
+  companyId: string,
+  userId: string,
+  sheetId: string,
+  actionKey: string,
+): Promise<ActionResult> {
+  return assertWorkflowActionAllowed({
+    companyId,
+    subjectType: "PLAN_SHEET",
+    subjectId: sheetId,
+    userId,
+    actionKey,
+  })
 }
 
 async function nextOrderNumber(companyId: string): Promise<string> {
@@ -115,7 +150,9 @@ async function createBoardUnitsFromPlanLine({
     },
   })
   let group = model
-    ? await prisma.logisticVehicleGroup.findUnique({ where: { id: model.groupId } })
+    ? await prisma.logisticVehicleGroup.findFirst({
+        where: { id: model.groupId, companyId },
+      })
     : null
 
   if (!group) {
@@ -147,7 +184,7 @@ async function createBoardUnitsFromPlanLine({
     })
   } else if (!model.active) {
     model = await prisma.logisticVehicleModel.update({
-      where: { id: model.id },
+      where: { id: model.id, companyId },
       data: { active: true },
     })
   }
@@ -276,6 +313,20 @@ export async function createPlanSheet(formData: FormData): Promise<ActionResult>
     vehicleType: normalizeVehicleType(line.vehicleType),
   }))
 
+  const publishedWorkflow = await prisma.logisticWorkflowDefinition.findFirst({
+    where: {
+      companyId,
+      subjectType: "PLAN_SHEET",
+      active: true,
+      isDefault: true,
+      versions: { some: { companyId, status: "PUBLISHED" } },
+    },
+    select: { id: true },
+  })
+  if (!publishedWorkflow) {
+    return { success: false, error: "WORKFLOW_NOT_PUBLISHED" }
+  }
+
   const sheet = await prisma.plantLogisticPlanSheet.create({
     data: {
       companyId,
@@ -314,13 +365,26 @@ export async function createPlanSheet(formData: FormData): Promise<ActionResult>
 
   await logEvent(sheet.id, companyId, userId, "ORDER_CREATED", "Şase listesi oluşturuldu")
 
+  const workflow = await startWorkflowInstance({
+    companyId,
+    subjectType: "PLAN_SHEET",
+    subjectId: sheet.id,
+    actorUserId: userId,
+  })
+  if (!workflow.success) {
+    await prisma.plantLogisticPlanSheet.deleteMany({
+      where: { id: sheet.id, companyId },
+    })
+    return { success: false, error: workflow.error }
+  }
+
   revalidatePath("/logistic/plan-sheets")
   return { success: true }
 }
 
 export async function submitPlanSheet(sheetId: string): Promise<ActionResult> {
-  const { companyId, userId, role } = await authGate()
-  const gate = allowedOrDeny(role, canSalesExport)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_SUBMIT")
   if (!gate.success) return gate
   const sheet = await loadSheet(sheetId, companyId)
   if (!sheet) return { success: false, error: "Liste bulunamadı" }
@@ -330,14 +394,22 @@ export async function submitPlanSheet(sheetId: string): Promise<ActionResult> {
 
   const now = new Date()
   await prisma.plantLogisticPlanSheet.update({
-    where: { id: sheetId },
+    where: { id: sheetId, companyId },
     data: { status: "UNDER_REVIEW", submittedAt: now },
   })
   await prisma.plantLogisticPlanSheetLine.updateMany({
-    where: { planSheetId: sheetId, status: "PENDING" },
+    where: { planSheetId: sheetId, companyId, status: "PENDING" },
     data: { status: "SUBMITTED" },
   })
   await logEvent(sheetId, companyId, userId, "STATUS_CHANGED", "İncelemeye gönderildi")
+  const transition = await transitionWorkflowAction({
+    companyId,
+    subjectType: "PLAN_SHEET",
+    subjectId: sheetId,
+    userId,
+    actionKey: "PLAN_SHEET_SUBMIT",
+  })
+  if (!transition.success) return transition
   revalidatePath("/logistic/plan-sheets")
   revalidatePath(`/logistic/plan-sheets/${sheetId}`)
   return { success: true }
@@ -348,21 +420,53 @@ export async function setLineForecastDate(
   lineId: string,
   dateStr: string | null
 ): Promise<ActionResult> {
-  const { companyId, role } = await authGate()
-  const gate = allowedOrDeny(role, canProduction)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_SET_FORECAST")
   if (!gate.success) return gate
   const sheet = await loadSheet(sheetId, companyId)
   if (!sheet) return { success: false, error: "Liste bulunamadı" }
   const line = sheet.lines.find((l) => l.id === lineId)
   if (!line) return { success: false, error: "Satır bulunamadı" }
+  if (line.orderId || !PLAN_SHEET_LINE_ALLOWED.setForecast(line.status)) {
+    return { success: false, error: PLAN_SHEET_LINE_LOCKED }
+  }
   if (!PLAN_SHEET_ALLOWED.approve(sheet.status)) {
     return { success: false, error: "Sadece inceleme/onay aşamasında öngörü tarihi girilebilir" }
   }
 
-  await prisma.plantLogisticPlanSheetLine.update({
-    where: { id: lineId },
-    data: { forecastDispatchDate: dateStr ? new Date(dateStr) : null },
+  const forecastDate = dateStr ? new Date(dateStr) : null
+  if (forecastDate && Number.isNaN(forecastDate.getTime())) {
+    return { success: false, error: "INVALID_DATE" }
+  }
+  if (forecastDate && !isForecastDispatchDateCurrentOrFuture(forecastDate)) {
+    return { success: false, error: PLAN_SHEET_FORECAST_IN_PAST }
+  }
+  if (PLAN_SHEET_LINE_ALLOWED.reviseForecast(line.status) && !forecastDate) {
+    return { success: false, error: PLAN_SHEET_FORECAST_REQUIRED }
+  }
+  const update = await prisma.plantLogisticPlanSheetLine.updateMany({
+    where: {
+      id: lineId,
+      companyId,
+      planSheetId: sheetId,
+      orderId: null,
+      status: line.status,
+      ...(!forecastDate ? { status: "SUBMITTED" as const } : {}),
+    },
+    data: { forecastDispatchDate: forecastDate },
   })
+  if (update.count === 0) {
+    return { success: false, error: PLAN_SHEET_LINE_LOCKED }
+  }
+  if (line.forecastDispatchDate?.getTime() !== forecastDate?.getTime()) {
+    await logEvent(
+      sheetId,
+      companyId,
+      userId,
+      "ORDER_UPDATED",
+      `Satır ${line.sequence} öngörü sevk tarihi ${forecastDate?.toLocaleDateString("tr-TR") ?? "boş"} olarak güncellendi`,
+    )
+  }
   revalidatePath(`/logistic/plan-sheets/${sheetId}`)
   return { success: true }
 }
@@ -372,8 +476,8 @@ export async function updatePlanSheetLine(
   lineId: string,
   input: VehicleLineUpdateInput
 ): Promise<ActionResult> {
-  const { companyId, userId, role } = await authGate()
-  const gate = allowedOrDeny(role, canSalesExport)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_EDIT")
   if (!gate.success) return gate
 
   const sheet = await loadSheet(sheetId, companyId)
@@ -430,11 +534,15 @@ export async function updatePlanSheetLine(
 export async function setLineReviewStatus(
   sheetId: string,
   lineId: string,
-  status: PlanSheetLineStatus
+  status: PlanSheetLineStatus,
+  comment?: string,
 ): Promise<ActionResult> {
-  const { companyId, userId, role } = await authGate()
-  const gate = allowedOrDeny(role, canProduction)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_REVIEW_LINE")
   if (!gate.success) return gate
+  if (status !== "CONFIRMED" && status !== "REJECTED") {
+    return { success: false, error: "INVALID_LINE_STATUS" }
+  }
   const sheet = await loadSheet(sheetId, companyId)
   if (!sheet) return { success: false, error: "Liste bulunamadı" }
   if (!PLAN_SHEET_ALLOWED.approve(sheet.status)) {
@@ -443,30 +551,90 @@ export async function setLineReviewStatus(
   const line = sheet.lines.find((l) => l.id === lineId)
   if (!line) return { success: false, error: "Satır bulunamadı" }
   if (line.orderId) return { success: false, error: "Sipariş oluşturulmuş satır değiştirilemez" }
+  if (!PLAN_SHEET_LINE_ALLOWED.review(line.status)) {
+    return { success: false, error: PLAN_SHEET_LINE_LOCKED }
+  }
+  const rejectionComment = comment?.trim() ?? ""
+  if (status === "REJECTED" && !rejectionComment) {
+    return { success: false, error: PLAN_SHEET_REJECTION_COMMENT_REQUIRED }
+  }
+  if (status === "CONFIRMED" && !hasForecastDispatchDate(line.forecastDispatchDate)) {
+    return { success: false, error: PLAN_SHEET_FORECAST_REQUIRED }
+  }
+  if (status === "CONFIRMED" && !isForecastDispatchDateCurrentOrFuture(line.forecastDispatchDate)) {
+    return { success: false, error: PLAN_SHEET_FORECAST_IN_PAST }
+  }
 
-  await prisma.plantLogisticPlanSheetLine.update({
-    where: { id: lineId },
-    data: { status },
+  const updated = await prisma.$transaction(async (tx) => {
+    const update = await tx.plantLogisticPlanSheetLine.updateMany({
+      where: {
+        id: lineId,
+        companyId,
+        planSheetId: sheetId,
+        orderId: null,
+        status: "SUBMITTED",
+        ...(status === "CONFIRMED" ? { forecastDispatchDate: { not: null } } : {}),
+      },
+      data: { status },
+    })
+    if (update.count === 0) return false
+
+    const message = status === "REJECTED"
+      ? `Satır ${line.sequence} — reddedildi: ${rejectionComment}`
+      : `Satır ${line.sequence} — onaylandı`
+    await tx.plantLogisticPlanSheetEvent.create({
+      data: {
+        planSheetId: sheetId,
+        companyId,
+        actorId: userId,
+        eventType: "ORDER_UPDATED",
+        message,
+      },
+    })
+
+    if (status === "REJECTED" && sheet.createdById !== userId) {
+      await tx.notification.create({
+        data: {
+          userId: sheet.createdById,
+          companyId,
+          type: "REVISION",
+          title: `${sheet.planNumber} satır reddi`,
+          message: `Satır ${line.sequence} reddedildi: ${rejectionComment}`,
+          entityType: "PLAN_SHEET",
+          entityId: sheetId,
+          link: `/logistic/plan-sheets/${sheetId}`,
+        },
+      })
+    }
+    return true
   })
-  await logEvent(
-    sheetId,
-    companyId,
-    userId,
-    "ORDER_UPDATED",
-    `Satır ${line.sequence} — ${status === "REJECTED" ? "reddedildi" : "onaylandı"}`
-  )
+  if (!updated) {
+    return {
+      success: false,
+      error: status === "CONFIRMED" ? PLAN_SHEET_FORECAST_REQUIRED : PLAN_SHEET_LINE_LOCKED,
+    }
+  }
   revalidatePath(`/logistic/plan-sheets/${sheetId}`)
   return { success: true }
 }
 
 export async function approvePlanSheet(sheetId: string): Promise<ActionResult> {
-  const { companyId, userId, role } = await authGate()
-  const gate = allowedOrDeny(role, canProduction)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_APPROVE")
   if (!gate.success) return gate
   const sheet = await loadSheet(sheetId, companyId)
   if (!sheet) return { success: false, error: "Liste bulunamadı" }
   if (!PLAN_SHEET_ALLOWED.approve(sheet.status)) {
     return { success: false, error: "İnceleme aşamasında değil, onaylanamaz" }
+  }
+  if (sheet.lines.some((line) => line.status === "CONFIRMED" && !hasForecastDispatchDate(line.forecastDispatchDate))) {
+    return { success: false, error: PLAN_SHEET_FORECAST_REQUIRED }
+  }
+  if (sheet.lines.some((line) => line.status === "CONFIRMED" && !isForecastDispatchDateCurrentOrFuture(line.forecastDispatchDate))) {
+    return { success: false, error: PLAN_SHEET_FORECAST_IN_PAST }
+  }
+  if (sheet.lines.some((line) => line.status !== "CONFIRMED" && line.status !== "REJECTED")) {
+    return { success: false, error: "PLAN_SHEET_LINES_PENDING" }
   }
 
   const now = new Date()
@@ -511,7 +679,7 @@ export async function approvePlanSheet(sheetId: string): Promise<ActionResult> {
     })
 
     await prisma.plantLogisticPlanSheetLine.update({
-      where: { id: line.id },
+      where: { id: line.id, companyId, planSheetId: sheet.id },
       data: { orderId: order.id, status: "GENERATED", generatedAt: now },
     })
 
@@ -528,7 +696,7 @@ export async function approvePlanSheet(sheetId: string): Promise<ActionResult> {
   }
 
   await prisma.plantLogisticPlanSheet.update({
-    where: { id: sheetId },
+    where: { id: sheetId, companyId },
     data: { status: "APPROVED", approvedAt: now, approvedById: userId },
   })
   await logEvent(
@@ -538,6 +706,14 @@ export async function approvePlanSheet(sheetId: string): Promise<ActionResult> {
     "ORDER_APPROVED",
     `Onaylandı — ${generated} sipariş oluşturuldu`
   )
+  const transition = await transitionWorkflowAction({
+    companyId,
+    subjectType: "PLAN_SHEET",
+    subjectId: sheetId,
+    userId,
+    actionKey: "PLAN_SHEET_APPROVE",
+  })
+  if (!transition.success) return transition
 
   revalidatePath("/logistic/plan-sheets")
   revalidatePath("/logistic/orders")
@@ -547,8 +723,8 @@ export async function approvePlanSheet(sheetId: string): Promise<ActionResult> {
 }
 
 export async function rejectPlanSheet(sheetId: string, reason: string): Promise<ActionResult> {
-  const { companyId, userId, role } = await authGate()
-  const gate = allowedOrDeny(role, canProduction)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_REJECT")
   if (!gate.success) return gate
   const sheet = await loadSheet(sheetId, companyId)
   if (!sheet) return { success: false, error: "Liste bulunamadı" }
@@ -558,18 +734,27 @@ export async function rejectPlanSheet(sheetId: string, reason: string): Promise<
 
   const now = new Date()
   await prisma.plantLogisticPlanSheet.update({
-    where: { id: sheetId },
+    where: { id: sheetId, companyId },
     data: { status: "REJECTED", rejectedAt: now },
   })
   await logEvent(sheetId, companyId, userId, "ORDER_REJECTED", reason?.trim() || "Reddedildi")
+  const transition = await transitionWorkflowAction({
+    companyId,
+    subjectType: "PLAN_SHEET",
+    subjectId: sheetId,
+    userId,
+    actionKey: "PLAN_SHEET_REJECT",
+    resolution: reason,
+  })
+  if (!transition.success) return transition
   revalidatePath("/logistic/plan-sheets")
   revalidatePath(`/logistic/plan-sheets/${sheetId}`)
   return { success: true }
 }
 
 export async function cancelPlanSheet(sheetId: string): Promise<ActionResult> {
-  const { companyId, userId, role } = await authGate()
-  const gate = allowedOrDeny(role, canSalesExport)
+  const { companyId, userId } = await authGate()
+  const gate = await workflowGate(companyId, userId, sheetId, "PLAN_SHEET_CANCEL")
   if (!gate.success) return gate
   const sheet = await loadSheet(sheetId, companyId)
   if (!sheet) return { success: false, error: "Liste bulunamadı" }
@@ -579,10 +764,18 @@ export async function cancelPlanSheet(sheetId: string): Promise<ActionResult> {
 
   const now = new Date()
   await prisma.plantLogisticPlanSheet.update({
-    where: { id: sheetId },
+    where: { id: sheetId, companyId },
     data: { status: "CANCELLED", closedAt: now },
   })
   await logEvent(sheetId, companyId, userId, "ORDER_CANCELLED", "Liste iptal edildi")
+  const transition = await transitionWorkflowAction({
+    companyId,
+    subjectType: "PLAN_SHEET",
+    subjectId: sheetId,
+    userId,
+    actionKey: "PLAN_SHEET_CANCEL",
+  })
+  if (!transition.success) return transition
   revalidatePath("/logistic/plan-sheets")
   revalidatePath(`/logistic/plan-sheets/${sheetId}`)
   return { success: true }

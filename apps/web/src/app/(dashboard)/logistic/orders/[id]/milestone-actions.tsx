@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import type { ProductionMilestoneStatus } from "@plantx/db/client"
 import { getNextMilestoneStatuses, isTerminalMilestoneStatus } from "@/lib/logistic/milestone-status"
@@ -54,7 +56,7 @@ export function MilestoneActions({
       {nextStatuses.map((status) => {
         const isPrimary = status === "IN_PROGRESS" || status === "COMPLETED"
         return (
-          <button
+          <Button
             key={status}
             onClick={() => handleTransition(status)}
             disabled={loading}
@@ -69,7 +71,7 @@ export function MilestoneActions({
             }`}
           >
             {ACTION_LABELS[status] || status}
-          </button>
+          </Button>
         )
       })}
       {error && <span className="text-[10px] text-destructive">{error}</span>}

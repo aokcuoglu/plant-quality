@@ -1,8 +1,5 @@
 import { z } from "zod"
 import type { ResolvedField } from "./types"
-import type { CustomFieldType } from "./constants"
-
-type ZodTypeMap = Record<CustomFieldType, () => z.ZodTypeAny>
 
 function baseValidator(field: ResolvedField): z.ZodTypeAny {
   const baseMap: Record<string, () => z.ZodTypeAny> = {

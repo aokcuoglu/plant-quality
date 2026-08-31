@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -96,41 +98,39 @@ export function EditFieldDefectForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5">
             <Label htmlFor="source">Source</Label>
-            <select
+            <NativeSelect
               id="source"
               name="source"
-              defaultValue={fieldDefect.source}
-              className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+              defaultValue={fieldDefect.source} className="w-full"
             >
-              {sourceOptions.map((opt) => (<option key={opt.value} value={opt.value}>{opt.label}</option>))}
-            </select>
+              {sourceOptions.map((opt) => (<NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>))}
+            </NativeSelect>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="severity">Severity</Label>
-            <select
+            <NativeSelect
               id="severity"
               name="severity"
-              defaultValue={fieldDefect.severity}
-              className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+              defaultValue={fieldDefect.severity} className="w-full"
             >
-              {severityOptions.map((opt) => (<option key={opt.value} value={opt.value}>{opt.label}</option>))}
-            </select>
+              {severityOptions.map((opt) => (<NativeSelectOption key={opt.value} value={opt.value}>{opt.label}</NativeSelectOption>))}
+            </NativeSelect>
           </div>
         </div>
 
         <div className="flex gap-6 pt-1">
-          <label className="flex items-center gap-2">
+          <Label className="flex items-center gap-2">
             <Checkbox name="safetyImpact" defaultChecked={fieldDefect.safetyImpact} />
             <span className="text-sm">Safety Impact</span>
-          </label>
-          <label className="flex items-center gap-2">
+          </Label>
+          <Label className="flex items-center gap-2">
             <Checkbox name="vehicleDown" defaultChecked={fieldDefect.vehicleDown} />
             <span className="text-sm">Vehicle Down</span>
-          </label>
-          <label className="flex items-center gap-2">
+          </Label>
+          <Label className="flex items-center gap-2">
             <Checkbox name="repeatIssue" defaultChecked={fieldDefect.repeatIssue} />
             <span className="text-sm">Repeat Issue</span>
-          </label>
+          </Label>
         </div>
       </div>
 

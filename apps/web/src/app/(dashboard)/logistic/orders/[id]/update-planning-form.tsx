@@ -1,10 +1,20 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { DatePicker } from "@/components/ui/date-picker"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
+import { useTranslations } from "@/i18n/context"
 
 export function UpdatePlanningForm({ order }: { order: { id: string; plannedProductionDate: Date | null; plannedDeliveryDate: Date | null; plannedProductionWeek: string | null; productionOrderNo: string | null } }) {
+  const t = useTranslations()
+  const { showAlert } = useAppAlertDialog()
   const [loading, setLoading] = useState(false)
   const [editing, setEditing] = useState(false)
   const router = useRouter()
@@ -14,11 +24,14 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
     try {
       const { updateLogisticOrderPlanning } = await import("../../actions")
       const result = await updateLogisticOrderPlanning(order.id, formData)
-      if (result?.error) alert(result.error)
+      if (result?.error) {
+        showAlert(result.error)
+        return
+      }
       setEditing(false)
       router.refresh()
     } catch {
-      alert("Failed to update planning")
+      showAlert(t("logistic.actionErrors.updatePlanning"))
     } finally {
       setLoading(false)
     }
@@ -45,12 +58,13 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
           <dt className="text-muted-foreground">Production Order #</dt>
           <dd className="text-foreground">{order.productionOrderNo ?? "—"}</dd>
         </div>
-        <button
+        <Button
+          variant="outline"
           onClick={() => setEditing(true)}
           className="mt-2 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           Edit Planning
-        </button>
+        </Button>
       </dl>
     )
   }
@@ -58,7 +72,7 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
   return (
     <form action={handleSave} className="space-y-3">
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">Planned Production Date</label>
+        <Label className="text-xs text-muted-foreground">Planned Production Date</Label>
         <DatePicker
           name="plannedProductionDate"
           defaultValue={formatDate(order.plannedProductionDate)}
@@ -66,8 +80,8 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
         />
       </div>
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">Production Week</label>
-        <input
+        <Label className="text-xs text-muted-foreground">Production Week</Label>
+        <Input
           type="text"
           name="plannedProductionWeek"
           defaultValue={order.plannedProductionWeek ?? ""}
@@ -76,7 +90,7 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
         />
       </div>
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">Planned Delivery Date</label>
+        <Label className="text-xs text-muted-foreground">Planned Delivery Date</Label>
         <DatePicker
           name="plannedDeliveryDate"
           defaultValue={formatDate(order.plannedDeliveryDate)}
@@ -84,8 +98,8 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
         />
       </div>
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">Production Order #</label>
-        <input
+        <Label className="text-xs text-muted-foreground">Production Order #</Label>
+        <Input
           type="text"
           name="productionOrderNo"
           defaultValue={order.productionOrderNo ?? ""}
@@ -94,20 +108,21 @@ export function UpdatePlanningForm({ order }: { order: { id: string; plannedProd
         />
       </div>
       <div className="flex items-center gap-2">
-        <button
+        <Button
           type="submit"
           disabled={loading}
           className="rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-foreground/90 disabled:opacity-50"
         >
           {loading ? "Saving..." : "Save"}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           onClick={() => setEditing(false)}
           className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
         >
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   )

@@ -1,5 +1,4 @@
 import type { LogisticOrderStatus } from "@plantx/db/client"
-import { useTranslations } from "@/i18n/context"
 
 const STATUS_COLORS: Record<LogisticOrderStatus, string> = {
   DRAFT: "bg-muted text-muted-foreground",
@@ -18,9 +17,13 @@ const STATUS_COLORS: Record<LogisticOrderStatus, string> = {
   CANCELLED: "bg-muted text-muted-foreground line-through",
 }
 
-export function StatusBadge({ status }: { status: LogisticOrderStatus }) {
-  const t = useTranslations()
-  const label = t(`logistic.statuses.${status}`)
+export function StatusBadge({
+  status,
+  label,
+}: {
+  status: LogisticOrderStatus
+  label: string
+}) {
   const colorClass = STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"
   return (
     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${colorClass}`}>

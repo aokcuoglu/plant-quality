@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { updateDevPlanStatus } from "@/app/(dashboard)/quality/oem/supplier-development/actions/plan"
@@ -53,7 +55,7 @@ export function DevPlanActions({ planId, status }: { planId: string; status: Dev
       <h2 className="text-sm font-semibold text-foreground mb-3">Actions</h2>
       <div className="space-y-2">
         {buttons.map((btn) => (
-          <button
+          <Button
             key={btn.status}
             onClick={() => handleStatusChange(btn.status)}
             disabled={isSubmitting !== null}
@@ -66,7 +68,7 @@ export function DevPlanActions({ planId, status }: { planId: string; status: Dev
             }`}
           >
             {isSubmitting === btn.status ? "Processing..." : btn.label}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

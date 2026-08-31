@@ -72,7 +72,7 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.quality",
     icon: ShieldCheck,
     status: "live",
-    color: "from-blue-500 to-blue-700",
+    color: "from-brand to-brand",
     accent: "bg-muted text-muted-foreground",
   },
   {
@@ -81,7 +81,7 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.logistic",
     icon: TruckIcon,
     status: "live",
-    color: "from-blue-400 to-blue-600",
+    color: "from-brand to-brand",
     accent: "bg-muted text-muted-foreground",
   },
   {
@@ -90,8 +90,8 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.dock",
     icon: Warehouse,
     status: "upcoming",
-    color: "from-indigo-400 to-indigo-600",
-    accent: "bg-indigo-500/10 text-indigo-400",
+    color: "from-brand to-brand",
+    accent: "bg-brand/10 text-brand",
   },
   {
     id: "quote",
@@ -99,8 +99,8 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.quote",
     icon: FileText,
     status: "upcoming",
-    color: "from-cyan-400 to-cyan-600",
-    accent: "bg-cyan-500/10 text-cyan-400",
+    color: "from-brand to-brand",
+    accent: "bg-brand/10 text-brand",
   },
   {
     id: "trace",
@@ -108,8 +108,8 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.trace",
     icon: Leaf,
     status: "planned",
-    color: "from-teal-400 to-teal-600",
-    accent: "bg-teal-500/10 text-teal-400",
+    color: "from-brand to-brand",
+    accent: "bg-brand/10 text-brand",
   },
   {
     id: "audit",
@@ -117,8 +117,8 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.audit",
     icon: ClipboardCheck,
     status: "planned",
-    color: "from-violet-400 to-violet-600",
-    accent: "bg-violet-500/10 text-violet-400",
+    color: "from-brand to-brand",
+    accent: "bg-brand/10 text-brand",
   },
   {
     id: "asset",
@@ -126,7 +126,7 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.asset",
     icon: Settings,
     status: "planned",
-    color: "from-amber-400 to-amber-600",
+    color: "from-destructive to-destructive",
     accent: "bg-destructive/10 text-destructive",
   },
   {
@@ -135,8 +135,8 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.flow",
     icon: MoveRight,
     status: "planned",
-    color: "from-sky-400 to-sky-600",
-    accent: "bg-sky-500/10 text-sky-400",
+    color: "from-brand to-brand",
+    accent: "bg-brand/10 text-brand",
   },
   {
     id: "staff",
@@ -144,7 +144,7 @@ const products: Product[] = [
     taglineKey: "landing.productTaglines.staff",
     icon: Users,
     status: "planned",
-    color: "from-rose-400 to-rose-600",
+    color: "from-destructive to-destructive",
     accent: "bg-muted0/10 text-destructive",
   },
 ]
@@ -250,15 +250,15 @@ function HeroNetwork() {
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       {/* Slow pulsing orbs */}
       <div className="absolute top-1/2 left-1/2 size-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.07] blur-[120px]" />
-      <div className="absolute top-1/3 right-1/4 size-[500px] rounded-full bg-blue-500/[0.06] blur-[100px]" />
-      <div className="absolute bottom-0 left-0 size-[400px] rounded-full bg-cyan-500/[0.05] blur-[80px]" />
+      <div className="absolute top-1/3 right-1/4 size-[500px] rounded-full bg-brand/[0.06] blur-[100px]" />
+      <div className="absolute bottom-0 left-0 size-[400px] rounded-full bg-brand/[0.05] blur-[80px]" />
 
       {/* Glowing SVG network */}
       <svg className="absolute inset-0 h-full w-full opacity-[0.18]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="netGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="var(--brand)" stopOpacity="0.2" />
           </linearGradient>
         </defs>
         {/* static network lines */}
@@ -298,7 +298,7 @@ function HeroNetwork() {
           ["20%", "80%"],
           ["80%", "80%"],
         ].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r={2.5} fill="#3b82f6" opacity={0.5} />
+          <circle key={i} cx={cx} cy={cy} r={2.5} fill="var(--brand)" opacity={0.5} />
         ))}
       </svg>
     </div>
@@ -381,7 +381,7 @@ function GlassCard({
     <div
       className={cn(
         "relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-md transition-all",
-        hover && "hover:border-border/70 hover:shadow-lg hover:shadow-blue-600/5",
+        hover && "hover:border-border/70 hover:shadow-lg hover:shadow-brand/5",
         className
       )}
     >
@@ -450,7 +450,7 @@ export default function LandingPage() {
       <header className="fixed top-0 z-50 w-full border-b border-border bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2.5">
-            <div className="relative flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 shadow-lg shadow-blue-600/20">
+            <div className="relative flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand to-brand shadow-lg shadow-brand/20">
               <Factory className="size-4.5 text-foreground" strokeWidth={2.5} />
             </div>
             <span className="text-lg font-bold tracking-tight text-foreground">PlantX</span>
@@ -498,7 +498,7 @@ export default function LandingPage() {
               className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-medium tracking-wider uppercase text-muted-foreground backdrop-blur-sm"
             >
               <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-blue-500 opacity-75" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-foreground" />
               </span>
               {t("landing.badge")}
@@ -511,7 +511,7 @@ export default function LandingPage() {
               className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
             >
               <span className="block">{t("landing.title1")}</span>
-              <span className="mt-2 block bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+              <span className="mt-2 block bg-gradient-to-r from-brand via-brand to-brand bg-clip-text text-transparent">
                 {t("landing.title2")}
               </span>
             </motion.h1>
@@ -620,7 +620,7 @@ export default function LandingPage() {
                         className={cn(
                           "border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase",
                           isLive && "border-emerald-500/40 bg-emerald-500/10 text-emerald-400",
-                          isUpcoming && "border-amber-500/40 bg-amber-500/10 text-amber-400",
+                          isUpcoming && "border-destructive/40 bg-destructive/10 text-destructive",
                           !isLive && !isUpcoming && "border-border bg-muted text-muted-foreground"
                         )}
                       >
@@ -634,7 +634,7 @@ export default function LandingPage() {
                           </>
                         ) : isUpcoming ? (
                           <>
-                            <span className="size-1.5 rounded-full bg-amber-400" />
+                            <span className="size-1.5 rounded-full bg-destructive" />
                             {t("landing.productStatus.upcoming")}
                           </>
                         ) : (
@@ -680,7 +680,7 @@ export default function LandingPage() {
         {/* ═══════ Data-Driven Core (Dashboard Preview) ═══════ */}
         <section id="platform" className="relative overflow-hidden border-t border-border bg-card">
           <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute top-0 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-gradient-radial from-blue-600/[0.06] to-transparent blur-3xl" />
+            <div className="absolute top-0 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 bg-gradient-radial from-brand/[0.06] to-transparent blur-3xl" />
           </div>
 
           <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
@@ -726,7 +726,7 @@ export default function LandingPage() {
                         whileInView={{ height: `${b.h * 1.8}px` }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="w-full rounded-t-sm bg-gradient-to-t from-blue-600/60 to-blue-500/90"
+                        className="w-full rounded-t-sm bg-gradient-to-t from-brand/60 to-brand/90"
                       />
                       <span className="text-[10px] text-muted-foreground/60">{b.m}</span>
                     </div>
@@ -737,7 +737,7 @@ export default function LandingPage() {
               {/* Live metrics */}
               <GlassCard className="flex flex-col justify-between p-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-lg bg-blue-500/15 text-muted-foreground">
+                  <div className="flex size-8 items-center justify-center rounded-lg bg-brand/15 text-muted-foreground">
                     <Gauge className="size-4" />
                   </div>
                   <span className="text-sm font-medium text-muted-foreground">{t("landing.plantHealth")}</span>
@@ -752,7 +752,7 @@ export default function LandingPage() {
                     whileInView={{ width: "94%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-400"
+                    className="h-full rounded-full bg-gradient-to-r from-brand to-brand"
                   />
                 </div>
               </GlassCard>
@@ -760,7 +760,7 @@ export default function LandingPage() {
               {/* Active modules */}
               <GlassCard className="p-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-400">
+                  <div className="flex size-8 items-center justify-center rounded-lg bg-brand/15 text-brand">
                     <Zap className="size-4" />
                   </div>
                   <span className="text-sm font-medium text-muted-foreground">{t("landing.activeModules")}</span>
@@ -768,8 +768,8 @@ export default function LandingPage() {
                 <div className="mt-4 space-y-3">
                   {[
                     { label: "PlantQuality", pct: 100, color: "bg-foreground" },
-                    { label: "PlantLogistic", pct: 90, color: "bg-blue-500" },
-                    { label: "PlantDock", pct: 80, color: "bg-indigo-500" },
+                    { label: "PlantLogistic", pct: 90, color: "bg-brand" },
+                    { label: "PlantDock", pct: 80, color: "bg-brand" },
                   ].map((m) => (
                     <div key={m.label}>
                       <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
@@ -830,7 +830,7 @@ export default function LandingPage() {
               {/* AI Insight */}
               <GlassCard className="p-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-lg bg-purple-500/15 text-purple-400">
+                  <div className="flex size-8 items-center justify-center rounded-lg bg-brand/15 text-brand">
                     <Bot className="size-4" />
                   </div>
                   <span className="text-sm font-medium text-muted-foreground">{t("landing.aiInsight")}</span>
@@ -847,7 +847,7 @@ export default function LandingPage() {
                     },
                   ].map((insight, i) => (
                     <div key={i} className="flex gap-2.5">
-                      <insight.icon className="mt-0.5 size-4 shrink-0 text-purple-400" />
+                      <insight.icon className="mt-0.5 size-4 shrink-0 text-brand" />
                       <p className="text-xs leading-relaxed text-muted-foreground">{insight.text}</p>
                     </div>
                   ))}
@@ -935,7 +935,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2.5">
-              <div className="flex size-7 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-blue-700">
+              <div className="flex size-7 items-center justify-center rounded-md bg-gradient-to-br from-brand to-brand">
                 <Factory className="size-4 text-foreground" strokeWidth={2.5} />
               </div>
               <span className="text-sm font-bold tracking-tight text-foreground">PlantX</span>

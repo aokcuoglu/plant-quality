@@ -1,5 +1,7 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -95,7 +97,7 @@ export function ScorecardConfigForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           {FIELDS.map((field) => (
             <div key={field.key} className="space-y-1.5">
-              <label className="text-xs text-muted-foreground">{field.label}</label>
+              <Label className="text-xs text-muted-foreground">{field.label}</Label>
               <Input
                 type="number"
                 min={0}

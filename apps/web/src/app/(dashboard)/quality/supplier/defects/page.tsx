@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
@@ -154,9 +155,9 @@ export default async function SupplierDefectsPage({
       </div>
 
       <div className="rounded-lg border bg-card overflow-x-auto">
-        <table className="w-full caption-bottom text-sm">
-          <thead>
-            <tr className="border-b">
+        <Table className="w-full caption-bottom text-sm">
+          <TableHeader>
+            <TableRow className="border-b">
               <Th>Part Number</Th>
               <Th>Description</Th>
               <Th>Customer</Th>
@@ -167,11 +168,11 @@ export default async function SupplierDefectsPage({
               <Th>Status</Th>
               <Th>Received</Th>
               <CustomFieldsTableHeaders fields={listVisibleFields} />
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {paginated.map((d) => (
-              <tr key={d.id} className="border-b transition-colors hover:bg-muted/50 cursor-pointer">
+              <TableRow key={d.id} className="border-b transition-colors hover:bg-muted/50 cursor-pointer">
                 <Td className="font-mono text-xs">
                   <a href={`/quality/supplier/defects/${d.id}`} className="text-foreground hover:text-primary transition-colors">{d.partNumber}</a>
                 </Td>
@@ -189,7 +190,7 @@ export default async function SupplierDefectsPage({
                   </span>
                 </Td>
                 <Td>
-                  <span className={d.evidenceReady ? "inline-block rounded-full bg-muted px-2 py-1 text-xs font-medium text-foreground dark:bg-muted/50 text-muted-foreground" : "inline-block rounded-full bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive bg-destructive/20 text-muted-foreground"}>
+                  <span className={d.evidenceReady ? "inline-block rounded-full bg-muted px-2 py-1 text-xs font-medium text-foreground  text-muted-foreground" : "inline-block rounded-full bg-destructive/10 px-2 py-1 text-xs font-medium text-destructive bg-destructive/20 text-muted-foreground"}>
                     {d.evidenceReady ? "Ready" : "Missing"}
                   </span>
                 </Td>
@@ -200,17 +201,17 @@ export default async function SupplierDefectsPage({
                   {d.createdAt.toLocaleDateString()}
                 </Td>
                 <CustomFieldsTableCells fields={listVisibleFields} customFields={d.customFields ?? null} />
-              </tr>
+              </TableRow>
             ))}
             {paginated.length === 0 && (
-              <tr>
+              <TableRow>
                 <Td colSpan={9} className="py-16 text-center text-muted-foreground">
                   <p className="text-sm">No defects reported yet.</p>
                 </Td>
-              </tr>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
 
       {totalCount > PAGE_SIZE && (
@@ -240,16 +241,16 @@ export default async function SupplierDefectsPage({
 
 function Th({ children }: { children: React.ReactNode }) {
   return (
-    <th className="h-11 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider text-muted-foreground">
+    <TableHead className="h-11 px-3 text-left align-middle text-xs font-medium uppercase tracking-wider text-muted-foreground">
       {children}
-    </th>
+    </TableHead>
   )
 }
 
 function Td({ children, className, colSpan }: { children: React.ReactNode; className?: string; colSpan?: number }) {
   return (
-    <td className={`p-3 align-middle ${className ?? ""}`} colSpan={colSpan}>
+    <TableCell className={`p-3 align-middle ${className ?? ""}`} colSpan={colSpan}>
       {children}
-    </td>
+    </TableCell>
   )
 }

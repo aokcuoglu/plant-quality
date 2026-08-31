@@ -57,10 +57,10 @@ export default async function AdminPage() {
       </div>
 
       <Link href="/admin/suppliers">
-        <Card className="hover:border-blue-600/50 transition-colors cursor-pointer max-w-md">
+        <Card className="hover:border-brand/50 transition-colors cursor-pointer max-w-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Building2Icon className="size-5 text-blue-500" />
+              <Building2Icon className="size-5 text-brand" />
               Manage Suppliers
             </CardTitle>
           </CardHeader>
@@ -68,7 +68,7 @@ export default async function AdminPage() {
             <p className="text-sm text-muted-foreground">
               View, add, and remove supplier companies. Each supplier gets an admin user for platform access.
             </p>
-            <p className="mt-2 text-sm font-medium text-blue-500">
+            <p className="mt-2 text-sm font-medium text-brand">
               {supplierCount} supplier{supplierCount !== 1 ? "s" : ""} registered
             </p>
           </CardContent>

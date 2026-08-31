@@ -1,5 +1,9 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { XIcon, FileIcon, UploadIcon } from "lucide-react"
@@ -165,7 +169,7 @@ export function MediaUploader({
             Click to upload files (PDF, PNG, JPG, WEBP, MP4, MOV — max 20MB each)
           </>
         )}
-        <input
+        <Input
           id="field-attachment-upload"
           type="file"
           accept=".pdf,.png,.jpg,.jpeg,.webp,.mp4,.mov"
@@ -195,14 +199,14 @@ export function MediaUploader({
                 {att.fileName}
               </a>
               <span className="text-xs text-muted-foreground">{formatSize(att.fileSize)}</span>
-              <button
+              <Button
                 onClick={() => handleDelete(att.id)}
                 disabled={deleting === att.id}
-                className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
+                variant="destructive" className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
                 aria-label={`Delete ${att.fileName}`}
               >
                 <XIcon className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
           ))}
         </div>

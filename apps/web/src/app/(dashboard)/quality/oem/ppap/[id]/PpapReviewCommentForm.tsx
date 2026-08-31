@@ -1,5 +1,11 @@
 "use client"
 
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { addPpapReviewComment } from "../actions/review"
@@ -42,29 +48,28 @@ export function PpapReviewCommentForm({
         </div>
       )}
       <form onSubmit={handleSubmit} className="space-y-2">
-        <select
+        <NativeSelect
           value={requirement}
-          onChange={(e) => setRequirement(e.target.value)}
-          className="flex h-8 w-full rounded-md border border-input bg-background px-2 text-xs ring-offset-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          onChange={(e) => setRequirement(e.target.value)} className="w-full"
         >
           {requirements.map((r) => (
-            <option key={r.key} value={r.key}>{r.label}</option>
+            <NativeSelectOption key={r.key} value={r.key}>{r.label}</NativeSelectOption>
           ))}
-        </select>
-        <textarea
+        </NativeSelect>
+        <Textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Review comment..."
           rows={2}
           className="flex w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         />
-        <button
+        <Button
           type="submit"
           disabled={loading || !comment.trim()}
           className="rounded-md bg-primary px-3 py-1 text-xs font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {loading ? "Adding..." : "Add Comment"}
-        </button>
+        </Button>
       </form>
     </div>
   )

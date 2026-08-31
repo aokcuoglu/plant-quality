@@ -1,5 +1,7 @@
 "use client"
 
+import { Skeleton } from "@/components/ui/skeleton"
+
 import { useState, useEffect, useCallback } from "react"
 import { CUSTOM_FIELD_ENTITIES, ENTITY_LABELS, ENTITY_DESCRIPTIONS, FIELD_TYPE_LABELS, type CustomFieldEntity, type CustomFieldType } from "@/lib/custom-fields/constants"
 import { INDUSTRY_TEMPLATES } from "@/lib/custom-fields/templates"
@@ -9,15 +11,16 @@ import { getFieldConfig, createCustomField, updateCustomField, deleteCustomField
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-
+import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ChevronUp, GripVertical, Plus, Trash2, Settings, Eye, EyeOff, Upload, X } from "lucide-react"
+import { GripVertical, Plus, Trash2, Settings, Eye, EyeOff, Upload, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAppAlertDialog } from "@/components/ui/app-alert-dialog"
+import { useTranslations } from "@/i18n/context"
 
 type SectionGroup = { name: string; fields: ResolvedField[] }
 
@@ -46,7 +49,9 @@ function sectionLabel(name: string): string {
   return sectionLabels[name] ?? name.charAt(0).toUpperCase() + name.slice(1)
 }
 
-export function FieldConfigPageClient({ companyId }: { companyId: string }) {
+export function FieldConfigPageClient({ companyId: _companyId }: { companyId: string }) {
+  const t = useTranslations()
+  const { showAlert, showConfirm } = useAppAlertDialog()
   const [selectedEntity, setSelectedEntity] = useState<CustomFieldEntity>("FIELD_DEFECT")
   const [resolved, setResolved] = useState<ResolvedFields | null>(null)
   const [loading, setLoading] = useState(true)
@@ -75,6 +80,8 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
   }, [selectedEntity])
 
   useEffect(() => {
+    // The selected entity is external state for this editor; reload its server-backed configuration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadConfig()
   }, [loadConfig])
 
@@ -100,10 +107,6 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
   }
 
   const getOrCreateOverride = async (field: ResolvedField): Promise<string | null> => {
-    const existing = resolved?.all.find(
-      (f) => f.isBuiltIn && f.fieldName === field.fieldName && f.label !== field.label
-    )
-
     try {
       const overrideField: CreateCustomFieldInput = {
         entity: selectedEntity,
@@ -117,7 +120,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
         visibleInList: field.visibleInList,
         order: field.order,
       }
-      const result = await createCustomField(overrideField)
+      await createCustomField(overrideField)
       return null
     } catch {
       return null
@@ -196,7 +199,13 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
 
   const handleDelete = async (field: ResolvedField) => {
     if (!field.id || field.isBuiltIn) return
-    if (!confirm(`Delete "${field.label}" custom field? This will deactivate it. Existing data will be preserved.`)) return
+    const confirmed = await showConfirm({
+      title: t("settings.fieldConfig.deleteTitle"),
+      description: t("settings.fieldConfig.deleteDescription", { field: field.label }),
+      actionLabel: t("common.delete"),
+      variant: "destructive",
+    })
+    if (!confirmed) return
     await deleteCustomField(field.id)
     showMessage(`"${field.label}" deleted`)
     loadConfig()
@@ -231,7 +240,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
     }
     const result = await createCustomField(input)
     if (result.error) {
-      alert(result.error)
+      showAlert(result.error)
       return
     }
     setAddDialogOpen(false)
@@ -243,7 +252,12 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
   const handleApplyTemplate = async (template: IndustryTemplate) => {
     const entityConfig = template.configs[selectedEntity]
     if (!entityConfig) {
-      alert(`Template "${template.name}" has no configuration for ${ENTITY_LABELS[selectedEntity]}`)
+      showAlert(
+        t("settings.fieldConfig.templateUnavailable", {
+          template: template.name,
+          entity: ENTITY_LABELS[selectedEntity],
+        }),
+      )
       return
     }
 
@@ -300,7 +314,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
         <div className="flex items-center gap-3">
           <h1 className="text-xl font-semibold tracking-tight">Field Configuration</h1>
         </div>
-        <div className="h-64 rounded-lg border bg-card animate-pulse" />
+        <Skeleton className="h-64 rounded-lg border bg-card " />
       </div>
     )
   }
@@ -356,8 +370,9 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
 
       <div className="flex items-center gap-1 overflow-x-auto rounded-lg border bg-card p-1">
         {CUSTOM_FIELD_ENTITIES.map((entity) => (
-          <button
+          <Button
             key={entity}
+            variant="ghost"
             onClick={() => setSelectedEntity(entity)}
             className={cn(
               "shrink-0 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
@@ -367,7 +382,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
             )}
           >
             {ENTITY_LABELS[entity]}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -416,7 +431,8 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
-                      <button
+                      <Button
+                        variant="ghost"
                         onClick={() => handleToggleVisible(field)}
                         className={cn(
                           "rounded p-1 transition-colors hover:bg-accent",
@@ -425,32 +441,35 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
                         title={field.visible ? "Hide" : "Show"}
                       >
                         {field.visible ? <Eye className="size-3.5" /> : <EyeOff className="size-3.5" />}
-                      </button>
+                      </Button>
 
-                      <button
+                      <Button
+                        variant="ghost"
                         onClick={() => handleToggleRequired(field)}
                         className="rounded px-1.5 py-0.5 text-xs transition-colors hover:bg-accent text-muted-foreground"
                         title={field.required ? "Make optional" : "Make required"}
                       >
                         {field.required ? "Req*" : "Opt"}
-                      </button>
+                      </Button>
 
-                      <button
+                      <Button
+                        variant="ghost"
                         onClick={() => openEditDialog(field)}
                         className="rounded p-1 transition-colors hover:bg-accent text-muted-foreground"
                         title="Edit field"
                       >
                         <Settings className="size-3.5" />
-                      </button>
+                      </Button>
 
                       {!field.isBuiltIn && (
-                        <button
+                        <Button
+                          variant="ghost"
                           onClick={() => handleDelete(field)}
                           className="rounded p-1 transition-colors hover:bg-destructive/10 hover:text-destructive text-muted-foreground"
                           title="Delete field"
                         >
                           <Trash2 className="size-3.5" />
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -511,14 +530,14 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
               <Input id="placeholder" name="placeholder" placeholder="e.g. Enter batch code..." />
             </div>
             <div className="flex items-center gap-4">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="required" className="rounded border-input" />
+              <Label className="flex items-center gap-2 cursor-pointer">
+                <Checkbox name="required" />
                 <span className="text-sm">Required</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" name="visibleInList" className="rounded border-input" />
+              </Label>
+              <Label className="flex items-center gap-2 cursor-pointer">
+                <Checkbox name="visibleInList" />
                 <span className="text-sm">Show in list view</span>
-              </label>
+              </Label>
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setAddDialogOpen(false)}>Cancel</Button>
@@ -534,7 +553,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
           <DialogHeader>
             <DialogTitle>Edit Field</DialogTitle>
             <DialogDescription>
-              Configure "{editingField?.label}" {editingField?.isBuiltIn ? "(Built-in)" : "(Custom)"}
+              Configure &quot;{editingField?.label}&quot; {editingField?.isBuiltIn ? "(Built-in)" : "(Custom)"}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -547,14 +566,14 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
               <Input value={editPlaceholder} onChange={(e) => setEditPlaceholder(e.target.value)} />
             </div>
             <div className="flex items-center gap-6">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={editVisible} onChange={(e) => setEditVisible(e.target.checked)} className="rounded border-input" />
+              <Label className="flex items-center gap-2 cursor-pointer">
+                <Checkbox checked={editVisible} onCheckedChange={setEditVisible} />
                 <span className="text-sm">Visible</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={editRequired} onChange={(e) => setEditRequired(e.target.checked)} className="rounded border-input" />
+              </Label>
+              <Label className="flex items-center gap-2 cursor-pointer">
+                <Checkbox checked={editRequired} onCheckedChange={setEditRequired} />
                 <span className="text-sm">Required</span>
-              </label>
+              </Label>
             </div>
 
             {(editingField?.fieldType === "SELECT" || editingField?.fieldType === "MULTI_SELECT") && (
@@ -581,13 +600,14 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
                         onChange={(e) => handleUpdateOption(i, "value", e.target.value)}
                         className="flex-1 font-mono text-sm"
                       />
-                      <button
+                      <Button
                         type="button"
+                        variant="ghost"
                         onClick={() => handleRemoveOption(i)}
                         className="shrink-0 p-1 rounded hover:bg-destructive/10 hover:text-destructive text-muted-foreground"
                       >
                         <X className="size-3.5" />
-                      </button>
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -613,10 +633,11 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
           </DialogHeader>
           <div className="space-y-2 max-h-80 overflow-y-auto">
             {INDUSTRY_TEMPLATES.map((template) => (
-              <button
+              <Button
                 key={template.id}
+                variant="outline"
                 onClick={() => handleApplyTemplate(template)}
-                className="w-full rounded-lg border p-4 text-left transition-colors hover:bg-accent hover:border-ring flex items-start gap-3"
+                className="h-auto w-full items-start gap-3 rounded-lg border p-4 text-left whitespace-normal transition-colors hover:border-ring hover:bg-accent"
               >
                 <div className="flex-1">
                   <p className="text-sm font-medium">{template.name}</p>
@@ -634,7 +655,7 @@ export function FieldConfigPageClient({ companyId }: { companyId: string }) {
                     </div>
                   )}
                 </div>
-              </button>
+              </Button>
             ))}
           </div>
           <DialogFooter>

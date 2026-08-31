@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { requireFeature } from "@/lib/billing"
 import { getSupplierSelfScorecard } from "@/lib/supplier-scorecard/get-supplier-scorecards"
 import { PageHeader } from "@/components/layout/PageHeader"
 import { TrendingUp, AlertTriangle, Clock, Activity } from "lucide-react"

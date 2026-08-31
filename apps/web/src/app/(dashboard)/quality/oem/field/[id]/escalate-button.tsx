@@ -1,5 +1,19 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { AlertTriangleIcon } from "lucide-react"
@@ -44,26 +58,39 @@ export function EscalateButton({
 
   return (
     <>
-      <button
+      <Button
         onClick={() => setOpen(true)}
-        className="flex w-full items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-destructive hover:bg-destructive/10 dark:text-destructive hover:bg-destructive/20 transition-colors"
+        variant="outline"
+        className="w-full justify-start text-destructive hover:bg-destructive/10"
       >
         <AlertTriangleIcon className="h-4 w-4" />
         Escalate to {ESCALATION_LABELS[nextLevel]}
-      </button>
+      </Button>
 
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => { if (!isPending) { setOpen(false); setReason(""); setError("") } }}>
-          <div className="w-full max-w-md rounded-lg border bg-card p-6 shadow-lg" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-lg font-semibold text-foreground">
+      <Dialog
+        open={open}
+        onOpenChange={(nextOpen) => {
+          if (!isPending) {
+            setOpen(nextOpen)
+            if (!nextOpen) {
+              setReason("")
+              setError("")
+            }
+          }
+        }}
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>
               Escalate to {ESCALATION_LABELS[nextLevel]}
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
+            </DialogTitle>
+            <DialogDescription>
               {ESCALATION_LEVEL_DESCRIPTIONS[nextLevel]}
-            </p>
+            </DialogDescription>
+          </DialogHeader>
             <div className="mt-4">
-              <label className="text-sm font-medium text-foreground">Reason for escalation</label>
-              <textarea
+              <Label className="text-sm font-medium text-foreground">Reason for escalation</Label>
+              <Textarea
                 value={reason}
                 onChange={(e) => { setReason(e.target.value); setError("") }}
                 rows={3}
@@ -72,25 +99,24 @@ export function EscalateButton({
               />
               {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
             </div>
-            <div className="mt-4 flex justify-end gap-2">
-              <button
+          <DialogFooter>
+              <Button
                 onClick={() => { setOpen(false); setReason(""); setError("") }}
                 disabled={isPending}
-                className="rounded-md border border-border px-4 py-2 text-sm hover:bg-muted disabled:opacity-50 transition-colors"
+                variant="outline"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleSubmit}
                 disabled={isPending}
-                className="rounded-md bg-destructive px-4 py-2 text-sm text-white hover:bg-destructive/90 disabled:opacity-50 transition-colors"
+                variant="destructive"
               >
                 {isPending ? "Escalating..." : "Escalate"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+              </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

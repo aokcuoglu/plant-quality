@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
@@ -37,43 +38,43 @@ export default async function SupplierDevelopmentPage() {
             </span>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  <th className="px-4 py-3 text-left">Title</th>
-                  <th className="px-4 py-3 text-center">Priority</th>
-                  <th className="px-4 py-3 text-center">Status</th>
-                  <th className="px-4 py-3 text-left">Due Date</th>
-                  <th className="px-4 py-3 text-center">Actions</th>
-                  <th className="px-4 py-3 text-right">View</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-b border-border text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <TableHead className="px-4 py-3 text-left">Title</TableHead>
+                  <TableHead className="px-4 py-3 text-center">Priority</TableHead>
+                  <TableHead className="px-4 py-3 text-center">Status</TableHead>
+                  <TableHead className="px-4 py-3 text-left">Due Date</TableHead>
+                  <TableHead className="px-4 py-3 text-center">Actions</TableHead>
+                  <TableHead className="px-4 py-3 text-right">View</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y divide-border">
                 {plans.map((plan) => {
                   const overdue = isDevPlanOverdue(plan)
                   const needsAction = plan.status === "SUPPLIER_ACTION_REQUIRED" || plan.status === "REVISION_REQUIRED"
                   return (
-                    <tr key={plan.id} className="group hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                    <TableRow key={plan.id} className="group hover:bg-muted/50">
+                      <TableCell className="px-4 py-3">
                         <div className="font-medium text-foreground truncate max-w-[200px]">{plan.title}</div>
                         {needsAction && (
                           <span className="text-xs text-destructive font-semibold mt-0.5 block">Action required</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-center">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-center">
                         <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${PRIORITY_CONFIG[plan.priority].className}`}>
                           {PRIORITY_CONFIG[plan.priority].label}
                         </span>
-                      </td>
-                      <td className="px-4 py-3 text-center">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-center">
                         <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase ${STATUS_CONFIG[plan.status].className}`}>
                           {STATUS_CONFIG[plan.status].label}
                         </span>
                         {overdue && (
                           <span className="ml-1 inline-flex items-center rounded-md border border-destructive/20 bg-destructive/10 px-1.5 py-0.5 text-[10px] font-semibold text-destructive uppercase">Overdue</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3">
+                      </TableCell>
+                      <TableCell className="px-4 py-3">
                         {plan.dueDate ? (
                           <span className={`text-sm ${overdue ? "text-destructive font-semibold" : "text-muted-foreground"}`}>
                             {new Date(plan.dueDate).toLocaleDateString()}
@@ -81,22 +82,22 @@ export default async function SupplierDevelopmentPage() {
                         ) : (
                           <span className="text-sm text-muted-foreground">No date</span>
                         )}
-                      </td>
-                      <td className="px-4 py-3 text-center">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-center">
                         <span className="text-sm text-foreground">
                           {plan.completedActionItemCount}/{plan.actionItemCount}
                         </span>
-                      </td>
-                      <td className="px-4 py-3 text-right">
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-right">
                         <Link href={`/quality/supplier/development/${plan.id}`} className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-foreground transition-colors">
                           View <ArrowRightIcon className="h-3 w-3" />
                         </Link>
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                   )
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         </div>
       )}

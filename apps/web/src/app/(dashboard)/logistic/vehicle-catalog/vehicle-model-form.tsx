@@ -1,5 +1,7 @@
 "use client"
 
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
 import { useActionState, useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { LoaderCircle } from "lucide-react"
@@ -33,7 +35,7 @@ export function VehicleModelForm({ groups }: { groups: { id: string; name: strin
     if (nextErrors.groupId || nextErrors.name) event.preventDefault()
   }}>
     <div className="grid gap-1.5">
-      <select name="groupId" disabled={pending} aria-invalid={fieldErrors.groupId} className="h-9 rounded-md border border-border bg-background px-3 text-sm text-foreground"><option value="">{t("logistic.dynamicFlow.selectGroup")}</option>{groups.map((group) => <option key={group.id} value={group.id}>{group.name}</option>)}</select>
+      <NativeSelect name="groupId" disabled={pending} aria-invalid={fieldErrors.groupId}><NativeSelectOption value="">{t("logistic.dynamicFlow.selectGroup")}</NativeSelectOption>{groups.map((group) => <NativeSelectOption key={group.id} value={group.id}>{group.name}</NativeSelectOption>)}</NativeSelect>
       <FieldError message={fieldErrors.groupId ? t("logistic.dynamicFlow.errors.REQUIRED") : null} />
     </div>
     <div className="grid gap-1.5">

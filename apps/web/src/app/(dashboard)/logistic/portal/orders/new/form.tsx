@@ -1,5 +1,15 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Input } from "@/components/ui/input"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -60,27 +70,26 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">
+          <Label className="block text-xs font-medium text-foreground mb-1">
             OEM <span className="text-destructive">*</span>
-          </label>
-          <select
+          </Label>
+          <NativeSelect
             name="oemId"
             required
-            defaultValue=""
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
+            defaultValue="" className="w-full"
           >
-            <option value="" disabled>Select manufacturer...</option>
+            <NativeSelectOption value="" disabled>Select manufacturer...</NativeSelectOption>
             {oems.map((oem) => (
-              <option key={oem.id} value={oem.id}>{oem.name}</option>
+              <NativeSelectOption key={oem.id} value={oem.id}>{oem.name}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">
+          <Label className="block text-xs font-medium text-foreground mb-1">
             Customer Name <span className="text-destructive">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             name="customerName"
             type="text"
             required
@@ -90,10 +99,10 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">
+          <Label className="block text-xs font-medium text-foreground mb-1">
             Vehicle Model <span className="text-destructive">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             name="vehicleModel"
             type="text"
             required
@@ -103,26 +112,25 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">
+          <Label className="block text-xs font-medium text-foreground mb-1">
             Vehicle Type <span className="text-destructive">*</span>
-          </label>
-          <select
+          </Label>
+          <NativeSelect
             name="vehicleType"
             required
-            defaultValue="BUS"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
+            defaultValue="BUS" className="w-full"
           >
             {vehicleTypes.map((t) => (
-              <option key={t} value={t}>{labelForVehicleType(t)}</option>
+              <NativeSelectOption key={t} value={t}>{labelForVehicleType(t)}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">
+          <Label className="block text-xs font-medium text-foreground mb-1">
             Quantity <span className="text-destructive">*</span>
-          </label>
-          <input
+          </Label>
+          <Input
             name="quantity"
             type="number"
             required
@@ -133,21 +141,20 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">Priority</label>
-          <select
+          <Label className="block text-xs font-medium text-foreground mb-1">Priority</Label>
+          <NativeSelect
             name="priority"
-            defaultValue="NORMAL"
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
+            defaultValue="NORMAL" className="w-full"
           >
             {priorities.map((p) => (
-              <option key={p} value={p}>{labelForPriority(p)}</option>
+              <NativeSelectOption key={p} value={p}>{labelForPriority(p)}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">Country</label>
-          <input
+          <Label className="block text-xs font-medium text-foreground mb-1">Country</Label>
+          <Input
             name="country"
             type="text"
             placeholder="e.g. Turkey"
@@ -156,8 +163,8 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">Market</label>
-          <input
+          <Label className="block text-xs font-medium text-foreground mb-1">Market</Label>
+          <Input
             name="market"
             type="text"
             placeholder="e.g. Domestic"
@@ -166,8 +173,8 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">Vehicle Variant</label>
-          <input
+          <Label className="block text-xs font-medium text-foreground mb-1">Vehicle Variant</Label>
+          <Input
             name="vehicleVariant"
             type="text"
             placeholder="e.g. CNG, Electric"
@@ -176,28 +183,27 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">Powertrain</label>
-          <select
+          <Label className="block text-xs font-medium text-foreground mb-1">Powertrain</Label>
+          <NativeSelect
             name="powertrain"
-            defaultValue=""
-            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
+            defaultValue="" className="w-full"
           >
-            <option value="">Not specified</option>
+            <NativeSelectOption value="">Not specified</NativeSelectOption>
             {powertrains.map((p) => (
-              <option key={p} value={p}>{labelForPowertrain(p)}</option>
+              <NativeSelectOption key={p} value={p}>{labelForPowertrain(p)}</NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-foreground mb-1">Requested Delivery Date</label>
+          <Label className="block text-xs font-medium text-foreground mb-1">Requested Delivery Date</Label>
           <DatePicker name="requestedDeliveryDate" placeholder="mm / dd / yyyy" />
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-foreground mb-1">Notes</label>
-        <textarea
+        <Label className="block text-xs font-medium text-foreground mb-1">Notes</Label>
+        <Textarea
           name="notes"
           rows={3}
           placeholder="Additional information or special requirements..."
@@ -206,8 +212,9 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
       </div>
 
       <div className="flex justify-end gap-3 pt-2">
-        <button
+        <Button
           type="button"
+          variant="outline"
           onClick={() => router.push("/logistic/portal/orders")}
           className={cn(
             "rounded-md border border-border px-4 py-2 text-sm text-muted-foreground hover:bg-muted transition-colors",
@@ -215,8 +222,8 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
           )}
         >
           Cancel
-        </button>
-        <button
+        </Button>
+        <Button
           type="submit"
           disabled={submitting}
           className={cn(
@@ -225,7 +232,7 @@ export function PortalOrderForm({ oems }: { oems: Oem[] }) {
           )}
         >
           {submitting ? "Submitting..." : "Submit Order Request"}
-        </button>
+        </Button>
       </div>
     </form>
   )

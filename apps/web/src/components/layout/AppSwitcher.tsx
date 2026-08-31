@@ -185,13 +185,13 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                   className="flex items-center gap-3 rounded-lg px-2 py-2.5 cursor-default"
                   render={<Link href={portalHref} />}
                 >
-                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground ring-1 ring-blue-600/30">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground ring-1 ring-brand/30">
                     <Icon className="size-4" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-medium text-foreground">{app.name}</span>
-                      <Badge className="h-4 rounded-full border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">{t("shell.active")}</Badge>
+                      <Badge className="h-4 rounded-full border-border bg-brand/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">{t("shell.active")}</Badge>
                     </div>
                     <p className="truncate text-xs text-muted-foreground">{t("shell.orderTrackingPortal")}</p>
                   </div>
@@ -230,7 +230,7 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                   className={cn(
                     "flex size-8 shrink-0 items-center justify-center rounded-lg",
                     isActive
-                      ? "bg-muted text-muted-foreground ring-1 ring-blue-600/30"
+                      ? "bg-muted text-muted-foreground ring-1 ring-brand/30"
                       : isLive
                         ? "bg-muted text-muted-foreground"
                         : isLocked
@@ -251,11 +251,11 @@ export function AppSwitcher({ currentModule, userPlan: _userPlan = "FREE", userC
                       {app.name}
                     </span>
                     {isActive ? (
-                      <Badge className="h-4 rounded-full border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">
+                      <Badge className="h-4 rounded-full border-border bg-brand/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">
                         {t("shell.active")}
                       </Badge>
                     ) : isLive ? (
-                      <Badge className="h-4 rounded-full border-border bg-blue-500/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">
+                      <Badge className="h-4 rounded-full border-border bg-brand/10 px-1.5 text-[9px] font-semibold tracking-wider text-foreground uppercase">
                         {t("shell.live")}
                       </Badge>
                     ) : isLocked ? (

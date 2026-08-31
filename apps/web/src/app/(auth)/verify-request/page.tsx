@@ -7,7 +7,7 @@ export default function VerifyRequestPage() {
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute top-1/2 left-1/2 size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.05] blur-[120px]" />
-        <div className="absolute top-1/3 right-1/4 size-[400px] rounded-full bg-blue-500/[0.04] blur-[100px]" />
+        <div className="absolute top-1/3 right-1/4 size-[400px] rounded-full bg-brand/[0.04] blur-[100px]" />
       </div>
 
       {/* Return link */}

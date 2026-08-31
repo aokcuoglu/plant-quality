@@ -1,5 +1,15 @@
 "use client"
 
+import { Label } from "@/components/ui/label"
+
+import { Textarea } from "@/components/ui/textarea"
+
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
+
+import { Switch } from "@/components/ui/switch"
+
+import { Button } from "@/components/ui/button"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { updateOrderExternalVisibility } from "../../portal/actions"
@@ -66,85 +76,78 @@ export function ExternalVisibilitySection({
 
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={externalVisible}
-              onChange={(e) => setExternalVisible(e.target.checked)}
-              className="peer sr-only"
-            />
-            <div className="h-6 w-11 rounded-full bg-muted peer-checked:bg-foreground after:absolute after:left-[2px] after:top-[2px] after:size-5 after:rounded-full after:bg-foreground after:transition-all peer-checked:after:translate-x-full peer-checked:after:bg-background peer-focus-visible:ring-2 peer-focus-visible:ring-foreground/20"></div>
-          </label>
-          <span className="text-sm text-foreground">
+          <Switch
+            id="external-visible"
+            checked={externalVisible}
+            onCheckedChange={setExternalVisible}
+          />
+          <Label htmlFor="external-visible" className="text-sm text-foreground">
             {externalVisible ? "Visible to external users" : "Not visible externally"}
-          </span>
+          </Label>
         </div>
 
         {externalVisible && (
           <>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="mb-1 block text-xs font-medium text-muted-foreground">Assign to Dealer</label>
-                <select
+                <Label className="mb-1 block text-xs font-medium text-muted-foreground">Assign to Dealer</Label>
+                <NativeSelect
                   value={dealerCompanyId}
-                  onChange={(e) => setDealerCompanyId(e.target.value)}
-                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600"
+                  onChange={(e) => setDealerCompanyId(e.target.value)} className="w-full"
                 >
-                  <option value="">None</option>
+                  <NativeSelectOption value="">None</NativeSelectOption>
                   {dealerCompanies.map((c) => (
-                    <option key={c.id} value={c.id}>{c.name}</option>
+                    <NativeSelectOption key={c.id} value={c.id}>{c.name}</NativeSelectOption>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium text-muted-foreground">Assign to Distributor</label>
-                <select
+                <Label className="mb-1 block text-xs font-medium text-muted-foreground">Assign to Distributor</Label>
+                <NativeSelect
                   value={distributorCompanyId}
-                  onChange={(e) => setDistributorCompanyId(e.target.value)}
-                  className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600"
+                  onChange={(e) => setDistributorCompanyId(e.target.value)} className="w-full"
                 >
-                  <option value="">None</option>
+                  <NativeSelectOption value="">None</NativeSelectOption>
                   {distributorCompanies.map((c) => (
-                    <option key={c.id} value={c.id}>{c.name}</option>
+                    <NativeSelectOption key={c.id} value={c.id}>{c.name}</NativeSelectOption>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-muted-foreground">External Status Override</label>
-              <select
+              <Label className="mb-1 block text-xs font-medium text-muted-foreground">External Status Override</Label>
+              <NativeSelect
                 value={externalStatus ?? ""}
-                onChange={(e) => setExternalStatus(e.target.value as ExternalOrderStatus || null)}
-                className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600"
+                onChange={(e) => setExternalStatus(e.target.value as ExternalOrderStatus || null)} className="w-full"
               >
-                <option value="">Auto (derived from internal status)</option>
+                <NativeSelectOption value="">Auto (derived from internal status)</NativeSelectOption>
                 {EXTERNAL_STATUS_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <NativeSelectOption key={o.value} value={o.value}>{o.label}</NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-medium text-muted-foreground">Note to External User</label>
-              <textarea
+              <Label className="mb-1 block text-xs font-medium text-muted-foreground">Note to External User</Label>
+              <Textarea
                 value={externalStatusNote}
                 onChange={(e) => setExternalStatusNote(e.target.value)}
                 placeholder="Optional message visible to dealer/distributor..."
                 rows={2}
-                className="flex w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600 placeholder:text-muted-foreground"
+                className="flex w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand placeholder:text-muted-foreground"
               />
             </div>
           </>
         )}
 
-        <button
+        <Button
           onClick={handleSave}
           disabled={saving}
           className="inline-flex items-center justify-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-foreground/80 disabled:opacity-50"
         >
           {saving ? "Saving..." : "Save Visibility Settings"}
-        </button>
+        </Button>
 
         {message && (
           <p className={`text-xs ${message.type === "success" ? "text-foreground" : "text-destructive"}`}>
